@@ -98,7 +98,15 @@ def agenda(dados, vozes):
             passe_dur = (janela_fim - janela_ini) / k if k else 0
             paradas_passes = [_r(janela_ini + j * passe_dur) for j in range(k)]
             duracoes = [_r(passe_dur)] * k
+        # cadeia de nomes (lances sem campinho): A aparece no nome do assistente,
+        # B no nome de quem finaliza, a bola sai no "bateu" e entra no clímax
+        nome = (d.get("jogador") or "").split()
+        t_autor = voz.instante_de(fala, [nome[0]]) if nome else None
+        tA = t_assist if t_assist else S + 0.9
+        tB = voz_ini + t_autor if t_autor is not None else chute - 0.8
+        tB = min(max(tB, tA + 0.6), chute - 0.25)
         paradas.append({
+            "cadeia_a": _r(tA), "cadeia_b": _r(tB),
             "chute": _r(chute), "camera": _r(cam), "voo": _r(voo),
             "passes_ini": passes_ini, "passes_t": paradas_passes, "passes_dur": duracoes,
             "t": _r(chegada), "pos": pos[i], "viagem": trechos[i],
@@ -160,11 +168,12 @@ def narrar_tudo(dados):
     out = {}
     for k in ("gancho", "intro", "fim"):
         texto, clima = roteiro[k]
-        out[k] = dict(voz.narrar(texto), texto=texto, climax=clima)
+        out[k] = dict(voz.narrar(texto, narracao.para_tts(texto, k, clima)), texto=texto, climax=clima)
     out["lances"] = []
     for d, (texto, clima) in zip(dados["destaques"], roteiro["lances"]):
         assist = narracao._assist(d.get("comentario") or "")[0] or d.get("assistencia")
-        out["lances"].append(dict(voz.narrar(texto), texto=texto, climax=clima, assist=assist))
+        tts = narracao.para_tts(texto, d["tipo"], clima)
+        out["lances"].append(dict(voz.narrar(texto, tts), texto=texto, climax=clima, assist=assist))
     return out
 
 
@@ -219,8 +228,9 @@ def montar(dados, escudos, pasta, vozes, proximo=None):
         j[lado]["escudo"] = f"assets/escudo_{lado}.png" if src else None
     j["casa"]["destaque"], j["fora"]["destaque"] = cores(j["casa"], j["fora"])
     import narracao
-    for d in dados["destaques"]:
+    for d, fala in zip(dados["destaques"], vozes["lances"]):
         d["chips"] = narracao.chips(d)
+        d["cadeia"] = narracao.cadeia(d, fala.get("assist"))
     ag = agenda(dados, vozes)
     payload = dict(dados, agenda=ag, proximo=proximo)
     html = TEMPLATE.read_text()

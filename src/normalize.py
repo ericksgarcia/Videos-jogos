@@ -134,11 +134,8 @@ def _destaques_brutos(raw):
             d["lance"] = _lance_chute(s)
             if d["lance"]:
                 d["lance"]["passes"] = _passes(i)
-                l = d["lance"]
-                if not l["passes"] and l.get("situacao") == "corner":
-                    lado = 0.5 if l["origem"][0] < 50 else 99.5
-                    l["passes"] = [{"de": [lado, 0.5], "para": l["origem"], "jogador": nome_jogador(i.get("assist1")) if i.get("assist1") else "",
-                                    "conducao": False, "escanteio": True}]
+                # campinho só quando há a sequência real de passes (dado da Opta)
+                d["campinho"] = bool(d["lance"]["passes"])
             if i.get("assist1"):
                 d["assistencia"] = nome_jogador(i["assist1"])
             if classe == "ownGoal":

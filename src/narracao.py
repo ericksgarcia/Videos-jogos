@@ -239,3 +239,76 @@ def chips(d):
     elif d["tipo"] == "anulado":
         out.append("Decisão do VAR")
     return out[:3]
+
+
+def _inserir(ws, i, tag):
+    if 0 <= i < len(ws):
+        ws[i] = f"{tag} {ws[i]}"
+
+
+def para_tts(texto, tipo, clima):
+    """Versão da fala para o Gemini TTS: tags de emoção e o "Gooool" esticado.
+    Mantém as mesmas palavras (as tags ficam grudadas à palavra seguinte)."""
+    ws = texto.split()
+    limpa = lambda w: re.sub(r"[^\wÀ-ÿ]", "", w)
+    alvo = limpa(clima or "")
+    # primeiro tenta com maiúscula/minúscula exata ("Gol" do grito, não "meio do gol")
+    ic = next((i for i, w in enumerate(ws) if limpa(w) == alvo), None) if alvo else None
+    if ic is None and alvo:
+        ic = next((i for i, w in enumerate(ws) if limpa(w).lower() == alvo.lower()), None)
+    if tipo == "gol":
+        if ic is not None and ws[ic].lower().startswith("gol"):
+            ws[ic] = "Gooool" + ws[ic][3:]
+        _inserir(ws, ic if ic is not None else -1, "[excitement]")
+        # frase de contexto depois do grito
+        if ic is not None:
+            k = next((j for j in range(ic, len(ws) - 1) if ws[j].endswith("!")), None)
+            if k is not None:
+                _inserir(ws, k + 1, "[positive]")
+        _inserir(ws, 0, "[fast]")
+    elif tipo in ("chance", "penalti_perdido"):
+        q = next((i for i, w in enumerate(ws) if w.lower() == "quase"), None)
+        if q is not None:
+            _inserir(ws, q, "[excitement]")
+        if ic is not None and ic > 0:
+            _inserir(ws, ic - 1, "[frustration]")
+        _inserir(ws, 0, "[fast]")
+    elif tipo in ("amarelo", "vermelho", "anulado"):
+        _inserir(ws, 0, "[determination]")
+    elif tipo == "gancho":
+        _inserir(ws, 0, "[excitement]")
+    elif tipo == "intro":
+        _inserir(ws, 0, "[positive]")
+        if ic is not None and ic > 0:
+            _inserir(ws, ic - 1, "[excitement]")
+    elif tipo == "fim":
+        _inserir(ws, 0, "[positive]")
+    return " ".join(ws)
+
+
+JEITO = {"a through ball": "enfiada", "a cross": "cruzamento", "a corner": "escanteio", "a fast break": "contra-ataque",
+         "a headed pass": "de cabeça", "a set piece situation": "bola parada"}
+
+
+def cadeia(d, assist=None):
+    """Dados da cadeia A → B → gol mostrada nos lances sem campinho."""
+    tx = d.get("comentario") or ""
+    autor, jeito = _assist(tx)
+    assist = assist or autor or d.get("assistencia")
+    l = d.get("lance") or {}
+    parte = {"right-foot": "pé direito", "left-foot": "pé esquerdo", "head": "de cabeça"}.get(l.get("parte"))
+    origem = _busca(ORIGEM, tx)
+    if d.get("detalhe") == "de pênalti" or d["tipo"] == "penalti_perdido":
+        a, a_rot, jeito_txt = "Pênalti", "MARCADO", "cobrança"
+    elif assist:
+        a, a_rot, jeito_txt = assist, "ASSISTÊNCIA", JEITO.get(jeito, "passe")
+    elif l.get("situacao") == "corner":
+        a, a_rot, jeito_txt = "Escanteio", "JOGADA", "bola na área"
+    else:
+        a, a_rot, jeito_txt = None, None, None
+    b_rot = " · ".join(x for x in (parte, origem) if x)
+    destino = _busca(DESTINO, tx)
+    if d["tipo"] != "gol":
+        r = l.get("resultado")
+        destino = {"save": "defesa do goleiro", "post": "na trave", "block": "bloqueado"}.get(r) or _busca(ERRO, tx, "para fora").replace("e mandou ", "").replace("e a bola ", "")
+    return {"a": a, "a_rotulo": a_rot, "jeito": jeito_txt, "b_rotulo": b_rot.upper(), "destino": destino}

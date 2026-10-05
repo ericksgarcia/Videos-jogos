@@ -57,9 +57,14 @@ def cues(dados, ag):
             c.append(("apito_curto", S + 0.35, 0.75))
         if d["tipo"] == "anulado":
             c.append(("var", S + 0.5, 0.9))
-        # toques na bola no campinho
-        for tp in p.get("passes_t", []):
-            c.append(("thud", tp, 0.3))
+        # toques na bola: passes do campinho ou a cadeia A → B
+        if d.get("campinho"):
+            for tp in p.get("passes_t", []):
+                c.append(("thud", tp, 0.3))
+        elif d["tipo"] in ("gol", "chance", "penalti_perdido"):
+            if (d.get("cadeia") or {}).get("a"):
+                c += [("pop", p["cadeia_a"], 0.5), ("thud", p["cadeia_b"] - 0.45, 0.35)]
+            c.append(("pop", p["cadeia_b"], 0.55))
         if d["tipo"] in ("gol", "chance", "penalti_perdido") and d.get("lance"):
             c.append(("thud", p["chute"], 0.55))
             chave = "gol" if d["tipo"] == "gol" else d["lance"].get("resultado", "miss")

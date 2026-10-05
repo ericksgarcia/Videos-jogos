@@ -139,6 +139,20 @@
       .bloco { position: absolute; inset: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 22px; opacity: 0; }
       .bloco span { display: inline-block; font-weight: 800; font-size: 74px; line-height: 1.12; text-transform: uppercase; color: #fff; -webkit-text-stroke: 12px #000; paint-order: stroke fill; text-shadow: 0 6px 18px rgba(0, 0, 0, 0.7); }
 
+      .no { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; min-width: 460px; max-width: 860px; padding: 14px 40px 18px; border-radius: 26px; text-align: center; background: rgba(255,255,255,0.08); border: 3px solid var(--linha); opacity: 0; }
+      .no-b { background: color-mix(in srgb, var(--cor) 22%, rgba(10,14,20,0.9)); border-color: var(--cor); }
+      .no .no-rot { font-weight: 700; font-size: 30px; letter-spacing: 0.12em; color: var(--suave); }
+      .no .no-nome { font-weight: 800; font-size: 66px; line-height: 1.05; white-space: nowrap; }
+      .seta-v { position: absolute; left: 436px; width: 8px; border-radius: 4px; background: linear-gradient(#ffffff, color-mix(in srgb, var(--cor) 70%, #fff)); transform-origin: top; }
+      .seta-v::after { content: ""; position: absolute; left: -12px; bottom: -14px; border: 16px solid transparent; border-top: 20px solid color-mix(in srgb, var(--cor) 70%, #fff); border-bottom: 0; }
+      .seta-rot { position: absolute; left: 474px; font-weight: 700; font-size: 40px; color: #e4e4e7; opacity: 0; white-space: nowrap; }
+      .bolinha { position: absolute; left: 0; top: 0; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: #fff; box-shadow: 0 0 18px 6px rgba(255,255,255,0.6); opacity: 0; }
+      .gol-frente { position: absolute; opacity: 0; overflow: visible; }
+      .gol-frente .quadro { position: absolute; border: 8px solid #fff; border-bottom: none; transform-origin: 50% 100%; background-color: rgba(255,255,255,0.08); background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.28) 0 2px, transparent 2px 14px), repeating-linear-gradient(90deg, rgba(255,255,255,0.28) 0 2px, transparent 2px 14px); box-shadow: 0 0 24px rgba(255,255,255,0.35); }
+      .gol-frente .grama-frente { position: absolute; left: -40px; right: -40px; height: 22px; background: linear-gradient(#16a34a, #14532d); border-radius: 6px; }
+      .gk-frente { position: absolute; width: 44px; height: 92px; border-radius: 22px 22px 8px 8px; background: var(--cor); border: 4px solid #fff; transform-origin: 50% 100%; }
+      .bola-frente { position: absolute; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #d4d4d8 70%); box-shadow: 0 0 22px 6px rgba(255,255,255,0.55); opacity: 0; }
+      .rastro-f { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px 5px var(--cor); opacity: 0; }
       .area3d { perspective: 1500px; perspective-origin: 50% 88%; overflow: hidden; border-radius: 26px; }
       .tilt { position: absolute; inset: 0; transform-style: preserve-3d; }
       .plano { position: absolute; left: 0; width: 880px; transform-style: preserve-3d; }
@@ -642,7 +656,7 @@
 
         // conteúdo do meio, por tipo de lance
         const l = d.lance;
-        if ((d.tipo === "gol" || d.tipo === "chance" || d.tipo === "penalti_perdido") && l && l.origem) {
+        if (d.tipo === "gol" && d.campinho && l && l.origem) {
           const passes = (l.passes || []).slice(pa.passes_ini);  // já limitado no Python
           const maxDist = Math.max(l.origem[1], ...passes.flatMap((p) => [p.de[1], p.para[1]]));
           const distM = Math.max(30, Math.min(52.5, maxDist * 1.05 + 8));
@@ -810,6 +824,111 @@
             const volta = res === "miss" ? [alvo[0] + lado * 60, alvo[1] - 90, alvo[2] + 10] : [alvo[0] + lado * 90, alvo[1] + 90, 0];
             tl.to(bolaW, { x: volta[0], y: volta[1], z: volta[2], duration: 0.6, ease: "power2.out" }, C);
             tl.to(bolaW, { opacity: 0, duration: 0.25 }, C + 0.6);
+            tremor(C, 14, 0.25, 100 + i);
+            soco(C, 1.025);
+          }
+          tl.fromTo(carimbo, { scale: 3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, C + 0.02);
+          tl.to(carimbo, { opacity: 0, scale: 1.2, duration: 0.4 }, C + 1.6);
+        } else if (d.tipo === "gol" || d.tipo === "chance" || d.tipo === "penalti_perdido") {
+          // cadeia A → B → gol: só o que o dado garante (quem participou, de onde, onde a bola foi)
+          const cd = d.cadeia || {};
+          const tA = pa.cadeia_a, tB = pa.cadeia_b, C0 = pa.chute;
+          const cx = AREA_W / 2;
+          const no = (rot, nome, y, destaque) => {
+            const n = h("div", "no" + (destaque ? " no-b" : ""), `<div class="no-rot">${esc(rot)}</div><div class="no-nome">${esc(nome)}</div>`, area);
+            n.style.top = y + "px";
+            return n;
+          };
+          const seta = (y0, y1, rotulo) => {
+            const s = h("div", "seta-v", null, area);
+            s.style.top = y0 + "px"; s.style.height = y1 - y0 + "px";
+            const r = rotulo ? h("div", "seta-rot", esc(rotulo), area) : null;
+            if (r) r.style.top = (y0 + y1) / 2 - 24 + "px";
+            return [s, r];
+          };
+          const temA = !!cd.a;
+          const yB = temA ? 230 : 60;
+          let bolinha = h("div", "bolinha", null, area);
+          if (temA) {
+            const nA = no(cd.a_rotulo || "", cd.a, 20, false);
+            tl.fromTo(nA, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, tA);
+            const [s1, r1] = seta(132, yB - 8, cd.jeito);
+            tl.fromTo(s1, { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power2.inOut" }, tB - 0.45);
+            if (r1) tl.fromTo(r1, { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "power3.out" }, tB - 0.4);
+            tl.fromTo(bolinha, { x: cx, y: 132, opacity: 0 }, { x: cx, y: 132, opacity: 1, duration: 0.05, immediateRender: false }, tB - 0.45);
+            tl.to(bolinha, { y: yB - 8, duration: 0.4, ease: "power2.inOut" }, tB - 0.45);
+          } else {
+            tl.fromTo(bolinha, { x: cx, y: yB + 112, opacity: 0 }, { x: cx, y: yB + 112, opacity: 1, duration: 0.05, immediateRender: false }, tB);
+          }
+          const nB = no(cd.b_rotulo || "FINALIZAÇÃO", d.tipo === "gol" && d.detalhe === "contra" ? `${d.jogador} (contra)` : d.jogador, yB, true);
+          nB.style.setProperty("--cor", cor);
+          tl.fromTo(nB, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, tB);
+          tl.fromTo(nB, { boxShadow: `0 0 0px ${cor}` }, { boxShadow: `0 0 50px ${cor}`, duration: 0.5, yoyo: true, repeat: 1, immediateRender: false }, tB + 0.1);
+          const yG = 430;
+          const [s2, r2] = seta(yB + 112, yG - 6, cd.destino);
+          tl.fromTo(s2, { scaleY: 0 }, { scaleY: 1, duration: 0.35, ease: "power2.inOut" }, C0 - 0.1);
+          if (r2) tl.fromTo(r2, { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "power3.out" }, C0);
+
+          // visão de frente do gol, com a bola no ponto exato da boca do gol
+          const GW = 560, GH = GW / 3, ZW = 820, ZH = 262;
+          const zona = h("div", "gol-frente", null, area);
+          zona.style.top = yG + "px"; zona.style.left = (AREA_W - ZW) / 2 + "px";
+          zona.style.width = ZW + "px"; zona.style.height = ZH + "px";
+          const quadro = h("div", "quadro", null, zona);
+          const gx0 = (ZW - GW) / 2, base = ZH - 22;
+          quadro.style.left = gx0 + "px"; quadro.style.top = base - GH + "px"; quadro.style.width = GW + "px"; quadro.style.height = GH + "px";
+          h("div", "grama-frente", null, zona).style.top = base + "px";
+          const gkF = h("div", "gk-frente", null, zona);
+          gkF.style.setProperty("--cor", corAdv);
+          gkF.style.left = ZW / 2 - 22 + "px"; gkF.style.top = base - 92 + "px";
+          tl.fromTo(zona, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, Math.min(tB + 0.2, C0 - 0.3));
+          const res = d.tipo === "gol" ? "goal" : (l && l.resultado) || "miss";
+          const by = l && l.boca ? l.boca[0] : 50, bz = l && l.boca ? l.boca[1] : 8;
+          let px = gx0 + (55.38 - by) / 10.76 * GW, py = base - Math.min(1.25, bz / 38) * GH;
+          px = Math.max(16, Math.min(ZW - 16, px)); py = Math.max(14, Math.min(base - 6, py));
+          if (res === "post") px = px < ZW / 2 ? gx0 : gx0 + GW;
+          const bolaF = h("div", "bola-frente", null, zona);
+          // a bola vem "da câmera" (grande, embaixo) até o ponto, encolhendo com a distância
+          const pts = 16;
+          for (let k = 1; k < pts; k++) {
+            const f = k / pts, rx = ZW / 2 + (px - ZW / 2) * f, ry = ZH + 40 + (py - ZH - 40) * f - Math.sin(Math.PI * f) * 40;
+            const dot = h("div", "rastro-f", null, zona);
+            dot.style.left = rx + "px"; dot.style.top = ry + "px"; dot.style.setProperty("--cor", d.tipo === "gol" ? cor : "#ffffff");
+            dot.style.transform = `scale(${1.6 - f})`;
+            tl.fromTo(dot, { opacity: 0 }, { opacity: 0.9, duration: 0.05, immediateRender: false }, C0 + (pa.clima - C0) * f);
+            tl.to(dot, { opacity: 0.35, duration: 0.6 }, C0 + (pa.clima - C0) * f + 0.1);
+          }
+          const kf = [];
+          for (let k = 1; k <= 12; k++) {
+            const f = k / 12;
+            kf.push({ x: ZW / 2 + (px - ZW / 2) * f, y: ZH + 40 + (py - ZH - 40) * f - Math.sin(Math.PI * f) * 40, scale: 2.2 - 1.4 * f, duration: (pa.clima - C0) / 12, ease: "none" });
+          }
+          tl.fromTo(bolaF, { x: ZW / 2, y: ZH + 40, scale: 2.2, opacity: 1 }, { keyframes: kf, immediateRender: false }, C0);
+          tl.to(bolinha, { opacity: 0, duration: 0.2 }, C0);
+          const carimbo = h("div", "carimbo", null, area);
+          carimbo.style.top = yG + 40 + "px";
+          carimbo.style.setProperty("--cor", d.tipo === "gol" ? cor : "#0a0a0a");
+          const C = pa.clima;
+          if (res === "goal") {
+            carimbo.textContent = "GOOOL!";
+            tl.to(gkF, { x: (px - ZW / 2) * 0.45, rotation: px < ZW / 2 ? -35 : 35, duration: 0.3, ease: "power2.out" }, C - 0.3);
+            tl.fromTo(quadro, { backgroundColor: "rgba(255,255,255,0.08)" }, { backgroundColor: cor, duration: 0.08, immediateRender: false }, C);
+            tl.to(quadro, { backgroundColor: "rgba(255,255,255,0.08)", duration: 1.0 }, C + 0.1);
+            tl.fromTo(quadro, { scaleY: 1 }, { keyframes: { scaleY: [1, 0.9, 1.04, 0.97, 1] }, duration: 0.5, ease: "none", immediateRender: false }, C);
+            const onda = h("div", "onda", null, zona);
+            onda.style.left = px + "px"; onda.style.top = py + "px"; onda.style.setProperty("--cor", "#ffffff");
+            tl.fromTo(onda, { scale: 0.2, opacity: 1 }, { scale: 3.2, opacity: 0, duration: 0.6, ease: "power2.out", immediateRender: false }, C);
+            clarao(C, cor, 0.55, 0.45);
+            tremor(C, 34, 0.45, 100 + i);
+            soco(C, 1.05);
+            confete(C + 0.05, [cor, "#ffffff", corAdv], 100 + px * (AREA_W / ZW), 620 + yG + py, 46, 300 + i);
+            const lado = d.time === "casa" ? 0 : 1;
+            virarDigito(caixasMini[lado], placarAtual[lado], d.placar[lado], C + 0.25, cor);
+          } else {
+            carimbo.textContent = res === "save" ? "DEFESA!" : res === "post" ? "NA TRAVE!" : res === "block" ? "BLOQUEADO!" : "PRA FORA!";
+            if (res === "save") tl.to(gkF, { x: px - ZW / 2, y: Math.min(0, py - (base - 92)), rotation: px < ZW / 2 ? -60 : 60, duration: 0.3, ease: "power3.out" }, C - 0.3);
+            const lado = px < ZW / 2 ? -1 : 1;
+            tl.to(bolaF, { x: px + lado * 120, y: res === "miss" ? py - 60 : py + 70, scale: 0.6, opacity: 0, duration: 0.6, ease: "power2.out" }, C);
             tremor(C, 14, 0.25, 100 + i);
             soco(C, 1.025);
           }

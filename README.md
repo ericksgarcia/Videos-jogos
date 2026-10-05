@@ -10,10 +10,12 @@ intro    escudos, rodada, estádio, "bola rolando"
 barra    relógio grande + linha 0'–90' + gráfico de pressão; a cada destaque
          mergulha numa tela própria do lance:
            - camisa com o número do jogador, minuto, placar daquele momento
-           - campinho 2D com a troca de passes (último passe no nome do
-             assistente, chute no "bateu")
-           - no chute, a câmera vai do 2D para 3D atrás do lance, sem corte,
-             e a bola sobe com rastro até o ponto exato em que entrou
+           - gols com a sequência real de passes (dado da Opta): campinho 2D
+             com os passes e, no chute, câmera 2D→3D atrás do lance, sem corte,
+             com a bola subindo até o ponto exato em que entrou
+           - demais lances: cadeia A → B → gol (assistente → quem finaliza →
+             visão de frente do gol com a bola no ponto exato), cada nome
+             entrando quando o narrador fala
            - etiquetas (pé, distância, assistência) e legenda palavra a palavra
            - narração explicando o lance, com a bola entrando na palavra "Gol"
 fim      placar final, estatísticas e chamada para o próximo jogo
@@ -102,12 +104,16 @@ lista de nomes está no topo de `src/sfx.py`. `--sem-som` gera sem trilha.
 
 | Provedor | Custo | Conta | Observação |
 |---|---|---|---|
-| `edge` (padrão) | grátis | não | vozes neurais do Edge, devolve o tempo de cada palavra; serviço não oficial, bom para testar |
+| `gemini` (padrão com chave) | cota grátis do Google AI Studio | sim (`GEMINI_API_KEY`) | Gemini TTS `gemini-3.8-flash-tts`, voz Fenrir, emoção por notas de direção e tags; tempo das palavras calculado com o Gemini ouvindo o áudio |
+| `edge` | grátis | não | vozes neurais do Edge, devolve o tempo de cada palavra; serviço não oficial, bom para testar |
 | `azure` | grátis até 500 mil caracteres/mês | sim (`AZURE_SPEECH_KEY`, `AZURE_SPEECH_REGION`) | mesmas vozes, uso comercial ok |
 | `google` | grátis até 1 milhão de caracteres/mês (Chirp 3 HD) | sim (`GOOGLE_TTS_API_KEY`) | uso comercial ok |
 | `nenhum` | — | — | sem voz, legendas com tempo estimado |
 
-Um vídeo usa por volta de 800 caracteres de narração.
+Um vídeo usa por volta de 800 caracteres de narração. Com o Gemini são ~2
+chamadas por fala (síntese + alinhamento), cerca de 16 por jogo; o áudio fica
+em cache em `data/voz/`. A chave pode ficar em `.env` (ignorado pelo git) ou
+como variável de ambiente.
 No ambiente cloud, o domínio do provedor precisa estar liberado na política
 de rede (`speech.platform.bing.com`, `<região>.tts.speech.microsoft.com` ou
 `texttospeech.googleapis.com`).
