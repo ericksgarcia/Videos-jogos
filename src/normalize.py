@@ -35,7 +35,31 @@ def _num(v):
         return None
 
 
-FEMININOS = {"Chapecoense", "Ponte Preta", "Portuguesa", "Ferroviária", "Tuna Luso", "Inter de Limeira"}
+FEMININOS = {"Chapecoense", "Ponte Preta", "Portuguesa", "Ferroviária", "Tuna Luso", "Inter de Limeira",
+             "Índia", "Argentina", "Alemanha", "França", "Espanha", "Itália", "Inglaterra", "Colômbia", "Bolívia",
+             "Venezuela", "Holanda", "Bélgica", "Croácia", "Suíça", "Coreia do Sul", "Austrália", "Nigéria",
+             "Arábia Saudita", "Costa Rica", "Polônia", "Escócia", "Sérvia", "Suécia", "Noruega", "Dinamarca",
+             "Rússia", "Turquia", "Grécia", "Tunísia", "Argélia", "Costa do Marfim", "Jamaica", "China", "Ucrânia",
+             "Áustria", "Hungria", "República Tcheca", "Romênia", "Islândia", "Irlanda", "Nova Zelândia", "África do Sul"}
+# seleções: nome em português
+PAISES = {"Brazil": "Brasil", "India": "Índia", "Argentina": "Argentina", "Germany": "Alemanha", "France": "França",
+          "Spain": "Espanha", "Italy": "Itália", "England": "Inglaterra", "Colombia": "Colômbia", "Bolivia": "Bolívia",
+          "Venezuela": "Venezuela", "Netherlands": "Holanda", "Belgium": "Bélgica", "Croatia": "Croácia",
+          "Switzerland": "Suíça", "South Korea": "Coreia do Sul", "Korea Republic": "Coreia do Sul", "Australia": "Austrália",
+          "Nigeria": "Nigéria", "Saudi Arabia": "Arábia Saudita", "Costa Rica": "Costa Rica", "Poland": "Polônia",
+          "Scotland": "Escócia", "Serbia": "Sérvia", "Sweden": "Suécia", "Norway": "Noruega", "Denmark": "Dinamarca",
+          "Russia": "Rússia", "Turkey": "Turquia", "Türkiye": "Turquia", "Greece": "Grécia", "Tunisia": "Tunísia",
+          "Algeria": "Argélia", "Ivory Coast": "Costa do Marfim", "Côte d'Ivoire": "Costa do Marfim", "Jamaica": "Jamaica",
+          "China": "China", "Ukraine": "Ucrânia", "Austria": "Áustria", "Hungary": "Hungria", "Czechia": "República Tcheca",
+          "Romania": "Romênia", "Iceland": "Islândia", "Ireland": "Irlanda", "New Zealand": "Nova Zelândia",
+          "South Africa": "África do Sul", "Uruguay": "Uruguai", "Paraguay": "Paraguai", "Chile": "Chile", "Peru": "Peru",
+          "Ecuador": "Equador", "Mexico": "México", "Japan": "Japão", "Canada": "Canadá", "Morocco": "Marrocos",
+          "Senegal": "Senegal", "Egypt": "Egito", "Qatar": "Catar", "Iran": "Irã", "Iraq": "Iraque", "Panama": "Panamá",
+          "Wales": "País de Gales", "Portugal": "Portugal", "Ghana": "Gana", "Cameroon": "Camarões", "USA": "Estados Unidos"}
+COMPETICOES = {"International Friendly Games": "Amistoso internacional", "Brasileirão Betano": "Brasileirão",
+               "Brasileiro Serie A": "Brasileirão", "World Championship": "Copa do Mundo", "World Cup": "Copa do Mundo",
+               "World Cup Qualification CONMEBOL": "Eliminatórias", "CONMEBOL Libertadores": "Libertadores",
+               "CONMEBOL Sudamericana": "Sul-Americana", "Copa do Brasil": "Copa do Brasil", "Copa América": "Copa América"}
 FALADO = {"Atlético-MG": "Atlético Mineiro", "Athletico": "Athletico Paranaense", "RB Bragantino": "Bragantino",
           "Vasco": "Vasco", "Atlético-GO": "Atlético Goianiense"}
 
@@ -44,6 +68,8 @@ def _time(ev, lado):
     t = ev[lado]
     cores = t.get("teamColors") or {}
     curto = t.get("shortName") or t["name"]
+    if t.get("national"):
+        curto = PAISES.get(t["name"], PAISES.get(curto, curto))
     return {
         "id": t["id"],
         "nome": curto,
@@ -82,14 +108,34 @@ def _lance_chute(s):
     }
 
 
-def _passes(inc):
-    out = []
-    for a in inc.get("footballPassingNetworkAction") or []:
-        if a.get("eventType") == "goal" or not a.get("passEndCoordinates"):
-            continue
-        out.append({"de": _ponto(a["playerCoordinates"]), "para": _ponto(a["passEndCoordinates"]),
-                    "jogador": nome_jogador(a.get("player")), "conducao": a.get("eventType") == "ball-movement"})
-    return out[-4:]
+def _metros(p, q):
+    return (((p[0] - q[0]) * 0.68) ** 2 + ((p[1] - q[1]) * 1.05) ** 2) ** 0.5
+
+
+def _passes(inc, max_trechos=7):
+    """Sequência da jogada a partir da rede de passes da Opta: passes e
+    conduções. Quando o jogador recebe num ponto e age de outro, o trecho entre
+    os dois é uma condução (ele levou a bola); idem até o ponto do chute."""
+    acoes = inc.get("footballPassingNetworkAction") or []
+    out, fim_ant = [], None
+
+    def conducao(de, para, jogador):
+        if de and _metros(de, para) > 3:
+            out.append({"de": de, "para": para, "jogador": nome_jogador(jogador), "conducao": True})
+
+    for k, a in enumerate(acoes):
+        ini = _ponto(a["playerCoordinates"])
+        conducao(fim_ant, ini, a.get("player"))
+        if a.get("eventType") == "goal":
+            break
+        if a.get("passEndCoordinates"):
+            fim = _ponto(a["passEndCoordinates"])
+            out.append({"de": ini, "para": fim, "jogador": nome_jogador(a.get("player")),
+                        "conducao": a.get("eventType") == "ball-movement"})
+            fim_ant = fim
+        else:  # condução sem ponto final: vai até onde começa a próxima ação
+            fim_ant = ini
+    return out[-max_trechos:]
 
 
 TIPOS_COMENTARIO = {
@@ -114,6 +160,21 @@ def comentario(raw, d):
             if mesmo:
                 break
     return melhor["text"] if melhor else None
+
+
+def _perigo(s, tem_xg):
+    """Quão perigosa foi a finalização (0..1). Usa o xG; em jogos sem xG
+    (alguns amistosos), estima: bola na trave conta como chance clara e
+    defesas/chutes para fora valem pela distância ao gol."""
+    if tem_xg:
+        return s.get("xg") or 0
+    if s["shotType"] == "post":
+        return 0.5
+    pc = s.get("playerCoordinates") or {}
+    dist = (pc.get("x", 50) * 1.05)  # metros até a linha de fundo
+    if s["shotType"] in ("save", "miss") and s.get("situation") != "penalty":
+        return max(0.0, 0.48 - 0.016 * dist)
+    return 0.0
 
 
 def _destaques_brutos(raw):
@@ -160,13 +221,15 @@ def _destaques_brutos(raw):
         if d["tipo"] == "gol" and (d["minuto"], d["time"] == "casa") in var_confirmados:
             d["detalhe"] = "validado pelo VAR"
 
-    for s in (raw.get("shotmap") or {}).get("shotmap", []):
+    chutes_todos = (raw.get("shotmap") or {}).get("shotmap", [])
+    tem_xg = any((c.get("xg") or 0) > 0 for c in chutes_todos)
+    for s in chutes_todos:
         if s["shotType"] == "goal":
             continue
         base = {"minuto": s["time"], "acrescimo": s.get("addedTime") or 0, "time": _lado(s["isHome"]),
                 "jogador": nome_jogador(s.get("player")), "jogador_id": (s.get("player") or {}).get("id"),
                 "camisa": (s.get("player") or {}).get("jerseyNumber"),
-                "xg": round(s.get("xg", 0), 2), "lance": _lance_chute(s)}
+                "xg": round(_perigo(s, tem_xg), 2), "lance": _lance_chute(s)}
         if s.get("goalkeeper"):
             base["goleiro"] = nome_jogador(s["goalkeeper"])
         gk = nome_jogador(s.get("goalkeeper")) if s.get("goalkeeper") else ""
@@ -174,7 +237,7 @@ def _destaques_brutos(raw):
                    "miss": "para fora", "block": "bloqueado"}.get(s["shotType"], "")
         if s.get("situation") == "penalty":
             out.append(dict(base, tipo="penalti_perdido", detalhe=detalhe))
-        elif s.get("xg", 0) >= XG_CHANCE_CLARA:
+        elif base["xg"] >= XG_CHANCE_CLARA:
             out.append(dict(base, tipo="chance", detalhe=detalhe))
     return out
 
@@ -269,7 +332,7 @@ def normalizar(raw):
     ev = raw["event"]["event"]
     jogo = {
         "id": ev["id"],
-        "campeonato": "Brasileirão",
+        "campeonato": COMPETICOES.get(ev["tournament"]["uniqueTournament"]["name"], ev["tournament"]["uniqueTournament"]["name"]),
         "temporada": ev["season"]["year"],
         "rodada": (ev.get("roundInfo") or {}).get("round"),
         "estadio": (ev.get("venue") or {}).get("name") or (ev.get("venue") or {}).get("stadium", {}).get("name", ""),
@@ -279,6 +342,9 @@ def normalizar(raw):
         "placar": [ev["homeScore"]["current"], ev["awayScore"]["current"]],
         "acrescimos": _acrescimos(raw),
     }
+    camp, rod = jogo["campeonato"], jogo["rodada"]
+    jogo["competicao"] = f"{camp} {jogo['temporada']} · Rodada {rod}" if rod else camp
+    jogo["competicao_curta"] = f"{camp} · Rodada {rod}" if rod else camp
     todos = _destaques_brutos(raw)
     zero = jogo["placar"] == [0, 0]
     destaques = selecionar(todos, zero)

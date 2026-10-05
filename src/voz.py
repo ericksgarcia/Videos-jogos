@@ -46,6 +46,7 @@ DIRECAO = """# AUDIO PROFILE: Narrador de futebol da TV brasileira
 Style: narração esportiva brasileira natural, conversada e calorosa, com energia alta; a descrição do lance vai acelerando e explode no gol; frases de contexto em tom confiante, sem cair no fim.
 Pace: rápido, ritmo de transmissão ao vivo, emendando as frases, sem pausas longas.
 Accent: português do Brasil.
+Importante: diga a palavra "Gol" normalmente, curta, com entusiasmo na voz, mas sem esticar ("gooool") nem gritar.
 #### TRANSCRIPT
 """
 VELOCIDADE = "+8%"   # narrador um pouco mais acelerado

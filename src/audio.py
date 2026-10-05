@@ -59,8 +59,10 @@ def cues(dados, ag):
             c.append(("var", S + 0.5, 0.9))
         # toques na bola: passes do campinho ou a cadeia A → B
         if d.get("campinho"):
-            for tp in p.get("passes_t", []):
-                c.append(("thud", tp, 0.3))
+            trechos = ((d.get("lance") or {}).get("passes") or [])[p.get("passes_ini", 0):]
+            for tp, tr in zip(p.get("passes_t", []), trechos):
+                if not tr.get("conducao"):  # condução não tem som de chute
+                    c.append(("thud", tp, 0.3))
         elif d["tipo"] in ("gol", "chance", "penalti_perdido"):
             if (d.get("cadeia") or {}).get("a"):
                 c += [("pop", p["cadeia_a"], 0.5), ("thud", p["cadeia_b"] - 0.45, 0.35)]

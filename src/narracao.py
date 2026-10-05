@@ -153,6 +153,18 @@ def fala_destaque(jogo, d, historico):
             return f"{quando}, pênalti para {t['artigo']} {t['falado']}. {j} cobra {destino or 'com força'}. Gol! {ctx}", "Gol!"
         var = " Com confirmação do VAR." if d.get("detalhe") == "validado pelo VAR" else ""
         jogada = _minusc(_jogada(tx, j) if tx else f"{j} finalizou")
+        # quem fez o gol levou a bola antes de chutar (condução longa na rede de passes)
+        trechos = (d.get("lance") or {}).get("passes") or []
+        if trechos and trechos[-1].get("conducao") and trechos[-1].get("jogador") == j:
+            de, para = trechos[-1]["de"], trechos[-1]["para"]
+            if (((de[0] - para[0]) * 0.68) ** 2 + ((de[1] - para[1]) * 1.05) ** 2) ** 0.5 >= 8:
+                for verbo in ("bateu", "cabeceou", "finalizou"):
+                    if f"que {verbo}" in jogada:
+                        jogada = jogada.replace(f"que {verbo}", f"que arrancou com a bola e {verbo}", 1)
+                        break
+                    if jogada.startswith(f"{j} {verbo}"):
+                        jogada = jogada.replace(f"{j} {verbo}", f"{j} arrancou com a bola e {verbo}", 1)
+                        break
         return f"{quando}, {jogada}{', ' + destino if destino else ''}. Gol {_do(t)}!{var} {ctx}", "Gol"
     if d["tipo"] == "chance":
         jogada = _jogada(tx, j) if tx else f"{j} finalizou"
@@ -190,7 +202,7 @@ def falas(dados):
     titulo = dados["gancho"]["titulo"].capitalize()
     out = {
         "gancho": (f"{titulo}! {casa['falado']} e {fora['falado']}, lance a lance.", None),
-        "intro": (f"Rodada {j['rodada']} do Brasileirão{', ' + _no_estadio(j['estadio']) if j.get('estadio') else ''}. Bola rolando!", "rolando!"),
+        "intro": (f"{'Rodada ' + str(j['rodada']) + ' do ' + j['campeonato'] if j.get('rodada') else j['campeonato']}{', ' + _no_estadio(j['estadio']) if j.get('estadio') else ''}. Bola rolando!", "rolando!"),
     }
     historico = []
     vermelhos = {"casa": 0, "fora": 0}
@@ -257,9 +269,8 @@ def para_tts(texto, tipo, clima):
     if ic is None and alvo:
         ic = next((i for i, w in enumerate(ws) if limpa(w).lower() == alvo.lower()), None)
     if tipo == "gol":
-        if ic is not None and ws[ic].lower().startswith("gol"):
-            ws[ic] = "Gooool" + ws[ic][3:]
-        _inserir(ws, ic if ic is not None else -1, "[excitement]")
+        # "Gol" falado normalmente, com entusiasmo, sem o grito esticado de narrador
+        _inserir(ws, ic if ic is not None else -1, "[enthusiasm]")
         # frase de contexto depois do grito
         if ic is not None:
             k = next((j for j in range(ic, len(ws) - 1) if ws[j].endswith("!")), None)

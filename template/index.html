@@ -389,7 +389,7 @@
       // ---------- gancho ----------
       const G = $("gancho");
       const laje = h("div", "laje", null, G);
-      const tag = mascara("div", "tag", `${esc(J.campeonato)} · Rodada ${esc(J.rodada)}`, G);
+      const tag = mascara("div", "tag", esc(J.competicao_curta || J.campeonato), G);
       const h1 = h("h1", null, null, G);
       const palavras = D.gancho.titulo.split(" ").map((w) => h("span", "w", esc(w), h1));
       const eco = h("div", "eco", esc(D.gancho.titulo), G);
@@ -418,7 +418,7 @@
       const brilho = h("div", "brilho", null, duelo);
       const info = h("div", "info", null, I);
       const fita = h("div", "fita", null, info);
-      const comp = mascara("div", "comp", `${esc(J.campeonato)} ${esc(J.temporada)} · Rodada ${esc(J.rodada)}`, info);
+      const comp = mascara("div", "comp", esc(J.competicao || J.campeonato), info);
       const local = J.estadio ? mascara("div", "local", esc(J.estadio), info) : null;
       const rol = h("div", "rolando", "BOLA ROLANDO", I); const pulso = h("div", "pulso", null, rol);
       const g0 = A.gancho;
@@ -530,12 +530,16 @@
       // ---------- tela de cada lance ----------
       const AREA_W = 880, PXM = AREA_W / 68;  // pixels por metro (largura do campo = 68 m)
       function desenharCampo(area, dist) {
-        // meio-campo vertical, gol no alto; dist = metros visíveis a partir da linha de fundo
+        // campo vertical, gol no alto; dist = metros visíveis a partir da linha de fundo.
+        // a escala diminui quando a jogada começa longe, para caber inteira (sem achatar pontos)
+        const PXM = Math.min(AREA_W / 68, (700 - 44) / dist), W = 68 * PXM, X0 = (AREA_W - W) / 2;
         const H = Math.round(40 + dist * PXM), ns = "http://www.w3.org/2000/svg";
         const gram = h("div", "gramado", null, area);
-        gram.style.width = AREA_W + "px"; gram.style.height = H + "px";
+        gram.style.width = W + "px"; gram.style.height = H + "px"; gram.style.left = X0 + "px";
         const svg = document.createElementNS(ns, "svg");
-        svg.setAttribute("width", AREA_W); svg.setAttribute("height", H);
+        svg.setAttribute("width", W); svg.setAttribute("height", H);
+        const AREA_W_ = AREA_W;
+        { const AREA_W = W;
         const faixa = 5.5 * PXM;
         for (let y = 40, k = 0; y < H; y += faixa, k++) {
           const r = document.createElementNS(ns, "rect");
@@ -550,7 +554,8 @@
           `M${cx - m(9.16)} 40 V${40 + m(5.5)} H${cx + m(9.16)} V40`,
           `M${cx - m(7.3)} ${40 + m(16.5)} A${m(9.15)} ${m(9.15)} 0 0 0 ${cx + m(7.3)} ${40 + m(16.5)}`,
         ];
-        if (dist >= 52) linhas.push(`M2 ${40 + m(52.5)} H${AREA_W - 2}`);
+        if (dist >= 52.5) linhas.push(`M2 ${40 + m(52.5)} H${AREA_W - 2}`, `M${cx - m(9.15)} ${40 + m(52.5)} A${m(9.15)} ${m(9.15)} 0 0 0 ${cx + m(9.15)} ${40 + m(52.5)}`);
+        if (dist >= 88.5) linhas.push(`M${cx - m(20.16)} ${40 + m(105)} V${40 + m(88.5)} H${cx + m(20.16)} V${40 + m(105)}`);
         const paths = linhas.map((d) => {
           const p = document.createElementNS(ns, "path");
           p.setAttribute("d", d); p.setAttribute("class", "linha-c"); p.setAttribute("pathLength", "1");
@@ -566,7 +571,10 @@
         gol.setAttribute("fill", "rgba(255,255,255,0.12)"); gol.setAttribute("stroke", "#fff"); gol.setAttribute("stroke-width", 5);
         svg.appendChild(gol);
         gram.appendChild(svg);
-        return { gram, paths, gol, H, ponto: ([lat, d]) => [Math.max(24, Math.min(AREA_W - 24, lat / 100 * AREA_W)), 40 + Math.min(dist - 2.5, d * 1.05) * PXM] };
+        return { gram, paths, gol, H, pxm: PXM, x0: X0, w: W,
+                 lat: (l) => X0 + l / 100 * W,
+                 ponto: ([lat, d]) => [X0 + Math.max(1.5, Math.min(98.5, lat)) / 100 * W, 40 + Math.min(dist - 1, d * 1.05) * PXM] };
+        }
       }
       function alvoNoGol(l, campo) {
         // para onde a bola vai: coordenada da boca do gol (lateral 0..100 da largura do campo)
@@ -659,20 +667,22 @@
         if (d.tipo === "gol" && d.campinho && l && l.origem) {
           const passes = (l.passes || []).slice(pa.passes_ini);  // já limitado no Python
           const maxDist = Math.max(l.origem[1], ...passes.flatMap((p) => [p.de[1], p.para[1]]));
-          const distM = Math.max(30, Math.min(52.5, maxDist * 1.05 + 8));
+          const distM = Math.max(30, Math.min(105, maxDist * 1.05 + 6));
           // câmera: .area (perspectiva) > .tilt (inclina) > .plano (gira e desliza) > campo
           area.classList.add("area3d");
           const tilt = h("div", "tilt", null, area);
           const plano = h("div", "plano", null, tilt);
           const entorno = h("div", "entorno", null, plano);
           const campo = desenharCampo(plano, distM);
+          const PXM_ = campo.pxm;
           entorno.style.height = campo.H + 3200 + "px";
           // placas atrás do gol e arquibancada: em pé, só aparecem quando a câmera inclina
           const placas = h("div", "placas", null, plano);
-          placas.style.top = 40 - 4 * PXM - 1.0 * PXM + "px"; placas.style.height = 1.0 * PXM + "px";
-          placas.innerHTML = Array.from({ length: 8 }, () => `<span>BRASILEIRÃO ${esc(J.temporada)}</span>`).join("");
+          placas.style.top = 40 - 4 * PXM_ - 1.0 * PXM_ + "px"; placas.style.height = 1.0 * PXM_ + "px";
+          placas.innerHTML = Array.from({ length: 8 }, () => `<span>${esc((J.campeonato || "").toUpperCase())}</span>`).join("");
           const arq = h("div", "arquibancada", null, plano);
-          arq.style.top = 40 - 12 * PXM - 9 * PXM + "px"; arq.style.height = 9 * PXM + "px";
+          arq.style.top = 40 - 12 * PXM_ - 9 * PXM_ + "px"; arq.style.height = 9 * PXM_ + "px";
+          placas.style.opacity = 0; arq.style.opacity = 0;  // só existem na visão 3D
           const topoPlano = Math.round((700 - campo.H) / 2);
           plano.style.top = topoPlano + "px"; plano.style.height = campo.H + "px";
           tl.fromTo(campo.gram, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, S + 0.3);
@@ -701,53 +711,81 @@
           const bolaW = h("div", "bola3d", null, plano);
           const bola = h("div", "bola", null, bolaW);
           // goleiro: ponto no 2D; em pé no 3D
-          const gk = atleta([AREA_W / 2, 40 + 1.2 * PXM], null, "goleiro");
+          const gk = atleta([AREA_W / 2, 40 + 1.2 * PXM_], null, "goleiro");
           gk.style.setProperty("--cor", corAdv);
           tl.fromTo(gk, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, S + 0.8);
           const gk3d = h("div", "goleiro3d", null, plano);
           gk3d.style.setProperty("--cor", corAdv);
-          gk3d.style.left = AREA_W / 2 - 0.5 * PXM + "px"; gk3d.style.top = 40 + 0.8 * PXM - 1.9 * PXM + "px";
-          gk3d.style.width = 1.0 * PXM + "px"; gk3d.style.height = 1.9 * PXM + "px";
+          gk3d.style.left = AREA_W / 2 - 0.5 * PXM_ + "px"; gk3d.style.top = 40 + 0.8 * PXM_ - 1.9 * PXM_ + "px";
+          gk3d.style.width = 1.0 * PXM_ + "px"; gk3d.style.height = 1.9 * PXM_ + "px";
           // trave em pé (fica "de lado" na visão de cima, aparece quando a câmera inclina)
-          const gw = 7.32 * PXM, gh = 2.44 * PXM;
+          const gw = 7.32 * PXM_, gh = 2.44 * PXM_;
           const trave = h("div", "trave3d", null, plano);
           trave.style.left = AREA_W / 2 - gw / 2 + "px"; trave.style.top = 40 - gh + "px";
           trave.style.width = gw + "px"; trave.style.height = gh + "px";
           const rede = h("div", "rede", null, trave);
 
-          // troca de passes (2D)
+          // troca de passes (2D): passe = linha cheia; condução = jogador correndo com a bola (tracejado)
+          let portador = null;  // quem está com a bola (bolinha que se move nas conduções)
+          const sobrenome = (n) => (n || "").split(" ").slice(-1)[0];
           passes.forEach((p, k) => {
             const tp = pa.passes_t[k], dur = Math.max(0.2, pa.passes_dur[k] * 0.9);
             const de = campo.ponto(p.de), para = campo.ponto(p.para);
-            const nomeP = p.escanteio ? "Escanteio" : (p.jogador || "").split(" ").slice(-1)[0];
-            const at = atleta(de, nomeP);
-            at.style.setProperty("--cor", cor);
-            tl.fromTo(at, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, tp - 0.15);
-            const ln = linhaSvg(de, para, "rgba(255,255,255,0.8)", 5);
-            tl.to(ln, { strokeDashoffset: 0, duration: dur, ease: p.conducao ? "none" : "power1.out" }, tp);
+            const mesmo = portador && portador.nome === p.jogador && Math.hypot(portador.pos[0] - de[0], portador.pos[1] - de[1]) < 24;
+            let at;
+            if (mesmo) {
+              at = portador.el;
+            } else {
+              at = atleta(de, sobrenome(p.jogador));
+              at.style.setProperty("--cor", cor);
+              tl.fromTo(at, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, tp - 0.15);
+            }
+            if (p.conducao) {
+              const ln = document.createElementNS(ns, "line");
+              ln.setAttribute("x1", de[0]); ln.setAttribute("y1", de[1]); ln.setAttribute("x2", de[0]); ln.setAttribute("y2", de[1]);
+              ln.setAttribute("stroke", "rgba(255,255,255,0.85)"); ln.setAttribute("stroke-width", 5); ln.setAttribute("stroke-linecap", "round");
+              ln.setAttribute("stroke-dasharray", "4 12");
+              svg.appendChild(ln);
+              tl.to(ln, { attr: { x2: para[0], y2: para[1] }, duration: dur, ease: "none" }, tp);
+              // o jogador corre junto com a bola
+              const base = portador && at === portador.el ? portador.desloc : [0, 0];
+              tl.to(at, { x: base[0] + para[0] - de[0], y: base[1] + para[1] - de[1], duration: dur, ease: "none" }, tp);
+              portador = { el: at, nome: p.jogador, pos: para, desloc: [base[0] + para[0] - de[0], base[1] + para[1] - de[1]] };
+            } else {
+              const ln = linhaSvg(de, para, "rgba(255,255,255,0.8)", 5);
+              tl.to(ln, { strokeDashoffset: 0, duration: dur, ease: "power1.out" }, tp);
+              portador = { el: null, nome: null, pos: para, desloc: [0, 0] };  // a bola vai para quem recebe
+            }
             if (k === 0) tl.fromTo(bolaW, { x: de[0], y: de[1], z: 0, opacity: 0 }, { x: de[0], y: de[1], z: 0, opacity: 1, duration: 0.15, immediateRender: false }, tp - 0.15);
             tl.to(bolaW, { x: para[0], y: para[1], duration: dur, ease: p.conducao ? "none" : "power1.out" }, tp);
           });
-          // quem finaliza aparece cedo, com a bola, para o campo nunca ficar vazio
+          // quem finaliza: se ele mesmo conduziu até o chute, já está lá; senão aparece com a bola
           const o = campo.ponto(l.origem);
-          const atirador = atleta(o, (d.jogador || "").split(" ").slice(-1)[0]);
-          atirador.style.setProperty("--cor", cor);
-          const tAtirador = passes.length ? Math.min(pa.passes_t[passes.length - 1] + 0.1, pa.chute - 0.3) : S + 0.9;
-          tl.fromTo(atirador, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1.25, duration: 0.3, ease: "back.out(2)" }, tAtirador);
+          const conduziu = portador && portador.el && portador.nome === d.jogador && Math.hypot(portador.pos[0] - o[0], portador.pos[1] - o[1]) < 24;
+          let atirador, tAtirador;
+          if (conduziu) {
+            atirador = portador.el;
+            tAtirador = pa.passes_t[passes.length - 1];
+          } else {
+            atirador = atleta(o, sobrenome(d.jogador));
+            atirador.style.setProperty("--cor", cor);
+            tAtirador = passes.length ? Math.min(pa.passes_t[passes.length - 1] + 0.1, pa.chute - 0.3) : S + 0.9;
+            tl.fromTo(atirador, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1.25, duration: 0.3, ease: "back.out(2)" }, tAtirador);
+          }
           if (!passes.length) tl.fromTo(bolaW, { x: o[0], y: o[1], z: 0, opacity: 0 }, { x: o[0], y: o[1], z: 0, opacity: 1, duration: 0.3, immediateRender: false }, S + 0.95);
-          else tl.to(bolaW, { x: o[0], y: o[1], z: 0, duration: 0.25 }, pa.chute - 0.3);
+          else if (!conduziu) tl.to(bolaW, { x: o[0], y: o[1], z: 0, duration: 0.25 }, pa.chute - 0.3);
           const pulsoAt = h("div", "onda", null, atirador);
           pulsoAt.style.setProperty("--cor", "#ffffff"); pulsoAt.style.left = "15px"; pulsoAt.style.top = "15px";
           tl.fromTo(pulsoAt, { scale: 0.3, opacity: 0.9 }, { scale: 1.6, opacity: 0, duration: 0.9, repeat: Math.max(0, Math.floor((pa.chute - tAtirador) / 0.9) - 1), ease: "power1.out", immediateRender: false }, tAtirador + 0.2);
 
           // ponto exato da boca do gol (lateral, altura) e destino da bola por resultado
           const res = d.tipo === "gol" ? "goal" : l.resultado;
-          const bocaLat = l.boca ? (100 - l.boca[0]) / 100 * AREA_W : AREA_W / 2;
+          const bocaLat = campo.lat(l.boca ? 100 - l.boca[0] : 50);
           const bocaAlt = l.boca ? Math.min(1.3, l.boca[1] / 38) * gh : gh * 0.2;
           let alvo = [bocaLat, 40 - 6, bocaAlt];
           if (res === "save" || res === "block") alvo = [bocaLat, res === "block" ? (o[1] + 40) / 2 : 46, Math.min(bocaAlt, gh * 0.9)];
           if (res === "post") alvo = [AREA_W / 2 + (bocaLat < AREA_W / 2 ? -1 : 1) * gw / 2, 40, Math.min(bocaAlt, gh * 0.85)];
-          const zIni = l.parte === "head" ? 1.8 * PXM : 0;
+          const zIni = l.parte === "head" ? 1.8 * PXM_ : 0;
 
           // movimento de câmera: 2D de cima -> 3D atrás do chute, sem corte
           const C0 = pa.chute, CD = pa.camera;
@@ -770,6 +808,7 @@
           tl.to(plano, { rotation: -ang, x: vx - o[0], y: vy - topoPlano - o[1], duration: CD, ease: "power2.inOut" }, C0);
           tl.to(tilt, { rotationX: INCL, z: zCam, duration: CD, ease: "power2.inOut" }, C0);
           tl.to(rotulos, { opacity: 0, duration: 0.3 }, C0);
+          tl.to([placas, arq], { opacity: 1, duration: 0.4 }, C0 + 0.3);
           tl.to([gk, campo.gol], { opacity: 0, duration: 0.3 }, C0 + 0.2);
           // tudo que é "de pé" acompanha a câmera para ficar de frente
           tl.to(bola, { rotation: ang, rotationX: -INCL, scale: 0.42, duration: CD, ease: "power2.inOut" }, C0);
@@ -788,7 +827,7 @@
           tl.to(bolaW, { keyframes: kf }, V0);
           // sombra da bola no gramado: o caminho no chão até o gol
           const sombra = linhaSvg(o, [alvo[0], alvo[1]], "rgba(0,0,0,0.45)", 7);
-          sombra.style.strokeDasharray = "0.02 0.02"; sombra.setAttribute("pathLength", "1");
+          sombra.style.strokeDasharray = "0.02 0.02"; sombra.setAttribute("pathLength", "1"); sombra.style.opacity = 0;
           tl.fromTo(sombra, { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, V0);
           const RASTRO = 26;
           for (let k = 1; k <= RASTRO; k++) {
@@ -1006,7 +1045,7 @@
         bc.style.flex = String(Math.max(0.02, v[0] / tot)); bf.style.flex = String(Math.max(0.02, v[1] / tot));
         linhasEl.push([l, bc, bf]);
       });
-      const cta = h("div", "cta", `<span>${D.proximo ? `Próximo jogo da rodada:<br><b>${esc(D.proximo)}</b>` : `Segue pra ver os outros<br>jogos da <b>rodada ${esc(J.rodada)}</b>`}</span>`, F);
+      const cta = h("div", "cta", `<span>${D.proximo ? `Próximo jogo da rodada:<br><b>${esc(D.proximo)}</b>` : (J.rodada ? `Segue pra ver os outros<br>jogos da <b>rodada ${esc(J.rodada)}</b>` : `Segue pra ver<br><b>mais resumos</b>`)}</span>`, F);
       const seta = h("div", "seta", "→", cta);
       const f0 = M.fim;
       tl.set(F, { opacity: 1 }, f0);

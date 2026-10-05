@@ -31,7 +31,9 @@ def gerar(event_id, proximo=None, so_json=False, qualidade="high", forcar=False,
     raw = ingest.baixar_jogo(event_id, forcar=forcar)
     dados = normalize.normalizar(raw)
     j = dados["jogo"]
-    nome = f"r{j['rodada']:02d}-{slug(j['casa']['nome'])}-{j['placar'][0]}x{j['placar'][1]}-{slug(j['fora']['nome'])}"
+    from datetime import datetime, timezone
+    prefixo = f"r{j['rodada']:02d}" if j.get("rodada") else datetime.fromtimestamp(j["inicio"], timezone.utc).strftime("%Y-%m-%d")
+    nome = f"{prefixo}-{slug(j['casa']['nome'])}-{j['placar'][0]}x{j['placar'][1]}-{slug(j['fora']['nome'])}"
     SAIDA.mkdir(exist_ok=True)
     (SAIDA / f"{nome}.json").write_text(json.dumps(dados, ensure_ascii=False, indent=2))
     print(f"\n== {j['casa']['nome']} {j['placar'][0]}x{j['placar'][1]} {j['fora']['nome']} "
