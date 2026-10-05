@@ -89,19 +89,6 @@ def baixar_jogo(event_id, forcar=False):
     return raw
 
 
-def foto_jogador(event_id, player_id):
-    """Foto do jogador (cache em data/raw/<jogo>/player_<id>.png)."""
-    if not player_id:
-        return None
-    arq = RAW_DIR / str(event_id) / f"player_{player_id}.png"
-    if not arq.exists():
-        r = _session.get(f"{IMG}/player/{player_id}/image", timeout=30)
-        if not r.ok or not r.headers.get("content-type", "").startswith("image"):
-            return None
-        arq.write_bytes(r.content)
-    return arq
-
-
 def escudo(event_id, team_id):
     arq = RAW_DIR / str(event_id) / f"team_{team_id}.png"
     return arq if arq.exists() else None

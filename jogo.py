@@ -42,12 +42,11 @@ def gerar(event_id, proximo=None, so_json=False, qualidade="high", forcar=False,
     if so_json:
         return None
     escudos = {lado: ingest.escudo(event_id, j[lado]["id"]) for lado in ("casa", "fora")}
-    fotos = {d["jogador_id"]: ingest.foto_jogador(event_id, d.get("jogador_id")) for d in dados["destaques"]}
     vozes = build.narrar_tudo(dados)
     provs = {v["provedor"] for v in [vozes["gancho"], vozes["intro"], vozes["fim"], *vozes["lances"]]}
     print(f"   narração: {', '.join(sorted(provs))}")
     pasta = SAIDA / "build" / nome
-    ag = build.montar(dados, escudos, pasta, vozes, fotos=fotos, proximo=proximo)
+    ag = build.montar(dados, escudos, pasta, vozes, proximo=proximo)
     mp4 = SAIDA / f"{nome}.mp4"
     print(f"   duração {ag['total']:.1f}s → renderizando {mp4.name}")
     if not som:

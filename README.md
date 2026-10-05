@@ -9,14 +9,19 @@ gancho   frase de impacto (vira a capa no TikTok)
 intro    escudos, rodada, estádio, "bola rolando"
 barra    relógio grande + linha 0'–90' + gráfico de pressão; a cada destaque
          mergulha numa tela própria do lance:
-           - foto do jogador, minuto, placar daquele momento
-           - campinho com a troca de passes e o chute animados
+           - camisa com o número do jogador, minuto, placar daquele momento
+           - campinho 2D com a troca de passes (último passe no nome do
+             assistente, chute no "bateu")
+           - no chute, a câmera vai do 2D para 3D atrás do lance, sem corte,
+             e a bola sobe com rastro até o ponto exato em que entrou
            - etiquetas (pé, distância, assistência) e legenda palavra a palavra
            - narração explicando o lance, com a bola entrando na palavra "Gol"
 fim      placar final, estatísticas e chamada para o próximo jogo
 ```
 
-Duração: 60 a 95 s, conforme o número de lances (até 5) e o tamanho das falas.
+Lances: todos os gols, expulsões, pênaltis perdidos e gols anulados, sem
+limite; se der menos de 5, completa com as chances claras mais perigosas.
+Duração: depende do jogo (~20 s por lance); o Corinthians 1x3 Fluminense dá 1min48.
 
 ## Uso
 
@@ -63,10 +68,11 @@ regra de "venceu criando menos".
 ## Regras
 
 - **Destaques:** todos os gols, vermelhos, pênaltis perdidos e gols anulados
-  pelo VAR; depois chances claras (finalização sem gol com xG ≥ 0,30, as
-  maiores primeiro) até 7; completa com amarelos se ficar abaixo de 5.
+  pelo VAR, sem limite; se der menos de 5, chances claras (finalização sem
+  gol com xG ≥ 0,30, as maiores primeiro) até completar 5. O xG só é usado
+  por dentro para escolher as chances; não aparece no vídeo.
 - **Gancho**, na ordem: virada → decidido depois dos 85' → goleada (3+ de
-  diferença) → venceu com xG 0,5 menor → jogador com 2+ gols → expulsão → padrão.
+  diferença) → venceu com menos chances claras e finalizações → jogador com 2+ gols → expulsão → padrão.
 - **0x0:** 3+ destaques fortes = vídeo de ~28 s; 1–2 = versão curta (~20 s);
   nenhum = sem vídeo (só resumo da rodada).
 
@@ -110,5 +116,5 @@ de rede (`speech.platform.bing.com`, `<região>.tts.speech.microsoft.com` ou
 
 - Termos do Sofascore: uso pessoal/educacional. Para conta monetizada,
   migre `src/ingest.py` para uma fonte licenciada.
-- Escudos são marcas dos clubes; fotos de jogadores têm direito de imagem.
+- Escudos são marcas dos clubes. O vídeo não usa fotos de jogadores (direito autoral do fotógrafo/agência e direito de imagem do atleta); no lugar, camisa com o número.
 - Se quiser música, adicione pelo TikTok com volume baixo, por baixo dos efeitos.

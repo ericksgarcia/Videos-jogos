@@ -7,9 +7,7 @@ escolha do gancho e classificação dos 0x0.
 # Ranking: gol > vermelho > pênalti perdido / gol anulado > chance clara > amarelo
 PRIORIDADE = {"gol": 0, "vermelho": 1, "penalti_perdido": 2, "anulado": 2, "chance": 3, "amarelo": 4}
 XG_CHANCE_CLARA = 0.30   # finalização sem gol com xG acima disso vira "chance clara"
-MAX_DESTAQUES = 5
-MIN_DESTAQUES = 4        # completa com amarelos se faltar
-MAX_DESTAQUES_0X0 = 4
+MIN_DESTAQUES = 5        # sem limite para gols/expulsões; completa com chances claras até 5
 
 STATS = {
     "ballPossession": "posse",
@@ -123,6 +121,7 @@ def _destaques_brutos(raw):
         base = {"minuto": i["time"], "acrescimo": i.get("addedTime") or 0, "time": _lado(i.get("isHome"))}
         pid = (i.get("player") or {}).get("id")
         base["jogador_id"] = pid
+        base["camisa"] = (i.get("player") or {}).get("jerseyNumber")
         if tipo == "goal":
             d = dict(base, tipo="gol", jogador=nome_jogador(i.get("player")), placar=[i["homeScore"], i["awayScore"]])
             s = next((c for c in chutes if c["shotType"] == "goal" and (c.get("player") or {}).get("id") == pid
@@ -130,6 +129,11 @@ def _destaques_brutos(raw):
             d["lance"] = _lance_chute(s)
             if d["lance"]:
                 d["lance"]["passes"] = _passes(i)
+                l = d["lance"]
+                if not l["passes"] and l.get("situacao") == "corner":
+                    lado = 0.5 if l["origem"][0] < 50 else 99.5
+                    l["passes"] = [{"de": [lado, 0.5], "para": l["origem"], "jogador": nome_jogador(i.get("assist1")) if i.get("assist1") else "",
+                                    "conducao": False, "escanteio": True}]
             if i.get("assist1"):
                 d["assistencia"] = nome_jogador(i["assist1"])
             if classe == "ownGoal":
@@ -159,6 +163,7 @@ def _destaques_brutos(raw):
             continue
         base = {"minuto": s["time"], "acrescimo": s.get("addedTime") or 0, "time": _lado(s["isHome"]),
                 "jogador": nome_jogador(s.get("player")), "jogador_id": (s.get("player") or {}).get("id"),
+                "camisa": (s.get("player") or {}).get("jerseyNumber"),
                 "xg": round(s.get("xg", 0), 2), "lance": _lance_chute(s)}
         if s.get("goalkeeper"):
             base["goleiro"] = nome_jogador(s["goalkeeper"])
@@ -176,23 +181,17 @@ def _ordem(d):
     return (d["minuto"], d["acrescimo"])
 
 
-def selecionar(destaques, zero_a_zero):
-    obrigatorios = [d for d in destaques if PRIORIDADE[d["tipo"]] <= 2]
+def selecionar(destaques, zero_a_zero=False):
+    """Todos os gols, expulsões, pênaltis perdidos e gols anulados, sem limite.
+    Se der menos de 5, completa com as chances claras mais perigosas."""
+    escolha = [d for d in destaques if PRIORIDADE[d["tipo"]] <= 2]
     chances = sorted((d for d in destaques if d["tipo"] == "chance"), key=lambda d: -d["xg"])
-    amarelos = sorted((d for d in destaques if d["tipo"] == "amarelo"), key=_ordem, reverse=True)
-    limite = MAX_DESTAQUES_0X0 if zero_a_zero else MAX_DESTAQUES
-    escolha = list(obrigatorios)
-    # evita duas chances no mesmo minuto de um destaque já escolhido
     for c in chances:
-        if len(escolha) >= limite:
+        if len(escolha) >= MIN_DESTAQUES:
             break
+        # evita uma chance colada num lance já escolhido (mesmo time, mesmo minuto)
         if not any(abs(c["minuto"] - e["minuto"]) <= 1 and c["time"] == e["time"] for e in escolha):
             escolha.append(c)
-    if not zero_a_zero:
-        for a in amarelos:
-            if len(escolha) >= MIN_DESTAQUES:
-                break
-            escolha.append(a)
     return sorted(escolha, key=_ordem)
 
 

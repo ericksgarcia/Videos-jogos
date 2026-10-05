@@ -24,8 +24,9 @@ VIAGEM_MIN = 0.7      # trecho mínimo de barra entre dois destaques
 MERGULHO = 0.85       # da chegada na barra até a tela do lance
 VOZ_ATRASO = 0.55     # a narração começa um pouco depois da tela abrir
 RETORNO = 0.35        # da volta à barra até ela andar de novo
-CHUTE = 0.55          # duração da bola do chute até o gol
-PASSE_MIN = 0.32      # duração mínima de cada passe no campinho
+PASSE_MIN = 0.4       # duração mínima de cada passe no campinho
+CAMERA_3D = 1.1       # movimento de câmera do campo 2D para a visão 3D atrás do chute
+VERBOS_CHUTE = ["bateu", "cabeceou", "finalizou", "cobra", "bate", "desvia"]
 
 
 def posicao(minuto, acrescimo, acr):
@@ -72,17 +73,34 @@ def agenda(dados, vozes):
             voz_ini += S + 1.5 - clima
             clima = S + 1.5
         E = max(S + t["lance_min"], voz_ini + fala["dur"] + 0.8)
-        # jogada no campinho: passes em sequência, depois o chute que chega no clímax
-        chute = clima - CHUTE
+        # jogada no campinho, sincronizada com a fala:
+        #   passes anteriores -> passe decisivo no nome do assistente -> chute no "bateu"
+        #   -> câmera vai para 3D -> bola entra no clímax ("Gol")
+        verbo = voz.instante_de(fala, VERBOS_CHUTE)
+        chute = voz_ini + verbo if verbo is not None else clima - 2.2
+        chute = min(max(chute, S + 1.4), clima - 0.9)
+        cam = max(0.5, min(CAMERA_3D, (clima - chute) - 0.6))
+        voo = chute + cam * 0.55
         passes = (d.get("lance") or {}).get("passes") or []
+        assist = fala.get("assist")
+        t_assist = voz.instante_de(fala, [assist.split()[0]]) if assist else None
+        t_assist = voz_ini + t_assist if t_assist is not None else None
         janela_ini, janela_fim = S + 0.9, chute - 0.05
         cabe = max(0, int((janela_fim - janela_ini) / PASSE_MIN))
         passes_ini = max(0, len(passes) - cabe)
         k = len(passes) - passes_ini
-        passe_dur = (janela_fim - janela_ini) / k if k else 0
-        paradas_passes = [_r(janela_ini + j * passe_dur) for j in range(k)]
+        if k and t_assist and janela_ini + PASSE_MIN * (k - 1) <= t_assist <= janela_fim - PASSE_MIN:
+            # último passe sai quando o narrador fala o nome do assistente
+            antes = (t_assist - janela_ini) / (k - 1) if k > 1 else 0
+            paradas_passes = [_r(janela_ini + j * antes) for j in range(k - 1)] + [_r(t_assist)]
+            duracoes = [_r(antes)] * (k - 1) + [_r(janela_fim - t_assist)]
+        else:
+            passe_dur = (janela_fim - janela_ini) / k if k else 0
+            paradas_passes = [_r(janela_ini + j * passe_dur) for j in range(k)]
+            duracoes = [_r(passe_dur)] * k
         paradas.append({
-            "chute": _r(chute), "passes_ini": passes_ini, "passes_t": paradas_passes, "passe_dur": _r(passe_dur),
+            "chute": _r(chute), "camera": _r(cam), "voo": _r(voo),
+            "passes_ini": passes_ini, "passes_t": paradas_passes, "passes_dur": duracoes,
             "t": _r(chegada), "pos": pos[i], "viagem": trechos[i],
             "lance": _r(S), "voz": _r(voz_ini), "clima": _r(clima), "fim_lance": _r(E),
             "wipe": _r(E - 0.3), "placar": _r(E + 0.15),
@@ -143,7 +161,10 @@ def narrar_tudo(dados):
     for k in ("gancho", "intro", "fim"):
         texto, clima = roteiro[k]
         out[k] = dict(voz.narrar(texto), texto=texto, climax=clima)
-    out["lances"] = [dict(voz.narrar(texto), texto=texto, climax=clima) for texto, clima in roteiro["lances"]]
+    out["lances"] = []
+    for d, (texto, clima) in zip(dados["destaques"], roteiro["lances"]):
+        assist = narracao._assist(d.get("comentario") or "")[0] or d.get("assistencia")
+        out["lances"].append(dict(voz.narrar(texto), texto=texto, climax=clima, assist=assist))
     return out
 
 
@@ -180,7 +201,7 @@ def cores(casa, fora):
     return c1, c2
 
 
-def montar(dados, escudos, pasta, vozes, fotos=None, proximo=None):
+def montar(dados, escudos, pasta, vozes, proximo=None):
     """Cria a pasta do projeto HyperFrames pronta para renderizar."""
     pasta = Path(pasta)
     if pasta.exists():
@@ -197,12 +218,6 @@ def montar(dados, escudos, pasta, vozes, fotos=None, proximo=None):
             shutil.copy(src, pasta / "assets" / f"escudo_{lado}.png")
         j[lado]["escudo"] = f"assets/escudo_{lado}.png" if src else None
     j["casa"]["destaque"], j["fora"]["destaque"] = cores(j["casa"], j["fora"])
-    for i, d in enumerate(dados["destaques"]):
-        src = (fotos or {}).get(d.get("jogador_id"))
-        if src:
-            nome = f"assets/jogador_{d['jogador_id']}.png"
-            shutil.copy(src, pasta / nome)
-            d["foto"] = nome
     import narracao
     for d in dados["destaques"]:
         d["chips"] = narracao.chips(d)

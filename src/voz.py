@@ -184,6 +184,15 @@ def instante(fala, palavra):
     return fala["dur"] * 0.7
 
 
+def instante_de(fala, palavras, depois=0.0):
+    """Início da primeira palavra da lista que aparece depois de `depois` s; None se não achar."""
+    alvos = {_norm(p) for p in palavras}
+    for w, ini, _ in fala["palavras"]:
+        if ini >= depois and _norm(w) in alvos:
+            return ini
+    return None
+
+
 def legendas(fala, inicio, max_palavras=4):
     """Agrupa as palavras em blocos curtos, estilo TikTok, com tempos absolutos."""
     blocos, atual = [], []
