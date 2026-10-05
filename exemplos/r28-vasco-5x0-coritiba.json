@@ -1,0 +1,490 @@
+{
+  "jogo": {
+    "id": 15235477,
+    "campeonato": "Brasileirão",
+    "temporada": "2026",
+    "rodada": 28,
+    "estadio": "Estádio São Januário",
+    "inicio": 1789860600,
+    "casa": {
+      "id": 1974,
+      "nome": "Vasco",
+      "sigla": "VAS",
+      "cor": "#ffffff",
+      "cor2": "#000000"
+    },
+    "fora": {
+      "id": 1982,
+      "nome": "Coritiba",
+      "sigla": "CFC",
+      "cor": "#ffffff",
+      "cor2": "#009966"
+    },
+    "placar": [
+      5,
+      0
+    ],
+    "acrescimos": [
+      3,
+      7
+    ]
+  },
+  "formato": "normal",
+  "gancho": {
+    "regra": "goleada",
+    "titulo": "GOLEADA",
+    "subtitulo": "Foram 5 gols. Vasco x Coritiba, lance a lance"
+  },
+  "destaques": [
+    {
+      "minuto": 24,
+      "acrescimo": 0,
+      "time": "casa",
+      "tipo": "gol",
+      "jogador": "Facundo Colidio",
+      "placar": [
+        1,
+        0
+      ]
+    },
+    {
+      "minuto": 44,
+      "acrescimo": 0,
+      "time": "casa",
+      "tipo": "gol",
+      "jogador": "Bruno Duarte",
+      "placar": [
+        2,
+        0
+      ],
+      "detalhe": "assistência de Andrés Gómez"
+    },
+    {
+      "minuto": 56,
+      "acrescimo": 0,
+      "time": "casa",
+      "tipo": "gol",
+      "jogador": "Alan Lescano",
+      "placar": [
+        3,
+        0
+      ],
+      "detalhe": "de pênalti"
+    },
+    {
+      "minuto": 63,
+      "acrescimo": 0,
+      "time": "casa",
+      "tipo": "gol",
+      "jogador": "Andrés Gómez",
+      "placar": [
+        4,
+        0
+      ],
+      "detalhe": "assistência de Alan Saldivia"
+    },
+    {
+      "minuto": 73,
+      "acrescimo": 0,
+      "time": "casa",
+      "tipo": "gol",
+      "jogador": "Ramon Rique",
+      "placar": [
+        5,
+        0
+      ]
+    }
+  ],
+  "momentum": [
+    {
+      "minuto": 1,
+      "valor": 0.03
+    },
+    {
+      "minuto": 2,
+      "valor": 0.32
+    },
+    {
+      "minuto": 3,
+      "valor": 0.22
+    },
+    {
+      "minuto": 4,
+      "valor": 0.15
+    },
+    {
+      "minuto": 5,
+      "valor": 0.13
+    },
+    {
+      "minuto": 6,
+      "valor": 0.11
+    },
+    {
+      "minuto": 7,
+      "valor": 0.08
+    },
+    {
+      "minuto": 8,
+      "valor": 0.53
+    },
+    {
+      "minuto": 9,
+      "valor": 0.27
+    },
+    {
+      "minuto": 10,
+      "valor": 0.45
+    },
+    {
+      "minuto": 11,
+      "valor": 0.37
+    },
+    {
+      "minuto": 12,
+      "valor": 0.22
+    },
+    {
+      "minuto": 13,
+      "valor": 0.29
+    },
+    {
+      "minuto": 14,
+      "valor": 0.22
+    },
+    {
+      "minuto": 15,
+      "valor": 0.33
+    },
+    {
+      "minuto": 16,
+      "valor": 0.34
+    },
+    {
+      "minuto": 17,
+      "valor": 0.13
+    },
+    {
+      "minuto": 18,
+      "valor": -0.21
+    },
+    {
+      "minuto": 19,
+      "valor": -0.06
+    },
+    {
+      "minuto": 20,
+      "valor": -0.01
+    },
+    {
+      "minuto": 21,
+      "valor": 0.38
+    },
+    {
+      "minuto": 22,
+      "valor": 0.25
+    },
+    {
+      "minuto": 23,
+      "valor": 0.24
+    },
+    {
+      "minuto": 24,
+      "valor": 0.41
+    },
+    {
+      "minuto": 25,
+      "valor": 0.24
+    },
+    {
+      "minuto": 26,
+      "valor": 0.05
+    },
+    {
+      "minuto": 27,
+      "valor": 0.29
+    },
+    {
+      "minuto": 28,
+      "valor": 0.62
+    },
+    {
+      "minuto": 29,
+      "valor": 0.37
+    },
+    {
+      "minuto": 30,
+      "valor": 0.23
+    },
+    {
+      "minuto": 31,
+      "valor": 0.16
+    },
+    {
+      "minuto": 32,
+      "valor": 0.09
+    },
+    {
+      "minuto": 33,
+      "valor": 0.04
+    },
+    {
+      "minuto": 34,
+      "valor": 0.04
+    },
+    {
+      "minuto": 35,
+      "valor": 0.04
+    },
+    {
+      "minuto": 36,
+      "valor": 0.04
+    },
+    {
+      "minuto": 37,
+      "valor": 0.26
+    },
+    {
+      "minuto": 38,
+      "valor": 0.17
+    },
+    {
+      "minuto": 39,
+      "valor": 0.44
+    },
+    {
+      "minuto": 40,
+      "valor": -0.34
+    },
+    {
+      "minuto": 41,
+      "valor": 0.11
+    },
+    {
+      "minuto": 42,
+      "valor": 0.08
+    },
+    {
+      "minuto": 43,
+      "valor": 0.62
+    },
+    {
+      "minuto": 44,
+      "valor": 0.53
+    },
+    {
+      "minuto": 45,
+      "valor": 0.58
+    },
+    {
+      "minuto": 45.5,
+      "valor": 0.29
+    },
+    {
+      "minuto": 46,
+      "valor": -0.02
+    },
+    {
+      "minuto": 47,
+      "valor": 0.03
+    },
+    {
+      "minuto": 48,
+      "valor": -0.06
+    },
+    {
+      "minuto": 49,
+      "valor": -0.07
+    },
+    {
+      "minuto": 50,
+      "valor": -0.12
+    },
+    {
+      "minuto": 51,
+      "valor": -0.1
+    },
+    {
+      "minuto": 52,
+      "valor": 0.26
+    },
+    {
+      "minuto": 53,
+      "valor": 0.13
+    },
+    {
+      "minuto": 54,
+      "valor": 0.47
+    },
+    {
+      "minuto": 55,
+      "valor": 0.37
+    },
+    {
+      "minuto": 56,
+      "valor": 0.53
+    },
+    {
+      "minuto": 57,
+      "valor": 0.31
+    },
+    {
+      "minuto": 58,
+      "valor": 0.19
+    },
+    {
+      "minuto": 59,
+      "valor": 0.13
+    },
+    {
+      "minuto": 60,
+      "valor": 0.39
+    },
+    {
+      "minuto": 61,
+      "valor": 0.22
+    },
+    {
+      "minuto": 62,
+      "valor": 0.23
+    },
+    {
+      "minuto": 63,
+      "valor": 0.2
+    },
+    {
+      "minuto": 64,
+      "valor": 0.32
+    },
+    {
+      "minuto": 65,
+      "valor": 0.23
+    },
+    {
+      "minuto": 66,
+      "valor": 0.52
+    },
+    {
+      "minuto": 67,
+      "valor": 0.95
+    },
+    {
+      "minuto": 68,
+      "valor": 0.61
+    },
+    {
+      "minuto": 69,
+      "valor": 0.45
+    },
+    {
+      "minuto": 70,
+      "valor": 0.36
+    },
+    {
+      "minuto": 71,
+      "valor": 0.77
+    },
+    {
+      "minuto": 72,
+      "valor": 0.37
+    },
+    {
+      "minuto": 73,
+      "valor": 0.35
+    },
+    {
+      "minuto": 74,
+      "valor": 0.25
+    },
+    {
+      "minuto": 75,
+      "valor": 0.36
+    },
+    {
+      "minuto": 76,
+      "valor": 0.36
+    },
+    {
+      "minuto": 77,
+      "valor": 0.27
+    },
+    {
+      "minuto": 78,
+      "valor": 0.5
+    },
+    {
+      "minuto": 79,
+      "valor": 0.35
+    },
+    {
+      "minuto": 80,
+      "valor": 0.62
+    },
+    {
+      "minuto": 81,
+      "valor": 0.78
+    },
+    {
+      "minuto": 82,
+      "valor": 0.49
+    },
+    {
+      "minuto": 83,
+      "valor": 0.32
+    },
+    {
+      "minuto": 84,
+      "valor": 0.22
+    },
+    {
+      "minuto": 85,
+      "valor": 0.15
+    },
+    {
+      "minuto": 86,
+      "valor": 0.17
+    },
+    {
+      "minuto": 87,
+      "valor": -0.36
+    },
+    {
+      "minuto": 88,
+      "valor": 0.77
+    },
+    {
+      "minuto": 89,
+      "valor": 0.45
+    },
+    {
+      "minuto": 90,
+      "valor": 0.67
+    },
+    {
+      "minuto": 90.5,
+      "valor": 0.86
+    }
+  ],
+  "estatisticas": {
+    "posse": [
+      65.0,
+      35.0
+    ],
+    "xg": [
+      3.66,
+      0.1
+    ],
+    "chances_claras": [
+      4.0,
+      0.0
+    ],
+    "finalizacoes": [
+      32.0,
+      4.0
+    ],
+    "no_gol": [
+      11.0,
+      1.0
+    ]
+  }
+}

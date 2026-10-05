@@ -1,0 +1,482 @@
+{
+  "jogo": {
+    "id": 15235481,
+    "campeonato": "Brasileirão",
+    "temporada": "2026",
+    "rodada": 28,
+    "estadio": "Estádio José Maria de Campos Maia",
+    "inicio": 1789848000,
+    "casa": {
+      "id": 21982,
+      "nome": "Mirassol",
+      "sigla": "MIR",
+      "cor": "#e8c728",
+      "cor2": "#174c30"
+    },
+    "fora": {
+      "id": 1958,
+      "nome": "Botafogo",
+      "sigla": "BOT",
+      "cor": "#000000",
+      "cor2": "#ffffff"
+    },
+    "placar": [
+      2,
+      0
+    ],
+    "acrescimos": [
+      5,
+      4
+    ]
+  },
+  "formato": "normal",
+  "gancho": {
+    "regra": "artilheiro",
+    "titulo": "EDUARDO FEZ DOIS",
+    "subtitulo": "Mirassol x Botafogo, lance a lance"
+  },
+  "destaques": [
+    {
+      "minuto": 16,
+      "acrescimo": 0,
+      "time": "casa",
+      "tipo": "gol",
+      "jogador": "Eduardo",
+      "placar": [
+        1,
+        0
+      ],
+      "detalhe": "assistência de Igor Formiga"
+    },
+    {
+      "minuto": 45,
+      "acrescimo": 2,
+      "time": "casa",
+      "tipo": "gol",
+      "jogador": "Eduardo",
+      "placar": [
+        2,
+        0
+      ]
+    },
+    {
+      "minuto": 55,
+      "acrescimo": 0,
+      "time": "fora",
+      "jogador": "Cristian Medina",
+      "xg": 0.31,
+      "tipo": "chance",
+      "detalhe": "defesa de Walter"
+    },
+    {
+      "minuto": 70,
+      "acrescimo": 0,
+      "time": "casa",
+      "jogador": "Bruno Santos",
+      "xg": 0.38,
+      "tipo": "chance",
+      "detalhe": "para fora"
+    },
+    {
+      "minuto": 90,
+      "acrescimo": 1,
+      "time": "fora",
+      "jogador": "Kauan Toledo",
+      "xg": 0.47,
+      "tipo": "chance",
+      "detalhe": "defesa de Walter"
+    }
+  ],
+  "momentum": [
+    {
+      "minuto": 1,
+      "valor": 0.02
+    },
+    {
+      "minuto": 2,
+      "valor": -0.21
+    },
+    {
+      "minuto": 3,
+      "valor": -0.2
+    },
+    {
+      "minuto": 4,
+      "valor": -0.2
+    },
+    {
+      "minuto": 5,
+      "valor": -0.24
+    },
+    {
+      "minuto": 6,
+      "valor": -0.37
+    },
+    {
+      "minuto": 7,
+      "valor": -0.28
+    },
+    {
+      "minuto": 8,
+      "valor": -0.39
+    },
+    {
+      "minuto": 9,
+      "valor": -0.51
+    },
+    {
+      "minuto": 10,
+      "valor": 0.51
+    },
+    {
+      "minuto": 11,
+      "valor": -0.44
+    },
+    {
+      "minuto": 12,
+      "valor": -0.09
+    },
+    {
+      "minuto": 13,
+      "valor": 0.06
+    },
+    {
+      "minuto": 14,
+      "valor": -0.27
+    },
+    {
+      "minuto": 15,
+      "valor": -0.17
+    },
+    {
+      "minuto": 16,
+      "valor": -0.33
+    },
+    {
+      "minuto": 17,
+      "valor": -0.08
+    },
+    {
+      "minuto": 18,
+      "valor": 0.23
+    },
+    {
+      "minuto": 19,
+      "valor": 0.21
+    },
+    {
+      "minuto": 20,
+      "valor": 0.48
+    },
+    {
+      "minuto": 21,
+      "valor": 0.24
+    },
+    {
+      "minuto": 22,
+      "valor": 0.07
+    },
+    {
+      "minuto": 23,
+      "valor": -0.25
+    },
+    {
+      "minuto": 24,
+      "valor": -0.03
+    },
+    {
+      "minuto": 25,
+      "valor": 0.25
+    },
+    {
+      "minuto": 26,
+      "valor": 0.33
+    },
+    {
+      "minuto": 27,
+      "valor": 0.55
+    },
+    {
+      "minuto": 28,
+      "valor": 0.47
+    },
+    {
+      "minuto": 29,
+      "valor": 0.43
+    },
+    {
+      "minuto": 30,
+      "valor": 0.2
+    },
+    {
+      "minuto": 31,
+      "valor": 0.03
+    },
+    {
+      "minuto": 32,
+      "valor": -0.06
+    },
+    {
+      "minuto": 33,
+      "valor": -0.09
+    },
+    {
+      "minuto": 34,
+      "valor": -0.11
+    },
+    {
+      "minuto": 35,
+      "valor": -0.09
+    },
+    {
+      "minuto": 36,
+      "valor": 0.13
+    },
+    {
+      "minuto": 37,
+      "valor": -0.34
+    },
+    {
+      "minuto": 38,
+      "valor": -0.21
+    },
+    {
+      "minuto": 39,
+      "valor": -0.64
+    },
+    {
+      "minuto": 40,
+      "valor": -0.41
+    },
+    {
+      "minuto": 41,
+      "valor": -0.22
+    },
+    {
+      "minuto": 42,
+      "valor": -0.14
+    },
+    {
+      "minuto": 43,
+      "valor": -0.27
+    },
+    {
+      "minuto": 44,
+      "valor": -0.08
+    },
+    {
+      "minuto": 45,
+      "valor": 0.25
+    },
+    {
+      "minuto": 45.5,
+      "valor": 0.07
+    },
+    {
+      "minuto": 46,
+      "valor": -0.06
+    },
+    {
+      "minuto": 47,
+      "valor": -0.22
+    },
+    {
+      "minuto": 48,
+      "valor": -0.28
+    },
+    {
+      "minuto": 49,
+      "valor": -0.14
+    },
+    {
+      "minuto": 50,
+      "valor": 0.09
+    },
+    {
+      "minuto": 51,
+      "valor": -0.44
+    },
+    {
+      "minuto": 52,
+      "valor": -0.35
+    },
+    {
+      "minuto": 53,
+      "valor": -0.16
+    },
+    {
+      "minuto": 54,
+      "valor": -0.05
+    },
+    {
+      "minuto": 55,
+      "valor": -0.13
+    },
+    {
+      "minuto": 56,
+      "valor": -0.01
+    },
+    {
+      "minuto": 57,
+      "valor": 0.09
+    },
+    {
+      "minuto": 58,
+      "valor": 0.11
+    },
+    {
+      "minuto": 59,
+      "valor": 0.11
+    },
+    {
+      "minuto": 60,
+      "valor": 0.13
+    },
+    {
+      "minuto": 61,
+      "valor": 0.19
+    },
+    {
+      "minuto": 62,
+      "valor": 0.04
+    },
+    {
+      "minuto": 63,
+      "valor": -0.04
+    },
+    {
+      "minuto": 64,
+      "valor": -0.31
+    },
+    {
+      "minuto": 65,
+      "valor": -0.96
+    },
+    {
+      "minuto": 66,
+      "valor": -0.61
+    },
+    {
+      "minuto": 67,
+      "valor": -0.4
+    },
+    {
+      "minuto": 68,
+      "valor": -0.37
+    },
+    {
+      "minuto": 69,
+      "valor": -0.24
+    },
+    {
+      "minuto": 70,
+      "valor": -0.11
+    },
+    {
+      "minuto": 71,
+      "valor": 0.28
+    },
+    {
+      "minuto": 72,
+      "valor": 0.24
+    },
+    {
+      "minuto": 73,
+      "valor": 0.26
+    },
+    {
+      "minuto": 74,
+      "valor": 0.32
+    },
+    {
+      "minuto": 75,
+      "valor": 0.27
+    },
+    {
+      "minuto": 76,
+      "valor": 0.27
+    },
+    {
+      "minuto": 77,
+      "valor": 0.04
+    },
+    {
+      "minuto": 78,
+      "valor": -0.23
+    },
+    {
+      "minuto": 79,
+      "valor": 0.16
+    },
+    {
+      "minuto": 80,
+      "valor": 0.14
+    },
+    {
+      "minuto": 81,
+      "valor": 0.17
+    },
+    {
+      "minuto": 82,
+      "valor": 0.68
+    },
+    {
+      "minuto": 83,
+      "valor": 0.36
+    },
+    {
+      "minuto": 84,
+      "valor": 0.23
+    },
+    {
+      "minuto": 85,
+      "valor": 0.15
+    },
+    {
+      "minuto": 86,
+      "valor": 0.11
+    },
+    {
+      "minuto": 87,
+      "valor": 0.05
+    },
+    {
+      "minuto": 88,
+      "valor": 0.06
+    },
+    {
+      "minuto": 89,
+      "valor": -0.23
+    },
+    {
+      "minuto": 90,
+      "valor": -0.34
+    },
+    {
+      "minuto": 90.5,
+      "valor": 0.27
+    }
+  ],
+  "estatisticas": {
+    "posse": [
+      50.0,
+      50.0
+    ],
+    "xg": [
+      1.19,
+      1.35
+    ],
+    "chances_claras": [
+      3.0,
+      2.0
+    ],
+    "finalizacoes": [
+      12.0,
+      11.0
+    ],
+    "no_gol": [
+      7.0,
+      5.0
+    ]
+  }
+}
