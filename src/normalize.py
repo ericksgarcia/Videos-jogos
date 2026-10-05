@@ -7,15 +7,14 @@ escolha do gancho e classificação dos 0x0.
 # Ranking: gol > vermelho > pênalti perdido / gol anulado > chance clara > amarelo
 PRIORIDADE = {"gol": 0, "vermelho": 1, "penalti_perdido": 2, "anulado": 2, "chance": 3, "amarelo": 4}
 XG_CHANCE_CLARA = 0.30   # finalização sem gol com xG acima disso vira "chance clara"
-MAX_DESTAQUES = 7
-MIN_DESTAQUES = 5        # completa com amarelos se faltar
+MAX_DESTAQUES = 5
+MIN_DESTAQUES = 4        # completa com amarelos se faltar
 MAX_DESTAQUES_0X0 = 4
 
 STATS = {
     "ballPossession": "posse",
     "totalShotsOnGoal": "finalizacoes",
     "shotsOnGoal": "no_gol",
-    "expectedGoals": "xg",
     "bigChanceCreated": "chances_claras",
 }
 
@@ -38,27 +37,101 @@ def _num(v):
         return None
 
 
+FEMININOS = {"Chapecoense", "Ponte Preta", "Portuguesa", "Ferroviária", "Tuna Luso", "Inter de Limeira"}
+FALADO = {"Atlético-MG": "Atlético Mineiro", "Athletico": "Athletico Paranaense", "RB Bragantino": "Bragantino",
+          "Vasco": "Vasco", "Atlético-GO": "Atlético Goianiense"}
+
+
 def _time(ev, lado):
     t = ev[lado]
     cores = t.get("teamColors") or {}
+    curto = t.get("shortName") or t["name"]
     return {
         "id": t["id"],
-        "nome": t.get("shortName") or t["name"],
+        "nome": curto,
+        "falado": FALADO.get(curto, curto),
+        "artigo": "a" if curto in FEMININOS else "o",
         "sigla": t.get("nameCode", t["name"][:3].upper()),
         "cor": cores.get("primary", "#ffffff"),
         "cor2": cores.get("secondary", "#000000"),
     }
 
 
+def _ponto(c):
+    """Coordenada Sofascore -> [lateral 0..100 (0 = esquerda de quem ataca), distância ao gol 0..100]."""
+    return [round(100 - c["y"], 1), round(c["x"], 1)]
+
+
+def _lance_chute(s):
+    if not s:
+        return None
+    pc = s.get("playerCoordinates")
+    if not pc:
+        return None
+    boca = s.get("goalMouthCoordinates") or {}
+    return {
+        "origem": _ponto(pc),
+        "boca": [round(boca.get("y", 50), 1), round(boca.get("z", 0), 1)] if boca else None,
+        "local": s.get("goalMouthLocation"),
+        "parte": s.get("bodyPart"),
+        "situacao": s.get("situation"),
+        "resultado": s.get("shotType"),
+    }
+
+
+def _passes(inc):
+    out = []
+    for a in inc.get("footballPassingNetworkAction") or []:
+        if a.get("eventType") == "goal" or not a.get("passEndCoordinates"):
+            continue
+        out.append({"de": _ponto(a["playerCoordinates"]), "para": _ponto(a["passEndCoordinates"]),
+                    "jogador": nome_jogador(a.get("player")), "conducao": a.get("eventType") == "ball-movement"})
+    return out[-4:]
+
+
+TIPOS_COMENTARIO = {
+    "gol": ("scoreChange",), "chance": ("shotSaved", "shotOffTarget", "post"), "amarelo": ("yellowCard",),
+    "vermelho": ("yellowRedCard", "redCard"), "penalti_perdido": ("penaltySaved", "penaltyMissed"),
+    "anulado": ("videoAssistantReferee",),
+}
+
+
+def comentario(raw, d):
+    """Texto da Opta (em inglês) do lance, para a narração."""
+    cs = (raw.get("comments") or {}).get("comments", [])
+    alvo = d["minuto"] + (d["acrescimo"] or 0)
+    melhor = None
+    for c in cs:
+        if c.get("type") not in TIPOS_COMENTARIO.get(d["tipo"], ()):
+            continue
+        dt = abs((c.get("time") or 0) - alvo)
+        mesmo = d.get("jogador_id") and (c.get("player") or {}).get("id") == d.get("jogador_id")
+        if dt <= 2 and (mesmo or melhor is None):
+            melhor = c
+            if mesmo:
+                break
+    return melhor["text"] if melhor else None
+
+
 def _destaques_brutos(raw):
+    chutes = (raw.get("shotmap") or {}).get("shotmap", [])
     incs = sorted(raw["incidents"]["incidents"], key=lambda i: (i.get("time", 0), i.get("addedTime") or 0))
     out = []
     var_confirmados = []
     for i in incs:
         tipo, classe = i["incidentType"], i.get("incidentClass")
         base = {"minuto": i["time"], "acrescimo": i.get("addedTime") or 0, "time": _lado(i.get("isHome"))}
+        pid = (i.get("player") or {}).get("id")
+        base["jogador_id"] = pid
         if tipo == "goal":
             d = dict(base, tipo="gol", jogador=nome_jogador(i.get("player")), placar=[i["homeScore"], i["awayScore"]])
+            s = next((c for c in chutes if c["shotType"] == "goal" and (c.get("player") or {}).get("id") == pid
+                      and abs(c["time"] - i["time"]) <= 1), None)
+            d["lance"] = _lance_chute(s)
+            if d["lance"]:
+                d["lance"]["passes"] = _passes(i)
+            if i.get("assist1"):
+                d["assistencia"] = nome_jogador(i["assist1"])
             if classe == "ownGoal":
                 d["detalhe"] = "contra"
             elif classe == "penalty":
@@ -85,7 +158,10 @@ def _destaques_brutos(raw):
         if s["shotType"] == "goal":
             continue
         base = {"minuto": s["time"], "acrescimo": s.get("addedTime") or 0, "time": _lado(s["isHome"]),
-                "jogador": nome_jogador(s.get("player")), "xg": round(s.get("xg", 0), 2)}
+                "jogador": nome_jogador(s.get("player")), "jogador_id": (s.get("player") or {}).get("id"),
+                "xg": round(s.get("xg", 0), 2), "lance": _lance_chute(s)}
+        if s.get("goalkeeper"):
+            base["goleiro"] = nome_jogador(s["goalkeeper"])
         gk = nome_jogador(s.get("goalkeeper")) if s.get("goalkeeper") else ""
         detalhe = {"save": f"defesa de {gk}" if gk else "defesa do goleiro", "post": "na trave",
                    "miss": "para fora", "block": "bloqueado"}.get(s["shotType"], "")
@@ -146,11 +222,11 @@ def _gancho(jogo, todos, stats):
                 return {"regra": "decidido_no_fim", "titulo": "DECIDIDO NO FIM", "subtitulo": sub}
     if abs(h - a) >= 3:
         return {"regra": "goleada", "titulo": "GOLEADA", "subtitulo": f"Foram {h + a} gols. {sub}"}
-    xg = stats.get("xg")
-    if h != a and xg:
+    cc, fin = stats.get("chances_claras"), stats.get("finalizacoes")
+    if h != a and cc and fin:
         venc = 0 if h > a else 1
-        if xg[venc] + 0.5 < xg[1 - venc]:
-            return {"regra": "zebra_xg", "titulo": "VENCEU CRIANDO MENOS", "subtitulo": sub}
+        if cc[venc] < cc[1 - venc] and fin[venc] < fin[1 - venc]:
+            return {"regra": "venceu_criando_menos", "titulo": "VENCEU CRIANDO MENOS", "subtitulo": sub}
     artilheiros = {}
     for g in gols:
         if g.get("detalhe") != "contra":
@@ -205,6 +281,8 @@ def normalizar(raw):
     todos = _destaques_brutos(raw)
     zero = jogo["placar"] == [0, 0]
     destaques = selecionar(todos, zero)
+    for d in destaques:
+        d["comentario"] = comentario(raw, d)
     stats = _stats(raw)
     pontos = (raw.get("graph") or {}).get("graphPoints", [])
     momentum = [{"minuto": p["minute"], "valor": round(p["value"] / 100, 2)} for p in pontos]

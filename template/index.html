@@ -15,6 +15,7 @@
         --linha: rgba(255, 255, 255, 0.14);
         --casa: #ffffff;
         --fora: #facc15;
+        --amarelo: #facc15;
       }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
@@ -29,7 +30,7 @@
       #b1 { left: -700px; top: -600px; background: radial-gradient(closest-side, color-mix(in srgb, var(--casa) 30%, transparent), transparent); }
       #b2 { left: 300px; top: 1000px; background: radial-gradient(closest-side, color-mix(in srgb, var(--fora) 30%, transparent), transparent); }
       #b3 { left: 100px; top: 300px; width: 1100px; height: 1100px; background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05), transparent); }
-      #campo { position: absolute; left: -200px; top: 200px; width: 1480px; height: 1800px; opacity: 0.07; }
+      #campo-fundo { position: absolute; left: -200px; top: 200px; width: 1480px; height: 1800px; opacity: 0.07; }
       #faixas { position: absolute; inset: 0; overflow: hidden; }
       .raio { position: absolute; top: -400px; width: 160px; height: 2800px; transform: rotate(18deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent); }
 
@@ -76,61 +77,25 @@
       #intro .rolando { position: relative; margin-top: 70px; font-weight: 800; font-size: 56px; letter-spacing: 0.1em; padding: 20px 48px; border-radius: 999px; background: var(--texto); color: var(--bg); opacity: 0; }
       #intro .rolando .pulso { position: absolute; inset: 0; border-radius: 999px; border: 5px solid var(--texto); opacity: 0; }
 
-      /* ---------- principal ---------- */
+      /* ---------- barra (linha do tempo) ---------- */
+      #principal { transform-origin: 540px 1100px; }
       #placar { position: absolute; top: 170px; left: 60px; width: 880px; height: 270px; display: flex; align-items: center; justify-content: space-between; }
-      #placar .lado { width: 220px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-      #placar .lado .img { width: 150px; height: 150px; font-size: 150px; filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)); }
-      #placar .lado .sigla { font-weight: 800; font-size: 52px; letter-spacing: 0.06em; }
-      #placar .centro { display: flex; flex-direction: column; align-items: center; }
-      #placar .nums { display: flex; align-items: center; gap: 28px; font-weight: 800; font-size: 190px; line-height: 1; }
-      #placar .num { position: relative; width: 110px; height: 190px; overflow: hidden; }
-      #placar .num span { position: absolute; inset: 0; text-align: center; opacity: 0; }
-      #placar .num span:first-child { opacity: 1; }
-      #placar .traco { color: var(--suave); font-size: 120px; }
-      #relogio { position: relative; width: 220px; height: 76px; margin-top: 10px; border-radius: 38px; background: rgba(255, 255, 255, 0.12); border: 2px solid var(--linha); }
-      #relogio span { position: absolute; inset: 0; text-align: center; line-height: 72px; font-weight: 700; font-size: 50px; opacity: 0; }
-      #relogio .ao-vivo { position: absolute; left: 22px; top: 30px; width: 14px; height: 14px; border-radius: 50%; background: #ef4444; }
+      .lado { width: 220px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+      .lado .img { width: 150px; height: 150px; font-size: 150px; filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)); }
+      .lado .sigla { font-weight: 800; font-size: 52px; letter-spacing: 0.06em; }
+      .nums { display: flex; align-items: center; gap: 28px; font-weight: 800; font-size: 190px; line-height: 1; }
+      .num { position: relative; width: 110px; height: 190px; overflow: hidden; }
+      .num span { position: absolute; inset: 0; text-align: center; opacity: 0; }
+      .num span:first-child { opacity: 1; }
+      .traco { color: var(--suave); font-size: 120px; }
+      #relogio { position: absolute; top: 540px; left: 60px; width: 880px; height: 330px; text-align: center; }
+      #relogio .periodo { font-weight: 700; font-size: 46px; letter-spacing: 0.18em; color: var(--suave); }
+      #relogio .periodo span { position: absolute; left: 0; right: 0; opacity: 0; }
+      #relogio .min { position: relative; height: 250px; margin-top: 70px; }
+      #relogio .min span { position: absolute; left: 0; right: 0; font-weight: 800; font-size: 250px; line-height: 1; opacity: 0; }
+      #relogio .ao-vivo { position: absolute; left: 50%; top: 4px; margin-left: -230px; width: 18px; height: 18px; border-radius: 50%; background: #ef4444; }
 
-      #gigante { position: absolute; left: 0; top: 520px; width: 1080px; text-align: center; font-weight: 800; font-size: 560px; line-height: 1; color: transparent; -webkit-text-stroke: 6px var(--cor, #fff); opacity: 0; transform-origin: 50% 50%; }
-      #palco { position: absolute; top: 500px; left: 60px; width: 880px; height: 680px; perspective: 1600px; }
-      .card {
-        position: absolute; inset: 0; opacity: 0; border-radius: 40px; padding: 52px 56px; overflow: hidden;
-        background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
-        border: 2px solid rgba(255, 255, 255, 0.16); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-        display: flex; flex-direction: column; transform-origin: 50% 60%;
-      }
-      .card .faixa-cor { position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--cor); transform-origin: top; }
-      .card .reflexo { position: absolute; top: -200px; left: -400px; width: 260px; height: 1200px; transform: rotate(22deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent); }
-      .card .topo { position: relative; display: flex; align-items: center; gap: 30px; }
-      .card .icone { width: 120px; height: 120px; flex: none; }
-      .card { --cor-txt: color-mix(in srgb, var(--cor) 62%, #ffffff); }
-      .card .min { font-weight: 800; font-size: 120px; line-height: 1; color: var(--cor-txt); }
-      .card .esc { margin-left: auto; width: 130px; height: 130px; font-size: 130px; }
-      .card .rot-box { position: relative; margin-top: 26px; height: 150px; }
-      .card .rotulo { position: absolute; left: 0; top: 0; font-weight: 800; font-size: 150px; line-height: 1; text-transform: uppercase; white-space: nowrap; }
-      .card .rotulo.c1 { color: var(--cor); mix-blend-mode: screen; opacity: 0; }
-      .card .rotulo.c2 { color: #22d3ee; mix-blend-mode: screen; opacity: 0; }
-      .card.longo .rot-box { height: 116px; }
-      .card.longo .rotulo { font-size: 112px; }
-      .card .jogador { font-weight: 700; font-size: 82px; line-height: 1.1; margin-top: 14px; }
-      .card .detalhe { font-weight: 500; font-size: 48px; color: var(--suave); margin-top: 8px; }
-      .card .rodape { margin-top: auto; display: flex; align-items: center; gap: 24px; font-weight: 800; font-size: 76px; position: relative; }
-      .card .rodape .s { color: var(--suave); }
-      .card .rodape .marcou { color: var(--cor-txt); }
-      .card .medidor { flex: 1; }
-      .card .medidor .rot { font-weight: 700; font-size: 40px; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; }
-      .card .medidor .trilho { position: relative; height: 30px; border-radius: 15px; background: var(--linha); margin-top: 14px; overflow: hidden; }
-      .card .medidor .enche { position: absolute; inset: 0; background: var(--cor); box-shadow: 0 0 30px var(--cor); transform-origin: left center; transform: scaleX(0); }
-      .card .pct { position: relative; width: 150px; height: 80px; font-size: 76px; }
-      .card .pct span { position: absolute; right: 0; top: 0; opacity: 0; }
-      .cartao { position: absolute; right: 70px; top: 230px; width: 200px; height: 290px; border-radius: 22px; opacity: 0; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
-      .cartao::after { content: ""; position: absolute; inset: 0; border-radius: 22px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), transparent 45%); }
-
-      #particulas { position: absolute; inset: 0; }
-      .conf { position: absolute; left: 540px; top: 840px; width: 22px; height: 34px; border-radius: 4px; opacity: 0; }
-      .onda { position: absolute; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 6px solid var(--cor); opacity: 0; }
-
-      #barra { position: absolute; top: 1190px; left: 80px; width: 840px; height: 420px; }
+      #barra { position: absolute; top: 960px; left: 80px; width: 840px; height: 440px; }
       #marcas { position: absolute; left: 0; top: 0; width: 840px; height: 150px; }
       .marca { position: absolute; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%; background: var(--bg); border: 5px solid var(--cor); padding: 9px; opacity: 0; box-shadow: 0 0 24px color-mix(in srgb, var(--cor) 60%, transparent); }
       .marca.r0 { top: 82px; }
@@ -143,11 +108,56 @@
       #cabeca { position: absolute; left: 0; top: 171px; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: #fff; box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.55); }
       .tique { position: absolute; top: 152px; width: 4px; height: 38px; margin-left: -2px; background: var(--texto); opacity: 0.5; }
       .rot-t { position: absolute; top: 200px; font-weight: 700; font-size: 38px; color: var(--suave); transform: translateX(-50%); }
-      #momentum { position: absolute; left: 0; top: 260px; width: 840px; height: 160px; }
+      .onda { position: absolute; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 6px solid var(--cor); opacity: 0; }
+      #momentum { position: absolute; left: 0; top: 270px; width: 840px; height: 160px; }
       #mom-revela { position: absolute; left: 0; top: 0; height: 160px; width: 0; overflow: hidden; }
       #momentum svg { position: absolute; left: 0; top: 0; }
       #momentum .eixo { position: absolute; left: 0; top: 79px; width: 840px; height: 2px; background: var(--linha); }
-      #momentum .leg { position: absolute; left: -64px; width: 44px; height: 44px; font-size: 44px; }
+      #momentum .leg-t { position: absolute; left: -64px; width: 44px; height: 44px; font-size: 44px; }
+
+      /* ---------- tela do lance ---------- */
+      .lance { transform-origin: 540px 900px; }
+      .lance .topo { position: absolute; top: 150px; left: 60px; width: 900px; height: 150px; display: flex; align-items: center; gap: 26px; }
+      .lance .tipo { font-weight: 800; font-size: 64px; letter-spacing: 0.04em; padding: 8px 30px; border-radius: 18px; background: var(--cor); color: var(--sobre-cor); }
+      .lance .minuto { font-weight: 800; font-size: 96px; line-height: 1; }
+      .lance .mini { margin-left: auto; display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 64px; padding: 10px 22px; border-radius: 22px; background: rgba(255, 255, 255, 0.08); border: 2px solid var(--linha); }
+      .lance .mini .img { width: 60px; height: 60px; font-size: 60px; }
+      .lance .mini .num { width: 40px; height: 70px; }
+      .lance .mini .num span { line-height: 70px; }
+      .lance .jog { position: absolute; top: 330px; left: 60px; width: 900px; height: 260px; display: flex; align-items: center; gap: 40px; }
+      .lance .foto { position: relative; width: 240px; height: 240px; flex: none; border-radius: 50%; padding: 10px; background: conic-gradient(var(--cor), color-mix(in srgb, var(--cor) 30%, transparent), var(--cor)); }
+      .lance .foto .dentro { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #1c2230; display: flex; align-items: flex-end; justify-content: center; }
+      .lance .foto img.jogador { width: 100%; height: 100%; object-fit: cover; }
+      .lance .foto .esc-foto { width: 70%; height: 70%; margin-bottom: 15%; font-size: 150px; }
+      .lance .foto .selo { position: absolute; right: -6px; bottom: -6px; width: 84px; height: 84px; font-size: 84px; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6)); }
+      .lance .nome { font-weight: 800; font-size: 92px; line-height: 1; }
+      .lance .time-nome { font-weight: 700; font-size: 46px; color: var(--suave); margin-top: 14px; text-transform: uppercase; letter-spacing: 0.08em; }
+      .lance .area { position: absolute; top: 620px; left: 100px; width: 880px; height: 700px; }
+      .lance .chips { position: absolute; top: 1345px; left: 60px; width: 960px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+      .lance .chip { font-weight: 700; font-size: 38px; padding: 8px 22px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); border: 2px solid var(--linha); }
+      .lance .leg { position: absolute; top: 1440px; left: 50px; width: 980px; height: 190px; }
+      .bloco { position: absolute; inset: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 22px; opacity: 0; }
+      .bloco span { display: inline-block; font-weight: 800; font-size: 74px; line-height: 1.12; text-transform: uppercase; color: #fff; -webkit-text-stroke: 12px #000; paint-order: stroke fill; text-shadow: 0 6px 18px rgba(0, 0, 0, 0.7); }
+
+      .gramado { position: absolute; left: 0; top: 0; border-radius: 22px; overflow: hidden; }
+      .gramado svg { display: block; }
+      .linha-c { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 4; }
+      .bola { position: absolute; left: 0; top: 0; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #d4d4d8 70%); box-shadow: 0 0 22px 6px rgba(255, 255, 255, 0.55); opacity: 0; }
+      .atleta { position: absolute; left: 0; top: 0; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; border: 4px solid #fff; background: var(--cor); opacity: 0; }
+      .atleta .rotulo { position: absolute; left: 50%; top: 30px; transform: translateX(-50%); white-space: nowrap; font-weight: 700; font-size: 30px; color: #fff; -webkit-text-stroke: 6px rgba(0, 0, 0, 0.85); paint-order: stroke fill; }
+      .goleiro { --cor: #e5e7eb; }
+      .carimbo { position: absolute; left: 0; right: 0; top: 260px; text-align: center; font-weight: 800; font-size: 170px; line-height: 1; color: #fff; -webkit-text-stroke: 14px var(--cor); paint-order: stroke fill; opacity: 0; transform: rotate(-6deg); text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); }
+      .cartao-g { position: absolute; left: 290px; top: 70px; width: 300px; height: 440px; border-radius: 30px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6); opacity: 0; }
+      .cartao-g::after { content: ""; position: absolute; inset: 0; border-radius: 30px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent 45%); }
+      .onze { position: absolute; left: 0; right: 0; top: 560px; display: flex; justify-content: center; gap: 18px; }
+      .onze div { width: 52px; height: 52px; border-radius: 50%; background: var(--cor); border: 4px solid #fff; opacity: 0; }
+      .fica { position: absolute; left: 0; right: 0; top: 640px; text-align: center; font-weight: 800; font-size: 54px; opacity: 0; }
+      .var-tela { position: absolute; left: 140px; top: 110px; width: 600px; height: 380px; border-radius: 24px; border: 10px solid #e5e7eb; background: #0f172a; overflow: hidden; opacity: 0; }
+      .var-tela .t { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 170px; letter-spacing: 0.08em; }
+      .var-tela .scan { position: absolute; left: 0; right: 0; height: 60px; background: linear-gradient(transparent, rgba(56, 189, 248, 0.35), transparent); }
+
+      #particulas { position: absolute; inset: 0; }
+      .conf { position: absolute; left: 540px; top: 840px; width: 22px; height: 34px; border-radius: 4px; opacity: 0; }
 
       /* ---------- fim ---------- */
       #fim { display: flex; flex-direction: column; align-items: center; padding: 190px 80px 0; }
@@ -157,7 +167,7 @@
       #fim .final .gols { font-weight: 800; font-size: 230px; line-height: 1; display: flex; gap: 30px; }
       #fim .final .gols .x { color: var(--suave); }
       #fim .stats { width: 860px; margin-top: 60px; display: flex; flex-direction: column; gap: 32px; }
-      #fim .linha .nums { display: flex; justify-content: space-between; font-weight: 800; font-size: 58px; }
+      #fim .linha .nums { display: flex; justify-content: space-between; font-weight: 800; font-size: 58px; gap: 0; }
       #fim .linha .nums .nome { font-weight: 700; font-size: 40px; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; align-self: center; }
       #fim .linha .barras { display: flex; gap: 10px; height: 18px; margin-top: 8px; }
       #fim .linha .barras div { height: 100%; border-radius: 9px; transform: scaleX(0); }
@@ -172,7 +182,7 @@
     <div id="root" data-composition-id="main" data-start="0" data-duration="__TOTAL__" data-width="1080" data-height="1920">
       <div id="fundo" class="camada">
         <div class="blob" id="b1"></div><div class="blob" id="b2"></div><div class="blob" id="b3"></div>
-        <svg id="campo" viewBox="0 0 740 1100" fill="none" stroke="#fff" stroke-width="4">
+        <svg id="campo-fundo" viewBox="0 0 740 1100" fill="none" stroke="#fff" stroke-width="4">
           <rect x="20" y="20" width="700" height="1060" /><line x1="20" y1="550" x2="720" y2="550" />
           <circle cx="370" cy="550" r="95" /><circle cx="370" cy="550" r="6" fill="#fff" />
           <rect x="190" y="20" width="360" height="160" /><rect x="280" y="20" width="180" height="60" />
@@ -186,9 +196,8 @@
         <section id="gancho" class="cena"></section>
         <section id="intro" class="cena"></section>
         <section id="principal" class="cena">
-          <div id="gigante">GOL</div>
           <div id="placar"></div>
-          <div id="palco"></div>
+          <div id="relogio"><div class="periodo"></div><div class="min"></div></div>
           <div id="barra">
             <div id="marcas"></div>
             <div id="trilho"><div id="enche"></div></div>
@@ -196,6 +205,7 @@
             <div id="momentum"><div class="eixo"></div><div id="mom-revela"></div></div>
           </div>
         </section>
+        <div id="lances"></div>
         <section id="fim" class="cena"></section>
         <div id="particulas" class="camada"></div>
       </div>
@@ -249,6 +259,11 @@
       function prng(seed) {
         return () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
       }
+      function lum(hex) {
+        const c = hex.replace("#", ""), n = c.length === 3 ? c.split("").map((x) => x + x).join("") : c;
+        const [r, g, b] = [0, 2, 4].map((i) => parseInt(n.slice(i, i + 2), 16) / 255);
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      }
 
       const ICONES = {
         gol: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff"/><polygon points="50,30 69,44 62,66 38,66 31,44" fill="#111"/><path d="M50 30V6M69 44l22-8M62 66l14 20M38 66L24 86M31 44L9 36" stroke="#111" stroke-width="5"/></svg>`,
@@ -258,7 +273,7 @@
         penalti_perdido: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#fff" stroke-width="7"/><path d="M28 28l44 44M72 28L28 72" stroke="#ef4444" stroke-width="10" stroke-linecap="round"/></svg>`,
         anulado: `<svg viewBox="0 0 100 100"><rect x="6" y="20" width="88" height="60" rx="10" fill="none" stroke="#fff" stroke-width="7"/><text x="50" y="63" text-anchor="middle" font-family="Barlow" font-weight="800" font-size="34" fill="#fff">VAR</text></svg>`,
       };
-      const ROTULOS = { gol: "GOL", vermelho: "EXPULSO", amarelo: "AMARELO", chance: "QUASE!", penalti_perdido: "PÊNALTI PERDIDO", anulado: "GOL ANULADO" };
+      const ROTULOS = { gol: "GOL", vermelho: "EXPULSÃO", amarelo: "CARTÃO AMARELO", chance: "QUASE!", penalti_perdido: "PÊNALTI PERDIDO", anulado: "GOL ANULADO" };
 
       const tl = gsap.timeline({ paused: true });
       window.__timelines = window.__timelines || {};
@@ -304,12 +319,31 @@
           tl.to(c, { y: dy + 420 + r() * 300, x: dx + (r() - 0.5) * 160, rotation: rot, opacity: 0, duration: 1.4 + r() * 0.6, ease: "power1.in" }, t + 0.55);
         }
       }
+      // placar com dígitos empilhados: troca sem texto dinâmico (render determinístico)
+      function placarNums(pai, cls) {
+        const nums = h("div", cls || "nums", null, pai);
+        const c = h("div", "num", null, nums); h("div", "traco", "–", nums); const f = h("div", "num", null, nums);
+        for (let i = 0; i <= J.placar[0]; i++) h("span", null, i, c);
+        for (let i = 0; i <= J.placar[1]; i++) h("span", null, i, f);
+        return [c, f];
+      }
+      function definirPlacar(caixas, p, t) {  // sem animação: deixa o placar p visível a partir de t
+        caixas.forEach((cx, lado) => [...cx.children].forEach((s, i) => tl.set(s, { opacity: i === p[lado] ? 1 : 0, y: 0 }, t)));
+      }
+      function virarDigito(caixa, de, para, t, cor) {
+        const antes = caixa.children[de], depois = caixa.children[para];
+        if (antes === depois) return;
+        tl.to(antes, { opacity: 0, y: -120, duration: 0.22, ease: "power2.in" }, t - 0.22);
+        tl.fromTo(depois, { opacity: 0, y: 140 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(2.2)", immediateRender: false }, t);
+        tl.fromTo(caixa, { scale: 1.45 }, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)", immediateRender: false }, t);
+        tl.fromTo(depois, { textShadow: `0 0 60px ${cor}` }, { textShadow: "0 0 0px rgba(0,0,0,0)", duration: 1.4, immediateRender: false }, t);
+      }
 
       // ---------- fundo vivo (movimento contínuo) ----------
       tl.fromTo("#b1", { x: 0, y: 0, scale: 1 }, { x: 260, y: 180, scale: 1.25, duration: T, ease: "sine.inOut" }, 0);
       tl.fromTo("#b2", { x: 0, y: 0, scale: 1.1 }, { x: -300, y: -260, scale: 0.9, duration: T, ease: "sine.inOut" }, 0);
       tl.fromTo("#b3", { x: 0, y: 0 }, { x: -200, y: 300, duration: T, ease: "sine.inOut" }, 0);
-      tl.fromTo("#campo", { rotation: -6, scale: 1.05, x: 0 }, { rotation: 4, scale: 1.2, x: -60, duration: T, ease: "none" }, 0);
+      tl.fromTo("#campo-fundo", { rotation: -6, scale: 1.05, x: 0 }, { rotation: 4, scale: 1.2, x: -60, duration: T, ease: "none" }, 0);
       [["#r1", 0.6], ["#r2", 1.6]].forEach(([id, d0]) => {
         for (let t = d0; t < T; t += 7.5) tl.fromTo(id, { x: -500 }, { x: 1600, duration: 2.6, ease: "power1.inOut", immediateRender: false }, t);
       });
@@ -374,21 +408,21 @@
       wipe(M.wipe2);
       tl.set(I, { opacity: 0 }, A.inicio_barra);
 
-      // ---------- principal ----------
+      // ---------- barra: placar, relógio grande, linha do tempo ----------
       const P = $("principal");
       const PL = $("placar");
       const lc = h("div", "lado", null, PL); escudo("casa", "img", lc); h("div", "sigla", esc(J.casa.sigla), lc);
-      const centro = h("div", "centro", null, PL);
-      const nums = h("div", "nums", null, centro);
-      const numC = h("div", "num", null, nums); h("div", "traco", "–", nums); const numF = h("div", "num", null, nums);
+      const caixasBarra = placarNums(PL);
       const lf = h("div", "lado", null, PL); escudo("fora", "img", lf); h("div", "sigla", esc(J.fora.sigla), lf);
-      for (let i = 0; i <= J.placar[0]; i++) h("span", null, i, numC);
-      for (let i = 0; i <= J.placar[1]; i++) h("span", null, i, numF);
-      const relogio = h("div", null, null, centro); relogio.id = "relogio";
-      const aoVivo = h("div", "ao-vivo", null, relogio);
+      const REL = $("relogio");
+      const per = REL.querySelector(".periodo");
+      const per1 = h("span", null, "PRIMEIRO TEMPO", per), per2 = h("span", null, "SEGUNDO TEMPO", per);
+      const aoVivo = h("div", "ao-vivo", null, per);
+      const relMin = REL.querySelector(".min");
 
       tl.set(P, { opacity: 1 }, A.inicio_barra);
       tl.fromTo(PL, { y: -380 }, { y: 0, duration: 0.7, ease: "back.out(1.4)" }, M.placar_entra - 0.25);
+      tl.fromTo(REL, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.6)" }, M.placar_entra - 0.1);
       tl.fromTo("#barra", { y: 380, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, M.placar_entra - 0.2);
       tl.fromTo(aoVivo, { opacity: 1 }, { opacity: 0.15, duration: 0.6, yoyo: true, repeat: Math.floor((A.fim_barra - A.inicio_barra) / 0.6), ease: "sine.inOut", immediateRender: false }, A.inicio_barra);
 
@@ -421,176 +455,305 @@
         });
         MR.appendChild(svg);
         const MOM = $("momentum");
-        escudo("casa", "leg", MOM).style.top = "8px";
-        escudo("fora", "leg", MOM).style.top = "108px";
+        escudo("casa", "leg-t", MOM).style.top = "8px";
+        escudo("fora", "leg-t", MOM).style.top = "108px";
       } else {
         $("momentum").style.display = "none";
       }
 
-      // relógio: um span por minuto, trocado quando a barra passa por ele
+      // relógio grande: um span por minuto, trocado quando a barra passa por ele
       const minutos = [];
       for (let m = 0; m <= 45; m++) minutos.push([m, 0]);
       for (let a = 1; a <= ACR[0]; a++) minutos.push([45, a]);
       for (let m = 46; m <= 90; m++) minutos.push([m, 0]);
       for (let a = 1; a <= ACR[1]; a++) minutos.push([90, a]);
-      const spans = minutos.map(([m, a]) => h("span", null, minTxt(m, a), relogio));
-      const spanFim = h("span", null, "FIM", relogio);
+      const spans = minutos.map(([m, a]) => h("span", null, minTxt(m, a), relMin));
+      const spanFim = h("span", null, "FIM", relMin);
       const posMin = minutos.map(([m, a]) => posicao(m, a));
+      const idx2T = minutos.findIndex(([m]) => m === 46);
       tl.set(spans[0], { opacity: 1 }, A.inicio_barra);
+      tl.set(per1, { opacity: 1 }, A.inicio_barra);
       let ultimo = 0;
 
-      const ENCHE = $("enche"), CABECA = $("cabeca"), MARCAS = $("marcas"), PALCO = $("palco"), GIG = $("gigante");
-      const placarAtual = [0, 0];
+      const ENCHE = $("enche"), CABECA = $("cabeca"), MARCAS = $("marcas"), LANCES = $("lances");
       function viagem(de, ate, inicio, dur) {
         tl.to(ENCHE, { scaleX: ate, duration: dur, ease: "power2.inOut" }, inicio);
         tl.to(CABECA, { x: ate * BAR_W, duration: dur, ease: "power2.inOut" }, inicio);
         tl.to(MR, { width: ate * BAR_W, duration: dur, ease: "power2.inOut" }, inicio);
-        tl.to("#campo", { y: `-=${Math.round(40 + dur * 30)}`, duration: dur, ease: "power2.inOut" }, inicio);
+        tl.to("#campo-fundo", { y: `-=${Math.round(40 + dur * 30)}`, duration: dur, ease: "power2.inOut" }, inicio);
         while (ultimo + 1 < posMin.length && posMin[ultimo + 1] <= ate + 1e-6) {
           const k = ultimo + 1;
           const frac = ate > de ? (posMin[k] - de) / (ate - de) : 1;
           const t = inicio + invEase(Math.max(0, Math.min(1, frac))) * dur;
           tl.set(spans[ultimo], { opacity: 0 }, t);
           tl.set(spans[k], { opacity: 1 }, t);
+          if (k === idx2T) { tl.set(per1, { opacity: 0 }, t); tl.set(per2, { opacity: 1 }, t); }
           ultimo = k;
         }
       }
 
+      // ---------- tela de cada lance ----------
+      const AREA_W = 880, PXM = AREA_W / 68;  // pixels por metro (largura do campo = 68 m)
+      function desenharCampo(area, dist) {
+        // meio-campo vertical, gol no alto; dist = metros visíveis a partir da linha de fundo
+        const H = Math.round(40 + dist * PXM), ns = "http://www.w3.org/2000/svg";
+        const gram = h("div", "gramado", null, area);
+        gram.style.width = AREA_W + "px"; gram.style.height = H + "px";
+        const svg = document.createElementNS(ns, "svg");
+        svg.setAttribute("width", AREA_W); svg.setAttribute("height", H);
+        const faixa = 5.5 * PXM;
+        for (let y = 40, k = 0; y < H; y += faixa, k++) {
+          const r = document.createElementNS(ns, "rect");
+          r.setAttribute("x", 0); r.setAttribute("y", y); r.setAttribute("width", AREA_W); r.setAttribute("height", faixa);
+          r.setAttribute("fill", k % 2 ? "#166534" : "#15803d");
+          svg.appendChild(r);
+        }
+        const cx = AREA_W / 2, m = (v) => v * PXM;
+        const linhas = [
+          `M2 40 H${AREA_W - 2}`, `M2 40 V${H}`, `M${AREA_W - 2} 40 V${H}`,
+          `M${cx - m(20.16)} 40 V${40 + m(16.5)} H${cx + m(20.16)} V40`,
+          `M${cx - m(9.16)} 40 V${40 + m(5.5)} H${cx + m(9.16)} V40`,
+          `M${cx - m(7.3)} ${40 + m(16.5)} A${m(9.15)} ${m(9.15)} 0 0 0 ${cx + m(7.3)} ${40 + m(16.5)}`,
+        ];
+        if (dist >= 52) linhas.push(`M2 ${40 + m(52.5)} H${AREA_W - 2}`);
+        const paths = linhas.map((d) => {
+          const p = document.createElementNS(ns, "path");
+          p.setAttribute("d", d); p.setAttribute("class", "linha-c"); p.setAttribute("pathLength", "1");
+          p.style.strokeDasharray = "1"; p.style.strokeDashoffset = "1";
+          svg.appendChild(p);
+          return p;
+        });
+        const marca = document.createElementNS(ns, "circle");
+        marca.setAttribute("cx", cx); marca.setAttribute("cy", 40 + m(11)); marca.setAttribute("r", 5); marca.setAttribute("fill", "#fff");
+        svg.appendChild(marca);
+        const gol = document.createElementNS(ns, "rect");
+        gol.setAttribute("x", cx - m(3.66)); gol.setAttribute("y", 8); gol.setAttribute("width", m(7.32)); gol.setAttribute("height", 32);
+        gol.setAttribute("fill", "rgba(255,255,255,0.12)"); gol.setAttribute("stroke", "#fff"); gol.setAttribute("stroke-width", 5);
+        svg.appendChild(gol);
+        gram.appendChild(svg);
+        return { gram, paths, gol, H, ponto: ([lat, d]) => [Math.max(24, Math.min(AREA_W - 24, lat / 100 * AREA_W)), 40 + Math.min(dist - 2.5, d * 1.05) * PXM] };
+      }
+      function alvoNoGol(l, campo) {
+        // para onde a bola vai: coordenada da boca do gol (lateral 0..100 da largura do campo)
+        const boca = l.boca ? 100 - l.boca[0] : 50;
+        return [boca / 100 * AREA_W, 40 - Math.min(26, (l.boca ? l.boca[1] : 0) * 0.6) - 4];
+      }
+
+      const placarAtual = [0, 0];
       let ultimaPos = -1, ultimaLinha = 1, pos = 0, tempo = A.inicio_barra;
       D.destaques.forEach((d, i) => {
-        const parada = A.paradas[i], t = parada.t;
-        viagem(pos, parada.pos, tempo, t - tempo);
-        pos = parada.pos;
-        const cor = J[d.time].destaque;
+        const pa = A.paradas[i], t = pa.t, S = pa.lance, C = pa.clima, E = pa.fim_lance;
+        viagem(pos, pa.pos, tempo, t - tempo);
+        pos = pa.pos;
+        const cor = J[d.time].destaque, corAdv = J[d.time === "casa" ? "fora" : "casa"].destaque;
 
-        // marca na barra + onda de choque
-        const linha = parada.pos - ultimaPos < 0.075 ? 1 - ultimaLinha : 0;
-        ultimaPos = parada.pos; ultimaLinha = linha;
+        // chegada na barra: marca + onda + mergulho na tela do lance
+        const linha = pa.pos - ultimaPos < 0.075 ? 1 - ultimaLinha : 0;
+        ultimaPos = pa.pos; ultimaLinha = linha;
         const mk = h("div", `marca r${linha}`, ICONES[d.tipo], MARCAS);
-        mk.style.left = parada.pos * BAR_W + "px"; mk.style.setProperty("--cor", cor);
+        mk.style.left = pa.pos * BAR_W + "px"; mk.style.setProperty("--cor", cor);
         h("div", "haste", null, mk);
         const onda = h("div", "onda", null, BARRA);
-        onda.style.left = parada.pos * BAR_W + "px"; onda.style.top = "171px"; onda.style.setProperty("--cor", cor);
+        onda.style.left = pa.pos * BAR_W + "px"; onda.style.top = "171px"; onda.style.setProperty("--cor", cor);
         tl.fromTo(mk, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(3)", immediateRender: false }, t);
         tl.fromTo(onda, { scale: 0.2, opacity: 1 }, { scale: 3.5, opacity: 0, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
         tl.fromTo(CABECA, { scale: 1 }, { scale: 1.8, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, t);
+        soco(t, 1.03);
+        const ox = 80 + pa.pos * BAR_W, oy = 1131;
+        tl.set(P, { transformOrigin: `${ox}px ${oy}px` }, t + 0.3);
+        tl.fromTo(P, { scale: 1, opacity: 1 }, { scale: 3.2, opacity: 0, duration: 0.55, ease: "power3.in", immediateRender: false }, t + 0.3);
+        clarao(S - 0.05, "#ffffff", 0.5, 0.35);
 
-        // card
-        const c = h("div", "card", null, PALCO);
-        c.style.setProperty("--cor", cor);
-        const faixa = h("div", "faixa-cor", null, c);
-        const reflexo = h("div", "reflexo", null, c);
-        const topo = h("div", "topo", null, c);
-        const ico = h("div", "icone", ICONES[d.tipo], topo);
-        const min = h("div", "min", minTxt(d.minuto, d.acrescimo), topo);
-        const escCard = escudo(d.time, "esc", topo);
-        const rotBox = h("div", "rot-box", null, c);
-        const r1 = h("div", "rotulo c1", ROTULOS[d.tipo], rotBox);
-        const r2 = h("div", "rotulo c2", ROTULOS[d.tipo], rotBox);
-        const rot = h("div", "rotulo", ROTULOS[d.tipo], rotBox);
-        if (ROTULOS[d.tipo].length > 8) c.classList.add("longo");
-        const jogTxt = d.tipo === "gol" && d.detalhe === "contra" ? `Contra, de ${d.jogador}` : d.jogador;
-        const jog = jogTxt ? mascara("div", "jogador", esc(jogTxt), c) : null;
-        const detTxt = d.detalhe && d.detalhe !== "contra" ? d.detalhe : "";
-        const det = detTxt ? mascara("div", "detalhe", esc(detTxt.charAt(0).toUpperCase() + detTxt.slice(1)), c) : null;
-        const rod = h("div", "rodape", null, c);
-        let enche = null, pcts = null;
-        if (d.tipo === "gol") {
-          const cm = d.time === "casa";
-          rod.innerHTML = `<span class="${cm ? "marcou" : "s"}">${esc(J.casa.sigla)} ${d.placar[0]}</span><span class="s">×</span><span class="${cm ? "s" : "marcou"}">${d.placar[1]} ${esc(J.fora.sigla)}</span>`;
-        } else if (d.tipo === "chance" || d.tipo === "penalti_perdido") {
-          const med = h("div", "medidor", null, rod);
-          h("div", "rot", "Chance de gol", med);
-          enche = h("div", "enche", null, h("div", "trilho", null, med));
-          const caixa = h("div", "pct", null, rod);
-          const alvo = Math.round((d.xg || 0) * 100);
-          pcts = [];
-          for (let v = 0; v <= alvo; v += Math.max(1, Math.round(alvo / 30))) pcts.push(h("span", null, v + "%", caixa));
-          if (pcts[pcts.length - 1].textContent !== alvo + "%") pcts.push(h("span", null, alvo + "%", caixa));
-        } else if (d.tipo === "vermelho") {
-          const n = D.destaques.filter((x, j) => j <= i && x.tipo === "vermelho" && x.time === d.time).length;
-          rod.innerHTML = `<span class="s">${esc(J[d.time].nome)} fica com</span><span class="marcou">${11 - n}</span>`;
-        }
+        // monta a tela
+        const L = h("section", "cena lance", null, LANCES);
+        L.style.setProperty("--cor", cor);
+        L.style.setProperty("--sobre-cor", lum(cor) > 0.45 ? "#0a0a0a" : "#ffffff");
+        const topo = h("div", "topo", null, L);
+        const tipo = h("div", "tipo", ROTULOS[d.tipo], topo);
+        const minuto = h("div", "minuto", minTxt(d.minuto, d.acrescimo), topo);
+        const mini = h("div", "mini", null, topo);
+        escudo("casa", "img", mini);
+        const caixasMini = placarNums(mini, "nums mini-n");
+        caixasMini.forEach((cx) => { cx.parentNode.style.fontSize = "64px"; cx.parentNode.style.gap = "10px"; });
+        mini.querySelector(".traco").style.fontSize = "48px";
+        escudo("fora", "img", mini);
+        definirPlacar(caixasMini, placarAtual, S);
 
-        // entrada do card, por tipo
-        tl.set(c, { opacity: 1 }, t);
-        if (d.tipo === "gol") {
-          tl.set(GIG, { "--cor": cor }, t);
-          tl.fromTo(GIG, { scale: 3, opacity: 0 }, { scale: 1, opacity: 0.85, duration: 0.3, ease: "power4.out", immediateRender: false }, t);
-          tl.to(GIG, { opacity: 0.14, scale: 1.18, duration: A.card - 0.7, ease: "power1.out" }, t + 0.3);
-          tl.to(GIG, { opacity: 0, duration: 0.3 }, parada.saida);
-          tl.fromTo(c, { scale: 0.55, rotation: -5, opacity: 0, y: 40 }, { scale: 1, rotation: 0, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.7)", immediateRender: false }, t);
-          clarao(t, cor, 0.55, 0.45);
-          tremor(t, 34, 0.45, 100 + i);
-          soco(t, 1.05);
-          confete(t + 0.05, [cor, "#ffffff", cor === COR.casa ? COR.fora : COR.casa], 540, 840, 46, 300 + i);
-        } else if (d.tipo === "amarelo" || d.tipo === "vermelho") {
-          const cartao = h("div", "cartao", null, c);
-          cartao.style.background = d.tipo === "amarelo" ? "#facc15" : "#ef4444";
-          tl.fromTo(c, { x: -500, skewX: 12, opacity: 0 }, { x: 0, skewX: 0, opacity: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, t);
-          tl.fromTo(cartao, { x: 600, y: -500, rotation: 70, rotationY: 180, opacity: 1 }, { x: 0, y: 0, rotation: -10, rotationY: 0, opacity: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, t + 0.05);
-          tl.to(cartao, { rotation: -6, y: -8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, t + 0.6);
-          soco(t + 0.5, 1.03);
-          if (d.tipo === "vermelho") {
-            tl.fromTo("#vermelho", { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: false }, t + 0.1);
-            tl.to("#vermelho", { opacity: 0, duration: 1.2, ease: "power2.out" }, t + 0.3);
-            tremor(t + 0.12, 22, 0.35, 200 + i);
+        const jog = h("div", "jog", null, L);
+        const foto = h("div", "foto", null, jog);
+        const dentro = h("div", "dentro", null, foto);
+        if (d.foto) h("img", "jogador", null, dentro).src = d.foto;
+        else escudo(d.time, "esc-foto", dentro);
+        escudo(d.time, "selo", foto);
+        const txt = h("div", null, null, jog);
+        const nomeTxt = d.tipo === "anulado" && !d.jogador ? J[d.time].nome : d.jogador;
+        const nome = mascara("div", "nome", esc(nomeTxt), txt);
+        const timeNome = mascara("div", "time-nome", esc(J[d.time].nome), txt);
+
+        const area = h("div", "area", null, L);
+        const chips = h("div", "chips", null, L);
+        const chipEls = (d.chips || []).map((c) => h("div", "chip", esc(c), chips));
+        const leg = h("div", "leg", null, L);
+
+        // entrada da tela
+        tl.set(L, { opacity: 1 }, S);
+        tl.fromTo(L, { scale: 1.15 }, { scale: 1, duration: 0.5, ease: "power3.out", immediateRender: false }, S);
+        tl.fromTo(tipo, { x: -260, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "expo.out" }, S + 0.1);
+        tl.fromTo(minuto, { scale: 2.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "power4.out" }, S + 0.2);
+        tl.fromTo(mini, { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.6)" }, S + 0.25);
+        tl.fromTo(foto, { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.7)" }, S + 0.25);
+        tl.fromTo(foto, { rotation: 0 }, { rotation: 6, duration: 1.6, yoyo: true, repeat: Math.max(1, Math.floor((E - S - 1) / 1.6)), ease: "sine.inOut", immediateRender: false }, S + 0.85);
+        tl.fromTo(nome, { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: "power3.out" }, S + 0.4);
+        tl.fromTo(timeNome, { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: "power3.out" }, S + 0.5);
+        chipEls.forEach((c, k) => tl.fromTo(c, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(2)" }, S + 0.7 + k * 0.15));
+
+        // legendas palavra a palavra, sincronizadas com a voz
+        (pa.legendas || []).forEach((b) => {
+          const bl = h("div", "bloco", null, leg);
+          const ws = b.palavras.map(([w]) => h("span", null, esc(w), bl));
+          tl.set(bl, { opacity: 1 }, b.ini);
+          tl.fromTo(bl, { scale: 0.88 }, { scale: 1, duration: 0.14, ease: "back.out(2)", immediateRender: false }, b.ini);
+          tl.set(bl, { opacity: 0 }, Math.min(b.fim, E - 0.3));
+          b.palavras.forEach(([, wi, wf], k) => {
+            tl.set(ws[k], { color: "#facc15", scale: 1.08 }, wi);
+            tl.set(ws[k], { color: "#ffffff", scale: 1 }, Math.max(wi + 0.05, wf));
+          });
+        });
+
+        // conteúdo do meio, por tipo de lance
+        const l = d.lance;
+        if ((d.tipo === "gol" || d.tipo === "chance" || d.tipo === "penalti_perdido") && l && l.origem) {
+          const passes = (l.passes || []).slice(pa.passes_ini);  // já limitado no Python
+          const maxDist = Math.max(l.origem[1], ...passes.flatMap((p) => [p.de[1], p.para[1]]));
+          const campo = desenharCampo(area, Math.max(30, Math.min(52.5, maxDist * 1.05 + 8)));
+          area.style.top = Math.round(620 + (700 - campo.H) / 2) + "px";
+          tl.fromTo(campo.gram, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, S + 0.3);
+          tl.to(campo.paths, { strokeDashoffset: 0, duration: 0.8, stagger: 0.05, ease: "power2.inOut" }, S + 0.35);
+          const ns = "http://www.w3.org/2000/svg", svg = campo.gram.querySelector("svg");
+          function linhaSvg(a, b, tracejada, corL) {
+            const ln = document.createElementNS(ns, "line");
+            ln.setAttribute("x1", a[0]); ln.setAttribute("y1", a[1]); ln.setAttribute("x2", b[0]); ln.setAttribute("y2", b[1]);
+            ln.setAttribute("stroke", corL); ln.setAttribute("stroke-width", tracejada ? 6 : 5); ln.setAttribute("stroke-linecap", "round");
+            ln.setAttribute("pathLength", "1"); ln.style.strokeDasharray = "1"; ln.style.strokeDashoffset = "1";
+            if (tracejada) ln.style.filter = "drop-shadow(0 0 8px rgba(255,255,255,0.8))";
+            svg.appendChild(ln);
+            return ln;
+          }
+          function atleta(p, rotulo, classe) {
+            const a = h("div", "atleta " + (classe || ""), null, area);
+            a.style.left = p[0] + "px"; a.style.top = p[1] + "px";
+            if (rotulo) {
+              const r = h("div", "rotulo", esc(rotulo), a);
+              if (p[1] > campo.H - 60) r.style.top = "-42px";  // perto da borda de baixo: nome acima
+            }
+            return a;
+          }
+          const bola = h("div", "bola", null, area);
+          // goleiro adversário no meio do gol
+          const gk = atleta([AREA_W / 2, 40 + 1.2 * PXM], null, "goleiro");
+          gk.style.setProperty("--cor", corAdv);
+          tl.fromTo(gk, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, S + 0.8);
+          // troca de passes
+          let ultimoPonto = null;
+          passes.forEach((p, k) => {
+            const tp = pa.passes_t[k], dur = pa.passe_dur * 0.9;
+            const de = campo.ponto(p.de), para = campo.ponto(p.para);
+            const at = atleta(de, p.jogador.split(" ").slice(-1)[0]);
+            at.style.setProperty("--cor", cor);
+            tl.fromTo(at, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, tp - 0.1);
+            const ln = linhaSvg(de, para, false, "rgba(255,255,255,0.75)");
+            tl.to(ln, { strokeDashoffset: 0, duration: dur, ease: p.conducao ? "none" : "power1.out" }, tp);
+            if (k === 0) tl.set(bola, { x: de[0], y: de[1], opacity: 1 }, tp);
+            tl.to(bola, { x: para[0], y: para[1], duration: dur, ease: p.conducao ? "none" : "power1.out" }, tp);
+            ultimoPonto = para;
+          });
+          // finalização
+          const o = campo.ponto(l.origem);
+          const atirador = atleta(o, (d.jogador || "").split(" ").slice(-1)[0]);
+          atirador.style.setProperty("--cor", cor);
+          tl.fromTo(atirador, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1.25, duration: 0.3, ease: "back.out(2)" }, pa.chute - 0.4);
+          if (!passes.length) tl.set(bola, { x: o[0], y: o[1], opacity: 1 }, pa.chute - 0.4);
+          else tl.to(bola, { x: o[0], y: o[1], duration: 0.2 }, pa.chute - 0.22);
+          let alvo = alvoNoGol(l, campo);
+          const res = l.resultado;
+          if (res === "miss") alvo = [alvo[0] < AREA_W / 2 ? Math.min(alvo[0], AREA_W / 2 - 80) : Math.max(alvo[0], AREA_W / 2 + 80), 0];
+          if (res === "post") alvo = [AREA_W / 2 + (alvo[0] < AREA_W / 2 ? -1 : 1) * 3.66 * PXM, 40];
+          if (res === "save" || res === "block") alvo = [alvo[0], 46];
+          const chuteLn = linhaSvg(o, alvo, true, "#ffffff");
+          tl.to(chuteLn, { strokeDashoffset: 0, duration: C - pa.chute, ease: "power2.in" }, pa.chute);
+          tl.to(bola, { x: alvo[0], y: alvo[1], duration: C - pa.chute, ease: "power2.in" }, pa.chute);
+          const carimbo = h("div", "carimbo", null, area);
+          carimbo.style.setProperty("--cor", d.tipo === "gol" ? cor : "#0a0a0a");
+          if (d.tipo === "gol") {
+            carimbo.textContent = "GOOOL!";
+            tl.to(gk, { x: (alvo[0] - AREA_W / 2) * 0.4, duration: 0.25, ease: "power2.out" }, C - 0.25);
+            tl.set(campo.gol, { attr: { fill: cor } }, C);
+            tl.to(campo.gol, { attr: { fill: "rgba(255,255,255,0.12)" }, duration: 1.2 }, C + 0.1);
+            tl.fromTo(campo.gram, { x: 0 }, { keyframes: { x: [0, -10, 9, -6, 4, 0] }, duration: 0.4, ease: "none", immediateRender: false }, C);
+            tl.to(bola, { scale: 0.7, duration: 0.2 }, C);
+            clarao(C, cor, 0.55, 0.45);
+            tremor(C, 34, 0.45, 100 + i);
+            soco(C, 1.05);
+            confete(C + 0.05, [cor, "#ffffff", corAdv], 100 + alvo[0], parseFloat(area.style.top) + 40, 46, 300 + i);
+            // placar da tela muda no gol
+            const lado = d.time === "casa" ? 0 : 1;
+            virarDigito(caixasMini[lado], placarAtual[lado], d.placar[lado], C + 0.25, cor);
           } else {
-            tremor(t + 0.5, 10, 0.2, 200 + i);
+            carimbo.textContent = res === "save" ? "DEFESA!" : res === "post" ? "NA TRAVE!" : res === "block" ? "BLOQUEADO!" : "PRA FORA!";
+            if (res === "save") tl.to(gk, { x: alvo[0] - AREA_W / 2, y: 6, duration: 0.3, ease: "power3.out" }, C - 0.3);
+            const volta = res === "miss" ? [alvo[0] + (alvo[0] < AREA_W / 2 ? -120 : 120), -60] : [alvo[0] + (alvo[0] < AREA_W / 2 ? -140 : 140), 140];
+            tl.to(bola, { x: volta[0], y: volta[1], duration: 0.6, ease: "power2.out" }, C);
+            tl.to(bola, { opacity: 0, duration: 0.2 }, C + 0.6);
+            tremor(C, 14, 0.25, 100 + i);
+            soco(C, 1.025);
+          }
+          tl.fromTo(carimbo, { scale: 3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, C + 0.02);
+          tl.to(carimbo, { opacity: 0, scale: 1.2, duration: 0.4 }, C + 1.6);
+        } else if (d.tipo === "amarelo" || d.tipo === "vermelho") {
+          const cg = h("div", "cartao-g", null, area);
+          cg.style.background = d.tipo === "amarelo" ? "#facc15" : "#ef4444";
+          tl.fromTo(cg, { y: -700, rotation: 60, rotationY: 180, opacity: 1, scale: 0.6 }, { y: 0, rotation: -8, rotationY: 0, opacity: 1, scale: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, C - 0.2);
+          tl.to(cg, { rotation: -3, y: -12, duration: 1.3, yoyo: true, repeat: 2, ease: "sine.inOut" }, C + 0.4);
+          tremor(C + 0.3, d.tipo === "vermelho" ? 24 : 12, 0.3, 200 + i);
+          soco(C + 0.3, 1.03);
+          if (d.tipo === "vermelho") {
+            tl.fromTo("#vermelho", { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: false }, C + 0.3);
+            tl.to("#vermelho", { opacity: 0, duration: 1.2, ease: "power2.out" }, C + 0.5);
+            const onze = h("div", "onze", null, area);
+            const bolas = Array.from({ length: 11 }, () => h("div", null, null, onze));
+            const n = D.destaques.filter((x, j) => j <= i && x.tipo === "vermelho" && x.time === d.time).length;
+            tl.fromTo(bolas, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.04, ease: "back.out(2)" }, S + 0.8);
+            for (let k = 0; k < n; k++) tl.to(bolas[10 - k], { y: 140, opacity: 0, rotation: 90, duration: 0.6, ease: "power2.in" }, C + 0.8);
+            const fica = h("div", "fica", `${esc(J[d.time].nome)} com ${11 - n}`, area);
+            tl.fromTo(fica, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(2)" }, C + 1.1);
           }
         } else {
-          // chance, pênalti perdido, gol anulado: entra e o rótulo "treme" no quase
-          tl.fromTo(c, { y: 160, rotationX: 55, opacity: 0 }, { y: 0, rotationX: 0, opacity: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, t);
-          tl.fromTo(rot, { x: 0 }, { keyframes: { x: [0, -26, 22, -14, 8, 0] }, duration: 0.5, ease: "none", immediateRender: false }, t + 0.35);
-          soco(t, 1.025);
-          clarao(t, "#ffffff", 0.15, 0.3);
+          const vt = h("div", "var-tela", null, area);
+          h("div", "t", "VAR", vt);
+          const scan = h("div", "scan", null, vt);
+          tl.fromTo(vt, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }, S + 0.5);
+          tl.fromTo(scan, { y: -60 }, { y: 380, duration: 1.0, repeat: Math.max(1, Math.floor((C - S - 0.5) / 1.0)), ease: "none", immediateRender: false }, S + 0.6);
+          const carimbo = h("div", "carimbo", d.tipo === "anulado" ? "ANULADO" : "PERDIDO", area);
+          carimbo.style.setProperty("--cor", "#ef4444");
+          tl.fromTo(carimbo, { scale: 3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, C);
+          tremor(C, 18, 0.3, 100 + i);
         }
-        // animação interna, comum a todos
-        tl.fromTo(faixa, { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, t + 0.05);
-        tl.fromTo(reflexo, { x: 0 }, { x: 1700, duration: 0.9, ease: "power2.inOut", immediateRender: false }, t + 0.25);
-        tl.fromTo(ico, { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t + 0.1);
-        tl.fromTo(min, { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power3.out", immediateRender: false }, t + 0.15);
-        tl.fromTo(escCard, { scale: 0, rotation: 90 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t + 0.2);
-        tl.fromTo(rot, { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out", immediateRender: false }, t + 0.12);
-        tl.fromTo(r1, { x: -16, opacity: 0.9 }, { x: 0, opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false }, t + 0.15);
-        tl.fromTo(r2, { x: 16, opacity: 0.9 }, { x: 0, opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false }, t + 0.15);
-        if (jog) tl.fromTo(jog, { yPercent: 110 }, { yPercent: 0, duration: 0.45, ease: "power3.out" }, t + 0.3);
-        if (det) tl.fromTo(det, { yPercent: 110 }, { yPercent: 0, duration: 0.45, ease: "power3.out" }, t + 0.42);
-        tl.fromTo(rod, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, parada.placar);
-        if (enche) {
-          const alvo = Math.min(1, d.xg || 0), dur = 0.9, t0 = parada.placar + 0.1;
-          tl.to(enche, { scaleX: alvo, duration: dur, ease: "power2.out" }, t0);
-          tl.set(pcts[0], { opacity: 1 }, t0);
-          pcts.forEach((s, k) => {
-            if (!k) return;
-            const frac = k / (pcts.length - 1);
-            const tt = t0 + dur * (1 - Math.sqrt(1 - frac)); // inversa de power2.out
-            tl.set(pcts[k - 1], { opacity: 0 }, tt);
-            tl.set(s, { opacity: 1 }, tt);
-          });
-        }
-        // saída
-        tl.to(c, { x: -320, skewX: 10, opacity: 0, duration: 0.4, ease: "power3.in" }, parada.saida);
 
-        // placar só muda quando o gol é atingido
+        // volta para a barra
+        wipe(pa.wipe);
+        tl.set(L, { opacity: 0 }, E);
+        tl.set(P, { scale: 1, opacity: 1 }, E);
         if (d.tipo === "gol") {
           const lado = d.time === "casa" ? 0 : 1;
-          const caixa = lado === 0 ? numC : numF;
-          const antes = caixa.children[placarAtual[lado]], depois = caixa.children[d.placar[lado]];
+          virarDigito(caixasBarra[lado], placarAtual[lado], d.placar[lado], pa.placar, cor);
           placarAtual[0] = d.placar[0]; placarAtual[1] = d.placar[1];
-          if (antes !== depois) {
-            tl.to(antes, { opacity: 0, y: -120, duration: 0.22, ease: "power2.in" }, parada.placar - 0.22);
-            tl.fromTo(depois, { opacity: 0, y: 140 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(2.2)", immediateRender: false }, parada.placar);
-            tl.fromTo(caixa, { scale: 1.45 }, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)", immediateRender: false }, parada.placar);
-            tl.fromTo(depois, { textShadow: `0 0 60px ${cor}` }, { textShadow: "0 0 0px rgba(0,0,0,0)", duration: 1.4, immediateRender: false }, parada.placar);
-          }
         }
-        tempo = t + A.card;
+        tempo = E + 0.35;
       });
       viagem(pos, 1, tempo, A.trecho_final);
       tl.set(spans[ultimo], { opacity: 0 }, A.fim_barra);
       tl.set(spanFim, { opacity: 1 }, A.fim_barra);
-      tl.fromTo(relogio, { scale: 1 }, { scale: 1.25, duration: 0.18, yoyo: true, repeat: 3, immediateRender: false }, M.apito_final);
+      tl.fromTo(REL, { scale: 1 }, { scale: 1.15, duration: 0.18, yoyo: true, repeat: 3, immediateRender: false }, M.apito_final);
       tl.fromTo(CABECA, { scale: 1, opacity: 1 }, { scale: 2.4, opacity: 0, duration: 0.6, immediateRender: false }, M.apito_final);
       wipe(M.wipe3);
       tl.set(P, { opacity: 0 }, M.fim);
@@ -602,13 +765,13 @@
       const fc = escudo("casa", "img", fin);
       const gols = h("div", "gols", `<span>${J.placar[0]}</span><span class="x">×</span><span>${J.placar[1]}</span>`, fin);
       const ff = escudo("fora", "img", fin);
-      const S = D.estatisticas || {};
+      const S_ = D.estatisticas || {};
       const linhas = [["posse", "Posse", (v) => Math.round(v) + "%"], ["finalizacoes", "Finalizações", (v) => Math.round(v)],
-        ["no_gol", "No gol", (v) => Math.round(v)], ["xg", "Gols esperados (xG)", (v) => v.toFixed(2)], ["chances_claras", "Chances claras", (v) => Math.round(v)]];
+        ["no_gol", "No gol", (v) => Math.round(v)], ["chances_claras", "Chances claras", (v) => Math.round(v)]];
       const st = h("div", "stats", null, F);
       const linhasEl = [];
       linhas.forEach(([k, nome, fmt]) => {
-        const v = S[k];
+        const v = S_[k];
         if (!v || v[0] == null || v[1] == null) return;
         const l = h("div", "linha", null, st);
         h("div", "nums", `<span>${fmt(v[0])}</span><span class="nome">${nome}</span><span>${fmt(v[1])}</span>`, l);
