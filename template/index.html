@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow"; font-weight: 500; src: url("assets/barlow-500.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow"; font-weight: 700; src: url("assets/barlow-700.woff2") format("woff2"); }
+      @font-face { font-family: "Barlow"; font-weight: 800; src: url("assets/barlow-800.woff2") format("woff2"); }
+      :root {
+        --bg: #0a0e14;
+        --texto: #f4f4f5;
+        --suave: #a1a1aa;
+        --linha: rgba(255, 255, 255, 0.14);
+        --casa: #ffffff;
+        --fora: #facc15;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+      #root {
+        position: relative; width: 1080px; height: 1920px; overflow: hidden;
+        font-family: "Barlow", "Liberation Sans", sans-serif; color: var(--texto);
+        background:
+          radial-gradient(1200px 900px at 15% 0%, color-mix(in srgb, var(--casa) 16%, transparent), transparent 70%),
+          radial-gradient(1200px 900px at 85% 100%, color-mix(in srgb, var(--fora) 16%, transparent), transparent 70%),
+          var(--bg);
+      }
+      .cena { position: absolute; inset: 0; opacity: 0; }
+      .escudo { width: 100%; height: 100%; object-fit: contain; }
+      .escudo-alt {
+        width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 0.32em; background: var(--linha);
+      }
+
+      /* ---------- Gancho ---------- */
+      #gancho { display: flex; flex-direction: column; justify-content: center; padding: 0 80px 260px; }
+      #gancho .tag { font-weight: 700; font-size: 44px; letter-spacing: 0.12em; color: var(--suave); text-transform: uppercase; }
+      #gancho h1 { font-weight: 800; font-size: 178px; line-height: 0.92; letter-spacing: -0.01em; margin: 28px 0 40px; text-transform: uppercase; }
+      #gancho h1 span { display: inline-block; }
+      #gancho p { font-weight: 500; font-size: 56px; line-height: 1.15; color: var(--suave); }
+      #gancho .faixa { width: 180px; height: 14px; border-radius: 7px; background: linear-gradient(90deg, var(--casa), var(--fora)); }
+
+      /* ---------- Intro ---------- */
+      #intro { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 240px; }
+      #intro .duelo { display: flex; align-items: center; gap: 60px; }
+      #intro .time { width: 340px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+      #intro .time .img { width: 280px; height: 280px; font-size: 280px; }
+      #intro .time .nome { font-weight: 800; font-size: 76px; text-transform: uppercase; text-align: center; line-height: 1; }
+      #intro .x { font-weight: 800; font-size: 90px; color: var(--suave); }
+      #intro .info { margin-top: 90px; text-align: center; }
+      #intro .info .comp { font-weight: 700; font-size: 50px; letter-spacing: 0.08em; text-transform: uppercase; }
+      #intro .info .local { font-weight: 500; font-size: 42px; color: var(--suave); margin-top: 12px; }
+      #intro .rolando {
+        margin-top: 70px; font-weight: 800; font-size: 54px; letter-spacing: 0.1em; padding: 18px 44px;
+        border-radius: 999px; border: 4px solid var(--texto);
+      }
+
+      /* ---------- Principal ---------- */
+      #placar { position: absolute; top: 170px; left: 60px; width: 880px; height: 270px; display: flex; align-items: center; justify-content: space-between; }
+      #placar .lado { width: 220px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+      #placar .lado .img { width: 150px; height: 150px; font-size: 150px; }
+      #placar .lado .sigla { font-weight: 800; font-size: 52px; letter-spacing: 0.06em; }
+      #placar .centro { display: flex; flex-direction: column; align-items: center; }
+      #placar .nums { display: flex; align-items: center; gap: 28px; font-weight: 800; font-size: 190px; line-height: 1; }
+      #placar .num { position: relative; width: 110px; height: 190px; }
+      #placar .num span { position: absolute; inset: 0; text-align: center; opacity: 0; }
+      #placar .num span:first-child { opacity: 1; }
+      #placar .traco { color: var(--suave); font-size: 120px; }
+      #relogio { position: relative; width: 210px; height: 74px; margin-top: 10px; border-radius: 37px; background: var(--linha); }
+      #relogio span { position: absolute; inset: 0; text-align: center; line-height: 74px; font-weight: 700; font-size: 50px; opacity: 0; }
+
+      #palco { position: absolute; top: 500px; left: 60px; width: 880px; height: 680px; }
+      .card {
+        position: absolute; inset: 0; opacity: 0; border-radius: 40px; padding: 52px 56px;
+        background: rgba(255, 255, 255, 0.07); border: 2px solid var(--linha); overflow: hidden;
+        display: flex; flex-direction: column;
+      }
+      .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--cor); }
+      .card .topo { display: flex; align-items: center; gap: 30px; }
+      .card .icone { width: 120px; height: 120px; flex: none; }
+      .card .min { font-weight: 800; font-size: 120px; line-height: 1; color: var(--cor); }
+      .card .esc { margin-left: auto; width: 130px; height: 130px; font-size: 130px; }
+      .card .rotulo { font-weight: 800; font-size: 150px; line-height: 0.95; margin-top: 30px; text-transform: uppercase; }
+      .card .rotulo.longo { font-size: 112px; }
+      .card .jogador { font-weight: 700; font-size: 82px; line-height: 1.05; margin-top: 18px; }
+      .card .detalhe { font-weight: 500; font-size: 48px; color: var(--suave); margin-top: 10px; }
+      .card .rodape { margin-top: auto; display: flex; align-items: center; gap: 24px; font-weight: 800; font-size: 76px; }
+      .card .rodape .s { color: var(--suave); }
+      .card .rodape .marcou { color: var(--cor); }
+      .card .medidor { flex: 1; }
+      .card .medidor .rot { font-weight: 700; font-size: 40px; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; }
+      .card .medidor .trilho { position: relative; height: 30px; border-radius: 15px; background: var(--linha); margin-top: 14px; overflow: hidden; }
+      .card .medidor .enche { position: absolute; inset: 0; background: var(--cor); transform-origin: left center; transform: scaleX(0); }
+      .card .medidor .pct { font-size: 76px; }
+
+      #barra { position: absolute; top: 1190px; left: 80px; width: 840px; height: 420px; }
+      #marcas { position: absolute; left: 0; top: 0; width: 840px; height: 150px; }
+      .marca {
+        position: absolute; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%;
+        background: var(--bg); border: 5px solid var(--cor); padding: 9px; opacity: 0;
+      }
+      .marca.r0 { top: 82px; }
+      .marca.r1 { top: 6px; }
+      .marca .haste { position: absolute; left: 50%; top: 59px; width: 4px; margin-left: -2px; background: var(--cor); opacity: 0.6; }
+      .marca.r0 .haste { height: 14px; }
+      .marca.r1 .haste { height: 90px; }
+      #trilho { position: absolute; left: 0; top: 160px; width: 840px; height: 22px; border-radius: 11px; background: var(--linha); overflow: hidden; }
+      #enche { position: absolute; inset: 0; background: linear-gradient(90deg, var(--casa), var(--fora)); transform-origin: left center; transform: scaleX(0); }
+      .tique { position: absolute; top: 152px; width: 4px; height: 38px; margin-left: -2px; background: var(--texto); opacity: 0.5; }
+      .rot-t { position: absolute; top: 200px; font-weight: 700; font-size: 38px; color: var(--suave); transform: translateX(-50%); }
+      #momentum { position: absolute; left: 0; top: 260px; width: 840px; height: 160px; }
+      #mom-revela { position: absolute; left: 0; top: 0; height: 160px; width: 0; overflow: hidden; }
+      #momentum svg { position: absolute; left: 0; top: 0; }
+      #momentum .eixo { position: absolute; left: 0; top: 79px; width: 840px; height: 2px; background: var(--linha); }
+      #momentum .leg { position: absolute; left: -64px; width: 44px; height: 44px; font-size: 44px; }
+
+      /* ---------- Fim ---------- */
+      #fim { display: flex; flex-direction: column; align-items: center; padding: 200px 80px 0; }
+      #fim .titulo { font-weight: 800; font-size: 64px; letter-spacing: 0.16em; color: var(--suave); }
+      #fim .final { display: flex; align-items: center; gap: 40px; margin-top: 40px; }
+      #fim .final .img { width: 190px; height: 190px; font-size: 190px; }
+      #fim .final .gols { font-weight: 800; font-size: 220px; line-height: 1; }
+      #fim .stats { width: 860px; margin-top: 70px; display: flex; flex-direction: column; gap: 34px; }
+      #fim .linha .nums { display: flex; justify-content: space-between; font-weight: 800; font-size: 58px; }
+      #fim .linha .nums .nome { font-weight: 700; font-size: 40px; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; align-self: center; }
+      #fim .linha .barras { display: flex; gap: 10px; height: 18px; margin-top: 8px; }
+      #fim .linha .barras div { height: 100%; border-radius: 9px; transform: scaleX(0); }
+      #fim .linha .barras .bc { background: var(--casa); transform-origin: right center; }
+      #fim .linha .barras .bf { background: var(--fora); transform-origin: left center; }
+      #fim .cta { margin-top: 70px; font-weight: 700; font-size: 50px; text-align: center; line-height: 1.2; }
+      #fim .cta b { font-weight: 800; color: var(--texto); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__TOTAL__" data-width="1080" data-height="1920">
+      <section id="gancho" class="cena"></section>
+      <section id="intro" class="cena"></section>
+      <section id="principal" class="cena">
+        <div id="placar"></div>
+        <div id="palco"></div>
+        <div id="barra">
+          <div id="marcas"></div>
+          <div id="trilho"><div id="enche"></div></div>
+          <div id="momentum"><div class="eixo"></div><div id="mom-revela"></div></div>
+        </div>
+      </section>
+      <section id="fim" class="cena"></section>
+    </div>
+    <script>
+      const D = /*__DADOS__*/null;
+      const J = D.jogo, A = D.agenda, ACR = J.acrescimos;
+      const root = document.getElementById("root");
+      root.style.setProperty("--casa", J.casa.destaque);
+      root.style.setProperty("--fora", J.fora.destaque);
+      const BAR_W = 840;
+
+      // ---------- utilitários ----------
+      function h(tag, cls, html, pai) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (html != null) e.innerHTML = html;
+        if (pai) pai.appendChild(e);
+        return e;
+      }
+      function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]); }
+      function escudo(lado, cls, pai) {
+        const box = h("div", cls, null, pai);
+        const t = J[lado];
+        if (t.escudo) h("img", "escudo", null, box).src = t.escudo;
+        else h("div", "escudo-alt", esc(t.sigla), box);
+        return box;
+      }
+      function minTxt(m, a) { return a ? `${m}+${a}'` : `${m}'`; }
+      function posicao(m, a) {
+        const l1 = 45 + ACR[0], l2 = 45 + ACR[1], tot = l1 + l2;
+        if (m <= 45) return Math.min(m + a, l1) / tot;
+        return (l1 + Math.min(m - 45 + a, l2)) / tot;
+      }
+      // inversa de power2.inOut, para saber quando a barra cruza cada minuto
+      function invEase(y) { return y < 0.5 ? Math.sqrt(y / 2) : 1 - Math.sqrt((1 - y) / 2); }
+
+      const ICONES = {
+        gol: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff"/><polygon points="50,30 69,44 62,66 38,66 31,44" fill="#111"/><path d="M50 30V6M69 44l22-8M62 66l14 20M38 66L24 86M31 44L9 36" stroke="#111" stroke-width="5"/></svg>`,
+        amarelo: `<svg viewBox="0 0 100 100"><rect x="24" y="8" width="52" height="84" rx="8" fill="#facc15" transform="rotate(8 50 50)"/></svg>`,
+        vermelho: `<svg viewBox="0 0 100 100"><rect x="24" y="8" width="52" height="84" rx="8" fill="#ef4444" transform="rotate(8 50 50)"/></svg>`,
+        chance: `<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="7"><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="22"/><circle cx="50" cy="50" r="5" fill="#fff"/></svg>`,
+        penalti_perdido: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#fff" stroke-width="7"/><path d="M28 28l44 44M72 28L28 72" stroke="#ef4444" stroke-width="10" stroke-linecap="round"/></svg>`,
+        anulado: `<svg viewBox="0 0 100 100"><rect x="6" y="20" width="88" height="60" rx="10" fill="none" stroke="#fff" stroke-width="7"/><text x="50" y="63" text-anchor="middle" font-family="Barlow" font-weight="800" font-size="34" fill="#fff">VAR</text></svg>`,
+      };
+      const ROTULOS = { gol: "GOL", vermelho: "EXPULSO", amarelo: "AMARELO", chance: "QUASE!", penalti_perdido: "PÊNALTI PERDIDO", anulado: "GOL ANULADO" };
+
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+
+      // ---------- Gancho ----------
+      const G = document.getElementById("gancho");
+      h("div", "faixa", null, G);
+      h("div", "tag", `${esc(J.campeonato)} · Rodada ${esc(J.rodada)}`, G).style.marginTop = "36px";
+      const h1 = h("h1", null, null, G);
+      D.gancho.titulo.split(" ").forEach((w, i) => { h("span", null, esc(w), h1); h1.append(" "); });
+      h("p", null, esc(D.gancho.subtitulo), G);
+      // primeiro quadro já legível (vira a capa no TikTok)
+      tl.set(G, { opacity: 1 }, 0);
+      tl.from(h1.children, { scale: 1.25, opacity: 0.35, duration: 0.5, stagger: 0.08, ease: "power3.out", transformOrigin: "left center" }, 0);
+      tl.from(G.querySelector("p"), { y: 40, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.35);
+      tl.to(G, { opacity: 0, y: -60, duration: 0.35, ease: "power2.in" }, A.gancho - 0.35);
+
+      // ---------- Intro ----------
+      const I = document.getElementById("intro");
+      const duelo = h("div", "duelo", null, I);
+      const tc = h("div", "time", null, duelo); escudo("casa", "img", tc); h("div", "nome", esc(J.casa.nome), tc);
+      h("div", "x", "×", duelo);
+      const tf = h("div", "time", null, duelo); escudo("fora", "img", tf); h("div", "nome", esc(J.fora.nome), tf);
+      const info = h("div", "info", null, I);
+      h("div", "comp", `${esc(J.campeonato)} ${esc(J.temporada)} · Rodada ${esc(J.rodada)}`, info);
+      if (J.estadio) h("div", "local", esc(J.estadio), info);
+      const rol = h("div", "rolando", "BOLA ROLANDO", I);
+      const t0 = A.gancho;
+      tl.set(I, { opacity: 1 }, t0);
+      tl.from(tc, { x: -420, opacity: 0, duration: 0.6, ease: "power3.out" }, t0);
+      tl.from(tf, { x: 420, opacity: 0, duration: 0.6, ease: "power3.out" }, t0);
+      tl.from(duelo.querySelector(".x"), { scale: 0, duration: 0.4, ease: "back.out(2)" }, t0 + 0.35);
+      tl.from(info, { y: 40, opacity: 0, duration: 0.5, ease: "power2.out" }, t0 + 0.5);
+      tl.from(rol, { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2)" }, t0 + Math.min(1.4, A.intro - 1.2));
+      tl.to(I, { opacity: 0, scale: 0.94, duration: 0.4, ease: "power2.in" }, t0 + A.intro - 0.4);
+
+      // ---------- Principal ----------
+      const P = document.getElementById("principal");
+      const PL = document.getElementById("placar");
+      const lc = h("div", "lado", null, PL); escudo("casa", "img", lc); h("div", "sigla", esc(J.casa.sigla), lc);
+      const centro = h("div", "centro", null, PL);
+      const nums = h("div", "nums", null, centro);
+      const numC = h("div", "num", null, nums); h("div", "traco", "–", nums); const numF = h("div", "num", null, nums);
+      const lf = h("div", "lado", null, PL); escudo("fora", "img", lf); h("div", "sigla", esc(J.fora.sigla), lf);
+      for (let i = 0; i <= J.placar[0]; i++) h("span", null, i, numC);
+      for (let i = 0; i <= J.placar[1]; i++) h("span", null, i, numF);
+      const relogio = h("div", null, null, centro); relogio.id = "relogio";
+
+      tl.fromTo(P, { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: false }, A.inicio_barra - 0.4);
+
+      // Barra: marcações de tempo
+      const BARRA = document.getElementById("barra");
+      const tiques = [[0, 0, "0'"], [45, 0, "45'"], [90, 0, "90'"]];
+      tiques.forEach(([m, a, txt]) => {
+        const x = posicao(m, a) * BAR_W;
+        const tq = h("div", "tique", null, BARRA); tq.style.left = x + "px";
+        const r = h("div", "rot-t", txt, BARRA); r.style.left = x + "px";
+      });
+      const xInt = ((45 + ACR[0]) / (90 + ACR[0] + ACR[1])) * BAR_W;
+      const tqi = h("div", "tique", null, BARRA); tqi.style.left = xInt + "px"; tqi.style.opacity = 0.25;
+      const rotFim = h("div", "rot-t", ACR[1] ? `+${ACR[1]}` : "", BARRA); rotFim.style.left = BAR_W + "px";
+
+      // Momentum: pressão minuto a minuto (para cima = casa)
+      const MR = document.getElementById("mom-revela");
+      const pts = D.momentum || [];
+      if (pts.length) {
+        const ns = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(ns, "svg");
+        svg.setAttribute("width", BAR_W); svg.setAttribute("height", 160);
+        const larg = Math.max(3, BAR_W / (90 + ACR[0] + ACR[1]) - 2);
+        pts.forEach((p) => {
+          const m = p.minuto > 90 ? 90 : p.minuto, a = p.minuto > 90 ? p.minuto - 90 : 0;
+          const x = posicao(m, a) * BAR_W, v = Math.max(-1, Math.min(1, p.valor)), alt = Math.abs(v) * 76;
+          const r = document.createElementNS(ns, "rect");
+          r.setAttribute("x", x - larg); r.setAttribute("width", larg); r.setAttribute("rx", 1.5);
+          r.setAttribute("y", v >= 0 ? 80 - alt : 80); r.setAttribute("height", Math.max(1, alt));
+          r.setAttribute("fill", v >= 0 ? J.casa.destaque : J.fora.destaque);
+          svg.appendChild(r);
+        });
+        MR.appendChild(svg);
+        const MOM = document.getElementById("momentum");
+        const lgc = escudo("casa", "leg", MOM); lgc.style.top = "8px";
+        const lgf = escudo("fora", "leg", MOM); lgf.style.top = "108px";
+      } else {
+        document.getElementById("momentum").style.display = "none";
+      }
+
+      // Relógio: um span por minuto exibido, trocado no instante em que a barra passa por ele
+      const minutos = [];
+      for (let m = 0; m <= 45; m++) minutos.push([m, 0]);
+      for (let a = 1; a <= ACR[0]; a++) minutos.push([45, a]);
+      for (let m = 46; m <= 90; m++) minutos.push([m, 0]);
+      for (let a = 1; a <= ACR[1]; a++) minutos.push([90, a]);
+      const spans = minutos.map(([m, a]) => h("span", null, minTxt(m, a), relogio));
+      const spanFim = h("span", null, "FIM", relogio);
+      const posMin = minutos.map(([m, a]) => posicao(m, a));
+      tl.set(spans[0], { opacity: 1 }, A.inicio_barra - 0.4);
+      let ultimo = 0;
+
+      const ENCHE = document.getElementById("enche");
+      const MARCAS = document.getElementById("marcas");
+      const PALCO = document.getElementById("palco");
+      const placarAtual = [0, 0];
+
+      function viagem(de, ate, inicio, dur) {
+        tl.to(ENCHE, { scaleX: ate, duration: dur, ease: "power2.inOut" }, inicio);
+        tl.to(MR, { width: ate * BAR_W, duration: dur, ease: "power2.inOut" }, inicio);
+        while (ultimo + 1 < posMin.length && posMin[ultimo + 1] <= ate + 1e-6) {
+          const k = ultimo + 1;
+          const frac = ate > de ? (posMin[k] - de) / (ate - de) : 1;
+          const t = inicio + invEase(Math.max(0, Math.min(1, frac))) * dur;
+          tl.set(spans[ultimo], { opacity: 0 }, t);
+          tl.set(spans[k], { opacity: 1 }, t);
+          ultimo = k;
+        }
+      }
+
+      // linha das marcas: escalona ícones muito próximos
+      let ultimaPos = -1, ultimaLinha = 1;
+      let pos = 0, tempo = A.inicio_barra;
+      D.destaques.forEach((d, i) => {
+        const parada = A.paradas[i];
+        viagem(pos, parada.pos, tempo, parada.t - tempo);
+        pos = parada.pos;
+        const cor = J[d.time].destaque;
+
+        const linha = parada.pos - ultimaPos < 0.075 ? 1 - ultimaLinha : 0;
+        ultimaPos = parada.pos; ultimaLinha = linha;
+        const mk = h("div", `marca r${linha}`, ICONES[d.tipo], MARCAS);
+        mk.style.left = parada.pos * BAR_W + "px"; mk.style.setProperty("--cor", cor);
+        h("div", "haste", null, mk);
+        tl.set(mk, { opacity: 1 }, parada.t);
+        tl.from(mk, { scale: 0, duration: 0.35, ease: "back.out(3)" }, parada.t);
+        tl.fromTo(mk, { scale: 1 }, { scale: 1.35, duration: 0.25, yoyo: true, repeat: 1, ease: "power1.inOut", immediateRender: false }, parada.t + 0.35);
+
+        // card
+        const c = h("div", "card", null, PALCO);
+        c.style.setProperty("--cor", cor);
+        const topo = h("div", "topo", null, c);
+        h("div", "icone", ICONES[d.tipo], topo);
+        h("div", "min", minTxt(d.minuto, d.acrescimo), topo);
+        escudo(d.time, "esc", topo);
+        const rot = h("div", "rotulo", ROTULOS[d.tipo], c);
+        if (ROTULOS[d.tipo].length > 8) rot.classList.add("longo");
+        const jog = d.tipo === "gol" && d.detalhe === "contra" ? `Contra, de ${d.jogador}` : d.jogador;
+        if (jog) h("div", "jogador", esc(jog), c);
+        const det = d.detalhe && d.detalhe !== "contra" ? d.detalhe : "";
+        if (det) h("div", "detalhe", esc(det.charAt(0).toUpperCase() + det.slice(1)), c);
+        const rod = h("div", "rodape", null, c);
+        let enche = null;
+        if (d.tipo === "gol") {
+          const casaMarcou = d.time === "casa";
+          rod.innerHTML = `<span class="${casaMarcou ? "marcou" : "s"}">${esc(J.casa.sigla)} ${d.placar[0]}</span><span class="s">×</span><span class="${casaMarcou ? "s" : "marcou"}">${d.placar[1]} ${esc(J.fora.sigla)}</span>`;
+        } else if (d.tipo === "chance" || d.tipo === "penalti_perdido") {
+          const med = h("div", "medidor", null, rod);
+          h("div", "rot", "Chance de gol", med);
+          enche = h("div", "enche", null, h("div", "trilho", null, med));
+          h("div", "pct", Math.round((d.xg || 0) * 100) + "%", rod);
+        } else if (d.tipo === "vermelho") {
+          const n = D.destaques.filter((x, j) => j <= i && x.tipo === "vermelho" && x.time === d.time).length;
+          rod.innerHTML = `<span class="s">${esc(J[d.time].nome)} fica com</span><span class="marcou">${11 - n}</span>`;
+        }
+
+        const t = parada.t;
+        tl.set(c, { opacity: 1 }, t);
+        tl.fromTo(c, { opacity: 0, y: 70, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, t);
+        tl.from(rot, { x: -60, opacity: 0, duration: 0.4, ease: "power3.out" }, t + 0.15);
+        if (enche) tl.to(enche, { scaleX: Math.min(1, d.xg || 0), duration: 0.9, ease: "power2.out" }, t + 0.5);
+        tl.to(c, { opacity: 0, y: -40, duration: 0.35, ease: "power2.in" }, t + A.card - 0.35);
+
+        // placar só muda quando o gol é atingido
+        if (d.tipo === "gol") {
+          const lado = d.time === "casa" ? 0 : 1;
+          const caixa = lado === 0 ? numC : numF;
+          const antes = caixa.children[placarAtual[lado]], depois = caixa.children[d.placar[lado]];
+          placarAtual[0] = d.placar[0]; placarAtual[1] = d.placar[1];
+          if (antes !== depois) {
+            tl.to(antes, { opacity: 0, y: -60, duration: 0.25, ease: "power2.in" }, t + 0.3);
+            tl.fromTo(depois, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, t + 0.5);
+          }
+        }
+        tempo = t + A.card;
+      });
+      viagem(pos, 1, tempo, A.trecho_final);
+      tl.set(spans[ultimo], { opacity: 0 }, A.fim_barra);
+      tl.set(spanFim, { opacity: 1 }, A.fim_barra);
+      tl.to(P, { opacity: 0, duration: 0.5, ease: "power2.in" }, A.fim_barra + 0.5);
+
+      // ---------- Fim ----------
+      const F = document.getElementById("fim");
+      h("div", "titulo", "FIM DE JOGO", F);
+      const fin = h("div", "final", null, F);
+      escudo("casa", "img", fin);
+      h("div", "gols", `${J.placar[0]} <span style="color:var(--suave)">×</span> ${J.placar[1]}`, fin);
+      escudo("fora", "img", fin);
+      const S = D.estatisticas || {};
+      const linhas = [["posse", "Posse", (v) => Math.round(v) + "%"], ["finalizacoes", "Finalizações", (v) => Math.round(v)],
+        ["no_gol", "No gol", (v) => Math.round(v)], ["xg", "Gols esperados (xG)", (v) => v.toFixed(2)], ["chances_claras", "Chances claras", (v) => Math.round(v)]];
+      const st = h("div", "stats", null, F);
+      const barrasFim = [];
+      linhas.forEach(([k, nome, fmt]) => {
+        const v = S[k];
+        if (!v || v[0] == null || v[1] == null) return;
+        const l = h("div", "linha", null, st);
+        h("div", "nums", `<span>${fmt(v[0])}</span><span class="nome">${nome}</span><span>${fmt(v[1])}</span>`, l);
+        const b = h("div", "barras", null, l);
+        const tot = v[0] + v[1] || 1;
+        const bc = h("div", "bc", null, b), bf = h("div", "bf", null, b);
+        bc.style.flex = String(Math.max(0.02, v[0] / tot)); bf.style.flex = String(Math.max(0.02, v[1] / tot));
+        barrasFim.push(bc, bf);
+      });
+      const cta = h("div", "cta", D.proximo ? `Próximo jogo da rodada:<br><b>${esc(D.proximo)}</b>` : `Segue pra ver os outros jogos<br>da <b>rodada ${esc(J.rodada)}</b>`, F);
+      const tf0 = A.fim_barra + 0.6;
+      tl.set(F, { opacity: 1 }, tf0);
+      tl.from(F.querySelector(".titulo"), { y: -30, opacity: 0, duration: 0.4 }, tf0);
+      tl.from(fin, { scale: 0.7, opacity: 0, duration: 0.6, ease: "back.out(1.8)" }, tf0 + 0.15);
+      tl.from(st.children, { opacity: 0, y: 30, duration: 0.4, stagger: 0.12 }, tf0 + 0.7);
+      if (barrasFim.length) tl.to(barrasFim, { scaleX: 1, duration: 0.7, stagger: 0.06, ease: "power2.out" }, tf0 + 0.9);
+      tl.from(cta, { opacity: 0, y: 30, duration: 0.5 }, Math.max(tf0 + 2, A.total - 3.2));
+      tl.set({}, {}, A.total);
+      tl.seek(0);
+    </script>
+  </body>
+</html>
