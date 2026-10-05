@@ -56,8 +56,13 @@ def _time(ev, lado):
 
 
 def _ponto(c):
-    """Coordenada Sofascore -> [lateral 0..100 (0 = esquerda de quem ataca), distância ao gol 0..100]."""
-    return [round(100 - c["y"], 1), round(c["x"], 1)]
+    """Coordenada Sofascore -> [lateral 0..100 (0 = esquerda de quem ataca), distância ao gol 0..100].
+
+    Conferido contra o texto da Opta: "left side of the box" tem y médio 34 e
+    "right side" tem y médio 68, então y já cresce para a direita de quem ataca.
+    Atenção: a boca do gol (goalMouthCoordinates) usa o eixo oposto
+    ("left corner" ~ y 53), e é invertida no template."""
+    return [round(c["y"], 1), round(c["x"], 1)]
 
 
 def _lance_chute(s):
