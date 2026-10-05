@@ -690,7 +690,8 @@
           const ns = "http://www.w3.org/2000/svg", svg = campo.gram.querySelector("svg");
           function linhaSvg(a, b, corL, larg) {
             const ln = document.createElementNS(ns, "line");
-            ln.setAttribute("x1", a[0]); ln.setAttribute("y1", a[1]); ln.setAttribute("x2", b[0]); ln.setAttribute("y2", b[1]);
+            const X = campo.x0;  // o SVG começa onde o gramado começa
+            ln.setAttribute("x1", a[0] - X); ln.setAttribute("y1", a[1]); ln.setAttribute("x2", b[0] - X); ln.setAttribute("y2", b[1]);
             ln.setAttribute("stroke", corL); ln.setAttribute("stroke-width", larg || 5); ln.setAttribute("stroke-linecap", "round");
             ln.setAttribute("pathLength", "1"); ln.style.strokeDasharray = "1"; ln.style.strokeDashoffset = "1";
             svg.appendChild(ln);
@@ -727,26 +728,40 @@
 
           // troca de passes (2D): passe = linha cheia; condução = jogador correndo com a bola (tracejado)
           let portador = null;  // quem está com a bola (bolinha que se move nas conduções)
-          const sobrenome = (n) => (n || "").split(" ").slice(-1)[0];
+          const ultimos = {};
+          [...passes.map((p) => p.jogador), d.jogador].forEach((n) => {
+            const sn = (n || "").split(" ").slice(-1)[0];
+            (ultimos[sn] = ultimos[sn] || new Set()).add(n);
+          });
+          const sobrenome = (n) => {
+            const partes = (n || "").split(" "), sn = partes.slice(-1)[0];
+            return ultimos[sn] && ultimos[sn].size > 1 && partes.length > 1 ? `${partes[0][0]}. ${sn}` : sn;
+          };
+          const pontos = [];  // jogadores já desenhados: reaproveita quando o mesmo toca de novo no mesmo lugar
           passes.forEach((p, k) => {
             const tp = pa.passes_t[k], dur = Math.max(0.2, pa.passes_dur[k] * 0.9);
             const de = campo.ponto(p.de), para = campo.ponto(p.para);
             const mesmo = portador && portador.nome === p.jogador && Math.hypot(portador.pos[0] - de[0], portador.pos[1] - de[1]) < 24;
             let at;
+            const ja = pontos.find((q) => q.nome === p.jogador && Math.hypot(q.pos[0] - de[0], q.pos[1] - de[1]) < 70);
             if (mesmo) {
               at = portador.el;
+            } else if (ja) {
+              at = ja.el;  // mesmo jogador tocando de novo: o ponto desliza até onde ele está agora
+              tl.to(at, { x: de[0] - ja.pos[0], y: de[1] - ja.pos[1], duration: 0.2, ease: "power2.out" }, tp - 0.2);
             } else {
               at = atleta(de, sobrenome(p.jogador));
               at.style.setProperty("--cor", cor);
               tl.fromTo(at, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, tp - 0.15);
+              pontos.push({ el: at, nome: p.jogador, pos: de });
             }
             if (p.conducao) {
               const ln = document.createElementNS(ns, "line");
-              ln.setAttribute("x1", de[0]); ln.setAttribute("y1", de[1]); ln.setAttribute("x2", de[0]); ln.setAttribute("y2", de[1]);
+              ln.setAttribute("x1", de[0] - campo.x0); ln.setAttribute("y1", de[1]); ln.setAttribute("x2", de[0] - campo.x0); ln.setAttribute("y2", de[1]);
               ln.setAttribute("stroke", "rgba(255,255,255,0.85)"); ln.setAttribute("stroke-width", 5); ln.setAttribute("stroke-linecap", "round");
               ln.setAttribute("stroke-dasharray", "4 12");
               svg.appendChild(ln);
-              tl.to(ln, { attr: { x2: para[0], y2: para[1] }, duration: dur, ease: "none" }, tp);
+              tl.to(ln, { attr: { x2: para[0] - campo.x0, y2: para[1] }, duration: dur, ease: "none" }, tp);
               // o jogador corre junto com a bola
               const base = portador && at === portador.el ? portador.desloc : [0, 0];
               tl.to(at, { x: base[0] + para[0] - de[0], y: base[1] + para[1] - de[1], duration: dur, ease: "none" }, tp);

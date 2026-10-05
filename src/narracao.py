@@ -269,8 +269,13 @@ def para_tts(texto, tipo, clima):
     if ic is None and alvo:
         ic = next((i for i, w in enumerate(ws) if limpa(w).lower() == alvo.lower()), None)
     if tipo == "gol":
-        # "Gol" falado normalmente, com entusiasmo, sem o grito esticado de narrador
-        _inserir(ws, ic if ic is not None else -1, "[enthusiasm]")
+        # "Gol" falado normalmente, sem o grito esticado de narrador: tom positivo
+        # e ponto final no lugar da exclamação (a exclamação puxa o grito)
+        if ic is not None:
+            k = next((j for j in range(ic, len(ws)) if ws[j].endswith("!")), None)
+            if k is not None and k - ic <= 4:
+                ws[k] = ws[k][:-1] + "."
+        _inserir(ws, ic if ic is not None else -1, "[positive]")
         # frase de contexto depois do grito
         if ic is not None:
             k = next((j for j in range(ic, len(ws) - 1) if ws[j].endswith("!")), None)

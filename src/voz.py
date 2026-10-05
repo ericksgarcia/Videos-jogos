@@ -225,7 +225,39 @@ def _alinhar_gemini(texto, wav):
     return out
 
 
+def _gol_esticado(wav):
+    """Pergunta ao Gemini se o "gol" saiu esticado/gritado ("goooool")."""
+    b = base64.b64encode(Path(wav).read_bytes()).decode()
+    q = ('Ouça. A palavra "gol" é falada de forma normal e curta (como numa frase comum), ou é esticada/gritada '
+         'como narrador ("goool", "goooool")? Responda só JSON: {"esticado": true/false}')
+    r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+                      headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]}, timeout=120,
+                      json={"contents": [{"parts": [{"inlineData": {"mimeType": "audio/wav", "data": b}}, {"text": q}]}],
+                            "generationConfig": {"responseMimeType": "application/json", "temperature": 0}})
+    r.raise_for_status()
+    return bool(json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"]).get("esticado"))
+
+
+TENTATIVAS_GOL = 4
+
+
 def _gemini(texto, voz, destino, tts=None):
+    """Sintetiza; se a fala tem "Gol" e ele sair gritado, gera de novo (até 4 vezes)."""
+    tem_gol = any(re.sub(r"[^\wÀ-ÿ]", "", w) == "Gol" for w in texto.split())
+    for tentativa in range(TENTATIVAS_GOL if tem_gol else 1):
+        res = _gemini_uma(texto, voz, destino, tts)
+        if not tem_gol:
+            return res
+        try:
+            if not _gol_esticado(destino):
+                return res
+        except Exception:
+            return res
+        print(f"   [voz] \"gol\" saiu esticado, gerando de novo ({tentativa + 1}/{TENTATIVAS_GOL})")
+    return res
+
+
+def _gemini_uma(texto, voz, destino, tts=None):
     chave = os.environ["GEMINI_API_KEY"]
     corpo = {"contents": [{"parts": [{"text": DIRECAO + (tts or texto)}]}],
              "generationConfig": {"responseModalities": ["AUDIO"],
