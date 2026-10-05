@@ -9,7 +9,7 @@
       @font-face { font-family: "Barlow"; font-weight: 700; src: url("assets/barlow-700.woff2") format("woff2"); }
       @font-face { font-family: "Barlow"; font-weight: 800; src: url("assets/barlow-800.woff2") format("woff2"); }
       :root {
-        --bg: #0a0e14;
+        --bg: #070a10;
         --texto: #f4f4f5;
         --suave: #a1a1aa;
         --linha: rgba(255, 255, 255, 0.14);
@@ -19,87 +19,120 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
       #root {
-        position: relative; width: 1080px; height: 1920px; overflow: hidden;
+        position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--bg);
         font-family: "Barlow", "Liberation Sans", sans-serif; color: var(--texto);
-        background:
-          radial-gradient(1200px 900px at 15% 0%, color-mix(in srgb, var(--casa) 16%, transparent), transparent 70%),
-          radial-gradient(1200px 900px at 85% 100%, color-mix(in srgb, var(--fora) 16%, transparent), transparent 70%),
-          var(--bg);
       }
+      .camada { position: absolute; inset: 0; pointer-events: none; }
+
+      /* ---------- fundo vivo ---------- */
+      .blob { position: absolute; width: 1500px; height: 1500px; border-radius: 50%; }
+      #b1 { left: -700px; top: -600px; background: radial-gradient(closest-side, color-mix(in srgb, var(--casa) 30%, transparent), transparent); }
+      #b2 { left: 300px; top: 1000px; background: radial-gradient(closest-side, color-mix(in srgb, var(--fora) 30%, transparent), transparent); }
+      #b3 { left: 100px; top: 300px; width: 1100px; height: 1100px; background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05), transparent); }
+      #campo { position: absolute; left: -200px; top: 200px; width: 1480px; height: 1800px; opacity: 0.07; }
+      #faixas { position: absolute; inset: 0; overflow: hidden; }
+      .raio { position: absolute; top: -400px; width: 160px; height: 2800px; transform: rotate(18deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent); }
+
+      #camera { position: absolute; inset: 0; transform-origin: 540px 900px; }
       .cena { position: absolute; inset: 0; opacity: 0; }
       .escudo { width: 100%; height: 100%; object-fit: contain; }
-      .escudo-alt {
-        width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        font-weight: 800; font-size: 0.32em; background: var(--linha);
+      .escudo-alt { width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.32em; background: var(--linha); }
+      .mascara { overflow: hidden; display: block; }
+      .mascara > * { display: block; }
+
+      #flash { position: absolute; inset: 0; opacity: 0; background: #fff; }
+      #vermelho { position: absolute; inset: 0; opacity: 0; background: radial-gradient(closest-side, transparent 55%, rgba(239, 68, 68, 0.75)); transform: scale(1.4); }
+      #wipe { position: absolute; inset: 0; overflow: hidden; }
+      .painel { position: absolute; top: -200px; left: 0; width: 1500px; height: 2400px; transform: translateX(-2600px) skewX(-14deg); }
+      #grao {
+        position: absolute; inset: 0; opacity: 0.09; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='256' height='256' filter='url(%23n)'/></svg>");
       }
+      #vinheta { position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.65)); }
+      #progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: linear-gradient(90deg, var(--casa), var(--fora)); transform-origin: left center; transform: scaleX(0); }
 
-      /* ---------- Gancho ---------- */
-      #gancho { display: flex; flex-direction: column; justify-content: center; padding: 0 80px 260px; }
-      #gancho .tag { font-weight: 700; font-size: 44px; letter-spacing: 0.12em; color: var(--suave); text-transform: uppercase; }
-      #gancho h1 { font-weight: 800; font-size: 178px; line-height: 0.92; letter-spacing: -0.01em; margin: 28px 0 40px; text-transform: uppercase; }
-      #gancho h1 span { display: inline-block; }
-      #gancho p { font-weight: 500; font-size: 56px; line-height: 1.15; color: var(--suave); }
-      #gancho .faixa { width: 180px; height: 14px; border-radius: 7px; background: linear-gradient(90deg, var(--casa), var(--fora)); }
+      /* ---------- gancho ---------- */
+      #gancho { display: flex; flex-direction: column; justify-content: center; padding: 0 80px 300px; transform-origin: 300px 900px; }
+      #gancho .laje { position: absolute; left: -100px; top: 640px; width: 1300px; height: 520px; transform-origin: left center; transform: skewY(-7deg); background: linear-gradient(90deg, color-mix(in srgb, var(--casa) 30%, transparent), color-mix(in srgb, var(--fora) 30%, transparent)); }
+      #gancho .tag { position: relative; font-weight: 700; font-size: 46px; letter-spacing: 0.14em; color: var(--suave); text-transform: uppercase; }
+      #gancho h1 { position: relative; font-weight: 800; font-size: 190px; line-height: 0.9; margin: 26px 0 40px; text-transform: uppercase; }
+      #gancho h1 .w { display: inline-block; margin-right: 0.18em; transform-origin: center 60%; }
+      #gancho .eco { position: absolute; left: 80px; top: 0; bottom: 300px; display: flex; align-items: center; font-weight: 800; font-size: 190px; line-height: 0.9; text-transform: uppercase; color: transparent; -webkit-text-stroke: 3px rgba(255, 255, 255, 0.18); opacity: 0; transform-origin: left center; }
+      #gancho p { position: relative; font-weight: 500; font-size: 58px; line-height: 1.15; color: #d4d4d8; }
 
-      /* ---------- Intro ---------- */
-      #intro { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 240px; }
-      #intro .duelo { display: flex; align-items: center; gap: 60px; }
-      #intro .time { width: 340px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
-      #intro .time .img { width: 280px; height: 280px; font-size: 280px; }
-      #intro .time .nome { font-weight: 800; font-size: 76px; text-transform: uppercase; text-align: center; line-height: 1; }
-      #intro .x { font-weight: 800; font-size: 90px; color: var(--suave); }
-      #intro .info { margin-top: 90px; text-align: center; }
-      #intro .info .comp { font-weight: 700; font-size: 50px; letter-spacing: 0.08em; text-transform: uppercase; }
-      #intro .info .local { font-weight: 500; font-size: 42px; color: var(--suave); margin-top: 12px; }
-      #intro .rolando {
-        margin-top: 70px; font-weight: 800; font-size: 54px; letter-spacing: 0.1em; padding: 18px 44px;
-        border-radius: 999px; border: 4px solid var(--texto);
-      }
+      /* ---------- intro ---------- */
+      #intro { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 260px; }
+      #intro .duelo { position: relative; display: flex; align-items: center; gap: 50px; }
+      #intro .time { width: 340px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+      #intro .time .img { width: 290px; height: 290px; font-size: 290px; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6)); }
+      #intro .time .nome { font-weight: 800; font-size: 78px; text-transform: uppercase; text-align: center; line-height: 1; }
+      #intro .vs { position: relative; font-weight: 800; font-size: 120px; font-style: italic; color: var(--texto); text-shadow: 0 0 40px rgba(255, 255, 255, 0.5); }
+      #intro .anel { position: absolute; left: 50%; top: 50%; width: 240px; height: 240px; margin: -120px 0 0 -120px; border-radius: 50%; border: 8px solid #fff; opacity: 0; }
+      #intro .brilho { position: absolute; top: -120px; left: -300px; width: 220px; height: 700px; transform: rotate(20deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent); opacity: 0; mix-blend-mode: overlay; }
+      #intro .info { margin-top: 90px; text-align: center; position: relative; }
+      #intro .info .fita { height: 8px; width: 520px; margin: 0 auto 26px; background: linear-gradient(90deg, var(--casa), var(--fora)); transform: scaleX(0); }
+      #intro .info .comp { font-weight: 700; font-size: 52px; letter-spacing: 0.08em; text-transform: uppercase; }
+      #intro .info .local { font-weight: 500; font-size: 44px; color: var(--suave); margin-top: 12px; }
+      #intro .rolando { position: relative; margin-top: 70px; font-weight: 800; font-size: 56px; letter-spacing: 0.1em; padding: 20px 48px; border-radius: 999px; background: var(--texto); color: var(--bg); opacity: 0; }
+      #intro .rolando .pulso { position: absolute; inset: 0; border-radius: 999px; border: 5px solid var(--texto); opacity: 0; }
 
-      /* ---------- Principal ---------- */
+      /* ---------- principal ---------- */
       #placar { position: absolute; top: 170px; left: 60px; width: 880px; height: 270px; display: flex; align-items: center; justify-content: space-between; }
       #placar .lado { width: 220px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-      #placar .lado .img { width: 150px; height: 150px; font-size: 150px; }
+      #placar .lado .img { width: 150px; height: 150px; font-size: 150px; filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)); }
       #placar .lado .sigla { font-weight: 800; font-size: 52px; letter-spacing: 0.06em; }
       #placar .centro { display: flex; flex-direction: column; align-items: center; }
       #placar .nums { display: flex; align-items: center; gap: 28px; font-weight: 800; font-size: 190px; line-height: 1; }
-      #placar .num { position: relative; width: 110px; height: 190px; }
+      #placar .num { position: relative; width: 110px; height: 190px; overflow: hidden; }
       #placar .num span { position: absolute; inset: 0; text-align: center; opacity: 0; }
       #placar .num span:first-child { opacity: 1; }
       #placar .traco { color: var(--suave); font-size: 120px; }
-      #relogio { position: relative; width: 210px; height: 74px; margin-top: 10px; border-radius: 37px; background: var(--linha); }
-      #relogio span { position: absolute; inset: 0; text-align: center; line-height: 74px; font-weight: 700; font-size: 50px; opacity: 0; }
+      #relogio { position: relative; width: 220px; height: 76px; margin-top: 10px; border-radius: 38px; background: rgba(255, 255, 255, 0.12); border: 2px solid var(--linha); }
+      #relogio span { position: absolute; inset: 0; text-align: center; line-height: 72px; font-weight: 700; font-size: 50px; opacity: 0; }
+      #relogio .ao-vivo { position: absolute; left: 22px; top: 30px; width: 14px; height: 14px; border-radius: 50%; background: #ef4444; }
 
-      #palco { position: absolute; top: 500px; left: 60px; width: 880px; height: 680px; }
+      #gigante { position: absolute; left: 0; top: 520px; width: 1080px; text-align: center; font-weight: 800; font-size: 560px; line-height: 1; color: transparent; -webkit-text-stroke: 6px var(--cor, #fff); opacity: 0; transform-origin: 50% 50%; }
+      #palco { position: absolute; top: 500px; left: 60px; width: 880px; height: 680px; perspective: 1600px; }
       .card {
-        position: absolute; inset: 0; opacity: 0; border-radius: 40px; padding: 52px 56px;
-        background: rgba(255, 255, 255, 0.07); border: 2px solid var(--linha); overflow: hidden;
-        display: flex; flex-direction: column;
+        position: absolute; inset: 0; opacity: 0; border-radius: 40px; padding: 52px 56px; overflow: hidden;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+        border: 2px solid rgba(255, 255, 255, 0.16); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+        display: flex; flex-direction: column; transform-origin: 50% 60%;
       }
-      .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--cor); }
-      .card .topo { display: flex; align-items: center; gap: 30px; }
+      .card .faixa-cor { position: absolute; left: 0; top: 0; bottom: 0; width: 18px; background: var(--cor); transform-origin: top; }
+      .card .reflexo { position: absolute; top: -200px; left: -400px; width: 260px; height: 1200px; transform: rotate(22deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent); }
+      .card .topo { position: relative; display: flex; align-items: center; gap: 30px; }
       .card .icone { width: 120px; height: 120px; flex: none; }
-      .card .min { font-weight: 800; font-size: 120px; line-height: 1; color: var(--cor); }
+      .card { --cor-txt: color-mix(in srgb, var(--cor) 62%, #ffffff); }
+      .card .min { font-weight: 800; font-size: 120px; line-height: 1; color: var(--cor-txt); }
       .card .esc { margin-left: auto; width: 130px; height: 130px; font-size: 130px; }
-      .card .rotulo { font-weight: 800; font-size: 150px; line-height: 0.95; margin-top: 30px; text-transform: uppercase; }
-      .card .rotulo.longo { font-size: 112px; }
-      .card .jogador { font-weight: 700; font-size: 82px; line-height: 1.05; margin-top: 18px; }
-      .card .detalhe { font-weight: 500; font-size: 48px; color: var(--suave); margin-top: 10px; }
-      .card .rodape { margin-top: auto; display: flex; align-items: center; gap: 24px; font-weight: 800; font-size: 76px; }
+      .card .rot-box { position: relative; margin-top: 26px; height: 150px; }
+      .card .rotulo { position: absolute; left: 0; top: 0; font-weight: 800; font-size: 150px; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+      .card .rotulo.c1 { color: var(--cor); mix-blend-mode: screen; opacity: 0; }
+      .card .rotulo.c2 { color: #22d3ee; mix-blend-mode: screen; opacity: 0; }
+      .card.longo .rot-box { height: 116px; }
+      .card.longo .rotulo { font-size: 112px; }
+      .card .jogador { font-weight: 700; font-size: 82px; line-height: 1.1; margin-top: 14px; }
+      .card .detalhe { font-weight: 500; font-size: 48px; color: var(--suave); margin-top: 8px; }
+      .card .rodape { margin-top: auto; display: flex; align-items: center; gap: 24px; font-weight: 800; font-size: 76px; position: relative; }
       .card .rodape .s { color: var(--suave); }
-      .card .rodape .marcou { color: var(--cor); }
+      .card .rodape .marcou { color: var(--cor-txt); }
       .card .medidor { flex: 1; }
       .card .medidor .rot { font-weight: 700; font-size: 40px; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; }
       .card .medidor .trilho { position: relative; height: 30px; border-radius: 15px; background: var(--linha); margin-top: 14px; overflow: hidden; }
-      .card .medidor .enche { position: absolute; inset: 0; background: var(--cor); transform-origin: left center; transform: scaleX(0); }
-      .card .medidor .pct { font-size: 76px; }
+      .card .medidor .enche { position: absolute; inset: 0; background: var(--cor); box-shadow: 0 0 30px var(--cor); transform-origin: left center; transform: scaleX(0); }
+      .card .pct { position: relative; width: 150px; height: 80px; font-size: 76px; }
+      .card .pct span { position: absolute; right: 0; top: 0; opacity: 0; }
+      .cartao { position: absolute; right: 70px; top: 230px; width: 200px; height: 290px; border-radius: 22px; opacity: 0; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
+      .cartao::after { content: ""; position: absolute; inset: 0; border-radius: 22px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), transparent 45%); }
+
+      #particulas { position: absolute; inset: 0; }
+      .conf { position: absolute; left: 540px; top: 840px; width: 22px; height: 34px; border-radius: 4px; opacity: 0; }
+      .onda { position: absolute; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 6px solid var(--cor); opacity: 0; }
 
       #barra { position: absolute; top: 1190px; left: 80px; width: 840px; height: 420px; }
       #marcas { position: absolute; left: 0; top: 0; width: 840px; height: 150px; }
-      .marca {
-        position: absolute; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%;
-        background: var(--bg); border: 5px solid var(--cor); padding: 9px; opacity: 0;
-      }
+      .marca { position: absolute; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%; background: var(--bg); border: 5px solid var(--cor); padding: 9px; opacity: 0; box-shadow: 0 0 24px color-mix(in srgb, var(--cor) 60%, transparent); }
       .marca.r0 { top: 82px; }
       .marca.r1 { top: 6px; }
       .marca .haste { position: absolute; left: 50%; top: 59px; width: 4px; margin-left: -2px; background: var(--cor); opacity: 0.6; }
@@ -107,6 +140,7 @@
       .marca.r1 .haste { height: 90px; }
       #trilho { position: absolute; left: 0; top: 160px; width: 840px; height: 22px; border-radius: 11px; background: var(--linha); overflow: hidden; }
       #enche { position: absolute; inset: 0; background: linear-gradient(90deg, var(--casa), var(--fora)); transform-origin: left center; transform: scaleX(0); }
+      #cabeca { position: absolute; left: 0; top: 171px; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: #fff; box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.55); }
       .tique { position: absolute; top: 152px; width: 4px; height: 38px; margin-left: -2px; background: var(--texto); opacity: 0.5; }
       .rot-t { position: absolute; top: 200px; font-weight: 700; font-size: 38px; color: var(--suave); transform: translateX(-50%); }
       #momentum { position: absolute; left: 0; top: 260px; width: 840px; height: 160px; }
@@ -115,45 +149,72 @@
       #momentum .eixo { position: absolute; left: 0; top: 79px; width: 840px; height: 2px; background: var(--linha); }
       #momentum .leg { position: absolute; left: -64px; width: 44px; height: 44px; font-size: 44px; }
 
-      /* ---------- Fim ---------- */
-      #fim { display: flex; flex-direction: column; align-items: center; padding: 200px 80px 0; }
-      #fim .titulo { font-weight: 800; font-size: 64px; letter-spacing: 0.16em; color: var(--suave); }
-      #fim .final { display: flex; align-items: center; gap: 40px; margin-top: 40px; }
-      #fim .final .img { width: 190px; height: 190px; font-size: 190px; }
-      #fim .final .gols { font-weight: 800; font-size: 220px; line-height: 1; }
-      #fim .stats { width: 860px; margin-top: 70px; display: flex; flex-direction: column; gap: 34px; }
+      /* ---------- fim ---------- */
+      #fim { display: flex; flex-direction: column; align-items: center; padding: 190px 80px 0; }
+      #fim .titulo { font-weight: 800; font-size: 96px; letter-spacing: 0.08em; padding: 6px 36px; border: 8px solid var(--texto); border-radius: 18px; transform: rotate(-3deg); }
+      #fim .final { display: flex; align-items: center; gap: 40px; margin-top: 60px; }
+      #fim .final .img { width: 200px; height: 200px; font-size: 200px; }
+      #fim .final .gols { font-weight: 800; font-size: 230px; line-height: 1; display: flex; gap: 30px; }
+      #fim .final .gols .x { color: var(--suave); }
+      #fim .stats { width: 860px; margin-top: 60px; display: flex; flex-direction: column; gap: 32px; }
       #fim .linha .nums { display: flex; justify-content: space-between; font-weight: 800; font-size: 58px; }
       #fim .linha .nums .nome { font-weight: 700; font-size: 40px; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; align-self: center; }
       #fim .linha .barras { display: flex; gap: 10px; height: 18px; margin-top: 8px; }
       #fim .linha .barras div { height: 100%; border-radius: 9px; transform: scaleX(0); }
       #fim .linha .barras .bc { background: var(--casa); transform-origin: right center; }
       #fim .linha .barras .bf { background: var(--fora); transform-origin: left center; }
-      #fim .cta { margin-top: 70px; font-weight: 700; font-size: 50px; text-align: center; line-height: 1.2; }
-      #fim .cta b { font-weight: 800; color: var(--texto); }
+      #fim .cta { margin-top: 60px; display: flex; align-items: center; gap: 26px; font-weight: 700; font-size: 48px; line-height: 1.15; padding: 26px 44px; border-radius: 30px; background: rgba(255, 255, 255, 0.1); border: 3px solid var(--linha); opacity: 0; }
+      #fim .cta b { font-weight: 800; }
+      #fim .cta .seta { font-size: 70px; font-weight: 800; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="__TOTAL__" data-width="1080" data-height="1920">
-      <section id="gancho" class="cena"></section>
-      <section id="intro" class="cena"></section>
-      <section id="principal" class="cena">
-        <div id="placar"></div>
-        <div id="palco"></div>
-        <div id="barra">
-          <div id="marcas"></div>
-          <div id="trilho"><div id="enche"></div></div>
-          <div id="momentum"><div class="eixo"></div><div id="mom-revela"></div></div>
-        </div>
-      </section>
-      <section id="fim" class="cena"></section>
+      <div id="fundo" class="camada">
+        <div class="blob" id="b1"></div><div class="blob" id="b2"></div><div class="blob" id="b3"></div>
+        <svg id="campo" viewBox="0 0 740 1100" fill="none" stroke="#fff" stroke-width="4">
+          <rect x="20" y="20" width="700" height="1060" /><line x1="20" y1="550" x2="720" y2="550" />
+          <circle cx="370" cy="550" r="95" /><circle cx="370" cy="550" r="6" fill="#fff" />
+          <rect x="190" y="20" width="360" height="160" /><rect x="280" y="20" width="180" height="60" />
+          <path d="M300 180a70 70 0 0 0 140 0" />
+          <rect x="190" y="920" width="360" height="160" /><rect x="280" y="1020" width="180" height="60" />
+          <path d="M300 920a70 70 0 0 1 140 0" />
+        </svg>
+        <div id="faixas"><div class="raio" id="r1"></div><div class="raio" id="r2"></div></div>
+      </div>
+      <div id="camera">
+        <section id="gancho" class="cena"></section>
+        <section id="intro" class="cena"></section>
+        <section id="principal" class="cena">
+          <div id="gigante">GOL</div>
+          <div id="placar"></div>
+          <div id="palco"></div>
+          <div id="barra">
+            <div id="marcas"></div>
+            <div id="trilho"><div id="enche"></div></div>
+            <div id="cabeca"></div>
+            <div id="momentum"><div class="eixo"></div><div id="mom-revela"></div></div>
+          </div>
+        </section>
+        <section id="fim" class="cena"></section>
+        <div id="particulas" class="camada"></div>
+      </div>
+      <div id="vermelho" class="camada"></div>
+      <div id="flash" class="camada"></div>
+      <div id="wipe" class="camada"><div class="painel" id="w1"></div><div class="painel" id="w2"></div><div class="painel" id="w3"></div></div>
+      <div id="grao" class="camada"></div>
+      <div id="vinheta" class="camada"></div>
+      <div id="progresso"></div>
     </div>
     <script>
       const D = /*__DADOS__*/null;
-      const J = D.jogo, A = D.agenda, ACR = J.acrescimos;
+      const J = D.jogo, A = D.agenda, M = A.m, ACR = J.acrescimos;
       const root = document.getElementById("root");
-      root.style.setProperty("--casa", J.casa.destaque);
-      root.style.setProperty("--fora", J.fora.destaque);
+      const COR = { casa: J.casa.destaque, fora: J.fora.destaque };
+      root.style.setProperty("--casa", COR.casa);
+      root.style.setProperty("--fora", COR.fora);
       const BAR_W = 840;
+      const $ = (id) => document.getElementById(id);
 
       // ---------- utilitários ----------
       function h(tag, cls, html, pai) {
@@ -171,6 +232,11 @@
         else h("div", "escudo-alt", esc(t.sigla), box);
         return box;
       }
+      // texto dentro de uma máscara, para revelar de baixo para cima
+      function mascara(tag, cls, html, pai) {
+        const m = h("div", "mascara", null, pai);
+        return h(tag, cls, html, m);
+      }
       function minTxt(m, a) { return a ? `${m}+${a}'` : `${m}'`; }
       function posicao(m, a) {
         const l1 = 45 + ACR[0], l2 = 45 + ACR[1], tot = l1 + l2;
@@ -179,6 +245,10 @@
       }
       // inversa de power2.inOut, para saber quando a barra cruza cada minuto
       function invEase(y) { return y < 0.5 ? Math.sqrt(y / 2) : 1 - Math.sqrt((1 - y) / 2); }
+      // aleatório determinístico (o render precisa ser reproduzível)
+      function prng(seed) {
+        return () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+      }
 
       const ICONES = {
         gol: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff"/><polygon points="50,30 69,44 62,66 38,66 31,44" fill="#111"/><path d="M50 30V6M69 44l22-8M62 66l14 20M38 66L24 86M31 44L9 36" stroke="#111" stroke-width="5"/></svg>`,
@@ -193,42 +263,120 @@
       const tl = gsap.timeline({ paused: true });
       window.__timelines = window.__timelines || {};
       window.__timelines["main"] = tl;
+      const T = A.total;
+      const CAM = $("camera"), FLASH = $("flash");
 
-      // ---------- Gancho ----------
-      const G = document.getElementById("gancho");
-      h("div", "faixa", null, G);
-      h("div", "tag", `${esc(J.campeonato)} · Rodada ${esc(J.rodada)}`, G).style.marginTop = "36px";
+      // ---------- efeitos reutilizáveis ----------
+      function tremor(t, forca, dur, seed) {
+        const r = prng(seed), passos = Math.round(dur / 0.04);
+        for (let i = 0; i < passos; i++) {
+          const k = forca * (1 - i / passos);
+          tl.to(CAM, { x: (r() - 0.5) * 2 * k, y: (r() - 0.5) * 2 * k, rotation: (r() - 0.5) * k * 0.04, duration: 0.04, ease: "none" }, t + i * 0.04);
+        }
+        tl.to(CAM, { x: 0, y: 0, rotation: 0, duration: 0.06, ease: "power1.out" }, t + passos * 0.04);
+      }
+      function soco(t, escala) {
+        tl.to(CAM, { scale: escala, duration: 0.1, ease: "power2.out" }, t);
+        tl.to(CAM, { scale: 1, duration: 0.55, ease: "power3.out" }, t + 0.1);
+      }
+      function clarao(t, cor, forca, dur) {
+        tl.set(FLASH, { backgroundColor: cor }, t);
+        tl.fromTo(FLASH, { opacity: forca }, { opacity: 0, duration: dur, ease: "power2.out", immediateRender: false }, t);
+      }
+      // transição de TV: três painéis diagonais cruzam a tela; a cena troca no meio
+      const PAINEIS = [$("w1"), $("w2"), $("w3")];
+      PAINEIS[0].style.background = COR.casa; PAINEIS[1].style.background = "#f4f4f5"; PAINEIS[2].style.background = COR.fora;
+      function wipe(t) {
+        PAINEIS.forEach((p, i) => {
+          tl.fromTo(p, { x: -2600, skewX: -14 }, { x: 2600, skewX: -14, duration: 0.62, ease: "power2.inOut", immediateRender: false }, t + i * 0.045);
+        });
+      }
+      function confete(t, cores, cx, cy, n, seed) {
+        const r = prng(seed), P = $("particulas");
+        for (let i = 0; i < n; i++) {
+          const c = h("div", "conf", null, P);
+          c.style.background = cores[i % cores.length];
+          c.style.left = cx + "px"; c.style.top = cy + "px";
+          const ang = r() * Math.PI * 2, dist = 220 + r() * 520;
+          const dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist * 0.8 - 160;
+          const rot = (r() - 0.5) * 900, s = 0.6 + r() * 0.9;
+          tl.fromTo(c, { x: 0, y: 0, rotation: 0, scale: s, opacity: 1 }, { x: dx, y: dy, rotation: rot * 0.4, duration: 0.55, ease: "power3.out", immediateRender: false }, t);
+          tl.to(c, { y: dy + 420 + r() * 300, x: dx + (r() - 0.5) * 160, rotation: rot, opacity: 0, duration: 1.4 + r() * 0.6, ease: "power1.in" }, t + 0.55);
+        }
+      }
+
+      // ---------- fundo vivo (movimento contínuo) ----------
+      tl.fromTo("#b1", { x: 0, y: 0, scale: 1 }, { x: 260, y: 180, scale: 1.25, duration: T, ease: "sine.inOut" }, 0);
+      tl.fromTo("#b2", { x: 0, y: 0, scale: 1.1 }, { x: -300, y: -260, scale: 0.9, duration: T, ease: "sine.inOut" }, 0);
+      tl.fromTo("#b3", { x: 0, y: 0 }, { x: -200, y: 300, duration: T, ease: "sine.inOut" }, 0);
+      tl.fromTo("#campo", { rotation: -6, scale: 1.05, x: 0 }, { rotation: 4, scale: 1.2, x: -60, duration: T, ease: "none" }, 0);
+      [["#r1", 0.6], ["#r2", 1.6]].forEach(([id, d0]) => {
+        for (let t = d0; t < T; t += 7.5) tl.fromTo(id, { x: -500 }, { x: 1600, duration: 2.6, ease: "power1.inOut", immediateRender: false }, t);
+      });
+      const quadros = Math.round(T * 15);
+      tl.fromTo("#grao", { backgroundPosition: "0px 0px" }, { backgroundPosition: `${-37 * quadros}px ${-53 * quadros}px`, duration: T, ease: `steps(${quadros})` }, 0);
+      tl.fromTo("#progresso", { scaleX: 0 }, { scaleX: 1, duration: T, ease: "none" }, 0);
+
+      // ---------- gancho ----------
+      const G = $("gancho");
+      const laje = h("div", "laje", null, G);
+      const tag = mascara("div", "tag", `${esc(J.campeonato)} · Rodada ${esc(J.rodada)}`, G);
       const h1 = h("h1", null, null, G);
-      D.gancho.titulo.split(" ").forEach((w, i) => { h("span", null, esc(w), h1); h1.append(" "); });
-      h("p", null, esc(D.gancho.subtitulo), G);
-      // primeiro quadro já legível (vira a capa no TikTok)
+      const palavras = D.gancho.titulo.split(" ").map((w) => h("span", "w", esc(w), h1));
+      const eco = h("div", "eco", esc(D.gancho.titulo), G);
+      const sub = mascara("p", null, esc(D.gancho.subtitulo), G);
       tl.set(G, { opacity: 1 }, 0);
-      tl.from(h1.children, { scale: 1.25, opacity: 0.35, duration: 0.5, stagger: 0.08, ease: "power3.out", transformOrigin: "left center" }, 0);
-      tl.from(G.querySelector("p"), { y: 40, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.35);
-      tl.to(G, { opacity: 0, y: -60, duration: 0.35, ease: "power2.in" }, A.gancho - 0.35);
+      tl.fromTo(laje, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 0);
+      tl.fromTo(G, { scale: 1 }, { scale: 1.07, duration: A.gancho, ease: "none" }, 0);
+      palavras.forEach((w, i) => {
+        const t = M.palavras[i];
+        tl.fromTo(w, { scale: 2.8, opacity: 0, filter: "blur(18px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.26, ease: "power4.out" }, t);
+        tremor(t + 0.2, i === 0 ? 26 : 14, 0.24, 11 + i);
+        clarao(t + 0.2, "#ffffff", i === 0 ? 0.35 : 0.18, 0.3);
+      });
+      tl.fromTo(eco, { opacity: 0, scale: 1 }, { opacity: 1, scale: 1.18, duration: A.gancho, ease: "power1.out", immediateRender: false }, M.palavras[M.palavras.length - 1] + 0.2);
+      tl.fromTo(tag, { yPercent: 110 }, { yPercent: 0, duration: 0.45, ease: "power3.out" }, 0.1);
+      tl.fromTo(sub, { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: "power3.out" }, M.sub);
+      wipe(M.wipe1);
+      tl.set(G, { opacity: 0 }, A.gancho);
 
-      // ---------- Intro ----------
-      const I = document.getElementById("intro");
+      // ---------- intro ----------
+      const I = $("intro");
       const duelo = h("div", "duelo", null, I);
-      const tc = h("div", "time", null, duelo); escudo("casa", "img", tc); h("div", "nome", esc(J.casa.nome), tc);
-      h("div", "x", "×", duelo);
-      const tf = h("div", "time", null, duelo); escudo("fora", "img", tf); h("div", "nome", esc(J.fora.nome), tf);
+      const tc = h("div", "time", null, duelo); const ec = escudo("casa", "img", tc); const nc = mascara("div", "nome", esc(J.casa.nome), tc);
+      const vsBox = h("div", "vs", "VS", duelo); const anel = h("div", "anel", null, vsBox);
+      const tf = h("div", "time", null, duelo); const ef = escudo("fora", "img", tf); const nf = mascara("div", "nome", esc(J.fora.nome), tf);
+      const brilho = h("div", "brilho", null, duelo);
       const info = h("div", "info", null, I);
-      h("div", "comp", `${esc(J.campeonato)} ${esc(J.temporada)} · Rodada ${esc(J.rodada)}`, info);
-      if (J.estadio) h("div", "local", esc(J.estadio), info);
-      const rol = h("div", "rolando", "BOLA ROLANDO", I);
-      const t0 = A.gancho;
-      tl.set(I, { opacity: 1 }, t0);
-      tl.from(tc, { x: -420, opacity: 0, duration: 0.6, ease: "power3.out" }, t0);
-      tl.from(tf, { x: 420, opacity: 0, duration: 0.6, ease: "power3.out" }, t0);
-      tl.from(duelo.querySelector(".x"), { scale: 0, duration: 0.4, ease: "back.out(2)" }, t0 + 0.35);
-      tl.from(info, { y: 40, opacity: 0, duration: 0.5, ease: "power2.out" }, t0 + 0.5);
-      tl.from(rol, { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2)" }, t0 + Math.min(1.4, A.intro - 1.2));
-      tl.to(I, { opacity: 0, scale: 0.94, duration: 0.4, ease: "power2.in" }, t0 + A.intro - 0.4);
+      const fita = h("div", "fita", null, info);
+      const comp = mascara("div", "comp", `${esc(J.campeonato)} ${esc(J.temporada)} · Rodada ${esc(J.rodada)}`, info);
+      const local = J.estadio ? mascara("div", "local", esc(J.estadio), info) : null;
+      const rol = h("div", "rolando", "BOLA ROLANDO", I); const pulso = h("div", "pulso", null, rol);
+      const g0 = A.gancho;
+      const balanco = Math.max(1, Math.floor(A.intro / 1.1) - 1);
+      tl.set(I, { opacity: 1 }, g0);
+      tl.fromTo(I, { scale: 1 }, { scale: 1.06, duration: A.intro, ease: "none", immediateRender: false }, g0);
+      tl.fromTo(tc, { x: -760, rotation: -28, scale: 0.6, opacity: 0 }, { x: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.75, ease: "expo.out" }, M.escudo_casa);
+      tl.fromTo(tf, { x: 760, rotation: 28, scale: 0.6, opacity: 0 }, { x: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.75, ease: "expo.out" }, M.escudo_fora);
+      tl.fromTo([nc, nf], { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: "power3.out", stagger: 0.08 }, M.escudo_fora + 0.3);
+      tl.fromTo(ec, { y: 0 }, { y: -14, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: balanco, immediateRender: false }, M.escudo_casa + 0.75);
+      tl.fromTo(ef, { y: 0 }, { y: -14, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: balanco, immediateRender: false }, M.escudo_fora + 0.9);
+      tl.fromTo(vsBox, { scale: 3.5, opacity: 0, rotation: -12 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.3, ease: "power4.out" }, M.vs - 0.2);
+      tl.fromTo(anel, { scale: 0.3, opacity: 1 }, { scale: 4, opacity: 0, duration: 0.7, ease: "power2.out", immediateRender: false }, M.vs);
+      tremor(M.vs, 30, 0.3, 21);
+      clarao(M.vs, "#ffffff", 0.4, 0.35);
+      tl.fromTo(brilho, { x: 0, opacity: 0.9 }, { x: 1400, opacity: 0.9, duration: 0.8, ease: "power2.inOut", immediateRender: false }, M.brilho);
+      tl.to(brilho, { opacity: 0, duration: 0.01 }, M.brilho + 0.8);
+      tl.fromTo(fita, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, M.info);
+      tl.fromTo(local ? [comp, local] : [comp], { yPercent: 110 }, { yPercent: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, M.info + 0.1);
+      tl.fromTo(rol, { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.4)", immediateRender: false }, M.rolando);
+      tl.fromTo(pulso, { scale: 1, opacity: 0.9 }, { scale: 1.5, opacity: 0, duration: 0.7, ease: "power2.out", repeat: 1, immediateRender: false }, M.rolando + 0.1);
+      wipe(M.wipe2);
+      tl.set(I, { opacity: 0 }, A.inicio_barra);
 
-      // ---------- Principal ----------
-      const P = document.getElementById("principal");
-      const PL = document.getElementById("placar");
+      // ---------- principal ----------
+      const P = $("principal");
+      const PL = $("placar");
       const lc = h("div", "lado", null, PL); escudo("casa", "img", lc); h("div", "sigla", esc(J.casa.sigla), lc);
       const centro = h("div", "centro", null, PL);
       const nums = h("div", "nums", null, centro);
@@ -237,23 +385,25 @@
       for (let i = 0; i <= J.placar[0]; i++) h("span", null, i, numC);
       for (let i = 0; i <= J.placar[1]; i++) h("span", null, i, numF);
       const relogio = h("div", null, null, centro); relogio.id = "relogio";
+      const aoVivo = h("div", "ao-vivo", null, relogio);
 
-      tl.fromTo(P, { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: false }, A.inicio_barra - 0.4);
+      tl.set(P, { opacity: 1 }, A.inicio_barra);
+      tl.fromTo(PL, { y: -380 }, { y: 0, duration: 0.7, ease: "back.out(1.4)" }, M.placar_entra - 0.25);
+      tl.fromTo("#barra", { y: 380, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, M.placar_entra - 0.2);
+      tl.fromTo(aoVivo, { opacity: 1 }, { opacity: 0.15, duration: 0.6, yoyo: true, repeat: Math.floor((A.fim_barra - A.inicio_barra) / 0.6), ease: "sine.inOut", immediateRender: false }, A.inicio_barra);
 
-      // Barra: marcações de tempo
-      const BARRA = document.getElementById("barra");
-      const tiques = [[0, 0, "0'"], [45, 0, "45'"], [90, 0, "90'"]];
-      tiques.forEach(([m, a, txt]) => {
+      const BARRA = $("barra");
+      [[0, 0, "0'"], [45, 0, "45'"], [90, 0, "90'"]].forEach(([m, a, txt]) => {
         const x = posicao(m, a) * BAR_W;
-        const tq = h("div", "tique", null, BARRA); tq.style.left = x + "px";
-        const r = h("div", "rot-t", txt, BARRA); r.style.left = x + "px";
+        h("div", "tique", null, BARRA).style.left = x + "px";
+        h("div", "rot-t", txt, BARRA).style.left = x + "px";
       });
       const xInt = ((45 + ACR[0]) / (90 + ACR[0] + ACR[1])) * BAR_W;
       const tqi = h("div", "tique", null, BARRA); tqi.style.left = xInt + "px"; tqi.style.opacity = 0.25;
-      const rotFim = h("div", "rot-t", ACR[1] ? `+${ACR[1]}` : "", BARRA); rotFim.style.left = BAR_W + "px";
+      h("div", "rot-t", ACR[1] ? `+${ACR[1]}` : "", BARRA).style.left = BAR_W + "px";
 
-      // Momentum: pressão minuto a minuto (para cima = casa)
-      const MR = document.getElementById("mom-revela");
+      // momentum: pressão minuto a minuto (para cima = casa)
+      const MR = $("mom-revela");
       const pts = D.momentum || [];
       if (pts.length) {
         const ns = "http://www.w3.org/2000/svg";
@@ -266,18 +416,18 @@
           const r = document.createElementNS(ns, "rect");
           r.setAttribute("x", x - larg); r.setAttribute("width", larg); r.setAttribute("rx", 1.5);
           r.setAttribute("y", v >= 0 ? 80 - alt : 80); r.setAttribute("height", Math.max(1, alt));
-          r.setAttribute("fill", v >= 0 ? J.casa.destaque : J.fora.destaque);
+          r.setAttribute("fill", v >= 0 ? COR.casa : COR.fora);
           svg.appendChild(r);
         });
         MR.appendChild(svg);
-        const MOM = document.getElementById("momentum");
-        const lgc = escudo("casa", "leg", MOM); lgc.style.top = "8px";
-        const lgf = escudo("fora", "leg", MOM); lgf.style.top = "108px";
+        const MOM = $("momentum");
+        escudo("casa", "leg", MOM).style.top = "8px";
+        escudo("fora", "leg", MOM).style.top = "108px";
       } else {
-        document.getElementById("momentum").style.display = "none";
+        $("momentum").style.display = "none";
       }
 
-      // Relógio: um span por minuto exibido, trocado no instante em que a barra passa por ele
+      // relógio: um span por minuto, trocado quando a barra passa por ele
       const minutos = [];
       for (let m = 0; m <= 45; m++) minutos.push([m, 0]);
       for (let a = 1; a <= ACR[0]; a++) minutos.push([45, a]);
@@ -286,17 +436,16 @@
       const spans = minutos.map(([m, a]) => h("span", null, minTxt(m, a), relogio));
       const spanFim = h("span", null, "FIM", relogio);
       const posMin = minutos.map(([m, a]) => posicao(m, a));
-      tl.set(spans[0], { opacity: 1 }, A.inicio_barra - 0.4);
+      tl.set(spans[0], { opacity: 1 }, A.inicio_barra);
       let ultimo = 0;
 
-      const ENCHE = document.getElementById("enche");
-      const MARCAS = document.getElementById("marcas");
-      const PALCO = document.getElementById("palco");
+      const ENCHE = $("enche"), CABECA = $("cabeca"), MARCAS = $("marcas"), PALCO = $("palco"), GIG = $("gigante");
       const placarAtual = [0, 0];
-
       function viagem(de, ate, inicio, dur) {
         tl.to(ENCHE, { scaleX: ate, duration: dur, ease: "power2.inOut" }, inicio);
+        tl.to(CABECA, { x: ate * BAR_W, duration: dur, ease: "power2.inOut" }, inicio);
         tl.to(MR, { width: ate * BAR_W, duration: dur, ease: "power2.inOut" }, inicio);
+        tl.to("#campo", { y: `-=${Math.round(40 + dur * 30)}`, duration: dur, ease: "power2.inOut" }, inicio);
         while (ultimo + 1 < posMin.length && posMin[ultimo + 1] <= ate + 1e-6) {
           const k = ultimo + 1;
           const frac = ate > de ? (posMin[k] - de) / (ate - de) : 1;
@@ -307,58 +456,121 @@
         }
       }
 
-      // linha das marcas: escalona ícones muito próximos
-      let ultimaPos = -1, ultimaLinha = 1;
-      let pos = 0, tempo = A.inicio_barra;
+      let ultimaPos = -1, ultimaLinha = 1, pos = 0, tempo = A.inicio_barra;
       D.destaques.forEach((d, i) => {
-        const parada = A.paradas[i];
-        viagem(pos, parada.pos, tempo, parada.t - tempo);
+        const parada = A.paradas[i], t = parada.t;
+        viagem(pos, parada.pos, tempo, t - tempo);
         pos = parada.pos;
         const cor = J[d.time].destaque;
 
+        // marca na barra + onda de choque
         const linha = parada.pos - ultimaPos < 0.075 ? 1 - ultimaLinha : 0;
         ultimaPos = parada.pos; ultimaLinha = linha;
         const mk = h("div", `marca r${linha}`, ICONES[d.tipo], MARCAS);
         mk.style.left = parada.pos * BAR_W + "px"; mk.style.setProperty("--cor", cor);
         h("div", "haste", null, mk);
-        tl.set(mk, { opacity: 1 }, parada.t);
-        tl.from(mk, { scale: 0, duration: 0.35, ease: "back.out(3)" }, parada.t);
-        tl.fromTo(mk, { scale: 1 }, { scale: 1.35, duration: 0.25, yoyo: true, repeat: 1, ease: "power1.inOut", immediateRender: false }, parada.t + 0.35);
+        const onda = h("div", "onda", null, BARRA);
+        onda.style.left = parada.pos * BAR_W + "px"; onda.style.top = "171px"; onda.style.setProperty("--cor", cor);
+        tl.fromTo(mk, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(3)", immediateRender: false }, t);
+        tl.fromTo(onda, { scale: 0.2, opacity: 1 }, { scale: 3.5, opacity: 0, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
+        tl.fromTo(CABECA, { scale: 1 }, { scale: 1.8, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, t);
 
         // card
         const c = h("div", "card", null, PALCO);
         c.style.setProperty("--cor", cor);
+        const faixa = h("div", "faixa-cor", null, c);
+        const reflexo = h("div", "reflexo", null, c);
         const topo = h("div", "topo", null, c);
-        h("div", "icone", ICONES[d.tipo], topo);
-        h("div", "min", minTxt(d.minuto, d.acrescimo), topo);
-        escudo(d.time, "esc", topo);
-        const rot = h("div", "rotulo", ROTULOS[d.tipo], c);
-        if (ROTULOS[d.tipo].length > 8) rot.classList.add("longo");
-        const jog = d.tipo === "gol" && d.detalhe === "contra" ? `Contra, de ${d.jogador}` : d.jogador;
-        if (jog) h("div", "jogador", esc(jog), c);
-        const det = d.detalhe && d.detalhe !== "contra" ? d.detalhe : "";
-        if (det) h("div", "detalhe", esc(det.charAt(0).toUpperCase() + det.slice(1)), c);
+        const ico = h("div", "icone", ICONES[d.tipo], topo);
+        const min = h("div", "min", minTxt(d.minuto, d.acrescimo), topo);
+        const escCard = escudo(d.time, "esc", topo);
+        const rotBox = h("div", "rot-box", null, c);
+        const r1 = h("div", "rotulo c1", ROTULOS[d.tipo], rotBox);
+        const r2 = h("div", "rotulo c2", ROTULOS[d.tipo], rotBox);
+        const rot = h("div", "rotulo", ROTULOS[d.tipo], rotBox);
+        if (ROTULOS[d.tipo].length > 8) c.classList.add("longo");
+        const jogTxt = d.tipo === "gol" && d.detalhe === "contra" ? `Contra, de ${d.jogador}` : d.jogador;
+        const jog = jogTxt ? mascara("div", "jogador", esc(jogTxt), c) : null;
+        const detTxt = d.detalhe && d.detalhe !== "contra" ? d.detalhe : "";
+        const det = detTxt ? mascara("div", "detalhe", esc(detTxt.charAt(0).toUpperCase() + detTxt.slice(1)), c) : null;
         const rod = h("div", "rodape", null, c);
-        let enche = null;
+        let enche = null, pcts = null;
         if (d.tipo === "gol") {
-          const casaMarcou = d.time === "casa";
-          rod.innerHTML = `<span class="${casaMarcou ? "marcou" : "s"}">${esc(J.casa.sigla)} ${d.placar[0]}</span><span class="s">×</span><span class="${casaMarcou ? "s" : "marcou"}">${d.placar[1]} ${esc(J.fora.sigla)}</span>`;
+          const cm = d.time === "casa";
+          rod.innerHTML = `<span class="${cm ? "marcou" : "s"}">${esc(J.casa.sigla)} ${d.placar[0]}</span><span class="s">×</span><span class="${cm ? "s" : "marcou"}">${d.placar[1]} ${esc(J.fora.sigla)}</span>`;
         } else if (d.tipo === "chance" || d.tipo === "penalti_perdido") {
           const med = h("div", "medidor", null, rod);
           h("div", "rot", "Chance de gol", med);
           enche = h("div", "enche", null, h("div", "trilho", null, med));
-          h("div", "pct", Math.round((d.xg || 0) * 100) + "%", rod);
+          const caixa = h("div", "pct", null, rod);
+          const alvo = Math.round((d.xg || 0) * 100);
+          pcts = [];
+          for (let v = 0; v <= alvo; v += Math.max(1, Math.round(alvo / 30))) pcts.push(h("span", null, v + "%", caixa));
+          if (pcts[pcts.length - 1].textContent !== alvo + "%") pcts.push(h("span", null, alvo + "%", caixa));
         } else if (d.tipo === "vermelho") {
           const n = D.destaques.filter((x, j) => j <= i && x.tipo === "vermelho" && x.time === d.time).length;
           rod.innerHTML = `<span class="s">${esc(J[d.time].nome)} fica com</span><span class="marcou">${11 - n}</span>`;
         }
 
-        const t = parada.t;
+        // entrada do card, por tipo
         tl.set(c, { opacity: 1 }, t);
-        tl.fromTo(c, { opacity: 0, y: 70, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, t);
-        tl.from(rot, { x: -60, opacity: 0, duration: 0.4, ease: "power3.out" }, t + 0.15);
-        if (enche) tl.to(enche, { scaleX: Math.min(1, d.xg || 0), duration: 0.9, ease: "power2.out" }, t + 0.5);
-        tl.to(c, { opacity: 0, y: -40, duration: 0.35, ease: "power2.in" }, t + A.card - 0.35);
+        if (d.tipo === "gol") {
+          tl.set(GIG, { "--cor": cor }, t);
+          tl.fromTo(GIG, { scale: 3, opacity: 0 }, { scale: 1, opacity: 0.85, duration: 0.3, ease: "power4.out", immediateRender: false }, t);
+          tl.to(GIG, { opacity: 0.14, scale: 1.18, duration: A.card - 0.7, ease: "power1.out" }, t + 0.3);
+          tl.to(GIG, { opacity: 0, duration: 0.3 }, parada.saida);
+          tl.fromTo(c, { scale: 0.55, rotation: -5, opacity: 0, y: 40 }, { scale: 1, rotation: 0, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.7)", immediateRender: false }, t);
+          clarao(t, cor, 0.55, 0.45);
+          tremor(t, 34, 0.45, 100 + i);
+          soco(t, 1.05);
+          confete(t + 0.05, [cor, "#ffffff", cor === COR.casa ? COR.fora : COR.casa], 540, 840, 46, 300 + i);
+        } else if (d.tipo === "amarelo" || d.tipo === "vermelho") {
+          const cartao = h("div", "cartao", null, c);
+          cartao.style.background = d.tipo === "amarelo" ? "#facc15" : "#ef4444";
+          tl.fromTo(c, { x: -500, skewX: 12, opacity: 0 }, { x: 0, skewX: 0, opacity: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, t);
+          tl.fromTo(cartao, { x: 600, y: -500, rotation: 70, rotationY: 180, opacity: 1 }, { x: 0, y: 0, rotation: -10, rotationY: 0, opacity: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, t + 0.05);
+          tl.to(cartao, { rotation: -6, y: -8, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, t + 0.6);
+          soco(t + 0.5, 1.03);
+          if (d.tipo === "vermelho") {
+            tl.fromTo("#vermelho", { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: false }, t + 0.1);
+            tl.to("#vermelho", { opacity: 0, duration: 1.2, ease: "power2.out" }, t + 0.3);
+            tremor(t + 0.12, 22, 0.35, 200 + i);
+          } else {
+            tremor(t + 0.5, 10, 0.2, 200 + i);
+          }
+        } else {
+          // chance, pênalti perdido, gol anulado: entra e o rótulo "treme" no quase
+          tl.fromTo(c, { y: 160, rotationX: 55, opacity: 0 }, { y: 0, rotationX: 0, opacity: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, t);
+          tl.fromTo(rot, { x: 0 }, { keyframes: { x: [0, -26, 22, -14, 8, 0] }, duration: 0.5, ease: "none", immediateRender: false }, t + 0.35);
+          soco(t, 1.025);
+          clarao(t, "#ffffff", 0.15, 0.3);
+        }
+        // animação interna, comum a todos
+        tl.fromTo(faixa, { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, t + 0.05);
+        tl.fromTo(reflexo, { x: 0 }, { x: 1700, duration: 0.9, ease: "power2.inOut", immediateRender: false }, t + 0.25);
+        tl.fromTo(ico, { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t + 0.1);
+        tl.fromTo(min, { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power3.out", immediateRender: false }, t + 0.15);
+        tl.fromTo(escCard, { scale: 0, rotation: 90 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, t + 0.2);
+        tl.fromTo(rot, { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out", immediateRender: false }, t + 0.12);
+        tl.fromTo(r1, { x: -16, opacity: 0.9 }, { x: 0, opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false }, t + 0.15);
+        tl.fromTo(r2, { x: 16, opacity: 0.9 }, { x: 0, opacity: 0, duration: 0.45, ease: "power2.out", immediateRender: false }, t + 0.15);
+        if (jog) tl.fromTo(jog, { yPercent: 110 }, { yPercent: 0, duration: 0.45, ease: "power3.out" }, t + 0.3);
+        if (det) tl.fromTo(det, { yPercent: 110 }, { yPercent: 0, duration: 0.45, ease: "power3.out" }, t + 0.42);
+        tl.fromTo(rod, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, parada.placar);
+        if (enche) {
+          const alvo = Math.min(1, d.xg || 0), dur = 0.9, t0 = parada.placar + 0.1;
+          tl.to(enche, { scaleX: alvo, duration: dur, ease: "power2.out" }, t0);
+          tl.set(pcts[0], { opacity: 1 }, t0);
+          pcts.forEach((s, k) => {
+            if (!k) return;
+            const frac = k / (pcts.length - 1);
+            const tt = t0 + dur * (1 - Math.sqrt(1 - frac)); // inversa de power2.out
+            tl.set(pcts[k - 1], { opacity: 0 }, tt);
+            tl.set(s, { opacity: 1 }, tt);
+          });
+        }
+        // saída
+        tl.to(c, { x: -320, skewX: 10, opacity: 0, duration: 0.4, ease: "power3.in" }, parada.saida);
 
         // placar só muda quando o gol é atingido
         if (d.tipo === "gol") {
@@ -367,8 +579,10 @@
           const antes = caixa.children[placarAtual[lado]], depois = caixa.children[d.placar[lado]];
           placarAtual[0] = d.placar[0]; placarAtual[1] = d.placar[1];
           if (antes !== depois) {
-            tl.to(antes, { opacity: 0, y: -60, duration: 0.25, ease: "power2.in" }, t + 0.3);
-            tl.fromTo(depois, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, t + 0.5);
+            tl.to(antes, { opacity: 0, y: -120, duration: 0.22, ease: "power2.in" }, parada.placar - 0.22);
+            tl.fromTo(depois, { opacity: 0, y: 140 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(2.2)", immediateRender: false }, parada.placar);
+            tl.fromTo(caixa, { scale: 1.45 }, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)", immediateRender: false }, parada.placar);
+            tl.fromTo(depois, { textShadow: `0 0 60px ${cor}` }, { textShadow: "0 0 0px rgba(0,0,0,0)", duration: 1.4, immediateRender: false }, parada.placar);
           }
         }
         tempo = t + A.card;
@@ -376,20 +590,23 @@
       viagem(pos, 1, tempo, A.trecho_final);
       tl.set(spans[ultimo], { opacity: 0 }, A.fim_barra);
       tl.set(spanFim, { opacity: 1 }, A.fim_barra);
-      tl.to(P, { opacity: 0, duration: 0.5, ease: "power2.in" }, A.fim_barra + 0.5);
+      tl.fromTo(relogio, { scale: 1 }, { scale: 1.25, duration: 0.18, yoyo: true, repeat: 3, immediateRender: false }, M.apito_final);
+      tl.fromTo(CABECA, { scale: 1, opacity: 1 }, { scale: 2.4, opacity: 0, duration: 0.6, immediateRender: false }, M.apito_final);
+      wipe(M.wipe3);
+      tl.set(P, { opacity: 0 }, M.fim);
 
-      // ---------- Fim ----------
-      const F = document.getElementById("fim");
-      h("div", "titulo", "FIM DE JOGO", F);
+      // ---------- fim ----------
+      const F = $("fim");
+      const tit = h("div", "titulo", "FIM DE JOGO", F);
       const fin = h("div", "final", null, F);
-      escudo("casa", "img", fin);
-      h("div", "gols", `${J.placar[0]} <span style="color:var(--suave)">×</span> ${J.placar[1]}`, fin);
-      escudo("fora", "img", fin);
+      const fc = escudo("casa", "img", fin);
+      const gols = h("div", "gols", `<span>${J.placar[0]}</span><span class="x">×</span><span>${J.placar[1]}</span>`, fin);
+      const ff = escudo("fora", "img", fin);
       const S = D.estatisticas || {};
       const linhas = [["posse", "Posse", (v) => Math.round(v) + "%"], ["finalizacoes", "Finalizações", (v) => Math.round(v)],
         ["no_gol", "No gol", (v) => Math.round(v)], ["xg", "Gols esperados (xG)", (v) => v.toFixed(2)], ["chances_claras", "Chances claras", (v) => Math.round(v)]];
       const st = h("div", "stats", null, F);
-      const barrasFim = [];
+      const linhasEl = [];
       linhas.forEach(([k, nome, fmt]) => {
         const v = S[k];
         if (!v || v[0] == null || v[1] == null) return;
@@ -399,17 +616,35 @@
         const tot = v[0] + v[1] || 1;
         const bc = h("div", "bc", null, b), bf = h("div", "bf", null, b);
         bc.style.flex = String(Math.max(0.02, v[0] / tot)); bf.style.flex = String(Math.max(0.02, v[1] / tot));
-        barrasFim.push(bc, bf);
+        linhasEl.push([l, bc, bf]);
       });
-      const cta = h("div", "cta", D.proximo ? `Próximo jogo da rodada:<br><b>${esc(D.proximo)}</b>` : `Segue pra ver os outros jogos<br>da <b>rodada ${esc(J.rodada)}</b>`, F);
-      const tf0 = A.fim_barra + 0.6;
-      tl.set(F, { opacity: 1 }, tf0);
-      tl.from(F.querySelector(".titulo"), { y: -30, opacity: 0, duration: 0.4 }, tf0);
-      tl.from(fin, { scale: 0.7, opacity: 0, duration: 0.6, ease: "back.out(1.8)" }, tf0 + 0.15);
-      tl.from(st.children, { opacity: 0, y: 30, duration: 0.4, stagger: 0.12 }, tf0 + 0.7);
-      if (barrasFim.length) tl.to(barrasFim, { scaleX: 1, duration: 0.7, stagger: 0.06, ease: "power2.out" }, tf0 + 0.9);
-      tl.from(cta, { opacity: 0, y: 30, duration: 0.5 }, Math.max(tf0 + 2, A.total - 3.2));
-      tl.set({}, {}, A.total);
+      const cta = h("div", "cta", `<span>${D.proximo ? `Próximo jogo da rodada:<br><b>${esc(D.proximo)}</b>` : `Segue pra ver os outros<br>jogos da <b>rodada ${esc(J.rodada)}</b>`}</span>`, F);
+      const seta = h("div", "seta", "→", cta);
+      const f0 = M.fim;
+      tl.set(F, { opacity: 1 }, f0);
+      tl.fromTo(tit, { scale: 2.6, opacity: 0, rotation: -10 }, { scale: 1, opacity: 1, rotation: -3, duration: 0.3, ease: "power4.out" }, f0 - 0.15);
+      tremor(f0 + 0.1, 20, 0.25, 400);
+      tl.fromTo(fc, { x: -500, rotation: -30, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, M.fim_placar - 0.25);
+      tl.fromTo(ff, { x: 500, rotation: 30, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: 0.6, ease: "expo.out" }, M.fim_placar - 0.25);
+      tl.fromTo(gols, { scale: 3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "power4.out" }, M.fim_placar - 0.2);
+      tremor(M.fim_placar + 0.1, 30, 0.35, 401);
+      clarao(M.fim_placar + 0.1, "#ffffff", 0.3, 0.4);
+      const [hc, ha] = J.placar;
+      if (hc !== ha) {
+        const venc = hc > ha ? fc : ff, perd = hc > ha ? ff : fc, corV = hc > ha ? COR.casa : COR.fora;
+        tl.fromTo(perd, { opacity: 1, filter: "grayscale(0)" }, { opacity: 0.45, filter: "grayscale(1)", duration: 0.8, immediateRender: false }, M.fim_placar + 0.6);
+        tl.fromTo(venc, { scale: 1 }, { scale: 1.14, duration: 0.7, yoyo: true, repeat: Math.max(1, Math.floor((T - M.fim_placar - 1) / 0.7)), ease: "sine.inOut", immediateRender: false }, M.fim_placar + 0.6);
+        confete(M.fim_placar + 0.1, [corV, "#ffffff"], hc > ha ? 220 : 860, 520, 40, 500);
+      }
+      linhasEl.forEach(([l, bc, bf], i) => {
+        const t = M.fim_stats[i];
+        tl.fromTo(l, { x: 120, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, t);
+        tl.to([bc, bf], { scaleX: 1, duration: 0.7, ease: "power2.out" }, t + 0.1);
+      });
+      tl.fromTo(cta, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)", immediateRender: false }, M.cta);
+      tl.fromTo(seta, { x: 0 }, { x: 18, duration: 0.35, yoyo: true, repeat: Math.max(1, Math.floor((T - M.cta - 0.5) / 0.35)), ease: "sine.inOut", immediateRender: false }, M.cta + 0.4);
+      tl.fromTo(cta, { borderColor: "rgba(255,255,255,0.14)" }, { borderColor: "rgba(255,255,255,0.8)", duration: 0.6, yoyo: true, repeat: Math.max(1, Math.floor((T - M.cta - 0.5) / 0.6)), immediateRender: false }, M.cta + 0.5);
+      tl.set({}, {}, T);
       tl.seek(0);
     </script>
   </body>

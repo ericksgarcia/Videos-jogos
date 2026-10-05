@@ -14,6 +14,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
+import audio  # noqa: E402
 import build  # noqa: E402
 import ingest  # noqa: E402
 import normalize  # noqa: E402
@@ -26,7 +27,7 @@ def slug(s):
     return "".join(c if c.isalnum() else "-" for c in s.lower()).strip("-")
 
 
-def gerar(event_id, proximo=None, so_json=False, qualidade="high", forcar=False):
+def gerar(event_id, proximo=None, so_json=False, qualidade="high", forcar=False, som=True):
     raw = ingest.baixar_jogo(event_id, forcar=forcar)
     dados = normalize.normalizar(raw)
     j = dados["jogo"]
@@ -45,7 +46,13 @@ def gerar(event_id, proximo=None, so_json=False, qualidade="high", forcar=False)
     ag = build.montar(dados, escudos, pasta, proximo=proximo)
     mp4 = SAIDA / f"{nome}.mp4"
     print(f"   duração {ag['total']:.1f}s → renderizando {mp4.name}")
-    build.renderizar(pasta, mp4, qualidade=qualidade)
+    if not som:
+        build.renderizar(pasta, mp4, qualidade=qualidade)
+        return mp4
+    mudo = pasta / "video_mudo.mp4"
+    build.renderizar(pasta, mudo, qualidade=qualidade)
+    wav = audio.mixar(dados, ag, pasta / "trilha.wav")
+    audio.juntar(mudo, wav, mp4)
     return mp4
 
 
@@ -57,11 +64,12 @@ def main():
     ap.add_argument("--so-json", action="store_true", help="não renderiza, só salva o JSON")
     ap.add_argument("--qualidade", default="high", choices=["draft", "standard", "high"])
     ap.add_argument("--atualizar", action="store_true", help="ignora o cache e baixa de novo")
+    ap.add_argument("--sem-som", action="store_true", help="não gera a trilha de efeitos")
     a = ap.parse_args()
 
     if a.evento:
         for eid in a.evento:
-            gerar(eid, so_json=a.so_json, qualidade=a.qualidade, forcar=a.atualizar)
+            gerar(eid, so_json=a.so_json, qualidade=a.qualidade, forcar=a.atualizar, som=not a.sem_som)
         return
     if not a.rodada:
         ap.error("informe --rodada ou --evento")
@@ -72,7 +80,7 @@ def main():
     for i, e in enumerate(jogos):
         prox = jogos[i + 1] if i + 1 < len(jogos) else None
         prox_txt = f"{prox['homeTeam']['shortName']} x {prox['awayTeam']['shortName']}" if prox else None
-        gerar(e["id"], proximo=prox_txt, so_json=a.so_json, qualidade=a.qualidade, forcar=a.atualizar)
+        gerar(e["id"], proximo=prox_txt, so_json=a.so_json, qualidade=a.qualidade, forcar=a.atualizar, som=not a.sem_som)
 
 
 if __name__ == "__main__":

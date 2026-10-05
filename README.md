@@ -35,7 +35,9 @@ em outra máquina rode `npx hyperframes browser ensure`).
 |---|---|
 | `src/ingest.py` | Única parte que conhece o Sofascore. Troque por uma API licenciada aqui. |
 | `src/normalize.py` | Regras: ranking dos destaques, gancho, formato do 0x0. |
-| `src/build.py` | Agenda do vídeo (quando cada card entra), cores e render. |
+| `src/build.py` | Agenda do vídeo: instantes de cada animação, cores e render. |
+| `src/sfx.py` | Efeitos sonoros sintetizados (apito, torcida, impacto, whoosh…). |
+| `src/audio.py` | Mixa a trilha a partir da agenda e junta no MP4. |
 | `template/index.html` | Template HyperFrames/GSAP, lê o JSON injetado. |
 | `exemplos/` | JSONs normalizados de jogos reais da rodada 28. |
 
@@ -61,9 +63,27 @@ regra de "venceu criando menos".
 
 Os limites ficam no topo de `src/normalize.py` e `src/build.py`.
 
+## Efeitos e som
+
+Movimento: fundo vivo (gradientes, linhas do campo, granulação), transição
+diagonal nas cores dos times, tremor e zoom de câmera, flash, confete e
+"GOL" gigante nos gols, cartão físico girando em 3D, vinheta vermelha na
+expulsão, contagem do xG nas chances, carimbo de "FIM DE JOGO" e destaque
+do vencedor.
+
+Som: cada efeito é disparado no mesmo instante da animação, porque
+template e trilha leem os mesmos tempos de `agenda["m"]` (em
+`src/build.py`). Gol = impacto + explosão da torcida + baque na troca do
+placar; cartão = apito + whoosh; chance = impacto + "uuuh"; apito inicial
+no "bola rolando" e apito final triplo; torcida ao fundo o jogo todo.
+
+Os sons são sintetizados (sem questão de direitos). Para trocar algum por
+um sample real, salve `sons/<nome>.wav` (ex.: `sons/grito_gol.wav`); a
+lista de nomes está no topo de `src/sfx.py`. `--sem-som` gera sem trilha.
+
 ## Antes de publicar
 
 - Termos do Sofascore: uso pessoal/educacional. Para conta monetizada,
   migre `src/ingest.py` para uma fonte licenciada.
 - Escudos são marcas dos clubes.
-- O vídeo sai sem áudio; adicione uma música pelo próprio TikTok.
+- Se quiser música, adicione pelo TikTok com volume baixo, por baixo dos efeitos.

@@ -16,9 +16,9 @@ NODE = RAIZ / "node_modules"
 
 # Durações em segundos, por formato
 TEMPOS = {
-    "normal":    {"gancho": 3.0, "intro": 5.0, "card": 4.5, "fim": 9.0, "viagem": (7.0, 13.0)},
-    "0x0":       {"gancho": 3.0, "intro": 3.0, "card": 3.4, "fim": 6.0, "viagem": (4.0, 5.0)},
-    "0x0_curto": {"gancho": 2.5, "intro": 2.5, "card": 3.4, "fim": 5.0, "viagem": (3.0, 4.0)},
+    "normal":    {"gancho": 3.0, "intro": 5.0, "card": 4.5, "fim": 10.0, "viagem": (7.0, 13.0)},
+    "0x0":       {"gancho": 3.0, "intro": 3.2, "card": 3.6, "fim": 7.5, "viagem": (4.0, 5.0)},
+    "0x0_curto": {"gancho": 2.6, "intro": 3.0, "card": 3.6, "fim": 6.5, "viagem": (3.0, 4.0)},
 }
 VIAGEM_MIN = 0.6  # trecho mínimo de barra entre dois destaques
 
@@ -47,10 +47,14 @@ def agenda(dados):
     paradas = []
     for i, d in enumerate(ds):
         cursor += trechos[i]
-        paradas.append({"t": round(cursor, 3), "pos": pos[i]})
+        paradas.append({
+            "t": round(cursor, 3), "pos": pos[i], "viagem": trechos[i],
+            "placar": round(cursor + 0.55, 3),           # dígito do placar troca
+            "saida": round(cursor + t["card"] - 0.4, 3),  # card sai
+        })
         cursor += t["card"]
     cursor += trechos[-1]
-    return {
+    ag = {
         "gancho": t["gancho"],
         "intro": t["intro"],
         "card": t["card"],
@@ -59,6 +63,38 @@ def agenda(dados):
         "paradas": paradas,
         "trecho_final": round(trechos[-1], 3),
         "total": round(cursor + t["fim"], 3),
+    }
+    ag["m"] = momentos(dados, ag)
+    return ag
+
+
+def momentos(dados, ag):
+    """Instantes-chave da animação. O template e a trilha leem daqui,
+    então som e imagem ficam sincronizados por construção."""
+    g, ini, fb = ag["gancho"], ag["inicio_barra"], ag["fim_barra"]
+    palavras = dados["gancho"]["titulo"].split()
+    p = [round(0.05 + i * 0.14, 3) for i in range(len(palavras))]
+    f0 = round(fb + 1.2, 3)
+    n_stats = sum(1 for k in ("posse", "finalizacoes", "no_gol", "xg", "chances_claras")
+                  if (dados.get("estatisticas") or {}).get(k))
+    return {
+        "palavras": p,
+        "sub": round(p[-1] + 0.25, 3),
+        "wipe1": round(g - 0.3, 3),
+        "escudo_casa": round(g + 0.1, 3),
+        "escudo_fora": round(g + 0.25, 3),
+        "vs": round(g + 0.7, 3),
+        "brilho": round(g + 1.1, 3),
+        "info": round(g + 1.3, 3),
+        "rolando": round(g + max(1.7, ag["intro"] - 1.5), 3),
+        "wipe2": round(ini - 0.3, 3),
+        "placar_entra": round(ini - 0.05, 3),
+        "apito_final": fb,
+        "wipe3": round(fb + 0.9, 3),
+        "fim": f0,
+        "fim_placar": round(f0 + 0.45, 3),
+        "fim_stats": [round(f0 + 1.2 + i * 0.18, 3) for i in range(n_stats)],
+        "cta": round(max(f0 + 2.6, ag["total"] - 3.0), 3),
     }
 
 
