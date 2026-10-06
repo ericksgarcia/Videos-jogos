@@ -12,7 +12,7 @@ from scipy import signal
 from scipy.io import wavfile
 
 SR = 48000
-SONS_USUARIO = Path(__file__).resolve().parent.parent / "sons"
+SONS_USUARIO = Path(__file__).resolve().parents[2] / "sons"
 
 
 def _t(dur):

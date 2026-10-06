@@ -38,18 +38,12 @@ import numpy as np
 import requests
 from scipy.io import wavfile
 
-RAIZ = Path(__file__).resolve().parent.parent
+RAIZ = Path(__file__).resolve().parents[2]          # raiz do repositório
 CACHE = RAIZ / "data" / "voz"
 GEMINI_MODELO = os.environ.get("GEMINI_TTS_MODELO", "gemini-3.8-flash-tts")
 # Notas de direção do Gemini TTS: só o trecho depois de TRANSCRIPT é falado.
-DIRECAO = """# AUDIO PROFILE: Narrador de um canal brasileiro de divulgação científica para adultos
-## THE SCENE: Vídeo curto que explica um assunto complicado de um jeito muito simples, com analogias do dia a dia.
-### DIRECTOR'S NOTES
-Style: adulto, inteligente, conversado e caloroso, curioso como quem conta algo fascinante a um amigo; nada infantilizado; ênfase natural nas palavras-chave.
-Pace: moderado, com pausas curtas para a ideia assentar.
-Accent: português do Brasil.
-#### TRANSCRIPT
-"""
+# A direção (tom de voz do canal) fica na identidade: aprendendo/identidade/marca.json
+DIRECAO = json.loads((RAIZ / "aprendendo" / "identidade" / "marca.json").read_text())["voz"]["direcao"]
 VELOCIDADE = "+0%"   # velocidade das vozes edge/azure
 _avisado = set()
 

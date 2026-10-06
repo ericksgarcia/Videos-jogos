@@ -2,7 +2,7 @@
 // Cada função CENAS.<tipo>(el, c, B) desenha e anima uma cena do roteiro:
 //   el = <g> da cena (SVG 1080x1920), c = dados da cena (ini, voz, fim, batidas),
 //   B(evento, fração) = instante da batida (ou fração da fala, se não houver).
-// Usa a biblioteca de desenhos e animações de template.html.
+// Usa a identidade (aprendendo/identidade) e a biblioteca comum (aprendendo/motor/biblioteca.js).
 // =============== 1. gancho: quarto à noite -> paisagem com a usina ===============
 CENAS.interruptor = (el, c, B) => {
   mostrarGancho(B("afasta", 0.5) - 0.2);
@@ -380,13 +380,8 @@ CENAS.resumo = (el, c, B) => {
   const passos = [["ALGO GIRA", C.verde, "↻"], ["O ÍMÃ GIRA NOS FIOS", C.rosa, "N"], ["OS ELÉTRONS ANDAM", C.azul, "e"], ["A LUZ ACENDE", C.amarelo, "✦"]];
   el.innerHTML = `<rect width="${W}" height="${H}" fill="url(#ceuNoite)"/>${estrelas(70, 33, 0, 1400)}
     <path class="espinha" d="M180 470 V 1230" stroke="rgba(255,255,255,0.25)" stroke-width="6" stroke-linecap="round"/>
-    ${passos.map(([t, cor, ic], k) => `<g transform="translate(180 ${470 + k * 253})"><g class="passo"><circle r="70" fill="${cor}"/><circle r="70" fill="none" stroke="#fff" stroke-opacity="0.4" stroke-width="6"/><text class="rot" y="24" text-anchor="middle" font-size="64" fill="#141a3a">${k + 1}</text><text class="rot" x="110" y="18" font-size="50" fill="#fff">${t}</text></g></g>`).join("")}
-    <g class="fim" opacity="0">${halo(540, 760, 420, "haloFim")}
-      <g transform="translate(540 760)"><g class="logo"><rect x="-130" y="-130" width="260" height="260" rx="70" fill="url(#sol)"/><path class="bulbo" d="M0 -82 a66 66 0 0 0 -38 120 v22 h76 v-22 A66 66 0 0 0 0 -82z" fill="none" stroke="#1b1f3b" stroke-width="14" stroke-linejoin="round"/><rect x="-32" y="72" width="64" height="18" rx="9" fill="#1b1f3b"/></g></g>
-      <g transform="translate(540 1020)"><g class="fi"><text class="rot" text-anchor="middle" font-size="78" fill="#fff">APRENDENDO <tspan fill="${C.amarelo}">FÁCIL</tspan></text></g></g>
-      <g transform="translate(540 1150)"><g class="fi seguir"><rect x="-210" y="-60" width="420" height="120" rx="60" fill="${C.rosa}"/><text class="rot" y="22" text-anchor="middle" font-size="58" fill="#fff">SEGUIR</text></g></g>
-      <g transform="translate(540 1290)"><g class="fi"><text class="rotm" text-anchor="middle" font-size="40" fill="#c7cde6">Qual assunto complicado vem a seguir?</text></g></g></g>`;
-  const ps = $$(".passo", el), fim = $(".fim", el);
+    ${passos.map(([t, cor, ic], k) => `<g transform="translate(180 ${470 + k * 253})"><g class="passo"><circle r="70" fill="${cor}"/><circle r="70" fill="none" stroke="#fff" stroke-opacity="0.4" stroke-width="6"/><text class="rot" y="24" text-anchor="middle" font-size="64" fill="#141a3a">${k + 1}</text><text class="rot" x="110" y="18" font-size="50" fill="#fff">${t}</text></g></g>`).join("")}`;
+  const ps = $$(".passo", el);
   tl.set(ps, { opacity: 0 }, c.ini);
   desenhar($(".espinha", el), c.ini + 0.2, 1.2);
   ["passo1", "passo2", "passo3", "passo4"].forEach((b, k) => {
@@ -395,9 +390,5 @@ CENAS.resumo = (el, c, B) => {
   });
   const tcta = B("cta", 0.8);
   tl.to([...ps, $(".espinha", el)], { opacity: 0, x: -60, duration: 0.4, stagger: 0.04, ease: "power2.in" }, tcta - 0.45);
-  tl.set(fim, { opacity: 1 }, tcta);
-  pop($(".logo", el), tcta);
-  desenhar($(".bulbo", el), tcta + 0.2, 0.7);
-  $$(".fi", el).forEach((f, k) => surge(f, tcta + 0.4 + k * 0.15, 50));
-  tl.fromTo($(".seguir", el), { scale: 1 }, { scale: 1.07, duration: 0.45, yoyo: true, repeat: Math.max(1, Math.floor((T - tcta - 1) / 0.45)), ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tcta + 1);
+  cartaoFinal(el, tcta);
 };

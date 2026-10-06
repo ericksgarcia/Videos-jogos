@@ -4,6 +4,26 @@ Este repositório gera os vídeos do canal **Aprendendo Fácil**: vídeos vertic
 TikTok/Reels/Shorts que explicam assuntos muito complicados de um jeito muito simples.
 Leia este guia inteiro antes de criar ou alterar um vídeo.
 
+## Organização (não misture as camadas)
+
+```
+aprendendo/
+  identidade/   A MARCA — igual em todos os vídeos. Não altere sem pedido do dono.
+                marca.json (nome, textos, CTA, hashtags, voz, paleta), marca.css,
+                identidade.js (marca, legendas, capítulos, abertura, cartão final),
+                logo.svg, foto-perfil.png, banner.png, fontes/. Manual: identidade/README.md
+  motor/        O QUE TODOS USAM — gerador, voz, sons, template, núcleo, biblioteca de
+                desenhos e montagem. Mude só para melhorar todos os vídeos, e confira
+                que os vídeos antigos continuam iguais (--previa).
+  videos/<tema>/  UM VÍDEO POR PASTA — roteiro.json + cenas.js (+ o que for só dele).
+```
+
+- Vídeo novo: `python aprendendo/motor/novo.py <tema> "Título"` cria a pasta com o
+  modelo. Tudo do vídeo fica nela; não edite a pasta de outro vídeo.
+- Desenho que serve para vários temas vai para `motor/biblioteca.js`; o que é só do
+  tema fica no `cenas.js` do vídeo.
+- Saída (não versionada): `output/<tema>/<slug>.mp4`, `output/<tema>/previa/`, `output/<tema>/build/`.
+
 ## O pedido típico
 
 "Faça um vídeo sobre X". Isso significa: escrever o roteiro, criar as cenas animadas,
@@ -19,7 +39,7 @@ descrição para o TikTok (gancho, 3–5 linhas, hashtags).
 - Analogias do dia a dia (fila de pessoas, tampa de panela), um passo por vez, sem
   jargão sem explicação. Pode citar o cientista e o ano quando ajudar.
 - Duração **mínima de 1min30** (o primeiro vídeo tem 2min20; 1:45–2:30 é o ideal).
-- Estrutura que funcionou (`roteiros/eletricidade.json`):
+- Estrutura que funcionou (`videos/eletricidade/roteiro.json`):
   1. gancho com uma pergunta + situação cotidiana ("Você aperta o interruptor…");
   2. o conceito básico com uma analogia;
   3. a descoberta/o mecanismo central;
@@ -37,7 +57,7 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - **Cada cena é um ambiente completo em tela cheia** (SVG 1080×1920): céu, morros,
   chão, primeiro plano. Nada de desenho isolado sobre fundo liso.
 - **Luz e volume:** degradês (cobre, metal, água, vidro), halos de brilho, sombras
-  suaves, cones de luz. Use os gradientes do `<defs>` do template.
+  suaves, cones de luz. Use os gradientes do `<defs>` (criados em `motor/biblioteca.js`).
 - **Câmera:** cada cena tem aproximação lenta contínua (automática); use movimentos
   que contam a história (sair pela janela, zoom para dentro do fio, recuar para revelar
   o salão da usina). Transição cruzada entre cenas (automática).
@@ -50,12 +70,13 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Textos dentro da arte: `rotulo()` (pílula colorida) e `callout()` (anotação com
   linha de chamada). Poucos e curtos.
 
-### Identidade (já está no `template.html`, não mude sem pedido)
+### Identidade (em `aprendendo/identidade/`, não mude sem pedido)
 
 - Marca no topo esquerdo: selo amarelo com lâmpada + "APRENDENDO **FÁCIL**".
 - Fonte Nunito (600/800/900). Barra de progresso amarelo→laranja no topo.
-- Paleta: fundo `#0a1230`; amarelo `#ffd23f`; laranja `#ff8a3d`; verde `#06d6a0`;
-  azul `#4cc9f0`; ciano `#8fe3ff`; rosa `#ff5d8f`; vermelho `#ef476f`; cobre `#e08a4b`.
+- Paleta (fonte única: `marca.json` → `C` no JS e variáveis CSS): fundo `#0a1230`;
+  amarelo `#ffd23f`; laranja `#ff8a3d`; verde `#06d6a0`; azul `#4cc9f0`; ciano `#8fe3ff`;
+  rosa `#ff5d8f`; vermelho `#ef476f`; cobre `#e08a4b`.
 - Abertura: título-gancho em maiúsculas com a palavra-chave em amarelo
   (`gancho` + `gancho_destaque` no roteiro, mostrado por `mostrarGancho()`).
 - Capítulos: "PARTE 0N" + título da cena no canto superior (automático).
@@ -67,8 +88,8 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 ## Voz e som
 
 - Gemini TTS (`gemini-3.8-flash-tts`), voz **Achird** (escolhida entre Charon,
-  Sadaltager, Iapetus e Sulafat). Direção de narrador adulto de divulgação científica
-  em `aprendendo/voz.py` (`DIRECAO`). Se quiser tags de emoção, use o campo `tts` da
+  Sadaltager, Iapetus e Sulafat). Voz e direção de narrador adulto de divulgação
+  científica ficam em `identidade/marca.json` (`voz`). Se quiser tags de emoção, use o campo `tts` da
   cena (ex.: `[positive]`), com as mesmas palavras da `fala`.
 - A chave do Gemini fica como **credencial do ambiente** (o proxy injeta o cabeçalho
   `x-goog-api-key` nas chamadas a `generativelanguage.googleapis.com`; a sessão não vê
@@ -79,44 +100,48 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - `gerar.py` imprime `narração: {'gemini'}`. Se sair outro provedor (edge), a chave não
   funcionou: **pare e avise o dono** em vez de entregar com outra voz.
 - Narrações ficam em cache em `data/voz/` (não versionado).
-- Efeitos e trilha são sintetizados (`sons.py`, `sfx.py`); cada batida toca um som
-  (mapa `SOM` em `gerar.py` — acrescente os eventos novos lá).
+- Efeitos e trilha são sintetizados (`motor/sons.py`, `motor/sfx.py`); cada batida toca
+  o som definido em `"sons"` no roteiro do vídeo (`{"evento": ["efeito", ganho]}`;
+  sem definição, toca `pop`). Efeitos: whoosh, whoosh_curto, pop, thud, brilho,
+  clique, plim, zap, agua, vento, vapor, tampa, urna.
 
 ## Como fazer um vídeo novo
 
-1. Roteiro em `aprendendo/roteiros/<tema>.json`:
-   `slug`, `titulo`, `gancho`, `gancho_destaque`, `visual` (nome do arquivo de cenas),
-   `voz`, e `cenas[]` com `id`, `tipo`, `titulo` (vira o título do capítulo), `fala` e
+0. `python aprendendo/motor/novo.py <tema> "Título"` → cria `aprendendo/videos/<tema>/`.
+1. Roteiro em `videos/<tema>/roteiro.json`:
+   `slug`, `titulo`, `gancho`, `gancho_destaque`, `voz`, `sons`, e `cenas[]` com `id`, `tipo`, `titulo` (vira o título do capítulo), `fala` e
    `batidas` (`{"palavra exata da fala": "evento"}`, na ordem da fala; inclua a
    pontuação colada se a palavra aparecer com ela, ex.: `"vapor,"`).
-2. Cenas em `aprendendo/cenas/<visual>.js`: uma função `CENAS.<tipo>(el, c, B)` por
-   cena (veja `cenas/eletricidade.js` como modelo). `B("evento", fração)` dá o instante
-   da batida. A primeira cena chama `mostrarGancho(instante)`.
-3. `python aprendendo/gerar.py aprendendo/roteiros/<tema>.json --previa` → fotos de
-   3 momentos de cada cena em `output/aprendendo/previa/<slug>/` (folhas
+2. Cenas em `videos/<tema>/cenas.js`: uma função `CENAS.<tipo>(el, c, B)` por
+   cena (veja `videos/eletricidade/cenas.js` e `videos/cargos-politicos/cenas.js`). `B("evento", fração)` dá o instante
+   da batida. A primeira cena chama `mostrarGancho(instante)`; a última, `cartaoFinal(el, instante)`.
+3. `python aprendendo/motor/gerar.py aprendendo/videos/<tema> --previa` → fotos de
+   3 momentos de cada cena em `output/<tema>/previa/` (folhas
    `contact-sheet-*.jpg`). **Olhe todas** e corrija sobreposição, coisa cortada,
    elemento fora de lugar, legenda presa, texto ilegível. Repita até ficar limpo.
-4. `python aprendendo/gerar.py aprendendo/roteiros/<tema>.json` → renderiza (~5 min)
-   e grava `output/aprendendo/<slug>.mp4`. Confira alguns frames do MP4 final
+4. `python aprendendo/motor/gerar.py aprendendo/videos/<tema>` → renderiza (~5 min)
+   e grava `output/<tema>/<slug>.mp4`. Confira alguns frames do MP4 final
    (`ffmpeg -ss T -i video.mp4 -frames:v 1 f.png`).
 5. O arquivo precisa ter **menos de 30 MB** (limite de envio); o encode final em
    CRF 24 dá ~16–20 MB para 2min20.
 
-### Biblioteca do `template.html`
+### Biblioteca comum (`motor/biblioteca.js`)
 
 - Desenhos (devolvem SVG em texto): `sombra`, `halo`, `nuvem`, `estrelas`, `eletron`,
   `lampada` (+ `acender(lamp, t)`), `torre`, `casa`, `usinaT`, `turbinaR`, `eolica`,
   `rotulo`, `callout`. `P(x, y, escala, classe, svg)` posiciona algo num invólucro.
 - Pessoas: `pessoa(corpo, pele, cabelo, {gravata, faixa, prancheta})` e `gente(k, opções)`
-  (variações prontas de cor/pele/cabelo). Fim do vídeo: `cartaoFinal(el, instante)`.
-- `cenas/cargos-politicos.js` tem mais desenhos reaproveitáveis: medalhões com ícone
-  (`medalhas`), prédios públicos (`palacio`, `moderno`), Congresso, Planalto, mapa do
-  Brasil (`brasil`), documento, carimbo, seta, lupa.
+  (variações prontas de cor/pele/cabelo).
+- Ícones (`ICONE.saude`, `escola`, `lixo`, `buraco`, `onibus`, `policia`, `hospital`,
+  `ensino`, `estrada`, `economia`, `globo`, `forcas`) e medalhões (`medalha`, `medalhas`),
+  `etiqueta`, `bandeira`, prédios (`palacio`, `moderno`), `congresso`, `planalto`, mapa do
+  Brasil (`brasil`), `documento`, `carimbo`, `check`, `xis`, `seta`, `lupa`.
+- Da identidade (`identidade/identidade.js`): `C` (paleta), `mostrarGancho`, `cartaoFinal`.
 - Animações: `pop`, `surge`, `desenhar` (DrawSVG), `girar`, `balancar`, `callAnim`,
   `fluxo` (partículas andando num caminho), `poeira`. Plugins: MotionPath, DrawSVG,
   MorphSVG.
-- Se um desenho novo servir para vários temas, coloque-o no template; se for só do
-  tema, deixe no arquivo de cenas.
+- Se um desenho novo servir para vários temas, coloque-o em `motor/biblioteca.js`; se
+  for só do tema, deixe no `cenas.js` do vídeo.
 
 ### Armadilhas do GSAP/HyperFrames (já custaram retrabalho)
 

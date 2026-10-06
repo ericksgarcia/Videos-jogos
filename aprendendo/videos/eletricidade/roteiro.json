@@ -3,8 +3,8 @@
   "titulo": "Como a eletricidade é gerada",
   "gancho": "DE ONDE VEM A ELETRICIDADE?",
   "gancho_destaque": "ELETRICIDADE",
-  "visual": "eletricidade",
   "voz": "Achird",
+  "sons": {"clique": ["clique", 0.9], "luz": ["plim", 0.8], "afasta": ["whoosh", 0.6], "gira": ["whoosh_curto", 0.55], "titulo": ["pop", 0.5], "zoom": ["whoosh", 0.7], "eletrons": ["pop", 0.5], "andam": ["zap", 0.35], "fila": ["pop", 0.5], "empurrao": ["thud", 0.6], "faraday": ["brilho", 0.6], "ima": ["whoosh_curto", 0.6], "bobina": ["pop", 0.45], "corrente": ["zap", 0.5], "equacao": ["plim", 0.6], "sai": ["zap", 0.45], "nome": ["pop", 0.55], "usina": ["whoosh", 0.6], "agua": ["agua", 0.55], "desce": ["agua", 0.4], "turbina": ["whoosh_curto", 0.6], "brasil": ["plim", 0.55], "vento": ["vento", 0.6], "fogo": ["whoosh_curto", 0.45], "vapor": ["vapor", 0.6], "empurra": ["whoosh_curto", 0.55], "panela": ["tampa", 0.7], "excecao": ["pop", 0.55], "raios": ["brilho", 0.6], "solta": ["zap", 0.45], "pronto": ["plim", 0.6], "cabos": ["zap", 0.4], "distancia": ["whoosh_curto", 0.5], "transformador": ["clique", 0.7], "tomada": ["clique", 0.7], "lampada": ["plim", 0.7], "passo1": ["pop", 0.6], "passo2": ["pop", 0.6], "passo3": ["pop", 0.6], "passo4": ["plim", 0.6], "cta": ["plim", 0.6]},
   "cenas": [
     {
       "id": "gancho",

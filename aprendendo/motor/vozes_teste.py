@@ -1,13 +1,6 @@
 import sys, os, base64, requests
 sys.path.insert(0, os.path.dirname(__file__)); import voz
-DIRECAO = """# AUDIO PROFILE: Narrador de um canal brasileiro de divulgação científica para adultos
-## THE SCENE: Vídeo curto que explica um assunto complicado de um jeito muito simples, com analogias do dia a dia.
-### DIRECTOR'S NOTES
-Style: adulto, inteligente, conversado e caloroso, curioso como quem conta algo fascinante a um amigo; nada infantilizado; ênfase natural nas palavras-chave.
-Pace: moderado, com pausas curtas para a ideia assentar.
-Accent: português do Brasil.
-#### TRANSCRIPT
-"""
+DIRECAO = voz.DIRECAO  # tom de voz do canal (identidade/marca.json)
 T = "Você aperta o interruptor e a luz acende. Simples assim. Mas, pra isso acontecer, alguma coisa muito longe daqui precisou girar. Vou te explicar como, do jeito mais fácil possível."
 for v in sys.argv[1:]:
     r = voz.narrar(T, T, direcao=DIRECAO, voz_nome=v)

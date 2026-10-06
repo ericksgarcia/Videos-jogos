@@ -1,0 +1,35 @@
+/* Identidade visual do Aprendendo Fácil: fontes, marca, faixas, barra de progresso,
+   títulos de capítulo, título de abertura e legendas. Cores: ver marca.json. */
+@font-face { font-family: "Nunito"; font-weight: 600; src: url("nunito-600.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-weight: 800; src: url("nunito-800.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-weight: 900; src: url("nunito-900.woff2") format("woff2"); }
+/* faixa escura atrás da legenda e do topo, para leitura */
+#faixa-topo { position: absolute; left: 0; top: 0; width: 1080px; height: 330px; background: linear-gradient(rgba(6,10,30,0.72), rgba(6,10,30,0)); }
+#faixa-base { position: absolute; left: 0; bottom: 0; width: 1080px; height: 560px; background: linear-gradient(rgba(6,10,30,0), rgba(6,10,30,0.7) 50%, rgba(6,10,30,0.88)); }
+#vinheta { position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 42%, transparent 58%, rgba(0,0,0,0.5)); }
+#progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 8px; background: linear-gradient(90deg, var(--amarelo), var(--laranja)); transform-origin: left center; transform: scaleX(0); }
+
+#marca { position: absolute; left: 64px; top: 72px; display: flex; align-items: center; gap: 14px; }
+#marca .selo { width: 50px; height: 50px; border-radius: 15px; background: linear-gradient(145deg, var(--selo1), var(--selo2)); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(255, 190, 40, 0.35); }
+#marca .nome { font-weight: 900; font-size: 30px; letter-spacing: 0.08em; }
+#marca .nome b { color: var(--amarelo); }
+
+/* título do capítulo: "lower third" */
+#capitulo { position: absolute; left: 64px; top: 150px; height: 120px; }
+.lt { position: absolute; left: 0; top: 0; white-space: nowrap; opacity: 0; }
+.lt .num { font-weight: 900; font-size: 26px; letter-spacing: 0.24em; color: var(--amarelo); }
+.lt .barra { height: 4px; width: 80px; margin: 10px 0 12px; background: linear-gradient(90deg, var(--amarelo), rgba(255,210,63,0)); transform-origin: left; }
+.lt .t { font-weight: 900; font-size: 52px; line-height: 1; letter-spacing: 0.01em; text-shadow: 0 4px 18px rgba(0,0,0,0.5); }
+
+#gancho { position: absolute; left: 60px; right: 60px; top: 230px; text-align: center; opacity: 0; transform-origin: 50% 0; }
+#gancho .sup { font-weight: 800; font-size: 34px; letter-spacing: 0.3em; color: var(--amarelo); margin-bottom: 18px; }
+#gancho .linha { font-weight: 900; font-size: 98px; line-height: 1.0; text-transform: uppercase; text-shadow: 0 8px 30px rgba(0,0,0,0.55); }
+#gancho .linha span { display: inline-block; margin: 0 0.1em; }
+#gancho .linha .dest { color: var(--amarelo); }
+
+#leg { position: absolute; left: 70px; width: 940px; top: 1480px; height: 190px; }
+.bloco { position: absolute; inset: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 22px; opacity: 0; }
+.bloco span { display: inline-block; font-weight: 800; font-size: 64px; line-height: 1.16; color: rgba(255,255,255,0.92); text-shadow: 0 4px 16px rgba(0,0,0,0.75); }
+.bloco span.k { color: var(--ciano); }
+.rot { font-family: "Nunito", sans-serif; font-weight: 900; }
+.rotm { font-family: "Nunito", sans-serif; font-weight: 800; }

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/MotionPathPlugin.min.js"></script>
+    <script src="assets/DrawSVGPlugin.min.js"></script>
+    <script src="assets/MorphSVGPlugin.min.js"></script>
+    <link rel="stylesheet" href="assets/marca.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0a1230; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Nunito", sans-serif; color: #f8f9ff; background: #0a1230; }
+      #mundo { position: absolute; left: 0; top: 0; }
+      .cena { opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__TOTAL__" data-width="1080" data-height="1920">
+      <svg id="mundo" width="1080" height="1920" viewBox="0 0 1080 1920"><defs id="defs"></defs></svg>
+    </div>
+    <script>
+      window.DADOS = /*__DADOS__*/null;
+      window.MARCA = /*__MARCA__*/null;
+    </script>
+    <!-- ordem: núcleo -> identidade -> biblioteca -> cenas do vídeo -> montagem -->
+    <script src="assets/nucleo.js"></script>
+    <script src="assets/identidade.js"></script>
+    <script src="assets/biblioteca.js"></script>
+    <script src="assets/cenas.js"></script>
+    <script src="assets/montagem.js"></script>
+  </body>
+</html>

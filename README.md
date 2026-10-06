@@ -6,10 +6,14 @@ palavra, efeitos e trilha. Tudo é gerado por código.
 
 ```bash
 npm ci && pip install -r requirements.txt     # (feito automaticamente nas sessões na nuvem)
-export GEMINI_API_KEY=...                       # narração (Gemini TTS)
-python aprendendo/gerar.py aprendendo/roteiros/eletricidade.json --previa   # fotos para revisar
-python aprendendo/gerar.py aprendendo/roteiros/eletricidade.json            # vídeo final
+python aprendendo/motor/novo.py <tema> "Título"                 # cria aprendendo/videos/<tema>/
+python aprendendo/motor/gerar.py aprendendo/videos/<tema> --previa   # fotos para revisar
+python aprendendo/motor/gerar.py aprendendo/videos/<tema>            # vídeo final
 ```
 
-Saída: `output/aprendendo/<slug>.mp4`. Detalhes em [aprendendo/README.md](aprendendo/README.md);
+- `aprendendo/identidade/` — a marca (logo, cores, fontes, textos, voz, legendas, abertura, final)
+- `aprendendo/motor/` — gerador e biblioteca comuns
+- `aprendendo/videos/<tema>/` — um vídeo por pasta
+
+Saída: `output/<tema>/<slug>.mp4`. Detalhes em [aprendendo/README.md](aprendendo/README.md);
 regras do canal e padrão visual em [CLAUDE.md](CLAUDE.md).

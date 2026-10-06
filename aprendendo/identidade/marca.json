@@ -1,0 +1,63 @@
+{
+  "nome": "Aprendendo Fácil",
+  "nome_tela": [
+    "APRENDENDO",
+    "FÁCIL"
+  ],
+  "slogan": "Coisas complicadas, explicadas do jeito mais fácil possível.",
+  "bio": "Assuntos complicados explicados do jeito mais simples possível. Ciência, política, dinheiro e o mundo, em 2 minutos. 💡",
+  "publico": "Adultos. Só o método é simples (técnica de Feynman: como se explicasse para uma criança de 10 anos); nada infantilizado.",
+  "cta_fala": "Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+  "cta_tela": {
+    "botao": "SEGUIR",
+    "pergunta": "Qual assunto complicado vem a seguir?"
+  },
+  "abertura_sobretitulo": "APRENDENDO FÁCIL",
+  "capitulo_prefixo": "PARTE",
+  "hashtags": [
+    "#aprendendofacil",
+    "#aprendanotiktok",
+    "#explicado",
+    "#curiosidades",
+    "#educacao"
+  ],
+  "voz": {
+    "provedor": "gemini",
+    "modelo": "gemini-3.8-flash-tts",
+    "nome": "Achird",
+    "direcao": "# AUDIO PROFILE: Narrador de um canal brasileiro de divulgação científica para adultos\n## THE SCENE: Vídeo curto que explica um assunto complicado de um jeito muito simples, com analogias do dia a dia.\n### DIRECTOR'S NOTES\nStyle: adulto, inteligente, conversado e caloroso, curioso como quem conta algo fascinante a um amigo; nada infantilizado; ênfase natural nas palavras-chave.\nPace: moderado, com pausas curtas para a ideia assentar.\nAccent: português do Brasil.\n#### TRANSCRIPT\n"
+  },
+  "paleta": {
+    "fundo": "#0a1230",
+    "texto": "#f8f9ff",
+    "amarelo": "#ffd23f",
+    "laranja": "#ff8a3d",
+    "verde": "#06d6a0",
+    "azul": "#4cc9f0",
+    "ciano": "#8fe3ff",
+    "rosa": "#ff5d8f",
+    "vermelho": "#ef476f",
+    "cobre": "#e08a4b",
+    "selo": [
+      "#ffe27a",
+      "#ffb52e"
+    ],
+    "tinta": "#1b1f3b"
+  },
+  "fontes": {
+    "familia": "Nunito",
+    "pesos": [
+      600,
+      800,
+      900
+    ],
+    "arquivos": "identidade/fontes/"
+  },
+  "video": {
+    "largura": 1080,
+    "altura": 1920,
+    "fps": 30,
+    "duracao_minima_s": 90,
+    "tamanho_maximo_mb": 30
+  }
+}
