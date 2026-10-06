@@ -70,9 +70,14 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   Sadaltager, Iapetus e Sulafat). Direção de narrador adulto de divulgação científica
   em `aprendendo/voz.py` (`DIRECAO`). Se quiser tags de emoção, use o campo `tts` da
   cena (ex.: `[positive]`), com as mesmas palavras da `fala`.
-- Precisa de `GEMINI_API_KEY` nas variáveis do ambiente (ou num `.env` na raiz, que é
-  ignorado pelo git). **Nunca** grave a chave em arquivo versionado. O domínio
-  `generativelanguage.googleapis.com` precisa estar liberado na rede do ambiente.
+- A chave do Gemini fica como **credencial do ambiente** (o proxy injeta o cabeçalho
+  `x-goog-api-key` nas chamadas a `generativelanguage.googleapis.com`; a sessão não vê
+  a chave). Alternativas: variável `GEMINI_API_KEY` ou `.env` na raiz (ignorado pelo
+  git). **Nunca** grave a chave em arquivo versionado nem a mostre no chat.
+- Teste rápido: `curl -s -o /dev/null -w "%{http_code}" https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash-tts`
+  → 200 = chave ok; 403 = credencial ausente/errada.
+- `gerar.py` imprime `narração: {'gemini'}`. Se sair outro provedor (edge), a chave não
+  funcionou: **pare e avise o dono** em vez de entregar com outra voz.
 - Narrações ficam em cache em `data/voz/` (não versionado).
 - Efeitos e trilha são sintetizados (`sons.py`, `sfx.py`); cada batida toca um som
   (mapa `SOM` em `gerar.py` — acrescente os eventos novos lá).

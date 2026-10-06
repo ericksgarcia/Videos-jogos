@@ -3,7 +3,9 @@
 Provedores (variável VOZ_PROVEDOR, padrão "auto"):
   gemini - Gemini TTS (gemini-3.8-flash-tts, voz Achird), o mais natural e com
            emoção controlada por "notas de direção" e tags como [excitement].
-           Precisa de GEMINI_API_KEY (chave do Google AI Studio). Não devolve o
+           Chave do Google AI Studio em GEMINI_API_KEY ou, nas sessões na nuvem,
+           como credencial do ambiente (o proxy injeta o cabeçalho
+           x-goog-api-key em generativelanguage.googleapis.com). Não devolve o
            tempo das palavras: ele é calculado pelas pausas do próprio áudio.
   edge   - vozes neurais do Microsoft Edge via `edge-tts`. Grátis, sem conta,
            devolve o tempo de cada palavra. Serviço não oficial: bom para
@@ -192,7 +194,7 @@ def _alinhar_gemini(texto, wav):
                 "Responda só um array JSON de números com 2 casas decimais, um por trecho.\n" + lista)
     b = base64.b64encode(Path(wav).read_bytes()).decode()
     r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
-                      headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]}, timeout=120,
+                      headers=_cab_gemini(), timeout=120,
                       json={"contents": [{"parts": [{"inlineData": {"mimeType": "audio/wav", "data": b}}, {"text": pergunta}]}],
                             "generationConfig": {"responseMimeType": "application/json", "temperature": 0}})
     r.raise_for_status()
@@ -224,14 +226,19 @@ def _alinhar_gemini(texto, wav):
     return out
 
 
+def _cab_gemini():
+    """Cabeçalho da chave; vazio quando a chave é injetada pela credencial do ambiente."""
+    chave = os.environ.get("GEMINI_API_KEY")
+    return {"x-goog-api-key": chave} if chave else {}
+
+
 def _gemini(texto, voz, destino, tts=None, direcao=None):
-    chave = os.environ["GEMINI_API_KEY"]
     corpo = {"contents": [{"parts": [{"text": (direcao or DIRECAO) + (tts or texto)}]}],
              "generationConfig": {"responseModalities": ["AUDIO"],
                                   "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voz}}}}}
     for tentativa in range(4):
         r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODELO}:generateContent",
-                          headers={"x-goog-api-key": chave}, json=corpo, timeout=180)
+                          headers=_cab_gemini(), json=corpo, timeout=180)
         if r.status_code in (429, 500, 503) and tentativa < 3:
             import time
             time.sleep(8 * (tentativa + 1))
@@ -343,9 +350,7 @@ def _ordem():
         return []
     if p != "auto":
         return [p]
-    ordem = []
-    if os.environ.get("GEMINI_API_KEY"):
-        ordem.append("gemini")
+    ordem = ["gemini"]  # com chave no ambiente ou injetada pela credencial; sem nenhuma, falha e segue
     if os.environ.get("AZURE_SPEECH_KEY"):
         ordem.append("azure")
     if os.environ.get("GOOGLE_TTS_API_KEY"):
