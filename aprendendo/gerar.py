@@ -51,6 +51,22 @@ SOM = {
     "distancia": ("whoosh_curto", 0.5), "transformador": ("clique", 0.7), "tomada": ("clique", 0.7),
     "lampada": ("plim", 0.7), "passo1": ("pop", 0.6), "passo2": ("pop", 0.6), "passo3": ("pop", 0.6),
     "passo4": ("plim", 0.6), "cta": ("plim", 0.6),
+    # cargos políticos
+    "urna": ("urna", 0.7), "c1": ("pop", 0.5), "c2": ("pop", 0.5), "c3": ("pop", 0.5), "c4": ("pop", 0.5), "c5": ("pop", 0.5),
+    "pergunta": ("brilho", 0.5), "predio": ("whoosh_curto", 0.5), "assembleia": ("pop", 0.5), "regras": ("pop", 0.5),
+    "sindico": ("whoosh_curto", 0.5), "faz": ("clique", 0.7), "legislativo": ("plim", 0.55), "executivo": ("plim", 0.55),
+    "andares": ("whoosh", 0.55), "cidade": ("thud", 0.45), "estado": ("thud", 0.45), "pais": ("thud", 0.45),
+    "colExec": ("brilho", 0.5), "colLeg": ("brilho", 0.5), "prefeito": ("pop", 0.55), "saude": ("pop", 0.45),
+    "escola": ("pop", 0.45), "lixo": ("pop", 0.45), "buraco": ("pop", 0.45), "onibus": ("whoosh_curto", 0.5),
+    "camara": ("whoosh", 0.6), "vereadores": ("pop", 0.5), "orcamento": ("thud", 0.6), "fiscaliza": ("whoosh_curto", 0.5),
+    "naoasfalta": ("thud", 0.6), "cobra": ("plim", 0.5), "governador": ("pop", 0.55), "policia": ("pop", 0.45),
+    "hospital": ("pop", 0.45), "ensino": ("pop", 0.45), "estradas": ("whoosh_curto", 0.45), "deputados": ("pop", 0.5),
+    "congresso": ("whoosh", 0.55), "casas": ("pop", 0.5), "pontos": ("brilho", 0.6), "povo": ("pop", 0.4),
+    "sp": ("plim", 0.5), "rr": ("pop", 0.55), "senado": ("whoosh_curto", 0.55), "tres": ("brilho", 0.55),
+    "tamanho": ("plim", 0.5), "lei": ("pop", 0.5), "duas": ("plim", 0.55), "presidente": ("pop", 0.55),
+    "ministerios": ("whoosh", 0.5), "economia": ("pop", 0.45), "paises": ("pop", 0.45), "forcas": ("pop", 0.45),
+    "sanciona": ("thud", 0.7), "veta": ("thud", 0.7), "sozinho": ("whoosh_curto", 0.5), "derruba": ("thud", 0.7),
+    "exec": ("plim", 0.55), "leg": ("plim", 0.55), "perceber": ("brilho", 0.55),
 }
 
 

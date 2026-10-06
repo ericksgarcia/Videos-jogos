@@ -213,6 +213,33 @@
         tl.to(G, { opacity: 0, y: -60, duration: 0.4 }, sai);
       }
 
+      // pessoa estilizada (pés na origem, ~230 px de altura). opções: gravata, faixa (presidencial), prancheta
+      const pessoa = (corpo, pele, cabelo, o) => { o = o || {}; return `${sombra(0, 4, 50, 10, 0.7)}
+        <rect x="-38" y="-160" width="76" height="160" rx="36" fill="${corpo}"/><rect x="-26" y="-140" width="16" height="80" rx="8" fill="#fff" opacity="0.22"/>
+        ${o.gravata ? `<path d="M-14 -160 L 0 -138 L 14 -160z" fill="#fff"/><path d="M0 -146 L 8 -120 L 0 -100 L -8 -120z" fill="${o.gravata}"/>` : ""}
+        ${o.faixa ? `<path d="M-34 -150 L 34 -60 L 34 -38 L -34 -128z" fill="#1a9b4b"/><path d="M-34 -138 L 34 -48 L 34 -42 L -34 -132z" fill="#ffdf00"/>` : ""}
+        ${o.prancheta ? `<g transform="translate(30 -96) rotate(10)"><rect x="-24" y="-34" width="48" height="66" rx="6" fill="#c98b4b"/><rect x="-18" y="-26" width="36" height="52" rx="3" fill="#fff"/><g class="checks">${[0, 1, 2].map((k) => `<path d="M-12 ${-14 + k * 16} l 5 5 l 9 -10" fill="none" stroke="${C.verde}" stroke-width="4" stroke-linecap="round"/>`).join("")}</g></g>` : ""}
+        <circle cy="-198" r="38" fill="${pele}"/><path d="M-38 -204 C -36 -248, 36 -248, 38 -204 C 26 -222, -26 -222, -38 -204z" fill="${cabelo}"/>`; };
+      const CORPOS = ["#3a5bd9", "#2f9fe8", "#ff8a3d", "#06d6a0", "#ff5d8f", "#7b5cd6", "#e0a83a", "#4cc9f0"];
+      const PELES = ["#f2c7a5", "#d9a27c", "#a96f4b", "#7a4a2f", "#ffdcc0"];
+      const CABELOS = ["#2b1d14", "#5a3a22", "#141414", "#8a5a2c", "#c9c9d6"];
+      const gente = (k, o) => pessoa(CORPOS[k % CORPOS.length], PELES[(k * 3) % PELES.length], CABELOS[(k * 7) % CABELOS.length], o);
+
+      // cartão final da marca (logo, nome, SEGUIR, pergunta); aparece no instante t
+      function cartaoFinal(pai, t) {
+        pai.insertAdjacentHTML("beforeend", `<g class="fim" opacity="0">${halo(540, 760, 420, "haloFim")}
+          <g transform="translate(540 760)"><g class="logo"><rect x="-130" y="-130" width="260" height="260" rx="70" fill="url(#sol)"/><path class="bulbo" d="M0 -82 a66 66 0 0 0 -38 120 v22 h76 v-22 A66 66 0 0 0 0 -82z" fill="none" stroke="#1b1f3b" stroke-width="14" stroke-linejoin="round"/><rect x="-32" y="72" width="64" height="18" rx="9" fill="#1b1f3b"/></g></g>
+          <g transform="translate(540 1020)"><g class="fi"><text class="rot" text-anchor="middle" font-size="78" fill="#fff">APRENDENDO <tspan fill="${C.amarelo}">FÁCIL</tspan></text></g></g>
+          <g transform="translate(540 1150)"><g class="fi seguir"><rect x="-210" y="-60" width="420" height="120" rx="60" fill="${C.rosa}"/><text class="rot" y="22" text-anchor="middle" font-size="58" fill="#fff">SEGUIR</text></g></g>
+          <g transform="translate(540 1290)"><g class="fi"><text class="rotm" text-anchor="middle" font-size="40" fill="#c7cde6">Qual assunto complicado vem a seguir?</text></g></g></g>`);
+        const fim = pai.querySelector(".fim");
+        tl.set(fim, { opacity: 1 }, t);
+        pop($(".logo", fim), t);
+        desenhar($(".bulbo", fim), t + 0.2, 0.7);
+        $$(".fi", fim).forEach((f, k) => surge(f, t + 0.4 + k * 0.15, 50));
+        tl.fromTo($(".seguir", fim), { scale: 1 }, { scale: 1.07, duration: 0.45, yoyo: true, repeat: Math.max(1, Math.floor((T - t - 1) / 0.45)), ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, t + 1);
+      }
+
       const CENAS = {};
 
       /*__CENAS__*/

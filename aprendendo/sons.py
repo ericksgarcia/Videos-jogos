@@ -76,7 +76,21 @@ def tampa():
     return _estereo(_norm(x + 0.3 * _hp(_ruido(d, 28), 4000) * np.exp(-t * 60), 0.4))
 
 
-EFEITOS = {f.__name__: f for f in (clique, plim, zap, agua, vento, vapor, tampa)}
+def urna():
+    """Bipes de confirmação da urna eletrônica (sequência rápida + nota final)."""
+    d = 0.75
+    t = _t(d)
+    x = np.zeros(len(t))
+    for k in range(6):
+        f = 2350 if k % 2 else 1950
+        m = (t >= k * 0.055) & (t < k * 0.055 + 0.045)
+        x += np.sign(np.sin(2 * np.pi * f * t)) * m * 0.5
+    m = t >= 0.33
+    x += np.sign(np.sin(2 * np.pi * 2350 * t)) * m * 0.5 * np.exp(-np.clip(t - 0.33, 0, None) * 4)
+    return _estereo(_norm(_lp(x, 6000), 0.3))
+
+
+EFEITOS = {f.__name__: f for f in (clique, plim, zap, agua, vento, vapor, tampa, urna)}
 
 
 @lru_cache(maxsize=None)

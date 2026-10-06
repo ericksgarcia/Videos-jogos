@@ -1,0 +1,73 @@
+{
+  "slug": "o-que-faz-cada-cargo-politico",
+  "titulo": "O que faz cada cargo político",
+  "gancho": "QUEM FAZ O QUÊ NA POLÍTICA?",
+  "gancho_destaque": "POLÍTICA",
+  "visual": "cargos-politicos",
+  "voz": "Achird",
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "urna",
+      "titulo": "Quem faz o quê?",
+      "fala": "A cada dois anos você vota em alguém: vereador, prefeito, deputado, senador, presidente. Mas o que cada um faz, de verdade? Vou te explicar do jeito mais fácil possível.",
+      "batidas": {"vota": "urna", "vereador,": "c1", "prefeito,": "c2", "deputado,": "c3", "senador,": "c4", "presidente.": "c5", "verdade?": "pergunta", "fácil": "titulo"}
+    },
+    {
+      "id": "condominio",
+      "tipo": "condominio",
+      "titulo": "A regra de ouro",
+      "fala": "Pensa num condomínio. Tem a assembleia, que decide as regras e aprova as contas. E tem o síndico, que pega essas regras e faz acontecer. Com o governo é igual: um lado faz as leis e fiscaliza, é o Legislativo. O outro executa, é o Executivo.",
+      "batidas": {"condomínio.": "predio", "assembleia,": "assembleia", "regras": "regras", "síndico,": "sindico", "acontecer.": "faz", "Legislativo.": "legislativo", "Executivo.": "executivo"}
+    },
+    {
+      "id": "niveis",
+      "tipo": "andares",
+      "titulo": "Três andares",
+      "fala": "E isso se repete em três andares: a sua cidade, o seu estado e o país inteiro. Cada andar tem o seu síndico e a sua assembleia.",
+      "batidas": {"três": "andares", "cidade,": "cidade", "estado": "estado", "país": "pais", "síndico": "colExec", "assembleia.": "colLeg"}
+    },
+    {
+      "id": "cidade",
+      "tipo": "cidade",
+      "titulo": "Prefeito e vereadores",
+      "fala": "Na cidade, o síndico é o prefeito. Ele cuida do que está perto de você: posto de saúde, escola, lixo, buraco na rua, ônibus. A assembleia é a Câmara Municipal, com os vereadores. Eles criam as leis da cidade, aprovam o orçamento e fiscalizam o prefeito. Por isso, vereador não asfalta rua: ele cobra quem asfalta.",
+      "batidas": {"prefeito.": "prefeito", "saúde,": "saude", "escola,": "escola", "lixo,": "lixo", "buraco": "buraco", "ônibus.": "onibus", "Câmara": "camara", "vereadores.": "vereadores", "orçamento": "orcamento", "fiscalizam": "fiscaliza", "asfalta": "naoasfalta", "cobra": "cobra"}
+    },
+    {
+      "id": "estado",
+      "tipo": "estado",
+      "titulo": "Governador e deputados estaduais",
+      "fala": "No estado, o síndico é o governador. Ele cuida da polícia, dos hospitais maiores, do ensino médio e das estradas estaduais. E a assembleia é a Assembleia Legislativa, onde os deputados estaduais fazem as leis do estado e fiscalizam o governador.",
+      "batidas": {"governador.": "governador", "polícia,": "policia", "hospitais": "hospital", "ensino": "ensino", "estradas": "estradas", "Legislativa,": "assembleia", "deputados": "deputados", "fiscalizam": "fiscaliza"}
+    },
+    {
+      "id": "camara",
+      "tipo": "camara",
+      "titulo": "Deputados federais",
+      "fala": "No país, a assembleia é o Congresso Nacional, e ela tem duas casas. Na Câmara dos Deputados ficam quinhentos e treze deputados federais. Eles representam o povo: estado com mais gente tem mais deputados. São Paulo tem setenta; Roraima, só oito.",
+      "batidas": {"Congresso": "congresso", "duas": "casas", "Câmara": "camara", "treze": "pontos", "povo:": "povo", "setenta;": "sp", "oito.": "rr"}
+    },
+    {
+      "id": "senado",
+      "tipo": "senado",
+      "titulo": "Senadores",
+      "fala": "No Senado ficam oitenta e um senadores: três por estado, não importa o tamanho. Eles representam os estados. E pra uma lei do país valer, ela precisa passar pelas duas casas.",
+      "batidas": {"Senado": "senado", "três": "tres", "tamanho.": "tamanho", "lei": "lei", "duas": "duas"}
+    },
+    {
+      "id": "presidente",
+      "tipo": "presidente",
+      "titulo": "Presidente",
+      "fala": "E o síndico do país é o presidente. Ele comanda os ministérios, cuida da economia, das relações com outros países e das Forças Armadas. Ele pode sancionar, que é assinar embaixo, ou vetar as leis do Congresso. Mas não manda sozinho: o Congresso fiscaliza e pode até derrubar o veto.",
+      "batidas": {"presidente.": "presidente", "ministérios,": "ministerios", "economia,": "economia", "países": "paises", "Armadas.": "forcas", "sancionar,": "sanciona", "vetar": "veta", "sozinho:": "sozinho", "derrubar": "derruba"}
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: prefeito, governador e presidente executam. Vereador, deputados e senadores fazem as leis e fiscalizam. Agora, quando alguém prometer algo que não é do cargo dele, você vai perceber. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {"executam.": "exec", "fiscalizam.": "leg", "perceber.": "perceber", "Segue": "cta"}
+    }
+  ]
+}

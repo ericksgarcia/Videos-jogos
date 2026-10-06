@@ -107,6 +107,11 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Desenhos (devolvem SVG em texto): `sombra`, `halo`, `nuvem`, `estrelas`, `eletron`,
   `lampada` (+ `acender(lamp, t)`), `torre`, `casa`, `usinaT`, `turbinaR`, `eolica`,
   `rotulo`, `callout`. `P(x, y, escala, classe, svg)` posiciona algo num invólucro.
+- Pessoas: `pessoa(corpo, pele, cabelo, {gravata, faixa, prancheta})` e `gente(k, opções)`
+  (variações prontas de cor/pele/cabelo). Fim do vídeo: `cartaoFinal(el, instante)`.
+- `cenas/cargos-politicos.js` tem mais desenhos reaproveitáveis: medalhões com ícone
+  (`medalhas`), prédios públicos (`palacio`, `moderno`), Congresso, Planalto, mapa do
+  Brasil (`brasil`), documento, carimbo, seta, lupa.
 - Animações: `pop`, `surge`, `desenhar` (DrawSVG), `girar`, `balancar`, `callAnim`,
   `fluxo` (partículas andando num caminho), `poeira`. Plugins: MotionPath, DrawSVG,
   MorphSVG.
@@ -123,6 +128,10 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   `<g transform="..."><g class="anima">`) e anime o `<g>` de dentro.
 - Com `svgOrigin`, coloque o mesmo `svgOrigin` no estado inicial **e** no final do
   `fromTo`, senão a cena sai deslocada.
+- Câmera que anda **e** dá zoom (plano aberto): anime o atributo, ex.
+  `tl.to(cam, { attr: { transform: "translate(0 430) scale(0.5)" } })`, com
+  `transform="translate(0 0) scale(1)"` no `<g>`. Misturar x/y/scale/svgOrigin do GSAP
+  em passos diferentes deslocou a cena.
 - Bloco de legenda muito curto é juntado ao seguinte automaticamente; não mexa nisso.
 
 ## Git
