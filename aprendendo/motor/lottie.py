@@ -34,6 +34,8 @@ def buscar(termo, n=12):
     r.raise_for_status()
     nos = [e["node"] for e in r.json()["data"]["searchPublicAnimations"]["edges"]]
     nos = sorted(nos, key=lambda no: -(no.get("downloads") or 0) - 5 * (no.get("likesCount") or 0))[:n]
+    if not nos:  # a busca da API às vezes volta vazia: usa a página pública do site
+        nos = _buscar_site(termo)[:n]
     CACHE.mkdir(parents=True, exist_ok=True)
     banco = json.loads((CACHE / "resultados.json").read_text()) if (CACHE / "resultados.json").exists() else {}
     for no in nos:
@@ -65,6 +67,28 @@ def buscar(termo, n=12):
         saida = CACHE / f"{nome}.jpg"
         subprocess.run(["ffmpeg", "-v", "error", "-y", *entradas, "-filter_complex", grade, str(saida)], check=False)
         print("prévias:", saida, f"({cols}x{lin})")
+    return nos
+
+
+def _buscar_site(termo):
+    """Lê a página lottiefiles.com/free-animations/<termo> e extrai as animações listadas."""
+    slug = re.sub(r"[^a-z0-9]+", "-", termo.lower()).strip("-")
+    html = requests.get(f"https://lottiefiles.com/free-animations/{slug}", headers={"User-Agent": "Mozilla/5.0"}, timeout=60).text.replace('\\"', '"')
+    padrao = re.compile(r'"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})","([^"]{1,80})","(?:[^"\\]|\\.)*","https://assets-v2\.lottiefiles\.com/a/\1/[^"]+\.lottie","([^"]+)"')
+    nos, vistos = [], set()
+    for m in padrao.finditer(html):
+        uuid, nome, slug_a = m.groups()
+        if uuid in vistos:
+            continue
+        vistos.add(uuid)
+        jsons = re.findall(rf'"a/{uuid}/([A-Za-z0-9]+)\.json"', html)
+        imgs = re.findall(rf'"a/{uuid}/((?!og-image)[A-Za-z0-9-]+)\.png"', html)
+        if not jsons:
+            continue
+        base = f"https://assets-v2.lottiefiles.com/a/{uuid}/"
+        nos.append({"id": uuid[:8], "name": nome, "slug": slug_a, "url": f"https://lottiefiles.com/free-animation/{slug_a}",
+                    "jsonUrl": base + jsons[0] + ".json", "imageUrl": (base + imgs[0] + ".png") if imgs else None, "downloads": 0,
+                    "createdBy": {"username": "?"}})
     return nos
 
 

@@ -371,3 +371,97 @@ CENAS.resumo = (el, c, B) => {
   tl.to($(".tab", el), { opacity: 0, y: -40, duration: 0.45, ease: "power2.in" }, tcta - 0.45);
   cartaoFinal(el, tcta);
 };
+
+// =============== acabamento: personagens Lottie, luz, volume, bokeh ===============
+const _comEfeitos = (tipo, fx) => { const base = CENAS[tipo]; CENAS[tipo] = (el, c, B, i, f) => { base(el, c, B, i, f); fx(el, c, B, f); }; };
+const _esconder = (el) => el && el.parentNode && el.parentNode.setAttribute("display", "none");
+
+_comEfeitos("urna", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", raiosLuz(885, 730, 10, 46, 1000, 122, "raiosU", 3) + `<g class="bkU"></g>`);
+  animarRaios($(".raiosU", el), 0, c.fim);
+  bokeh($(".bkU", el), 12, 7, [60, 420, 960, 800], 0, c.fim, ["#ffd23f", "#fff3c0", "#8fe3ff"]);
+  volume($(".urnaG", el));
+  // dedo apertando CONFIRMA a cada cargo
+  lottieEm(el, "dedo", 735, 1180, 170, 170, { ini: B("c1", 0.3) - 0.3, fim: B("c5", 0.6) + 0.6, loop: true });
+});
+
+_comEfeitos("condominio", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", `<g class="bkC"></g>`);
+  bokeh($(".bkC", el), 12, 9, [0, 320, W, 600], c.ini, c.fim, ["#ffd23f", "#ffb36b", "#ff8aa4"]);
+  $(".salao", el).insertAdjacentHTML("beforeend", raiosLuz(330, 1080, 9, 80, 230, 90, "raiosS", 6));
+  animarRaios($(".raiosS", el), B("assembleia", 0.25), c.fim);
+  volume($(".predio", el));
+  // síndico de prancheta (Lottie)
+  const s = $(".sindico", el);
+  _esconder(s);
+  const ts = B("sindico", 0.5);
+  const g = lottieEm(el, "sindico", 925, 1170, 300, 300, { ini: ts, fim: c.fim + 0.5, loop: true });
+  tl.fromTo(g, { x: 200, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out", immediateRender: false }, ts);
+  brilhar([$(".etqL", el), $(".etqE", el)]);
+});
+
+_comEfeitos("andares", (el, c, B) => {
+  el.insertAdjacentHTML("beforeend", `<g class="bkA"></g>`);
+  bokeh($(".bkA", el), 10, 13, [0, 300, W, 1100], c.ini, c.fim, ["#8fe3ff", "#ffd23f"]);
+  brilhar([$(".tagL", el), $(".tagE", el)]);
+});
+
+_comEfeitos("cidade", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", raiosLuz(1060, 40, 9, 70, 1300, 125, "raiosC", 8) + flare(1040, 70, 0.7));
+  animarRaios($(".raiosC", el), c.ini, c.fim);
+  volume([$(".prefeitura", el), $(".camaraM", el)]);
+  brilhar($(".olho", el));
+});
+
+_comEfeitos("estado", (el, c, B) => {
+  $(".solE", el).insertAdjacentHTML("afterend", raiosLuz(860, 860, 14, 360, 700, 0, "raiosE", 10));
+  animarRaios($(".raiosE", el), c.ini, c.fim);
+  el.insertAdjacentHTML("beforeend", flare(860, 860, 0.8));
+  volume([$(".palacioG", el), $(".assem", el)]);
+  // governadora (Lottie)
+  const gv = $(".gov", el);
+  _esconder(gv);
+  const tg = B("governador", 0.1);
+  const g = lottieEm(el, "governadora", 330, 1085, 150, 430, { ini: tg, fim: c.fim + 0.5, loop: true });
+  tl.fromTo(g, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(2)", immediateRender: false }, tg);
+  // viatura de verdade correndo pela estrada
+  const v = $(".viatura", el);
+  [...v.children].forEach((n) => n.setAttribute("display", "none"));
+  lottieEm(v, "viatura", 0, -10, 190, 190, { loop: true, vel: 1.5 });
+  brilhar($(".olho", el));
+});
+
+_comEfeitos("camara", (el, c, B) => {
+  const plen = $(".plen", el);
+  plen.firstElementChild.insertAdjacentHTML("afterend", `<g class="bkP"></g>`);
+  bokeh($(".bkP", el), 14, 15, [0, 300, W, 900], c.ini, c.fim, ["#06d6a0", "#8fe3ff", "#ffd23f"]);
+  brilhar($(".cads", el));
+  volume([$(".bacia", el), $(".cupula", el)]);
+});
+
+_comEfeitos("senado", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", `<g class="bkS"></g>`);
+  bokeh($(".bkS", el), 14, 19, [0, 300, W, 1000], c.ini, c.fim, ["#4cc9f0", "#8fe3ff", "#ffd23f"]);
+  brilhar($$(".sen", el));
+  // checks animados (Lottie) quando a lei passa por cada casa
+  const tl0 = B("lei", 0.75), td = B("duas", 0.9);
+  [$(".ck1", el), $(".ck2", el)].forEach(_esconder);
+  lottieEm(el, "check", 250, 1140, 300, 170, { ini: tl0 + 0.5, fim: c.fim + 0.5, loop: false });
+  lottieEm(el, "check", 830, 1140, 300, 170, { ini: td + 0.7, fim: c.fim + 0.5, loop: false });
+});
+
+_comEfeitos("presidente", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", `<g class="bkPr"></g>`);
+  bokeh($(".bkPr", el), 12, 29, [0, 300, W, 700], c.ini, c.fim, ["#ffd23f", "#06d6a0", "#8fe3ff"]);
+  $(".planalto", el).parentNode.insertAdjacentHTML("beforebegin", raiosLuz(540, 1080, 12, 120, 900, -90, "raiosP", 12));
+  animarRaios($(".raiosP", el), c.ini, c.fim);
+  volume([$(".planalto", el), $(".doc1", el), $(".doc2", el)]);
+  brilhar([$(".st1", el), $(".st2", el), $(".st3", el)]);
+});
+
+_comEfeitos("resumo", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", `<g class="bkR"></g>`);
+  bokeh($(".bkR", el), 16, 37, [0, 300, W, 1100], c.ini, c.fim, ["#ffd23f", "#4cc9f0", "#ff5d8f"]);
+  const tcta = B("cta", 0.8);
+  lottieEm(el, "confete", 540, 900, 1080, 1440, { ini: tcta + 0.2, fim: T, loop: false, corte: true });
+});
