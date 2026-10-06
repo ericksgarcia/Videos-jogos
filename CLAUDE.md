@@ -143,6 +143,39 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Se um desenho novo servir para vários temas, coloque-o em `motor/biblioteca.js`; se
   for só do tema, deixe no `cenas.js` do vídeo.
 
+### Efeitos de luz e pós-produção (`motor/efeitos.js`) — use em todo vídeo
+
+- `brilhar(el, forte)`: glow em luzes, fios com corrente, sol, fogo, elétrons.
+- `raiosLuz(x, y, n, abertura, comprimento, ângulo, classe)` + `animarRaios(g, t, fim)`:
+  raios de luz (de lâmpadas, janelas, sol, refletores).
+- `bokeh(pai, n, seed, [x, y, w, h], t, fim, cores)`: discos de luz fora de foco (profundidade).
+- `faiscas(pai, x, y, n, t, fim, cor, alcance)`: faíscas, brasas, respingos.
+- `desfocar(el, 1|2|3)`: desfoque de profundidade em planos de fundo.
+- `flare(x, y, escala)`: reflexo de lente em luz forte.
+- Granulação de filme: automática em todo vídeo.
+- Padrão do vídeo da eletricidade: desenhe a cena e aplique os efeitos depois, com
+  `_comEfeitos("tipo", (el, c, B, frente) => {...})` no fim do `cenas.js`.
+
+### 3D (`motor/tres.js`, Three.js 0.149) — nos momentos-chave
+
+- `const k = camada3D({ ini, fim, fov })` cria um canvas 3D transparente entre a
+  ilustração 2D e a camada `frente`; `k.cena`, `k.camera`, `k.animar((t) => {...})`
+  (t = tempo do vídeo). `mostrar3D(k, t0, t1)` faz aparecer/sumir.
+- Materiais: `material3D("cobre" | "aco" | "acoEsc" | "vermelho" | "azul" | "plastico" | "branco")`,
+  `emissivo3D(cor, força)`; brilho barato: `halo3D(cor, tamanho, opacidade)`.
+- Câmera e valores por chaves de tempo: `chaves(t, [[t0, v0], [t1, v1], ...])`.
+- Rótulos que precisam ficar por cima do 3D vão em `frente` (5º parâmetro da cena).
+- Tudo derivado de `t` (sem estado entre quadros) para o render ser determinístico.
+  Muitos halos aditivos sobrepostos estouram em branco: use poucos e fracos.
+
+### Som (`motor/sons.py`)
+
+- Efeitos "de cinema" com reverb (pop, plim, whoosh, thud, brilho, zap) e `transicao`
+  automática em cada troca de cena. Trilha com pad, dedilhado com eco, sub, batida
+  suave e reverb; sobe nas pausas e abaixa sob a voz. Master a ~-13 LUFS.
+- Para avaliar a mixagem sem ouvir: mande um trecho em MP3 ao `gemini-3.8-flash`
+  pedindo notas de clareza da voz, equilíbrio e efeitos.
+
 ### Armadilhas do GSAP/HyperFrames (já custaram retrabalho)
 
 - A timeline é determinística: nada de `Math.random` (use `prng(seed)`), nada de

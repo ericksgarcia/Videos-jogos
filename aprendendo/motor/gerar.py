@@ -110,19 +110,39 @@ def mixar(ag, falas, saida, sons_roteiro=None):
     for c, f in zip(ag["cenas"], falas):
         if f.get("wav"):
             _soma(voz_buf, _ler_voz(f["wav"]), c["voz"], 1.0)
-        _soma(efx, sons.som("whoosh"), max(0, c["ini"] - 0.3), 0.5)
+        if c["ini"] > 0:
+            _soma(efx, sons.som("transicao"), max(0, c["ini"] - 0.45), 0.55)
         for ev, t in c["batidas"].items():
             nome, g = (sons_roteiro or {}).get(ev, SOM_PADRAO)
             _soma(efx, sons.som(nome), t, g)
-    musica = sons.trilha(ag["total"])[:n]
-    # ducking: música e efeitos abaixam sob a voz
-    nivel = np.convolve(np.abs(voz_buf[:, 0]), np.ones(4000) / 4000, mode="same")
-    nivel = np.clip(nivel / 0.04, 0, 1)
-    musica *= (0.55 - 0.3 * nivel)[:, None]
-    efx *= (1 - 0.35 * nivel)[:, None]
-    buf = voz_buf + efx + musica
-    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
-    buf *= 0.89 / (np.max(np.abs(buf)) + 1e-9)
+    musica = sons.trilha(ag["total"], marcos=[c["ini"] for c in ag["cenas"][1:]])[:n]
+    # ducking suave: música e efeitos abaixam sob a voz (envelope com ataque/soltura)
+    nivel = np.convolve(np.abs(voz_buf[:, 0]), np.ones(2400) / 2400, mode="same")
+    nivel = np.clip(nivel / 0.035, 0, 1)
+    nivel = signal.sosfiltfilt(signal.butter(1, 3, fs=SR, output="sos"), nivel)
+    # nas pausas e trocas de cena a música sobe (dá ritmo aos cortes); sob a voz, abaixa
+    sobe = np.zeros(n)
+    for c in ag["cenas"][1:]:
+        i0, i1 = int(max(0, c["ini"] - 0.8) * SR), int(min(ag["total"], c["voz"] + 0.2) * SR)
+        sobe[i0:i1] = 1
+    sobe = signal.sosfiltfilt(signal.butter(1, 1.5, fs=SR, output="sos"), sobe)
+    musica *= (0.62 - 0.42 * nivel + 0.18 * sobe)[:, None]
+    efx *= (1.5 - 0.35 * nivel)[:, None]
+    # voz com leve "presença" (realce em 3 kHz) e um toque de ambiente
+    pres = signal.sosfilt(signal.butter(2, [2500, 5000], btype="band", fs=SR, output="sos"), voz_buf, axis=0)
+    corpo = signal.sosfilt(signal.butter(2, [140, 420], btype="band", fs=SR, output="sos"), voz_buf, axis=0)
+    voz_buf = voz_buf + pres * 0.25 + corpo * 0.3
+    voz_buf = np.tanh(voz_buf * 1.6) / np.tanh(1.6)  # saturação suave: voz mais encorpada no celular
+    amb = sons.reverb(voz_buf[:, 0], 0.9, 4000)[:n] * 0.06
+    buf = voz_buf + amb + efx + musica
+    # master: compressor simples + limitador suave + normalização
+    env = np.sqrt(signal.sosfiltfilt(signal.butter(1, 8, fs=SR, output="sos"), (buf ** 2).mean(axis=1)).clip(1e-9))
+    lim = 0.25
+    ganho = np.where(env > lim, (lim / env) ** 0.4, 1.0)
+    buf *= ganho[:, None]
+    buf = np.tanh(buf * 1.2) / np.tanh(1.2)
+    rms = np.sqrt((buf ** 2).mean())
+    buf *= min(0.95 / (np.max(np.abs(buf)) + 1e-9), 0.16 / (rms + 1e-9))
     wavfile.write(saida, SR, (buf * 32767).astype(np.int16))
 
 
@@ -133,9 +153,10 @@ def montar(roteiro, ag, pasta, pasta_video):
     (pasta / "assets").mkdir(parents=True)
     for arq in ("gsap.min.js", "MotionPathPlugin.min.js", "DrawSVGPlugin.min.js", "MorphSVGPlugin.min.js"):
         shutil.copy(NODE / "gsap" / "dist" / arq, pasta / "assets" / arq)
+    shutil.copy(NODE / "three" / "build" / "three.min.js", pasta / "assets" / "three.min.js")
     for arq in (IDENTIDADE / "fontes").glob("*.woff2"):
         shutil.copy(arq, pasta / "assets" / arq.name)
-    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "montagem.js"):
+    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}

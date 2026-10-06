@@ -59,58 +59,78 @@ CENAS.interruptor = (el, c, B) => {
   $$(".nuvem", el);
 };
 
-// =============== 2. elétrons dentro do fio ===============
-CENAS.eletrons = (el, c, B) => {
+// =============== 2. elétrons dentro do fio (3D) ===============
+CENAS.eletrons = (el, c, B, i, frente) => {
   el.innerHTML = `
     <rect width="${W}" height="${H}" fill="#0b1236"/>
-    ${halo(540, 900, 700, "fundoHalo", "brilhoAzul").replace('class="fundoHalo"', 'class="fundoHalo" opacity="0.18"')}
-    <g class="cam">
-      <g class="fio">
-        <rect x="-200" y="760" width="1480" height="300" rx="150" fill="#2b3a85"/>
-        <rect x="-200" y="760" width="1480" height="40" fill="#3d4fa8" opacity="0.6"/>
-        <rect class="nucleo" x="-200" y="810" width="1480" height="200" rx="100" fill="url(#cobre)"/>
-        <rect x="-200" y="830" width="1480" height="30" rx="15" fill="#ffe0c2" opacity="0.45"/>
-        <path class="corte" d="M820 760 a70 150 0 0 1 0 300" fill="none" stroke="#5a6cc8" stroke-width="10"/>
-      </g>
-      <g class="atomos" opacity="0"></g>
-      <g class="els"></g>
-    </g>
+    ${halo(540, 900, 760, "fundoHalo", "brilhoAzul").replace('class="fundoHalo"', 'class="fundoHalo" opacity="0.22"')}
+    <g class="bk2"></g>
     <g class="fila" opacity="0">
       <rect x="0" y="1180" width="${W}" height="20" fill="#1a2560"/>
       ${Array.from({ length: 7 }, (_, k) => P(110 + k * 145, 1180, 1, "p", `${sombra(0, 4, 50, 10, 0.7)}<rect x="-38" y="-170" width="76" height="150" rx="38" fill="${k === 0 ? "url(#vermelhoI)" : "url(#azulI)"}"/><circle cy="-210" r="40" fill="${k === 0 ? "#ffb3c2" : "#bdeeff"}"/><rect x="-26" y="-150" width="16" height="70" rx="8" fill="#fff" opacity="0.35"/>`)).join("")}
       <g transform="translate(20 1060)"><g class="mao"><path d="M0 0 h50 v-26 l52 52 -52 52 v-26 h-50z" fill="${C.amarelo}"/></g></g>
       <g class="onda" opacity="0"><path d="M120 980 C 300 940, 760 940, 980 980" fill="none" stroke="${C.amarelo}" stroke-width="6" stroke-dasharray="14 12"/><path d="M980 980 l -30 -22 v44z" fill="${C.amarelo}"/></g>
     </g>`;
-  const cam = $(".cam", el), fio = $(".fio", el), els = $(".els", el), atomos = $(".atomos", el), fila = $(".fila", el);
-  tl.fromTo(fio, { x: -600, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9, ease: "power3.out", immediateRender: false }, c.ini + 0.15);
-  // zoom para dentro do fio
-  const tz = B("zoom", 0.15);
-  tl.to(cam, { scale: 2.2, svgOrigin: "540 910", duration: 1.1, ease: "power3.inOut" }, tz);
-  tl.to($$(".fio rect", el).slice(0, 2), { opacity: 0, duration: 0.6 }, tz + 0.4);
-  tl.to($(".nucleo", el), { opacity: 0.35, duration: 0.6 }, tz + 0.5);
-  const r = prng(13);
-  for (let k = 0; k < 30; k++) atomos.insertAdjacentHTML("beforeend", `<circle cx="${280 + (k % 10) * 58}" cy="${850 + Math.floor(k / 10) * 60}" r="14" fill="#ffb27a" opacity="0.5"/>`);
-  tl.to(atomos, { opacity: 1, duration: 0.5 }, tz + 0.8);
-  const te = B("eletrons", 0.35);
-  const lista = [];
-  for (let k = 0; k < 26; k++) {
-    const x = 260 + r() * 560, y = 845 + r() * 130;
-    els.insertAdjacentHTML("beforeend", `<g transform="translate(${x} ${y})"><g class="e">${eletron(9)}</g></g>`);
+  frente.innerHTML = `<g class="rotEl" opacity="0">${callout(610, 930, 790, 700, "elétrons", C.ciano)}</g>`;
+  bokeh($(".bk2", el), 16, 23, [0, 380, W, 1000], c.ini, c.fim, ["#8fe3ff", "#4cc9f0", "#ffd23f"]);
+  const fila = $(".fila", el);
+  const tz = B("zoom", 0.15), te = B("eletrons", 0.35), tan = B("andam", 0.5), tf = B("fila", 0.75);
+  // --- 3D: fio de cobre com a capa cortada; a câmera entra até os átomos e elétrons ---
+  const k = camada3D({ ini: c.ini - 0.5, fim: tf + 0.3, fov: 38 });
+  const fio = new THREE.Group(); fio.rotation.z = 0.32; k.cena.add(fio);
+  const capa = new THREE.Mesh(new THREE.CylinderGeometry(1.32, 1.32, 40, 64, 1, true, 0.75, Math.PI * 2 - 1.5), new THREE.MeshStandardMaterial({ color: 0x3550c8, roughness: 0.5, envMapIntensity: 0.5, side: THREE.DoubleSide }));
+  capa.rotation.z = -Math.PI / 2; fio.add(capa);
+  const nucleoM = new THREE.MeshStandardMaterial({ color: 0xc8662e, metalness: 1, roughness: 0.34, envMapIntensity: 0.75, transparent: true, opacity: 1 });
+  const nucleo = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 40, 64), nucleoM);
+  nucleo.rotation.z = -Math.PI / 2; fio.add(nucleo);
+  // ponta cortada do fio (anel da capa + face de cobre), à direita
+  const ponta = new THREE.Mesh(new THREE.CircleGeometry(1, 48), nucleoM); ponta.rotation.y = Math.PI / 2; ponta.position.x = 20; fio.add(ponta);
+  // rede de átomos de cobre (só aparecem com o zoom)
+  const r = prng(13), nAt = 700;
+  const atM = new THREE.MeshStandardMaterial({ color: 0xd9824a, metalness: 0.7, roughness: 0.35, envMapIntensity: 0.6, transparent: true, opacity: 0 });
+  const atomos = new THREE.InstancedMesh(new THREE.SphereGeometry(0.085, 16, 12), atM, nAt);
+  const mtx = new THREE.Matrix4();
+  for (let q = 0; q < nAt; q++) { const x = -7 + (q % 50) * 0.28, yy = -0.7 + (Math.floor(q / 50) % 7) * 0.23, zz = -0.35 + Math.floor(q / 350) * 0.42; mtx.setPosition(x, yy, zz); atomos.setMatrixAt(q, mtx); }
+  fio.add(atomos);
+  // elétrons: esferas emissivas + halo
+  const nE = 70, ele = [], eM = emissivo3D(0x6fe0ff, 2.2);
+  const eGeo = new THREE.SphereGeometry(0.06, 16, 12);
+  for (let q = 0; q < nE; q++) {
+    const g = new THREE.Group(); g.add(new THREE.Mesh(eGeo, eM)); const hs = halo3D(0x8fe3ff, 0.42, 0.45); g.add(hs);
+    g.userData = { x0: -7 + r() * 14, y0: -0.75 + r() * 1.5, z0: 0.2 + r() * 0.6, f: 2 + r() * 3, ph: r() * 6.28 };
+    g.visible = false; fio.add(g); ele.push(g);
   }
-  const es = $$(".e", els);
-  tl.fromTo(es, { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.025, ease: "back.out(2.4)", immediateRender: false }, te);
-  es.forEach((e, k) => balancar(e, te + 0.5, B("andam", 0.5), (k % 2 ? 4 : -4), 0.35 + (k % 3) * 0.1));
-  const tan = B("andam", 0.5), tf = B("fila", 0.75);
-  es.forEach((e, k) => tl.to(e, { x: `+=${(tf - tan) * 120}`, duration: tf - tan, ease: "power1.in" }, tan));
+  k.animar((t) => {
+    // câmera: plano do fio inteiro -> mergulho até a superfície do cobre
+    const z = chaves(t, [[c.ini, 17], [tz, 15], [tz + 1.8, 5.2], [tf, 4.6]]);
+    const x = chaves(t, [[c.ini, -3], [tz, -1.5], [tz + 1.8, 0.4], [tf, 1.2]]);
+    const y = chaves(t, [[c.ini, 2.4], [tz, 1.6], [tz + 1.8, 0.35], [tf, 0.3]]);
+    k.camera.position.set(x, y, z); k.camera.lookAt(x + 0.3, y * 0.4, 0);
+    nucleoM.opacity = chaves(t, [[tz + 0.6, 1], [tz + 1.6, 0.06]]);
+    nucleoM.depthWrite = nucleoM.opacity > 0.9;
+    atM.opacity = chaves(t, [[tz + 0.9, 0], [tz + 1.8, 0.9]]);
+    const vis = t >= te;
+    const deriva = t > tan ? (t - tan) * chaves(t, [[tan, 0.4], [tan + 1.5, 2.2]]) : 0;
+    ele.forEach((g, q) => {
+      const u = g.userData, a = Math.min(1, Math.max(0, (t - te - q * 0.006) / 0.35));
+      g.visible = vis && a > 0;
+      g.scale.setScalar(a);
+      let xx = u.x0 + deriva; xx = ((xx + 7) % 14 + 14) % 14 - 7;
+      g.position.set(xx + Math.sin(t * u.f + u.ph) * 0.05, u.y0 + Math.cos(t * u.f * 1.3 + u.ph) * 0.05, u.z0);
+    });
+  });
+  mostrar3D(k, c.ini + 0.05, tf + 0.2, 0.5);
+  callAnim($(".rotEl", frente), te + 0.6);
+  tl.to($(".rotEl", frente), { opacity: 0, duration: 0.3 }, tf - 0.4);
   // da escala atômica para a analogia da fila
-  tl.to(cam, { scale: 0.9, opacity: 0, duration: 0.7, ease: "power2.in", svgOrigin: "540 910" }, tf - 0.4);
   tl.set(fila, { opacity: 1 }, tf);
-  $$(".p", fila).forEach((p, k) => tl.fromTo(p, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.8)", immediateRender: false }, tf + k * 0.06));
+  $$(".p", fila).forEach((p, k2) => tl.fromTo(p, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.8)", immediateRender: false }, tf + k2 * 0.06));
   const tp = B("empurrao", 0.88);
   tl.fromTo($(".mao", el), { x: -120, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, tp - 0.3);
-  $$(".p", fila).forEach((p, k) => tl.fromTo(p, { rotation: 0 }, { rotation: 13, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 100%", immediateRender: false }, tp + k * 0.11));
+  $$(".p", fila).forEach((p, k2) => tl.fromTo(p, { rotation: 0 }, { rotation: 13, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 100%", immediateRender: false }, tp + k2 * 0.11));
   tl.set($(".onda", el), { opacity: 1 }, tp);
   desenhar($(".onda path", el), tp, 0.8);
+  brilhar($(".onda", el));
 };
 
 // =============== 3. Faraday: bancada de laboratório ===============
@@ -154,51 +174,94 @@ CENAS.inducao = (el, c, B) => {
   $$(".q", eqi).forEach((q, k) => { tl.set(q, { opacity: 0 }, c.ini); pop(q, te + k * 0.12); });
 };
 
-// =============== 4. gerador em corte ===============
-CENAS.gerador = (el, c, B) => {
-  const cx = 540, cy = 860, R = 300;
-  const bobs = Array.from({ length: 10 }, (_, k) => `<g transform="rotate(${k * 36} ${cx} ${cy})"><rect x="${cx - 42}" y="${cy - R + 24}" width="84" height="96" rx="18" fill="url(#cobre)"/>${[0, 1, 2, 3].map((j) => `<rect x="${cx - 42}" y="${cy - R + 34 + j * 22}" width="84" height="7" rx="3" fill="#8e4720" opacity="0.7"/>`).join("")}</g>`).join("");
+// =============== 4. gerador (3D) ===============
+// texto numa face de caixa (letra N/S do ímã)
+function _texLetra(letra, fundo, cor) {
+  const cv = document.createElement("canvas"); cv.width = 256; cv.height = 256;
+  const cx = cv.getContext("2d"); cx.fillStyle = fundo; cx.fillRect(0, 0, 256, 256);
+  cx.fillStyle = cor; cx.font = "900 170px Nunito"; cx.textAlign = "center"; cx.textBaseline = "middle"; cx.fillText(letra, 128, 140);
+  const t = new THREE.CanvasTexture(cv); t.encoding = THREE.sRGBEncoding; return t;
+}
+CENAS.gerador = (el, c, B, i, frente) => {
   el.innerHTML = `
     <rect width="${W}" height="${H}" fill="#0c1438"/>
+    ${halo(540, 860, 640, "auraG", "brilhoAzul").replace('class="auraG"', 'class="auraG" opacity="0.15"')}
     <g class="hall" opacity="0">
       <rect width="${W}" height="${H}" fill="#18214f"/>${[0, 1, 2, 3, 4].map((k) => `<rect x="${60 + k * 210}" y="300" width="120" height="560" rx="10" fill="#22306c"/>`).join("")}
+      ${raiosLuz(540, 240, 9, 70, 1150, 90, "raiosHall", 4)}
       <rect y="1230" width="${W}" height="690" fill="#111a40"/><rect y="1230" width="${W}" height="14" fill="#2c3b7c"/>
-      ${[220, 860].map((x) => P(x, 1230, 1, "pessoa", `<rect x="-14" y="-90" width="28" height="60" rx="14" fill="#ffb36b"/><circle cy="-104" r="16" fill="#ffd9b0"/><rect x="-12" y="-34" width="10" height="34" fill="#3a4a8c"/><rect x="2" y="-34" width="10" height="34" fill="#3a4a8c"/>`)).join("")}
-    </g>
-    <g class="cam">
-      ${halo(cx, cy, 520, "auraG", "brilhoAzul").replace('class="auraG"', 'class="auraG" opacity="0"')}
-      <circle cx="${cx}" cy="${cy}" r="${R + 50}" fill="url(#metal)"/><circle cx="${cx}" cy="${cy}" r="${R + 22}" fill="#1d2860"/>
-      ${bobs}
-      <g class="rotor"><circle cx="${cx}" cy="${cy}" r="170" fill="#121a45"/><rect x="${cx - 160}" y="${cy - 52}" width="160" height="104" rx="18" fill="url(#vermelhoI)"/><rect x="${cx}" y="${cy - 52}" width="160" height="104" rx="18" fill="url(#azulI)"/><rect x="${cx - 150}" y="${cy - 44}" width="300" height="14" rx="7" fill="#fff" opacity="0.35"/><text class="rot" x="${cx - 80}" y="${cy + 20}" text-anchor="middle" font-size="54" fill="#fff">N</text><text class="rot" x="${cx + 80}" y="${cy + 20}" text-anchor="middle" font-size="54" fill="#0b2a55">S</text><circle cx="${cx}" cy="${cy}" r="26" fill="url(#metal)"/></g>
-      <g class="rastros" opacity="0">${[0, 1].map((k) => `<path d="M${cx + 175} ${cy} A175 175 0 0 1 ${cx + 175 * Math.cos(1.2)} ${cy + 175 * Math.sin(1.2)}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.5" transform="rotate(${k * 180} ${cx} ${cy})"/>`).join("")}</g>
-      <path class="saida" d="M${cx + 300} ${cy + 140} C 960 1080, 980 1180, 900 1260" fill="none" stroke="url(#cobre)" stroke-width="12" stroke-linecap="round"/>
-      ${P(860, 1300, 0.55, "lampG", lampada("lamp"))}
-      <g transform="translate(250 1260)"><g class="nomeg">${rotulo("GERADOR", C.amarelo, 52)}</g></g>
-    </g>
-    <g transform="translate(540 1380)"><g class="usinaRot" opacity="0">${rotulo("USINA", C.verde, 52)}</g></g>`;
-  const cam = $(".cam", el), rotor = $(".rotor", el), rastros = $(".rastros", el), saida = $(".saida", el), lamp = $(".lamp", el), nome = $(".nomeg", el), hall = $(".hall", el);
-  tl.fromTo(cam, { scale: 0.7, opacity: 0, svgOrigin: `${cx} ${cy}` }, { scale: 1, opacity: 1, svgOrigin: `${cx} ${cy}`, duration: 0.9, ease: "power3.out", immediateRender: false }, c.ini + 0.1);
-  tl.set([saida, lamp, nome], { opacity: 0 }, c.ini);
-  const tg = B("gira", 0.2);
-  tl.fromTo(rotor, { rotation: 0, svgOrigin: `${cx} ${cy}` }, { rotation: 90, duration: 0.8, ease: "power2.in", svgOrigin: `${cx} ${cy}`, immediateRender: false }, tg);
-  girar(rotor, tg + 0.8, c.fim, 1.5, `${cx} ${cy}`);
-  tl.set(rastros, { opacity: 1 }, tg + 0.8);
-  girar(rastros, tg + 0.8, c.fim, 1.5, `${cx} ${cy}`);
-  tl.fromTo($(".auraG", el), { opacity: 0 }, { opacity: 0.35, duration: 0.8, immediateRender: false }, tg + 0.8);
-  const ts = B("sai", 0.45);
-  tl.set([saida, lamp], { opacity: 1 }, ts - 0.3);
-  desenhar(saida, ts - 0.3, 0.5);
-  fluxo(saida, 6, 7, ts + 0.1, c.fim, 0.9, cam);
-  acender(lamp, ts + 0.3, 0.9);
-  tl.set(nome, { opacity: 1 }, B("nome", 0.6));
-  pop(nome, B("nome", 0.6));
-  // a câmera recua: o gerador está dentro de um salão enorme
-  const tu = B("usina", 0.8);
-  tl.set(hall, { opacity: 1 }, tu);
-  tl.fromTo(hall, { opacity: 0 }, { opacity: 1, duration: 0.6, immediateRender: false }, tu);
-  tl.to(cam, { scale: 0.42, y: 300, svgOrigin: `${cx} ${cy}`, duration: 1.2, ease: "power3.inOut" }, tu);
-  tl.set($(".usinaRot", el), { opacity: 1 }, tu + 0.9);
-  pop($(".usinaRot", el), tu + 0.9);
+      ${[220, 860].map((x, k) => P(x, 1232, 0.7, "pessoaH", gente(k + 2))).join("")}
+    </g>`;
+  frente.innerHTML = `<g transform="translate(270 1250)"><g class="nomeg">${rotulo("GERADOR", C.amarelo, 52)}</g></g>
+    <g transform="translate(540 1380)"><g class="usinaRot">${rotulo("USINA", C.verde, 52)}</g></g>`;
+  const hall = $(".hall", el), nome = $(".nomeg", frente), usinaRot = $(".usinaRot", frente);
+  tl.set([nome, usinaRot], { opacity: 0 }, 0);
+  const tg = B("gira", 0.2), ts = B("sai", 0.45), tn = B("nome", 0.6), tu = B("usina", 0.8);
+  const k = camada3D({ ini: c.ini - 0.5, fim: c.fim + 0.5, fov: 34 });
+  const ger = new THREE.Group(); k.cena.add(ger);
+  // carcaça: anel grosso de aço (perfil girado) + fundo escuro
+  const perfil = [new THREE.Vector2(2.55, -0.55), new THREE.Vector2(3.05, -0.55), new THREE.Vector2(3.05, 0.55), new THREE.Vector2(2.55, 0.55), new THREE.Vector2(2.55, -0.55)];
+  const anel = new THREE.Mesh(new THREE.LatheGeometry(perfil, 96), new THREE.MeshStandardMaterial({ color: 0xc9d0e6, metalness: 0.75, roughness: 0.38 })); anel.rotation.x = Math.PI / 2; ger.add(anel);
+  const fundo = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.6, 0.1, 64), material3D("acoEsc")); fundo.rotation.x = Math.PI / 2; fundo.position.z = -0.5; ger.add(fundo);
+  // 10 bobinas de cobre presas por dentro do anel
+  const bobinas = [];
+  for (let q = 0; q < 10; q++) {
+    const a = (q / 10) * Math.PI * 2, b = new THREE.Group();
+    const m = new THREE.MeshStandardMaterial({ color: 0xc8662e, metalness: 1, roughness: 0.32, envMapIntensity: 0.8, emissive: 0xff7a1a, emissiveIntensity: 0 });
+    const nucleoB = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.8, 0.6), material3D("acoEsc")); b.add(nucleoB);
+    for (let j = 0; j < 6; j++) { const esp = new THREE.Mesh(new THREE.TorusGeometry(0.33, 0.06, 10, 28), m); esp.rotation.x = Math.PI / 2; esp.scale.set(1, 1.35, 1); esp.position.y = -0.3 + j * 0.12; b.add(esp); }
+    const hb = halo3D(0xffc060, 1.6, 0); hb.position.z = 0.4; b.add(hb);
+    b.position.set(Math.cos(a) * 2.15, Math.sin(a) * 2.15, 0); b.rotation.z = a - Math.PI / 2;
+    ger.add(b); bobinas.push({ a, m, hb });
+  }
+  // rotor: ímã (metade vermelha N, metade azul S) + eixo
+  const rotor = new THREE.Group(); ger.add(rotor);
+  const face = (l, f, cr) => new THREE.MeshStandardMaterial({ map: _texLetra(l, f, cr), roughness: 0.35 });
+  const mN = [material3D("vermelho"), material3D("vermelho"), material3D("vermelho"), material3D("vermelho"), face("N", "#ef476f", "#ffffff"), material3D("vermelho")];
+  const mS = [material3D("azul"), material3D("azul"), material3D("azul"), material3D("azul"), face("S", "#4cc9f0", "#0b2a55"), material3D("azul")];
+  const n = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.95, 0.75), mN); n.position.x = -0.85; rotor.add(n);
+  const sm = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.95, 0.75), mS); sm.position.x = 0.85; rotor.add(sm);
+  const eixo = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 2.4, 32), material3D("aco")); eixo.rotation.x = Math.PI / 2; rotor.add(eixo);
+  // linhas do campo magnético girando junto
+  const campoM = new THREE.MeshBasicMaterial({ color: 0x8fe3ff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+  [1.25, 1.55, 1.85].forEach((rr) => { const tor = new THREE.Mesh(new THREE.TorusGeometry(rr, 0.012, 6, 96, Math.PI * 0.8), campoM); tor.rotation.z = -Math.PI * 0.4; rotor.add(tor); const t2 = tor.clone(); t2.rotation.z = Math.PI * 0.6; rotor.add(t2); });
+  // cabo de saída até a lâmpada, com elétrons correndo
+  const curva = new THREE.CatmullRomCurve3([new THREE.Vector3(2.4, -1.9, 0.2), new THREE.Vector3(3.6, -3.2, 0.6), new THREE.Vector3(3.0, -4.6, 0.8), new THREE.Vector3(2.2, -5.4, 0.6)]);
+  const caboM = new THREE.MeshStandardMaterial({ color: 0xd9824a, metalness: 1, roughness: 0.35, transparent: true, opacity: 0 });
+  const cabo = new THREE.Mesh(new THREE.TubeGeometry(curva, 80, 0.09, 12), caboM); ger.add(cabo);
+  const lampM = new THREE.MeshStandardMaterial({ color: 0x33407a, emissive: 0xffd76a, emissiveIntensity: 0, roughness: 0.2, transparent: true, opacity: 0 });
+  const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.62, 32, 24), lampM); lamp.position.set(2.0, -6.1, 0.6); ger.add(lamp);
+  const rosca = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.26, 0.45, 24), material3D("aco")); rosca.position.set(2.05, -5.45, 0.6); rosca.rotation.z = 0.1; ger.add(rosca);
+  const hl = halo3D(0xffd76a, 4.5, 0); hl.position.copy(lamp.position); ger.add(hl);
+  const els = Array.from({ length: 8 }, () => { const g = new THREE.Group(); g.add(new THREE.Mesh(new THREE.SphereGeometry(0.07, 12, 10), emissivo3D(0x8fe3ff, 3))); g.add(halo3D(0x8fe3ff, 0.5, 0.9)); g.visible = false; ger.add(g); return g; });
+  const ang = (t) => (t < tg ? 0 : t < tg + 0.8 ? (Math.PI / 2) * ((t - tg) / 0.8) ** 2 : Math.PI / 2 + (t - tg - 0.8) * Math.PI * 2 * 1.2);
+  k.animar((t) => {
+    const a = ang(t);
+    rotor.rotation.z = a;
+    campoM.opacity = chaves(t, [[tg + 0.4, 0], [tg + 1.2, 0.55]]);
+    // cada bobina brilha quando um polo do ímã passa por ela (indução)
+    const forca = chaves(t, [[tg + 0.5, 0], [tg + 1.5, 1]]);
+    bobinas.forEach((b) => { const d = Math.abs(Math.cos(a - b.a)); const e = forca * Math.pow(d, 6); b.m.emissiveIntensity = e * 1.2; b.hb.material.opacity = e * 0.7; });
+    const ls = chaves(t, [[ts - 0.4, 0], [ts + 0.1, 1]]);
+    caboM.opacity = ls; lampM.opacity = ls;
+    const acesa = chaves(t, [[ts + 0.3, 0], [ts + 0.7, 1]]);
+    lampM.color.setHex(acesa > 0.5 ? 0xffe066 : 0x33407a); lampM.emissiveIntensity = acesa * 2.4; hl.material.opacity = acesa * 0.95;
+    els.forEach((g, q) => { g.visible = t > ts + 0.1; g.position.copy(curva.getPointAt(((t - ts) * 0.55 + q / els.length) % 1)); });
+    // câmera: 3/4 orbitando devagar; recua para o salão na "usina"
+    const orb = 0.5 + (t - c.ini) * 0.035;
+    const dist = chaves(t, [[c.ini, 34], [c.ini + 1.2, 25], [tu, 25], [tu + 1.4, 58]], (x) => 1 - Math.pow(1 - x, 3));
+    const alvoY = chaves(t, [[ts - 0.5, -0.4], [ts + 0.5, -1.8], [tu, -1.8], [tu + 1.4, -2.4]]);
+    k.camera.position.set(Math.sin(orb) * dist * 0.42, alvoY + dist * 0.16, Math.cos(orb) * dist);
+    k.camera.lookAt(0.3, alvoY, 0);
+  });
+  mostrar3D(k, c.ini + 0.05, c.fim + 0.45, 0.5);
+  tl.set(nome, { opacity: 1 }, tn);
+  pop(nome, tn);
+  tl.fromTo(hall, { opacity: 0 }, { opacity: 1, duration: 0.8, immediateRender: false }, tu);
+  animarRaios($(".raiosHall", el), tu, c.fim);
+  tl.to(nome, { opacity: 0, duration: 0.3 }, tu);
+  tl.set(usinaRot, { opacity: 1 }, tu + 0.9);
+  pop(usinaRot, tu + 0.9);
 };
 
 // =============== 5. hidrelétrica ===============
@@ -392,3 +455,90 @@ CENAS.resumo = (el, c, B) => {
   tl.to([...ps, $(".espinha", el)], { opacity: 0, x: -60, duration: 0.4, stagger: 0.04, ease: "power2.in" }, tcta - 0.45);
   cartaoFinal(el, tcta);
 };
+
+// =============== efeitos de luz e pós-produção sobre as cenas acima ===============
+// (cada cena é desenhada normalmente e depois recebe brilho, raios, bokeh, faíscas e desfoque)
+const _comEfeitos = (tipo, fx) => { const base = CENAS[tipo]; CENAS[tipo] = (el, c, B, i, f) => { base(el, c, B, i, f); fx(el, c, B, f); }; };
+
+_comEfeitos("interruptor", (el, c, B) => {
+  const tlz = B("luz", 0.25), ta = B("afasta", 0.5);
+  const cone = $(".cone", el), quarto = $(".quarto", el);
+  cone.insertAdjacentHTML("afterend", raiosLuz(540, 760, 12, 84, 980, 90, "raiosQ", 2));
+  const rq = $(".raiosQ", el);
+  tl.set(rq, { opacity: 0 }, 0);
+  tl.to(rq, { opacity: 1, duration: 0.6 }, tlz);
+  animarRaios(rq, tlz, ta + 1);
+  brilhar($(".vidro", el), true);
+  quarto.insertAdjacentHTML("beforeend", `<g class="bkQ" opacity="0"></g>`);
+  bokeh($(".bkQ", el), 14, 31, [80, 560, 920, 760], tlz, ta + 1, ["#ffd23f", "#ffb36b", "#fff3c0"]);
+  tl.to($(".bkQ", el), { opacity: 1, duration: 0.8 }, tlz + 0.2);
+  // paisagem: morros distantes desfocados, lua e linha de energia brilhando
+  const pais = $(".paisagem", el);
+  desfocar($$("path", pais)[0], 1);
+  brilhar([$("circle[fill='url(#lua)']", pais), $(".linhaL", el), $(".haloJan", el)]);
+});
+
+_comEfeitos("inducao", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", raiosLuz(540, 300, 10, 64, 1000, 90, "raiosLab", 5) + `<g class="bkL"></g>`);
+  animarRaios($(".raiosLab", el), c.ini, c.fim);
+  bokeh($(".bkL", el), 12, 17, [0, 380, W, 700], c.ini, c.fim, ["#ffd23f", "#8fe3ff"]);
+  brilhar($(".campo", el));
+  const tc = B("corrente", 0.7);
+  el.insertAdjacentHTML("beforeend", `<g class="faL"></g>`);
+  faiscas($(".faL", el), 540, 880, 16, tc, tc + 1.6, C.ciano, 140, 8);
+  // os elétrons que correm no fio ganham brilho
+  $$("g", el).filter((g) => g.innerHTML.includes("eletronG") && !g.querySelector("g")).forEach((g) => brilhar(g));
+});
+
+_comEfeitos("hidreletrica", (el, c, B) => {
+  const g = $("g[transform='translate(0 -230)']", el);
+  desfocar($$("path", g)[0], 1);
+  g.insertAdjacentHTML("beforeend", `<g class="spray"></g>`);
+  const td = B("desce", 0.4);
+  faiscas($(".spray", el), 760, 1400, 26, td + 0.4, c.fim, "#d6f6ff", 120, 11);
+  brilhar($(".linhaH", el));
+});
+
+_comEfeitos("eolica_termica", (el, c, B) => {
+  const topo = $(".topo", el), baixo = $(".baixo", el);
+  topo.firstElementChild.insertAdjacentHTML("afterend", raiosLuz(1060, 60, 9, 70, 1000, 135, "raiosE", 6) + flare(1040, 90, 0.8));
+  animarRaios($(".raiosE", el), c.ini, c.fim);
+  const tfo = B("fogo", 0.45);
+  baixo.insertAdjacentHTML("beforeend", `<g class="brasas"></g>`);
+  faiscas($(".brasas", el), 540, 1290, 28, tfo + 0.3, c.fim, C.laranja, 230, 12);
+  brilhar($(".chama", el), true);
+});
+
+_comEfeitos("solar", (el, c, B) => {
+  const solW = $(".sol", el).parentNode;
+  solW.insertAdjacentHTML("beforebegin", raiosLuz(800, 330, 18, 360, 760, 0, "raiosS", 9));
+  animarRaios($(".raiosS", el), c.ini, c.fim);
+  el.insertAdjacentHTML("beforeend", flare(800, 330, 1, "flareS"));
+  brilhar([$(".sol", el), $(".fotons", el), $(".lupaE", el)], false);
+  brilhar($(".fioS", el));
+  // reflexo correndo pelas placas quando a luz bate
+  $(".placa", el).insertAdjacentHTML("beforeend", `<clipPath id="clipPlaca"><rect width="536" height="232"/></clipPath><g clip-path="url(#clipPlaca)"><rect class="reflexo" x="-260" y="-20" width="90" height="280" fill="#fff" opacity="0.28" style="mix-blend-mode:screen"/></g>`);
+  const tr = B("raios", 0.4);
+  tl.fromTo($(".reflexo", el), { x: 0 }, { x: 900, duration: 1.4, ease: "power2.inOut", repeat: 2, repeatDelay: 1.2, immediateRender: false }, tr);
+});
+
+_comEfeitos("transmissao", (el, c, B) => {
+  brilhar($(".caboT", el));
+  el.firstElementChild.insertAdjacentHTML("afterend", `<g class="bkT"></g>`);
+  bokeh($(".bkT", el), 14, 51, [0, 820, W, 300], c.ini, c.fim, ["#ffd23f", "#ffb36b", "#ff8aa4"]);
+  const tt = B("transformador", 0.55);
+  el.insertAdjacentHTML("beforeend", `<g class="faT"></g>`);
+  faiscas($(".faT", el), 860, 1205, 18, tt, tt + 1.4, C.amarelo, 110, 14);
+  const inter = $(".interior", el);
+  inter.insertAdjacentHTML("beforeend", raiosLuz(760, 660, 11, 80, 900, 95, "raiosI", 15));
+  animarRaios($(".raiosI", el), B("lampada", 0.92), c.fim);
+  tl.set($(".raiosI", el), { opacity: 0 }, 0);
+  tl.to($(".raiosI", el), { opacity: 1, duration: 0.5 }, B("lampada", 0.92));
+  brilhar($(".interior .vidro", el), true);
+});
+
+_comEfeitos("resumo", (el, c, B) => {
+  el.firstElementChild.insertAdjacentHTML("afterend", `<g class="bkR"></g>`);
+  bokeh($(".bkR", el), 18, 61, [0, 300, W, 1100], c.ini, c.fim, ["#ffd23f", "#8fe3ff", "#ff5d8f"]);
+  $$(".passo", el).forEach((p) => brilhar(p.querySelector("circle")));
+});

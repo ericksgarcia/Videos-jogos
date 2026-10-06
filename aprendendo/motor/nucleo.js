@@ -16,3 +16,10 @@ function prng(seed) { return () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; 
 // posiciona um conteúdo: o invólucro tem a posição, o miolo (classe) é o que anima
 const P = (x, y, s, cls, inner) => `<g transform="translate(${x} ${y}) scale(${s})"><g class="${cls}">${inner}</g></g>`;
 const CENAS = {};
+
+// relógio por quadro: funções registradas aqui rodam a cada quadro com o tempo atual
+// (usado pela granulação e pelas camadas 3D). Um setter é chamado pelo GSAP em todo
+// seek, então o resultado é determinístico, quadro a quadro.
+const QUADRO = [];
+const aCadaQuadro = (fn) => QUADRO.push(fn);
+const _relogio = { _t: 0, get t() { return this._t; }, set t(v) { this._t = v; for (const fn of QUADRO) fn(v); } };
