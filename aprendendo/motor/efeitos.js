@@ -11,6 +11,20 @@ $("#defs").insertAdjacentHTML("beforeend", `
   <linearGradient id="raioG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6d0" stop-opacity="0.55"/><stop offset="1" stop-color="#fff6d0" stop-opacity="0"/></linearGradient>
   <radialGradient id="flareG"><stop offset="0" stop-color="#fff" stop-opacity="0.9"/><stop offset="0.2" stop-color="#fff2b0" stop-opacity="0.35"/><stop offset="1" stop-color="#ffb52e" stop-opacity="0"/></radialGradient>`);
 
+// volume (estilo Kurzgesagt): sombra interna embaixo/direita + luz de contorno em cima/esquerda
+$("#defs").insertAdjacentHTML("beforeend", `
+  <filter id="volume" x="-10%" y="-10%" width="120%" height="120%">
+    <feComponentTransfer in="SourceAlpha" result="inv"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer>
+    <feOffset in="inv" dx="-10" dy="-12" result="o1"/><feGaussianBlur in="o1" stdDeviation="9" result="b1"/>
+    <feComposite in="b1" in2="SourceAlpha" operator="in" result="sombra"/>
+    <feFlood flood-color="#0a0f30" flood-opacity="0.45"/><feComposite in2="sombra" operator="in" result="sombraC"/>
+    <feOffset in="inv" dx="5" dy="6" result="o2"/><feGaussianBlur in="o2" stdDeviation="3" result="b2"/>
+    <feComposite in="b2" in2="SourceAlpha" operator="in" result="luz"/>
+    <feFlood flood-color="#ffffff" flood-opacity="0.35"/><feComposite in2="luz" operator="in" result="luzC"/>
+    <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="sombraC"/><feMergeNode in="luzC"/></feMerge>
+  </filter>`);
+const volume = (el) => { (Array.isArray(el) ? el : [el]).forEach((e) => e && e.setAttribute("filter", "url(#volume)")); };
+
 // brilho: aplica o filtro de glow num elemento (forte = halo maior)
 const brilhar = (el, forte) => { (Array.isArray(el) ? el : [el]).forEach((e) => e && e.setAttribute("filter", `url(#${forte ? "glowForte" : "glow"})`)); };
 // desfoque de profundidade: 1 = leve (meio), 2 = médio (fundo), 3 = forte (muito perto/longe)
@@ -65,18 +79,4 @@ const flare = (x, y, s, cls) => `<g class="${cls || "flare"}" style="mix-blend-m
   <rect x="${x - 420 * s}" y="${y - 3 * s}" width="${840 * s}" height="${6 * s}" rx="${3 * s}" fill="#fff6d0" opacity="0.5"/>
   ${[0.35, 0.6, 0.85].map((k, i) => `<circle cx="${x + (540 - x) * k * 1.6}" cy="${y + (960 - y) * k * 1.6}" r="${(22 + i * 18) * s}" fill="${["#8fe3ff", "#ffd23f", "#ff8a3d"][i]}" opacity="0.12"/>`).join("")}</g>`;
 
-// ---------- granulação de filme: textura de ruído que muda a cada quadro ----------
-(() => {
-  const cv = document.createElement("canvas"), n = 256;
-  cv.width = cv.height = n;
-  const cx = cv.getContext("2d"), img = cx.createImageData(n, n), r = prng(99);
-  for (let i = 0; i < n * n; i++) { const v = 128 + (r() - 0.5) * 255; img.data[i * 4] = img.data[i * 4 + 1] = img.data[i * 4 + 2] = v; img.data[i * 4 + 3] = 255; }
-  cx.putImageData(img, 0, 0);
-  const g = h("div", null, null, null);
-  g.id = "grao";
-  Object.assign(g.style, { position: "absolute", inset: "0", backgroundImage: `url(${cv.toDataURL()})`, backgroundSize: "256px 256px", opacity: "0.07", mixBlendMode: "overlay", pointerEvents: "none" });
-  $("#root").insertBefore(g, $("#vinheta"));
-  const r2 = prng(5), pos = Array.from({ length: 24 }, () => `${Math.floor(r2() * 256)}px ${Math.floor(r2() * 256)}px`);
-  let ultimo = -1;
-  aCadaQuadro((t) => { const q = Math.floor(t * 30) % 24; if (q !== ultimo) { g.style.backgroundPosition = pos[q]; ultimo = q; } });
-})();
+// (a granulação de filme é aplicada no fim, pelo ffmpeg: ver codificar() em gerar.py)

@@ -154,9 +154,13 @@ def montar(roteiro, ag, pasta, pasta_video):
     for arq in ("gsap.min.js", "MotionPathPlugin.min.js", "DrawSVGPlugin.min.js", "MorphSVGPlugin.min.js"):
         shutil.copy(NODE / "gsap" / "dist" / arq, pasta / "assets" / arq)
     shutil.copy(NODE / "three" / "build" / "three.min.js", pasta / "assets" / "three.min.js")
+    shutil.copy(NODE / "lottie-web" / "build" / "player" / "lottie_svg.min.js", pasta / "assets" / "lottie.min.js")
+    # animações Lottie do vídeo (videos/<tema>/lottie/*.json) embutidas na página
+    lot = {f.stem: json.loads(f.read_text()) for f in sorted((Path(pasta_video) / "lottie").glob("*.json")) if f.name != "creditos.json"}
+    (pasta / "assets" / "lottie_dados.js").write_text("window.LOTTIE = " + json.dumps(lot, separators=(",", ":")) + ";\n")
     for arq in (IDENTIDADE / "fontes").glob("*.woff2"):
         shutil.copy(arq, pasta / "assets" / arq.name)
-    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "montagem.js"):
+    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "lottie.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}
@@ -199,7 +203,8 @@ def renderizar(pasta, saida, qualidade="high"):
         achados = sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell"))
         if achados:
             env["PRODUCER_HEADLESS_SHELL_PATH"] = achados[-1]
-    cmd = [str(NODE / ".bin" / "hyperframes"), "render", "-o", str(Path(saida).resolve()), "-q", qualidade, "-f", "30"]
+    fps = "60" if MARCA["video"].get("desfoque_movimento") else "30"  # 60 fps viram 30 com desfoque de movimento
+    cmd = [str(NODE / ".bin" / "hyperframes"), "render", "-o", str(Path(saida).resolve()), "-q", qualidade, "-f", fps]
     # 3D/filtros deixam cada quadro mais lento: usa vários navegadores em paralelo
     # (VIDEO_WORKERS=1 para máquinas com pouca memória)
     workers = os.environ.get("VIDEO_WORKERS", "4")
@@ -224,21 +229,38 @@ def previa(ag, pasta, destino):
                     "--no-end", "--describe", "false"], env=env, check=True)
 
 
+def _acabamento():
+    """Filtros do ffmpeg que dão a "cara de cinema" (definidos na identidade):
+    desfoque de movimento (média de 2 quadros a 60 fps = obturador de 180°), cor,
+    vinheta, leve aberração cromática e granulação de filme."""
+    v = MARCA["video"]
+    f = ["tmix=frames=2:weights=1 1", "fps=30"] if v.get("desfoque_movimento") else []
+    tc = v.get("tratamento_cor")
+    if tc:
+        f += [f"eq=contrast={tc['contraste']}:saturation={tc['saturacao']}", f"vignette=angle={tc['vinheta']}*PI"]
+        if tc.get("aberracao_px"):
+            f.append(f"rgbashift=rh=-{tc['aberracao_px']}:bh={tc['aberracao_px']}")
+        if tc.get("grao"):
+            f.append(f"noise=alls={tc['grao']}:allf=t")
+    return ",".join(f) or "null"
+
+
 def codificar(mudo, wav, mp4, dur):
     """MP4 final: CRF 24; se passar do limite de envio (marca.json), refaz em 2 passadas
     com a taxa de bits calculada para caber (~92% do limite)."""
     limite = MARCA["video"]["tamanho_maximo_mb"] * 1024 * 1024
+    vf = ["-vf", _acabamento()]
     comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart", "-c:a", "aac", "-b:a", "160k", "-shortest"]
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf,
                     "-c:v", "libx264", "-preset", "slow", "-crf", "24", *comum, str(mp4)], check=True)
     if Path(mp4).stat().st_size <= limite * 0.95:
         return
     kbps = int(limite * 0.92 * 8 / 1024 / dur - 170)
     print(f"   arquivo acima do limite; recodificando a {kbps} kb/s")
     log = Path(mudo).with_suffix(".2pass")
-    base = ["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-c:v", "libx264", "-preset", "slow", "-b:v", f"{kbps}k", "-passlogfile", str(log)]
+    base = ["ffmpeg", "-v", "error", "-y", "-i", str(mudo), *vf, "-c:v", "libx264", "-preset", "slow", "-b:v", f"{kbps}k", "-passlogfile", str(log)]
     subprocess.run(base + ["-pass", "1", "-an", "-f", "mp4", "/dev/null"], check=True)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "slow",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf, "-c:v", "libx264", "-preset", "slow",
                     "-b:v", f"{kbps}k", "-passlogfile", str(log), "-pass", "2", *comum, str(mp4)], check=True)
 
 

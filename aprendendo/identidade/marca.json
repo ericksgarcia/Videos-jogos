@@ -58,6 +58,14 @@
     "altura": 1920,
     "fps": 30,
     "duracao_minima_s": 90,
-    "tamanho_maximo_mb": 30
+    "tamanho_maximo_mb": 30,
+    "desfoque_movimento": true,
+    "tratamento_cor": {
+      "contraste": 1.05,
+      "saturacao": 1.08,
+      "vinheta": 0.22,
+      "aberracao_px": 1,
+      "grao": 6
+    }
   }
 }

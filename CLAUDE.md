@@ -121,12 +121,12 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
    3 momentos de cada cena em `output/<tema>/previa/` (folhas
    `contact-sheet-*.jpg`). **Olhe todas** e corrija sobreposição, coisa cortada,
    elemento fora de lugar, legenda presa, texto ilegível. Repita até ficar limpo.
-4. `python aprendendo/motor/gerar.py aprendendo/videos/<tema>` → renderiza (~5 min)
+4. `python aprendendo/motor/gerar.py aprendendo/videos/<tema>` → renderiza
    e grava `output/<tema>/<slug>.mp4`. Confira alguns frames do MP4 final
    (`ffmpeg -ss T -i video.mp4 -frames:v 1 f.png`).
 5. O arquivo precisa ter **menos de 30 MB** (limite de envio). O encode final usa CRF 24 e,
    se passar do limite (granulação/3D comprimem pior), refaz em 2 passadas para caber.
-   Com 3D o render leva ~40 min para 2min20 (4 navegadores em paralelo, um por núcleo; VIDEO_WORKERS muda).
+   Render a 60 fps (desfoque de movimento) com 4 navegadores em paralelo (VIDEO_WORKERS muda).
 
 ### Biblioteca comum (`motor/biblioteca.js`)
 
@@ -159,17 +159,29 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Padrão do vídeo da eletricidade: desenhe a cena e aplique os efeitos depois, com
   `_comEfeitos("tipo", (el, c, B, frente) => {...})` no fim do `cenas.js`.
 
-### 3D (`motor/tres.js`, Three.js 0.149) — nos momentos-chave
+### Animações Lottie (`motor/lottie.js`) — personagens e elementos de designers
 
-- `const k = camada3D({ ini, fim, fov })` cria um canvas 3D transparente entre a
-  ilustração 2D e a camada `frente`; `k.cena`, `k.camera`, `k.animar((t) => {...})`
-  (t = tempo do vídeo). `mostrar3D(k, t0, t1)` faz aparecer/sumir.
-- Materiais: `material3D("cobre" | "aco" | "acoEsc" | "vermelho" | "azul" | "plastico" | "branco")`,
-  `emissivo3D(cor, força)`; brilho barato: `halo3D(cor, tamanho, opacidade)`.
-- Câmera e valores por chaves de tempo: `chaves(t, [[t0, v0], [t1, v1], ...])`.
-- Rótulos que precisam ficar por cima do 3D vão em `frente` (5º parâmetro da cena).
-- Tudo derivado de `t` (sem estado entre quadros) para o render ser determinístico.
-  Muitos halos aditivos sobrepostos estouram em branco: use poucos e fracos.
+- O dono achou que o **3D não compensou** o tempo de render (~40 min): não use 3D
+  (`motor/tres.js` continua disponível, mas fica fora dos vídeos).
+- Para pessoas, fogo, raios, vapor, confete, ícones animados etc., prefira Lottie da
+  LottieFiles (licença Lottie Simple: uso comercial, sem atribuição obrigatória):
+  1. `python aprendendo/motor/lottie.py buscar "man walking"` → lista as mais baixadas e
+     grava a folha de prévias em `output/_lottie/<busca>.jpg` (olhe e escolha o id);
+  2. `python aprendendo/motor/lottie.py baixar <id> <tema> <nome> [--paleta]` → salva em
+     `videos/<tema>/lottie/<nome>.json` (tira fundo sólido; `--paleta` recolore com as cores
+     da marca) e registra a origem em `creditos.json`;
+  3. na cena: `const g = lottieEm(pai, "nome", x, y, largura, altura, { ini, fim, loop, vel,
+     espelhar, quadroInicial, corte })` — `g` pode ser animado (pop, surge...).
+- Escolha estilo coerente com o canal (cores chapadas, sem contorno preto grosso).
+  Animações com imagens externas são recusadas. Confira na prévia se aparecem.
+
+### Acabamento de cinema (automático, definido em `identidade/marca.json` → `video`)
+
+- Render a 60 fps e mistura para 30 → **desfoque de movimento** (`desfoque_movimento`).
+- `tratamento_cor`: contraste, saturação, vinheta, aberração cromática leve e granulação
+  de filme, aplicados pelo ffmpeg no `codificar()` (não pesam no navegador).
+- `volume(el)` (efeitos.js): sombra interna + luz de contorno estilo Kurzgesagt em objetos
+  principais (use em poucos elementos: é um filtro).
 
 ### Som (`motor/sons.py`)
 
