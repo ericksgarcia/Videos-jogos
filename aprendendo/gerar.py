@@ -2,29 +2,30 @@
 
 Uso:
   python aprendendo/gerar.py aprendendo/roteiros/eletricidade.json
+  python aprendendo/gerar.py aprendendo/roteiros/eletricidade.json --previa   # fotos para revisar
   python aprendendo/gerar.py aprendendo/roteiros/eletricidade.json --qualidade draft
 
 Cada cena do roteiro tem uma fala e "batidas": palavras da fala que disparam
 uma animação (e um som). A narração é gerada por cena; o tempo de cada
-palavra vem do alinhamento em src/voz.py, então ilustração, legenda e som
+palavra vem do alinhamento em voz.py, então ilustração, legenda e som
 acontecem no instante em que a palavra é dita.
 """
 import argparse
+import glob
 import json
+import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 import numpy as np
+from scipy import signal
 from scipy.io import wavfile
 
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parent
-sys.path.insert(0, str(RAIZ / "src"))
 sys.path.insert(0, str(AQUI))
-import audio  # noqa: E402
-import build  # noqa: E402
 import sons  # noqa: E402
 import voz  # noqa: E402
 
@@ -32,14 +33,7 @@ NODE = RAIZ / "node_modules"
 SAIDA = RAIZ / "output" / "aprendendo"
 SR = 48000
 
-DIRECAO = """# AUDIO PROFILE: Narrador de um canal brasileiro de divulgação científica para adultos
-## THE SCENE: Vídeo curto que explica um assunto complicado de um jeito muito simples, com analogias do dia a dia.
-### DIRECTOR'S NOTES
-Style: adulto, inteligente, conversado e caloroso, curioso como quem conta algo fascinante a um amigo; nada infantilizado; ênfase natural nas palavras-chave.
-Pace: moderado, com pausas curtas para a ideia assentar.
-Accent: português do Brasil.
-#### TRANSCRIPT
-"""
+DIRECAO = voz.DIRECAO  # narrador adulto de divulgação científica (ver voz.py)
 
 INICIO_VOZ = 0.55     # a voz entra um pouco depois da cena abrir
 FOLGA_FIM = 0.55      # respiro depois da fala antes da próxima cena
@@ -105,12 +99,25 @@ def _soma(buf, x, t, g):
     buf[i:j] += x[: j - i] * g
 
 
+def _ler_voz(arq):
+    sr, x = wavfile.read(arq)
+    x = x.astype(np.float64) / (np.iinfo(x.dtype).max if x.dtype.kind in "iu" else 1)
+    if x.ndim > 1:
+        x = x.mean(axis=1)
+    if sr != SR:
+        x = signal.resample_poly(x, SR, sr)
+    # leve compressão e corte de graves para a voz ficar "na cara"
+    x = signal.sosfilt(signal.butter(2, 90, btype="high", fs=SR, output="sos"), x)
+    x = np.tanh(x * 2.2) / np.tanh(2.2)
+    return np.stack([x, x], axis=1)
+
+
 def mixar(ag, falas, saida):
     n = int(ag["total"] * SR)
     voz_buf, efx = np.zeros((n, 2)), np.zeros((n, 2))
     for c, f in zip(ag["cenas"], falas):
         if f.get("wav"):
-            _soma(voz_buf, audio._ler_voz(f["wav"]), c["voz"], 1.0)
+            _soma(voz_buf, _ler_voz(f["wav"]), c["voz"], 1.0)
         _soma(efx, sons.som("whoosh"), max(0, c["ini"] - 0.3), 0.5)
         for ev, t in c["batidas"].items():
             nome, g = SOM.get(ev, ("pop", 0.4))
@@ -136,12 +143,40 @@ def montar(roteiro, ag, pasta):
         shutil.copy(NODE / "gsap" / "dist" / arq, pasta / "assets" / arq)
     for peso in (600, 800, 900):
         shutil.copy(NODE / "@fontsource" / "nunito" / "files" / f"nunito-latin-{peso}-normal.woff2", pasta / "assets" / f"nunito-{peso}.woff2")
-    dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "agenda": ag}
+    dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}
+    cenas = (AQUI / "cenas" / f"{roteiro['visual']}.js").read_text()
     html = (AQUI / "template.html").read_text()
+    html = html.replace("/*__CENAS__*/", cenas)
     html = html.replace("/*__DADOS__*/null", json.dumps(dados, ensure_ascii=False)).replace("__TOTAL__", str(ag["total"]))
     (pasta / "index.html").write_text(html)
     (pasta / "hyperframes.json").write_text(json.dumps({"paths": {"assets": "assets"}}))
     (pasta / "meta.json").write_text(json.dumps({"id": roteiro["slug"], "name": roteiro["titulo"]}))
+
+
+def renderizar(pasta, saida, qualidade="high"):
+    env = dict(os.environ, HYPERFRAMES_SKIP_SKILLS="1", HYPERFRAMES_NO_TELEMETRY="1", DO_NOT_TRACK="1")
+    if not env.get("PRODUCER_HEADLESS_SHELL_PATH"):
+        achados = sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell"))
+        if achados:
+            env["PRODUCER_HEADLESS_SHELL_PATH"] = achados[-1]
+    cmd = [str(NODE / ".bin" / "hyperframes"), "render", "-o", str(Path(saida).resolve()), "-q", qualidade, "-f", "30"]
+    subprocess.run(cmd, cwd=pasta, env=env, check=True)
+
+
+def previa(ag, pasta, destino):
+    """Fotos de 3 momentos de cada cena + folha de contato, para revisar sem renderizar."""
+    ts = []
+    for c in ag["cenas"]:
+        ts += [c["voz"] + (c["fim"] - c["voz"]) * f for f in (0.2, 0.55, 0.9)]
+    env = dict(os.environ, HYPERFRAMES_SKIP_SKILLS="1", HYPERFRAMES_NO_TELEMETRY="1", DO_NOT_TRACK="1")
+    if not env.get("PRODUCER_HEADLESS_SHELL_PATH"):
+        achados = sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell"))
+        if achados:
+            env["PRODUCER_HEADLESS_SHELL_PATH"] = achados[-1]
+    if Path(destino).exists():
+        shutil.rmtree(destino)
+    subprocess.run([str(NODE / ".bin" / "hyperframes"), "snapshot", str(pasta), "-o", str(destino), "--at", ",".join(f"{t:.2f}" for t in ts),
+                    "--no-end", "--describe", "false"], env=env, check=True)
 
 
 def main():
@@ -149,6 +184,7 @@ def main():
     ap.add_argument("roteiro")
     ap.add_argument("--qualidade", default="high", choices=["draft", "standard", "high"])
     ap.add_argument("--so-montar", action="store_true", help="monta o projeto sem renderizar")
+    ap.add_argument("--previa", action="store_true", help="só tira fotos de cada cena (output/aprendendo/previa/<slug>)")
     a = ap.parse_args()
     roteiro = json.loads(Path(a.roteiro).read_text())
     falas = narrar(roteiro)
@@ -158,10 +194,13 @@ def main():
     SAIDA.mkdir(parents=True, exist_ok=True)
     pasta = SAIDA / "build" / roteiro["slug"]
     montar(roteiro, ag, pasta)
+    if a.previa:
+        previa(ag, pasta, SAIDA / "previa" / roteiro["slug"])
+        return
     if a.so_montar:
         return
     mudo = pasta / "video_mudo.mp4"
-    build.renderizar(pasta, mudo, qualidade=a.qualidade)
+    renderizar(pasta, mudo, qualidade=a.qualidade)
     mixar(ag, falas, pasta / "trilha.wav")
     mp4 = SAIDA / f"{roteiro['slug']}.mp4"
     # ilustração chapada comprime bem: CRF 24 fica com ~20 MB e sem perda visível

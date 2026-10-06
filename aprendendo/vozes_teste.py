@@ -1,5 +1,5 @@
 import sys, os, base64, requests
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src")); import voz
+sys.path.insert(0, os.path.dirname(__file__)); import voz
 DIRECAO = """# AUDIO PROFILE: Narrador de um canal brasileiro de divulgação científica para adultos
 ## THE SCENE: Vídeo curto que explica um assunto complicado de um jeito muito simples, com analogias do dia a dia.
 ### DIRECTOR'S NOTES

@@ -1,7 +1,7 @@
 """Narração por TTS, com cache e tempo de cada palavra (para as legendas).
 
 Provedores (variável VOZ_PROVEDOR, padrão "auto"):
-  gemini - Gemini TTS (gemini-3.8-flash-tts, voz Fenrir), o mais natural e com
+  gemini - Gemini TTS (gemini-3.8-flash-tts, voz Achird), o mais natural e com
            emoção controlada por "notas de direção" e tags como [excitement].
            Precisa de GEMINI_API_KEY (chave do Google AI Studio). Não devolve o
            tempo das palavras: ele é calculado pelas pausas do próprio áudio.
@@ -40,16 +40,15 @@ RAIZ = Path(__file__).resolve().parent.parent
 CACHE = RAIZ / "data" / "voz"
 GEMINI_MODELO = os.environ.get("GEMINI_TTS_MODELO", "gemini-3.8-flash-tts")
 # Notas de direção do Gemini TTS: só o trecho depois de TRANSCRIPT é falado.
-DIRECAO = """# AUDIO PROFILE: Narrador de futebol da TV brasileira
-## THE SCENE: Cabine de transmissão de um estádio lotado no Brasileirão, narrando o resumo de um jogo lance a lance.
+DIRECAO = """# AUDIO PROFILE: Narrador de um canal brasileiro de divulgação científica para adultos
+## THE SCENE: Vídeo curto que explica um assunto complicado de um jeito muito simples, com analogias do dia a dia.
 ### DIRECTOR'S NOTES
-Style: narração esportiva brasileira natural, conversada e calorosa, com energia alta; a descrição do lance vai acelerando e explode no gol; frases de contexto em tom confiante, sem cair no fim.
-Pace: rápido, ritmo de transmissão ao vivo, emendando as frases, sem pausas longas.
+Style: adulto, inteligente, conversado e caloroso, curioso como quem conta algo fascinante a um amigo; nada infantilizado; ênfase natural nas palavras-chave.
+Pace: moderado, com pausas curtas para a ideia assentar.
 Accent: português do Brasil.
-Importante: diga a palavra "Gol" normalmente, curta, com entusiasmo na voz, mas sem esticar ("gooool") nem gritar.
 #### TRANSCRIPT
 """
-VELOCIDADE = "+8%"   # narrador um pouco mais acelerado
+VELOCIDADE = "+0%"   # velocidade das vozes edge/azure
 _avisado = set()
 
 
@@ -178,7 +177,7 @@ def _pausas(wav, minimo=0.1):
 def _alinhar_gemini(texto, wav):
     """Pergunta ao Gemini em que segundo começa cada frase (ele "ouve" o áudio),
     encaixa cada início na pausa mais próxima e divide as palavras da frase pelo
-    tamanho. Mais preciso que só as pausas quando há grito de gol esticado."""
+    tamanho. Mais preciso que só as pausas."""
     ws = texto.split()
     frases, atual = [], []
     for i, w in enumerate(ws):
@@ -225,39 +224,7 @@ def _alinhar_gemini(texto, wav):
     return out
 
 
-def _gol_esticado(wav):
-    """Pergunta ao Gemini se o "gol" saiu esticado/gritado ("goooool")."""
-    b = base64.b64encode(Path(wav).read_bytes()).decode()
-    q = ('Ouça. A palavra "gol" é falada de forma normal e curta (como numa frase comum), ou é esticada/gritada '
-         'como narrador ("goool", "goooool")? Responda só JSON: {"esticado": true/false}')
-    r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
-                      headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]}, timeout=120,
-                      json={"contents": [{"parts": [{"inlineData": {"mimeType": "audio/wav", "data": b}}, {"text": q}]}],
-                            "generationConfig": {"responseMimeType": "application/json", "temperature": 0}})
-    r.raise_for_status()
-    return bool(json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"]).get("esticado"))
-
-
-TENTATIVAS_GOL = 4
-
-
 def _gemini(texto, voz, destino, tts=None, direcao=None):
-    """Sintetiza; se a fala tem "Gol" e ele sair gritado, gera de novo (até 4 vezes)."""
-    tem_gol = any(re.sub(r"[^\wÀ-ÿ]", "", w) == "Gol" for w in texto.split())
-    for tentativa in range(TENTATIVAS_GOL if tem_gol else 1):
-        res = _gemini_uma(texto, voz, destino, tts, direcao)
-        if not tem_gol:
-            return res
-        try:
-            if not _gol_esticado(destino):
-                return res
-        except Exception:
-            return res
-        print(f"   [voz] \"gol\" saiu esticado, gerando de novo ({tentativa + 1}/{TENTATIVAS_GOL})")
-    return res
-
-
-def _gemini_uma(texto, voz, destino, tts=None, direcao=None):
     chave = os.environ["GEMINI_API_KEY"]
     corpo = {"contents": [{"parts": [{"text": (direcao or DIRECAO) + (tts or texto)}]}],
              "generationConfig": {"responseModalities": ["AUDIO"],
@@ -389,8 +356,8 @@ def _ordem():
 def narrar(texto, tts=None, direcao=None, voz_nome=None):
     """Devolve {"wav": caminho ou None, "dur": s, "palavras": [[w, ini, fim]], "provedor": nome}.
 
-    `tts` é o texto enviado ao Gemini, com tags de emoção ([excitement]) e o
-    "Gooool" esticado; precisa ter as mesmas palavras de `texto` (legenda)."""
+    `tts` é o texto enviado ao Gemini, com tags de emoção ([positive]); precisa
+    ter as mesmas palavras de `texto` (legenda)."""
     CACHE.mkdir(parents=True, exist_ok=True)
     for nome in _ordem():
         fn, padrao = PROVEDORES[nome]
@@ -424,7 +391,7 @@ def instante(fala, palavra):
     """Início (s, relativo à fala) da palavra-clímax; fim da fala se não achar."""
     if palavra:
         exata = re.sub(r"[^\wÀ-ÿ]", "", palavra)
-        for w, ini, _ in fala["palavras"]:  # maiúscula exata primeiro ("Gol", não "gol")
+        for w, ini, _ in fala["palavras"]:  # maiúscula exata primeiro
             if re.sub(r"[^\wÀ-ÿ]", "", w) == exata:
                 return ini
         alvo = _norm(palavra)

@@ -1,8 +1,8 @@
 """Sons do canal Aprendendo Fácil: efeitos e trilha de fundo, sintetizados.
 
-Reaproveita as ferramentas de src/sfx.py. Tudo é gerado por código (sem
-direitos de terceiros); para trocar um efeito por um sample, salve
-`sons/<nome>.wav` na raiz, como no projeto de futebol.
+Usa a base de sfx.py. Tudo é gerado por código (sem direitos de
+terceiros); para trocar um efeito por um sample, salve `sons/<nome>.wav`
+na raiz do projeto.
 """
 import sys
 from functools import lru_cache
@@ -10,7 +10,7 @@ from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import sfx  # noqa: E402
 from sfx import SR, _bp, _estereo, _hp, _lp, _norm, _ruido, _t  # noqa: E402
 

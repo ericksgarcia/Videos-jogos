@@ -1,35 +1,17 @@
-# Aprendendo Fácil
-
-Canal de vídeos verticais (1080×1920) que explicam assuntos complicados do
-jeito mais simples possível — como se fosse para uma criança de 10 anos, mas
-para um público adulto (técnica de Feynman: analogias do dia a dia, um passo
-por vez, sem infantilizar).
-
-Estilo: motion design ilustrado (vetores chapados, cores vivas), cada
-ilustração animada no instante em que o narrador fala a palavra, legenda
-palavra a palavra, trilha leve e efeitos sonoros. Tudo gerado por código.
-
-## Uso
-
-```bash
-python aprendendo/gerar.py aprendendo/roteiros/eletricidade.json
-python aprendendo/gerar.py aprendendo/roteiros/eletricidade.json --qualidade draft
-```
-
-Saída: `output/aprendendo/<slug>.mp4` (~20 MB para 2min20).
-
-## Como funciona
+# Aprendendo Fácil — como funciona
 
 | Arquivo | Papel |
 |---|---|
-| `roteiros/*.json` | Roteiro: cenas, fala de cada cena e "batidas" (palavra da fala → animação) |
-| `gerar.py` | Narra cada cena (Gemini TTS, voz Achird), acha o tempo de cada palavra, monta a agenda, mixa e renderiza |
-| `template.html` | Biblioteca de cenas animadas (GSAP + DrawSVG/MorphSVG/MotionPath) |
-| `sons.py` | Efeitos (clique, plim, zap, água, vento, vapor, tampa) e trilha de fundo sintetizados |
+| `roteiros/<tema>.json` | Roteiro: cenas, fala de cada cena e "batidas" (palavra da fala → evento) |
+| `cenas/<tema>.js` | As cenas animadas do tema (`CENAS.<tipo>`), uma por cena do roteiro |
+| `template.html` | Estrutura comum: marca, legendas, capítulos, gancho, gradientes, biblioteca de desenhos e animações (GSAP) |
+| `gerar.py` | Narra cada cena, acha o tempo de cada palavra, monta a agenda, gera prévias, renderiza (HyperFrames) e mixa |
+| `voz.py` | TTS (Gemini, voz Achird) com cache e alinhamento palavra a palavra |
+| `sons.py`, `sfx.py` | Efeitos (clique, plim, zap, água, vento, vapor, whoosh, pop…) e trilha sintetizados |
+| `vozes_teste.py` | Compara vozes do Gemini lado a lado |
 
-Cada cena tem um `tipo` que aponta para uma função em `template.html`
-(`CENAS.<tipo>`). Para um assunto novo: escreva o roteiro e, se precisar de
-uma ilustração nova, crie o tipo de cena correspondente.
+Fluxo: roteiro → narração (cache em `data/voz/`) → agenda (instante de cada batida e
+legenda) → `output/aprendendo/build/<slug>/index.html` → prévia (`--previa`) ou
+render → mixagem (voz + efeitos nas batidas + trilha com ducking) → MP4 em CRF 24.
 
-A voz usa `src/voz.py` com direção de narrador adulto de divulgação
-científica; a chave fica em `GEMINI_API_KEY` (ou `.env`).
+Opções de `gerar.py`: `--previa`, `--so-montar`, `--qualidade draft|standard|high`.
