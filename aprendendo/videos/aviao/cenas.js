@@ -48,7 +48,7 @@ const aviaoTopo = () => {
 
 // mão espalmada de perfil (pulso na origem, dedos para a direita)
 const MAO_D = "M0 -26 C 60 -36, 150 -36, 206 -18 C 224 -12, 224 12, 206 18 C 150 30, 60 32, 0 26 Z";
-const PERFIL_D = "M-10 4 C 20 -48, 130 -52, 220 -6 C 150 10, 60 22, -10 12 Z"; // perfil de asa (para o "morph")
+const PERFIL_D = "M220 4 C 190 -48, 80 -52, -10 -6 C 60 10, 150 22, 220 12 Z"; // frente arredondada na ponta dos dedos (de onde vem o vento) // perfil de asa (para o "morph")
 const mao = () => `<path class="palma" d="${MAO_D}" fill="#e9b48a"/>
   <path class="polegar" d="M40 -30 C 72 -64, 112 -60, 120 -42 C 100 -36, 72 -32, 52 -26 Z" fill="#d99c72"/>
   <path class="dedos" d="M110 -10 H 196 M110 4 H 200" stroke="#c98a62" stroke-width="3" stroke-linecap="round" fill="none"/>`;
@@ -172,19 +172,21 @@ CENAS.asa = (el, c, B) => {
   };
   el.innerHTML = `<rect width="${W}" height="${H}" fill="#0b1440"/>
     <g opacity="0.12">${Array.from({ length: 12 }, (_, k) => `<path d="M${k * 100} 300 V 1420 M0 ${300 + k * 100} H ${W}" stroke="#8fe3ff" stroke-width="2"/>`).join("")}</g>
+    <g transform="translate(${W} 0) scale(-1 1)">
     <ellipse class="baixa" cx="560" cy="800" rx="380" ry="120" fill="url(#baixaP)" opacity="0"/>
     <ellipse class="alta" cx="560" cy="1010" rx="380" ry="110" fill="url(#altaP)" opacity="0"/>
     <g class="linhas">${linhas.map((y) => `<path class="corr" d="${corrente(y)}" fill="none" stroke="#8fe3ff" stroke-width="3.5" stroke-dasharray="26 22" opacity="0.65"/>`).join("")}</g>
     <g class="pontos"></g>
-    <g transform="translate(560 900) rotate(-8)"><g class="perfil"><path class="pf" d="M-330 10 C -280 -110, 60 -120, 330 -6 C 90 26, -150 44, -330 22 Z" fill="url(#perfilG)"/>
+    <g transform="translate(560 900) rotate(8)"><g class="perfil"><path class="pf" d="M-330 10 C -280 -110, 60 -120, 330 -6 C 90 26, -150 44, -330 22 Z" fill="url(#perfilG)"/>
       <path class="contorno" d="M-330 10 C -280 -110, 60 -120, 330 -6 C 90 26, -150 44, -330 22 Z" fill="none" stroke="${C.amarelo}" stroke-width="6"/></g></g>
     <g class="desce">${[0, 1, 2].map((k) => `<g transform="translate(${850 + k * 62} ${990 + k * 22})"><g class="fd">${flecha(110, C.ciano, "", 180, "fdi")}</g></g>`).join("")}
-      <g transform="translate(880 1215)"><g class="tDesce">${rotulo("AR PRA BAIXO", C.ciano, 32)}</g></g></g>
-    <g transform="translate(560 880)"><g class="fSust">${flecha(330, C.verde, "", 0, "fsi")}</g></g>
-    <g transform="translate(330 470)"><g class="tCima">${rotulo("ASA PRA CIMA", C.verde, 34)}</g></g>
-    <g transform="translate(250 700)"><g class="tBaixa">${rotulo("MENOS PRESSÃO", C.azul, 30)}</g></g>
-    <g transform="translate(250 1130)"><g class="tAlta">${rotulo("MAIS PRESSÃO", C.laranja, 30)}</g></g>
-    <g transform="translate(560 390)"><g class="tSust">${rotulo("SUSTENTAÇÃO", C.amarelo, 50)}</g></g>
+      </g></g>
+    <g transform="translate(210 1215)"><g class="tDesce">${rotulo("AR PRA BAIXO", C.ciano, 32)}</g></g>
+    <g transform="translate(520 880)"><g class="fSust">${flecha(330, C.verde, "", 0, "fsi")}</g></g>
+    <g transform="translate(760 470)"><g class="tCima">${rotulo("ASA PRA CIMA", C.verde, 34)}</g></g>
+    <g transform="translate(830 700)"><g class="tBaixa">${rotulo("MENOS PRESSÃO", C.azul, 30)}</g></g>
+    <g transform="translate(830 1130)"><g class="tAlta">${rotulo("MAIS PRESSÃO", C.laranja, 30)}</g></g>
+    <g transform="translate(520 390)"><g class="tSust">${rotulo("SUSTENTAÇÃO", C.amarelo, 50)}</g></g>
     <g transform="translate(540 1300)"><g class="tCurva">${rotulo("CURVADA E INCLINADA", C.amarelo, 32)}</g></g>`;
   const corr = $$(".corr", el);
   tl.fromTo(corr, { strokeDashoffset: 0 }, { strokeDashoffset: -3000, duration: c.fim - c.ini, ease: "none", immediateRender: false }, c.ini);
@@ -253,7 +255,7 @@ CENAS.decolagem = (el, c, B) => {
       <g class="ponteiro"><path d="M-6 0 L 0 -118 L 6 0 Z" fill="${C.vermelho}"/></g><circle r="12" fill="#fff"/>
       <text class="rot velTxt" y="78" text-anchor="middle" font-size="44" fill="#fff">0</text><text class="rotm" y="108" text-anchor="middle" font-size="22" fill="#c7cde6">km/h</text></g></g>
     <g transform="translate(240 540)"><g class="lupaF"><circle r="160" fill="#16205a" stroke="#fff" stroke-width="10"/>
-      <g transform="translate(-40 10) scale(1.6)"><path d="M-80 -14 C -40 -30, 30 -30, 90 -6 L 70 6 C 10 0, -40 2, -80 4 Z" fill="url(#asaG)"/><g transform="translate(70 4)"><g class="flapZ"><path d="M0 -8 L 36 4 L 30 14 L -4 2 Z" fill="${C.amarelo}"/></g></g></g>
+      <g transform="translate(40 10) scale(-1.6 1.6)"><path d="M-80 -14 C -40 -30, 30 -30, 90 -6 L 70 6 C 10 0, -40 2, -80 4 Z" fill="url(#asaG)"/><g transform="translate(70 4)"><g class="flapZ"><path d="M0 -8 L 36 4 L 30 14 L -4 2 Z" fill="${C.amarelo}"/></g></g></g>
       <g transform="translate(0 120)">${rotulo("FLAPS", C.amarelo, 30)}</g></g></g>`;
   const av = $(".aviaoD", el), gauge = $(".gauge", el), lupaF = $(".lupaF", el);
   surge(av, c.ini + 0.1, 30);
