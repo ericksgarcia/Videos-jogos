@@ -1,0 +1,26 @@
+{
+  "carro": {
+    "id": 125227,
+    "titulo": "Car Animation",
+    "autor": "5yn611c8pfhvamo8",
+    "url": "https://lottiefiles.com/animations/car-animation-WOCF0Majhm",
+    "licenca": "Lottie Simple License (lottiefiles.com/page/license)",
+    "recolorido": false
+  },
+  "nuvens": {
+    "id": 102873,
+    "titulo": "clouds loop",
+    "autor": "ethnxddomp",
+    "url": "https://lottiefiles.com/animations/clouds-loop-xq5rmiPLqL",
+    "licenca": "Lottie Simple License (lottiefiles.com/page/license)",
+    "recolorido": false
+  },
+  "confete": {
+    "id": 118101,
+    "titulo": "confetti",
+    "autor": "mw91q4lwsmdezobu",
+    "url": "https://lottiefiles.com/animations/confetti-eZzzO1Zaoj",
+    "licenca": "Lottie Simple License (lottiefiles.com/page/license)",
+    "recolorido": true
+  }
+}
