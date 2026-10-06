@@ -246,7 +246,7 @@ CENAS.gerador = (el, c, B, i, frente) => {
     caboM.opacity = ls; lampM.opacity = ls;
     const acesa = chaves(t, [[ts + 0.3, 0], [ts + 0.7, 1]]);
     lampM.color.setHex(acesa > 0.5 ? 0xffe066 : 0x33407a); lampM.emissiveIntensity = acesa * 2.4; hl.material.opacity = acesa * 0.95;
-    els.forEach((g, q) => { g.visible = t > ts + 0.1; g.position.copy(curva.getPointAt(((t - ts) * 0.55 + q / els.length) % 1)); });
+    els.forEach((g, q) => { g.visible = t > ts + 0.1; if (g.visible) g.position.copy(curva.getPointAt((((t - ts) * 0.55 + q / els.length) % 1 + 1) % 1)); });
     // câmera: 3/4 orbitando devagar; recua para o salão na "usina"
     const orb = 0.5 + (t - c.ini) * 0.035;
     const dist = chaves(t, [[c.ini, 34], [c.ini + 1.2, 25], [tu, 25], [tu + 1.4, 58]], (x) => 1 - Math.pow(1 - x, 3));

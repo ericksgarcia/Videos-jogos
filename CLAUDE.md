@@ -115,6 +115,8 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 2. Cenas em `videos/<tema>/cenas.js`: uma função `CENAS.<tipo>(el, c, B)` por
    cena (veja `videos/eletricidade/cenas.js` e `videos/cargos-politicos/cenas.js`). `B("evento", fração)` dá o instante
    da batida. A primeira cena chama `mostrarGancho(instante)`; a última, `cartaoFinal(el, instante)`.
+   (`gerar.py` verifica sozinho, antes da prévia e do render, se a timeline tem erros de
+   JavaScript em algum instante — erro trava o quadro: cena vazia e legendas encavaladas.)
 3. `python aprendendo/motor/gerar.py aprendendo/videos/<tema> --previa` → fotos de
    3 momentos de cada cena em `output/<tema>/previa/` (folhas
    `contact-sheet-*.jpg`). **Olhe todas** e corrija sobreposição, coisa cortada,
@@ -122,8 +124,9 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 4. `python aprendendo/motor/gerar.py aprendendo/videos/<tema>` → renderiza (~5 min)
    e grava `output/<tema>/<slug>.mp4`. Confira alguns frames do MP4 final
    (`ffmpeg -ss T -i video.mp4 -frames:v 1 f.png`).
-5. O arquivo precisa ter **menos de 30 MB** (limite de envio); o encode final em
-   CRF 24 dá ~16–20 MB para 2min20.
+5. O arquivo precisa ter **menos de 30 MB** (limite de envio). O encode final usa CRF 24 e,
+   se passar do limite (granulação/3D comprimem pior), refaz em 2 passadas para caber.
+   Com 3D o render leva ~40 min para 2min20 (3 navegadores em paralelo).
 
 ### Biblioteca comum (`motor/biblioteca.js`)
 

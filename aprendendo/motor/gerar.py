@@ -168,6 +168,31 @@ def montar(roteiro, ag, pasta, pasta_video):
     (pasta / "meta.json").write_text(json.dumps({"id": roteiro["slug"], "name": roteiro["titulo"]}))
 
 
+def verificar(pasta):
+    """Abre a página do vídeo e percorre a timeline inteira (a cada 0,25 s) procurando erros
+    de JavaScript. Um erro no meio do vídeo trava o quadro (cena vazia, legendas encavaladas)."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        print("   [verificar] playwright ausente; pulando a verificação")
+        return
+    shell = os.environ.get("PRODUCER_HEADLESS_SHELL_PATH") or (sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell")) or [None])[-1]
+    erros = []
+    with sync_playwright() as p:
+        nav = p.chromium.launch(**({"executable_path": shell} if shell else {}))
+        pg = nav.new_page(viewport={"width": 1080, "height": 1920})
+        pg.on("pageerror", lambda e: erros.append(f"carregando: {e}"))
+        pg.goto((Path(pasta) / "index.html").resolve().as_uri())
+        pg.wait_for_timeout(1500)
+        erros += pg.evaluate("""() => { const tl = window.__timelines.main, T = tl.duration(), e = [];
+          for (let t = 0; t < T; t += 0.25) { try { tl.seek(t); } catch (x) { e.push(t.toFixed(2) + " s: " + x.message); } }
+          tl.seek(0); return e.slice(0, 10); }""")
+        nav.close()
+    if erros:
+        raise SystemExit("erros de JavaScript no vídeo:\n  " + "\n  ".join(erros))
+    print("   [verificar] timeline sem erros")
+
+
 def renderizar(pasta, saida, qualidade="high"):
     env = dict(os.environ, HYPERFRAMES_SKIP_SKILLS="1", HYPERFRAMES_NO_TELEMETRY="1", DO_NOT_TRACK="1")
     if not env.get("PRODUCER_HEADLESS_SHELL_PATH"):
@@ -199,6 +224,24 @@ def previa(ag, pasta, destino):
                     "--no-end", "--describe", "false"], env=env, check=True)
 
 
+def codificar(mudo, wav, mp4, dur):
+    """MP4 final: CRF 24; se passar do limite de envio (marca.json), refaz em 2 passadas
+    com a taxa de bits calculada para caber (~92% do limite)."""
+    limite = MARCA["video"]["tamanho_maximo_mb"] * 1024 * 1024
+    comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart", "-c:a", "aac", "-b:a", "160k", "-shortest"]
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a",
+                    "-c:v", "libx264", "-preset", "slow", "-crf", "24", *comum, str(mp4)], check=True)
+    if Path(mp4).stat().st_size <= limite * 0.95:
+        return
+    kbps = int(limite * 0.92 * 8 / 1024 / dur - 170)
+    print(f"   arquivo acima do limite; recodificando a {kbps} kb/s")
+    log = Path(mudo).with_suffix(".2pass")
+    base = ["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-c:v", "libx264", "-preset", "slow", "-b:v", f"{kbps}k", "-passlogfile", str(log)]
+    subprocess.run(base + ["-pass", "1", "-an", "-f", "mp4", "/dev/null"], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "slow",
+                    "-b:v", f"{kbps}k", "-passlogfile", str(log), "-pass", "2", *comum, str(mp4)], check=True)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("video", help="pasta do vídeo (aprendendo/videos/<tema>) ou o roteiro.json dela")
@@ -218,6 +261,8 @@ def main():
     saida.mkdir(parents=True, exist_ok=True)
     pasta = saida / "build"
     montar(roteiro, ag, pasta, pasta_video)
+    if not a.so_montar:
+        verificar(pasta)
     if a.previa:
         previa(ag, pasta, saida / "previa")
         return
@@ -227,10 +272,7 @@ def main():
     renderizar(pasta, mudo, qualidade=a.qualidade)
     mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"))
     mp4 = saida / f"{roteiro['slug']}.mp4"
-    # ilustração chapada comprime bem: CRF 24 fica com ~20 MB e sem perda visível
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(pasta / "trilha.wav"), "-map", "0:v", "-map", "1:a",
-                    "-c:v", "libx264", "-preset", "slow", "-crf", "24", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-                    "-c:a", "aac", "-b:a", "160k", "-shortest", str(mp4)], check=True)
+    codificar(mudo, pasta / "trilha.wav", mp4, ag["total"])
     print("pronto:", mp4)
 
 
