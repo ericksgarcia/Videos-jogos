@@ -202,7 +202,7 @@ def renderizar(pasta, saida, qualidade="high"):
     cmd = [str(NODE / ".bin" / "hyperframes"), "render", "-o", str(Path(saida).resolve()), "-q", qualidade, "-f", "30"]
     # 3D/filtros deixam cada quadro mais lento: usa vários navegadores em paralelo
     # (VIDEO_WORKERS=1 para máquinas com pouca memória)
-    workers = os.environ.get("VIDEO_WORKERS", "3")
+    workers = os.environ.get("VIDEO_WORKERS", "4")
     if workers != "1":
         cmd += ["-w", workers, "--no-low-memory-mode"]
     subprocess.run(cmd, cwd=pasta, env=env, check=True)

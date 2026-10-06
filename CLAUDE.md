@@ -126,7 +126,7 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
    (`ffmpeg -ss T -i video.mp4 -frames:v 1 f.png`).
 5. O arquivo precisa ter **menos de 30 MB** (limite de envio). O encode final usa CRF 24 e,
    se passar do limite (granulação/3D comprimem pior), refaz em 2 passadas para caber.
-   Com 3D o render leva ~40 min para 2min20 (3 navegadores em paralelo).
+   Com 3D o render leva ~40 min para 2min20 (4 navegadores em paralelo, um por núcleo; VIDEO_WORKERS muda).
 
 ### Biblioteca comum (`motor/biblioteca.js`)
 
