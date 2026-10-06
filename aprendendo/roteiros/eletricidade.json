@@ -1,0 +1,71 @@
+{
+  "slug": "como-a-eletricidade-e-gerada",
+  "titulo": "Como a eletricidade é gerada",
+  "gancho": "DE ONDE VEM A ELETRICIDADE?",
+  "voz": "Achird",
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "interruptor",
+      "titulo": "De onde vem?",
+      "fala": "Você aperta o interruptor e a luz acende. Simples assim. Mas, pra isso acontecer, alguma coisa muito longe daqui precisou girar. Vou te explicar como, do jeito mais fácil possível.",
+      "batidas": {"aperta": "clique", "acende": "luz", "longe": "afasta", "girar": "gira", "fácil": "titulo"}
+    },
+    {
+      "id": "eletrons",
+      "tipo": "eletrons",
+      "titulo": "O que é eletricidade",
+      "fala": "Primeiro: o que é eletricidade? Dentro de todo fio de metal existem partículas minúsculas, chamadas elétrons. Eletricidade é um monte de elétrons andando juntos pelo fio. Pensa numa fila de pessoas: quando alguém empurra a primeira, o empurrão chega rapidinho até a última.",
+      "batidas": {"fio": "zoom", "elétrons": "eletrons", "andando": "andam", "fila": "fila", "empurra": "empurrao"}
+    },
+    {
+      "id": "faraday",
+      "tipo": "inducao",
+      "titulo": "O truque do ímã",
+      "fala": "E como empurrar os elétrons? Em mil oitocentos e trinta e um, o cientista Michael Faraday descobriu um truque: quando um ímã se mexe perto de um fio enrolado, os elétrons do fio começam a andar. Ímã em movimento, mais fio, é igual a eletricidade.",
+      "batidas": {"Faraday": "faraday", "ímã": "ima", "enrolado": "bobina", "andar": "corrente", "igual": "equacao"}
+    },
+    {
+      "id": "gerador",
+      "tipo": "gerador",
+      "titulo": "O gerador",
+      "fala": "Agora imagina um ímã girando sem parar dentro de muito fio enrolado. A eletricidade não para de sair. Essa máquina se chama gerador. E uma usina é, basicamente, um lugar que faz geradores gigantes girarem o dia inteiro.",
+      "batidas": {"girando": "gira", "sair": "sai", "gerador": "nome", "usina": "usina"}
+    },
+    {
+      "id": "agua",
+      "tipo": "hidreletrica",
+      "titulo": "Quem gira? A água",
+      "fala": "Então a pergunta de verdade é: quem faz o gerador girar? Na usina hidrelétrica, é a água. Ela desce com força de uma represa e gira uma roda chamada turbina, que está presa ao gerador. Aqui no Brasil, a maior parte da energia vem assim.",
+      "batidas": {"água": "agua", "desce": "desce", "turbina": "turbina", "Brasil": "brasil"}
+    },
+    {
+      "id": "vento-vapor",
+      "tipo": "eolica_termica",
+      "titulo": "Vento e vapor",
+      "fala": "Na usina eólica, quem gira é o vento, nas hélices gigantes. Já na usina térmica, queima-se gás, carvão ou bagaço de cana pra ferver água. A água vira vapor, e o vapor empurra a turbina. É a mesma força que faz a tampa da panela pular.",
+      "batidas": {"vento": "vento", "queima-se": "fogo", "vapor,": "vapor", "empurra": "empurra", "panela": "panela"}
+    },
+    {
+      "id": "solar",
+      "tipo": "solar",
+      "titulo": "O sol é diferente",
+      "fala": "A energia solar é a exceção: não gira nada. A luz do sol bate na placa e solta os elétrons do material direto. Eles saem andando, e pronto: eletricidade.",
+      "batidas": {"exceção:": "excecao", "luz": "raios", "solta": "solta", "pronto:": "pronto"}
+    },
+    {
+      "id": "caminho",
+      "tipo": "transmissao",
+      "titulo": "Até a sua casa",
+      "fala": "Depois de gerada, ela viaja por cabos enormes, pendurados em torres, às vezes por centenas de quilômetros. Perto da sua casa, um transformador baixa a força dela pra um nível seguro. Ela entra pela parede, chega na tomada e acende a sua lâmpada.",
+      "batidas": {"cabos": "cabos", "centenas": "distancia", "transformador": "transformador", "tomada": "tomada", "lâmpada.": "lampada"}
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: algo gira, o ímã gira dentro dos fios, os elétrons andam e a luz acende. Agora você sabe mais do que muita gente. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {"gira,": "passo1", "fios,": "passo2", "andam": "passo3", "acende.": "passo4", "Segue": "cta"}
+    }
+  ]
+}

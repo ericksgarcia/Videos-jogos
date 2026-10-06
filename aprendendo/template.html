@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/MotionPathPlugin.min.js"></script>
+    <script src="assets/DrawSVGPlugin.min.js"></script>
+    <script src="assets/MorphSVGPlugin.min.js"></script>
+    <style>
+      @font-face { font-family: "Nunito"; font-weight: 600; src: url("assets/nunito-600.woff2") format("woff2"); }
+      @font-face { font-family: "Nunito"; font-weight: 800; src: url("assets/nunito-800.woff2") format("woff2"); }
+      @font-face { font-family: "Nunito"; font-weight: 900; src: url("assets/nunito-900.woff2") format("woff2"); }
+      :root {
+        --bg1: #0b1736; --bg2: #1c2b6e; --amarelo: #ffd23f; --laranja: #ff8a3d; --verde: #06d6a0;
+        --azul: #4cc9f0; --rosa: #ff5d8f; --vermelho: #ef476f; --cobre: #e08a4b; --aco: #9aa7c7; --branco: #f8f9ff;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg1); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Nunito", sans-serif; color: var(--branco);
+        background: radial-gradient(1400px 1100px at 50% 35%, var(--bg2), var(--bg1) 70%); }
+      .camada { position: absolute; inset: 0; pointer-events: none; }
+      #pontos { position: absolute; inset: -200px; opacity: 0.18;
+        background-image: radial-gradient(circle, rgba(255,255,255,0.55) 1.6px, transparent 2px); background-size: 46px 46px; }
+      .bolha { position: absolute; border-radius: 50%; }
+      #grao { position: absolute; inset: 0; opacity: 0.07; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='256' height='256' filter='url(%23n)'/></svg>"); }
+      #progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: linear-gradient(90deg, var(--amarelo), var(--laranja)); transform-origin: left center; transform: scaleX(0); }
+
+      #marca { position: absolute; left: 60px; top: 66px; display: flex; align-items: center; gap: 16px; }
+      #marca .selo { width: 58px; height: 58px; border-radius: 18px; background: var(--amarelo); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(255, 210, 63, 0.35); }
+      #marca .nome { font-weight: 900; font-size: 34px; letter-spacing: 0.06em; }
+      #marca .nome b { color: var(--amarelo); }
+      #capitulo { position: absolute; left: 60px; top: 160px; height: 76px; }
+      .chip-cap { position: absolute; left: 0; top: 0; white-space: nowrap; display: flex; align-items: center; gap: 18px; padding: 10px 30px 10px 12px; border-radius: 40px; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.16); opacity: 0; }
+      .chip-cap .n { width: 52px; height: 52px; border-radius: 50%; background: var(--amarelo); color: #1b1f3b; font-weight: 900; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+      .chip-cap .t { font-weight: 900; font-size: 40px; text-transform: uppercase; letter-spacing: 0.03em; }
+
+      #gancho { position: absolute; left: 50px; right: 50px; top: 250px; text-align: center; opacity: 0; transform-origin: 50% 0; }
+      #gancho .linha { font-weight: 900; font-size: 92px; line-height: 1.02; text-transform: uppercase; }
+      #gancho .linha span { display: inline-block; margin: 0 0.12em; }
+      #gancho .linha .dest { color: var(--amarelo); }
+
+      #palco { position: absolute; left: 40px; top: 300px; width: 1000px; height: 1000px; overflow: visible; }
+      #palco svg { overflow: visible; }
+      .cena { opacity: 0; }
+
+      #iris { position: absolute; left: 540px; top: 860px; width: 2600px; height: 2600px; margin: -1300px 0 0 -1300px; border-radius: 50%; background: var(--amarelo); transform: scale(0); }
+
+      #leg { position: absolute; left: 50px; width: 980px; top: 1380px; height: 200px; }
+      .bloco { position: absolute; inset: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 28px; opacity: 0; }
+      .bloco span { display: inline-block; font-weight: 900; font-size: 72px; line-height: 1.14; color: #fff; -webkit-text-stroke: 12px #0b1022; paint-order: stroke fill; text-shadow: 0 8px 22px rgba(0,0,0,0.55); }
+      .bloco span.k { color: var(--azul); }
+
+      .rot { font-family: "Nunito", sans-serif; font-weight: 900; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__TOTAL__" data-width="1080" data-height="1920">
+      <div class="camada" id="fundo"><div id="pontos"></div><div class="bolha" id="bo1"></div><div class="bolha" id="bo2"></div><div class="bolha" id="bo3"></div></div>
+      <div id="marca"><div class="selo"><svg width="36" height="40" viewBox="0 0 36 40"><path d="M18 2a14 14 0 0 0-8 25.5V32h16v-4.5A14 14 0 0 0 18 2z" fill="#1b1f3b"/><rect x="11" y="34" width="14" height="4" rx="2" fill="#1b1f3b"/></svg></div><div class="nome">APRENDENDO <b>FÁCIL</b></div></div>
+      <div id="capitulo"></div>
+      <div id="gancho"></div>
+      <div id="palco"><svg id="svg" width="1000" height="1000" viewBox="0 0 1000 1000"><defs id="defs"></defs></svg></div>
+      <div id="leg"></div>
+      <div id="iris"></div>
+      <div class="camada" id="grao"></div>
+      <div id="progresso"></div>
+    </div>
+    <script>
+      gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin, MorphSVGPlugin);
+      const D = /*__DADOS__*/null;
+      const A = D.agenda, T = A.total;
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      const $ = (s, r) => (r || document).querySelector(s);
+      const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+      const NS = "http://www.w3.org/2000/svg";
+      const COR = { amarelo: "#ffd23f", laranja: "#ff8a3d", verde: "#06d6a0", azul: "#4cc9f0", rosa: "#ff5d8f", vermelho: "#ef476f", cobre: "#e08a4b", aco: "#9aa7c7", branco: "#f8f9ff", noite: "#16224d", escuro: "#0e1630" };
+      function h(tag, cls, html, pai) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; if (pai) pai.appendChild(e); return e; }
+      function g(markup, pai) { const e = document.createElementNS(NS, "g"); e.innerHTML = markup; (pai || $("#svg")).appendChild(e); return e; }
+      function prng(seed) { return () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+      const pop = (el, t, extra) => tl.fromTo(el, { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, Object.assign({ scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.2)", immediateRender: false }, extra || {}), t);
+      const desenhar = (el, t, dur) => tl.fromTo(el, { drawSVG: "0%" }, { drawSVG: "100%", duration: dur || 0.8, ease: "power2.inOut", immediateRender: false }, t);
+      // gira algo sem parar até o fim da cena
+      const girar = (el, t, fim, voltasPorSeg, origem) => tl.fromTo(el, { rotation: 0 }, { rotation: 360 * voltasPorSeg * Math.max(0.1, fim - t), duration: Math.max(0.1, fim - t), ease: "none", svgOrigin: origem, immediateRender: false }, t);
+      // pontos andando em loop por um caminho
+      function fluxo(path, n, cor, raio, t, fim, porSeg, pai, seed) {
+        const r = prng(seed || 7), dots = [];
+        for (let i = 0; i < n; i++) {
+          const c = document.createElementNS(NS, "circle");
+          c.setAttribute("r", raio); c.setAttribute("fill", cor); c.setAttribute("opacity", 0);
+          c.style.filter = `drop-shadow(0 0 8px ${cor})`;
+          pai.appendChild(c);
+          const ini = i / n, voltas = Math.max(0.2, (fim - t) * porSeg);
+          tl.set(c, { opacity: 1 }, t);
+          tl.fromTo(c, { motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: ini, end: ini } },
+            { motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: ini, end: ini + voltas }, duration: Math.max(0.1, fim - t), ease: "none", immediateRender: true }, t);
+          dots.push(c);
+        }
+        return dots;
+      }
+      // lâmpada (desenho reutilizado)
+      const LAMPADA = (cx, cy, s, id) => `<g transform="translate(${cx} ${cy}) scale(${s})"><g class="lamp">
+          <circle class="aura" r="210" fill="url(#aura${id})" opacity="0"/>
+          <path class="vidro" d="M0 -110 a90 90 0 0 1 52 163 v28 h-104 v-28 A90 90 0 0 1 0 -110z" fill="#2a3a7a" stroke="#c9d3ff" stroke-width="8"/>
+          <path class="filamento" d="M-26 30 q13 -50 26 0 q13 -50 26 0" fill="none" stroke="#8090c0" stroke-width="7" stroke-linecap="round"/>
+          <rect x="-50" y="84" width="100" height="22" rx="8" fill="#9aa7c7"/><rect x="-44" y="108" width="88" height="18" rx="8" fill="#7d89ad"/><rect x="-30" y="128" width="60" height="16" rx="8" fill="#5f6a8c"/>
+        </g></g>`;
+      function acender(lamp, t) {
+        tl.to($(".vidro", lamp), { attr: { fill: COR.amarelo }, stroke: "#fff3b0", duration: 0.25 }, t);
+        tl.to($(".filamento", lamp), { stroke: "#fff", duration: 0.2 }, t);
+        tl.fromTo($(".aura", lamp), { opacity: 0, scale: 0.6, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, t);
+      }
+      function defsAura(id) {
+        $("#defs").insertAdjacentHTML("beforeend", `<radialGradient id="aura${id}"><stop offset="0" stop-color="#ffe680" stop-opacity="0.85"/><stop offset="0.45" stop-color="#ffd23f" stop-opacity="0.25"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>`);
+      }
+      // rótulo em pílula dentro do SVG
+      const ROTULO = (x, y, txt, cor, tam) => {
+        const w = txt.length * (tam || 40) * 0.62 + 56;
+        return `<g class="rotulo" transform="translate(${x} ${y})"><rect x="${-w / 2}" y="-38" width="${w}" height="76" rx="38" fill="${cor || COR.amarelo}"/><text class="rot" x="0" y="${(tam || 40) * 0.36}" text-anchor="middle" font-size="${tam || 40}" fill="#141a3a">${txt}</text></g>`;
+      };
+
+      // ---------------- fundo vivo ----------------
+      const bo = [["#bo1", 700, -200, -150, "rgba(76,201,240,0.18)"], ["#bo2", 600, 600, 1300, "rgba(255,93,143,0.14)"], ["#bo3", 500, 500, 500, "rgba(255,210,63,0.10)"]];
+      bo.forEach(([id, s, x, y, c]) => { const e = $(id); e.style.width = e.style.height = s + "px"; e.style.left = x + "px"; e.style.top = y + "px"; e.style.background = `radial-gradient(closest-side, ${c}, transparent)`; });
+      tl.fromTo("#bo1", { x: 0, y: 0 }, { x: 220, y: 260, duration: T, ease: "sine.inOut" }, 0);
+      tl.fromTo("#bo2", { x: 0, y: 0 }, { x: -260, y: -300, duration: T, ease: "sine.inOut" }, 0);
+      tl.fromTo("#bo3", { x: 0, y: 0, scale: 1 }, { x: -120, y: 380, scale: 1.4, duration: T, ease: "sine.inOut" }, 0);
+      tl.fromTo("#pontos", { x: 0, y: 0 }, { x: -46 * 6, y: -46 * 10, duration: T, ease: "none" }, 0);
+      const qd = Math.round(T * 15);
+      tl.fromTo("#grao", { backgroundPosition: "0px 0px" }, { backgroundPosition: `${-37 * qd}px ${-53 * qd}px`, duration: T, ease: `steps(${qd})` }, 0);
+      tl.fromTo("#progresso", { scaleX: 0 }, { scaleX: 1, duration: T, ease: "none" }, 0);
+
+      // ---------------- legendas ----------------
+      const LEG = $("#leg");
+      A.cenas.forEach((c) => c.legendas.forEach((b) => {
+        const bl = h("div", "bloco", null, LEG);
+        const ws = b.palavras.map(([w], k) => h("span", b.destaque[k] ? "k" : null, w, bl));
+        tl.set(bl, { opacity: 1 }, b.ini);
+        tl.fromTo(bl, { scale: 0.9, y: 14 }, { scale: 1, y: 0, duration: 0.16, ease: "back.out(2)", immediateRender: false }, b.ini);
+        tl.set(bl, { opacity: 0 }, Math.min(b.fim, c.fim - 0.1));
+        b.palavras.forEach(([, wi, wf], k) => {
+          tl.set(ws[k], { color: COR.amarelo, scale: 1.04 }, wi);
+          tl.set(ws[k], { color: b.destaque[k] ? COR.azul : "#ffffff", scale: 1 }, Math.max(wi + 0.05, wf));
+        });
+      }));
+
+      // ---------------- capítulos e transições ----------------
+      const CAP = $("#capitulo");
+      A.cenas.forEach((c, i) => {
+        if (i === 0) return;
+        const chip = h("div", "chip-cap", `<div class="n">${i}</div><div class="t">${c.titulo}</div>`, CAP);
+        tl.fromTo(chip, { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out", immediateRender: false }, c.ini + 0.15);
+        tl.to(chip, { x: 40, opacity: 0, duration: 0.3, ease: "power2.in" }, c.fim - 0.3);
+        // transição: íris colorida (alternando cores)
+        const cor = [COR.amarelo, COR.azul, COR.rosa, COR.verde][i % 4];
+        tl.set("#iris", { backgroundColor: cor }, c.ini - 0.32);
+        tl.fromTo("#iris", { scale: 0 }, { scale: 1, duration: 0.32, ease: "power2.in", immediateRender: false }, c.ini - 0.32);
+        tl.to("#iris", { scale: 0, duration: 0.36, ease: "power2.out" }, c.ini + 0.02);
+      });
+
+      // ---------------- cenas ----------------
+      const CENAS = {};
+
+      // 1. interruptor + gancho
+      CENAS.interruptor = (el, c, B, i) => {
+        const G = $("#gancho");
+        const linhas = D.gancho.split(" ");
+        G.innerHTML = `<div class="linha">${linhas.map((w) => `<span class="${/ELETRICIDADE/.test(w) ? "dest" : ""}">${w}</span>`).join(" ")}</div>`;
+        tl.set(G, { opacity: 1 }, 0);
+        tl.fromTo($$("span", G), { scale: 2.2, opacity: 0, filter: "blur(14px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, stagger: 0.12, ease: "power4.out" }, 0.02);
+        tl.to(G, { scale: 0.8, duration: 0.5, ease: "power2.inOut" }, 1.2);
+        tl.fromTo(G, { scale: 0.8 }, { scale: 0.88, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, B("titulo", 0.9));
+        tl.to(G, { opacity: 0, y: -30, duration: 0.3 }, c.fim - 0.3);
+        el.innerHTML = `
+          <g transform="translate(90 190) scale(0.82)"><g class="casa">
+            <rect x="120" y="120" width="760" height="800" rx="60" fill="${COR.noite}" stroke="rgba(255,255,255,0.12)" stroke-width="4"/>
+            <line x1="500" y1="120" x2="500" y2="300" stroke="#5f6a8c" stroke-width="10"/>
+            ${LAMPADA(500, 420, 1, i)}
+            <g class="raios" transform="translate(500 420)">${Array.from({ length: 12 }, (_, k) => { const a = (k / 12) * Math.PI * 2; return `<line x1="${Math.cos(a) * 150}" y1="${Math.sin(a) * 150}" x2="${Math.cos(a) * 205}" y2="${Math.sin(a) * 205}" stroke="${COR.amarelo}" stroke-width="12" stroke-linecap="round"/>`; }).join("")}</g>
+            <g class="placa" transform="translate(500 760)"><rect x="-85" y="-120" width="170" height="240" rx="26" fill="#eef1ff"/><rect x="-36" y="-70" width="72" height="140" rx="16" fill="#c7cde6"/><rect class="tecla" x="-28" y="-62" width="56" height="62" rx="12" fill="#ffffff" stroke="#aab2d4" stroke-width="3"/></g>
+            <rect class="escuro" x="120" y="120" width="760" height="800" rx="60" fill="#05081a" opacity="0.55"/>
+          </g></g>
+          <path class="fio-longe" d="M385 470 C 385 300, 700 250, 820 420 S 900 760, 905 800" fill="none" stroke="${COR.cobre}" stroke-width="10" stroke-linecap="round" opacity="0"/>
+          <g class="usina-longe" transform="translate(905 880)" opacity="0">
+            <rect x="-80" y="-70" width="160" height="90" rx="14" fill="#7d89ad"/><rect x="-60" y="-120" width="34" height="60" rx="6" fill="#9aa7c7"/>
+            <g class="helice" transform="translate(40 -110)"><circle r="10" fill="#fff"/>${[0, 120, 240].map((a) => `<rect x="-6" y="-58" width="12" height="52" rx="6" fill="#fff" transform="rotate(${a})"/>`).join("")}</g>
+          </g>`;
+        const casa = $(".casa", el), lamp = $(".lamp", el);
+        tl.fromTo(casa, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", immediateRender: false }, c.ini + 0.2);
+        const tc = B("clique", 0.15);
+        tl.to($(".tecla", el), { attr: { y: 0 }, duration: 0.08 }, tc);
+        tl.fromTo($(".placa", el), { scale: 1 }, { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1, svgOrigin: "500 760", immediateRender: false }, tc);
+        const tlz = B("luz", 0.25);
+        acender(lamp, tlz);
+        tl.to($(".escuro", el), { opacity: 0, duration: 0.35 }, tlz);
+        tl.fromTo($$(".raios line", el), { drawSVG: "0% 0%" }, { drawSVG: "0% 100%", duration: 0.35, stagger: 0.02, ease: "power2.out", immediateRender: false }, tlz);
+        const ta = B("afasta", 0.5);
+        tl.to(casa, { scale: 0.42, x: -140, y: -100, svgOrigin: "500 500", duration: 0.9, ease: "power3.inOut" }, ta);
+        tl.set($(".fio-longe", el), { opacity: 1 }, ta + 0.5);
+        desenhar($(".fio-longe", el), ta + 0.5, 0.9);
+        pop($(".usina-longe", el), ta + 1.2);
+        girar($(".helice", el), B("gira", 0.7), c.fim, 1.2, "945 770");
+      };
+
+      // 2. elétrons no fio + fila
+      CENAS.eletrons = (el, c, B, i) => {
+        el.innerHTML = `
+          <g class="fio">
+            <rect x="60" y="420" width="880" height="160" rx="80" fill="${COR.cobre}"/>
+            <rect x="60" y="440" width="880" height="34" rx="17" fill="#f2b585" opacity="0.6"/>
+            <rect class="capa" x="40" y="400" width="920" height="200" rx="100" fill="none" stroke="#3a4a8c" stroke-width="22"/>
+          </g>
+          <g class="dentro"></g>
+          <g class="fila" opacity="0"></g>`;
+        const fio = $(".fio", el), dentro = $(".dentro", el), fila = $(".fila", el);
+        tl.fromTo(fio, { x: -900 }, { x: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, c.ini + 0.2);
+        const tz = B("zoom", 0.15);
+        tl.to(el, { scale: 1.25, duration: 0.8, ease: "power2.inOut", svgOrigin: "500 500" }, tz);
+        tl.to($$("rect", fio).slice(0, 2), { opacity: 0.25, duration: 0.6 }, tz + 0.2);
+        const r = prng(31), els = [];
+        for (let k = 0; k < 22; k++) {
+          const x = 100 + (k / 22) * 800 + r() * 20, y = 450 + r() * 100;
+          dentro.insertAdjacentHTML("beforeend", `<g class="e" transform="translate(${x} ${y})"><circle r="17" fill="${COR.azul}"/><rect x="-8" y="-2.5" width="16" height="5" rx="2" fill="#0b1736"/></g>`);
+        }
+        const es = $$(".e", dentro);
+        const te = B("eletrons", 0.35);
+        tl.fromTo(es, { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.35, stagger: 0.03, ease: "back.out(2.5)", immediateRender: false }, te);
+        const tan = B("andam", 0.5), tf = B("fila", 0.75);
+        es.forEach((e, k) => tl.to(e, { x: `+=${Math.min(900, (tf - tan) * 260)}`, duration: tf - tan, ease: "none", modifiers: {} }, tan));
+        // a fila de pessoas
+        for (let k = 0; k < 7; k++) {
+          const x = 130 + k * 125;
+          fila.insertAdjacentHTML("beforeend", `<g class="p" transform="translate(${x} 560)"><circle cy="-120" r="34" fill="${k === 0 ? COR.amarelo : COR.azul}"/><rect x="-36" y="-80" width="72" height="120" rx="34" fill="${k === 0 ? COR.amarelo : COR.azul}" opacity="0.9"/></g>`);
+        }
+        const ps = $$(".p", fila);
+        tl.to([fio, dentro], { opacity: 0, duration: 0.4 }, tf - 0.2);
+        tl.to(el, { scale: 1, duration: 0.5, svgOrigin: "500 500" }, tf - 0.2);
+        tl.set(fila, { opacity: 1 }, tf);
+        tl.fromTo(ps, { scale: 0, opacity: 0, transformOrigin: "50% 100%" }, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.06, ease: "back.out(2)", immediateRender: false }, tf);
+        el.insertAdjacentHTML("beforeend", `<g transform="translate(40 470)"><g class="mao" opacity="0"><path d="M0 0 h40 v-20 l40 40 -40 40 v-20 h-40z" fill="${COR.rosa}"/></g></g>${ROTULO(500, 760, "O EMPURRÃO VAI PASSANDO", COR.amarelo, 38)}`);
+        const mao = $(".mao", el), rot = $(".rotulo", el);
+        const tp = B("empurrao", 0.88);
+        tl.set(mao, { opacity: 1 }, tp - 0.3);
+        tl.fromTo(mao, { x: -80 }, { x: 0, duration: 0.3, ease: "power3.out", immediateRender: false }, tp - 0.3);
+        ps.forEach((p, k) => tl.fromTo(p, { rotation: 0 }, { rotation: 14, duration: 0.14, yoyo: true, repeat: 1, ease: "power1.inOut", svgOrigin: `${130 + k * 125} 600`, immediateRender: false }, tp + k * 0.1));
+        tl.set(rot, { opacity: 0 }, c.ini);
+        pop(rot, tp + 0.5);
+      };
+
+      // 3. ímã + bobina (Faraday)
+      CENAS.inducao = (el, c, B, i) => {
+        const bob = Array.from({ length: 7 }, (_, k) => `<ellipse cx="${380 + k * 40}" cy="560" rx="22" ry="95" fill="none" stroke="${COR.cobre}" stroke-width="16"/>`).join("");
+        el.innerHTML = `
+          ${LAMPADA(500, 200, 0.62, i)}
+          <path class="laco" d="M370 560 C 250 560, 250 300, 440 260 L 560 260 C 750 300, 750 560, 630 560" fill="none" stroke="${COR.cobre}" stroke-width="12" stroke-linecap="round"/>
+          <g class="bobina">${bob}</g>
+          <g transform="translate(880 560)"><g class="ima"><rect x="-150" y="-40" width="150" height="80" rx="14" fill="${COR.vermelho}"/><rect x="0" y="-40" width="150" height="80" rx="14" fill="${COR.azul}"/><text class="rot" x="-75" y="16" text-anchor="middle" font-size="46" fill="#fff">N</text><text class="rot" x="75" y="16" text-anchor="middle" font-size="46" fill="#0b1736">S</text></g></g>
+          <g class="card" transform="translate(70 70)"><rect width="330" height="130" rx="26" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="3"/><circle cx="62" cy="65" r="38" fill="#c7cde6"/><path d="M38 108 q24 -40 48 0" fill="#c7cde6"/><text class="rot" x="120" y="58" font-size="30" fill="#fff">M. Faraday</text><text class="rot" x="120" y="100" font-size="36" fill="${COR.amarelo}">1831</text></g>
+          <g class="eq" transform="translate(500 840)"></g>`;
+        const lamp = $(".lamp", el), laco = $(".laco", el), bobina = $(".bobina", el), ima = $(".ima", el), card = $(".card", el), eq = $(".eq", el);
+        tl.fromTo([lamp, bobina], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power3.out", immediateRender: false }, c.ini + 0.2);
+        desenhar(laco, c.ini + 0.3, 0.9);
+        tl.set(card, { opacity: 0 }, c.ini);
+        pop(card, B("faraday", 0.25));
+        const ti = B("ima", 0.4);
+        tl.fromTo(ima, { x: 300, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out", immediateRender: false }, ti - 0.2);
+        tl.set(ima, { opacity: 0 }, c.ini);
+        const ida = Math.max(1, Math.floor((c.fim - ti - 0.5) / 0.55));
+        tl.fromTo(ima, { x: 0 }, { x: -220, duration: 0.55, yoyo: true, repeat: ida, ease: "sine.inOut", immediateRender: false }, ti + 0.45);
+        const tb = B("bobina", 0.55);
+        tl.fromTo($$("ellipse", bobina), { stroke: COR.cobre }, { stroke: "#ffc38a", duration: 0.2, stagger: 0.04, yoyo: true, repeat: 1, immediateRender: false }, tb);
+        const tc = B("corrente", 0.7);
+        fluxo(laco, 9, COR.azul, 11, tc, c.fim, 0.45, el, 41);
+        acender(lamp, tc + 0.1);
+        const te = B("equacao", 0.85);
+        eq.innerHTML = `${ROTULO(-250, 0, "ÍMÃ MEXENDO", COR.rosa, 34)}<text class="rot mais" x="-95" y="16" text-anchor="middle" font-size="60" fill="#fff">+</text>${ROTULO(0, 0, "FIO", COR.cobre, 34)}<text class="rot igual" x="85" y="16" text-anchor="middle" font-size="60" fill="#fff">=</text>${ROTULO(250, 0, "ENERGIA", COR.amarelo, 34)}`;
+        $$(".rotulo, .mais, .igual", eq).forEach((e, k) => { tl.set(e, { opacity: 0 }, c.ini); pop(e, te + k * 0.12); });
+      };
+
+      // 4. gerador
+      CENAS.gerador = (el, c, B, i) => {
+        const bobinas = Array.from({ length: 8 }, (_, k) => `<g transform="rotate(${k * 45} 500 470)"><rect x="465" y="210" width="70" height="90" rx="16" fill="${COR.cobre}"/>${[0, 1, 2, 3].map((j) => `<rect x="465" y="${222 + j * 20}" width="70" height="8" rx="4" fill="#b8693a"/>`).join("")}</g>`).join("");
+        el.innerHTML = `
+          <g class="maq"><circle cx="500" cy="470" r="300" fill="#24336f" stroke="#3a4a8c" stroke-width="16"/>${bobinas}
+            <g class="rotor"><rect x="350" y="430" width="150" height="80" rx="16" fill="${COR.vermelho}"/><rect x="500" y="430" width="150" height="80" rx="16" fill="${COR.azul}"/><text class="rot" x="425" y="486" text-anchor="middle" font-size="44" fill="#fff">N</text><text class="rot" x="575" y="486" text-anchor="middle" font-size="44" fill="#0b1736">S</text><circle cx="500" cy="470" r="22" fill="#eef1ff"/></g>
+            <path class="seta" d="M500 120 A350 350 0 0 1 830 360" fill="none" stroke="${COR.amarelo}" stroke-width="12" stroke-linecap="round" opacity="0"/>
+          </g>
+          <path class="saida" d="M760 600 C 860 640, 880 760, 800 860" fill="none" stroke="${COR.cobre}" stroke-width="12" stroke-linecap="round"/>
+          ${LAMPADA(760, 900, 0.5, i)}
+          <g class="nomeg">${ROTULO(250, 880, "GERADOR", COR.amarelo, 50)}</g>
+          <g class="usina" opacity="0"><path d="M90 960 V 640 h120 v-120 h80 v120 h420 l120 -90 v390z" fill="none" stroke="#c7cde6" stroke-width="12" stroke-linejoin="round"/><g transform="translate(500 760)">${ROTULO(0, 0, "USINA", COR.verde, 50)}</g></g>`;
+        const maq = $(".maq", el), rotor = $(".rotor", el), seta = $(".seta", el), saida = $(".saida", el), lamp = $(".lamp", el), nome = $(".nomeg", el), usina = $(".usina", el);
+        pop(maq, c.ini + 0.2);
+        tl.set([saida, lamp, nome], { opacity: 0 }, c.ini);
+        const tg = B("gira", 0.2);
+        girar(rotor, tg, c.fim, 1.6, "500 470");
+        tl.set(seta, { opacity: 1 }, tg);
+        desenhar(seta, tg, 0.5);
+        const ts = B("sai", 0.45);
+        tl.set([saida, lamp], { opacity: 1 }, ts - 0.2);
+        desenhar(saida, ts - 0.2, 0.5);
+        fluxo(saida, 6, COR.azul, 10, ts + 0.2, c.fim, 0.8, el, 43);
+        acender(lamp, ts + 0.4);
+        tl.set(nome, { opacity: 1 }, B("nome", 0.6));
+        pop(nome, B("nome", 0.6));
+        const tu = B("usina", 0.8);
+        tl.to([maq, saida, lamp, nome], { scale: 0.45, svgOrigin: "500 760", duration: 0.8, ease: "power3.inOut" }, tu);
+        tl.set(usina, { opacity: 1 }, tu + 0.3);
+        desenhar($("path", usina), tu + 0.3, 0.8);
+        pop($("g", usina), tu + 0.9);
+      };
+
+      // 5. hidrelétrica
+      CENAS.hidreletrica = (el, c, B, i) => {
+        el.innerHTML = `
+          <defs><linearGradient id="agua${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4cc9f0"/><stop offset="1" stop-color="#1d6fd6"/></linearGradient></defs>
+          <path class="lago" d="M0 360 Q 90 340 180 360 T 360 360 V 800 H 0z" fill="url(#agua${i})"/>
+          <path class="represa" d="M350 300 L 470 300 L 540 820 L 350 820z" fill="#aab4cf"/>
+          <path class="cano" d="M380 700 C 470 760, 560 790, 640 810" fill="none" stroke="#5f6a8c" stroke-width="44" stroke-linecap="round"/>
+          <path class="cano-agua" d="M380 700 C 470 760, 560 790, 640 810" fill="none" stroke="none"/>
+          <g transform="translate(700 820)"><g class="turbina"><circle r="78" fill="#2c3e86" stroke="#c7cde6" stroke-width="8"/>${Array.from({ length: 8 }, (_, k) => `<path d="M0 0 C 20 -30, 30 -55, 0 -70 C -10 -50, -8 -25, 0 0z" fill="${COR.azul}" transform="rotate(${k * 45})"/>`).join("")}<circle r="14" fill="#eef1ff"/></g></g>
+          <rect class="ger" x="650" y="610" width="100" height="120" rx="18" fill="${COR.cobre}"/><line x1="700" y1="730" x2="700" y2="760" stroke="#c7cde6" stroke-width="10"/>
+          <path class="linha" d="M750 640 C 820 600, 880 520, 940 470" fill="none" stroke="${COR.amarelo}" stroke-width="8" stroke-dasharray="6 14"/>
+          <g class="rt">${ROTULO(720, 940, "TURBINA", COR.azul, 40)}</g>
+          <g class="br" transform="translate(500 120)"><rect x="-360" y="-60" width="720" height="120" rx="30" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="3"/><g transform="translate(-290 0)"><rect x="-50" y="-34" width="100" height="68" rx="8" fill="#009c3b"/><path d="M0 -26 L 42 0 L 0 26 L -42 0z" fill="#ffdf00"/><circle r="15" fill="#002776"/></g><text class="rot" x="40" y="14" text-anchor="middle" font-size="36" fill="#fff">A maior parte vem da água</text></g>`;
+        const lago = $(".lago", el), turbina = $(".turbina", el), rt = $(".rt", el), br = $(".br", el), linha = $(".linha", el);
+        tl.fromTo($$(".lago, .represa, .cano, .turbina, .ger", el), { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.07, ease: "power3.out", immediateRender: false }, c.ini + 0.2);
+        tl.set([rt, br, linha], { opacity: 0 }, c.ini);
+        const ta = B("agua", 0.2);
+        tl.fromTo(lago, { morphSVG: lago.getAttribute("d") }, { morphSVG: "M0 360 Q 90 380 180 360 T 360 360 V 800 H 0z", duration: 0.8, yoyo: true, repeat: Math.max(1, Math.floor((c.fim - ta) / 0.8)), ease: "sine.inOut", immediateRender: false }, ta);
+        const td = B("desce", 0.4);
+        fluxo($(".cano-agua", el), 10, "#bfeaff", 12, td, c.fim, 0.9, el, 51);
+        const tt = B("turbina", 0.6);
+        girar(turbina, td + 0.3, c.fim, 1.4, "0 0");
+        tl.set(rt, { opacity: 1 }, tt);
+        pop(rt, tt);
+        tl.set(linha, { opacity: 1 }, tt + 0.3);
+        desenhar(linha, tt + 0.3, 0.6);
+        tl.set(br, { opacity: 1 }, B("brasil", 0.85));
+        pop(br, B("brasil", 0.85));
+      };
+
+      // 6. eólica + térmica
+      CENAS.eolica_termica = (el, c, B, i) => {
+        el.innerHTML = `
+          <line x1="500" y1="140" x2="500" y2="900" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-dasharray="10 14"/>
+          <g class="eol"><path d="M232 900 L 248 900 L 244 330 L 236 330z" fill="#eef1ff"/><path d="M220 900 h40 l-10 -570 h-20z" fill="#dfe4f7"/>
+            <g class="pas" transform="translate(240 320)"><circle r="20" fill="#fff"/>${[0, 120, 240].map((a) => `<path d="M-10 0 C -14 -80, -6 -170, 0 -200 C 8 -170, 14 -80, 10 0z" fill="#fff" transform="rotate(${a})"/>`).join("")}</g>
+            <g class="ventos">${[0, 1, 2, 3].map((k) => `<path d="M${-60 + k * 10} ${200 + k * 90} C 40 ${170 + k * 90}, 80 ${240 + k * 90}, 160 ${210 + k * 90}" fill="none" stroke="${COR.azul}" stroke-width="8" stroke-linecap="round"/>`).join("")}</g>
+            ${ROTULO(240, 990, "EÓLICA", COR.azul, 38)}</g>
+          <g class="ter">
+            <g class="chama" transform="translate(760 880)"><path d="M0 -150 C 60 -90, 70 -30, 0 0 C -70 -30, -60 -90, 0 -150z" fill="${COR.laranja}"/><path d="M0 -90 C 30 -60, 35 -20, 0 0 C -35 -20, -30 -60, 0 -90z" fill="${COR.amarelo}"/></g>
+            <rect x="670" y="620" width="180" height="120" rx="30" fill="#7d89ad"/><rect x="690" y="600" width="140" height="30" rx="12" fill="#9aa7c7"/>
+            <path d="M760 600 V 470" stroke="#5f6a8c" stroke-width="26"/>
+            <g class="tt" transform="translate(760 400)"><circle r="70" fill="#2c3e86" stroke="#c7cde6" stroke-width="8"/>${Array.from({ length: 8 }, (_, k) => `<path d="M0 0 C 20 -30, 30 -55, 0 -66 C -10 -48, -8 -25, 0 0z" fill="${COR.rosa}" transform="rotate(${k * 45})"/>`).join("")}<circle r="12" fill="#eef1ff"/></g>
+            <g class="vapores"></g>
+            ${ROTULO(760, 990, "TÉRMICA", COR.laranja, 38)}</g>
+          <g class="panela" transform="translate(500 210)" opacity="0"><rect x="-90" y="-10" width="180" height="90" rx="20" fill="#c7cde6"/><rect x="-120" y="10" width="40" height="14" rx="7" fill="#9aa7c7"/><rect x="80" y="10" width="40" height="14" rx="7" fill="#9aa7c7"/><g class="tampa"><rect x="-96" y="-30" width="192" height="20" rx="10" fill="#eef1ff"/><rect x="-16" y="-48" width="32" height="20" rx="8" fill="#eef1ff"/></g></g>`;
+        const eol = $(".eol", el), ter = $(".ter", el), pas = $(".pas", el), ventos = $$(".ventos path", el), chama = $(".chama", el), tt = $(".tt", el), vap = $(".vapores", el), panela = $(".panela", el);
+        tl.fromTo([eol, ter], { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: "power3.out", immediateRender: false }, c.ini + 0.2);
+        const tv = B("vento", 0.15);
+        ventos.forEach((v, k) => { tl.fromTo(v, { drawSVG: "0% 0%" }, { drawSVG: "0% 100%", duration: 0.5, immediateRender: false }, tv + k * 0.1); tl.to(v, { drawSVG: "100% 100%", duration: 0.5, repeat: Math.max(1, Math.floor((c.fim - tv) / 1.1)), repeatDelay: 0.6 }, tv + 0.5 + k * 0.1); });
+        girar(pas, tv, c.fim, 0.7, "240 320");
+        const tfo = B("fogo", 0.45);
+        tl.fromTo(chama, { scale: 0.3, transformOrigin: "50% 100%" }, { scale: 1, duration: 0.4, ease: "back.out(2)", immediateRender: false }, tfo);
+        tl.fromTo(chama, { scaleY: 1 }, { scaleY: 1.12, duration: 0.18, yoyo: true, repeat: Math.max(1, Math.floor((c.fim - tfo) / 0.18)), ease: "sine.inOut", transformOrigin: "50% 100%", immediateRender: false }, tfo + 0.4);
+        const tvp = B("vapor", 0.6);
+        for (let k = 0; k < 10; k++) {
+          vap.insertAdjacentHTML("beforeend", `<circle cx="${740 + (k % 3) * 20}" cy="590" r="${22 + (k % 4) * 6}" fill="#eef1ff" opacity="0"/>`);
+        }
+        $$("circle", vap).forEach((v, k) => tl.fromTo(v, { y: 0, opacity: 0.85, scale: 0.6, transformOrigin: "50% 50%" }, { y: -260, opacity: 0, scale: 1.4, duration: 1.4, repeat: Math.max(1, Math.floor((c.fim - tvp) / 1.4)), ease: "power1.out", immediateRender: false }, tvp + k * 0.14));
+        girar(tt, B("empurra", 0.7), c.fim, 1.3, "760 400");
+        const tp = B("panela", 0.9);
+        tl.set(panela, { opacity: 1 }, tp - 0.2);
+        pop(panela, tp - 0.2);
+        tl.fromTo($(".tampa", panela), { y: 0 }, { y: -40, duration: 0.15, yoyo: true, repeat: 5, ease: "power2.out", immediateRender: false }, tp);
+      };
+
+      // 7. solar
+      CENAS.solar = (el, c, B, i) => {
+        const celulas = [];
+        for (let r = 0; r < 4; r++) for (let q = 0; q < 6; q++) celulas.push(`<rect x="${q * 80}" y="${r * 60}" width="74" height="54" rx="6" fill="#1d4ed8" stroke="#93c5fd" stroke-width="3"/>`);
+        el.innerHTML = `
+          <g class="sol" transform="translate(790 190)"><circle r="95" fill="${COR.amarelo}"/><g class="raiossol">${Array.from({ length: 10 }, (_, k) => `<rect x="-8" y="-170" width="16" height="50" rx="8" fill="${COR.amarelo}" transform="rotate(${k * 36})"/>`).join("")}</g></g>
+          <g transform="translate(260 560) skewX(-14)"><g class="placa">${celulas.join("")}</g></g>
+          <rect x="430" y="800" width="20" height="120" fill="#7d89ad"/>
+          <g class="fotons"></g><g class="livres"></g>
+          <path class="fios" d="M330 800 C 260 860, 200 880, 160 820" fill="none" stroke="${COR.cobre}" stroke-width="10" stroke-linecap="round"/>
+          ${LAMPADA(150, 700, 0.5, i)}
+          <g class="exc" transform="translate(210 160)"><g transform="translate(-110 0)"><circle r="44" fill="#2c3e86"/>${[0, 120, 240].map((a) => `<rect x="-6" y="-38" width="12" height="34" rx="6" fill="#fff" transform="rotate(${a})"/>`).join("")}<path d="M-44 -44 L 44 44" stroke="${COR.vermelho}" stroke-width="12" stroke-linecap="round"/></g>${ROTULO(110, 0, "NÃO GIRA", COR.rosa, 36)}</g>`;
+        const sol = $(".sol", el), placa = $(".placa", el), fotons = $(".fotons", el), livres = $(".livres", el), fios = $(".fios", el), lamp = $(".lamp", el), exc = $(".exc", el);
+        pop(sol, c.ini + 0.2);
+        girar($(".raiossol", el), c.ini, c.fim, 0.12, "790 190");
+        tl.fromTo(placa, { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", immediateRender: false }, c.ini + 0.35);
+        tl.set([exc, fios, lamp], { opacity: 0 }, c.ini);
+        tl.set(exc, { opacity: 1 }, B("excecao", 0.15));
+        pop(exc, B("excecao", 0.15));
+        const tr = B("raios", 0.4);
+        for (let k = 0; k < 14; k++) {
+          const tx = 300 + (k % 7) * 60, ty = 600 + Math.floor(k / 7) * 70;
+          fotons.insertAdjacentHTML("beforeend", `<circle cx="790" cy="190" r="12" fill="#fff3b0" data-x="${tx}" data-y="${ty}" opacity="0"/>`);
+        }
+        $$("circle", fotons).forEach((f, k) => {
+          const rep = Math.max(1, Math.floor((c.fim - tr) / 1.2));
+          tl.fromTo(f, { x: 0, y: 0, opacity: 1 }, { x: f.dataset.x - 790, y: f.dataset.y - 190, opacity: 0.2, duration: 0.7, repeat: rep, repeatDelay: 0.5, ease: "power1.in", immediateRender: false }, tr + k * 0.08);
+        });
+        const tso = B("solta", 0.6);
+        for (let k = 0; k < 10; k++) livres.insertAdjacentHTML("beforeend", `<g transform="translate(${290 + (k % 5) * 75} ${590 + Math.floor(k / 5) * 80})"><g class="lv"><circle r="15" fill="${COR.azul}"/><rect x="-7" y="-2.5" width="14" height="5" rx="2" fill="#0b1736"/></g></g>`);
+        $$(".lv", livres).forEach((e, k) => tl.fromTo(e, { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, y: -60, duration: 0.45, ease: "back.out(2.5)", immediateRender: false }, tso + k * 0.05));
+        const tpr = B("pronto", 0.85);
+        tl.set([fios, lamp], { opacity: 1 }, tpr - 0.4);
+        desenhar(fios, tpr - 0.4, 0.4);
+        fluxo(fios, 5, COR.azul, 9, tpr - 0.1, c.fim, 0.9, el, 61);
+        acender(lamp, tpr);
+      };
+
+      // 8. transmissão até a casa
+      CENAS.transmissao = (el, c, B, i) => {
+        const torre = (x) => `<g transform="translate(${x} 820)"><g class="sobe"><path d="M-40 0 L -8 -300 L 8 -300 L 40 0 M -30 -80 H 30 M -22 -160 H 22 M -14 -230 H 14 M -60 -260 H 60" fill="none" stroke="#c7cde6" stroke-width="8" stroke-linejoin="round"/></g></g>`;
+        el.innerHTML = `
+          <rect x="-40" y="820" width="1080" height="200" fill="#1a2a5c"/>
+          <g transform="translate(70 820)"><g class="sobe"><rect x="-60" y="-110" width="120" height="110" rx="12" fill="#7d89ad"/><rect x="-40" y="-170" width="30" height="70" fill="#9aa7c7"/></g></g>
+          ${torre(270)}${torre(470)}${torre(670)}
+          <path class="cabo" d="M110 740 Q 190 600 270 560 Q 370 640 470 560 Q 570 640 670 560 Q 760 640 840 650" fill="none" stroke="${COR.amarelo}" stroke-width="6"/>
+          <g class="poste"><rect x="836" y="640" width="12" height="180" fill="#9aa7c7"/><rect class="trafo" x="802" y="680" width="80" height="70" rx="12" fill="#5f6a8c" stroke="#c7cde6" stroke-width="4"/></g>
+          <g transform="translate(950 820)"><g class="sobe"><path d="M-70 0 V -110 L 0 -170 L 70 -110 V 0z" fill="#eef1ff"/><rect x="-18" y="-60" width="36" height="60" fill="#9aa7c7"/></g></g>
+          <path class="fiocasa" d="M840 690 Q 900 700 940 700" fill="none" stroke="${COR.amarelo}" stroke-width="5"/>
+          <g class="dist">${ROTULO(470, 330, "CENTENAS DE KM", COR.amarelo, 40)}<path d="M150 400 H 790" stroke="#fff" stroke-width="6" stroke-dasharray="14 12"/><path d="M790 400 l -26 -16 v32z" fill="#fff"/></g>
+          <g class="rtrafo">${ROTULO(720, 560, "TRANSFORMADOR", COR.verde, 32)}</g>
+          <g class="interior" opacity="0"><rect x="120" y="140" width="760" height="720" rx="50" fill="${COR.noite}"/>
+            <g class="tomada" transform="translate(330 560)"><rect x="-110" y="-110" width="220" height="220" rx="40" fill="#eef1ff"/><circle r="74" fill="#d6dbef"/><circle cx="-28" cy="-14" r="13" fill="#5f6a8c"/><circle cx="28" cy="-14" r="13" fill="#5f6a8c"/><circle cx="0" cy="34" r="13" fill="#5f6a8c"/></g>
+            <path class="cabolamp" d="M400 560 C 520 560, 560 460, 640 420" fill="none" stroke="#c7cde6" stroke-width="12" stroke-linecap="round"/>
+            ${LAMPADA(680, 360, 0.8, i)}</g>`;
+        const cabo = $(".cabo", el), dist = $(".dist", el), rtrafo = $(".rtrafo", el), interior = $(".interior", el), lamp = $(".lamp", el), cabolamp = $(".cabolamp", el);
+        tl.fromTo($$(".sobe, .poste", el), { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out", immediateRender: false }, c.ini + 0.2);
+        tl.set([dist, rtrafo], { opacity: 0 }, c.ini);
+        const tc = B("cabos", 0.15);
+        desenhar(cabo, tc, 1.0);
+        fluxo(cabo, 6, "#fff3b0", 9, tc + 0.8, c.fim, 0.35, el, 71);
+        tl.set(dist, { opacity: 1 }, B("distancia", 0.35));
+        pop(dist, B("distancia", 0.35));
+        const tt = B("transformador", 0.55);
+        tl.to(dist, { opacity: 0, duration: 0.3 }, tt - 0.2);
+        tl.set(rtrafo, { opacity: 1 }, tt);
+        pop(rtrafo, tt);
+        tl.fromTo($(".trafo", el), { fill: "#5f6a8c" }, { fill: COR.verde, duration: 0.25, yoyo: true, repeat: 3, immediateRender: false }, tt);
+        desenhar($(".fiocasa", el), tt + 0.4, 0.4);
+        const tto = B("tomada", 0.75);
+        tl.set(interior, { opacity: 1 }, tto - 0.35);
+        tl.fromTo(interior, { scale: 0.2, svgOrigin: "950 760" }, { scale: 1, svgOrigin: "950 760", duration: 0.55, ease: "power3.out", immediateRender: false }, tto - 0.35);
+        desenhar(cabolamp, tto + 0.2, 0.5);
+        fluxo(cabolamp, 4, COR.azul, 9, tto + 0.5, c.fim, 0.9, el, 73);
+        acender(lamp, B("lampada", 0.92));
+      };
+
+      // 9. resumo + chamada
+      CENAS.resumo = (el, c, B, i) => {
+        const passos = [["ALGO GIRA", COR.verde], ["O ÍMÃ GIRA NOS FIOS", COR.rosa], ["OS ELÉTRONS ANDAM", COR.azul], ["A LUZ ACENDE", COR.amarelo]];
+        el.innerHTML = passos.map(([t, cor], k) => `<g transform="translate(500 ${150 + k * 190})"><g class="passo"><rect x="-400" y="-70" width="800" height="140" rx="40" fill="rgba(255,255,255,0.08)" stroke="${cor}" stroke-width="5"/><circle cx="-320" r="46" fill="${cor}"/><text class="rot" x="-320" y="16" text-anchor="middle" font-size="46" fill="#141a3a">${k + 1}</text><text class="rot" x="-240" y="16" font-size="48" fill="#fff">${t}</text></g></g>${k < 3 ? `<path class="liga" d="M500 ${222 + k * 190} v 46" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0"/>` : ""}`).join("") +
+          `<g class="fim" opacity="0"><g transform="translate(500 340)"><g class="fi"><rect x="-110" y="-110" width="220" height="220" rx="60" fill="${COR.amarelo}"/><path d="M0 -70 a56 56 0 0 0 -32 102 v18 h64 v-18 A56 56 0 0 0 0 -70z" fill="#1b1f3b"/><rect x="-28" y="58" width="56" height="16" rx="8" fill="#1b1f3b"/></g></g>
+            <text class="rot fi" x="500" y="560" text-anchor="middle" font-size="70" fill="#fff">APRENDENDO <tspan fill="${COR.amarelo}">FÁCIL</tspan></text>
+            <g transform="translate(500 700)"><g class="seguir fi"><rect x="-200" y="-56" width="400" height="112" rx="56" fill="${COR.rosa}"/><text class="rot" x="0" y="20" text-anchor="middle" font-size="54" fill="#fff">SEGUIR</text></g></g>
+            <text class="rot fi" x="500" y="860" text-anchor="middle" font-size="40" fill="#c7cde6">Qual assunto vem a seguir? Comenta!</text></g>`;
+        const ps = $$(".passo", el), ligas = $$(".liga", el), fim = $(".fim", el);
+        ps.forEach((p) => tl.set(p, { opacity: 0 }, c.ini));
+        ["passo1", "passo2", "passo3", "passo4"].forEach((b, k) => {
+          const t = B(b, 0.15 + k * 0.15);
+          tl.fromTo(ps[k], { x: -200, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "back.out(1.6)", immediateRender: false }, t);
+          if (k) { tl.set(ligas[k - 1], { opacity: 1 }, t - 0.15); desenhar(ligas[k - 1], t - 0.15, 0.2); }
+        });
+        const tcta = B("cta", 0.8);
+        tl.to([...ps, ...ligas], { opacity: 0, y: -60, duration: 0.4, stagger: 0.04, ease: "power2.in" }, tcta - 0.4);
+        tl.set(fim, { opacity: 1 }, tcta);
+        tl.fromTo($$(".fi", fim), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.12, ease: "back.out(1.8)", immediateRender: false }, tcta);
+        tl.fromTo($(".seguir", fim), { scale: 1 }, { scale: 1.08, duration: 0.45, yoyo: true, repeat: Math.max(1, Math.floor((T - tcta - 0.6) / 0.45)), ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tcta + 0.6);
+      };
+
+      // monta as cenas
+      A.cenas.forEach((c, i) => {
+        const el = g("", $("#svg"));
+        el.setAttribute("class", "cena");
+        defsAura(i);
+        const B = (nome, frac) => (c.batidas[nome] != null ? c.batidas[nome] : c.voz + (c.fim - c.voz) * (frac || 0.5));
+        tl.set(el, { opacity: 1 }, c.ini);
+        tl.set(el, { opacity: 0 }, c.fim);
+        CENAS[c.tipo](el, c, B, i);
+        // câmera: leve aproximação contínua na cena toda
+        const wrap = document.createElementNS(NS, "g");
+        el.parentNode.insertBefore(wrap, el); wrap.appendChild(el);
+        tl.fromTo(wrap, { scale: 0.96 }, { scale: 1.04, svgOrigin: "500 500", duration: c.fim - c.ini, ease: "none", immediateRender: false }, c.ini);
+      });
+      tl.set({}, {}, T);
+      tl.seek(0);
+    </script>
+  </body>
+</html>

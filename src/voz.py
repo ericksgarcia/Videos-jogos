@@ -241,11 +241,11 @@ def _gol_esticado(wav):
 TENTATIVAS_GOL = 4
 
 
-def _gemini(texto, voz, destino, tts=None):
+def _gemini(texto, voz, destino, tts=None, direcao=None):
     """Sintetiza; se a fala tem "Gol" e ele sair gritado, gera de novo (até 4 vezes)."""
     tem_gol = any(re.sub(r"[^\wÀ-ÿ]", "", w) == "Gol" for w in texto.split())
     for tentativa in range(TENTATIVAS_GOL if tem_gol else 1):
-        res = _gemini_uma(texto, voz, destino, tts)
+        res = _gemini_uma(texto, voz, destino, tts, direcao)
         if not tem_gol:
             return res
         try:
@@ -257,9 +257,9 @@ def _gemini(texto, voz, destino, tts=None):
     return res
 
 
-def _gemini_uma(texto, voz, destino, tts=None):
+def _gemini_uma(texto, voz, destino, tts=None, direcao=None):
     chave = os.environ["GEMINI_API_KEY"]
-    corpo = {"contents": [{"parts": [{"text": DIRECAO + (tts or texto)}]}],
+    corpo = {"contents": [{"parts": [{"text": (direcao or DIRECAO) + (tts or texto)}]}],
              "generationConfig": {"responseModalities": ["AUDIO"],
                                   "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voz}}}}}
     for tentativa in range(4):
@@ -304,7 +304,7 @@ def _wav48(origem, destino):
     return float(out.stdout.strip())
 
 
-def _edge(texto, voz, destino, tts=None):
+def _edge(texto, voz, destino, tts=None, direcao=None):
     import edge_tts
     import edge_tts.communicate as ec
     ca = os.environ.get("SSL_CERT_FILE") or ("/root/.ccr/ca-bundle.crt" if os.path.exists("/root/.ccr/ca-bundle.crt") else None)
@@ -338,7 +338,7 @@ def _alinhar(texto, palavras):
     return [[w, p[1], p[2]] for w, p in zip(ws, palavras)]
 
 
-def _azure(texto, voz, destino, tts=None):
+def _azure(texto, voz, destino, tts=None, direcao=None):
     chave, regiao = os.environ["AZURE_SPEECH_KEY"], os.environ.get("AZURE_SPEECH_REGION", "brazilsouth")
     ssml = (f"<speak version='1.0' xml:lang='pt-BR'><voice name='{voz}'><prosody rate='{VELOCIDADE}'>"
             f"{texto.replace('&', 'e')}</prosody></voice></speak>")
@@ -353,7 +353,7 @@ def _azure(texto, voz, destino, tts=None):
     return None, dur
 
 
-def _google(texto, voz, destino, tts=None):
+def _google(texto, voz, destino, tts=None, direcao=None):
     r = requests.post(f"https://texttospeech.googleapis.com/v1/text:synthesize?key={os.environ['GOOGLE_TTS_API_KEY']}",
                       json={"input": {"text": texto}, "voice": {"languageCode": "pt-BR", "name": voz},
                             "audioConfig": {"audioEncoding": "LINEAR16", "sampleRateHertz": 48000, "speakingRate": 1.08}},
@@ -386,7 +386,7 @@ def _ordem():
     return ordem + ["edge"]
 
 
-def narrar(texto, tts=None):
+def narrar(texto, tts=None, direcao=None, voz_nome=None):
     """Devolve {"wav": caminho ou None, "dur": s, "palavras": [[w, ini, fim]], "provedor": nome}.
 
     `tts` é o texto enviado ao Gemini, com tags de emoção ([excitement]) e o
@@ -394,14 +394,14 @@ def narrar(texto, tts=None):
     CACHE.mkdir(parents=True, exist_ok=True)
     for nome in _ordem():
         fn, padrao = PROVEDORES[nome]
-        voz = os.environ.get("VOZ_NOME", padrao)
-        extra = f"{GEMINI_MODELO}|{DIRECAO}|{tts}" if nome == "gemini" else VELOCIDADE
+        voz = voz_nome if (voz_nome and nome == "gemini") else os.environ.get("VOZ_NOME", padrao)
+        extra = f"{GEMINI_MODELO}|{direcao or DIRECAO}|{tts}" if nome == "gemini" else VELOCIDADE
         h = hashlib.sha1(f"{nome}|{voz}|{extra}|{texto}".encode()).hexdigest()[:16]
         wav, meta = CACHE / f"{h}.wav", CACHE / f"{h}.json"
         if wav.exists() and meta.exists():
             return json.loads(meta.read_text())
         try:
-            palavras, dur = fn(texto, voz, wav, tts=tts)
+            palavras, dur = fn(texto, voz, wav, tts=tts, direcao=direcao)
         except Exception as e:  # sem rede, sem chave, serviço fora: tenta o próximo
             if nome not in _avisado:
                 print(f"   [voz] {nome} indisponível ({type(e).__name__}: {str(e)[:90]})")
