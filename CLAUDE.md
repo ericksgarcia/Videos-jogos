@@ -161,8 +161,7 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Desenhos (devolvem SVG em texto): `sombra`, `halo`, `nuvem`, `estrelas`, `eletron`,
   `lampada` (+ `acender(lamp, t)`), `torre`, `casa`, `usinaT`, `turbinaR`, `eolica`,
   `rotulo`, `callout`. `P(x, y, escala, classe, svg)` posiciona algo num invólucro.
-- Pessoas: `pessoa(corpo, pele, cabelo, {gravata, faixa, prancheta})` e `gente(k, opções)`
-  (variações prontas de cor/pele/cabelo).
+- Pessoas (`pessoa`, `gente`, `personagem`): existem, mas o dono pediu vídeos **sem bonecos**.
 - Ícones (`ICONE.saude`, `escola`, `lixo`, `buraco`, `onibus`, `policia`, `hospital`,
   `ensino`, `estrada`, `economia`, `globo`, `forcas`) e medalhões (`medalha`, `medalhas`),
   `etiqueta`, `bandeira`, prédios (`palacio`, `moderno`), `congresso`, `planalto`, mapa do
@@ -186,6 +185,31 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Granulação de filme: automática em todo vídeo.
 - Padrão do vídeo da eletricidade: desenhe a cena e aplique os efeitos depois, com
   `_comEfeitos("tipo", (el, c, B, frente) => {...})` no fim do `cenas.js`.
+
+### Técnicas das skills do HyperFrames (`motor/efeitos.js`) — padrão desde o vídeo do navio
+
+Referência completa: `videos/navio/cenas.js`. Todas são funções puras do tempo (seguras para seek).
+
+- **Sem bonecos** (pedido do dono): não use pessoas/personagens (`pessoa`, `gente`,
+  `personagem`); conte a história com objetos (bola de praia, papiro, pulmões, colete…).
+- **Câmera em fases**: o mundo da cena fica em `<g class="cam">` e
+  `cameraFases(g, [[t, escala, focoX, focoY], …], c.fim)` leva o foco ao centro com
+  micro-deriva. Abra fechado e revele, aproxime no detalhe, recue para o plano geral.
+  Rótulos que não podem sair do quadro ficam FORA do `.cam`. Fundos (`ceu()`, `faixa()`)
+  vão de -200 a W+200 para a câmera não mostrar borda.
+- **Foco seletivo**: `focoSeletivo(invólucro, [[ini, fim, px]], c.fim)` desfoca o plano
+  que não importa naquele momento (num invólucro sem outro filtro).
+- **Contador**: `contador(<text>, de, até, t, dur, fmt)` para números ditos na fala.
+- **Entradas variadas**: `entrar(el, t, "escala|esq|dir|baixo|cima|mola")` e
+  `sair(el, t, direção)` — varie direção e curva; saída mais rápida que a entrada.
+- **Brilho no rótulo**: `reflexoPassando(g, texto, tamanho, t)` nos rótulos principais.
+- **Física**: `respingo(pai, x, y, t, n)` (gotas balísticas) e `bolhasSobem(...)`.
+- **Água**: `ondas()`, `cintilar()` e `ondular()` (reflexos ondulando; pesa no render,
+  use em poucos elementos).
+- Render final com `--cinema` (bloom, LUT `motor/cinema.cube`, luz vazando). Leva ~1 h
+  para um vídeo de 2min45; `--cena N` renderiza só uma cena para testar.
+- `gerar.py` só verifica erros de JavaScript se houver Python Playwright; sem ele, rode
+  `PRODUCER_HEADLESS_SHELL_PATH=$(ls -d /opt/pw-browsers/chromium_headless_shell-*/*/headless_shell | tail -1) node aprendendo/motor/verificar.cjs output/<tema>/build`.
 
 ### Animações Lottie (`motor/lottie.js`) — personagens e elementos de designers
 
