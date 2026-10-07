@@ -30,8 +30,8 @@
       0.5
     ],
     "entra": [
-      "agua",
-      0.7
+      "whoosh_curto",
+      0.6
     ],
     "transborda": [
       "agua",
@@ -42,8 +42,8 @@
       0.5
     ],
     "cima": [
-      "whoosh",
-      0.55
+      "agua",
+      0.7
     ],
     "empuxo": [
       "plim",
@@ -225,12 +225,12 @@
       "id": "piscina",
       "tipo": "piscina",
       "titulo": "O empurrão da água",
-      "fala": "Pra entender, pensa numa piscina cheia até a borda. Quando você entra, a água sobe e transborda. Seu corpo empurrou a água pra fora do lugar dela. E a água empurra de volta: ela te empurra pra cima. Essa força se chama empuxo. E ela segue uma regra simples, descoberta há mais de dois mil anos.",
+      "fala": "Pensa numa bola de praia boiando na piscina. Agora tenta afundar ela: a bola empurra a água pra fora do lugar, e o nível da água sobe. Só que a água empurra de volta, e com força: solta a bola e ela pula pra cima. Essa força se chama empuxo. E ela segue uma regra simples, descoberta há mais de dois mil anos.",
       "batidas": {
-        "piscina": "piscina",
-        "entra,": "entra",
-        "transborda.": "transborda",
-        "empurrou": "empurrou",
+        "piscina.": "piscina",
+        "afundar": "entra",
+        "sobe.": "transborda",
+        "volta,": "empurrou",
         "cima.": "cima",
         "empuxo.": "empuxo"
       }
@@ -303,7 +303,7 @@
         "boia": "boiaP",
         "colete": "colete",
         "submarino": "sub",
-        "descer": "desce",
+        "tanques": "desce",
         "subir.": "sobe"
       }
     },

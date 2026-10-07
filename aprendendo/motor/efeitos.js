@@ -132,3 +132,115 @@ function cintilar(pai, n, area, t, fim, cor, seed) {
   });
   brilhar(pai);
 }
+
+// ================= técnicas das skills do HyperFrames (hyperframes-animation) =================
+// Tudo é função pura do tempo (aCadaQuadro) ou tween na tl: determinístico e seguro para seek.
+const _suave = (x) => x * x * (3 - 2 * x);
+
+// câmera em fases (multi-phase-camera): `g` é o <g> que envolve o mundo da cena (sem atributo
+// transform próprio). fases = [[t, escala, focoX, focoY], ...]: o ponto de foco vai para o centro
+// (540, 900). Entre fases, curva suave; por cima, micro-deriva senoidal (a câmera nunca fica morta).
+// Rótulos que não podem sair do quadro ficam FORA desse <g>.
+function cameraFases(g, fases, fim, deriva) {
+  const d = deriva ?? 1;
+  aCadaQuadro((t) => {
+    if (t < fases[0][0] - 1.5 || t > fim + 0.6) return;
+    let i = 0;
+    while (i < fases.length - 2 && t > fases[i + 1][0]) i++;
+    const [t0, s0, x0, y0] = fases[i], [t1, s1, x1, y1] = fases[i + 1];
+    const u = _suave(Math.min(1, Math.max(0, (t - t0) / Math.max(0.01, t1 - t0))));
+    const S = s0 + (s1 - s0) * u, fx = x0 + (x1 - x0) * u + d * 6 * Math.sin(t * 0.6), fy = y0 + (y1 - y0) * u + d * 4 * Math.sin(t * 0.78);
+    g.setAttribute("transform", `translate(540 900) scale(${S.toFixed(4)}) translate(${(-fx).toFixed(2)} ${(-fy).toFixed(2)})`);
+  });
+}
+
+// foco seletivo / rack focus (depth-of-field-blur): desfoca `alvo` nas janelas [[ini, fim, px], ...]
+// (rampa de 0,6 s). Use num invólucro sem outro filtro.
+let _nFoco = 0;
+function focoSeletivo(alvo, janelas, fimCena) {
+  const id = `foco${_nFoco++}`;
+  $("#defs").insertAdjacentHTML("beforeend", `<filter id="${id}" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur id="${id}b" stdDeviation="0"/></filter>`);
+  const b = $(`#${id}b`);
+  aCadaQuadro((t) => {
+    if (t > fimCena + 0.6) return;
+    let v = 0;
+    janelas.forEach(([a, z, px]) => { v = Math.max(v, Math.max(0, Math.min(1, (t - a) / 0.6, (z - t) / 0.6)) * px); });
+    b.setAttribute("stdDeviation", v.toFixed(2));
+    v > 0.05 ? alvo.setAttribute("filter", `url(#${id})`) : alvo.removeAttribute("filter");
+  });
+}
+
+// contador que cresce (counting-dynamic-scale): escreve no <text> o valor de `de` até `ate`
+// (curva expo.out) entre t e t+dur; fmt(v) formata (padrão: 100.000).
+function contador(txt, de, ate, t, dur, fmt) {
+  fmt = fmt || ((v) => Math.round(v).toLocaleString("pt-BR"));
+  aCadaQuadro((x) => {
+    const u = Math.min(1, Math.max(0, (x - t) / dur));
+    txt.textContent = fmt(de + (ate - de) * (u >= 1 ? 1 : 1 - Math.pow(2, -10 * u)));
+  });
+}
+
+// entradas e saídas variadas (motion-principles: varie direção, velocidade e curva; saída mais
+// rápida que a entrada, com curva .in). estilos: escala | esq | dir | baixo | cima | mola
+const _ENTRADAS = {
+  escala: [{ opacity: 0, scale: 0.55 }, { duration: 0.7, ease: "expo.out" }],
+  esq: [{ opacity: 0, x: -240 }, { duration: 0.55, ease: "power4.out" }],
+  dir: [{ opacity: 0, x: 240 }, { duration: 0.55, ease: "power4.out" }],
+  baixo: [{ opacity: 0, y: 70, scale: 0.9 }, { duration: 0.6, ease: "back.out(2.2)" }],
+  cima: [{ opacity: 0, y: -90 }, { duration: 0.75, ease: "bounce.out" }],
+  mola: [{ opacity: 0, scale: 0 }, { duration: 0.5, ease: "back.out(1.9)" }],
+};
+function entrar(el, t, estilo) {
+  const [de, como] = _ENTRADAS[estilo || "mola"];
+  tl.set(el, { opacity: 0 }, 0);
+  tl.fromTo(el, Object.assign({ x: 0, y: 0, scale: 1, transformOrigin: "50% 50%" }, de),
+    Object.assign({ x: 0, y: 0, scale: 1, opacity: 1, transformOrigin: "50% 50%", immediateRender: false }, como), t);
+}
+function sair(el, t, estilo) {
+  const para = { esq: { x: -220 }, dir: { x: 220 }, cima: { y: -60 }, baixo: { y: 60 } }[estilo] || { scale: 0.85 };
+  tl.to(el, Object.assign({ opacity: 0, duration: 0.24, ease: "power2.in", transformOrigin: "50% 50%" }, para), t);
+}
+
+// brilho atravessando uma pílula do rotulo() (ambient sheen)
+$("#defs").insertAdjacentHTML("beforeend", `<linearGradient id="sheenG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>`);
+let _nSheen = 0;
+const reflexoPassando = (g, txt, tam, t) => {
+  const w = txt.length * tam * 0.6 + 52, id = `sheen${_nSheen++}`;
+  g.insertAdjacentHTML("beforeend", `<clipPath id="${id}"><rect x="${-w / 2}" y="-34" width="${w}" height="68" rx="34"/></clipPath><g clip-path="url(#${id})"><rect class="sheen" x="-60" y="-50" width="60" height="100" fill="url(#sheenG)" transform="skewX(-20)"/></g>`);
+  tl.fromTo($(".sheen", g), { x: -w / 2 - 80 }, { x: w / 2 + 120, duration: 0.7, ease: "power2.inOut", immediateRender: false }, t);
+};
+
+// respingo (particle-burst): gotas em voo balístico a partir de (x, y) no instante t
+const _pr = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+function respingo(pai, x, y, t, n, o) {
+  o = Object.assign({ forca: 1, abertura: 560, seed: 1, cores: ["#e8f7ff", "#9fe6ff"], g: 2200 }, o || {});
+  const s0 = o.seed * 97;
+  pai.insertAdjacentHTML("beforeend", Array.from({ length: n }, (_, i) => `<ellipse class="gt${s0}" rx="${(3 + 4 * _pr(s0 + i)).toFixed(1)}" ry="${(4 + 5 * _pr(s0 + i + 50)).toFixed(1)}" fill="${o.cores[i % o.cores.length]}" opacity="0"/>`).join(""));
+  const gs = $$(`.gt${s0}`, pai);
+  aCadaQuadro((tt) => {
+    const k = tt - t;
+    gs.forEach((g, i) => {
+      const vida = 0.65 + 0.4 * _pr(s0 + i * 3 + 1);
+      if (k < 0 || k > vida) { g.setAttribute("opacity", 0); return; }
+      const vx = (_pr(s0 + i * 5 + 2) - 0.5) * o.abertura * o.forca, vy = -(380 + 520 * _pr(s0 + i * 7 + 3)) * o.forca;
+      g.setAttribute("transform", `translate(${(x + vx * k).toFixed(1)} ${(y + vy * k + 0.5 * o.g * k * k).toFixed(1)}) rotate(${(Math.atan2(vy + o.g * k, vx) * 57.3 - 90).toFixed(0)})`);
+      g.setAttribute("opacity", (k > vida * 0.6 ? 1 - (k - vida * 0.6) / (vida * 0.4) : 1).toFixed(2));
+    });
+  });
+}
+// bolhas subindo (balançando) de (x, y), soltas ao longo de [t, t+dur]
+function bolhasSobem(pai, x, y, n, t, dur, o) {
+  o = Object.assign({ altura: 420, seed: 3, espalha: 60 }, o || {});
+  const s0 = o.seed * 89;
+  pai.insertAdjacentHTML("beforeend", Array.from({ length: n }, (_, i) => `<circle class="bb${s0}" r="${(4 + 9 * _pr(s0 + i)).toFixed(1)}" fill="#dff6ff" fill-opacity="0.25" stroke="#fff" stroke-opacity="0.8" stroke-width="2" opacity="0"/>`).join(""));
+  const bs = $$(`.bb${s0}`, pai);
+  aCadaQuadro((tt) => {
+    bs.forEach((b, i) => {
+      const nasce = t + dur * _pr(s0 + i * 11), vida = 1.1 + 0.8 * _pr(s0 + i * 13), k = (tt - nasce) / vida;
+      if (k < 0 || k > 1) { b.setAttribute("opacity", 0); return; }
+      const bx = x + (_pr(s0 + i * 17) - 0.5) * o.espalha + 14 * Math.sin(k * 9 + i), by = y - o.altura * k * (0.7 + 0.5 * _pr(s0 + i * 19));
+      b.setAttribute("transform", `translate(${bx.toFixed(1)} ${by.toFixed(1)})`);
+      b.setAttribute("opacity", (k > 0.75 ? (1 - k) / 0.25 : Math.min(1, k * 6)).toFixed(2));
+    });
+  });
+}
