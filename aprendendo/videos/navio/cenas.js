@@ -43,6 +43,8 @@ const navio = (o) => {
     <g transform="translate(150 -12)"><circle r="9" fill="none" stroke="#fff" stroke-width="3"/><path d="M-16 0 H 16" stroke="#fff" stroke-width="3"/></g>
     ${o.raiox ? `<g class="raiox" opacity="0">
       <path d="M-490 -112 H ${(bx(-112) - 16).toFixed(1)} L ${(bx(d - 10) - 16).toFixed(1)} ${d - 10} H -466 Q -488 ${d - 16} -490 -100 Z" fill="#0b1440" opacity="0.93"/>
+      <rect class="inunda2" x="102" y="${d - 10}" width="116" height="0" fill="${C.azul}" opacity="0.9"/>
+      <rect class="inunda3" x="-18" y="${d - 10}" width="116" height="0" fill="${C.azul}" opacity="0.9"/>
       <rect class="inunda" x="222" y="${d - 10}" width="116" height="0" fill="${C.azul}" opacity="0.9"/>
       ${comp.slice(1).map((x) => `<path class="antepara" d="M${x} -112 V ${d - 10}" stroke="#8fe3ff" stroke-width="6"/>`).join("")}
       <path class="convesF" d="M-490 -112 H ${(bx(-112) - 16).toFixed(1)}" stroke="#8fe3ff" stroke-width="5"/>
@@ -90,15 +92,16 @@ CENAS.porto = (el, c, B) => {
     <path d="M210 ${MAR} L 120 1420 H 380 L 290 ${MAR} Z" fill="#ffb36b" opacity="0.16"/>
     ${reflexos(MAR + 8, 1400, 46, 4, "#ffd9b0", "reflP")}
     <g class="gvs"></g>
-    <g transform="translate(610 ${MAR}) scale(0.86)"><g class="navio"><g class="navioB">${navio()}</g></g></g>
+    <g transform="translate(610 ${MAR}) scale(0.86)"><g class="navio"><g class="navioB">${navio()}<g transform="translate(300 -6)"><g class="furoP"><circle r="18" fill="#0b1440" stroke="${C.vermelho}" stroke-width="7"/></g></g></g></g></g>
     <g transform="translate(95 760)"><g class="paraf">${parafuso()}</g></g>
     <g class="respingo" opacity="0">${[0, 1, 2].map((k) => `<ellipse class="onda" cx="95" cy="${MAR + 4}" rx="${30 + k * 26}" ry="${8 + k * 6}" fill="none" stroke="#fff" stroke-width="4"/>`).join("")}</g>
     <g class="bolhasP"></g>
     <rect y="${MAR}" width="${W}" height="${H - MAR}" fill="#1d2463" opacity="0.5"/>
     <path d="M0 ${MAR} H ${W}" stroke="#ffd9b0" stroke-width="3" opacity="0.5"/>
     <g transform="translate(540 1200)"><g class="peso">${rotulo("+ DE 100 MIL TONELADAS", C.vermelho, 40)}</g></g>
+    <g transform="translate(540 1200)"><g class="tProm">${rotulo("NO FINAL: E SE O CASCO FURAR?", C.amarelo, 34)}</g></g>
     <g class="cAco" opacity="0">${callout(400, 980, 300, 1200, "AÇO", C.ciano)}</g>
-    <g transform="translate(860 470)"><g class="perg"><circle r="62" fill="#fff"/><text class="rot" y="30" text-anchor="middle" font-size="90" fill="#141a3a">?</text></g></g>`;
+    <g transform="translate(900 610)"><g class="perg"><circle r="62" fill="#fff"/><text class="rot" y="30" text-anchor="middle" font-size="90" fill="#141a3a">?</text></g></g>`;
   lottieEm($(".nuvensP", el), "nuvens", 540, 560, 1300, 730, { loop: true, vel: 0.5 });
   gaivotas($(".gvs", el), [[160, 640, 0.8, 520], [260, 700, 0.6, 470], [80, 760, 0.5, 560]], c.ini, c.fim);
   animarReflexos($(".reflP", el), c.ini, c.fim);
@@ -121,6 +124,12 @@ CENAS.porto = (el, c, B) => {
   tl.fromTo($$(".onda", el), { scale: 0.3, opacity: 1, transformOrigin: "50% 50%" }, { scale: 1.4, opacity: 0, duration: 0.9, stagger: 0.1, ease: "power2.out", immediateRender: false }, tf + 0.9);
   faiscas($(".bolhasP", el), 95, MAR + 10, 10, tf + 0.9, tf + 1.8, "#ffffff", 140, 5);
   tl.to(pf, { y: 1330 - 760, rotation: 60, duration: 2.2, ease: "power1.out" }, tf + 0.9);
+  // promessa (loop aberto): o casco furado, mostrado na parte 5
+  const tpr = B("promessa", 0.85), tfu = B("titulo", 0.95);
+  tl.set([$(".tProm", el), $(".furoP", el)], { opacity: 0 }, 0);
+  pop($(".tProm", el), tpr);
+  pop($(".furoP", el), tfu - 0.1);
+  tl.fromTo($(".furoP", el), { scale: 1 }, { scale: 1.35, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tfu + 0.4);
   const tq = B("pergunta", 0.7);
   pop($(".perg", el), tq);
   tl.fromTo($(".perg", el), { rotation: -8 }, { rotation: 8, duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tq + 0.4);
@@ -202,6 +211,8 @@ CENAS.arquimedes = (el, c, B) => {
     <g transform="translate(${PX} 520)"><g class="igual"><circle r="56" fill="#fff"/><path d="M-26 -12 H 26 M-26 12 H 26" stroke="#141a3a" stroke-width="10" stroke-linecap="round"/></g></g>
     <g transform="translate(${PX} 420)"><g class="tBoia">${rotulo("BOIA", C.verde, 54)}</g></g>
     <g transform="translate(${PX} 420)"><g class="tAfunda">${rotulo("AFUNDA", C.vermelho, 54)}</g></g>
+    <g transform="translate(540 420)"><g class="tOito">${rotulo("AÇO: 8× MAIS PESADO QUE A ÁGUA", C.vermelho, 30)}</g></g>
+    <g transform="translate(540 420)"><g class="tPalp">${rotulo("COMENTA SEU PALPITE", C.rosa, 42)}</g></g>
     <g transform="translate(140 1330) scale(1.4)"><g class="arq">${pessoa("#f4efe2", "#d9a27c", "#c9c9d6")}<path d="M-30 -186 C -30 -150, 30 -150, 30 -186 C 20 -168, -20 -168, -30 -186 Z" fill="#c9c9d6"/><path d="M-38 -150 L 38 -60 V -30 L -38 -120 Z" fill="${C.azul}" opacity="0.8"/></g></g>
     <g transform="translate(430 1240)"><g class="tArq">${rotulo("ARQUIMEDES · 250 a.C.", C.amarelo, 28)}</g></g>`;
   animarReflexos($(".reflAr", el), c.ini, c.fim);
@@ -233,6 +244,14 @@ CENAS.arquimedes = (el, c, B) => {
   tl.to($("rect", obj), { attr: { fill: "#3b3355" }, duration: 0.4 }, tf - 0.3);
   inclina(tf, -10);
   pop($(".tAfunda", el), tf + 0.1);
+  // o problema: o aço é muito mais pesado que a água -> pergunta para o público
+  const to = B("oito", 0.94), tpp = B("palpite", 0.98);
+  tl.set([$(".tOito", el), $(".tPalp", el)], { opacity: 0 }, 0);
+  tl.to($(".tAfunda", el), { opacity: 0, duration: 0.3 }, to - 0.3);
+  pop($(".tOito", el), to);
+  tl.to($(".tOito", el), { opacity: 0, duration: 0.3 }, tpp - 0.3);
+  pop($(".tPalp", el), tpp);
+  tl.fromTo($(".tPalp", el), { scale: 1 }, { scale: 1.08, duration: 0.35, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tpp + 0.5);
 };
 
 // =============== 4. massinha: bola afunda, barquinho boia ===============
@@ -384,6 +403,8 @@ CENAS.pratica = (el, c, B) => {
     <path d="M0 ${NA} H ${W}" stroke="#dff6ff" stroke-width="4" opacity="0.8"/>
     <g class="cLinha" opacity="0">${callout(695, 972, 600, 1210, "LINHA D'ÁGUA", C.amarelo)}</g>
     <g transform="translate(540 500)"><g class="tEq">${rotulo("PESO = EMPUXO", C.verde, 42)}</g></g>
+    <g transform="translate(540 500)"><g class="tVaza">${rotulo("E SE O CASCO FURAR?", C.vermelho, 42)}</g></g>
+    <g transform="translate(540 500)"><g class="tTit">${rotulo("TITANIC, 1912", C.vermelho, 46)}<g transform="translate(0 84)">${rotulo("PAREDES BAIXAS: A ÁGUA PASSOU POR CIMA", C.laranja, 26)}</g></g></g>
     <g transform="translate(540 500)"><g class="tComp">${rotulo("COMPARTIMENTOS FECHADOS", C.ciano, 36)}</g></g>
     <g transform="translate(540 500)"><g class="tOk">${check(C.verde)}<g transform="translate(0 90)">${rotulo("CONTINUA BOIANDO", C.verde, 40)}</g></g></g>`;
   lottieEm($(".nuvensPr", el), "nuvens", 540, 560, 1300, 730, { loop: true, vel: 0.5 });
@@ -405,6 +426,8 @@ CENAS.pratica = (el, c, B) => {
   tl.to($(".aguaFr", el), { opacity: 0.15, duration: 0.5 }, tv - 0.2);
   tl.to($(".raiox", el), { opacity: 1, duration: 0.5 }, tv - 0.2);
   pop($(".furo", el), tv + 0.2);
+  pop($(".tVaza", el), tv);
+  tl.to($(".tVaza", el), { opacity: 0, duration: 0.3 }, tco - 0.3);
   tl.to($(".inunda", el), { attr: { y: -40, height: 130 - 10 + 40 }, duration: 2.4, ease: "power1.inOut" }, tv + 0.3);
   tl.to($$(".antepara", el), { stroke: C.amarelo, duration: 0.3, stagger: 0.06 }, tco);
   desenhar($$(".antepara", el), tco, 0.5);
@@ -412,6 +435,16 @@ CENAS.pratica = (el, c, B) => {
   tl.to(nav, { y: 8, duration: 1.2, ease: "power2.out" }, tv + 0.6);
   tl.to($(".tComp", el), { opacity: 0, duration: 0.3 }, ts - 0.3);
   pop($(".tOk", el), ts);
+  // fato-surpresa: no Titanic a água passou por cima das paredes, de um compartimento ao outro
+  const tti = B("titanic", 0.95), tpa = B("passa", 0.97);
+  tl.set([$(".tVaza", el), $(".tTit", el)], { opacity: 0 }, 0);
+  tl.to($(".tOk", el), { opacity: 0, duration: 0.3 }, tti - 0.3);
+  pop($(".tTit", el), tti);
+  tl.to($$(".antepara", el), { stroke: C.vermelho, duration: 0.3 }, tti);
+  tl.to($(".inunda", el), { attr: { y: -112, height: 130 - 10 + 112 }, duration: 0.6 }, tpa - 0.4);
+  tl.to($(".inunda2", el), { attr: { y: -112, height: 130 - 10 + 112 }, duration: 1.0, ease: "power1.in" }, tpa);
+  tl.to($(".inunda3", el), { attr: { y: -112, height: 130 - 10 + 112 }, duration: 1.0, ease: "power1.in" }, tpa + 0.9);
+  tl.to(nav, { y: 40, rotation: 2.5, svgOrigin: "0 0", duration: 2.2, ease: "power1.in" }, tpa);
 };
 
 // =============== 7. na sua vida: pulmão, colete e submarino ===============

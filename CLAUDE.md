@@ -40,7 +40,7 @@ descrição para o TikTok (gancho, 3–5 linhas, hashtags).
   jargão sem explicação. Pode citar o cientista e o ano quando ajudar.
 - Duração **mínima de 1min30** (o primeiro vídeo tem 2min20; 1:45–2:30 é o ideal).
 - Estrutura que funcionou (`videos/eletricidade/roteiro.json`):
-  1. gancho com uma pergunta + situação cotidiana ("Você aperta o interruptor…");
+  1. gancho com fato chocante ou pergunta + situação cotidiana + promessa (ver "Retenção");
   2. o conceito básico com uma analogia;
   3. a descoberta/o mecanismo central;
   4. como isso é usado na prática (variações);
@@ -48,6 +48,34 @@ descrição para o TikTok (gancho, 3–5 linhas, hashtags).
   6. resumo em 3–4 passos + chamada: "Segue o Aprendendo Fácil e comenta qual
      assunto complicado você quer que eu explique no próximo vídeo."
 - Frases curtas e faladas, com "você", "pensa num…", "imagina…".
+
+## Retenção e engajamento (obrigatório em todo roteiro — pedido do dono)
+
+O vídeo inteiro é escrito para a pessoa não sair, não só o começo. Referência:
+`videos/navio/roteiro.json`. Antes de renderizar, confira cada item:
+
+1. **Gancho em 1–3 s:** a primeira frase já é o fato chocante ou a contradição
+   ("pesa 100 mil toneladas… um parafuso de aço afunda"), com imagem forte desde o
+   quadro 1. Nada de "oi", "hoje vamos falar", apresentação ou contexto antes do gancho.
+2. **Loop aberto (promessa):** ainda no gancho, prometa algo que só aparece lá na
+   frente ("e no final eu te mostro o que acontece quando o casco fura"), com um
+   rótulo na tela. Pague a promessa de forma explícita, perto dos 2/3 do vídeo
+   ("Agora, o que eu te prometi…"), nunca no resumo.
+3. **Re-gancho em cada troca de cena (a cada ~15–25 s):** a cena termina abrindo a
+   próxima com pergunta ou tensão ("Mas aí vem o problema…", "E se…?"). Nunca
+   "agora vamos falar de…".
+4. **Pergunta para comentar no meio** (antes da metade): peça um palpite ("Comenta aí:
+   você acha que…?") e mostre um rótulo "COMENTA SEU PALPITE". Responda logo depois.
+5. **Fato-surpresa na segunda metade:** uma história real, um número ou um erro
+   famoso (ex.: o Titanic) que recompensa quem ficou.
+6. **Mudança visual a cada 2–4 s:** toda frase tem uma batida (algo aparece, se mexe
+   ou muda). Tela parada mais de 4 s é o ponto onde a pessoa arrasta.
+7. **Texto na tela reforça a fala** (rótulos curtos nas palavras-chave); a legenda
+   está sempre ligada.
+8. **Final curto:** resumo de 3–4 passos rápido, CTA da marca e uma última frase que
+   remete ao começo (a imagem do gancho volta), para dar vontade de rever (loop).
+9. **Descrição do post:** começa com pergunta ou curiosidade, convida a comentar e
+   sugere um comentário fixado com uma pergunta para o público.
 
 ## Padrão visual (o dono pediu explicitamente "profissional", não "simples")
 

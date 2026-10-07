@@ -4,38 +4,322 @@
   "gancho": "COMO UM NAVIO DE AÇO NÃO AFUNDA?",
   "gancho_destaque": "AFUNDA",
   "voz": "Achird",
-  "sons": {"peso": ["thud", 0.6], "aco": ["brilho", 0.5], "parafuso": ["agua", 0.7], "pergunta": ["plim", 0.5], "titulo": ["pop", 0.5],
-           "piscina": ["agua", 0.5], "entra": ["agua", 0.7], "transborda": ["agua", 0.6], "empurrou": ["whoosh_curto", 0.5], "cima": ["whoosh", 0.55], "empuxo": ["plim", 0.65],
-           "arq": ["pop", 0.5], "igual": ["clique", 0.6], "boia": ["plim", 0.6], "afunda": ["thud", 0.6],
-           "bola": ["agua", 0.7], "barco": ["whoosh_curto", 0.5], "boia2": ["agua", 0.5], "mesmo": ["clique", 0.6], "oco": ["brilho", 0.5], "fora": ["whoosh", 0.55],
-           "gigante": ["whoosh", 0.7], "fino": ["clique", 0.6], "ar": ["brilho", 0.55], "teatros": ["pop", 0.5], "agua": ["agua", 0.6], "inteiro": ["plim", 0.65],
-           "linha": ["pop", 0.5], "carga": ["thud", 0.55], "equilibra": ["plim", 0.5], "vaza": ["agua", 0.7], "comp": ["clique", 0.7], "seguro": ["plim", 0.6],
-           "pulmao": ["vento", 0.5], "boiaP": ["agua", 0.5], "colete": ["pop", 0.55], "sub": ["whoosh", 0.5], "desce": ["agua", 0.6], "sobe": ["vapor", 0.5],
-           "passo1": ["pop", 0.6], "passo2": ["pop", 0.6], "passo3": ["pop", 0.6], "passo4": ["plim", 0.6], "flutua": ["whoosh", 0.6], "cta": ["plim", 0.6]},
+  "sons": {
+    "peso": [
+      "thud",
+      0.6
+    ],
+    "aco": [
+      "brilho",
+      0.5
+    ],
+    "parafuso": [
+      "agua",
+      0.7
+    ],
+    "pergunta": [
+      "plim",
+      0.5
+    ],
+    "titulo": [
+      "pop",
+      0.5
+    ],
+    "piscina": [
+      "agua",
+      0.5
+    ],
+    "entra": [
+      "agua",
+      0.7
+    ],
+    "transborda": [
+      "agua",
+      0.6
+    ],
+    "empurrou": [
+      "whoosh_curto",
+      0.5
+    ],
+    "cima": [
+      "whoosh",
+      0.55
+    ],
+    "empuxo": [
+      "plim",
+      0.65
+    ],
+    "arq": [
+      "pop",
+      0.5
+    ],
+    "igual": [
+      "clique",
+      0.6
+    ],
+    "boia": [
+      "plim",
+      0.6
+    ],
+    "afunda": [
+      "thud",
+      0.6
+    ],
+    "bola": [
+      "agua",
+      0.7
+    ],
+    "barco": [
+      "whoosh_curto",
+      0.5
+    ],
+    "boia2": [
+      "agua",
+      0.5
+    ],
+    "mesmo": [
+      "clique",
+      0.6
+    ],
+    "oco": [
+      "brilho",
+      0.5
+    ],
+    "fora": [
+      "whoosh",
+      0.55
+    ],
+    "gigante": [
+      "whoosh",
+      0.7
+    ],
+    "fino": [
+      "clique",
+      0.6
+    ],
+    "ar": [
+      "brilho",
+      0.55
+    ],
+    "teatros": [
+      "pop",
+      0.5
+    ],
+    "agua": [
+      "agua",
+      0.6
+    ],
+    "inteiro": [
+      "plim",
+      0.65
+    ],
+    "linha": [
+      "pop",
+      0.5
+    ],
+    "carga": [
+      "thud",
+      0.55
+    ],
+    "equilibra": [
+      "plim",
+      0.5
+    ],
+    "vaza": [
+      "zap",
+      0.5
+    ],
+    "comp": [
+      "clique",
+      0.7
+    ],
+    "seguro": [
+      "plim",
+      0.6
+    ],
+    "pulmao": [
+      "vento",
+      0.5
+    ],
+    "boiaP": [
+      "agua",
+      0.5
+    ],
+    "colete": [
+      "pop",
+      0.55
+    ],
+    "sub": [
+      "whoosh",
+      0.5
+    ],
+    "desce": [
+      "agua",
+      0.6
+    ],
+    "sobe": [
+      "vapor",
+      0.5
+    ],
+    "passo1": [
+      "pop",
+      0.6
+    ],
+    "passo2": [
+      "pop",
+      0.6
+    ],
+    "passo3": [
+      "pop",
+      0.6
+    ],
+    "passo4": [
+      "plim",
+      0.6
+    ],
+    "flutua": [
+      "whoosh",
+      0.6
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ],
+    "promessa": [
+      "plim",
+      0.55
+    ],
+    "oito": [
+      "thud",
+      0.55
+    ],
+    "palpite": [
+      "plim",
+      0.6
+    ],
+    "titanic": [
+      "thud",
+      0.65
+    ],
+    "passa": [
+      "agua",
+      0.7
+    ]
+  },
   "cenas": [
-    {"id": "gancho", "tipo": "porto", "titulo": "Como não afunda?",
-     "fala": "Um navio de cruzeiro gigante pode pesar mais de cem mil toneladas. E ele é feito de aço. Só que um parafuso de aço, jogado no mar, afunda na hora. Então como essa montanha de metal fica boiando? Vou te explicar do jeito mais fácil possível.",
-     "batidas": {"toneladas.": "peso", "aço.": "aco", "parafuso": "parafuso", "boiando?": "pergunta", "fácil": "titulo"}},
-    {"id": "piscina", "tipo": "piscina", "titulo": "O empurrão da água",
-     "fala": "Pensa numa piscina cheia até a borda. Quando você entra, a água sobe e transborda. O seu corpo empurrou a água pra fora do lugar dela. E a água não fica quieta: ela empurra de volta, te empurrando pra cima. Essa força se chama empuxo.",
-     "batidas": {"piscina": "piscina", "entra,": "entra", "transborda.": "transborda", "empurrou": "empurrou", "cima.": "cima", "empuxo.": "empuxo"}},
-    {"id": "arquimedes", "tipo": "arquimedes", "titulo": "A regra de Arquimedes",
-     "fala": "Quem descobriu a regra foi um grego, há mais de dois mil anos: Arquimedes. Ela é simples. O empuxo é igual ao peso da água que o objeto tira do lugar. Se essa água pesa mais que o objeto, ele boia. Se pesa menos, ele afunda.",
-     "batidas": {"Arquimedes.": "arq", "igual": "igual", "boia.": "boia", "afunda.": "afunda"}},
-    {"id": "formato", "tipo": "massinha", "titulo": "O segredo é o formato",
-     "fala": "Agora o truque. Faz uma bola de massinha de modelar e joga na água: ela afunda. Agora amassa a mesma massinha em forma de barquinho, e ela boia. O peso é o mesmo. O que mudou foi o formato: o barquinho é largo e oco, cheio de ar, e empurra muito mais água pra fora.",
-     "batidas": {"água:": "bola", "barquinho,": "barco", "boia.": "boia2", "mesmo.": "mesmo", "oco,": "oco", "fora.": "fora"}},
-    {"id": "casco", "tipo": "casco", "titulo": "O navio por dentro",
-     "fala": "O navio de cruzeiro é esse barquinho, só que gigante. O aço é só uma casca fina por fora. Por dentro, ele é quase todo ar: cabines, corredores, restaurantes e teatros. A parte de baixo empurra pra fora cem mil toneladas de água. E esse empuxo segura o navio inteiro.",
-     "batidas": {"gigante.": "gigante", "fina": "fino", "ar:": "ar", "teatros.": "teatros", "água.": "agua", "inteiro.": "inteiro"}},
-    {"id": "pratica", "tipo": "pratica", "titulo": "Na prática",
-     "fala": "E dá pra ver isso no casco: a linha d'água. Quanto mais carga e passageiros, mais o navio afunda um pouco, até empurrar água suficiente pra equilibrar. E se entrar água no casco? Ele é dividido em compartimentos fechados. Se um encher, as paredes seguram a água ali, e o resto continua boiando.",
-     "batidas": {"linha": "linha", "carga": "carga", "equilibrar.": "equilibra", "casco?": "vaza", "compartimentos": "comp", "boiando.": "seguro"}},
-    {"id": "voce", "tipo": "voce", "titulo": "Na sua vida",
-     "fala": "E isso tá mais perto de você do que parece. Com o pulmão cheio de ar, você boia melhor na piscina. O colete salva-vidas faz o mesmo: ocupa muito espaço com pouco peso. E o submarino usa a mesma regra ao contrário: enche os tanques de água pra descer e sopra ar pra subir.",
-     "batidas": {"pulmão": "pulmao", "boia": "boiaP", "colete": "colete", "submarino": "sub", "descer": "desce", "subir.": "sobe"}},
-    {"id": "resumo", "tipo": "resumo", "titulo": "Resumindo",
-     "fala": "Resumindo: tudo que entra na água empurra água pra fora. A água empurra de volta pra cima. Se o objeto é leve pro espaço que ocupa, ele boia. E o navio é de aço, mas por dentro é quase todo ar. Pronto: ele flutua. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
-     "batidas": {"fora.": "passo1", "cima.": "passo2", "boia.": "passo3", "ar.": "passo4", "flutua.": "flutua", "Segue": "cta"}}
+    {
+      "id": "gancho",
+      "tipo": "porto",
+      "titulo": "Como não afunda?",
+      "fala": "Esse navio pesa mais de cem mil toneladas, e ele é todo de aço. Só que um parafuso de aço, jogado no mar, afunda na hora. Então por que essa montanha de metal fica boiando? E no final, eu te mostro o que acontece quando o casco dele fura.",
+      "batidas": {
+        "toneladas.": "peso",
+        "aço.": "aco",
+        "parafuso": "parafuso",
+        "metal": "pergunta",
+        "final,": "promessa",
+        "fura.": "titulo"
+      }
+    },
+    {
+      "id": "piscina",
+      "tipo": "piscina",
+      "titulo": "O empurrão da água",
+      "fala": "Pra entender, pensa numa piscina cheia até a borda. Quando você entra, a água sobe e transborda. Seu corpo empurrou a água pra fora do lugar dela. E a água empurra de volta: ela te empurra pra cima. Essa força se chama empuxo. E ela segue uma regra simples, descoberta há mais de dois mil anos.",
+      "batidas": {
+        "piscina": "piscina",
+        "entra,": "entra",
+        "transborda.": "transborda",
+        "empurrou": "empurrou",
+        "cima.": "cima",
+        "empuxo.": "empuxo"
+      }
+    },
+    {
+      "id": "arquimedes",
+      "tipo": "arquimedes",
+      "titulo": "A regra de Arquimedes",
+      "fala": "Quem descobriu foi um grego chamado Arquimedes. O empuxo é igual ao peso da água que o objeto tira do lugar. Se essa água pesa mais que o objeto, ele boia. Se pesa menos, ele afunda. Mas aí vem o problema: o aço é quase oito vezes mais pesado que a água. Então como o navio boia? Comenta aí o seu palpite, que eu já te respondo.",
+      "batidas": {
+        "Arquimedes.": "arq",
+        "igual": "igual",
+        "boia.": "boia",
+        "afunda.": "afunda",
+        "oito": "oito",
+        "Comenta": "palpite"
+      }
+    },
+    {
+      "id": "formato",
+      "tipo": "massinha",
+      "titulo": "O segredo é o formato",
+      "fala": "A resposta está no formato. Faz uma bola de massinha e joga na água: ela afunda. Agora amassa a mesma massinha em forma de barquinho, e ela boia. O peso é o mesmo. O que mudou foi o formato: o barquinho é largo e oco, cheio de ar, e empurra muito mais água pra fora.",
+      "batidas": {
+        "água:": "bola",
+        "barquinho,": "barco",
+        "boia.": "boia2",
+        "mesmo.": "mesmo",
+        "oco,": "oco",
+        "fora.": "fora"
+      }
+    },
+    {
+      "id": "casco",
+      "tipo": "casco",
+      "titulo": "O navio por dentro",
+      "fala": "O navio de cruzeiro é esse barquinho, só que gigante. O aço é só uma casca fina por fora. Por dentro, ele é quase todo ar: cabines, corredores, restaurantes e teatros. A parte de baixo empurra pra fora cem mil toneladas de água, exatamente o peso do navio. E esse empuxo segura o navio inteiro.",
+      "batidas": {
+        "gigante.": "gigante",
+        "fina": "fino",
+        "ar:": "ar",
+        "teatros.": "teatros",
+        "água.": "agua",
+        "inteiro.": "inteiro"
+      }
+    },
+    {
+      "id": "pratica",
+      "tipo": "pratica",
+      "titulo": "Na prática",
+      "fala": "E tem um sinal disso no casco: a linha d'água. Quanto mais carga, mais o navio afunda, até empurrar água suficiente pra equilibrar. Agora, o que eu te prometi: e se o casco furar? Ele é dividido em compartimentos fechados. Se um encher, as paredes seguram a água ali, e o resto continua boiando. O Titanic afundou porque essas paredes não iam até o teto: a água passou por cima, de uma em uma.",
+      "batidas": {
+        "linha": "linha",
+        "carga,": "carga",
+        "equilibrar.": "equilibra",
+        "furar?": "vaza",
+        "compartimentos": "comp",
+        "boiando.": "seguro",
+        "Titanic": "titanic",
+        "cima,": "passa"
+      }
+    },
+    {
+      "id": "voce",
+      "tipo": "voce",
+      "titulo": "Na sua vida",
+      "fala": "E você usa isso sem perceber. Com o pulmão cheio de ar, você boia melhor na piscina. O colete salva-vidas faz o mesmo: muito espaço, pouco peso. E o submarino usa a regra ao contrário: enche os tanques de água pra descer e sopra ar pra subir.",
+      "batidas": {
+        "pulmão": "pulmao",
+        "boia": "boiaP",
+        "colete": "colete",
+        "submarino": "sub",
+        "descer": "desce",
+        "subir.": "sobe"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: tudo que entra na água empurra água pra fora. A água empurra de volta pra cima. Se o objeto é leve pro espaço que ocupa, ele boia. E o navio é de aço, mas por dentro é quase todo ar. Por isso essa montanha de metal flutua. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "fora.": "passo1",
+        "cima.": "passo2",
+        "boia.": "passo3",
+        "ar.": "passo4",
+        "flutua.": "flutua",
+        "Segue": "cta"
+      }
+    }
   ]
 }
