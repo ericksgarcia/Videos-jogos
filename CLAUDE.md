@@ -235,6 +235,15 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   em passos diferentes deslocou a cena.
 - Bloco de legenda muito curto é juntado ao seguinte automaticamente; não mexa nisso.
 
+## Skills do HyperFrames (`.claude/skills/`)
+
+Instaladas com `npx skills add heygen-com/hyperframes` (versões em `skills-lock.json`;
+atualizar: `npx skills update -p -y`). São a documentação oficial do motor que já usamos
+(`hyperframes-core`, `hyperframes-animation`, `hyperframes-cli`, `hyperframes-creative`…):
+consulte-as para técnicas de animação, legendas, transições e efeitos. O vídeo do canal
+continua sendo feito pelo fluxo deste guia (`novo.py` → roteiro → `cenas.js` → `gerar.py`);
+não troque pelo fluxo de outra skill (ex.: `faceless-explainer`) sem pedido do dono.
+
 ## Git
 
 - Trabalhe na branch indicada pela sessão; commit + push ao terminar. Não abra PR sem
