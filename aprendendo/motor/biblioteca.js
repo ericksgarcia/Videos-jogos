@@ -192,3 +192,54 @@ function medalhas(pai, itens, B, origem) {
   });
   return [...meds, ...ligas];
 }
+
+// ---------------- personagem (estilo divulgação científica: braços articulados, rosto, cabelo) ----------------
+// Pés na origem, ~300 px de altura. Partes animáveis (selecione dentro do invólucro):
+//   .bracoE / .bracoD  (gire com svgOrigin "0 0" = ombro; 0 = braço caído, -90 = braço direito para a direita,
+//                       +90 = braço esquerdo para a esquerda), .maoE / .maoD, .cabeca, .olhos, .tronco
+// o = { pele, roupa, calca, cabelo, estilo: "curto"|"longo"|"coque"|"careca", oculos, barba, sapato }
+const personagem = (o) => {
+  o = Object.assign({ pele: "#d9a27c", roupa: "#3a5bd9", calca: "#2a3566", cabelo: "#2b1d14", estilo: "curto", sapato: "#1b1f3b" }, o || {});
+  const sombraPele = "rgba(90,40,20,0.22)";
+  const braco = (lado) => `<g transform="translate(${lado * 33} -206)"><g class="braco${lado < 0 ? "E" : "D"}">
+      <rect x="-11" y="-6" width="22" height="98" rx="11" fill="${o.roupa}"/><rect x="-11" y="-6" width="9" height="98" rx="5" fill="#fff" opacity="0.12"/>
+      <circle class="mao${lado < 0 ? "E" : "D"}" cx="0" cy="98" r="12" fill="${o.pele}"/></g></g>`;
+  const cabeloAtras = o.estilo === "longo" ? `<path d="M-38 -10 C -44 30, -40 62, -30 74 H 30 C 40 62, 44 30, 38 -10 Z" fill="${o.cabelo}"/>` : "";
+  const cabeloFrente = {
+    curto: `<path d="M-36 -8 C -40 -44, -12 -54, 4 -50 C 26 -50, 40 -36, 36 -6 C 26 -24, 8 -28, -10 -26 C -22 -24, -30 -18, -36 -8 Z" fill="${o.cabelo}"/>`,
+    longo: `<path d="M-38 6 C -44 -44, -6 -56, 8 -50 C 34 -46, 44 -24, 38 6 C 30 -22, 12 -30, -4 -28 C -20 -26, -32 -14, -38 6 Z" fill="${o.cabelo}"/>`,
+    coque: `<circle cx="0" cy="-52" r="16" fill="${o.cabelo}"/><path d="M-36 -6 C -38 -42, 38 -42, 36 -6 C 22 -26, -22 -26, -36 -6 Z" fill="${o.cabelo}"/>`,
+    careca: `<path d="M-30 -28 C -18 -40, 18 -40, 30 -28" stroke="#fff" stroke-opacity="0.25" stroke-width="5" fill="none" stroke-linecap="round"/>`,
+  }[o.estilo];
+  return `${sombra(0, 4, 56, 11, 0.7)}
+    <rect x="-24" y="-96" width="20" height="94" rx="9" fill="${o.calca}"/><rect x="4" y="-96" width="20" height="94" rx="9" fill="${o.calca}"/>
+    <path d="M-30 -2 Q -30 -14, -14 -14 H -2 V 2 H -26 Q -30 2, -30 -2 Z" fill="${o.sapato}"/><path d="M30 -2 Q 30 -14, 14 -14 H 2 V 2 H 26 Q 30 2, 30 -2 Z" fill="${o.sapato}"/>
+    ${braco(-1)}
+    <g class="tronco"><path d="M-36 -96 V -190 C -36 -210, -24 -218, -10 -218 H 10 C 24 -218, 36 -210, 36 -190 V -96 Z" fill="${o.roupa}"/>
+      <path d="M-36 -96 V -190 C -36 -204, -30 -212, -22 -216 V -96 Z" fill="#fff" opacity="0.13"/><path d="M36 -96 V -190 C 36 -204, 30 -212, 22 -216 V -96 Z" fill="#000" opacity="0.15"/>
+      <path d="M-12 -218 L 0 -202 L 12 -218 Z" fill="${o.pele}"/></g>
+    ${braco(1)}
+    <rect x="-9" y="-232" width="18" height="18" fill="${o.pele}"/><rect x="-9" y="-232" width="18" height="8" fill="${sombraPele}"/>
+    <g transform="translate(0 -266)"><g class="cabeca">${cabeloAtras}
+      <ellipse cx="-35" cy="4" rx="7" ry="10" fill="${o.pele}"/><ellipse cx="35" cy="4" rx="7" ry="10" fill="${o.pele}"/>
+      <ellipse cx="0" cy="0" rx="34" ry="38" fill="${o.pele}"/><path d="M18 -30 C 34 -16, 36 16, 18 34 C 30 14, 30 -12, 18 -30 Z" fill="${sombraPele}"/>
+      <g class="olhos"><ellipse cx="-12" cy="0" rx="4.2" ry="5.6" fill="#1b1f3b"/><ellipse cx="12" cy="0" rx="4.2" ry="5.6" fill="#1b1f3b"/>
+        <circle cx="-10.5" cy="-2" r="1.5" fill="#fff"/><circle cx="13.5" cy="-2" r="1.5" fill="#fff"/></g>
+      <path class="sobrancelhas" d="M-19 -12 Q -12 -16, -6 -13 M6 -13 Q 12 -16, 19 -12" stroke="${o.estilo === "careca" ? "#5a3a22" : o.cabelo}" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M-2 6 Q 2 12, 4 8" stroke="${sombraPele}" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path class="boca" d="M-9 18 Q 0 25, 9 18" stroke="#7a2e2e" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+      ${o.barba ? `<path d="M-30 6 C -28 40, 28 40, 30 6 C 22 22, 12 28, 0 28 C -12 28, -22 22, -30 6 Z" fill="${o.cabelo}"/><path class="boca" d="M-8 20 Q 0 25, 8 20" stroke="#7a2e2e" stroke-width="3" fill="none" stroke-linecap="round"/>` : ""}
+      ${o.oculos ? `<g fill="none" stroke="#1b1f3b" stroke-width="3"><circle cx="-12" cy="0" r="10"/><circle cx="12" cy="0" r="10"/><path d="M-2 0 H 2 M-22 -2 L -33 -4 M22 -2 L 33 -4"/></g>` : ""}
+      ${cabeloFrente}</g></g>`;
+};
+// vida do personagem: pisca de vez em quando e respira (tronco e cabeça sobem e descem de leve)
+function vivo(p, t, fim, seed) {
+  const r = prng(seed || 1), olhos = $(".olhos", p);
+  for (let k = t + 0.6 + r() * 1.5; k < fim - 0.3; k += 2.2 + r() * 2.2)
+    tl.fromTo(olhos, { scaleY: 1 }, { scaleY: 0.1, duration: 0.07, yoyo: true, repeat: 1, ease: "power1.inOut", transformOrigin: "50% 50%", immediateRender: false }, k);
+  const per = 1.8 + r() * 0.6;
+  tl.fromTo($(".cabeca", p), { y: 0 }, { y: -3, duration: per, yoyo: true, repeat: Math.max(1, Math.floor((fim - t) / per)), ease: "sine.inOut", immediateRender: false }, t);
+  tl.fromTo($(".tronco", p), { scaleY: 1 }, { scaleY: 1.015, duration: per, yoyo: true, repeat: Math.max(1, Math.floor((fim - t) / per)), ease: "sine.inOut", transformOrigin: "50% 100%", immediateRender: false }, t);
+}
+// gira um braço (ombro como pivô) até `ang` graus
+const gesto = (braco, t, ang, dur, ease) => tl.to(braco, { rotation: ang, svgOrigin: "0 0", duration: dur || 0.5, ease: ease || "back.out(1.6)" }, t);

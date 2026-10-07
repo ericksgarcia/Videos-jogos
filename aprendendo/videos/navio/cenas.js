@@ -15,6 +15,7 @@ $("#defs").insertAdjacentHTML("beforeend", `
   <linearGradient id="piscinaA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fe0ff"/><stop offset="0.25" stop-color="#36b3ee"/><stop offset="1" stop-color="#1366c4"/></linearGradient>
   <linearGradient id="pedra" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a8fb0"/><stop offset="1" stop-color="#4f4668"/></linearGradient>
   <linearGradient id="pisoG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a6488"/><stop offset="1" stop-color="#2e2440"/></linearGradient>
+  <linearGradient id="fadeRefl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.42"/><stop offset="0.45" stop-color="#fff" stop-opacity="0.12"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
   <radialGradient id="massaG" cx="0.35" cy="0.3"><stop offset="0" stop-color="#ffc2a0"/><stop offset="0.5" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c2531c"/></radialGradient>
   <radialGradient id="luzSala" cx="0.5" cy="0.2"><stop offset="0" stop-color="#fff1c0"/><stop offset="1" stop-color="#e0a83a"/></radialGradient>`);
 
@@ -78,10 +79,16 @@ const animFlecha = (g, t) => { tl.set(g, { opacity: 0 }, 0); tl.fromTo(g, { scal
 const parafuso = () => `<rect x="-26" y="-46" width="52" height="20" rx="4" fill="url(#metal)"/><rect x="-11" y="-28" width="22" height="78" fill="url(#metalH)"/>
   ${[0, 1, 2, 3, 4, 5].map((k) => `<path d="M-13 ${-20 + k * 12} L 13 ${-14 + k * 12}" stroke="#5d6890" stroke-width="3"/>`).join("")}<path d="M-11 50 L 0 62 L 11 50 Z" fill="#7b86a8"/>`;
 
-// =============== 1. gancho: o navio gigante no pôr do sol ===============
+// =============== 1. gancho: o navio gigante no pôr do sol, visto do píer ===============
 CENAS.porto = (el, c, B) => {
   mostrarGancho(B("titulo", 0.85) - 0.2);
-  const MAR = 1040;
+  const MAR = 1040, PIER = 1300, SN = 0.86;
+  // espuma na proa e esteira atrás da popa (andam com o navio)
+  const espuma = `<path d="M470 -4 C 510 -16, 548 -14, 566 -2 C 590 8, 620 10, 650 4" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity="0.8"/>
+    <ellipse cx="540" cy="4" rx="70" ry="9" fill="#fff" opacity="0.45"/>
+    <g class="esteira">${[0, 1, 2, 3].map((k) => `<path d="M-500 ${2 + k * 5} C -620 ${4 + k * 10}, -760 ${8 + k * 18}, -940 ${10 + k * 28}" fill="none" stroke="#fff" stroke-width="${5 - k}" stroke-dasharray="40 26" opacity="${0.55 - k * 0.1}"/>`).join("")}</g>`;
+  const pessoaA = personagem({ roupa: "#ff8a3d", calca: "#2a3566", pele: "#a96f4b", cabelo: "#141414", estilo: "curto", barba: true });
+  const pessoaB = personagem({ roupa: "#2f9fe8", calca: "#3b4377", pele: "#f2c7a5", cabelo: "#5a3a22", estilo: "longo" });
   el.innerHTML = `<rect width="${W}" height="${H}" fill="url(#ceuCrep)"/>${estrelas(30, 9, 0, 420)}
     ${halo(250, 990, 460, "solP")}<circle cx="250" cy="990" r="78" fill="url(#sol)"/>
     <g class="nuvensP"></g>
@@ -89,50 +96,89 @@ CENAS.porto = (el, c, B) => {
       <path d="M600 ${MAR} C 720 990, 880 990, 1120 950 V ${MAR} Z" fill="#2f2a66" opacity="0.9"/>
       ${Array.from({ length: 9 }, (_, k) => `<rect x="${640 + k * 50}" y="${MAR - 30 - ((k * 37) % 50)}" width="34" height="${30 + ((k * 37) % 50)}" fill="#2a2560"/><rect x="${650 + k * 50}" y="${MAR - 22 - ((k * 37) % 50)}" width="6" height="6" fill="#ffd98a" opacity="0.7"/>`).join("")}</g>
     <rect y="${MAR}" width="${W}" height="${H - MAR}" fill="url(#marPor)"/>
-    <path d="M210 ${MAR} L 120 1420 H 380 L 290 ${MAR} Z" fill="#ffb36b" opacity="0.16"/>
+    <g class="colunaSol"><path d="M226 ${MAR} L 90 1440 H 420 L 274 ${MAR} Z" fill="#ffb36b" opacity="0.2"/>${reflexos(MAR + 6, 1420, 60, 4, "#ffe2b8", "reflSol").replace('class="reflSol"', 'class="reflSol" transform="translate(110 0) scale(0.25 1)"')}</g>
+    <mask id="mReflP" maskUnits="userSpaceOnUse" x="0" y="${MAR}" width="${W}" height="420"><rect x="0" y="${MAR}" width="${W}" height="420" fill="url(#fadeRefl)"/></mask>
+    <g mask="url(#mReflP)"><g transform="translate(610 ${MAR})"><g class="navRefl"><g transform="scale(${SN} ${-SN})"><g class="reflB">${navio()}</g></g></g></g></g>
+    <rect y="${MAR}" width="${W}" height="${H - MAR}" fill="url(#marPor)" opacity="0.45"/>
     ${reflexos(MAR + 8, 1400, 46, 4, "#ffd9b0", "reflP")}
+    <g class="cristas"></g><g class="cintP"></g>
     <g class="gvs"></g>
-    <g transform="translate(610 ${MAR}) scale(0.86)"><g class="navio"><g class="navioB">${navio()}<g transform="translate(300 -6)"><g class="furoP"><circle r="18" fill="#0b1440" stroke="${C.vermelho}" stroke-width="7"/></g></g></g></g></g>
-    <g transform="translate(95 760)"><g class="paraf">${parafuso()}</g></g>
-    <g class="respingo" opacity="0">${[0, 1, 2].map((k) => `<ellipse class="onda" cx="95" cy="${MAR + 4}" rx="${30 + k * 26}" ry="${8 + k * 6}" fill="none" stroke="#fff" stroke-width="4"/>`).join("")}</g>
-    <g class="bolhasP"></g>
-    <rect y="${MAR}" width="${W}" height="${H - MAR}" fill="#1d2463" opacity="0.5"/>
+    <g transform="translate(610 ${MAR}) scale(${SN})"><g class="navio"><g class="navioB">${navio()}${espuma}<g transform="translate(300 -6)"><g class="furoP"><circle r="18" fill="#0b1440" stroke="${C.vermelho}" stroke-width="7"/></g></g></g></g></g>
+    <rect y="${MAR}" width="${W}" height="38" fill="#2a2a70" opacity="0.45"/>
     <path d="M0 ${MAR} H ${W}" stroke="#ffd9b0" stroke-width="3" opacity="0.5"/>
-    <g transform="translate(540 1200)"><g class="peso">${rotulo("+ DE 100 MIL TONELADAS", C.vermelho, 40)}</g></g>
-    <g transform="translate(540 1200)"><g class="tProm">${rotulo("NO FINAL: E SE O CASCO FURAR?", C.amarelo, 34)}</g></g>
-    <g class="cAco" opacity="0">${callout(400, 980, 300, 1200, "AÇO", C.ciano)}</g>
+    <g class="respingo" opacity="0">${[0, 1, 2].map((k) => `<ellipse class="onda" cx="600" cy="1324" rx="${40 + k * 34}" ry="${9 + k * 7}" fill="none" stroke="#fff" stroke-width="4"/>`).join("")}</g>
+    <g class="bolhasP"></g>
+    <g class="pier">
+      ${[30, 200, 380].map((x) => `<rect x="${x}" y="${PIER}" width="26" height="160" fill="#4f301f"/><rect x="${x}" y="${PIER + 110}" width="26" height="50" fill="#2a1f3d" opacity="0.5"/>`).join("")}
+      <rect x="-20" y="${PIER - 4}" width="480" height="30" rx="4" fill="url(#madeira)"/>
+      ${Array.from({ length: 11 }, (_, k) => `<path d="M${-20 + k * 46} ${PIER - 4} V ${PIER + 26}" stroke="#3a2416" stroke-width="3"/>`).join("")}
+      <rect x="-20" y="${PIER - 4}" width="480" height="5" fill="#c99a6a"/>
+      <rect x="440" y="${PIER - 66}" width="16" height="66" fill="#6b4a2f"/><path d="M456 ${PIER - 58} H -20" stroke="#8a5a3c" stroke-width="6"/></g>
+    <g transform="translate(95 ${PIER}) scale(1.35)"><g class="pA">${pessoaA}</g></g>
+    <g transform="translate(270 ${PIER}) scale(1.35)"><g class="pB">${pessoaB}</g></g>
+    <g transform="translate(445 999)"><g class="paraf"><g transform="scale(0.55)">${parafuso()}</g></g></g>
+    <g transform="translate(640 1180)"><g class="peso">${rotulo("+ DE 100 MIL TONELADAS", C.vermelho, 40)}</g></g>
+    <g transform="translate(640 1180)"><g class="tProm">${rotulo("NO FINAL: E SE O CASCO FURAR?", C.amarelo, 34)}</g></g>
+    <g transform="translate(640 1180)"><g class="tAco">${rotulo("TODO DE AÇO", C.ciano, 38)}</g></g>
     <g transform="translate(900 610)"><g class="perg"><circle r="62" fill="#fff"/><text class="rot" y="30" text-anchor="middle" font-size="90" fill="#141a3a">?</text></g></g>`;
   lottieEm($(".nuvensP", el), "nuvens", 540, 560, 1300, 730, { loop: true, vel: 0.5 });
   gaivotas($(".gvs", el), [[160, 640, 0.8, 520], [260, 700, 0.6, 470], [80, 760, 0.5, 560]], c.ini, c.fim);
   animarReflexos($(".reflP", el), c.ini, c.fim);
-  const nav = $(".navio", el), peso = $(".peso", el), pf = $(".paraf", el);
-  tl.fromTo(nav, { x: 160 }, { x: -60, duration: c.fim - c.ini, ease: "none", immediateRender: false }, c.ini);
+  ondas($(".cristas", el), MAR + 14, 1420, 12, c.ini, c.fim, "#ffd9b0", 3);
+  cintilar($(".cintP", el), 22, [110, MAR + 10, 290, 330], c.ini, c.fim, "#fff6d0", 6);
+  ondular([$(".navRefl", el), $(".colunaSol", el), $(".reflP", el)]);
+  // o navio navega devagar para a direita (proa à frente); o reflexo acompanha
+  const nav = $(".navio", el), refl = $(".navRefl", el), peso = $(".peso", el), pf = $(".paraf", el);
+  tl.fromTo([nav, refl], { x: -110 }, { x: 50, duration: c.fim - c.ini, ease: "none", immediateRender: false }, c.ini);
   boiar($(".navioB", el), c.ini, c.fim, 7);
-  tl.set([peso, $(".perg", el), pf], { opacity: 0 }, 0);
+  boiar($(".reflB", el), c.ini, c.fim, 7);
+  tl.fromTo($(".esteira", el), { strokeDashoffset: 0 }, { strokeDashoffset: 600, duration: c.fim - c.ini, ease: "none", immediateRender: false }, c.ini);
+  // as pessoas no píer
+  const pA = $(".pA", el), pB = $(".pB", el), bAD = $(".bracoD", pA), bAE = $(".bracoE", pA), bBD = $(".bracoD", pB);
+  vivo(pA, c.ini, c.fim, 3);
+  vivo(pB, c.ini, c.fim, 8);
+  tl.set(bBD, { rotation: -12, svgOrigin: "0 0" }, 0);
+  tl.set([peso, $(".perg", el), pf, $(".tProm", el), $(".furoP", el)], { opacity: 0 }, 0);
+  // 100 mil toneladas: ele aponta para o navio
   const tp = B("peso", 0.2);
-  tl.fromTo(peso, { y: -260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "bounce.out", immediateRender: false }, tp - 0.4);
+  gesto(bAD, tp - 0.5, -152, 0.6);
+  tl.fromTo(peso, { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(2)", immediateRender: false }, tp - 0.2);
   tl.fromTo($(".navioB", el), { scaleY: 1 }, { scaleY: 0.97, duration: 0.14, yoyo: true, repeat: 1, svgOrigin: "0 40", immediateRender: false }, tp + 0.05);
   const ta = B("aco", 0.35);
-  tl.to(peso, { opacity: 0, y: -40, duration: 0.3 }, ta - 0.3);
-  callAnim($(".cAco", el), ta);
-  // o parafuso cai no mar e afunda
+  tl.to(peso, { opacity: 0, y: -30, duration: 0.3 }, ta - 0.3);
+  tl.set($(".tAco", el), { opacity: 0 }, 0);
+  pop($(".tAco", el), ta);
+  // o parafuso: ela levanta e joga no mar; ele cai, espirra e some
   const tf = B("parafuso", 0.5);
-  tl.to($(".cAco", el), { opacity: 0, duration: 0.3 }, tf - 0.2);
-  pop(pf, tf - 0.2);
-  tl.to(pf, { y: MAR - 760 + 10, rotation: 25, duration: 0.55, ease: "power2.in" }, tf + 0.35);
-  tl.set($(".respingo", el), { opacity: 1 }, tf + 0.9);
-  tl.fromTo($$(".onda", el), { scale: 0.3, opacity: 1, transformOrigin: "50% 50%" }, { scale: 1.4, opacity: 0, duration: 0.9, stagger: 0.1, ease: "power2.out", immediateRender: false }, tf + 0.9);
-  faiscas($(".bolhasP", el), 95, MAR + 10, 10, tf + 0.9, tf + 1.8, "#ffffff", 140, 5);
-  tl.to(pf, { y: 1330 - 760, rotation: 60, duration: 2.2, ease: "power1.out" }, tf + 0.9);
-  // promessa (loop aberto): o casco furado, mostrado na parte 5
-  const tpr = B("promessa", 0.85), tfu = B("titulo", 0.95);
-  tl.set([$(".tProm", el), $(".furoP", el)], { opacity: 0 }, 0);
-  pop($(".tProm", el), tpr);
-  pop($(".furoP", el), tfu - 0.1);
-  tl.fromTo($(".furoP", el), { scale: 1 }, { scale: 1.35, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tfu + 0.4);
+  gesto(bAD, tf - 0.8, 0, 0.6, "power2.inOut");
+  tl.to($(".tAco", el), { opacity: 0, duration: 0.3 }, tf - 0.2);
+  gesto(bBD, tf - 0.6, -100, 0.5);
+  pop(pf, tf - 0.25);
+  gesto(bBD, tf + 0.3, -150, 0.22, "power3.in");
+  tl.to(pf, { x: 155, rotation: 220, duration: 0.75, ease: "none" }, tf + 0.45);
+  tl.to(pf, { y: -110, duration: 0.33, ease: "power2.out" }, tf + 0.45);
+  tl.to(pf, { y: 323, duration: 0.42, ease: "power2.in" }, tf + 0.78);
+  const tsp = tf + 1.2;
+  tl.to(pf, { y: 360, scale: 0.6, opacity: 0, duration: 0.5, ease: "power1.in" }, tsp);
+  tl.set($(".respingo", el), { opacity: 1 }, tsp);
+  tl.fromTo($$(".onda", el), { scale: 0.3, opacity: 1, transformOrigin: "50% 50%" }, { scale: 1.5, opacity: 0, duration: 1.1, stagger: 0.12, ease: "power2.out", immediateRender: false }, tsp);
+  faiscas($(".bolhasP", el), 600, 1318, 14, tsp, tsp + 0.9, "#ffffff", 150, 5);
+  gesto(bBD, tf + 0.9, -12, 0.7, "power2.inOut");
+  // a pergunta: ele dá de ombros
   const tq = B("pergunta", 0.7);
+  gesto(bAD, tq - 0.2, -55, 0.4);
+  gesto(bAE, tq - 0.2, 55, 0.4);
+  tl.fromTo($(".cabeca", pA), { rotation: 0 }, { rotation: -8, duration: 0.4, yoyo: true, repeat: 1, svgOrigin: "0 30", immediateRender: false }, tq);
+  gesto(bAD, tq + 1.1, 0, 0.5, "power2.inOut");
+  gesto(bAE, tq + 1.1, 0, 0.5, "power2.inOut");
   pop($(".perg", el), tq);
   tl.fromTo($(".perg", el), { rotation: -8 }, { rotation: 8, duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tq + 0.4);
+  // promessa (loop aberto): o casco furado, mostrado na parte 5; ela aponta para o casco
+  const tpr = B("promessa", 0.85), tfu = B("titulo", 0.95);
+  pop($(".tProm", el), tpr);
+  gesto(bBD, tfu - 0.4, -95, 0.5);
+  pop($(".furoP", el), tfu - 0.1);
+  tl.fromTo($(".furoP", el), { scale: 1 }, { scale: 1.35, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tfu + 0.4);
 };
 
 // =============== 2. a piscina que transborda: empuxo ===============
@@ -529,10 +575,11 @@ const _comEfeitos = (tipo, fx) => { const base = CENAS[tipo]; CENAS[tipo] = (el,
 _comEfeitos("porto", (el, c) => {
   $(".solP", el).insertAdjacentHTML("afterend", raiosLuz(250, 990, 16, 200, 900, -90, "raiosP", 3));
   animarRaios($(".raiosP", el), 0, c.fim);
-  el.insertAdjacentHTML("beforeend", flare(250, 990, 0.7) + `<g class="bkP"></g>`);
+  $(".pier", el).insertAdjacentHTML("beforebegin", flare(250, 990, 0.7));
+  el.insertAdjacentHTML("beforeend", `<g class="bkP"></g>`);
   bokeh($(".bkP", el), 12, 5, [0, 300, W, 700], 0, c.fim, ["#ffd23f", "#ff8aa4", "#fff3c0"]);
   desfocar($(".ilhas", el), 1);
-  volume($(".navioB", el));
+  volume([$(".navioB", el), $(".pA", el), $(".pB", el)]);
   brilhar($(".paraf", el));
 });
 _comEfeitos("piscina", (el, c) => {

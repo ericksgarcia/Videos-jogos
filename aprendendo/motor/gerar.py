@@ -229,27 +229,44 @@ def previa(ag, pasta, destino):
                     "--no-end", "--describe", "false"], env=env, check=True)
 
 
-def _acabamento():
+# acabamento "cinema" (opcional: --cinema ou "cinema": true no roteiro):
+# bloom (as luzes vazam brilho), LUT de cor (motor/cinema.cube, gerada por motor/lut.py)
+# e luz vazando (light leak) quente passeando devagar pelo quadro.
+# Bloom e luz são calculados em 1/4 da resolução (rápido) e ampliados.
+CINEMA = {"bloom_limiar": 0.55, "bloom_raio": 9, "bloom_forca": 0.75, "luz_forca": 0.2, "lut": AQUI / "cinema.cube"}
+
+
+def _acabamento(dur=None, cinema=False):
     """Filtros do ffmpeg que dão a "cara de cinema" (definidos na identidade):
     desfoque de movimento (média de 2 quadros a 60 fps = obturador de 180°), cor,
-    vinheta, leve aberração cromática e granulação de filme."""
+    vinheta, leve aberração cromática e granulação de filme. Com `cinema`, soma
+    bloom, LUT e luz vazando (ver CINEMA)."""
     v = MARCA["video"]
     f = ["tmix=frames=2:weights=1 1", "fps=30"] if v.get("desfoque_movimento") else []
+    w, h = v["largura"], v["altura"]
+    if cinema:
+        k = CINEMA
+        f.append(f"format=gbrp,split[_a][_b];[_b]scale={w // 4}:{h // 4},curves=all='0/0 {k['bloom_limiar']}/0 1/1',gblur=sigma={k['bloom_raio']},"
+                 f"scale={w}:{h}[_g];[_a][_g]blend=all_mode=screen:all_opacity={k['bloom_forca']}")
+        f.append(f"lut3d=file={k['lut']}")
     tc = v.get("tratamento_cor")
     if tc:
         f += [f"eq=contrast={tc['contraste']}:saturation={tc['saturacao']}", f"vignette=angle={tc['vinheta']}*PI"]
         if tc.get("aberracao_px"):
             f.append(f"rgbashift=rh=-{tc['aberracao_px']}:bh={tc['aberracao_px']}")
-        if tc.get("grao"):
-            f.append(f"noise=alls={tc['grao']}:allf=t")
+    if cinema:
+        f[-1] += (f"[_c];gradients=s={w // 4}x{h // 4}:d={(dur or 600) + 1:.2f}:r=30:n=4:type=radial:speed=0.004:seed=7:"
+                  f"c0=0xff8a3d:c1=0x000000:c2=0x000000:c3=0xffd23f,scale={w}:{h},format=gbrp[_l];[_c]format=gbrp[_c2];[_c2][_l]blend=all_mode=screen:all_opacity={CINEMA['luz_forca']},format=yuv420p")
+    if tc and tc.get("grao"):
+        f.append(f"noise=alls={tc['grao']}:allf=t")
     return ",".join(f) or "null"
 
 
-def codificar(mudo, wav, mp4, dur):
+def codificar(mudo, wav, mp4, dur, cinema=False):
     """MP4 final: CRF 24; se passar do limite de envio (marca.json), refaz em 2 passadas
     com a taxa de bits calculada para caber (~92% do limite)."""
     limite = MARCA["video"]["tamanho_maximo_mb"] * 1024 * 1024
-    vf = ["-vf", _acabamento()]
+    vf = ["-vf", _acabamento(dur, cinema)]
     comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart", "-c:a", "aac", "-b:a", "160k", "-shortest"]
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf,
                     "-c:v", "libx264", "-preset", "slow", "-crf", "24", *comum, str(mp4)], check=True)
@@ -270,11 +287,16 @@ def main():
     ap.add_argument("--qualidade", default="high", choices=["draft", "standard", "high"])
     ap.add_argument("--so-montar", action="store_true", help="monta o projeto sem renderizar")
     ap.add_argument("--previa", action="store_true", help="só tira fotos de cada cena (output/<tema>/previa)")
+    ap.add_argument("--cena", type=int, help="gera só a cena N (1 = primeira); saída <slug>-cenaN.mp4")
+    ap.add_argument("--cinema", action="store_true", help="acabamento extra: bloom, LUT de cor e luz vazando")
     a = ap.parse_args()
     pasta_video = Path(a.video)
     if pasta_video.is_file():
         pasta_video = pasta_video.parent
     roteiro = json.loads((pasta_video / "roteiro.json").read_text())
+    if a.cena:  # teste rápido de uma cena só
+        roteiro["cenas"] = [roteiro["cenas"][a.cena - 1]]
+        roteiro["slug"] += f"-cena{a.cena}"
     falas = narrar(roteiro)
     print("narração:", {f["provedor"] for f in falas}, "| duração das falas:", round(sum(f["dur"] for f in falas), 1), "s")
     ag = agenda(roteiro, falas)
@@ -294,7 +316,7 @@ def main():
     renderizar(pasta, mudo, qualidade=a.qualidade)
     mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"))
     mp4 = saida / f"{roteiro['slug']}.mp4"
-    codificar(mudo, pasta / "trilha.wav", mp4, ag["total"])
+    codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], a.cinema or roteiro.get("cinema", False))
     print("pronto:", mp4)
 
 

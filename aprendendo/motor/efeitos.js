@@ -80,3 +80,55 @@ const flare = (x, y, s, cls) => `<g class="${cls || "flare"}" style="mix-blend-m
   ${[0.35, 0.6, 0.85].map((k, i) => `<circle cx="${x + (540 - x) * k * 1.6}" cy="${y + (960 - y) * k * 1.6}" r="${(22 + i * 18) * s}" fill="${["#8fe3ff", "#ffd23f", "#ff8a3d"][i]}" opacity="0.12"/>`).join("")}</g>`;
 
 // (a granulação de filme é aplicada no fim, pelo ffmpeg: ver codificar() em gerar.py)
+
+// água ondulando: distorce o elemento com um ruído que anda devagar (reflexos, brilho do sol na água,
+// reflexo de navio/prédio). forca = amplitude da distorção em px. Um único ruído para a cena toda.
+$("#defs").insertAdjacentHTML("beforeend", `
+  <filter id="ondulaAgua" x="-10%" y="-20%" width="120%" height="140%">
+    <feTurbulence id="ondTurb" type="fractalNoise" baseFrequency="0.006 0.07" numOctaves="2" seed="4" result="ruido"/>
+    <feOffset id="ondOff" in="ruido" dx="0" dy="0" result="ruidoM"/>
+    <feDisplacementMap in="SourceGraphic" in2="ruidoM" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>`);
+let _ondulando = false;
+const ondular = (el) => {
+  (Array.isArray(el) ? el : [el]).forEach((e) => e && e.setAttribute("filter", "url(#ondulaAgua)"));
+  if (_ondulando) return;
+  _ondulando = true;
+  const turb = $("#ondTurb"), off = $("#ondOff");
+  aCadaQuadro((t) => {
+    turb.setAttribute("baseFrequency", `${(0.006 + 0.0012 * Math.sin(t * 0.7)).toFixed(5)} ${(0.07 + 0.008 * Math.sin(t * 1.1)).toFixed(5)}`);
+    off.setAttribute("dx", (40 * Math.sin(t * 0.45)).toFixed(2));
+    off.setAttribute("dy", (8 * Math.sin(t * 0.9)).toFixed(2));
+  });
+};
+
+// cristas de onda em perspectiva (linhas finas que andam), de y0 (horizonte) até y1 (perto da câmera)
+function ondas(pai, y0, y1, n, t, fim, cor, seed) {
+  const r = prng(seed || 5);
+  let s = "";
+  for (let i = 0; i < n; i++) {
+    const k = i / Math.max(1, n - 1), y = y0 + (y1 - y0) * Math.pow(k, 1.6), lam = 90 + 260 * k, amp = 2 + 9 * k;
+    let d = `M${-lam * 2} ${y}`;
+    for (let x = -lam * 2, j = 0; x < W + lam * 2; x += lam / 2, j++) d += ` q ${lam / 4} ${j % 2 ? amp : -amp} ${lam / 2} 0`;
+    s += `<path class="crista" data-lam="${lam}" d="${d}" fill="none" stroke="${cor || "#fff"}" stroke-width="${(1.5 + 3 * k).toFixed(1)}" stroke-linecap="round" stroke-dasharray="${(40 + r() * 120).toFixed(0)} ${(60 + r() * 220).toFixed(0)}" opacity="${(0.1 + 0.25 * k).toFixed(2)}"/>`;
+  }
+  pai.insertAdjacentHTML("beforeend", s);
+  $$(".crista", pai).forEach((p, i) => {
+    const lam = +p.dataset.lam, v = 40 + (i % 3) * 15, dur = lam / v;
+    tl.fromTo(p, { x: 0 }, { x: -lam, duration: dur, repeat: Math.max(1, Math.ceil((fim - t) / dur)), ease: "none", immediateRender: false }, t);
+  });
+}
+
+// cintilância: pontinhos de luz em estrela piscando sobre a água (sol batendo nas ondas)
+function cintilar(pai, n, area, t, fim, cor, seed) {
+  const r = prng(seed || 9);
+  for (let i = 0; i < n; i++) {
+    const x = area[0] + r() * area[2], y = area[1] + r() * area[3], s = 0.5 + r() * 1.1 * ((y - area[1]) / area[3] + 0.4);
+    pai.insertAdjacentHTML("beforeend", `<g transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(${s.toFixed(2)})"><path class="cint" d="M0 -14 L 3 -3 L 14 0 L 3 3 L 0 14 L -3 3 L -14 0 L -3 -3 Z" fill="${cor || "#fff6d0"}" opacity="0"/></g>`);
+  }
+  $$(".cint", pai).forEach((c, i) => {
+    const d = 0.5 + r() * 0.7, ini = t + r() * 1.5;
+    tl.fromTo(c, { scale: 0.2, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 0.9, duration: d, yoyo: true, repeat: Math.max(1, Math.floor((fim - ini) / d) | 1), repeatDelay: r() * 1.2, ease: "sine.inOut", immediateRender: false }, ini);
+  });
+  brilhar(pai);
+}
