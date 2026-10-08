@@ -178,6 +178,13 @@ O que continua valendo do padrão anterior:
    - *ritmo*: trechos de mais de 4 s sem batida visual na área da ilustração (regra 6 da
      retenção), com a cena e o segundo. Corrija pondo uma batida numa palavra da fala daquele
      trecho (rótulo, contador, régua, movimento de câmera). O cartão final pode aparecer.
+   **Corrigir depois sem renderizar tudo** (editor, `motor/editar.py`): o render completo guarda
+   a cópia-mestre (`output/<tema>/mestre_60fps.mp4` + `mestre_agenda.json`). Para refazer só uma
+   parte: `python aprendendo/motor/editar.py aprendendo/videos/<tema> --cena 4` (ou `--cenas 3,5`,
+   ou `--de 70 --ate 78`). Ele renderiza só aquele trecho da timeline completa (quadros idênticos
+   aos do vídeo inteiro), troca os quadros na cópia-mestre, confere a emenda, refaz som e MP4 e
+   roda o `qa.py`. Só vale se os tempos não mudaram (mesma fala e cenas); se mudaram, ele recusa
+   e é preciso o render completo. Use para qualquer correção visual (posição, cor, rótulo, giro).
 5. O arquivo precisa ter **menos de 30 MB** (limite de envio). O encode final usa CRF 24 e,
    se passar do limite (granulação/3D comprimem pior), refaz em 2 passadas para caber.
    Render a 60 fps (desfoque de movimento) com 4 navegadores em paralelo (VIDEO_WORKERS muda).

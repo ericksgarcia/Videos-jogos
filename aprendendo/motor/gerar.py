@@ -90,6 +90,11 @@ def agenda(roteiro, falas):
     return {"cenas": cenas, "total": _r(t + 1.2)}
 
 
+def tempos_agenda(ag):
+    """Tempos que precisam bater para o editor (editar.py) poder emendar um trecho."""
+    return {"total": ag["total"], "cenas": [[c["id"], c["ini"], c["voz"], c["fim"]] for c in ag["cenas"]]}
+
+
 def _soma(buf, x, t, g):
     i = int(round(t * SR))
     if i >= len(buf):
@@ -358,7 +363,11 @@ def main():
     if a.so_montar:
         return
     mudo = pasta / "video_mudo.mp4"
+    if not a.cena:  # render completo: guarda a cópia-mestre (60 fps, sem acabamento) para o editar.py
+        mudo = saida / "mestre_60fps.mp4"
     renderizar(pasta, mudo, qualidade=a.qualidade)
+    if not a.cena:
+        (saida / "mestre_agenda.json").write_text(json.dumps(tempos_agenda(ag)))
     mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"), roteiro)
     mp4 = saida / f"{roteiro['slug']}.mp4"
     codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], roteiro.get("cinema") or a.cinema)
