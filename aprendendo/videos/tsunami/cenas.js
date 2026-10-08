@@ -240,7 +240,7 @@ const costaSVG = () => {
 // pulso do tsunami: posição pela velocidade real (v ∝ √profundidade), altura crescendo ao ficar raso
 function pulsoCosta(t0, t1) {
   const prof = (x) => Math.max(6, fundoY(x) - SUP5), xs = [-150], dt = 1 / 60;
-  let x = -150; for (let s = 0; s < 4000 && x < 935; s++) { x += 0.9 * Math.sqrt(prof(x)) * dt * 3.2; xs.push(x); }
+  let x = -150; for (let s = 0; s < 6000 && x < 1045; s++) { x += 0.9 * Math.sqrt(prof(x)) * dt * 3.2 + 0.02; xs.push(x); }
   const n = xs.length, esc = (t1 - t0) * 60 / n;
   return (t) => { const i = Math.min(n - 1, Math.max(0, Math.round((t - t0) * 60 / esc))); return xs[i]; };
 }
@@ -259,17 +259,17 @@ CENAS.chegada = (el, c, B) => {
     <g transform="translate(330 480)"><g class="tEmp">${tag("A ÁGUA SE EMPILHA", C.ciano, 30)}</g></g>
     <g transform="translate(330 480)"><g class="tPar">${tag("PAREDE DE ATÉ 30 m", C.vermelho, 34)}</g></g>`;
   const tpb = B("prob", 0.1), tr = B("raso", 0.25), tf = B("freia", 0.4), te = B("empilha", 0.6), tpa = B("parede", 0.8), t30 = B("trinta", 0.9);
-  const xp = pulsoCosta(tpb, t30 + 0.2), sup = $(".sup5", el), agua = $(".agua5", el), leit = $(".leit", el), lt = $$(".leit text", el), emp = $(".empA", el);
+  const xp = pulsoCosta(tpb, t30 + 0.1), sup = $(".sup5", el), agua = $(".agua5", el), leit = $(".leit", el), lt = $$(".leit text", el), emp = $(".empA", el);
   aCadaQuadro((t) => {
     if (t < c.ini - 1 || t > c.fim + 0.6) return;
     const p = xp(t), D = Math.max(4, (fundoY(p) - SUP5) / 540 * 4000), w = Math.max(28, 220 * Math.sqrt(Math.max(6, fundoY(p) - SUP5) / 540));
-    const A = Math.min(330, 16 * Math.pow(4000 / D, 0.62)), atras = w * 1.6;
+    const dpx = Math.max(6, fundoY(p) - SUP5), A = Math.min(310, 18 * Math.pow(540 / dpx, 1.15)), atras = w * 1.6;
     const yv = (x) => SUP5 - A * (x < p ? _g(x, p, atras) : _g(x, p, w * 0.55));
     let d = ""; for (let x = -200; x <= 1280; x += 8) { const y = Math.min(yv(x), fundoY(x)); d += `${x === -200 ? "M" : "L"}${x} ${y.toFixed(1)} `; }
     sup.setAttribute("d", d); agua.setAttribute("d", d + "L 1280 1700 L -200 1700 Z");
     leit.setAttribute("transform", `translate(${Math.min(760, Math.max(40, p - 150)).toFixed(0)} ${Math.max(560, SUP5 - A - 150).toFixed(0)})`);
     lt[1].textContent = Math.round(Math.sqrt(9.81 * D) * 3.6) + " km/h";
-    lt[3].textContent = Math.min(30, 0.6 * Math.pow(4000 / D, 0.62)).toFixed(1).replace(".", ",") + " m";
+    lt[3].textContent = Math.min(30, 0.6 * Math.pow(540 / dpx, 1.35)).toFixed(1).replace(".", ",") + " m";
     emp.setAttribute("transform", `translate(${(p - 60).toFixed(0)} ${(SUP5 - A * 0.5).toFixed(0)})`);
   });
   entrar($(".tProb", el), tpb - 0.1, "cima");
