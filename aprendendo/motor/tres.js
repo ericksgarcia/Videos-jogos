@@ -58,12 +58,15 @@ function camada3D(o) {
   o = o || {};
   const canvas = document.createElement("canvas");
   canvas.className = "tres";
-  canvas.width = W; canvas.height = H;
+  // o.escala < 1 desenha em resolução menor e amplia (3D por software fica bem mais rápido)
+  const esc = o.escala ?? 1;
+  canvas.width = Math.round(W * esc); canvas.height = Math.round(H * esc);
+  canvas.style.width = W + "px"; canvas.style.height = H + "px";
   canvas.style.opacity = 0;
   $("#root").insertBefore(canvas, $("#frente"));
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(1);
-  renderer.setSize(W, H, false);
+  renderer.setSize(canvas.width, canvas.height, false);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = o.exposicao ?? 1.0;

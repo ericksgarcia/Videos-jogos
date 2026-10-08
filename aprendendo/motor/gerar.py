@@ -199,6 +199,8 @@ def verificar(pasta):
 
 def renderizar(pasta, saida, qualidade="high"):
     env = dict(os.environ, HYPERFRAMES_SKIP_SKILLS="1", HYPERFRAMES_NO_TELEMETRY="1", DO_NOT_TRACK="1")
+    # cenas 3D por software podem levar mais de 60 s no 1º quadro (compilar shaders): limite maior
+    env.setdefault("HF_DE_STALL_MS", "900000")
     if not env.get("PRODUCER_HEADLESS_SHELL_PATH"):
         achados = sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell"))
         if achados:

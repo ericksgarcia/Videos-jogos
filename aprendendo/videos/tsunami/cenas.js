@@ -18,7 +18,7 @@ const peixe = () => `<path d="M-16 0 Q -4 -9 10 0 Q -4 9 -16 0 Z M10 0 L 20 -7 V
 CENAS.altomar = (el, c, B, i, f) => {
   mostrarGancho(B("titulo", 0.85) - 0.2);
   el.innerHTML = cenarioHud({ horizonte: 900, agua: true });
-  const k = camada3D({ ini: c.ini - 0.5, fim: c.fim + 0.6, fov: 36 });
+  const k = camada3D({ ini: c.ini - 0.5, fim: c.fim + 0.6, fov: 36, escala: 0.5 });
   tl.set(k.canvas, { opacity: 1 }, 0);
   tl.to(k.canvas, { opacity: 0, duration: 0.45, ease: "power1.inOut" }, c.fim - 0.43);
   const oc = oceano3D(k, { sol: [0.12, 0.07, -1], mar: 0.7, direcao: 0.9 });
@@ -41,7 +41,7 @@ CENAS.altomar = (el, c, B, i, f) => {
       <path class="perfilL" d="" fill="none" stroke="${C.ciano}" stroke-width="3"/><path d="M40 1270 H 1040" stroke="${C.ciano}" stroke-width="1" stroke-dasharray="4 6" opacity="0.5"/>
       <circle class="perfilN" r="7" fill="${C.amarelo}"/></g>
     <g transform="translate(540 760)"><g class="tTsu">${tag("TSUNAMI", C.vermelho, 64)}</g></g>
-    <g transform="translate(600 1140)"><g class="tProm">${tag("NO FINAL: O SINAL DA PRAIA", C.amarelo, 28)}</g></g>`;
+    <g transform="translate(540 760)"><g class="tProm">${tag("NO FINAL: O SINAL DA PRAIA", C.amarelo, 28)}</g></g>`;
   const alvoW = $(".alvoW", f), pTx = $$(".pOnda text", f), perfil = $(".perfilL", f), pn = $(".perfilN", f);
   const tn = B("navio", 0.12), tv = B("vel", 0.3), tna = B("nada", 0.45), tpr = B("promessa", 0.8);
   aCadaQuadro((t) => {
@@ -380,7 +380,7 @@ CENAS.alerta = (el, c, B) => {
 // =============== 8. resumo: de volta ao navio em alto mar (3D) ===============
 CENAS.resumo = (el, c, B, i, f) => {
   el.innerHTML = cenarioHud({ horizonte: 900, agua: true });
-  const k = camada3D({ ini: c.ini - 0.6, fim: T + 0.5, fov: 36 });
+  const k = camada3D({ ini: c.ini - 0.6, fim: T + 0.5, fov: 36, escala: 0.5 });
   tl.fromTo(k.canvas, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power1.inOut", immediateRender: false }, c.ini - 0.45);
   const oc = oceano3D(k, { sol: [-0.3, 0.035, -1], mar: 0.65, direcao: 0.9, horizonte: [0.55, 0.32, 0.42], zenite: [0.015, 0.025, 0.08], solCor: [2.6, 1.2, 0.7], exposicao: 0.85 });
   const nav = new THREE.Group(), nvI = navio3D(); nvI.rotation.y = Math.PI / 2; nav.add(nvI); k.cena.add(nav);
