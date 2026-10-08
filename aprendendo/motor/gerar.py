@@ -280,14 +280,15 @@ def previa(ag, pasta, destino):
 CINEMA = {"bloom_limiar": 0.55, "bloom_raio": 9, "bloom_forca": 0.75, "luz_forca": 0.2, "luz_cores": ["0xff8a3d", "0xffd23f"], "lut": AQUI / "cinema.cube"}
 
 
-def _acabamento(dur=None, cinema=False):
+def _acabamento(dur=None, cinema=False, fps60=False):
     k = dict(CINEMA, **cinema) if isinstance(cinema, dict) else CINEMA
     """Filtros do ffmpeg que dão a "cara de cinema" (definidos na identidade):
     desfoque de movimento (média de 2 quadros a 60 fps = obturador de 180°), cor,
     vinheta, leve aberração cromática e granulação de filme. Com `cinema`, soma
     bloom, LUT e luz vazando (ver CINEMA)."""
     v = MARCA["video"]
-    f = ["tmix=frames=2:weights=1 1", "fps=30"] if v.get("desfoque_movimento") else []
+    # fps60 (exportar.py --tiktok): mantém os 60 quadros por segundo nativos do render
+    f = ["tmix=frames=2:weights=1 1", "fps=30"] if v.get("desfoque_movimento") and not fps60 else []
     w, h = v["largura"], v["altura"]
     if cinema:
         f.append(f"format=gbrp,split[_a][_b];[_b]scale={w // 4}:{h // 4},curves=all='0/0 {k['bloom_limiar']}/0 1/1',gblur=sigma={k['bloom_raio']},"
@@ -302,7 +303,8 @@ def _acabamento(dur=None, cinema=False):
         f[-1] += (f"[_c];gradients=s={w // 4}x{h // 4}:d={(dur or 600) + 1:.2f}:r=30:n=4:type=radial:speed=0.004:seed=7:"
                   f"c0={k['luz_cores'][0]}:c1=0x000000:c2=0x000000:c3={k['luz_cores'][1]},scale={w}:{h},format=gbrp[_l];[_c]format=gbrp[_c2];[_c2][_l]blend=all_mode=screen:all_opacity={k['luz_forca']},format=yuv420p")
     if tc and tc.get("grao"):
-        f.append(f"noise=alls={tc['grao']}:allf=t")
+        # na versão TikTok o grão vai pela metade: a recompressão do app transforma grão forte em blocos
+        f.append(f"noise=alls={tc['grao'] / 2 if fps60 else tc['grao']:g}:allf=t")
     # fecha sempre em BT.709 (padrão do vídeo HD): as etapas em RGB (bloom, luz, rgbashift) voltavam
     # para YUV na matriz antiga (BT.601) e sem marcação, e o celular mostrava as cores erradas
     return ",".join(f + ["format=gbrp", "scale=out_color_matrix=bt709:out_range=tv", "format=yuv420p"])
