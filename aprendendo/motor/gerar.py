@@ -205,6 +205,13 @@ def montar(roteiro, ag, pasta, pasta_video):
     for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "oceano.js", AQUI / "lottie.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
+    # ícones Phosphor do vídeo (motor/icones.py → videos/<tema>/icones/*.svg): window.ICONES = {nome: miolo do SVG}
+    icones = {}
+    for f in sorted((Path(pasta_video) / "icones").glob("*.svg")):
+        txt = f.read_text()
+        icones[f.stem] = txt[txt.index(">", txt.index("<svg")) + 1:txt.rindex("</svg>")]
+    with open(pasta / "assets" / "lottie_dados.js", "a") as js:
+        js.write("window.ICONES = " + json.dumps(icones, ensure_ascii=False) + ";\n")
     # imagens geradas do vídeo (motor/imagens.py → videos/<tema>/imagens/*.jpg)
     if (Path(pasta_video) / "imagens").is_dir():
         (pasta / "assets" / "imagens").mkdir()

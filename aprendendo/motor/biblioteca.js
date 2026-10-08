@@ -514,3 +514,5 @@ function animarEspumas(el, c) {
 // partículas presas a eventos: areia levantando (usa o respingo balístico com cor e força de areia)
 const areiaLevanta = (pai, x, y, t, n, seed) => respingo(pai, x, y, t, n || 14, { cores: ["#eadcc0", "#d2b98f", "#c4a679"], forca: 0.42, abertura: 340, g: 1500, seed: seed || 31 });
 const gotas = (pai, x, y, t, n, seed, forca) => respingo(pai, x, y, t, n || 16, { cores: ["#ffffff", "#cfe6fa", "#9fc6ea"], forca: forca || 0.8, abertura: 420, g: 2100, seed: seed || 41 });
+// ícone Phosphor (motor/icones.py) centrado em 0,0, com `tam` px de lado
+const icone = (nome, tam, cor) => `<svg x="${-tam / 2}" y="${-tam / 2}" width="${tam}" height="${tam}" viewBox="0 0 256 256" fill="${cor || "currentColor"}">${(window.ICONES || {})[nome] || ""}</svg>`;
