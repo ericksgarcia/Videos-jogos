@@ -163,10 +163,15 @@ def montar(roteiro, ag, pasta, pasta_video):
     for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "lottie.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
+    # bibliotecas só deste vídeo (videos/<tema>/libs/*.js, ex.: p5.brush), carregadas antes do cenas.js
+    libs = sorted((Path(pasta_video) / "libs").glob("*.js"))
+    for arq in libs:
+        shutil.copy(arq, pasta / "assets" / arq.name)
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}
     html = (AQUI / "template.html").read_text()
     html = html.replace("/*__DADOS__*/null", json.dumps(dados, ensure_ascii=False)).replace("__TOTAL__", str(ag["total"]))
     html = html.replace("/*__MARCA__*/null", json.dumps(MARCA, ensure_ascii=False))
+    html = html.replace("<!--__LIBS__-->", "\n    ".join(f'<script src="assets/{a.name}"></script>' for a in libs))
     (pasta / "index.html").write_text(html)
     (pasta / "hyperframes.json").write_text(json.dumps({"paths": {"assets": "assets"}}))
     (pasta / "meta.json").write_text(json.dumps({"id": roteiro["slug"], "name": roteiro["titulo"]}))
