@@ -321,5 +321,12 @@
         "Segue": "cta"
       }
     }
-  ]
+  ],
+  "cinema": {
+    "luz_cores": [
+      "0x4cc9f0",
+      "0x7b5cd6"
+    ],
+    "luz_forca": 0.16
+  }
 }

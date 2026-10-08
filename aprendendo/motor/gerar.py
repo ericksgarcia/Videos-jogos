@@ -233,10 +233,11 @@ def previa(ag, pasta, destino):
 # bloom (as luzes vazam brilho), LUT de cor (motor/cinema.cube, gerada por motor/lut.py)
 # e luz vazando (light leak) quente passeando devagar pelo quadro.
 # Bloom e luz são calculados em 1/4 da resolução (rápido) e ampliados.
-CINEMA = {"bloom_limiar": 0.55, "bloom_raio": 9, "bloom_forca": 0.75, "luz_forca": 0.2, "lut": AQUI / "cinema.cube"}
+CINEMA = {"bloom_limiar": 0.55, "bloom_raio": 9, "bloom_forca": 0.75, "luz_forca": 0.2, "luz_cores": ["0xff8a3d", "0xffd23f"], "lut": AQUI / "cinema.cube"}
 
 
 def _acabamento(dur=None, cinema=False):
+    k = dict(CINEMA, **cinema) if isinstance(cinema, dict) else CINEMA
     """Filtros do ffmpeg que dão a "cara de cinema" (definidos na identidade):
     desfoque de movimento (média de 2 quadros a 60 fps = obturador de 180°), cor,
     vinheta, leve aberração cromática e granulação de filme. Com `cinema`, soma
@@ -245,7 +246,6 @@ def _acabamento(dur=None, cinema=False):
     f = ["tmix=frames=2:weights=1 1", "fps=30"] if v.get("desfoque_movimento") else []
     w, h = v["largura"], v["altura"]
     if cinema:
-        k = CINEMA
         f.append(f"format=gbrp,split[_a][_b];[_b]scale={w // 4}:{h // 4},curves=all='0/0 {k['bloom_limiar']}/0 1/1',gblur=sigma={k['bloom_raio']},"
                  f"scale={w}:{h}[_g];[_a][_g]blend=all_mode=screen:all_opacity={k['bloom_forca']}")
         f.append(f"lut3d=file={k['lut']}")
@@ -256,7 +256,7 @@ def _acabamento(dur=None, cinema=False):
             f.append(f"rgbashift=rh=-{tc['aberracao_px']}:bh={tc['aberracao_px']}")
     if cinema:
         f[-1] += (f"[_c];gradients=s={w // 4}x{h // 4}:d={(dur or 600) + 1:.2f}:r=30:n=4:type=radial:speed=0.004:seed=7:"
-                  f"c0=0xff8a3d:c1=0x000000:c2=0x000000:c3=0xffd23f,scale={w}:{h},format=gbrp[_l];[_c]format=gbrp[_c2];[_c2][_l]blend=all_mode=screen:all_opacity={CINEMA['luz_forca']},format=yuv420p")
+                  f"c0={k['luz_cores'][0]}:c1=0x000000:c2=0x000000:c3={k['luz_cores'][1]},scale={w}:{h},format=gbrp[_l];[_c]format=gbrp[_c2];[_c2][_l]blend=all_mode=screen:all_opacity={k['luz_forca']},format=yuv420p")
     if tc and tc.get("grao"):
         f.append(f"noise=alls={tc['grao']}:allf=t")
     return ",".join(f) or "null"
@@ -316,7 +316,7 @@ def main():
     renderizar(pasta, mudo, qualidade=a.qualidade)
     mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"))
     mp4 = saida / f"{roteiro['slug']}.mp4"
-    codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], a.cinema or roteiro.get("cinema", False))
+    codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], roteiro.get("cinema") or a.cinema)
     print("pronto:", mp4)
 
 

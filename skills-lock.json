@@ -7,6 +7,12 @@
       "skillPath": "skills/animated-chart/SKILL.md",
       "computedHash": "d4ea17e2a117e1acb413f0a89e95f4e466f21eab7b7ac84ce69fe2fa646af8a8"
     },
+    "create-svg": {
+      "source": "buildfastwithai/buildfast-skills",
+      "sourceType": "github",
+      "skillPath": "create-svg-skill/SKILL.md",
+      "computedHash": "2d257ccd5960e8848f575213420184ca4d7a404aca17e52938b6b5f7130e7243"
+    },
     "embedded-captions": {
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
@@ -180,6 +186,12 @@
       "sourceType": "github",
       "skillPath": "skills/slideshow/SKILL.md",
       "computedHash": "fa178947b4cfe834d416c4d826d50cdd1f92dfb22395569032a40aa5d26819cc"
+    },
+    "svg-creator": {
+      "source": "upbrew-tech/svg-creator-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "c85c84a573ca4c8380fc02d4368fa2661f759075d51ea7e1cf8a457eb240a81f"
     },
     "talking-head-recut": {
       "source": "heygen-com/hyperframes",
