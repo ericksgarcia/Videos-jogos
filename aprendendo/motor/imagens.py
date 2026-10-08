@@ -11,17 +11,28 @@ A chave fica em REPLICATE_API_TOKEN (variável de ambiente ou .env na raiz, que 
 import argparse
 import json
 import os
+import sys
 import time
 import urllib.error
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 RAIZ = Path(__file__).resolve().parents[2]
 VIDEOS = RAIZ / "aprendendo" / "videos"
 MODELO = "black-forest-labs/flux-2-klein-4b"
 ESTILO = ("clean modern editorial 3D render, soft natural daylight, minimal composition with generous empty space, "
           "smooth matte materials, subtle soft shadows, calm muted palette of deep navy, soft blues, warm sand and white, "
           "high detail, photographic depth of field, no text, no letters, no logos, no watermark, no people")
+# OBJETOS (camadas animadas): ilustração vetorial moderna, nem realista nem infantil, sobre fundo
+# magenta chapado para o recorte local (motor/recorte.py)
+ESTILO_OBJ = ("modern semi-flat vector illustration, clean editorial infographic style like premium tech explainers, "
+              "precise realistic proportions, smooth soft gradients with gentle volumetric shading and a soft top-left light, "
+              "a very thin subtle darker edge line, muted natural colors harmonized with a deep navy, ocean blue, warm sand and "
+              "off-white palette, golden yellow only as an accent, refined detail, not photorealistic, not cartoon, not childish, "
+              "not an icon, no text, no letters, no logos, no people")
+FUNDO_OBJ = ("single isolated object, centered, the entire object fully visible with generous empty margin, "
+             "on a perfectly flat solid pure magenta #FF00FF background, no shadow, no ground, no reflection, no gradient in the background")
 
 
 def _chave():
@@ -36,13 +47,20 @@ def _chave():
     return k
 
 
-def gerar(tema, nome, descricao, seed=7, formato="9:16", mp="2", refazer=False, estilo=True):
+def gerar(tema, nome, descricao, seed=7, formato="9:16", mp="2", refazer=False, estilo=True, objeto=False):
+    """objeto=True: ilustração isolada sobre magenta, recortada localmente → imagens/<nome>.png
+    (o bruto fica em imagens/_bruto/<nome>.jpg)."""
     pasta = VIDEOS / tema / "imagens"
     pasta.mkdir(parents=True, exist_ok=True)
-    arq = pasta / f"{nome}.jpg"
-    if arq.exists() and not refazer:
-        return arq
-    prompt = f"{descricao}. {ESTILO}" if estilo else descricao
+    final = pasta / f"{nome}.png" if objeto else pasta / f"{nome}.jpg"
+    if final.exists() and not refazer:
+        return final
+    arq = (pasta / "_bruto" / f"{nome}.jpg") if objeto else final
+    arq.parent.mkdir(exist_ok=True)
+    if objeto:
+        prompt = f"{descricao}. {ESTILO_OBJ}. {FUNDO_OBJ}"
+    else:
+        prompt = f"{descricao}. {ESTILO}" if estilo else descricao
     corpo = json.dumps({"input": {"prompt": prompt, "aspect_ratio": formato, "output_megapixels": mp, "seed": seed,
                                   "output_format": "jpg", "output_quality": 95}}).encode()
     cab = {"Authorization": f"Bearer {_chave()}", "Content-Type": "application/json", "Prefer": "wait=60"}
@@ -63,9 +81,12 @@ def gerar(tema, nome, descricao, seed=7, formato="9:16", mp="2", refazer=False, 
     arq.write_bytes(urllib.request.urlopen(url, timeout=120).read())
     cred = pasta / "creditos.json"
     reg = json.loads(cred.read_text()) if cred.exists() else {}
-    reg[nome] = {"modelo": MODELO, "descricao": descricao, "seed": seed, "formato": formato, "mp": mp}
+    reg[nome] = {"modelo": MODELO, "descricao": descricao, "seed": seed, "formato": formato, "mp": mp, "objeto": objeto}
     cred.write_text(json.dumps(reg, ensure_ascii=False, indent=1))
-    return arq
+    if objeto:
+        import recorte
+        recorte.recortar(arq, final)
+    return final
 
 
 if __name__ == "__main__":
@@ -78,9 +99,11 @@ if __name__ == "__main__":
     ap.add_argument("--mp", default="2")
     ap.add_argument("--lista", action="store_true")
     ap.add_argument("--refazer", action="store_true")
+    ap.add_argument("--objeto", action="store_true", help="objeto isolado, recortado em PNG transparente")
     a = ap.parse_args()
     if a.lista:
         for it in json.loads((VIDEOS / a.tema / "imagens.json").read_text()):
-            print(gerar(a.tema, it["nome"], it["descricao"], it.get("seed", 7), it.get("formato", "9:16"), it.get("mp", "2"), a.refazer))
+            print(gerar(a.tema, it["nome"], it["descricao"], it.get("seed", 7), it.get("formato", "1:1" if it.get("objeto") else "9:16"),
+                        it.get("mp", "1" if it.get("objeto") else "2"), a.refazer, objeto=it.get("objeto", False)))
     else:
-        print(gerar(a.tema, a.nome, a.descricao, a.seed, a.formato, a.mp, a.refazer))
+        print(gerar(a.tema, a.nome, a.descricao, a.seed, a.formato, a.mp, a.refazer, objeto=a.objeto))

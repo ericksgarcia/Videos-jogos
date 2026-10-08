@@ -208,7 +208,7 @@ def montar(roteiro, ag, pasta, pasta_video):
     # imagens geradas do vídeo (motor/imagens.py → videos/<tema>/imagens/*.jpg)
     if (Path(pasta_video) / "imagens").is_dir():
         (pasta / "assets" / "imagens").mkdir()
-        for arq in (Path(pasta_video) / "imagens").glob("*.jpg"):
+        for arq in [*(Path(pasta_video) / "imagens").glob("*.jpg"), *(Path(pasta_video) / "imagens").glob("*.png")]:
             shutil.copy(arq, pasta / "assets" / "imagens" / arq.name)
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}
     html = (AQUI / "template.html").read_text()
