@@ -616,13 +616,9 @@ function oceano3D(k, o) {
   return { waves, ocean, sol, altura: (x, z) => waves.height(x, z) };
 }
 
-// navio cargueiro 3D (proa para +z), ~150 m; flutua na água pelo `boiar3D`.
-// As peças ficam em g.userData.partes (fundo, casco, faixa, carga[3 camadas], ponte, chamine, mastro),
-// cada uma num grupo próprio, para a vista explodida (explodida3D).
+// navio cargueiro 3D (proa para +z), ~150 m; flutua na água pelo `boiar3D`
 function navio3D() {
-  const g = new THREE.Group(), grupo = () => { const q = new THREE.Group(); g.add(q); return q; };
-  const P = { fundo: grupo(), casco: grupo(), faixa: grupo(), carga: [grupo(), grupo(), grupo()], ponte: grupo(), chamine: grupo(), mastro: grupo() };
-  g.userData.partes = P;
+  const g = new THREE.Group();
   const casco = new THREE.MeshStandardMaterial({ color: 0x1c2233, metalness: 0.55, roughness: 0.42 });
   const fundo = new THREE.MeshStandardMaterial({ color: 0x8a2a32, metalness: 0.3, roughness: 0.6 });
   const branco = new THREE.MeshStandardMaterial({ color: 0xe8ecf5, metalness: 0.2, roughness: 0.45 });
@@ -631,30 +627,28 @@ function navio3D() {
   sh.moveTo(-B / 2, -L / 2); sh.lineTo(B / 2, -L / 2); sh.lineTo(B / 2, L / 2 - 30);
   sh.quadraticCurveTo(B / 2, L / 2 - 6, 0, L / 2); sh.quadraticCurveTo(-B / 2, L / 2 - 6, -B / 2, L / 2 - 30); sh.closePath();
   const ext = (h, mat, y) => { const m = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: h, bevelEnabled: false, curveSegments: 16 }), mat); m.rotation.x = -Math.PI / 2; m.position.y = y; return m; };
-  P.fundo.add(ext(6, fundo, -6)); P.casco.add(ext(9, casco, 0));
+  g.add(ext(6, fundo, -6), ext(9, casco, 0));
   // faixa branca e linha d'água
-  const faixa = ext(0.6, branco, 8.4); faixa.scale.set(1.002, 1.002, 1); P.faixa.add(faixa);
-  // contêineres coloridos em pilhas (uma malha por camada, para a vista explodida)
+  const faixa = ext(0.6, branco, 8.4); faixa.scale.set(1.002, 1.002, 1); g.add(faixa);
+  // contêineres coloridos em pilhas
   const cores = [0xef476f, 0x4cc9f0, 0xffd23f, 0x06d6a0, 0xff8a3d, 0xe8ecf5, 0x3a5bd9];
-  const geoC = new THREE.BoxGeometry(2.4, 2.5, 6), matC = new THREE.MeshStandardMaterial({ metalness: 0.4, roughness: 0.55 });
-  const m4 = new THREE.Matrix4(), cor = new THREE.Color();
-  for (let alt = 0; alt < 3; alt++) {
-    const inst = new THREE.InstancedMesh(geoC, matC, 6 * 9); let i = 0;
-    for (let fil = 0; fil < 9; fil++) for (let col = 0; col < 6; col++) {
-      if ((fil * 7 + col * 3 + alt * 5) % 11 === 0 && alt === 2) continue;
-      m4.makeTranslation(-7.5 + col * 3, 10.3 + alt * 2.6, -40 + fil * 8.2); inst.setMatrixAt(i, m4);
-      inst.setColorAt(i, cor.setHex(cores[(fil * 5 + col * 3 + alt) % cores.length])); i++;
-    }
-    inst.count = i; P.carga[alt].add(inst);
+  const geoC = new THREE.BoxGeometry(2.4, 2.5, 6), n = 6 * 9 * 3;
+  const inst = new THREE.InstancedMesh(geoC, new THREE.MeshStandardMaterial({ metalness: 0.4, roughness: 0.55 }), n);
+  const m4 = new THREE.Matrix4(), cor = new THREE.Color(); let i = 0;
+  for (let fil = 0; fil < 9; fil++) for (let col = 0; col < 6; col++) for (let alt = 0; alt < 3; alt++) {
+    if ((fil * 7 + col * 3 + alt * 5) % 11 === 0 && alt === 2) continue;
+    m4.makeTranslation(-7.5 + col * 3, 10.3 + alt * 2.6, -40 + fil * 8.2); inst.setMatrixAt(i, m4);
+    inst.setColorAt(i, cor.setHex(cores[(fil * 5 + col * 3 + alt) % cores.length])); i++;
   }
+  inst.count = i; g.add(inst);
   // superestrutura na popa (ponte) com janelas que brilham
-  const ponte = new THREE.Mesh(new THREE.BoxGeometry(20, 16, 12), branco); ponte.position.set(0, 17, -58); P.ponte.add(ponte);
+  const ponte = new THREE.Mesh(new THREE.BoxGeometry(20, 16, 12), branco); ponte.position.set(0, 17, -58); g.add(ponte);
   const vidro = new THREE.MeshStandardMaterial({ color: 0x0d1b3a, emissive: 0xffd98a, emissiveIntensity: 0.9, roughness: 0.2 });
-  [0, 1, 2].forEach((k) => { const j = new THREE.Mesh(new THREE.BoxGeometry(20.2, 1.2, 12.2), vidro); j.position.set(0, 12 + k * 4.2, -58); P.ponte.add(j); });
-  const asa = new THREE.Mesh(new THREE.BoxGeometry(30, 2, 5), branco); asa.position.set(0, 25, -54); P.ponte.add(asa);
-  const chamine = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 3.2, 10, 20), new THREE.MeshStandardMaterial({ color: 0xff8a3d, roughness: 0.5 })); chamine.position.set(0, 30, -62); P.chamine.add(chamine);
-  const mastro = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 14, 8), branco); mastro.position.set(0, 16, 55); P.mastro.add(mastro);
-  const luz = halo3D(0xfff2c0, 6, 0.9); luz.position.set(0, 23.5, 55); P.mastro.add(luz);
+  [0, 1, 2].forEach((k) => { const j = new THREE.Mesh(new THREE.BoxGeometry(20.2, 1.2, 12.2), vidro); j.position.set(0, 12 + k * 4.2, -58); g.add(j); });
+  const asa = new THREE.Mesh(new THREE.BoxGeometry(30, 2, 5), branco); asa.position.set(0, 25, -54); g.add(asa);
+  const chamine = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 3.2, 10, 20), new THREE.MeshStandardMaterial({ color: 0xff8a3d, roughness: 0.5 })); chamine.position.set(0, 30, -62); g.add(chamine);
+  const mastro = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 14, 8), branco); mastro.position.set(0, 16, 55); g.add(mastro);
+  const luz = halo3D(0xfff2c0, 6, 0.9); luz.position.set(0, 23.5, 55); g.add(luz);
   return g;
 }
 // faz um objeto boiar nas ondas (altura e inclinação tiradas da superfície; função pura do tempo)

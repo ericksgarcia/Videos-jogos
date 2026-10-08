@@ -106,32 +106,3 @@ function chaves(t, ks, ease) {
   }
   return ks[ks.length - 1][1];
 }
-
-// ===== Vista explodida + órbita (padrão "exploded layers" da skill business-motion-film) =====
-// Desmonta um objeto em peças, segura afastado "respirando" e remonta, enquanto a câmera gira
-// em volta. Tudo é função do tempo (seguro para pular quadros).
-//   const ex = explodida3D(k, [{ obj, desloc: [x, y, z], giro: [rx, ry, rz] }, ...],
-//                          { abre, fecha, dur, atraso, respira });
-//   ex.fator(t) → 0 (montado) … 1 (aberto); use para mostrar rótulos só com ele aberto.
-// O deslocamento é no referencial do pai de cada peça. As peças saem em sequência
-// (atraso pequeno) e voltam na ordem inversa. A curva é smootherstep (suave5, em efeitos.js): sem "pulo" no 1º quadro.
-function explodida3D(k, pecas, o) {
-  const dur = o.dur ?? 1.4, durV = o.durVolta ?? dur, atr = o.atraso ?? 0.08, resp = o.respira ?? 0.12, n = pecas.length;
-  const base = pecas.map((p) => ({ pos: p.obj.position.clone(), rot: p.obj.rotation.clone() }));
-  const fatorI = (t, i) => suave5((t - o.abre - atr * i) / dur) - suave5((t - o.fecha - atr * (n - 1 - i)) / durV);
-  // afastamento extra lento enquanto aberto, para o quadro não congelar
-  const respira = (t) => 1 + resp * suave5((t - o.abre - dur) / Math.max(0.5, o.fecha - o.abre - dur));
-  k.animar((t) => pecas.forEach((p, i) => {
-    const u = fatorI(t, i) * respira(t), d = p.desloc || [0, 0, 0], g = p.giro || [0, 0, 0], b = base[i];
-    p.obj.position.set(b.pos.x + d[0] * u, b.pos.y + d[1] * u, b.pos.z + d[2] * u);
-    p.obj.rotation.set(b.rot.x + g[0] * u, b.rot.y + g[1] * u, b.rot.z + g[2] * u);
-  }));
-  return { fator: (t) => Math.max(0, Math.min(1, fatorI(t, (n - 1) / 2))) };
-}
-// câmera em órbita: ks = [[t, ângulo (rad), raio, altura], ...]; olha para `alvo` (Vector3) + olharY.
-// Cada trecho entre duas chaves acelera e freia; para girar sem parar, use poucas chaves.
-function orbita3D(k, t, alvo, ks, olharY, ease) {
-  const [a, R, h] = chaves(t, ks.map(([tk, ...v]) => [tk, v]), ease);
-  k.camera.position.set(alvo.x + R * Math.sin(a), alvo.y + h, alvo.z + R * Math.cos(a));
-  k.camera.lookAt(alvo.x, alvo.y + (olharY ?? 0), alvo.z);
-}
