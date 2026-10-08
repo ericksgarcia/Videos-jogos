@@ -68,14 +68,7 @@ function gaivotas(pai, lista, t, fim) {
 // reflexos na superfície da água (traços claros que vão e voltam)
 const reflexos = (y0, y1, n, seed, cor, cls) => { const r = prng(seed); let s = ""; for (let i = 0; i < n; i++) { const y = y0 + r() * (y1 - y0), w = 30 + r() * 90 * (1 + (y - y0) / (y1 - y0 + 1)); s += `<rect x="${(r() * W).toFixed(0)}" y="${y.toFixed(0)}" width="${w.toFixed(0)}" height="${(3 + r() * 4).toFixed(1)}" rx="3" fill="${cor || "#fff"}" opacity="${(0.15 + r() * 0.35).toFixed(2)}"/>`; } return `<g class="${cls || "refl"}">${s}</g>`; };
 const animarReflexos = (g, t, fim) => tl.fromTo(g, { x: -30 }, { x: 30, duration: 2.2, yoyo: true, repeat: Math.max(1, Math.floor((fim - t) / 2.2)), ease: "sine.inOut", immediateRender: false }, t);
-// navio balançando de leve na água
-const boiar = (g, t, fim, amp) => tl.fromTo(g, { y: 0 }, { y: amp ?? 6, duration: 1.6, yoyo: true, repeat: Math.max(1, Math.floor((fim - t) / 1.6)), ease: "sine.inOut", immediateRender: false }, t);
 
-// seta grossa apontando para cima (base na origem), comprimento L
-const flecha = (L, cor, txt, ang, cls, tam) => `<g transform="rotate(${ang || 0})"><g class="${cls}"><path d="M-16 0 V ${-L + 44} H -40 L 0 ${-L} L 40 ${-L + 44} H 16 V 0 Z" fill="${cor}" fill-opacity="0.16" stroke="${cor}" stroke-width="3"/>
-  <path d="M0 -10 V ${-L + 30}" stroke="${cor}" stroke-width="2" stroke-dasharray="6 8" opacity="0.8"/>
-  ${txt ? `<g transform="translate(0 ${-L - 50}) rotate(${-(ang || 0)})">${tag(txt, cor, tam || 28)}</g>` : ""}</g></g>`;
-const animFlecha = (g, t) => { tl.set(g, { opacity: 0 }, 0); tl.fromTo(g, { scaleY: 0, opacity: 1, transformOrigin: "50% 100%" }, { scaleY: 1, opacity: 1, duration: 0.55, ease: "back.out(1.7)", immediateRender: false }, t); };
 // parafuso (centro em 0,0)
 const parafuso = () => `<rect x="-26" y="-46" width="52" height="20" rx="4" fill="url(#metal)"/><rect x="-11" y="-28" width="22" height="78" fill="url(#metalH)"/>
   ${[0, 1, 2, 3, 4, 5].map((k) => `<path d="M-13 ${-20 + k * 12} L 13 ${-14 + k * 12}" stroke="#5d6890" stroke-width="3"/>`).join("")}<path d="M-11 50 L 0 62 L 11 50 Z" fill="#7b86a8"/>`;
@@ -88,23 +81,6 @@ const parafuso = () => `<rect x="-26" y="-46" width="52" height="20" rx="4" fill
 // esfera em wireframe (meridianos e paralelos), raio r
 const esfera = (r) => `<circle r="${r}" class="cheio" style="fill-opacity:0.6"/>${[0.35, 0.7].map((k) => `<ellipse rx="${(r * k).toFixed(1)}" ry="${r}"/>`).join("")}
   ${[-0.5, 0, 0.5].map((k) => `<ellipse cy="${(r * k).toFixed(1)}" rx="${(r * Math.sqrt(1 - k * k)).toFixed(1)}" ry="${(r * 0.18 * Math.sqrt(1 - k * k)).toFixed(1)}"/>`).join("")}<circle r="${r}" class="vazio"/>`;
-// hexágono com "?" (pergunta)
-const hexPergunta = (r) => `<path d="${Array.from({ length: 6 }, (_, k) => `${k ? "L" : "M"}${(r * Math.cos((k * 60 - 90) * Math.PI / 180)).toFixed(1)} ${(r * Math.sin((k * 60 - 90) * Math.PI / 180)).toFixed(1)}`).join(" ")} Z" fill="rgba(4,10,28,0.85)" stroke="${C.amarelo}" stroke-width="4"/>
-  <text class="mono" y="${r * 0.38}" text-anchor="middle" font-size="${r * 1.1}" fill="${C.amarelo}">?</text>`;
-// varredura que revela um grupo da esquerda para a direita (clipPath + linha de scanner)
-let _nVarre = 0;
-function varredura(g, x0, y0, w, h, t, dur) {
-  const id = `varre${_nVarre++}`;
-  $("#defs").insertAdjacentHTML("beforeend", `<clipPath id="${id}" clipPathUnits="userSpaceOnUse"><rect class="${id}r" x="${x0}" y="${y0}" width="0" height="${h}"/></clipPath>`);
-  g.setAttribute("clip-path", `url(#${id})`);
-  g.insertAdjacentHTML("afterend", `<rect class="${id}l" x="${x0}" y="${y0}" width="6" height="${h}" fill="#dff6ff" opacity="0"/>`);
-  const r = $(`.${id}r`), l = g.parentNode.querySelector(`.${id}l`);
-  tl.fromTo(r, { attr: { width: 0 } }, { attr: { width: w }, duration: dur, ease: "power2.inOut", immediateRender: false }, t);
-  tl.fromTo(l, { x: 0, opacity: 0.9 }, { x: w, opacity: 0.9, duration: dur, ease: "power2.inOut", immediateRender: false }, t);
-  tl.to(l, { opacity: 0, duration: 0.2 }, t + dur);
-  tl.set(r, { attr: { width: 0 } }, 0);
-}
-
 // =============== 1. gancho: o navio escaneado em holograma ===============
 CENAS.porto = (el, c, B) => {
   mostrarGancho(B("titulo", 0.85) - 0.2);
@@ -199,9 +175,9 @@ CENAS.piscina = (el, c, B) => {
       <path class="tbE" d="M${X0} ${BORDA - 40} H ${X0 - 130}" stroke="#8fe3ff" stroke-width="6" stroke-linecap="round"/>
       <path class="tbD" d="M${X1} ${BORDA - 40} H ${X1 + 130}" stroke="#8fe3ff" stroke-width="6" stroke-linecap="round"/>
       ${[X0 - 60, X0 - 110, X1 + 60, X1 + 110].map((x) => `<circle class="gota" cx="${x}" cy="${BORDA - 30}" r="6" fill="#8fe3ff"/>`).join("")}</g>
-    <g transform="translate(540 ${BY - R - 230})"><g class="fForca">${flecha(200, C.vermelho, "", 180, "ffi")}</g></g>
-    <g class="empA">${[440, 540, 640].map((x) => `<g transform="translate(${x} 1300)"><g class="fe">${flecha(110, C.ciano, "", 0, "fei")}</g></g>`).join("")}</g>
-    <g transform="translate(860 1280)"><g class="fUp">${flecha(320, C.verde, "", 0, "fu")}</g></g>
+    <g transform="translate(540 ${BY - R - 230})"><g class="fForca">${flechaHud(200, C.vermelho, "", 180, "ffi")}</g></g>
+    <g class="empA">${[440, 540, 640].map((x) => `<g transform="translate(${x} 1300)"><g class="fe">${flechaHud(110, C.ciano, "", 0, "fei")}</g></g>`).join("")}</g>
+    <g transform="translate(860 1280)"><g class="fUp">${flechaHud(320, C.verde, "", 0, "fu")}</g></g>
     <g class="gotasPi"></g></g>
     <g transform="translate(700 470)"><g class="pNivel">${painelHud([["SENSOR", "NÍVEL"], ["ÁGUA", "+0,0 cm"]], C.ciano, 300)}</g></g>
     <g transform="translate(290 700)"><g class="tForca">${tag("TENTA AFUNDAR", C.vermelho, 30)}</g></g>
@@ -215,7 +191,7 @@ CENAS.piscina = (el, c, B) => {
   girar(bR, c.ini, c.fim, 0.12, "0 0");
   // tenta afundar: força para baixo, nível sobe (sensor) e transborda
   tl.set($(".fForca", el), { opacity: 1 }, te - 0.2);
-  animFlecha($(".ffi", el), te - 0.2);
+  animFlechaHud($(".ffi", el), te - 0.2);
   entrar($(".tForca", el), te - 0.15, "cima");
   entrar($(".pNivel", el), te - 0.1, "dir");
   contador(nivel, 0, 4, te + 0.3, 1.2, (v) => "+" + v.toFixed(1).replace(".", ",") + " cm");
@@ -228,7 +204,7 @@ CENAS.piscina = (el, c, B) => {
   desenhar([$(".tbE", el), $(".tbD", el)], tt - 0.1, 0.5);
   tl.fromTo($$(".gota", el), { y: 0, opacity: 1 }, { y: 120, opacity: 0, duration: 0.6, stagger: 0.12, repeat: 3, ease: "power1.in", immediateRender: false }, tt + 0.2);
   // a água empurra de volta
-  $$(".fe", el).forEach((f, k) => { tl.set(f, { opacity: 1 }, tm + k * 0.1); animFlecha($(".fei", f), tm + k * 0.1); });
+  $$(".fe", el).forEach((f, k) => { tl.set(f, { opacity: 1 }, tm + k * 0.1); animFlechaHud($(".fei", f), tm + k * 0.1); });
   entrar($(".tVolta", el), tm + 0.1, "escala");
   // solta: a esfera salta e volta a boiar; o nível volta
   sair($(".tVolta", el), tc - 0.35);
@@ -241,7 +217,7 @@ CENAS.piscina = (el, c, B) => {
   tl.to(bola, { y: 0, duration: 0.55, ease: "power2.in" }, tc + 0.6);
   respingo($(".gotasPi", el), 540, BY + 40, tc + 1.15, 16, { seed: 3, forca: 0.7, cores: ["#8fe3ff", "#dff6ff"] });
   boiar(bola, tc + 1.2, c.fim, 8);
-  animFlecha($(".fu", el), tx - 0.1);
+  animFlechaHud($(".fu", el), tx - 0.1);
   entrar($(".tEmpuxo", el), tx, "escala");
   reflexoPassando($(".tEmpuxo", el), "EMPUXO", 46, tx + 0.6);
   cameraFases($(".cam", el), [[c.ini - 0.5, 1.025, 540, 900], [te - 0.3, 1.1, 540, 960], [te + 0.6, 1.2, 540, 1060], [tc - 0.2, 1.2, 540, 1060],
@@ -392,8 +368,8 @@ CENAS.casco = (el, c, B) => {
     <rect x="-200" y="${NA}" width="${W + 400}" height="${H - NA + 200}" fill="#0d3a6e" opacity="0.35"/>
     <path d="M-200 ${NA} H ${W + 200}" stroke="#8fe3ff" stroke-width="3"/>
     <g class="cotaCasca" opacity="0">${cota(880, 760, 880, 1170, "CASCA DE AÇO", C.laranja).replace('class="cota"', 'class="cotaX"')}</g>
-    <g transform="translate(110 1330)"><g class="fUp">${flecha(290, C.verde, "EMPUXO", 0, "fu", 24)}</g></g>
-    <g transform="translate(970 560)"><g class="fDn">${flecha(260, C.vermelho, "PESO", 180, "fd", 24)}</g></g></g>
+    <g transform="translate(110 1330)"><g class="fUp">${flechaHud(290, C.verde, "EMPUXO", 0, "fu", 24)}</g></g>
+    <g transform="translate(970 560)"><g class="fDn">${flechaHud(260, C.vermelho, "PESO", 180, "fd", 24)}</g></g></g>
     <g transform="translate(540 370)"><g class="tAco">${tag("AÇO: SÓ A CASCA", C.laranja, 36)}</g></g>
     <g transform="translate(540 370)"><g class="tArC">${tag("POR DENTRO: QUASE TUDO AR", C.ciano, 30)}</g></g>
     <g transform="translate(540 1230)"><g class="tAgua">${numeroHud("cA", 84, C.ciano)}<g transform="translate(0 58)">${tag("TONELADAS DE ÁGUA EMPURRADAS", C.ciano, 22)}</g></g></g>`;
@@ -426,8 +402,8 @@ CENAS.casco = (el, c, B) => {
   tl.fromTo($(".desloc", el), { strokeDashoffset: 0 }, { strokeDashoffset: -300, duration: c.fim - tw, ease: "none", immediateRender: false }, tw);
   entrar($(".tAgua", el), tw - 0.5, "escala");
   contador($(".cA", el), 0, 100000, tw - 0.5, 1.2);
-  animFlecha($(".fu", el), ti - 0.15);
-  animFlecha($(".fd", el), ti + 0.05);
+  animFlechaHud($(".fu", el), ti - 0.15);
+  animFlechaHud($(".fd", el), ti + 0.05);
   cameraFases($(".cam", el), [[c.ini - 0.5, 1.7, 540, 990], [tg - 0.4, 1.7, 540, 990], [tg + 0.8, 1.0, 540, 880], [tfi - 0.2, 1.0, 540, 880], [tfi + 0.6, 1.08, 560, 820],
     [tw - 0.3, 1.08, 560, 820], [tw + 0.4, 1.06, 540, 930], [ti - 0.3, 1.06, 540, 930], [ti + 0.5, 1.0, 540, 900], [c.fim + 0.5, 1.03, 540, 900]], c.fim);
 };

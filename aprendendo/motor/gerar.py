@@ -160,7 +160,7 @@ def montar(roteiro, ag, pasta, pasta_video):
     (pasta / "assets" / "lottie_dados.js").write_text("window.LOTTIE = " + json.dumps(lot, separators=(",", ":")) + ";\n")
     for arq in [*(IDENTIDADE / "fontes").glob("*.woff2"), *(AQUI / "fontes").glob("*.woff2")]:
         shutil.copy(arq, pasta / "assets" / arq.name)
-    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "lottie.js", AQUI / "montagem.js"):
+    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "oceano.js", AQUI / "lottie.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}

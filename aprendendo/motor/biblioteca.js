@@ -335,3 +335,57 @@ const mira = (r, cor) => { cor = cor || C.vermelho; return `<circle r="${r}" fil
 const painelHud = (linhas, cor, larg) => { cor = cor || C.ciano; larg = larg || 380; const h = 26 + linhas.length * 38;
   return `<rect class="tagCaixa" x="0" y="0" width="${larg}" height="${h}" fill="rgba(4,10,28,0.82)" stroke="${cor}" stroke-opacity="0.55" stroke-width="2"/><rect x="0" y="0" width="${larg}" height="5" fill="${cor}"/>
     ${linhas.map(([a, b], k) => `<text class="monol" x="18" y="${44 + k * 38}" font-size="21" fill="${cor}" opacity="0.8">${a}</text><text class="mono" x="${larg - 18}" y="${44 + k * 38}" font-size="23" fill="#fff" text-anchor="end">${b}</text>`).join("")}`; };
+
+// ================= desenho técnico (blueprint) — princípios das skills create-svg/svg-creator =================
+// Hierarquia de linhas (contorno grosso, arestas médias, cotas/construção finas, traço-ponto no centro),
+// grade dupla, hachuras de corte, chamadas numeradas e bloco de título de prancha.
+const LT = { contorno: 'style="stroke-width:3.4px"', aresta: 'style="stroke-width:1.8px"', fina: 'style="stroke-width:1px"',
+  oculta: 'style="stroke-width:1.4px;stroke-dasharray:8 5"', centro: 'style="stroke-width:1.2px;stroke-dasharray:18 5 3 5"' };
+$("#defs").insertAdjacentHTML("beforeend", `
+  <pattern id="gradeFina" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H 0 V 20" fill="none" stroke="#4cc9f0" stroke-opacity="0.09" stroke-width="1"/></pattern>
+  <pattern id="gradeGrossa" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#gradeFina)"/><path d="M100 0 H 0 V 100" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="1.2"/></pattern>
+  <pattern id="hachura" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0 V 12" stroke="#8fe3ff" stroke-opacity="0.45" stroke-width="1.4"/></pattern>
+  <pattern id="hachuraLr" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><path d="M0 0 V 10" stroke="#ff8a3d" stroke-opacity="0.5" stroke-width="1.4"/></pattern>
+  <pattern id="hachuraCruz" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0 V 14 M0 0 H 14" stroke="#ffd23f" stroke-opacity="0.35" stroke-width="1.2"/></pattern>
+  <pattern id="sedimento" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="4" cy="5" r="1.4" fill="#ffd9a0" opacity="0.6"/><circle cx="12" cy="12" r="1" fill="#ffd9a0" opacity="0.45"/><circle cx="13" cy="3" r="0.8" fill="#ffd9a0" opacity="0.35"/></pattern>
+  <pattern id="manto" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2" fill="#ff8a3d" opacity="0.35"/><circle cx="17" cy="15" r="1.4" fill="#ef476f" opacity="0.35"/></pattern>`);
+// grade de prancha técnica sobre uma área
+const gradeTecnica = (x, y, w, h, op) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#gradeGrossa)" opacity="${op ?? 1}"/>`;
+// chamada numerada: ponto no objeto (x0,y0) -> linha -> círculo com número em (x1,y1) e texto
+const chamada = (n, x0, y0, x1, y1, txt, cor, cls) => { cor = cor || C.ciano; const dir = x1 >= x0 ? 1 : -1;
+  return `<g class="${cls || "chamada"}"><circle cx="${x0}" cy="${y0}" r="5" fill="${cor}"/><path class="chL" d="M${x0} ${y0} L ${x1 - dir * 22} ${y1}" stroke="${cor}" stroke-width="1.6" fill="none"/>
+    <circle cx="${x1}" cy="${y1}" r="20" fill="#050b1e" stroke="${cor}" stroke-width="2.4"/><text class="mono" x="${x1}" y="${y1 + 7}" text-anchor="middle" font-size="20" fill="${cor}">${n}</text>
+    <text class="mono" x="${x1 + dir * 32}" y="${y1 + 8}" text-anchor="${dir > 0 ? "start" : "end"}" font-size="22" fill="#e8f6ff">${txt}</text></g>`; };
+const animChamada = (g, t) => { tl.set(g, { opacity: 0 }, 0); tl.set(g, { opacity: 1 }, t); desenhar($(".chL", g), t, 0.35); tl.fromTo($$("circle, text", g), { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.05, immediateRender: false }, t + 0.15); };
+// bloco de título de prancha (canto), ex.: blocoTitulo(700, 1196, "FIG. 02", "SUBDUCÇÃO", "ESC 1:200.000")
+const blocoTitulo = (x, y, fig, titulo, escala, cor) => { cor = cor || C.ciano; const w = 330, h = 88;
+  return `<g class="blocoTit"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="rgba(4,10,28,0.85)" stroke="${cor}" stroke-width="2"/>
+    <path d="M${x} ${y + 34} H ${x + w} M${x + 110} ${y} V ${y + 34} M${x + 200} ${y + 34} V ${y + h}" stroke="${cor}" stroke-width="1" opacity="0.7"/>
+    <text class="mono" x="${x + 14}" y="${y + 24}" font-size="18" fill="${cor}">${fig}</text><text class="monol" x="${x + 124}" y="${y + 24}" font-size="16" fill="#e8f6ff">AF-LAB · OCEANO</text>
+    <text class="mono" x="${x + 14}" y="${y + 66}" font-size="20" fill="#e8f6ff">${titulo}</text><text class="monol" x="${x + 214}" y="${y + 66}" font-size="15" fill="${cor}">${escala}</text></g>`; };
+
+// ---- peças HUD vindas do vídeo do navio ----
+// hexágono com "?" (pergunta)
+const hexPergunta = (r) => `<path d="${Array.from({ length: 6 }, (_, k) => `${k ? "L" : "M"}${(r * Math.cos((k * 60 - 90) * Math.PI / 180)).toFixed(1)} ${(r * Math.sin((k * 60 - 90) * Math.PI / 180)).toFixed(1)}`).join(" ")} Z" fill="rgba(4,10,28,0.85)" stroke="${C.amarelo}" stroke-width="4"/>
+  <text class="mono" y="${r * 0.38}" text-anchor="middle" font-size="${r * 1.1}" fill="${C.amarelo}">?</text>`;
+// varredura que revela um grupo da esquerda para a direita (clipPath + linha de scanner)
+let _nVarre = 0;
+function varredura(g, x0, y0, w, h, t, dur) {
+  const id = `varre${_nVarre++}`;
+  $("#defs").insertAdjacentHTML("beforeend", `<clipPath id="${id}" clipPathUnits="userSpaceOnUse"><rect class="${id}r" x="${x0}" y="${y0}" width="0" height="${h}"/></clipPath>`);
+  g.setAttribute("clip-path", `url(#${id})`);
+  g.insertAdjacentHTML("afterend", `<rect class="${id}l" x="${x0}" y="${y0}" width="6" height="${h}" fill="#dff6ff" opacity="0"/>`);
+  const r = $(`.${id}r`), l = g.parentNode.querySelector(`.${id}l`);
+  tl.fromTo(r, { attr: { width: 0 } }, { attr: { width: w }, duration: dur, ease: "power2.inOut", immediateRender: false }, t);
+  tl.fromTo(l, { x: 0, opacity: 0.9 }, { x: w, opacity: 0.9, duration: dur, ease: "power2.inOut", immediateRender: false }, t);
+  tl.to(l, { opacity: 0, duration: 0.2 }, t + dur);
+  tl.set(r, { attr: { width: 0 } }, 0);
+}
+
+
+// seta HUD (base na origem, aponta para cima; ang gira), comprimento L, rótulo opcional; animFlecha cresce a seta
+const boiar = (g, t, fim, amp) => tl.fromTo(g, { y: 0 }, { y: amp ?? 6, duration: 1.6, yoyo: true, repeat: Math.max(1, Math.floor((fim - t) / 1.6)), ease: "sine.inOut", immediateRender: false }, t);
+const flechaHud = (L, cor, txt, ang, cls, tam) => `<g transform="rotate(${ang || 0})"><g class="${cls}"><path d="M-16 0 V ${-L + 44} H -40 L 0 ${-L} L 40 ${-L + 44} H 16 V 0 Z" fill="${cor}" fill-opacity="0.16" stroke="${cor}" stroke-width="3"/>
+  <path d="M0 -10 V ${-L + 30}" stroke="${cor}" stroke-width="2" stroke-dasharray="6 8" opacity="0.8"/>
+  ${txt ? `<g transform="translate(0 ${-L - 50}) rotate(${-(ang || 0)})">${tag(txt, cor, tam || 28)}</g>` : ""}</g></g>`;
+const animFlechaHud = (g, t) => { tl.set(g, { opacity: 0 }, 0); tl.fromTo(g, { scaleY: 0, opacity: 1, transformOrigin: "50% 100%" }, { scaleY: 1, opacity: 1, duration: 0.55, ease: "back.out(1.7)", immediateRender: false }, t); };
