@@ -197,7 +197,7 @@ CENAS.interruptor = (el, c, B) => {
       x.font = "900 40px Nunito"; x.textAlign = "center"; x.textBaseline = "middle";
       const frase = "GIRAR • ENERGIA • GIRAR • ENERGIA • ", n = frase.length;
       for (let k = 0; k < n; k++) {
-        const a = -ang * 0.5 + (k / n) * 6.283;
+        const a = -ang * 0.12 - (t - tG) * 0.25 + (k / n) * 6.283; // devagar: rápido demais "dobra" com o desfoque de movimento
         x.save(); x.translate(CX + Math.cos(a) * (R + 70), CY + Math.sin(a) * (R + 70)); x.rotate(a + Math.PI / 2);
         x.fillStyle = `rgba(143,227,255,${0.55 * ap * (1 - vou)})`; x.fillText(frase[k], 0, 0); x.restore();
       }
