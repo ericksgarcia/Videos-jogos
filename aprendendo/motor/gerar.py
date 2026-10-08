@@ -158,7 +158,7 @@ def montar(roteiro, ag, pasta, pasta_video):
     # animações Lottie do vídeo (videos/<tema>/lottie/*.json) embutidas na página
     lot = {f.stem: json.loads(f.read_text()) for f in sorted((Path(pasta_video) / "lottie").glob("*.json")) if f.name != "creditos.json"}
     (pasta / "assets" / "lottie_dados.js").write_text("window.LOTTIE = " + json.dumps(lot, separators=(",", ":")) + ";\n")
-    for arq in (IDENTIDADE / "fontes").glob("*.woff2"):
+    for arq in [*(IDENTIDADE / "fontes").glob("*.woff2"), *(AQUI / "fontes").glob("*.woff2")]:
         shutil.copy(arq, pasta / "assets" / arq.name)
     for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "lottie.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)

@@ -243,3 +243,95 @@ function vivo(p, t, fim, seed) {
 }
 // gira um braço (ombro como pivô) até `ang` graus
 const gesto = (braco, t, ang, dur, ease) => tl.to(braco, { rotation: ang, svgOrigin: "0 0", duration: dur || 0.5, ease: ease || "back.out(1.6)" }, t);
+
+// ================= estilo HOLOGRAMA / HUD (tecnológico) =================
+// Fundo escuro com grade em perspectiva, objetos em linhas neon (classe .holo em QUALQUER desenho
+// da biblioteca), rótulos de interface (tag), linhas de medida, mira e varredura de scanner.
+// Fonte técnica: JetBrains Mono (motor/fontes, licença OFL) nas classes .mono / .monol.
+const HUD_CORES = { "": ["143,227,255", "#8fe3ff"], am: ["255,210,63", "#ffd23f"], vm: ["239,71,111", "#ef476f"], vd: ["6,214,160", "#06d6a0"], rs: ["255,93,143", "#ff5d8f"], lr: ["255,138,61", "#ff8a3d"], az: ["76,201,240", "#4cc9f0"] };
+document.head.insertAdjacentHTML("beforeend", `<style>
+  @font-face { font-family: "JBMono"; font-weight: 500; src: url("assets/jetbrains-mono-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JBMono"; font-weight: 800; src: url("assets/jetbrains-mono-latin-800-normal.woff2") format("woff2"); }
+  .mono { font-family: "JBMono", "DejaVu Sans Mono", monospace; font-weight: 800; letter-spacing: 2px; }
+  .monol { font-family: "JBMono", "DejaVu Sans Mono", monospace; font-weight: 500; letter-spacing: 1px; }
+  ${Object.entries(HUD_CORES).map(([k, [rgb, hex]]) => { const c = k ? `.holo-${k}` : ".holo";
+    return `${c}, ${c} * { fill: rgba(${rgb},0.07); stroke: ${hex}; stroke-width: 2px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+    ${c} text { fill: rgba(${rgb},0.95); stroke-width: 0.6px; } ${c} .cheio, ${c} .cheio * { fill: rgba(${rgb},0.35); } ${c} .vazio { fill: none; }`; }).join("\n")}
+</style>`);
+$("#defs").insertAdjacentHTML("beforeend", `
+  <linearGradient id="hudFundo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1838"/><stop offset="0.55" stop-color="#060d24"/><stop offset="1" stop-color="#02050f"/></linearGradient>
+  <linearGradient id="hudAgua" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d3a6e" stop-opacity="0.9"/><stop offset="1" stop-color="#030a1c" stop-opacity="1"/></linearGradient>
+  <radialGradient id="hudBrilho"><stop offset="0" stop-color="#4cc9f0" stop-opacity="0.35"/><stop offset="1" stop-color="#4cc9f0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="hudVinheta" cx="0.5" cy="0.45" r="0.75"><stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.65"/></radialGradient>
+  <pattern id="hudPontos" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="18" cy="18" r="1.3" fill="#8fe3ff" opacity="0.22"/></pattern>
+  <pattern id="hudLinhas" width="8" height="4" patternUnits="userSpaceOnUse"><rect width="8" height="1.2" fill="#000" opacity="0.45"/></pattern>
+  <linearGradient id="hudScan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fe3ff" stop-opacity="0"/><stop offset="0.85" stop-color="#8fe3ff" stop-opacity="0.08"/><stop offset="1" stop-color="#8fe3ff" stop-opacity="0.35"/></linearGradient>`);
+
+// cenário: fundo escuro + pontos; com `horizonte`, linha de horizonte brilhante e piso em
+// perspectiva (agua: true deixa o piso azul, como superfície do mar). Ocupa -200..W+200.
+const cenarioHud = (o) => {
+  o = o || {};
+  const hz = o.horizonte;
+  let s = `<rect x="-200" y="-200" width="${W + 400}" height="${H + 400}" fill="url(#hudFundo)"/><rect x="-200" y="-200" width="${W + 400}" height="${H + 400}" fill="url(#hudPontos)"/>`;
+  if (hz != null) {
+    const vx = o.fuga ?? 540, cor = o.agua ? "#4cc9f0" : "#8fe3ff";
+    s += `${o.agua ? `<rect x="-200" y="${hz}" width="${W + 400}" height="${H - hz + 200}" fill="url(#hudAgua)"/>` : ""}
+      <ellipse cx="${vx}" cy="${hz}" rx="900" ry="140" fill="url(#hudBrilho)"/>
+      <g class="pisoHud" stroke="${cor}" fill="none">
+        ${Array.from({ length: 25 }, (_, k) => `<path d="M${vx} ${hz} L ${vx + (k - 12) * 260} ${H + 200}" stroke-opacity="${0.16 - Math.abs(k - 12) * 0.006}" stroke-width="1.5"/>`).join("")}
+        ${Array.from({ length: 14 }, (_, k) => { const y = hz + 4 + Math.pow(k, 2.05) * 5.2; return `<path class="linhaPiso" d="M-200 ${y.toFixed(1)} H ${W + 200}" stroke-opacity="${(0.08 + k * 0.012).toFixed(3)}" stroke-width="1.5"/>`; }).join("")}</g>
+      <path d="M-200 ${hz} H ${W + 200}" stroke="${cor}" stroke-width="3" opacity="0.85"/>`;
+  }
+  return s;
+};
+
+// sobreposição de interface (fora da câmera): linhas de varredura, faixa de scanner descendo,
+// cantos de visor e leituras pequenas (canal, código de tempo correndo).
+function hudOverlay(el, c, rotuloCanal) {
+  el.insertAdjacentHTML("beforeend", `<g class="hudOv" pointer-events="none">
+    <rect x="0" y="0" width="${W}" height="${H}" fill="url(#hudLinhas)" opacity="0.35"/>
+    <rect class="hudScanBar" x="0" y="-180" width="${W}" height="180" fill="url(#hudScan)"/>
+    <g stroke="#8fe3ff" stroke-width="3" fill="none" opacity="0.7">
+      <path d="M40 372 V 330 H 82"/><path d="M1040 372 V 330 H 998"/><path d="M40 1306 V 1348 H 82"/><path d="M1040 1306 V 1348 H 998"/></g>
+
+    <circle class="hudRec" cx="104" cy="1326" r="6" fill="${C.vermelho}"/>
+    <text class="monol hudTc" x="120" y="1332" font-size="18" fill="#8fe3ff" opacity="0.75">00:00:00</text>
+    <text class="monol" x="984" y="1332" font-size="18" fill="#8fe3ff" opacity="0.75" text-anchor="end">${rotuloCanal || "AF-LAB"}</text></g>`);
+  const bar = $(".hudScanBar", el), tc = $(".hudTc", el), rec = $(".hudRec", el);
+  tl.fromTo(bar, { y: 0 }, { y: H + 180, duration: 3.6, repeat: Math.max(0, Math.ceil((c.fim - c.ini + 1) / 3.6)), ease: "none", immediateRender: false }, c.ini - 0.5);
+  aCadaQuadro((t) => {
+    if (t < c.ini - 0.6 || t > c.fim + 0.6) return;
+    const f = Math.floor(t * 30) % 30, s = Math.floor(t) % 60, m = Math.floor(t / 60);
+    tc.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}:${String(f).padStart(2, "0")}`;
+    rec.setAttribute("opacity", Math.floor(t * 2) % 2 ? 0.25 : 1);
+  });
+}
+
+// rótulo de interface: caixa escura com borda, barra de destaque, cantoneiras e (opcional) linha de dados
+const tagLargura = (txt, tam) => txt.length * ((tam || 34) * 0.6 + 2) + 64;
+const tag = (txt, cor, tam, sub) => {
+  tam = tam || 34; cor = cor || C.ciano;
+  const w = tagLargura(txt, tam), h = Math.round(tam * 1.7), x = -w / 2, y = -h / 2, k = 12;
+  return `<rect class="tagCaixa" x="${x}" y="${y}" width="${w}" height="${h}" fill="rgba(4,10,28,0.82)" stroke="${cor}" stroke-opacity="0.55" stroke-width="2"/>
+    <rect x="${x}" y="${y}" width="7" height="${h}" fill="${cor}"/>
+    <path d="M${x - 6} ${y + k} V ${y - 6} H ${x + k} M${-x + 6} ${y + k} V ${y - 6} H ${-x - k} M${x - 6} ${-y - k} V ${-y + 6} H ${x + k} M${-x + 6} ${-y - k} V ${-y + 6} H ${-x - k}" stroke="${cor}" stroke-width="3" fill="none"/>
+    <text class="mono" x="4" y="${(tam * 0.36).toFixed(1)}" text-anchor="middle" font-size="${tam}" fill="${cor}">${txt}</text>
+    ${sub ? `<text class="monol" x="${x}" y="${-y + 30}" font-size="20" fill="${cor}" opacity="0.85">${sub}</text>` : ""}`;
+};
+// número grande de painel (para contador): <text class="mono ..."> já com contorno escuro
+const numeroHud = (cls, tam, cor, ini) => `<text class="mono ${cls}" y="0" text-anchor="middle" font-size="${tam}" fill="${cor || C.ciano}" stroke="rgba(2,6,16,0.9)" stroke-width="10" paint-order="stroke">${ini ?? "0"}</text>`;
+// linha de medida (cota) de (x0,y0) a (x1,y1), com marcas nas pontas e texto no meio
+const cota = (x0, y0, x1, y1, txt, cor, cls) => {
+  cor = cor || C.ciano;
+  const a = Math.atan2(y1 - y0, x1 - x0), nx = -Math.sin(a) * 16, ny = Math.cos(a) * 16, mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  return `<g class="${cls || "cota"}"><path class="cotaL" d="M${x0} ${y0} L ${x1} ${y1} M${x0 - nx} ${y0 - ny} L ${x0 + nx} ${y0 + ny} M${x1 - nx} ${y1 - ny} L ${x1 + nx} ${y1 + ny}" stroke="${cor}" stroke-width="2.5" fill="none"/>
+    <g transform="translate(${mx} ${my}) rotate(${(a * 180 / Math.PI).toFixed(1)})"><rect x="${-txt.length * 8 - 14}" y="-17" width="${txt.length * 16 + 28}" height="34" fill="#050b1e"/><text class="mono" y="8" text-anchor="middle" font-size="22" fill="${cor}">${txt}</text></g></g>`;
+};
+// mira de alvo (raio r): círculo, marcas e anel tracejado que gira (classe .miraAnel)
+const mira = (r, cor) => { cor = cor || C.vermelho; return `<circle r="${r}" fill="none" stroke="${cor}" stroke-width="3"/>
+  <circle class="miraAnel" r="${r + 16}" fill="none" stroke="${cor}" stroke-width="2" stroke-dasharray="14 10" opacity="0.8"/>
+  <path d="M${-r - 30} 0 H ${-r + 10} M${r - 10} 0 H ${r + 30} M0 ${-r - 30} V ${-r + 10} M0 ${r - 10} V ${r + 30}" stroke="${cor}" stroke-width="3"/><circle r="4" fill="${cor}"/>`; };
+// painel de leitura: linhas [rótulo, valor]
+const painelHud = (linhas, cor, larg) => { cor = cor || C.ciano; larg = larg || 380; const h = 26 + linhas.length * 38;
+  return `<rect class="tagCaixa" x="0" y="0" width="${larg}" height="${h}" fill="rgba(4,10,28,0.82)" stroke="${cor}" stroke-opacity="0.55" stroke-width="2"/><rect x="0" y="0" width="${larg}" height="5" fill="${cor}"/>
+    ${linhas.map(([a, b], k) => `<text class="monol" x="18" y="${44 + k * 38}" font-size="21" fill="${cor}" opacity="0.8">${a}</text><text class="mono" x="${larg - 18}" y="${44 + k * 38}" font-size="23" fill="#fff" text-anchor="end">${b}</text>`).join("")}`; };

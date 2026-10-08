@@ -205,9 +205,11 @@ function sair(el, t, estilo) {
 $("#defs").insertAdjacentHTML("beforeend", `<linearGradient id="sheenG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>`);
 let _nSheen = 0;
 const reflexoPassando = (g, txt, tam, t) => {
-  const w = txt.length * tam * 0.6 + 52, id = `sheen${_nSheen++}`;
-  g.insertAdjacentHTML("beforeend", `<clipPath id="${id}"><rect x="${-w / 2}" y="-34" width="${w}" height="68" rx="34"/></clipPath><g clip-path="url(#${id})"><rect class="sheen" x="-60" y="-50" width="60" height="100" fill="url(#sheenG)" transform="skewX(-20)"/></g>`);
-  tl.fromTo($(".sheen", g), { x: -w / 2 - 80 }, { x: w / 2 + 120, duration: 0.7, ease: "power2.inOut", immediateRender: false }, t);
+  // usa a caixa do tag() (HUD) se houver; senão, a pílula do rotulo()
+  const cx = g.querySelector(".tagCaixa"), id = `sheen${_nSheen++}`;
+  const [x, y, w, h, r] = cx ? [+cx.getAttribute("x"), +cx.getAttribute("y"), +cx.getAttribute("width"), +cx.getAttribute("height"), 0] : [-(txt.length * tam * 0.6 + 52) / 2, -34, txt.length * tam * 0.6 + 52, 68, 34];
+  g.insertAdjacentHTML("beforeend", `<clipPath id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}"/></clipPath><g clip-path="url(#${id})"><rect class="sheen" x="-60" y="${y - 20}" width="60" height="${h + 40}" fill="url(#sheenG)" transform="skewX(-20)"/></g>`);
+  tl.fromTo($(".sheen", g), { x: x - 80 }, { x: x + w + 120, duration: 0.7, ease: "power2.inOut", immediateRender: false }, t);
 };
 
 // respingo (particle-burst): gotas em voo balístico a partir de (x, y) no instante t
