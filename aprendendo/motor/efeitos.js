@@ -246,3 +246,31 @@ function bolhasSobem(pai, x, y, n, t, dur, o) {
     });
   });
 }
+
+// ===== Vista explodida 2D + giro em volta (versão SVG do explodida3D/orbita3D de tres.js) =====
+// smootherstep: começa e termina com velocidade zero (uma ease cúbica comum "pula" no 1º quadro)
+const suave5 = (x) => { x = Math.min(1, Math.max(0, x)); return x * x * x * (x * (x * 6 - 15) + 10); };
+// explodir2D([[el, dx, dy, giro°], ...], abre, fecha, { dur, atraso, respira }):
+// cada peça (invólucro SEM atributo transform) sai do lugar em sequência, segue se afastando
+// devagar enquanto aberta e volta na ordem inversa em `fecha`.
+function explodir2D(pecas, abre, fecha, o) {
+  o = o || {};
+  const dur = o.dur ?? 0.7, atr = o.atraso ?? 0.06, r = 1 + (o.respira ?? 0.1), n = pecas.length, ez = suave5;
+  pecas.forEach(([el, dx, dy, rot], i) => {
+    const t0 = abre + atr * i, t1 = fecha + atr * (n - 1 - i), seg = Math.max(0.1, t1 - t0 - dur);
+    tl.fromTo(el, { x: 0, y: 0, rotation: 0, svgOrigin: "0 0" }, { x: dx, y: dy, rotation: rot || 0, svgOrigin: "0 0", duration: dur, ease: ez, immediateRender: false }, t0);
+    tl.to(el, { x: dx * r, y: dy * r, rotation: (rot || 0) * r, svgOrigin: "0 0", duration: seg, ease: "sine.inOut" }, t0 + dur);
+    tl.to(el, { x: 0, y: 0, rotation: 0, svgOrigin: "0 0", duration: dur, ease: ez }, t1);
+  });
+}
+// giroY(el, t, dur, voltas): gira o objeto em volta do eixo vertical ("toca-discos"): a largura
+// segue o cosseno do ângulo e o lado de trás aparece espelhado e mais escuro. Use num invólucro
+// dedicado (o atributo transform dele é reescrito a cada quadro).
+function giroY(el, t, dur, voltas) {
+  voltas = voltas ?? 1;
+  aCadaQuadro((tt) => {
+    const u = suave5((tt - t) / dur), a = u * voltas * Math.PI * 2, s = Math.cos(a);
+    el.setAttribute("transform", u <= 0 || u >= 1 ? "" : `scale(${(Math.sign(s) * Math.max(0.04, Math.abs(s))).toFixed(4)} 1)`);
+    el.style.opacity = u <= 0 || u >= 1 ? "" : (0.55 + 0.45 * Math.abs(s)).toFixed(3);
+  });
+}

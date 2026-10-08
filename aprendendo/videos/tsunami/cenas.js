@@ -23,17 +23,28 @@ CENAS.altomar = (el, c, B, i, f) => {
   tl.to(k.canvas, { opacity: 0, duration: 0.45, ease: "power1.inOut" }, c.fim - 0.43);
   const oc = oceano3D(k, { sol: [0.12, 0.07, -1], mar: 0.7, direcao: 0.9 });
   const nav = new THREE.Group(), nvI = navio3D(); nvI.rotation.y = Math.PI / 2; nav.add(nvI); k.cena.add(nav);
-  const ttsu = B("tsunami", 0.5);
+  const ttsu = B("tsunami", 0.5), P = nvI.userData.partes;
+  // vista explodida: o navio se desmonta logo no 1º segundo, a câmera dá a volta nele e ele
+  // se remonta antes de "ninguém a bordo percebe nada"
+  const ex = explodida3D(k, [
+    { obj: P.fundo, desloc: [0, -9, 0] }, { obj: P.faixa, desloc: [0, 5, 0] },
+    { obj: P.carga[0], desloc: [0, 13, 0] }, { obj: P.carga[1], desloc: [0, 23, 0], giro: [0, 0.04, 0] }, { obj: P.carga[2], desloc: [0, 33, 0], giro: [0, -0.05, 0] },
+    { obj: P.ponte, desloc: [0, 22, -18] }, { obj: P.chamine, desloc: [0, 42, -22] }, { obj: P.mastro, desloc: [0, 20, 12] },
+  ], { abre: 0.3, fecha: 4.9, dur: 1.5, durVolta: 1.7, atraso: 0.08 });
+  const fim0 = 7.3, A0 = 0.95;
   k.animar((t) => {
-    const u = Math.min(1, Math.max(0, (t - c.ini) / (c.fim - c.ini))), sx = -30 + (t - c.ini) * 3;
+    const sx = -30 + (t - c.ini) * 3;
     // a onda do tsunami (0,5 m, centenas de km) passa sob o navio: ele só sobe meio metro, devagar
     const lift = 0.5 * _g(t, ttsu + 2.5, 3.2);
     boiar3D(nav, oc, sx, 0, 24, 150, 2.5 - lift);
-    const R = 760 - 280 * u, a = 0.5 - 0.4 * u, h = 46 - 18 * u;
-    k.camera.position.set(sx + R * Math.sin(a), h, R * Math.cos(a));
-    k.camera.lookAt(sx, 14, 0);
+    nav.position.y += 16 * ex.fator(t); // aberto, o navio sobe para fora da água (vista de maquete)
+    // órbita: uma volta inteira enquanto desmonta e remonta; depois recua devagar
+    orbita3D(k, t, new THREE.Vector3(sx, 0, 0), [[c.ini, A0, 470, 120], [fim0, A0 + Math.PI * 2, 430, 80], [c.fim + 0.6, A0 + Math.PI * 2 + 0.35, 540, 46]], 16);
   });
   f.innerHTML = `
+    <g class="explo">${[["CASCO DE AÇO", C.ciano], ["CONTÊINERES", C.amarelo], ["PONTE DE COMANDO", C.verde]].map(([tx, cr], q) =>
+      `<g class="exL"><path class="exLinha" d="" fill="none" stroke="${cr}" stroke-width="2"/><circle class="exPonto" r="6" fill="${cr}"/>
+       <g transform="translate(${1040 - tagLargura(tx, 22) / 2} ${1130 + q * 72})">${tag(tx, cr, 22)}</g></g>`).join("")}</g>
     <g class="alvoW"><g class="alvo">${mira(54, C.ciano)}<g transform="translate(0 -96)">${tag("CARGUEIRO · 150 m", C.ciano, 20)}</g></g></g>
     <g transform="translate(60 1020)"><g class="pOnda">${painelHud([["ONDA DETECTADA", "TSUNAMI"], ["VELOCIDADE", "0 km/h"], ["ALTURA", "0,0 m"]], C.amarelo, 430)}</g></g>
     <g class="perfil"><rect x="40" y="1196" width="1000" height="96" fill="rgba(4,10,28,0.8)" stroke="${C.ciano}" stroke-opacity="0.5" stroke-width="2"/>
@@ -43,11 +54,22 @@ CENAS.altomar = (el, c, B, i, f) => {
     <g transform="translate(540 760)"><g class="tTsu">${tag("TSUNAMI", C.vermelho, 64)}</g></g>
     <g transform="translate(540 760)"><g class="tProm">${tag("NO FINAL: O SINAL DA PRAIA", C.amarelo, 28)}</g></g>`;
   const alvoW = $(".alvoW", f), pTx = $$(".pOnda text", f), perfil = $(".perfilL", f), pn = $(".perfilN", f);
+  const exL = $$(".exL", f), ancoras = [[P.casco, [0, 5, 40]], [P.carga[2], [0, 15.6, -8]], [P.ponte, [0, 25, -58]]];
   const tn = B("navio", 0.12), tv = B("vel", 0.3), tna = B("nada", 0.45), tpr = B("promessa", 0.8);
   aCadaQuadro((t) => {
     if (t > c.fim + 0.6) return;
     const [x, y] = projetar(k, nav.position.clone().add(new THREE.Vector3(0, 12, 0)));
     alvoW.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+    // rótulos das peças: coluna fixa à direita, linha até o ponto projetado de cada peça
+    k.cena.updateMatrixWorld();
+    const vis = suave5((ex.fator(t) - 0.55) / 0.35);
+    exL.forEach((g, q) => {
+      g.style.opacity = vis.toFixed(3);
+      if (vis <= 0) return;
+      const [ax, ay] = projetar(k, ancoras[q][0].localToWorld(new THREE.Vector3(...ancoras[q][1]))), ty = 1130 + q * 72, tx = 1040 - tagLargura(g.textContent.trim(), 22) - 8;
+      $(".exLinha", g).setAttribute("d", `M${tx} ${ty} H ${tx - 40} L ${ax.toFixed(1)} ${ay.toFixed(1)}`);
+      $(".exPonto", g).setAttribute("transform", `translate(${ax.toFixed(1)} ${ay.toFixed(1)})`);
+    });
     // perfil: lombada larguíssima e baixa andando; o ponto amarelo é o navio
     const xc = 40 + ((t - ttsu + 1) / 6) * 1000;
     let d = ""; for (let px = 40; px <= 1040; px += 10) d += `${px === 40 ? "M" : "L"}${px} ${(1270 - 52 * _g(px, xc, 210)).toFixed(1)} `;
@@ -328,9 +350,15 @@ CENAS.sinal = (el, c, B) => {
 // =============== 7. alerta: sensor no fundo → boia → satélite → costa ===============
 CENAS.alerta = (el, c, B) => {
   const SUP = 640, FUN = 1250, SX = 380;
-  const boia = `<g class="holo"><path d="M-60 0 Q 0 30 60 0 L 50 -18 H -50 Z" class="cheio" ${LT.contorno}/><rect x="-8" y="-120" width="16" height="102" ${LT.aresta}/>
-    <path d="M-40 -60 L 40 -60 M-30 -90 L 30 -90 M0 -120 V -160" ${LT.aresta}/><rect x="-46" y="-78" width="34" height="18" class="cheio" ${LT.fina}/><rect x="12" y="-78" width="34" height="18" class="cheio" ${LT.fina}/>
-    <circle cx="0" cy="-166" r="6" class="cheio"/><path d="M-60 0 V 30 M60 0 V 30" ${LT.oculta}/></g>`;
+  // boia em peças (vista explodida 2D): flutuador, mastro, travessas, painéis solares e antena
+  const rotB = (x, y, tx, anc) => `<text class="monol bRot" x="${x}" y="${y}" font-size="19" text-anchor="${anc || "middle"}" fill="${C.ciano}" opacity="0">${tx}</text>`;
+  const boia = `<g class="holo">
+    <g class="bp bFlut"><path d="M-60 0 Q 0 30 60 0 L 50 -18 H -50 Z" class="cheio" ${LT.contorno}/><path d="M-60 0 V 30 M60 0 V 30" ${LT.oculta}/>${rotB(0, 52, "FLUTUADOR")}</g>
+    <g class="bp bMast"><rect x="-8" y="-120" width="16" height="102" ${LT.aresta}/></g>
+    <g class="bp bTrav"><path d="M-40 -60 L 40 -60 M-30 -90 L 30 -90" ${LT.aresta}/></g>
+    <g class="bp bPainE"><rect x="-46" y="-78" width="34" height="18" class="cheio" ${LT.fina}/>${rotB(-50, -90, "PAINEL SOLAR", "end")}</g>
+    <g class="bp bPainD"><rect x="12" y="-78" width="34" height="18" class="cheio" ${LT.fina}/></g>
+    <g class="bp bAnt"><path d="M0 -120 V -160" ${LT.aresta}/><circle cx="0" cy="-166" r="6" class="cheio"/>${rotB(14, -170, "ANTENA", "start")}</g></g>`;
   const sat = `<g class="holo"><rect x="-34" y="-26" width="68" height="52" class="cheio" ${LT.contorno}/>
     ${[-1, 1].map((s) => `<g transform="translate(${s * 120} 0)"><rect x="-76" y="-30" width="152" height="60" ${LT.aresta}/>${Array.from({ length: 7 }, (_, q) => `<path d="M${-76 + q * 22} -30 V 30" ${LT.fina}/>`).join("")}<path d="M-76 0 H 76" ${LT.fina}/></g>`).join("")}
     <path d="M-44 0 H -34 M34 0 H 44" ${LT.aresta}/><path d="M-14 26 Q 0 56 14 26" class="cheio" ${LT.aresta}/></g>`;
@@ -347,7 +375,7 @@ CENAS.alerta = (el, c, B) => {
     <path class="feixe1" d="M${SX} ${SUP - 170} L 700 420" stroke="${C.ciano}" stroke-width="3" stroke-dasharray="10 8" opacity="0"/>
     <path class="feixe2" d="M700 420 L 990 ${SUP - 240}" stroke="${C.vermelho}" stroke-width="3" stroke-dasharray="10 8" opacity="0"/>
     <g transform="translate(${SX} ${FUN - 4})"><g class="sensor">${sensor}</g></g>
-    <g transform="translate(${SX} ${SUP})"><g class="boia"><g class="boiaB">${boia}</g></g></g>
+    <g transform="translate(${SX} ${SUP})"><g class="boia"><g class="boiaB"><g class="boiaGiro">${boia}</g></g></g></g>
     <g transform="translate(700 420)"><g class="sat">${sat}</g></g>
     <g transform="translate(990 ${SUP - 10})"><g class="torre">${torre}<circle class="sirene" cx="0" cy="-207" r="40" fill="${C.vermelho}" opacity="0"/></g></g>
     ${chamada("1", SX + 34, FUN - 30, 520, FUN - 150, "SENSOR DE PRESSÃO", C.amarelo, "c1")}
@@ -367,6 +395,12 @@ CENAS.alerta = (el, c, B) => {
   // ondas acústicas subindo do sensor até a boia
   $$(".ac", el).forEach((a, q) => tl.fromTo(a, { y: FUN - 60, opacity: 0.9 }, { y: SUP + 40, opacity: 0.1, duration: 1.0, repeat: 2, ease: "none", immediateRender: false }, tb + q * 0.25));
   animChamada($(".c2", el), tb + 0.2);
+  // a boia se desmonta para mostrar as peças e volta girando em volta do mastro
+  const fechaB = tsat - 1.05;
+  explodir2D([[$(".bFlut", el), 0, 46], [$(".bMast", el), 0, -8], [$(".bTrav", el), 0, -26], [$(".bPainE", el), -64, -14], [$(".bPainD", el), 64, -14], [$(".bAnt", el), 0, -66]],
+    tb + 0.1, fechaB, { dur: 0.6, atraso: 0.05 });
+  $$(".bRot", el).forEach((r) => { tl.to(r, { opacity: 1, duration: 0.25 }, tb + 0.55); tl.to(r, { opacity: 0, duration: 0.2 }, fechaB - 0.1); });
+  giroY($(".boiaGiro", el), fechaB, 1.1, 1);
   tl.set($(".feixe1", el), { opacity: 1 }, tsat - 0.1); desenhar($(".feixe1", el), tsat - 0.1, 0.6);
   animChamada($(".c3", el), tsat + 0.2);
   tl.set($(".feixe2", el), { opacity: 1 }, tco - 0.1); desenhar($(".feixe2", el), tco - 0.1, 0.6);
@@ -395,6 +429,9 @@ CENAS.resumo = (el, c, B, i, f) => {
   f.innerHTML = `${passos.map(([t, cor], q) => `<g transform="translate(110 ${430 + q * 150})"><g class="passo"><rect x="-44" y="-44" width="88" height="88" fill="rgba(4,10,28,0.85)" stroke="${cor}" stroke-width="3"/>
       <path d="M-54 -26 V -54 H -26 M54 26 V 54 H 26" stroke="${cor}" stroke-width="3" fill="none"/><text class="mono" y="18" text-anchor="middle" font-size="48" fill="${cor}">0${q + 1}</text>
       <rect x="62" y="-30" width="${t.length * 20 + 40}" height="60" fill="rgba(4,10,28,0.78)"/><text class="mono" x="80" y="11" font-size="30" fill="#fff">${t}</text></g></g>`).join("")}
+    <g class="explo">${[["CASCO DE AÇO", C.ciano], ["CONTÊINERES", C.amarelo], ["PONTE DE COMANDO", C.verde]].map(([tx, cr], q) =>
+      `<g class="exL"><path class="exLinha" d="" fill="none" stroke="${cr}" stroke-width="2"/><circle class="exPonto" r="6" fill="${cr}"/>
+       <g transform="translate(${1040 - tagLargura(tx, 22) / 2} ${1130 + q * 72})">${tag(tx, cr, 22)}</g></g>`).join("")}</g>
     <g class="alvoW"><g class="alvo">${mira(50, C.ciano)}<g transform="translate(0 -92)">${tag("NINGUÉM PERCEBE", C.ciano, 22)}</g></g></g>`;
   const ps = $$(".passo", f);
   ["passo1", "passo2", "passo3", "passo4"].forEach((b, q) => entrar(ps[q], B(b, 0.15 + q * 0.15), ["esq", "escala", "esq", "baixo"][q]));

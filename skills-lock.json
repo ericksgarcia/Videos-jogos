@@ -7,6 +7,12 @@
       "skillPath": "skills/animated-chart/SKILL.md",
       "computedHash": "d4ea17e2a117e1acb413f0a89e95f4e466f21eab7b7ac84ce69fe2fa646af8a8"
     },
+    "business-motion-film": {
+      "source": "echris6/motion-video-kit",
+      "sourceType": "github",
+      "skillPath": "business-motion-film/SKILL.md",
+      "computedHash": "64a51335ba7375f26c69d8409a950284383088342dcc61cac096cd0ec8fc3075"
+    },
     "create-svg": {
       "source": "buildfastwithai/buildfast-skills",
       "sourceType": "github",

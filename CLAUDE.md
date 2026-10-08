@@ -76,6 +76,11 @@ O vídeo inteiro é escrito para a pessoa não sair, não só o começo. Referê
    remete ao começo (a imagem do gancho volta), para dar vontade de rever (loop).
 9. **Descrição do post:** começa com pergunta ou curiosidade, convida a comentar e
    sugere um comentário fixado com uma pergunta para o público.
+10. **Desmontar e remontar girando (obrigatório na 1ª cena — pedido do dono):** logo no
+    começo do gancho, o objeto principal se desmonta em peças (vista explodida, com rótulos
+    nas peças) e depois volta ao normal enquanto a câmera gira em volta dele. No resto do
+    vídeo, repita sempre que for uma boa ideia (um aparelho, uma máquina, camadas de algo),
+    sem exagerar: no máximo 1 vez por cena. Ver "Vista explodida" abaixo.
 
 ## Padrão visual (o dono pediu explicitamente "profissional", não "simples")
 
@@ -209,10 +214,24 @@ O que continua valendo do padrão anterior:
 
 Outras skills instaladas em `.claude/skills/` para consulta: `gsap-*` (oficiais do GSAP),
 `motion-design`, `motion-director`, `motion-effects`, `high-end-visual-design`,
-`vox-explainer`, `animated-chart` e `video-review-loop` (revisão do MP4 final).
+`vox-explainer`, `animated-chart`, `video-review-loop` (revisão do MP4 final) e
+`business-motion-film` (padrões de filme de lançamento; dela vem a vista explodida).
 
 Referência completa: `videos/navio/cenas.js`. Todas são funções puras do tempo (seguras para seek).
 
+- **Vista explodida** (regra 10 da retenção; padrão "exploded layers" da skill
+  `business-motion-film`; referência: `videos/tsunami/cenas.js`, cenas 1 e 7):
+  - 3D (`tres.js`): `explodida3D(k, [{obj, desloc:[x,y,z], giro}], {abre, fecha, dur, atraso,
+    respira})` afasta cada peça (um `THREE.Group`) em sequência com curva smootherstep
+    (`suave5`), segue se afastando devagar enquanto aberto (o quadro não congela) e remonta na
+    ordem inversa; `ex.fator(t)` (0 a 1) serve para mostrar os rótulos. `orbita3D(k, t, alvo,
+    [[t, ângulo, raio, altura], …], olharY)` gira a câmera em volta (uma volta inteira enquanto
+    desmonta e remonta). `navio3D()` já vem em peças (`userData.partes`).
+  - Rótulos das peças: coluna fixa com espaçamento igual, linha até o ponto projetado
+    (`projetar`) de cada peça, recalculada a cada quadro; fora da área do título do gancho.
+  - 2D (`efeitos.js`): `explodir2D([[el, dx, dy, giro°], …], abre, fecha, o)` em invólucros sem
+    `transform` e `giroY(el, t, dur, voltas)` (giro em volta do eixo vertical, "toca-discos",
+    num invólucro só dele) na hora de remontar.
 - **Sem bonecos** (pedido do dono): não use pessoas/personagens (`pessoa`, `gente`,
   `personagem`); conte a história com objetos (bola de praia, papiro, pulmões, colete…).
 - **Câmera em fases**: o mundo da cena fica em `<g class="cam">` e
