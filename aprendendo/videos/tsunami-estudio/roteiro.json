@@ -1,0 +1,43 @@
+{
+ "slug": "como-um-tsunami-atravessa-o-oceano-sem-ninguem-perceber",
+ "titulo": "Como um tsunami atravessa o oceano sem ninguém perceber",
+ "gancho": "A ONDA QUE NINGUÉM VÊ",
+ "gancho_destaque": "NINGUÉM",
+ "voz": "Achird",
+ "sons": {
+  "navio": ["whoosh", 0.45], "vel": ["zap", 0.5], "nada": ["thud", 0.5], "tsunami": ["thud", 0.7], "promessa": ["plim", 0.55], "titulo": ["pop", 0.4],
+  "abaixo": ["whoosh", 0.55], "placas": ["clique", 0.55], "regua": ["vento", 0.4], "solta": ["thud", 0.9], "pula": ["agua", 0.6], "agua": ["agua", 0.5], "estranha": ["plim", 0.5],
+  "praia": ["pop", 0.5], "duzentos": ["whoosh", 0.6], "metro": ["clique", 0.6], "rampa": ["whoosh_curto", 0.5], "vinte": ["clique", 0.5], "palpite": ["plim", 0.65],
+  "dobro": ["zap", 0.6], "fundo": ["whoosh_curto", 0.5], "quatromil": ["clique", 0.5], "setecentos": ["zap", 0.6], "aviao": ["whoosh", 0.7], "indonesia": ["thud", 0.6], "cruzou": ["whoosh", 0.5], "africa": ["plim", 0.6],
+  "problema": ["thud", 0.6], "raso": ["clique", 0.5], "freia": ["whoosh_curto", 0.6], "tras": ["whoosh_curto", 0.5], "empilha": ["agua", 0.7], "dez": ["clique", 0.6], "vinte2": ["clique", 0.6], "trinta": ["thud", 0.8],
+  "prometi": ["plim", 0.6], "tailandia": ["whoosh", 0.5], "tilly": ["pop", 0.5], "recuar": ["agua", 0.6], "seca": ["whoosh_curto", 0.5], "peixes": ["pop", 0.5], "aula": ["clique", 0.6], "vale": ["brilho", 0.5], "gritou": ["zap", 0.6], "cem": ["plim", 0.7], "corra": ["zap", 0.7],
+  "vigias": ["brilho", 0.5], "sensores": ["clique", 0.6], "centimetros": ["pop", 0.5], "boia": ["plim", 0.5], "satelite": ["zap", 0.5], "alarme": ["thud", 0.6],
+  "passo1": ["pop", 0.6], "passo2": ["pop", 0.6], "passo3": ["pop", 0.6], "passo4": ["plim", 0.6], "navioF": ["whoosh", 0.5], "cta": ["plim", 0.6]
+ },
+ "cenas": [
+  {"id": "gancho", "tipo": "altomar", "titulo": "Invisível",
+   "fala": "Agora mesmo, uma onda pode estar passando embaixo deste navio a setecentos quilômetros por hora. E ninguém a bordo percebe nada. Isso é um tsunami. E no final, eu te conto como uma menina de dez anos salvou cem pessoas só olhando para o mar.",
+   "batidas": {"navio": "navio", "setecentos": "vel", "nada.": "nada", "tsunami.": "tsunami", "final,": "promessa", "mar.": "titulo"}},
+  {"id": "origem", "tipo": "origem", "titulo": "Onde nasce", "entrada": "descer",
+   "fala": "Tudo começa quatro quilômetros abaixo desse navio. Ali, duas placas da crosta da Terra se empurram há séculos, e uma delas vai entortando, como uma régua que você dobra com a mão. Um dia, ela solta. O fundo do mar pula alguns metros para cima, num segundo, e levanta junto toda a água que está em cima dele. Só que a onda que nasce dali é muito estranha.",
+   "batidas": {"abaixo": "abaixo", "placas": "placas", "régua": "regua", "solta.": "solta", "pula": "pula", "água": "agua", "estranha.": "estranha"}},
+  {"id": "formato", "tipo": "formato", "titulo": "Uma onda estranha", "entrada": "subir",
+   "fala": "Uma onda de praia tem uns dez metros de uma crista à outra. Um tsunami tem duzentos quilômetros. E em alto mar, menos de um metro de altura. É uma rampa tão longa e tão baixa que o navio leva vinte minutos para subir e descer, sem perceber. Comenta aí: você acha que essa onda é mais rápida que um carro de Fórmula 1?",
+   "batidas": {"praia": "praia", "duzentos": "duzentos", "metro": "metro", "rampa": "rampa", "vinte": "vinte", "Comenta": "palpite"}},
+  {"id": "velocidade", "tipo": "velocidade", "titulo": "Rápida como um jato", "entrada": "dir",
+   "fala": "É o dobro. Quanto mais fundo o mar, mais rápido ela corre. Num oceano de quatro mil metros, ela passa dos setecentos quilômetros por hora, a velocidade de um avião a jato. Em 2004, uma onda dessas nasceu na Indonésia, cruzou o Oceano Índico inteiro e chegou à África sete horas depois.",
+   "batidas": {"dobro.": "dobro", "fundo": "fundo", "quatro": "quatromil", "setecentos": "setecentos", "avião": "aviao", "Indonésia,": "indonesia", "cruzou": "cruzou", "África": "africa"}},
+  {"id": "chegada", "tipo": "chegada", "titulo": "Chegando na costa", "entrada": "esq",
+   "fala": "Mas aí vem o problema. Perto da praia, o mar fica raso, e a frente da onda freia, como um carro que entra no congestionamento. Só que a parte de trás continua vindo rápida, e a água se empilha. Aquela rampa de menos de um metro vira uma parede de dez, vinte, até trinta metros.",
+   "batidas": {"problema.": "problema", "raso,": "raso", "freia,": "freia", "trás": "tras", "empilha.": "empilha", "dez,": "dez", "vinte,": "vinte2", "trinta": "trinta"}},
+  {"id": "sinal", "tipo": "sinal", "titulo": "O aviso do mar", "entrada": "esq",
+   "fala": "E a menina que eu te prometi. Dezembro de 2004, Tailândia. Tilly Smith, dez anos, estava na praia quando o mar começou a recuar. A areia ficou seca por centenas de metros, com peixes pulando. Duas semanas antes, ela tinha aprendido na aula: é o vale da onda chegando primeiro. Ela gritou, a praia foi esvaziada, e cerca de cem pessoas se salvaram. Se o mar recuar de repente, não fique olhando: corra para um lugar alto.",
+   "batidas": {"prometi.": "prometi", "Tailândia.": "tailandia", "Tilly": "tilly", "recuar.": "recuar", "seca": "seca", "peixes": "peixes", "aula:": "aula", "vale": "vale", "gritou,": "gritou", "cem": "cem", "corra": "corra"}},
+  {"id": "alerta", "tipo": "alerta", "titulo": "Vigias do oceano", "entrada": "descer",
+   "fala": "Hoje, o oceano tem vigias. Sensores no fundo do mar sentem a água subir poucos centímetros lá em cima. Eles avisam uma boia, a boia avisa um satélite, e o alarme toca na costa antes da onda chegar.",
+   "batidas": {"vigias.": "vigias", "Sensores": "sensores", "centímetros": "centimetros", "boia,": "boia", "satélite,": "satelite", "alarme": "alarme"}},
+  {"id": "resumo", "tipo": "resumo", "titulo": "Resumindo", "entrada": "subir",
+   "fala": "Resumindo: o fundo do mar dá um tranco. A onda nasce longa e baixa. Corre como um avião. E perto da costa, freia e vira uma parede. Por isso, lá no meio do oceano, quem está no navio nem percebe. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "batidas": {"tranco.": "passo1", "baixa.": "passo2", "avião.": "passo3", "parede.": "passo4", "percebe.": "navioF", "Segue": "cta"}}
+ ]
+}

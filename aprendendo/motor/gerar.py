@@ -212,6 +212,9 @@ def montar(roteiro, ag, pasta, pasta_video):
         icones[f.stem] = txt[txt.index(">", txt.index("<svg")) + 1:txt.rindex("</svg>")]
     with open(pasta / "assets" / "lottie_dados.js", "a") as js:
         js.write("window.ICONES = " + json.dumps(icones, ensure_ascii=False) + ";\n")
+    # ilustrações pintadas (videos/<tema>/arte/*.js → imagens/*.png, motor/pintar.cjs): repinta o que mudou
+    if (Path(pasta_video) / "arte").is_dir():
+        subprocess.run(["node", str(AQUI / "pintar.cjs"), str(pasta_video), "--se-mudou"], check=True)
     # imagens geradas do vídeo (motor/imagens.py → videos/<tema>/imagens/*.jpg)
     if (Path(pasta_video) / "imagens").is_dir():
         (pasta / "assets" / "imagens").mkdir()
