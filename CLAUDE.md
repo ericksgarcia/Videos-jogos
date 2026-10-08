@@ -92,6 +92,10 @@ cartoon "infantil"). Referência: `videos/navio/cenas.js`. Kit em `motor/bibliot
   (contadores), `cota()` (linha de medida), `mira()` (alvo), `painelHud()` (leituras),
   fonte técnica JetBrains Mono (`.mono`/`.monol`). Nada de pílulas arredondadas nem
   desenho estilo cartoon (sol sorridente, nuvens fofas, árvores, casinhas).
+- Desenho técnico (skills `create-svg`/blueprint, `svg-creator`, `illustration-isometric-mono`):
+  `LT.contorno/aresta/fina/oculta/centro` (hierarquia de linhas), `gradeTecnica()`, hachuras
+  (`url(#hachura)`, `hachuraCruz`, `sedimento`, `manto`), `chamada(n, …)` + `animChamada()`,
+  `blocoTitulo()`. Muito detalhe fino repetido e linhas finas = não parecer "infantil".
 - Revelações tecnológicas: `varredura()` (scanner que revela o objeto), `desenhar()` nas
   linhas, sonar, réguas e sensores com números que mudam.
 
@@ -232,8 +236,14 @@ Referência completa: `videos/navio/cenas.js`. Todas são funções puras do tem
 
 ### Animações Lottie (`motor/lottie.js`) — personagens e elementos de designers
 
-- O dono achou que o **3D não compensou** o tempo de render (~40 min): não use 3D
-  (`motor/tres.js` continua disponível, mas fica fora dos vídeos).
+- 3D: o dono pediu 3D de novo no vídeo do tsunami. Use em **poucas cenas-chave** (gancho e
+  resumo), porque o render é por software (SwiftShader) e pesa. Oceano realista pronto:
+  `oceano3D(k, {sol, mar, horizonte, zenite, solCor})` + `navio3D()` + `boiar3D()` em
+  `motor/oceano.js` (da skill `3d-ultra-realistic-water`, adaptado ao three r149).
+  Numa cena 3D a camada 3D fica ACIMA do mundo 2D: rótulos/HUD vão no 5º parâmetro
+  `f` (frente) de `CENAS.tipo(el, c, B, i, f)`; para seguir um objeto 3D na tela use
+  `projetar(k, vetor)` (ver `videos/tsunami/cenas.js`). Skills de 3D: `threejs-*`,
+  `3d-ultra-realistic-water`, `3d-underwater-god-rays`, `3d-sky-background`.
 - Para pessoas, fogo, raios, vapor, confete, ícones animados etc., prefira Lottie da
   LottieFiles (licença Lottie Simple: uso comercial, sem atribuição obrigatória):
   1. `python aprendendo/motor/lottie.py buscar "man walking"` → lista as mais baixadas e
