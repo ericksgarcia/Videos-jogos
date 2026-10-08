@@ -1,0 +1,59 @@
+{
+  "slug": "estilo-tipografia",
+  "titulo": "Como a eletricidade é gerada",
+  "gancho": "DE ONDE VEM A ELETRICIDADE?",
+  "gancho_destaque": "ELETRICIDADE",
+  "voz": "Achird",
+  "sons": {
+    "clique": [
+      "clique",
+      0.9
+    ],
+    "luz": [
+      "brilho",
+      0.8
+    ],
+    "simples": [
+      "whoosh_curto",
+      0.3
+    ],
+    "mas": [
+      "thud",
+      0.45
+    ],
+    "afasta": [
+      "whoosh",
+      0.7
+    ],
+    "gira": [
+      "whoosh_curto",
+      0.6
+    ],
+    "como": [
+      "pop",
+      0.35
+    ],
+    "titulo": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "interruptor",
+      "titulo": "De onde vem?",
+      "fala": "Você aperta o interruptor e a luz acende. Simples assim. Mas, pra isso acontecer, alguma coisa muito longe daqui precisou girar. Vou te explicar como, do jeito mais fácil possível.",
+      "batidas": {
+        "aperta": "clique",
+        "acende.": "luz",
+        "Simples": "simples",
+        "Mas,": "mas",
+        "longe": "afasta",
+        "girar.": "gira",
+        "como,": "como",
+        "fácil": "titulo"
+      }
+    }
+  ]
+}
