@@ -101,5 +101,45 @@
   "formato": "1:1",
   "mp": "1",
   "objeto": true
+ },
+ "tex-ceu": {
+  "modelo": "black-forest-labs/flux-2-klein-4b",
+  "descricao": "a calm sky at golden hour with soft layered stylized clouds, warm light near the bottom, wide panorama",
+  "seed": 21,
+  "formato": "16:9",
+  "mp": "2",
+  "objeto": false
+ },
+ "tex-mar": {
+  "modelo": "black-forest-labs/flux-2-klein-4b",
+  "descricao": "open ocean water surface seen from a slightly elevated angle, rows of gentle stylized waves and soft highlights, no horizon, no sky, only water filling the frame",
+  "seed": 22,
+  "formato": "16:9",
+  "mp": "2",
+  "objeto": false
+ },
+ "tex-fundo": {
+  "modelo": "black-forest-labs/flux-2-klein-4b",
+  "descricao": "inside the deep ocean, soft light rays coming from the surface above, fading from ocean blue at the top to deep navy at the bottom, a few tiny suspended particles",
+  "seed": 23,
+  "formato": "9:16",
+  "mp": "2",
+  "objeto": false
+ },
+ "tex-areia": {
+  "modelo": "black-forest-labs/flux-2-klein-4b",
+  "descricao": "smooth beach sand surface with subtle wind ripples, warm sand tones, seen from the side at a low angle",
+  "seed": 24,
+  "formato": "16:9",
+  "mp": "2",
+  "objeto": false
+ },
+ "ilha-obj": {
+  "modelo": "black-forest-labs/flux-2-klein-4b",
+  "descricao": "a distant low tropical island with a few palm trees and soft green hills, long horizontal shape, side view",
+  "seed": 25,
+  "formato": "16:9",
+  "mp": "1",
+  "objeto": true
  }
 }

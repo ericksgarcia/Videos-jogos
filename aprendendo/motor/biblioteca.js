@@ -465,3 +465,52 @@ const objeto = (nome, larg, o) => {
   const y = o.ancora === "centro" ? -alt / 2 : o.ancora === "topo" ? 0 : -alt + (o.afunda || 0);
   return `<image href="assets/imagens/${nome}.png" x="${-larg / 2}" y="${y.toFixed(1)}" width="${larg}" height="${alt.toFixed(1)}"${o.espelhar ? ` transform="scale(-1 1)"` : ""}/>`;
 };
+
+// ===================== KIT CAMADAS (tsunami v4): texturas geradas que se movem, contato, partículas =====================
+$("#defs").insertAdjacentHTML("beforeend", `
+  <radialGradient id="sombraChao"><stop offset="0" stop-color="#06102a" stop-opacity="0.55"/><stop offset="0.6" stop-color="#06102a" stop-opacity="0.22"/><stop offset="1" stop-color="#06102a" stop-opacity="0"/></radialGradient>
+  <filter id="ondulacao" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.004 0.03" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="18" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="ondulacaoForte" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.006 0.04" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="30" xChannelSelector="R" yChannelSelector="G"/></filter>`);
+// textura(id, nome, {x, y, w, h, alt, rolar, clip, filtro, opacidade}): retângulo preenchido por uma imagem
+// gerada (imagens/<nome>.jpg) repetida na horizontal, com altura `alt` da faixa; `rolar` = px/s (anima com
+// animarTexturas); `clip` = id de um clipPath (ex.: a superfície do mar que se mexe); `filtro` = ondulação.
+const textura = (id, nome, o) => {
+  o = o || {};
+  const [x, y, w, h] = [o.x ?? -300, o.y ?? -300, o.w ?? W + 600, o.h ?? H + 600];
+  const [iw, ih] = (window.IMG || {})[nome] || [3872, 870], alt = o.alt || ih, larg = alt * iw / ih;
+  return `<defs><pattern id="${id}" class="texPat" data-v="${o.rolar || 0}" data-l="${larg.toFixed(1)}" patternUnits="userSpaceOnUse" x="0" y="${o.ty ?? y}" width="${larg.toFixed(1)}" height="${alt}">
+      <image href="assets/imagens/${nome}.jpg" width="${larg.toFixed(1)}" height="${alt}" preserveAspectRatio="none"/></pattern></defs>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#${id})"${o.clip ? ` clip-path="url(#${o.clip})"` : ""}${o.filtro ? ` filter="url(#${o.filtro})"` : ""}${o.opacidade != null ? ` opacity="${o.opacidade}"` : ""}/>`;
+};
+// faz as texturas com data-v rolarem (função pura do tempo)
+function animarTexturas(el, c) {
+  const ps = $$(".texPat", el).filter((p) => +p.dataset.v);
+  if (!ps.length) return;
+  aCadaQuadro((t) => {
+    if (t < c.ini - 1 || t > c.fim + 0.6) return;
+    ps.forEach((p) => p.setAttribute("patternTransform", `translate(${(-(t * +p.dataset.v) % +p.dataset.l).toFixed(1)} 0)`));
+  });
+}
+// contato(largura, "chao" | "agua"): sombra suave no chão ou espuma na linha d'água, centrada em 0,0
+// (a base de um objeto() com âncora na base). Ponha a sombra ANTES do objeto e a espuma DEPOIS.
+// A espuma se mexe sozinha com animarEspumas(el, c).
+const contato = (larg, tipo) => tipo === "agua"
+  ? `<g class="espumaC">${Array.from({ length: 14 }, (_, k) => { const u = k / 13 - 0.5; return `<ellipse class="esp" data-k="${k}" cx="${(u * larg * 1.02).toFixed(1)}" cy="${(1 + Math.abs(u) * 3).toFixed(1)}" rx="${(larg * 0.045 + 4).toFixed(1)}" ry="${(larg * 0.006 + 2).toFixed(1)}" fill="#f2f8ff" opacity="0.6"/>`; }).join("")}</g>`
+  : `<ellipse cx="0" cy="2" rx="${(larg * 0.5).toFixed(1)}" ry="${(larg * 0.07 + 4).toFixed(1)}" fill="url(#sombraChao)"/>`;
+function animarEspumas(el, c) {
+  const es = $$(".esp", el);
+  if (!es.length) return;
+  const base = es.map((e) => [+e.getAttribute("rx"), +e.getAttribute("cx")]);
+  aCadaQuadro((t) => {
+    if (t < c.ini - 1 || t > c.fim + 0.6) return;
+    es.forEach((e, i) => {
+      const k = +e.dataset.k, f = 0.75 + 0.35 * Math.sin(t * 3.1 + k * 1.7 + i);
+      e.setAttribute("rx", (base[i][0] * f).toFixed(1));
+      e.setAttribute("cx", (base[i][1] + 4 * Math.sin(t * 1.9 + k)).toFixed(1));
+      e.setAttribute("opacity", (0.35 + 0.25 * Math.sin(t * 2.3 + k * 2.1)).toFixed(2));
+    });
+  });
+}
+// partículas presas a eventos: areia levantando (usa o respingo balístico com cor e força de areia)
+const areiaLevanta = (pai, x, y, t, n, seed) => respingo(pai, x, y, t, n || 14, { cores: ["#eadcc0", "#d2b98f", "#c4a679"], forca: 0.42, abertura: 340, g: 1500, seed: seed || 31 });
+const gotas = (pai, x, y, t, n, seed, forca) => respingo(pai, x, y, t, n || 16, { cores: ["#ffffff", "#cfe6fa", "#9fc6ea"], forca: forca || 0.8, abertura: 420, g: 2100, seed: seed || 41 });

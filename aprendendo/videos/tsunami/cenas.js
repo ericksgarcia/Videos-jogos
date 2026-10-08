@@ -24,39 +24,29 @@ $("#defs").insertAdjacentHTML("beforeend", `
 function marAberto(el, c, o) {
   const HZ = 880, Y0 = o.Y0 || 1140, NW = o.NW || 780;
   const [nw, nh] = (window.IMG || {})["navio-obj"] || [970, 223], NH = NW * nh / nw;
-  const html = `<rect x="-200" y="-200" width="${W + 400}" height="${HZ + 200}" fill="url(#ceuA)"/>
-    <circle cx="760" cy="${HZ - 120}" r="260" fill="url(#solA)"/><circle cx="760" cy="${HZ - 120}" r="54" fill="#fffaf0"/>
-    <g class="nuvens">${[[120, 420, 260], [520, 560, 340], [900, 380, 220], [300, 700, 300]].map(([x, y, r]) => `<ellipse class="nv" cx="${x}" cy="${y}" rx="${r}" ry="${r * 0.16}" fill="#fff" opacity="0.32"/>`).join("")}</g>
-    <rect x="-200" y="${HZ}" width="${W + 400}" height="${H + 400}" fill="url(#marA)"/>
-    <path class="brilhoSol" d="" fill="#fff4dc" opacity="0.22"/>
-    <g>${Array.from({ length: 9 }, () => `<path class="ll" d="" fill="none" stroke="#cfe0f0" stroke-width="2" stroke-linecap="round"/>`).join("")}</g>
-    <g class="navioW">${objeto("navio-obj", NW, { afunda: 26 })}</g>
-    <path class="aguaFrente" d="" fill="#163f6a"/>
-    <path class="supF" d="" fill="none" stroke="#e8f1fa" stroke-width="4" stroke-linecap="round" opacity="0.75"/>
-    <g>${Array.from({ length: 6 }, () => `<path class="lp" d="" fill="none" stroke="#9fc2e2" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>`).join("")}</g>`;
+  const id = c.id;
+  const html = `${textura(`ceu_${id}`, "tex-ceu", { y: -300, h: HZ + 320, alt: HZ + 360, ty: -340, rolar: 5 })}
+    <circle cx="760" cy="${HZ - 120}" r="230" fill="url(#solA)" opacity="0.7"/>
+    <g class="ilhaW">${objeto("ilha-obj", 420)}</g>
+    ${textura(`marL_${id}`, "tex-mar", { y: HZ - 2, h: H + 400, alt: 300, ty: HZ - 2, rolar: 8, filtro: "ondulacao" })}
+    <path class="brilhoSol" d="" fill="#fff4dc" opacity="0.18"/>
+    <g class="navioW">${objeto("navio-obj", NW, { afunda: 26 })}${contato(NW * 0.92, "agua")}</g>
+    <clipPath id="clMar_${id}"><path class="clMar" d=""/></clipPath>
+    ${textura(`marP_${id}`, "tex-mar", { y: Y0 - 140, h: H + 300, alt: 560, ty: Y0 - 60, rolar: 24, clip: `clMar_${id}`, filtro: "ondulacaoForte" })}
+    <path class="supF" d="" fill="none" stroke="#e8f1fa" stroke-width="4" stroke-linecap="round" opacity="0.6"/>`;
   return { html, NH, iniciar: (lomb) => {
-    const nav = $(".navioW", el), af = $(".aguaFrente", el), sf = $(".supF", el), ll = $$(".ll", el), lp = $$(".lp", el), bs = $(".brilhoSol", el), nv = $$(".nv", el);
+    const nav = $(".navioW", el), af = $(".clMar", el), sf = $(".supF", el), bs = $(".brilhoSol", el), ilha = $(".ilhaW", el);
     const sup = (x, t) => Y0 + 5 * Math.sin(x / 64 - t * 2.1) + 3 * Math.sin(x / 31 + t * 1.4) - (lomb ? lomb(x, t) : 0);
     const posNavio = (t) => { const sx = (o.x0 ?? 450) + (t - c.ini) * 9; return [sx, sup(sx, t), Math.atan2(sup(sx + 120, t) - sup(sx - 120, t), 240) * 57.3]; };
     aCadaQuadro((t) => {
       if (t < c.ini - 1 || t > c.fim + 0.6) return;
-      ll.forEach((p, k) => {
-        const y = HZ + 14 + Math.pow(k / 9, 1.6) * (Y0 - HZ - 40), amp = 1 + k * 0.5, off = (k * 137) % 400;
-        let d = ""; for (let x = -100 - off; x <= W + 100; x += 90) d += `M${x.toFixed(0)} ${(y + amp * Math.sin(x / 50 + t * (0.6 + k * 0.12))).toFixed(1)} h ${36 + k * 4} `;
-        p.setAttribute("d", d); p.setAttribute("opacity", (0.15 + k * 0.05).toFixed(2));
-      });
-      nv.forEach((n, k) => n.setAttribute("transform", `translate(${(((t * (6 + k * 3)) % 1600) - 300).toFixed(1)} 0)`));
+      ilha.setAttribute("transform", `translate(${(170 - t * 2.5).toFixed(1)} ${HZ + 6})`);
       let r = ""; for (let k = 0; k < 12; k++) { const y = HZ + 10 + k * 18, w = 40 + k * 14 + 18 * Math.sin(t * 2.2 + k * 1.7), x0 = 760 + 14 * Math.sin(t * 1.3 + k * 2.1) - w / 2; r += `M${x0.toFixed(1)} ${y} h ${w.toFixed(1)} v 3 h ${(-w).toFixed(1)} Z `; }
       bs.setAttribute("d", r);
       let d = ""; for (let x = -200; x <= W + 200; x += 10) d += `${x === -200 ? "M" : "L"}${x} ${sup(x, t).toFixed(1)} `;
       sf.setAttribute("d", d); af.setAttribute("d", d + `L ${W + 200} ${H + 300} L -200 ${H + 300} Z`);
       const [sx, sy, inc] = posNavio(t);
       nav.setAttribute("transform", `translate(${sx.toFixed(1)} ${sy.toFixed(1)}) rotate(${inc.toFixed(2)})`);
-      lp.forEach((p, k) => {
-        const y = Y0 + 70 + k * 55, off = (k * 211) % 500;
-        let e = ""; for (let x = -200 - off; x <= W + 200; x += 160) e += `M${x.toFixed(0)} ${(y + 6 * Math.sin(x / 40 + t * (1.4 + k * 0.2))).toFixed(1)} q 30 -${8 + k} 70 0 `;
-        p.setAttribute("d", e);
-      });
     });
     return { sup, posNavio };
   } };
@@ -94,8 +84,9 @@ CENAS.origem = (el, c, B) => {
   const tf = B("fundo", 0.15), tp = B("placas", 0.3), te = B("escorrega", 0.45), ts = B("sobe", 0.6), tq = B("coluna", 0.75), tx = B("estranha", 0.92);
   const SUP = 560, FUN = 1060, FX = 600; // superfície, fundo e ponto onde as placas se encontram
   el.innerHTML = `<g class="cam">
-      <rect x="-200" y="-200" width="${W + 400}" height="${SUP + 200}" fill="url(#ceuDia)"/>
-      <path class="agua" d="" fill="url(#fundoMar)"/>
+      ${textura("ceu_o", "tex-ceu", { y: -300, h: SUP + 320, alt: SUP + 380, ty: -380, rolar: 5 })}
+      <clipPath id="clAg_o"><path class="agua" d=""/></clipPath>
+      ${textura("fundo_o", "tex-fundo", { y: SUP - 260, h: 2000, alt: 1700, ty: SUP - 240, rolar: 3, clip: "clAg_o" })}
       <path class="sup" d="" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
       <g class="raios">${[0, 1, 2, 3].map((k) => `<path d="M${120 + k * 260} ${SUP} l ${-60 + k * 10} 520 h 70 l ${40 - k * 10} -520 Z" fill="#fff" opacity="0.05"/>`).join("")}</g>
       <g class="placaE"><path d="M-260 ${FUN} L ${FX + 40} ${FUN + 6} L ${FX + 330} ${FUN + 330} L ${FX + 330} 2200 L -260 2200 Z" fill="url(#estratos2)"/>
@@ -136,6 +127,11 @@ CENAS.origem = (el, c, B) => {
   tl.to($(".ponta", el), { rotation: 0.6, svgOrigin: "1300 990", duration: 0.8, ease: "elastic.out(1, 0.4)" }, te + 0.18);
   tl.fromTo($(".cam", el), { x: 0 }, { keyframes: [{ x: -14, duration: 0.05 }, { x: 12, duration: 0.05 }, { x: -9, duration: 0.05 }, { x: 6, duration: 0.05 }, { x: 0, duration: 0.08 }], immediateRender: false }, te - 0.02);
   tl.fromTo($(".flash", el), { opacity: 0 }, { opacity: 0.5, duration: 0.06, yoyo: true, repeat: 1, immediateRender: false }, te - 0.02);
+  // partículas: rocha e areia saltam da falha no tranco; bolhas sobem quando o fundo sobe
+  const part = $(".cam", el);
+  areiaLevanta(part, FX + 40, FUN, te, 24, 11);
+  areiaLevanta(part, FX + 160, FUN - 30, te + 0.08, 16, 12);
+  bolhasSobem(part, FX + 80, FUN - 40, 16, ts - 0.2, 2.2, { altura: FUN - SUP - 80, espalha: 260, seed: 13 });
   entrar($(".cFundo", el), tf - 0.1, "cima"); sair($(".cFundo", el), tp - 0.3, "cima");
   entrar($(".setasP", el), tp - 0.1, "escala"); sair($(".setasP", el), te + 0.2);
   entrar($(".cSec", el), tp + 0.4, "cima"); sair($(".cSec", el), te - 0.2, "cima");
@@ -154,15 +150,19 @@ CENAS.formato = (el, c, B) => {
   const tp = B("praia", 0.1), tc = B("comp", 0.3), tpo = B("pontas", 0.38), tam = B("altomar", 0.42), ta = B("altura", 0.45), tr = B("rampa", 0.6), tn = B("navio2", 0.75), tpp = B("palpite", 0.92);
   const Y = 1120;
   el.innerHTML = `<g class="cam">
-      <rect x="-200" y="-200" width="${W + 400}" height="${Y + 200}" fill="url(#ceuDia)"/>
-      <path class="tsuF" d="" fill="url(#marA)"/><path class="tsuL" d="" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-      <g class="navW">${objeto("navio-obj", 300, { afunda: 12 })}</g>
+      ${textura("ceu_f", "tex-ceu", { y: -300, h: Y + 320, alt: Y + 380, ty: -380, rolar: 5 })}
+      <clipPath id="clMar_f"><path class="tsuF" d=""/></clipPath>
+      ${textura("mar_f", "tex-mar", { y: Y - 120, h: 1400, alt: 420, ty: Y - 60, rolar: 16, clip: "clMar_f", filtro: "ondulacao" })}
+      <path class="tsuL" d="" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      <g class="navW">${objeto("navio-obj", 300, { afunda: 12 })}${contato(280, "agua")}</g>
       <g class="medC">${medida(40, Y + 140, 1040, Y + 140, "≈ 200 km", { pil: C.amarelo, tam: 30 })}</g>
       ${[40, 1040].map((x) => `<g transform="translate(${x} ${Y + 140})"><g class="ponta"><circle r="22" fill="none" stroke="${C.amarelo}" stroke-width="5"/><circle r="8" fill="${C.amarelo}"/></g></g>`).join("")}
       <g transform="translate(780 ${Y - 110})"><g class="pAlt">${pilula("MENOS DE 1 m", "#fff", 30)}</g></g></g>
-    <text class="rotm" x="1030" y="1390" text-anchor="end" font-size="24" fill="#fff" opacity="0.75">altura exagerada no desenho</text>
-    <g class="praiaG"><rect x="-200" y="-200" width="${W + 400}" height="${H + 400}" fill="url(#ceuDia)"/>
-      <rect x="-200" y="1060" width="${W + 400}" height="900" fill="url(#marA)"/><path d="M-200 1180 Q 540 1150 1280 1200 L 1280 1900 L -200 1900 Z" fill="url(#areia)"/>
+    <text class="rotm notaEx" x="1030" y="1390" text-anchor="end" font-size="24" fill="#fff" opacity="0.75">altura exagerada no desenho</text>
+    <g class="praiaG">${textura("ceu_fp", "tex-ceu", { y: -300, h: 1400, alt: 1420, ty: -380 })}
+      ${textura("mar_fp", "tex-mar", { y: 1040, h: 300, alt: 300, ty: 1040, rolar: 14, filtro: "ondulacao" })}
+      <clipPath id="clAr_fp"><path d="M-300 1180 Q 540 1150 1380 1200 L 1380 2200 L -300 2200 Z"/></clipPath>
+      ${textura("ar_fp", "tex-areia", { y: 1120, h: 1000, alt: 1100, ty: 1140, clip: "clAr_fp" })}
       <g transform="translate(560 1140)"><g class="ondaP">${objeto("onda-obj", 620, { afunda: 40 })}</g></g>
       <g class="medP">${medida(250, 760, 870, 760, "10 m", { pil: C.amarelo, tam: 30 })}</g>
       <g transform="translate(540 500)"><g class="cPraia">${cartao("Onda de praia", Object.assign({ tam: 42, sub: "uns 10 metros de ponta a ponta" }, ESC))}</g></g></g>
@@ -176,8 +176,8 @@ CENAS.formato = (el, c, B) => {
     if (t > c.fim + 0.6) return;
     const xc = t < tr - 0.5 ? 1700 : 1700 - (t - tr + 0.5) * 200;
     const yv = (x) => Y - 70 * _g(x, xc, 380) + 3 * Math.sin(x / 45 + t * 2);
-    let d = ""; for (let x = -200; x <= 1280; x += 10) d += `${x === -200 ? "M" : "L"}${x} ${yv(x).toFixed(1)} `;
-    L.setAttribute("d", d); F.setAttribute("d", d + `L 1280 ${H + 300} L -200 ${H + 300} Z`);
+    let d = ""; for (let x = -300; x <= 1380; x += 10) d += `${x === -300 ? "M" : "L"}${x} ${yv(x).toFixed(1)} `;
+    L.setAttribute("d", d); F.setAttribute("d", d + `L 1380 ${H + 300} L -300 ${H + 300} Z`);
     const sl = (yv(570) - yv(510)) / 60;
     nav.setAttribute("transform", `translate(540 ${yv(540).toFixed(1)}) rotate(${(Math.atan(sl) * 57.3).toFixed(2)})`);
   });
@@ -191,6 +191,7 @@ CENAS.formato = (el, c, B) => {
   entrar($(".cTsu", el), tc + 0.1, "cima"); sair($(".cTsu", el), tam - 0.2, "cima");
   $$(".ponta", el).forEach((g, q) => { entrar(g, tpo + q * 0.2, "escala"); sair(g, ta - 0.2); });
   sair($(".medC", el), tpp - 0.3);
+  tl.set($(".notaEx", el), { opacity: 0 }, 0); tl.to($(".notaEx", el), { opacity: 0.75, duration: 0.4 }, tc + 0.3);
   entrar($(".pAlt", el), ta - 0.1, "escala"); sair($(".pAlt", el), tr + 0.5);
   entrar($(".cNav", el), tn - 0.2, "cima"); sair($(".cNav", el), tpp - 0.6, "cima");
   // o Fórmula 1 atravessa a tela no palpite
@@ -217,8 +218,10 @@ CENAS.velocidade = (el, c, B) => {
   const tpf = B("prof", 0.1), tfu = B("isobatas", 0.2), trp = B("rapido", 0.24), tq4 = B("quatro", 0.27), tv = B("vel2", 0.3), tav = B("aviao", 0.45), ti = B("indo", 0.6), taf = B("africa", 0.8), th = B("horas", 0.92);
   const R0 = 470, R1 = 1260; // régua de profundidade (y)
   el.innerHTML = `<g class="parteA"><g class="cam">
-      <rect x="-200" y="-200" width="${W + 400}" height="${R0 + 120}" fill="url(#ceuDia)"/>
-      <path class="supV" d="" fill="url(#fundoMar)"/><path class="supL" d="" fill="none" stroke="#fff" stroke-width="5"/>
+      ${textura("ceu_v", "tex-ceu", { y: -300, h: R0 + 320, alt: R0 + 380, ty: -380, rolar: 5 })}
+      <clipPath id="clAg_v"><path class="supV" d=""/></clipPath>
+      ${textura("fundo_v", "tex-fundo", { y: R0 - 120, h: 1900, alt: 1600, ty: R0 - 100, rolar: 3, clip: "clAg_v" })}
+      <path class="supL" d="" fill="none" stroke="#fff" stroke-width="5"/>
       <g class="raios">${[0, 1, 2, 3, 4].map((k) => `<path class="raio" d="M${60 + k * 230} ${R0} l ${-40 + k * 12} 900 h 60 l ${30 - k * 10} -900 Z" fill="#fff" opacity="0.05"/>`).join("")}</g>
       <g class="bolhas">${Array.from({ length: 14 }, (_, k) => `<circle class="bo" cx="${80 + ((k * 173) % 760)}" cy="0" r="${3 + (k % 4) * 2}" fill="#fff" opacity="0.25"/>`).join("")}</g>
       <path d="M-200 ${R1 + 40} Q 540 ${R1 + 10} 1280 ${R1 + 50} L 1280 2200 L -200 2200 Z" fill="#0b1a33"/>
@@ -283,14 +286,17 @@ CENAS.chegada = (el, c, B) => {
   let chao = ""; for (let x = -200; x <= 1280; x += 10) chao += `${x === -200 ? "M" : "L"}${x} ${fundoY(x).toFixed(1)} `;
   const yC = (x) => fundoY(x) + 4;
   el.innerHTML = `<g class="cam">
-      <rect x="-200" y="-200" width="1480" height="${SUP + 200}" fill="url(#ceuDia)"/><rect x="-200" y="${SUP}" width="1480" height="1400" fill="#16406b"/>
-      <path class="agua" d="" fill="url(#marA)"/>
+      ${textura("ceu_c", "tex-ceu", { y: -300, h: SUP + 320, alt: SUP + 380, ty: -380, rolar: 6 })}
+      <clipPath id="clAg_c"><path class="agua" d=""/></clipPath>
+      ${textura("mar_c", "tex-mar", { y: SUP - 400, h: 1800, alt: 520, ty: SUP - 300, rolar: 30, clip: "clAg_c", filtro: "ondulacaoForte" })}
       <path class="espuma" d="" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity="0"/>
       <path class="sup" d="" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-      <path d="${chao} L 1280 1900 L -200 1900 Z" fill="url(#areia)"/><path d="${chao}" fill="none" stroke="#c9b894" stroke-width="3"/>
-      <g transform="translate(1010 ${yC(1010)})"><g class="casa1">${objeto("casa-obj", 190)}</g></g>
-      <g transform="translate(1180 ${yC(1180)})"><g class="casa2">${objeto("casa-obj", 170)}</g></g>
-      ${[[960, 230], [1100, 280], [1250, 250]].map(([x, h], k) => `<g transform="translate(${x} ${yC(x)})"><g class="palma" data-k="${k}">${objeto("palmeira-obj", h * 0.58)}</g></g>`).join("")}
+      <clipPath id="clAr_c"><path d="${chao} L 1280 2200 L -200 2200 Z"/></clipPath>
+      ${textura("ar_c", "tex-areia", { y: 560, h: 2000, alt: 1600, ty: 600, clip: "clAr_c" })}
+      <path d="${chao}" fill="none" stroke="#c9b894" stroke-width="3"/>
+      <g transform="translate(1010 ${yC(1010)})">${contato(190, "chao")}<g class="casa1">${objeto("casa-obj", 190)}</g></g>
+      <g transform="translate(1180 ${yC(1180)})">${contato(170, "chao")}<g class="casa2">${objeto("casa-obj", 170)}</g></g>
+      ${[[960, 230], [1100, 280], [1250, 250]].map(([x, h], k) => `<g transform="translate(${x} ${yC(x)})">${contato(h * 0.3, "chao")}<g class="palma" data-k="${k}">${objeto("palmeira-obj", h * 0.58)}</g></g>`).join("")}
       <g transform="translate(700 ${fundoY(700) + 80})"><g class="pRaso">${pilula("MAR RASO", "#fff", 30)}</g></g>
       <g class="pFreia">${pilula("A FRENTE FREIA", C.amarelo, 30)}</g>
       <g class="pEmp">${pilula("A ÁGUA SE EMPILHA", C.rosa, 30)}</g></g>
@@ -325,6 +331,10 @@ CENAS.chegada = (el, c, B) => {
   sair($(".leit", el), tpa - 0.3, "cima");
   contador($(".nAlt", el), 10, 30, tpa + 0.2, Math.max(0.8, t30 - tpa), (v) => (Math.round(v / 10) * 10) + " m");
   entrar($(".sAlt", el), tpa - 0.1, "mola");
+  // respingos quando a parede chega à praia
+  const cam5 = $(".cam", el);
+  gotas(cam5, 860, SUP - 260, tpa + 0.1, 26, 51, 1.1);
+  gotas(cam5, 920, SUP - 300, t30 - 0.1, 30, 52, 1.3);
   cameraFases($(".cam", el), [[c.ini - 0.5, 1.0, 540, 960], [te - 0.5, 1.0, 540, 960], [tpa - 0.2, 1.35, 820, 820], [c.fim + 0.5, 1.4, 840, 800]], c.fim);
 };
 
@@ -343,15 +353,17 @@ CENAS.sinal = (el, c, B) => {
     ${setaClean(250, -100, 300, -100, "#0a1230", 5)}<text class="rotm" x="200" y="-92" text-anchor="end" font-size="22" fill="#0a1230" opacity="0.6">praia</text>`;
   const peixes = [[390, 0], [450, 1], [640, 2], [520, 3], [600, 4]];
   el.innerHTML = `<g class="cam">
-      <rect x="-200" y="-200" width="1480" height="2400" fill="url(#ceuDia)"/>
-      <path d="${perfil} L 1280 1900 L -200 1900 Z" fill="url(#areia)"/>
-      <path class="mar" d="" fill="url(#marA)"/><path class="borda" d="" fill="none" stroke="#fff" stroke-width="4" opacity="0.85"/>
+      ${textura("ceu_s", "tex-ceu", { y: -300, h: 2600, alt: 1500, ty: -380, rolar: 5 })}
+      <clipPath id="clAr_s"><path d="${perfil} L 1280 2200 L -200 2200 Z"/></clipPath>
+      ${textura("ar_s", "tex-areia", { y: 680, h: 1800, alt: 1600, ty: 700, clip: "clAr_s" })}
+      <clipPath id="clMar_s"><path class="mar" d=""/></clipPath>
+      ${textura("mar_s", "tex-mar", { y: 700, h: 1500, alt: 380, ty: 760, rolar: 14, clip: "clMar_s", filtro: "ondulacao" })}<path class="borda" d="" fill="none" stroke="#fff" stroke-width="4" opacity="0.85"/>
       <path class="cristaLonge" d="" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="0"/>
       <path d="${perfil}" fill="none" stroke="#bfa77d" stroke-width="3"/>
       <path class="molhada" d="" fill="none" stroke="#b49c72" stroke-width="16" stroke-linecap="round" opacity="0.7"/>
       <g transform="translate(900 ${chao(900) + 8})">${objeto("casa-obj", 170)}</g><g transform="translate(1040 ${chao(1040) + 8})">${objeto("palmeira-obj", 140)}</g>
-      <g class="barcoW"><g class="barco">${objeto("barco-obj", 210, { afunda: 30 })}</g></g>
-      ${peixes.map(([x, k]) => `<g transform="translate(${x} ${chao(x) + 10})"><g class="peixe" data-k="${k}">${objeto("peixe-obj", 90, { ancora: "centro" })}</g></g>`).join("")}
+      <g class="barcoW"><g class="barcoSombra" opacity="0">${contato(200, "chao")}</g><g class="barco">${objeto("barco-obj", 210, { afunda: 30 })}</g><g class="barcoEsp">${contato(190, "agua")}</g></g>
+      ${peixes.map(([x, k]) => `<g transform="translate(${x} ${chao(x) + 10})"><g class="peixeS" data-k="${k}" opacity="0">${contato(70, "chao")}</g><g class="peixe" data-k="${k}">${objeto("peixe-obj", 90, { ancora: "centro" })}</g></g>`).join("")}
       <g class="medR">${medida(XA0, chao(XA0) - 40, XA1, chao(XA1) - 40, "0 m", { pil: C.amarelo, tam: 30, cls: "medR", dy: -50 })}</g>
       <g class="rotaFuga">${setaClean(740, 960, 1000, 790, C.vermelho, 10)}</g></g>
     ${velas(0.55)}
@@ -361,7 +373,7 @@ CENAS.sinal = (el, c, B) => {
     <g transform="translate(540 500)"><g class="cVale">${vale}</g></g>
     <g transform="translate(540 520)"><g class="cCorra">${cartao("CORRA PARA O ALTO", { tam: 54, cor: C.vermelho })}</g></g>
     <g transform="translate(540 1290)"><g class="cMin">${cartao("05:00", { tam: 56, larg: 360, sub: "você tem poucos minutos", cor: C.vermelho })}</g></g>`;
-  const mar = $(".mar", el), borda = $(".borda", el), molh = $(".molhada", el), barcoW = $(".barcoW", el), crista = $(".cristaLonge", el), pxs = $$(".peixe", el);
+  const mar = $(".mar", el), borda = $(".borda", el), molh = $(".molhada", el), barcoW = $(".barcoW", el), bSom = $(".barcoSombra", el), bEsp = $(".barcoEsp", el), pSom = $$(".peixeS", el), crista = $(".cristaLonge", el), pxs = $$(".peixe", el);
   aCadaQuadro((t) => {
     if (t < c.ini - 1 || t > c.fim + 0.6) return;
     const n = nivel(t), xa = xAgua(t);
@@ -375,7 +387,9 @@ CENAS.sinal = (el, c, B) => {
     // faixa de areia molhada na parte que ficou descoberta; o barco boia e depois deita na areia
     molh.setAttribute("d", xa < XA0 - 4 ? `M${xa} ${(chao(xa) + 6).toFixed(1)} L ${XA0} ${(chao(XA0) + 6).toFixed(1)}` : "");
     const bx = 560, by = Math.min(chao(bx), n + 4 * Math.sin(bx / 40 + t * 2.4));
-    barcoW.setAttribute("transform", `translate(${bx} ${by.toFixed(1)}) rotate(${(by >= chao(bx) - 1 ? 0 : 3 * Math.sin(t * 1.6)).toFixed(2)})`);
+    const encalhado = by >= chao(bx) - 1;
+    barcoW.setAttribute("transform", `translate(${bx} ${by.toFixed(1)}) rotate(${(encalhado ? 0 : 3 * Math.sin(t * 1.6)).toFixed(2)})`);
+    bSom.setAttribute("opacity", encalhado ? 1 : 0); bEsp.setAttribute("opacity", encalhado ? 0 : 1);
     let cr = ""; for (let x = -200; x <= Math.min(xa, 200); x += 10) cr += `${cr ? "L" : "M"}${x} ${(yS(x) - 3).toFixed(1)} `;
     crista.setAttribute("d", cr); crista.setAttribute("opacity", (cu * 0.9).toFixed(2));
     // peixes se debatendo na areia (só depois que a água passa por eles)
@@ -383,6 +397,7 @@ CENAS.sinal = (el, c, B) => {
       const viv = t > ts - 0.4 + k * 0.1 ? 1 : 0;
       p.setAttribute("transform", viv ? `translate(0 ${(-14 * Math.abs(Math.sin(t * 5 + k * 1.3))).toFixed(1)}) rotate(${(22 * Math.sin(t * 9 + k * 2)).toFixed(1)})` : "");
       p.setAttribute("opacity", viv);
+      pSom[k] && pSom[k].setAttribute("opacity", viv);
     });
   });
   entrar($(".cProm", el), tpm - 0.1, "baixo"); sair($(".cProm", el), trc - 0.3, "cima");
@@ -392,6 +407,8 @@ CENAS.sinal = (el, c, B) => {
   contador($(".medR text", el), 0, 300, tce - 0.1, 0.9, (v) => Math.round(v) + " m");
   sair($(".medR", el), tv - 0.3);
   entrar($(".pPeixe", el), ts - 0.2, "escala"); sair($(".pPeixe", el), tv - 0.3);
+  areiaLevanta($(".cam", el), 480, chao(480), ts - 0.3, 18, 61);
+  areiaLevanta($(".cam", el), 600, chao(600), ts - 0.1, 14, 62);
   entrar($(".cVale", el), tv - 0.1, "escala"); desenhar($(".vLin", el), tv, 0.9); sair($(".cVale", el), tc - 0.3, "cima");
   tl.set($(".rotaFuga", el), { opacity: 0 }, 0); tl.set($(".rotaFuga", el), { opacity: 1 }, tc); desenhar($$(".rotaFuga path", el), tc, 0.6);
   entrar($(".cCorra", el), tc, "mola");
@@ -416,16 +433,19 @@ CENAS.alerta = (el, c, B) => {
     <rect x="${SX - 46}" y="${FUN - SH - 34}" width="92" height="20" rx="10" fill="${C.amarelo}"/>
     <text class="rot microP" x="${SX}" y="${FUN - SH - 20}" font-size="11" fill="#0a1230" text-anchor="middle">4.012,30 dbar</text></g>`;
   el.innerHTML = `<g class="cam">
-      <rect x="-200" y="-200" width="1480" height="${SUP + 200}" fill="url(#ceuDia)"/>
-      <path class="agua" d="" fill="url(#fundoMar)"/><path class="sup" d="" fill="none" stroke="#fff" stroke-width="5"/>
+      ${textura("ceu_a", "tex-ceu", { y: -300, h: SUP + 320, alt: SUP + 380, ty: -380, rolar: 5 })}
+      <clipPath id="clAg_a"><path class="agua" d=""/></clipPath>
+      ${textura("fundo_a", "tex-fundo", { y: SUP - 120, h: 2000, alt: 1600, ty: SUP - 100, rolar: 3, clip: "clAg_a" })}
+      <path class="sup" d="" fill="none" stroke="#fff" stroke-width="5"/>
       <g>${[0, 1, 2, 3].map((k) => `<path d="M${100 + k * 230} ${SUP} l ${-40 + k * 12} 700 h 60 l ${30 - k * 10} -700 Z" fill="#fff" opacity="0.05"/>`).join("")}</g>
-      <path d="M-200 ${FUN} Q 400 ${FUN - 20} 820 ${FUN - 10} L 900 ${SUP + 20} L 1280 ${SUP - 30} L 1280 2200 L -200 2200 Z" fill="url(#areia)"/>
+      <clipPath id="clAr_a"><path d="M-200 ${FUN} Q 400 ${FUN - 20} 820 ${FUN - 10} L 900 ${SUP + 20} L 1280 ${SUP - 30} L 1280 2200 L -200 2200 Z"/></clipPath>
+      ${textura("ar_a", "tex-areia", { y: SUP - 100, h: 2000, alt: 1700, ty: SUP - 60, clip: "clAr_a" })}
       <path d="M-200 ${FUN} Q 400 ${FUN - 20} 820 ${FUN - 10} L 900 ${SUP + 20} L 1280 ${SUP - 30}" fill="none" stroke="#bfa77d" stroke-width="3"/>
       <path class="cabo" d="" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 8" opacity="0.5"/>
-      <g transform="translate(${SX} ${FUN + 8})">${objeto("sensor-obj", SW)}</g>${micro}
+      <g transform="translate(${SX} ${FUN + 8})">${contato(SW * 1.1, "chao")}${objeto("sensor-obj", SW)}</g>${micro}
       <g class="ondasAc">${[0, 1, 2].map(() => `<path class="ac" d="M${SX - 60} 0 Q ${SX} -30 ${SX + 60} 0" fill="none" stroke="${C.amarelo}" stroke-width="4" stroke-linecap="round" opacity="0"/>`).join("")}</g>
-      <g class="boiaW">${objeto("boia-obj", 120, { afunda: 70 })}</g>
-      <g transform="translate(1010 ${SUP + 8})"><g class="torre">${objeto("torre-obj", 110)}<g class="sirene">${[0, 1, 2].map((k) => `<circle class="sr" cy="-365" r="30" fill="none" stroke="${C.vermelho}" stroke-width="4" opacity="0"/>`).join("")}</g></g></g>
+      <g class="boiaW">${objeto("boia-obj", 120, { afunda: 70 })}${contato(120, "agua")}</g>
+      <g transform="translate(1010 ${SUP + 8})">${contato(110, "chao")}<g class="torre">${objeto("torre-obj", 110)}<g class="sirene">${[0, 1, 2].map((k) => `<circle class="sr" cy="-365" r="30" fill="none" stroke="${C.vermelho}" stroke-width="4" opacity="0"/>`).join("")}</g></g></g>
       <g class="satW">${objeto("satelite-obj", 300, { ancora: "centro" })}</g>
       <path class="feixe1" d="" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="12 10" stroke-linecap="round"/>
       <path class="feixe2" d="" fill="none" stroke="${C.vermelho}" stroke-width="4" stroke-dasharray="12 10" stroke-linecap="round"/>
@@ -464,6 +484,7 @@ CENAS.alerta = (el, c, B) => {
   // ondas acústicas sobem do sensor até a boia
   $$(".ac", el).forEach((a, q) => tl.fromTo(a, { y: FUN - SH, opacity: 0.9 }, { y: SUP + 60, opacity: 0, duration: 1.0, repeat: 1, ease: "none", immediateRender: false }, tb - 0.2 + q * 0.3));
   entrar($(".pBoia", el), tb, "escala"); sair($(".pBoia", el), tco - 0.2);
+  bolhasSobem($(".cam", el), SX, FUN - SH - 10, 12, tb - 0.3, 1.6, { altura: FUN - SH - SUP - 40, espalha: 50, seed: 71 });
   tl.set([f1, f2], { opacity: 0 }, 0);
   tl.set(f1, { opacity: 1 }, tsat - 0.2); desenhar(f1, tsat - 0.2, 0.6);
   tl.set(f2, { opacity: 1 }, tco - 0.2); desenhar(f2, tco - 0.2, 0.6);
@@ -490,3 +511,6 @@ CENAS.resumo = (el, c, B, i, f) => {
   cartaoFinal(f, tcta);
   cameraFases($(".cam", el), [[c.ini - 0.5, 1.0, 540, 1000], [tn - 0.6, 1.05, 540, 1010], [tn + 0.8, 1.35, 520, 1110], [c.fim + 0.5, 1.4, 520, 1110]], c.fim);
 };
+
+// texturas que rolam e espumas que se mexem, em todas as cenas
+Object.keys(CENAS).forEach((tipo) => { const base = CENAS[tipo]; CENAS[tipo] = (el, c, B, i, f) => { base(el, c, B, i, f); animarTexturas(el, c); animarEspumas(el, c); }; });

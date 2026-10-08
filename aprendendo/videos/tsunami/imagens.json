@@ -94,5 +94,57 @@
   "objeto": true,
   "formato": "1:1",
   "mp": "1"
+ },
+ {
+  "nome": "tex-ceu",
+  "descricao": "a calm sky at golden hour with soft layered stylized clouds, warm light near the bottom, wide panorama",
+  "textura": true,
+  "formato": "16:9",
+  "seed": 21,
+  "repetivel": true,
+  "corte": [
+   0,
+   0.8
+  ]
+ },
+ {
+  "nome": "tex-mar",
+  "descricao": "open ocean water surface seen from a slightly elevated angle, rows of gentle stylized waves and soft highlights, no horizon, no sky, only water filling the frame",
+  "textura": true,
+  "formato": "16:9",
+  "seed": 22,
+  "repetivel": true,
+  "corte": [
+   0,
+   0.78
+  ]
+ },
+ {
+  "nome": "tex-fundo",
+  "descricao": "inside the deep ocean, soft light rays coming from the surface above, fading from ocean blue at the top to deep navy at the bottom, a few tiny suspended particles",
+  "textura": true,
+  "formato": "9:16",
+  "seed": 23,
+  "repetivel": true
+ },
+ {
+  "nome": "tex-areia",
+  "descricao": "smooth beach sand surface with subtle wind ripples, warm sand tones, seen from the side at a low angle",
+  "textura": true,
+  "formato": "16:9",
+  "seed": 24,
+  "repetivel": true,
+  "corte": [
+   0.53,
+   1.0
+  ]
+ },
+ {
+  "nome": "ilha-obj",
+  "descricao": "a distant low tropical island with a few palm trees and soft green hills, long horizontal shape, side view",
+  "objeto": true,
+  "formato": "16:9",
+  "mp": "1",
+  "seed": 25
  }
 ]

@@ -31,6 +31,10 @@ ESTILO_OBJ = ("modern semi-flat vector illustration, clean editorial infographic
               "a very thin subtle darker edge line, muted natural colors harmonized with a deep navy, ocean blue, warm sand and "
               "off-white palette, golden yellow only as an accent, refined detail, not photorealistic, not cartoon, not childish, "
               "not an icon, no text, no letters, no logos, no people")
+# TEXTURAS de cenário (céu, mar, areia, fundo do mar) no mesmo estilo dos objetos, preenchendo a imagem toda
+ESTILO_TEX = ("modern semi-flat vector illustration texture in a clean editorial infographic style, smooth soft gradients, "
+              "subtle stylized detail, muted palette of deep navy, ocean blue, sky blue, warm sand and off-white, "
+              "fills the entire frame edge to edge, not photorealistic, not cartoon, no text, no letters, no objects, no people")
 FUNDO_OBJ = ("single isolated object, centered, the entire object fully visible with generous empty margin, "
              "on a perfectly flat solid pure magenta #FF00FF background, no shadow, no ground, no reflection, no gradient in the background")
 
@@ -47,7 +51,16 @@ def _chave():
     return k
 
 
-def gerar(tema, nome, descricao, seed=7, formato="9:16", mp="2", refazer=False, estilo=True, objeto=False):
+def repetivel(arq):
+    """Emenda a imagem com o próprio espelho na horizontal: a textura pode rolar sem costura."""
+    from PIL import Image, ImageOps
+    im = Image.open(arq).convert("RGB")
+    lado = Image.new("RGB", (im.width * 2, im.height))
+    lado.paste(im, (0, 0)); lado.paste(ImageOps.mirror(im), (im.width, 0))
+    lado.save(arq, quality=92)
+
+
+def gerar(tema, nome, descricao, seed=7, formato="9:16", mp="2", refazer=False, estilo=True, objeto=False, textura=False, rep=False, corte=None):
     """objeto=True: ilustração isolada sobre magenta, recortada localmente → imagens/<nome>.png
     (o bruto fica em imagens/_bruto/<nome>.jpg)."""
     pasta = VIDEOS / tema / "imagens"
@@ -59,6 +72,8 @@ def gerar(tema, nome, descricao, seed=7, formato="9:16", mp="2", refazer=False, 
     arq.parent.mkdir(exist_ok=True)
     if objeto:
         prompt = f"{descricao}. {ESTILO_OBJ}. {FUNDO_OBJ}"
+    elif textura:
+        prompt = f"{descricao}. {ESTILO_TEX}"
     else:
         prompt = f"{descricao}. {ESTILO}" if estilo else descricao
     corpo = json.dumps({"input": {"prompt": prompt, "aspect_ratio": formato, "output_megapixels": mp, "seed": seed,
@@ -86,6 +101,12 @@ def gerar(tema, nome, descricao, seed=7, formato="9:16", mp="2", refazer=False, 
     if objeto:
         import recorte
         recorte.recortar(arq, final)
+    if corte and not objeto:  # guarda só a faixa útil (fração da altura: [de, até])
+        from PIL import Image
+        im = Image.open(final); h = im.height
+        im.crop((0, int(h * corte[0]), im.width, int(h * corte[1]))).save(final, quality=92)
+    if rep and not objeto:
+        repetivel(final)
     return final
 
 
@@ -104,6 +125,7 @@ if __name__ == "__main__":
     if a.lista:
         for it in json.loads((VIDEOS / a.tema / "imagens.json").read_text()):
             print(gerar(a.tema, it["nome"], it["descricao"], it.get("seed", 7), it.get("formato", "1:1" if it.get("objeto") else "9:16"),
-                        it.get("mp", "1" if it.get("objeto") else "2"), a.refazer, objeto=it.get("objeto", False)))
+                        it.get("mp", "1" if it.get("objeto") else "2"), a.refazer, objeto=it.get("objeto", False),
+                        textura=it.get("textura", False), rep=it.get("repetivel", False), corte=it.get("corte")))
     else:
         print(gerar(a.tema, a.nome, a.descricao, a.seed, a.formato, a.mp, a.refazer, objeto=a.objeto))

@@ -85,7 +85,7 @@ def agenda(roteiro, falas):
         for b in legendas:
             b["destaque"] = [voz._norm(w) in chaves for w, _, _ in b["palavras"]]
         cenas.append({"id": c["id"], "tipo": c["tipo"], "titulo": c["titulo"], "ini": _r(ini), "voz": _r(voz_ini),
-                      "fim": _r(fim), "batidas": batidas, "legendas": legendas})
+                      "fim": _r(fim), "batidas": batidas, "legendas": legendas, "entrada": c.get("entrada")})
         t = fim
     return {"cenas": cenas, "total": _r(t + 1.2)}
 
@@ -212,7 +212,7 @@ def montar(roteiro, ag, pasta, pasta_video):
             shutil.copy(arq, pasta / "assets" / "imagens" / arq.name)
         # tamanhos dos objetos recortados (PNG), para o JS manter a proporção: window.IMG = {nome: [l, a]}
         from PIL import Image
-        tams = {f.stem: list(Image.open(f).size) for f in (Path(pasta_video) / "imagens").glob("*.png")}
+        tams = {f.stem: list(Image.open(f).size) for f in [*(Path(pasta_video) / "imagens").glob("*.png"), *(Path(pasta_video) / "imagens").glob("*.jpg")]}
         with open(pasta / "assets" / "lottie_dados.js", "a") as js:
             js.write("window.IMG = " + json.dumps(tams) + ";\n")
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}

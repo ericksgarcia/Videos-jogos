@@ -103,6 +103,21 @@ O vídeo inteiro é escrito para a pessoa não sair, não só o começo. Referê
    diferentes por distância. Tudo amarrado às batidas da fala.
 5. Por cima: kit clean (abaixo) — cartões, números grandes, réguas, setas. Foto inteira só em
    `fotoCartao` quando fizer sentido.
+6. **Cenário com texturas geradas que se movem** (KIT CAMADAS em `motor/biblioteca.js`): gere as
+   texturas no mesmo estilo (`"textura": true` em imagens.json; `"repetivel": true` emenda com o
+   espelho para rolar sem costura; `"corte": [de, até]` guarda só a faixa útil da altura) e use
+   `textura(id, nome, {y, h, alt, ty, rolar, clip, filtro})`: céu e mar rolam (`rolar` px/s), a
+   água ondula (`filtro: "ondulacao"` / `"ondulacaoForte"`) e fica recortada pela superfície
+   calculada a cada quadro (`clip` = um `<clipPath>` com o path da onda) — assim a textura sobe e
+   desce com a onda. Use camadas em profundidade (céu, ilha ao longe, mar distante, mar perto) com
+   velocidades diferentes. Chame `animarTexturas(el, c)` e `animarEspumas(el, c)` em cada cena.
+7. **Contato**: `contato(largura, "chao")` (sombra, antes do objeto) e `contato(largura, "agua")`
+   (espuma animada na linha d'água, depois do objeto) em todo objeto que encosta no chão ou na água.
+8. **Partículas nas batidas**: `areiaLevanta()`, `gotas()`, `respingo()`, `bolhasSobem()` no
+   instante da palavra (tranco, onda batendo, peixe se debatendo, sensor avisando).
+9. **Transições com movimento**: `"entrada": "descer" | "subir" | "esq" | "dir"` na cena do
+   roteiro — a cena nova entra vindo daquele lado e a anterior sai no sentido oposto (ex.: do céu
+   para dentro do mar = "descer"). Combine com a câmera da cena (abrir na mesma direção).
 - **Kit clean** (`motor/biblioteca.js`, "KIT CLEAN"): `cartao(txt, {sub, cor, tam, larg, barra,
   fundo, tinta})` (cartão branco arredondado; em fundo claro use fundo `#0a1230` e tinta branca),
   `pilula(txt, cor)`, `numeroGrande(cls, ini, legenda)` (+ `contador`), `medida()`, `setaClean()`,
