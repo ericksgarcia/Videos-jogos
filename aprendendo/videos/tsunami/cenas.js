@@ -145,6 +145,7 @@ CENAS.formato = (el, c, B) => {
       <path class="tsuBase" d="M-200 ${Y2} H 1280" stroke="${C.ciano}" ${LT.centro}/>
       <path class="tsuL" d="" fill="none" stroke="${C.ciano}" stroke-width="3.4"/><path class="tsuF" d="" fill="${C.ciano}" fill-opacity="0.08"/>
       <g class="cotaC">${cota(40, Y2 + 120, 1040, Y2 + 120, "≈ 200 km", C.amarelo)}</g>
+      ${[40, 1040].map((x) => `<g transform="translate(${x} ${Y2 + 120})"><g class="ponta">${mira(26, C.amarelo)}</g></g>`).join("")}
       <g class="cotaA"><path d="M900 ${Y2} V ${Y2 - 60}" stroke="${C.vermelho}" stroke-width="2.5"/><text class="mono" x="916" y="${Y2 - 24}" font-size="22" fill="${C.vermelho}">&lt; 1 m</text></g>
       <text class="monol" x="1040" y="${Y2 + 170}" font-size="16" fill="${C.ciano}" text-anchor="end" opacity="0.7">ESCALA VERTICAL EXAGERADA ×10.000</text>
       <g transform="translate(540 ${Y2})"><g class="navW"><g class="navS" transform="scale(0.8)">${cargueiroLado()}</g></g></g></g></g>
@@ -169,14 +170,17 @@ CENAS.formato = (el, c, B) => {
     nav.setAttribute("transform", `translate(0 ${(-h).toFixed(1)}) rotate(${(Math.atan(sl) * 57.3).toFixed(2)})`);
     alt.textContent = "+" + (h / 60 * 0.6).toFixed(1).replace(".", ",") + " m";
   });
+  // "de uma PONTA à outra": as duas pontas da onda acendem; "ALTO mar": a câmera desce no navio
+  const tpo = B("pontas", 0.38), tam = B("altomar", 0.42);
+  $$(".ponta", el).forEach((g, q) => { entrar(g, tpo + q * 0.18, "escala"); sair(g, ta - 0.2); });
   entrar($(".pAlt", el), tn - 0.3, "dir");
-  sair($(".praia", el), tpp - 0.5);
+  sair($(".praia", el), tam - 0.3, "cima");
   sair($(".pAlt", el), tpp - 0.4, "dir");
   entrar($(".tPal", el), tpp, "mola");
   reflexoPassando($(".tPal", el), "COMENTA SEU PALPITE", 40, tpp + 0.5);
   entrar($(".pPal", el), tpp + 0.2, "escala");
   tl.fromTo($(".pPal", el), { rotation: -6 }, { rotation: 6, duration: 0.5, yoyo: true, repeat: 5, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, tpp + 0.8);
-  cameraFases($(".cam", el), [[c.ini - 0.5, 1.02, 540, 900], [tc - 0.4, 1.02, 540, 900], [tc + 0.5, 1.05, 540, 980], [tn + 1.5, 1.05, 540, 980], [c.fim + 0.5, 1.0, 540, 900]], c.fim);
+  cameraFases($(".cam", el), [[c.ini - 0.5, 1.02, 540, 900], [tc - 0.4, 1.02, 540, 900], [tc + 0.5, 1.05, 540, 980], [tam - 0.2, 1.05, 540, 980], [tam + 0.9, 1.16, 560, 1000], [tr - 0.3, 1.16, 560, 1000], [tr + 0.6, 1.05, 540, 980], [tn + 1.5, 1.05, 540, 980], [c.fim + 0.5, 1.0, 540, 900]], c.fim);
 };
 
 // =============== 4. velocidade: o Oceano Índico em 2004 (mapa HUD) ===============
@@ -197,6 +201,10 @@ CENAS.velocidade = (el, c, B) => {
     ${Array.from({ length: 6 }, (_, q) => `<path d="M-200 ${360 + q * 200} H ${W + 200}" stroke="#4cc9f0" stroke-opacity="0.2" stroke-dasharray="3 9"/>`).join("")}
     <g class="frentes">${Array.from({ length: 7 }, () => `<circle class="frente" cx="${EP[0]}" cy="${EP[1]}" r="10" fill="none" stroke="${C.ciano}" stroke-width="3"/>`).join("")}</g>
     ${terras.map(([n, d, x, y]) => `<path d="${d}" fill="#050b1e"/><path d="${d}" fill="url(#hudPontos)"/><g class="holo"><path d="${d}" class="vazio" ${LT.aresta}/></g>${n ? `<text class="mono" x="${x}" y="${y}" font-size="22" fill="#8fe3ff" opacity="0.8">${n}</text>` : ""}`).join("")}
+    <g class="isob">${[[0, "1.000 m"], [1, "3.000 m"], [2, "4.000 m"]].map(([q, tx]) => {
+      const r = 150 + q * 120, cx = 560, cy = 760;
+      return `<path class="isoL" d="M${cx - r * 1.1} ${cy + r * 0.2} C ${cx - r} ${cy + r * 1.2}, ${cx + r} ${cy + r * 1.3}, ${cx + r * 1.15} ${cy + r * 0.1}" fill="none" stroke="#4cc9f0" stroke-width="${1.4 + q * 0.6}" stroke-dasharray="6 7" opacity="${0.45 + q * 0.15}"/>
+        <text class="monol isoT" x="${cx}" y="${cy + r * 0.98 + 7}" font-size="17" fill="#8fe3ff" text-anchor="middle" opacity="0">${tx}</text>`; }).join("")}</g>
     <text class="monol" x="430" y="1100" font-size="20" fill="#8fe3ff" opacity="0.6" letter-spacing="6">OCEANO ÍNDICO</text>
     <g transform="translate(${EP[0]} ${EP[1]})"><g class="epi" opacity="0"><path d="M0 -24 L 7 -7 L 24 0 L 7 7 L 0 24 L -7 7 L -24 0 L -7 -7 Z" fill="${C.vermelho}"/><circle r="34" fill="none" stroke="${C.vermelho}" stroke-width="2"/></g></g>
     <path class="rota" d="M${EP[0]} ${EP[1]} C 700 900, 450 1000, ${pj([42, -1]).join(" ")}" fill="none" stroke="${C.amarelo}" stroke-width="2.5" stroke-dasharray="10 8" opacity="0"/>
@@ -208,6 +216,12 @@ CENAS.velocidade = (el, c, B) => {
   const tpf = B("prof", 0.1), tv = B("vel2", 0.3), tav = B("aviao", 0.45), ti = B("indo", 0.6), taf = B("africa", 0.8), th = B("horas", 0.92);
   entrar($(".pForm", el), tpf - 0.1, "esq");
   reflexoPassando($(".pForm", el), "", 0, tpf + 0.5);
+  // "mais FUNDO": linhas de profundidade se desenham; "QUATRO mil": a profundidade conta até 4.000 m
+  const tfu = B("isobatas", 0.2), trp = B("rapido", 0.24), tq4 = B("quatro", 0.27);
+  $$(".isoL", el).forEach((l, q) => desenhar(l, tfu + q * 0.2, 0.7));
+  $$(".isoT", el).forEach((x, q) => tl.to(x, { opacity: 0.9, duration: 0.3 }, tfu + 0.4 + q * 0.2));
+  contador($$(".pForm text", el)[3], 0, 4000, tq4 - 0.1, 0.7, (v) => Math.round(v).toLocaleString("pt-BR") + " m");
+  reflexoPassando($(".pForm", el), "", 0, tq4 + 0.6);
   entrar($(".pVel", el), tv - 0.3, "baixo");
   contador($$(".pVel text", el)[1], 0, 700, tv - 0.2, 1.0, (v) => Math.round(v) + " km/h");
   // avião ao lado da frente de onda, mesma rota
@@ -223,7 +237,7 @@ CENAS.velocidade = (el, c, B) => {
   fr.forEach((r, q) => tl.fromTo(r, { attr: { r: 10 }, opacity: 0.9 }, { attr: { r: 760 }, opacity: 0.15, duration: dur, ease: "none", immediateRender: false }, ti + q * (dur / 9)));
   entrar($(".pRel", el), ti, "dir");
   contador($$(".pRel text", el)[1], 0, 7, ti, dur, (v) => Math.round(v) + " h");
-  cameraFases($(".cam", el), [[c.ini - 0.5, 1.02, 540, 880], [ti - 0.4, 1.02, 540, 880], [ti + 0.4, 1.1, 700, 820], [taf - 0.3, 1.1, 700, 820], [taf + 0.6, 1.0, 520, 880], [c.fim + 0.5, 1.02, 520, 880]], c.fim);
+  cameraFases($(".cam", el), [[c.ini - 0.5, 1.02, 540, 880], [trp - 0.2, 1.02, 540, 880], [trp + 0.7, 1.14, 560, 900], [ti - 0.4, 1.08, 560, 880], [ti + 0.4, 1.1, 700, 820], [taf - 0.3, 1.1, 700, 820], [taf + 0.6, 1.0, 520, 880], [c.fim + 0.5, 1.02, 520, 880]], c.fim);
 };
 
 // ---------- costa em corte (cenas 5 e 6): fundo do mar subindo até a praia ----------
@@ -290,6 +304,10 @@ CENAS.sinal = (el, c, B) => {
   el.innerHTML = `<g class="cam">${cenarioHud()}${gradeTecnica(-200, 300, W + 400, 1500, 0.6)}
     <path class="agua6" d="" fill="#0d3a6e" fill-opacity="0.6"/>${costaSVG()}
     <path class="sup6" d="" fill="none" stroke="#8fe3ff" stroke-width="4"/>
+    ${(() => { // praia descoberta: da linha d'água antiga (fundoY = SUP5) até a nova, com o mar todo recuado
+      const nivel = (x) => SUP5 + 110 * _g(x, 820, 380), ach = (f) => { for (let x = 700; x < 1280; x += 2) if (f(x)) return x; return 1100; };
+      const xa = ach((x) => fundoY(x) <= SUP5), xn = ach((x) => fundoY(x) <= nivel(x));
+      return cota(xn, fundoY(xn) - 26, xa, fundoY(xa) - 26, "000 m", C.amarelo, "cotaR"); })()}
     <g class="peixes" opacity="0">${[[760, 0], [820, 1], [690, 2], [870, 3]].map(([x, q]) => `<g transform="translate(${x} ${(fundoY(x) - 10).toFixed(0)})"><g class="px holo-am">${peixe()}</g></g>`).join("")}</g>
     <g class="rotulosV" opacity="0"><g transform="translate(560 ${SUP5 + 120})">${tag("VALE", C.ciano, 22)}</g><g transform="translate(140 ${SUP5 - 150})">${tag("CRISTA", C.vermelho, 22)}</g></g>
     <path class="fuga" d="M960 ${fundoY(960) - 20} C 1040 700, 1080 640, 1180 ${fundoY(1180) - 40}" fill="none" stroke="${C.vermelho}" stroke-width="5" stroke-dasharray="14 10" opacity="0"/>
@@ -313,6 +331,11 @@ CENAS.sinal = (el, c, B) => {
   entrar($(".tRec", el), trc, "escala");
   tl.set($(".peixes", el), { opacity: 1 }, ts - 0.2);
   $$(".px", el).forEach((p, q) => { entrar(p, ts - 0.2 + q * 0.12, "mola"); tl.fromTo(p, { rotation: -15 }, { rotation: 15, duration: 0.22, yoyo: true, repeat: 9, ease: "sine.inOut", transformOrigin: "50% 50%", immediateRender: false }, ts + q * 0.1); });
+  // "ESVAZIA": a régua mede a areia que ficou de fora; "CENTENAS de metros": conta até 300 m
+  const tes = B("esvazia", 0.33), tce = B("centenas", 0.4), cR = $(".cotaR", el);
+  tl.set(cR, { opacity: 0 }, 0); tl.set(cR, { opacity: 1 }, tes); desenhar($(".cotaR .cotaL", el), tes, 0.6);
+  contador($(".cotaR text", el), 0, 300, tce - 0.1, 0.9, (v) => Math.round(v) + " m");
+  tl.to(cR, { opacity: 0, duration: 0.3 }, tv - 0.3);
   sair($(".tRec", el), tv - 0.3);
   tl.set($(".rotulosV", el), { opacity: 1 }, tv);
   sair($(".rotulosV", el), tc - 0.3);

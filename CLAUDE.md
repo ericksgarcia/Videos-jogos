@@ -171,6 +171,13 @@ O que continua valendo do padrão anterior:
 4. `python aprendendo/motor/gerar.py aprendendo/videos/<tema>` → renderiza
    e grava `output/<tema>/<slug>.mp4`. Confira alguns frames do MP4 final
    (`ffmpeg -ss T -i video.mp4 -frames:v 1 f.png`).
+   Depois rode o **controle de qualidade** e corrija o que ele apontar antes de entregar:
+   `python aprendendo/motor/qa.py output/<tema>/<slug>.mp4 --roteiro aprendendo/videos/<tema>`
+   - *piscadas de um quadro* (elemento que some/pula por 1 quadro: defeito de seek do GSAP);
+   - *cor* marcada como BT.709 (o `codificar()` já grava; sem isso o celular mostra cor errada);
+   - *ritmo*: trechos de mais de 4 s sem batida visual na área da ilustração (regra 6 da
+     retenção), com a cena e o segundo. Corrija pondo uma batida numa palavra da fala daquele
+     trecho (rótulo, contador, régua, movimento de câmera). O cartão final pode aparecer.
 5. O arquivo precisa ter **menos de 30 MB** (limite de envio). O encode final usa CRF 24 e,
    se passar do limite (granulação/3D comprimem pior), refaz em 2 passadas para caber.
    Render a 60 fps (desfoque de movimento) com 4 navegadores em paralelo (VIDEO_WORKERS muda).
@@ -269,6 +276,11 @@ Referência completa: `videos/navio/cenas.js`. Todas são funções puras do tem
 - Efeitos "de cinema" com reverb (pop, plim, whoosh, thud, brilho, zap) e `transicao`
   automática em cada troca de cena. Trilha com pad, dedilhado com eco, sub, batida
   suave e reverb; sobe nas pausas e abaixa sob a voz. Master a ~-13 LUFS.
+- **Em teste (aguardando aprovação do dono; opcionais no roteiro):** `"impactos": {"evento":
+  atraso}` = grande momento com riser que cresce, ~0,28 s de silêncio e impacto na revelação;
+  `"logo_sonoro": true` = assinatura sonora no cartão final (batida `cta`); `"corte_j": 0.3` =
+  a voz da cena seguinte começa 0,3 s antes da imagem trocar. Teste rápido de um trecho:
+  `gerar.py <pasta> --cena 6-7`.
 - Para avaliar a mixagem sem ouvir: mande um trecho em MP3 ao `gemini-3.8-flash`
   pedindo notas de clareza da voz, equilíbrio e efeitos.
 

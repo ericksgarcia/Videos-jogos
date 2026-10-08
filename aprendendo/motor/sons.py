@@ -197,6 +197,46 @@ def zap2():
     return _com_cauda(_estereo(_norm(x * np.exp(-t * 4), 0.42)), 0.2, 1.0)
 
 
+def riser(dur=2.4, seed=41):
+    """Som que cresce até o grande momento (padrão de trailer): ruído que sobe de agudo,
+    tom que sobe de altura e volume que acelera no fim. Termina seco, sem cauda."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    u = t / dur
+    ar = sfx._varre_bp(_ruido(dur, seed, rosa=True), None, np.geomspace(300, 7000, 64), q=2.4)
+    f = 110 * 2 ** (2.5 * u ** 1.6)  # sobe ~2,5 oitavas
+    tom = sum(np.sin(2 * np.pi * np.cumsum(f * d) / SR) for d in (0.995, 1.0, 1.006)) / 3
+    env = u ** 2.6
+    x = _norm(ar, 0.6) * env + tom * env * 0.35
+    return _estereo(_norm(x, 0.7), np.sin(np.linspace(0, 6 * np.pi, n)) * 0.4 * u)
+
+
+def impacto():
+    """Batida do grande momento: sub profundo + estalo + brilho, com cauda longa."""
+    d = 2.0
+    t = _t(d)
+    sub = np.sin(2 * np.pi * np.cumsum(32 + 70 * np.exp(-t * 14)) / SR) * np.exp(-t * 2.2)
+    est = _lp(_ruido(d, 42), 2600) * np.exp(-t * 28)
+    x = _estereo(_norm(np.tanh(1.8 * (sub + 0.5 * est)), 0.9))
+    b = brilho2()[: len(x)]
+    x[: len(b)] += b * 0.6
+    return _com_cauda(x, 0.3, 2.4)
+
+
+def assinatura():
+    """Logo sonoro do canal (cartão final): três notas que sobem (Dó, Mi, Sol) e um
+    acorde que fica, com brilho e reverb. Sempre igual: vira a "marca" de ouvido."""
+    d = 2.6
+    out = np.zeros((int(d * SR), 2))
+    for i, (f, t0) in enumerate([(523.25, 0.0), (659.25, 0.14), (783.99, 0.28)]):
+        x = _nota(f, d - t0, 0.004, 2.2, 0.5) + 0.5 * _nota(f * 2, d - t0, 0.004, 3.5, 0.3)
+        i0 = int(t0 * SR)
+        out[i0:] += _estereo(x * 0.3, (-0.5, 0.0, 0.5)[i])[: len(out) - i0]
+    acorde = sum(_nota(f, d - 0.42, 0.06, 1.1, 0.2) for f in (261.63, 392.0, 523.25)) * 0.12
+    out[int(0.42 * SR):] += _estereo(acorde)[: len(out) - int(0.42 * SR)]
+    return _com_cauda(out * (0.7 / (np.abs(out).max() + 1e-9)), 0.45, 2.5)
+
+
 def transicao():
     """Troca de cena: whoosh largo + grave suave."""
     w = whoosh2(0.9, 38)
@@ -208,7 +248,7 @@ def transicao():
     return out
 
 
-EFEITOS = {f.__name__: f for f in (clique, plim, zap, agua, vento, vapor, tampa, urna, transicao)}
+EFEITOS = {f.__name__: f for f in (clique, plim, zap, agua, vento, vapor, tampa, urna, transicao, riser, impacto, assinatura)}
 # versões "de cinema" substituem as básicas com o mesmo nome
 EFEITOS.update({"plim": plim2, "pop": pop2, "whoosh": whoosh2, "whoosh_curto": whoosh_curto2, "thud": thud2, "brilho": brilho2, "zap": zap2})
 

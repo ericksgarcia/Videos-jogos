@@ -59,10 +59,17 @@ def narrar(roteiro):
 
 
 def agenda(roteiro, falas):
+    # "corte_j": s (opcional) = corte J: a voz da cena seguinte começa esse tanto ANTES da
+    # imagem trocar (o som puxa o corte); a duração total não muda
+    J = float(roteiro.get("corte_j") or 0)
     cenas, t = [], 0.0
     for i, (c, f) in enumerate(zip(roteiro["cenas"], falas)):
         ini = t
         voz_ini = ini + (0.3 if i == 0 else INICIO_VOZ)
+        if J and i > 0:
+            voz_ini = ini + max(0.1, INICIO_VOZ - J)
+            ini = voz_ini + J
+            cenas[-1]["fim"] = _r(ini)
         fim = voz_ini + f["dur"] + FOLGA_FIM
         batidas, ultimo = {}, 0.0
         for k, (palavra, evento) in enumerate(c.get("batidas", {}).items()):
@@ -104,7 +111,12 @@ def _ler_voz(arq):
     return np.stack([x, x], axis=1)
 
 
-def mixar(ag, falas, saida, sons_roteiro=None):
+def mixar(ag, falas, saida, sons_roteiro=None, roteiro=None):
+    """Voz + efeitos das batidas + trilha. Opcionais no roteiro:
+    "impactos": {"evento": atraso_s} = grande momento: riser que cresce, ~0,28 s de silêncio
+        (música e efeitos somem) e o impacto exatamente no evento + atraso (a revelação);
+    "logo_sonoro": true = assinatura sonora do canal na batida "cta" (cartão final)."""
+    roteiro = roteiro or {}
     n = int(ag["total"] * SR)
     voz_buf, efx = np.zeros((n, 2)), np.zeros((n, 2))
     for c, f in zip(ag["cenas"], falas):
@@ -113,8 +125,21 @@ def mixar(ag, falas, saida, sons_roteiro=None):
         if c["ini"] > 0:
             _soma(efx, sons.som("transicao"), max(0, c["ini"] - 0.45), 0.55)
         for ev, t in c["batidas"].items():
+            if ev in (roteiro.get("impactos") or {}):
+                continue  # o grande momento tem riser + silêncio + impacto próprios
             nome, g = (sons_roteiro or {}).get(ev, SOM_PADRAO)
             _soma(efx, sons.som(nome), t, g)
+    momentos = [t + float(atr) for c in ag["cenas"] for ev, atr in (roteiro.get("impactos") or {}).items()
+                for e2, t in c["batidas"].items() if e2 == ev]
+    BURACO = 0.28
+    for t in momentos:
+        r = sons.som("riser")
+        _soma(efx, r, t - BURACO - len(r) / SR, 0.75)
+        _soma(efx, sons.som("impacto"), t, 0.8)
+    if roteiro.get("logo_sonoro"):
+        for c in ag["cenas"]:
+            if "cta" in c["batidas"]:
+                _soma(efx, sons.som("assinatura"), c["batidas"]["cta"] + 0.35, 0.7)
     musica = sons.trilha(ag["total"], marcos=[c["ini"] for c in ag["cenas"][1:]])[:n]
     # ducking suave: música e efeitos abaixam sob a voz (envelope com ataque/soltura)
     nivel = np.convolve(np.abs(voz_buf[:, 0]), np.ones(2400) / 2400, mode="same")
@@ -128,6 +153,18 @@ def mixar(ag, falas, saida, sons_roteiro=None):
     sobe = signal.sosfiltfilt(signal.butter(1, 1.5, fs=SR, output="sos"), sobe)
     musica *= (0.62 - 0.42 * nivel + 0.18 * sobe)[:, None]
     efx *= (1.5 - 0.35 * nivel)[:, None]
+    # "buraco" antes de cada grande momento: música e efeitos somem por ~0,28 s (o impacto
+    # depois do silêncio soa muito maior); rampas curtas para não estalar
+    if momentos:
+        gate = np.ones(n)
+        rampa = int(0.012 * SR)
+        for t in momentos:
+            i0, i1 = int((t - BURACO) * SR), int(t * SR)
+            gate[max(0, i0):max(0, i1)] = 0
+        gate = np.convolve(gate, np.ones(rampa) / rampa, mode="same")
+        musica *= gate[:, None]
+        # o impacto (começa em t) fica fora do buraco; só o que soa dentro dele é cortado
+        efx *= gate[:, None]
     # voz com leve "presença" (realce em 3 kHz) e um toque de ambiente
     pres = signal.sosfilt(signal.butter(2, [2500, 5000], btype="band", fs=SR, output="sos"), voz_buf, axis=0)
     corpo = signal.sosfilt(signal.butter(2, [140, 420], btype="band", fs=SR, output="sos"), voz_buf, axis=0)
@@ -261,7 +298,12 @@ def _acabamento(dur=None, cinema=False):
                   f"c0={k['luz_cores'][0]}:c1=0x000000:c2=0x000000:c3={k['luz_cores'][1]},scale={w}:{h},format=gbrp[_l];[_c]format=gbrp[_c2];[_c2][_l]blend=all_mode=screen:all_opacity={k['luz_forca']},format=yuv420p")
     if tc and tc.get("grao"):
         f.append(f"noise=alls={tc['grao']}:allf=t")
-    return ",".join(f) or "null"
+    # fecha sempre em BT.709 (padrão do vídeo HD): as etapas em RGB (bloom, luz, rgbashift) voltavam
+    # para YUV na matriz antiga (BT.601) e sem marcação, e o celular mostrava as cores erradas
+    return ",".join(f + ["format=gbrp", "scale=out_color_matrix=bt709:out_range=tv", "format=yuv420p"])
+
+
+COR709 = ["-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"]
 
 
 def codificar(mudo, wav, mp4, dur, cinema=False):
@@ -269,7 +311,7 @@ def codificar(mudo, wav, mp4, dur, cinema=False):
     com a taxa de bits calculada para caber (~92% do limite)."""
     limite = MARCA["video"]["tamanho_maximo_mb"] * 1024 * 1024
     vf = ["-vf", _acabamento(dur, cinema)]
-    comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart", "-c:a", "aac", "-b:a", "160k", "-shortest"]
+    comum = ["-pix_fmt", "yuv420p", *COR709, "-movflags", "+faststart", "-c:a", "aac", "-b:a", "160k", "-shortest"]
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf,
                     "-c:v", "libx264", "-preset", "slow", "-crf", "24", *comum, str(mp4)], check=True)
     if Path(mp4).stat().st_size <= limite * 0.95:
@@ -277,7 +319,7 @@ def codificar(mudo, wav, mp4, dur, cinema=False):
     kbps = int(limite * 0.92 * 8 / 1024 / dur - 170)
     print(f"   arquivo acima do limite; recodificando a {kbps} kb/s")
     log = Path(mudo).with_suffix(".2pass")
-    base = ["ffmpeg", "-v", "error", "-y", "-i", str(mudo), *vf, "-c:v", "libx264", "-preset", "slow", "-b:v", f"{kbps}k", "-passlogfile", str(log)]
+    base = ["ffmpeg", "-v", "error", "-y", "-i", str(mudo), *vf, "-c:v", "libx264", "-preset", "slow", "-b:v", f"{kbps}k", *COR709, "-passlogfile", str(log)]
     subprocess.run(base + ["-pass", "1", "-an", "-f", "mp4", "/dev/null"], check=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf, "-c:v", "libx264", "-preset", "slow",
                     "-b:v", f"{kbps}k", "-passlogfile", str(log), "-pass", "2", *comum, str(mp4)], check=True)
@@ -289,7 +331,7 @@ def main():
     ap.add_argument("--qualidade", default="high", choices=["draft", "standard", "high"])
     ap.add_argument("--so-montar", action="store_true", help="monta o projeto sem renderizar")
     ap.add_argument("--previa", action="store_true", help="só tira fotos de cada cena (output/<tema>/previa)")
-    ap.add_argument("--cena", type=int, help="gera só a cena N (1 = primeira); saída <slug>-cenaN.mp4")
+    ap.add_argument("--cena", help="gera só a cena N (1 = primeira) ou um trecho N-M; saída <slug>-cenaN.mp4")
     ap.add_argument("--cinema", action="store_true", help="acabamento extra: bloom, LUT de cor e luz vazando")
     a = ap.parse_args()
     pasta_video = Path(a.video)
@@ -297,7 +339,8 @@ def main():
         pasta_video = pasta_video.parent
     roteiro = json.loads((pasta_video / "roteiro.json").read_text())
     if a.cena:  # teste rápido de uma cena só
-        roteiro["cenas"] = [roteiro["cenas"][a.cena - 1]]
+        n0, _, n1 = a.cena.partition("-")
+        roteiro["cenas"] = roteiro["cenas"][int(n0) - 1:int(n1 or n0)]
         roteiro["slug"] += f"-cena{a.cena}"
     falas = narrar(roteiro)
     print("narração:", {f["provedor"] for f in falas}, "| duração das falas:", round(sum(f["dur"] for f in falas), 1), "s")
@@ -316,7 +359,7 @@ def main():
         return
     mudo = pasta / "video_mudo.mp4"
     renderizar(pasta, mudo, qualidade=a.qualidade)
-    mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"))
+    mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"), roteiro)
     mp4 = saida / f"{roteiro['slug']}.mp4"
     codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], roteiro.get("cinema") or a.cinema)
     print("pronto:", mp4)
