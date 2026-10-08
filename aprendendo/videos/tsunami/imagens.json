@@ -1,0 +1,57 @@
+[
+ {
+  "nome": "navio",
+  "descricao": "a large cargo container ship with an unmarked plain hull sailing alone on a calm open ocean at golden hour, seen from a high aerial three-quarter view, endless horizon, empty sky in the upper half"
+ },
+ {
+  "nome": "placas",
+  "descricao": "a clean 3D infographic block of the earth crust cut open under the ocean, seen from the side, two tectonic plates meeting where the thin ocean plate dives beneath the thicker continental plate, layered rock in warm sand, terracotta and grey, blue ocean water layer on top, deep trench at the meeting point, isolated on a soft light grey background",
+  "seed": 21
+ },
+ {
+  "nome": "oceano",
+  "descricao": "calm open ocean seen from just above the water level, gentle long low swell, vast empty horizon, soft pale morning light, lots of empty sky"
+ },
+ {
+  "nome": "onda-praia",
+  "descricao": "a single wave breaking on a sandy beach, side view, turquoise water, white foam",
+  "formato": "1:1",
+  "mp": "1"
+ },
+ {
+  "nome": "abismo",
+  "descricao": "deep open ocean seen from inside the water, sunlight rays from the surface fading into dark blue depth, vast empty space",
+  "seed": 11
+ },
+ {
+  "nome": "aviao",
+  "descricao": "a white passenger jet airplane flying above soft clouds, clean side view, blue sky",
+  "formato": "1:1",
+  "mp": "1"
+ },
+ {
+  "nome": "costa-onda",
+  "descricao": "an enormous towering ocean wave wall approaching a tropical coastline with palm trees and low white buildings, seen from the beach, dramatic but clean sky",
+  "seed": 3
+ },
+ {
+  "nome": "praia-seca",
+  "descricao": "tropical beach where the sea has suddenly receded hundreds of meters, wide exposed wet sand flats, small fish stranded on the sand, small boats lying on the sand, distant thin water line at the horizon, eerie calm, aerial view"
+ },
+ {
+  "nome": "boia",
+  "descricao": "a yellow ocean monitoring buoy with small solar panels and a tall antenna floating on the open sea, clean daylight, calm water",
+  "seed": 5
+ },
+ {
+  "nome": "fundo-mar",
+  "descricao": "deep sea floor at 4000 meters, dark blue water, flat soft sediment, a small yellow scientific instrument sitting on the seabed in the lower center, soft beam of light from above",
+  "seed": 9
+ },
+ {
+  "nome": "satelite",
+  "descricao": "a communications satellite with solar panels orbiting above planet earth, clean space view, blue earth below",
+  "formato": "1:1",
+  "mp": "1"
+ }
+]

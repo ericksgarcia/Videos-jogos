@@ -79,8 +79,32 @@ O vídeo inteiro é escrito para a pessoa não sair, não só o começo. Referê
 
 ## Padrão visual (o dono pediu explicitamente "profissional", não "simples")
 
-**Desde o vídeo do navio: estilo TECNOLÓGICO holograma/HUD** (o dono achou o estilo
-cartoon "infantil"). Referência: `videos/navio/cenas.js`. Kit em `motor/biblioteca.js`:
+**PADRÃO ATUAL (desde o tsunami v2): MODERNO E CLEAN com imagens geradas.** O dono pediu
+"algo mais moderno e clean", **sem neon** e **sem 3D**. Referência: `videos/tsunami/cenas.js`.
+- **Imagens geradas** (`motor/imagens.py`, Replicate FLUX.2 [klein] 4B, ~US$ 0,002 cada; chave em
+  `REPLICATE_API_TOKEN`, variável de ambiente ou `.env`): liste as imagens do vídeo em
+  `videos/<tema>/imagens.json` (`nome`, `descricao` em inglês, `seed`, `formato` 9:16 ou 1:1, `mp`)
+  e rode `python aprendendo/motor/imagens.py <tema> --lista`. Elas ficam em
+  `videos/<tema>/imagens/` (versionadas; o render sai sempre igual) e o estilo do canal
+  (`ESTILO` em imagens.py: render editorial limpo, luz suave, paleta navy/azuis/areia, sem
+  texto e sem pessoas) é somado a toda descrição. Uma ou duas imagens por cena, mais
+  imagens 1:1 para cartões. Olhe todas antes de usar; refaça a que sair estranha (`--refazer`,
+  outra `seed` ou outra descrição). A conta tem limite de pedidos por minuto (o gerador espera).
+- **Kit clean** (`motor/biblioteca.js`, "KIT CLEAN"): `foto(nome)` (imagem em tela cheia com folga
+  para a câmera), `velas()` (escurece topo e base para os textos lerem), `kenBurns()`,
+  `cartao(txt, {sub, cor, tam, larg, barra, fundo, tinta})` (cartão branco arredondado com
+  barrinha de destaque; em fundo claro use fundo escuro `#0a1230` e tinta branca),
+  `pilula(txt, cor)`, `numeroGrande(cls, ini, legenda)` (+ `contador`), `medida()` (régua
+  limpa), `setaClean()`, `fotoCartao(nome, lado, legenda)` (foto 1:1 em cartão).
+- Diagramas: linhas brancas grossas e arredondadas, áreas chapadas (navy, areia `#e7dcc6`,
+  céu claro), sem brilho neon, sem grade técnica, sem fonte mono. Texto sempre Nunito.
+- Toda cena: foto (ou diagrama limpo) em tela cheia + câmera (`cameraFases`/`kenBurns`) +
+  1 cartão/número/rótulo por batida. Textos pequenos ≥ 24 px (celular).
+- Técnicas que continuam: câmera em fases, contador, entradas variadas, zoom que revela
+  detalhes, foco seletivo, sem bonecos.
+
+*Padrão anterior (holograma/HUD, vídeos navio e tsunami v1), não usar em vídeo novo:*
+estilo tecnológico holograma/HUD. Referência: `videos/navio/cenas.js`. Kit em `motor/biblioteca.js`:
 - `cenarioHud({horizonte, agua, fuga})`: fundo escuro, pontos, grade em perspectiva;
   `hudOverlay(el, c, "CANAL")`: linhas de varredura, faixa de scanner, cantos de visor e
   código de tempo (aplicado no acabamento de cada cena).
@@ -257,8 +281,9 @@ Referência completa: `videos/navio/cenas.js`. Todas são funções puras do tem
 
 ### Animações Lottie (`motor/lottie.js`) — personagens e elementos de designers
 
-- 3D: o dono pediu 3D de novo no vídeo do tsunami. Use em **poucas cenas-chave** (gancho e
-  resumo), porque o render é por software (SwiftShader) e pesa. Oceano realista pronto:
+- 3D: **cancelado pelo dono** (tsunami v2). Não use 3D em vídeo novo; use imagens geradas.
+  O que existe fica só para os vídeos antigos. (Antes: 3D em poucas cenas-chave, render por
+  software, pesado.) Oceano realista pronto:
   `oceano3D(k, {sol, mar, horizonte, zenite, solCor})` + `navio3D()` + `boiar3D()` em
   `motor/oceano.js` (da skill `3d-ultra-realistic-water`, adaptado ao three r149).
   Numa cena 3D a camada 3D fica ACIMA do mundo 2D: rótulos/HUD vão no 5º parâmetro

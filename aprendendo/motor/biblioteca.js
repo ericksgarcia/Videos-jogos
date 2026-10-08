@@ -389,3 +389,70 @@ const flechaHud = (L, cor, txt, ang, cls, tam) => `<g transform="rotate(${ang ||
   <path d="M0 -10 V ${-L + 30}" stroke="${cor}" stroke-width="2" stroke-dasharray="6 8" opacity="0.8"/>
   ${txt ? `<g transform="translate(0 ${-L - 50}) rotate(${-(ang || 0)})">${tag(txt, cor, tam || 28)}</g>` : ""}</g></g>`;
 const animFlechaHud = (g, t) => { tl.set(g, { opacity: 0 }, 0); tl.fromTo(g, { scaleY: 0, opacity: 1, transformOrigin: "50% 100%" }, { scaleY: 1, opacity: 1, duration: 0.55, ease: "back.out(1.7)", immediateRender: false }, t); };
+
+// ===================== KIT CLEAN (padrão desde o tsunami v2: moderno e clean, sem neon) =====================
+// Imagem gerada (motor/imagens.py) em tela cheia + cartões brancos arredondados, números grandes e
+// diagramas de linhas brancas. Cor de destaque: amarelo da marca. Fonte: Nunito (identidade).
+$("#defs").insertAdjacentHTML("beforeend", `
+  <filter id="sombraCartao" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#06102a" flood-opacity="0.35"/></filter>
+  <filter id="sombraTexto" x="-20%" y="-40%" width="140%" height="180%"><feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#000" flood-opacity="0.55"/></filter>
+  <linearGradient id="vela" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06102a" stop-opacity="0"/><stop offset="1" stop-color="#06102a" stop-opacity="0.78"/></linearGradient>
+  <linearGradient id="velaTopo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06102a" stop-opacity="0.6"/><stop offset="1" stop-color="#06102a" stop-opacity="0"/></linearGradient>`);
+const CL = { tinta: "#0a1230", branco: "#ffffff", suave: "rgba(255,255,255,0.92)", linha: "rgba(255,255,255,0.9)" };
+// foto em tela cheia (com folga para a câmera), escurecida em cima e embaixo para os textos lerem bem
+const foto = (nome, o) => {
+  o = o || {};
+  const [x, y, w, h] = o.caixa || [-80, -80, W + 160, H + 160];
+  return `<image class="${o.cls || "foto"}" href="assets/imagens/${nome}.jpg" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="${o.ajuste || "xMidYMid slice"}"/>`;
+};
+const velas = (forte) => `<rect x="-200" y="${H * 0.52}" width="${W + 400}" height="${H * 0.5}" fill="url(#vela)" opacity="${forte ?? 1}"/>
+  <rect x="-200" y="-100" width="${W + 400}" height="440" fill="url(#velaTopo)" opacity="${forte ?? 1}"/>`;
+// movimento lento de câmera numa foto (zoom de/até, foco em fx, fy)
+function kenBurns(g, t0, t1, de, ate, fx, fy) {
+  tl.fromTo(g, { scale: de ?? 1.0, svgOrigin: `${fx ?? 540} ${fy ?? 960}` }, { scale: ate ?? 1.1, svgOrigin: `${fx ?? 540} ${fy ?? 960}`, duration: Math.max(0.1, t1 - t0), ease: "none", immediateRender: false }, t0);
+}
+// largura aproximada de um texto em Nunito (maiúsculas são bem mais largas que minúsculas)
+const larguraTexto = (txt, tam, peso) => [...txt].reduce((s, ch) => s + (ch === " " ? 0.28 : /[A-ZÁÉÍÓÚÂÊÔÃÕÇ0-9]/.test(ch) ? 0.74 : /[il.,:;'|·]/.test(ch) ? 0.3 : 0.57), 0) * tam * (peso === 900 ? 1.04 : 1);
+// cartão branco arredondado, centrado em 0,0 (sub = linha menor; cor = barrinha de destaque)
+const cartao = (txt, o) => {
+  o = o || {};
+  const tam = o.tam || 40, sub = o.sub, ts = Math.max(24, Math.round(tam * 0.6)), cor = o.cor || C.amarelo, barra = o.barra !== false;
+  const w = o.larg || Math.max(larguraTexto(txt, tam, 900), sub ? larguraTexto(sub, ts, 800) : 0) + tam * (barra ? 2.2 : 1.4);
+  const h = tam * 1.7 + (sub ? ts * 1.5 : 0), r = Math.min(28, h / 2.6);
+  return `<g filter="url(#sombraCartao)"><rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="${r}" fill="${o.fundo || CL.suave}"/></g>
+    ${barra ? `<rect x="${-w / 2 + tam * 0.5}" y="${-h / 2 + h * 0.28}" width="${Math.max(6, tam * 0.14)}" height="${h * 0.44}" rx="3" fill="${cor}"/>` : ""}
+    <text class="rot" x="${barra ? tam * 0.3 : 0}" y="${(sub ? -ts * 0.55 : 0) + tam * 0.36}" text-anchor="middle" font-size="${tam}" fill="${o.tinta || CL.tinta}">${txt}</text>
+    ${sub ? `<text class="rotm" x="${barra ? tam * 0.3 : 0}" y="${ts * 0.85 + tam * 0.36}" text-anchor="middle" font-size="${ts}" fill="${o.tinta || CL.tinta}" opacity="0.7">${sub}</text>` : ""}`;
+};
+// pílula pequena (rótulo de palavra-chave)
+const pilula = (txt, cor, tam) => {
+  tam = tam || 26;
+  const w = larguraTexto(txt, tam, 900) + tam * 1.4, h = tam * 1.75;
+  return `<rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="${h / 2}" fill="${cor || C.amarelo}"/>
+    <text class="rot" y="${tam * 0.36}" text-anchor="middle" font-size="${tam}" fill="${CL.tinta}" letter-spacing="1">${txt}</text>`;
+};
+// número grande branco com legenda embaixo (para contador)
+const numeroGrande = (cls, ini, legenda, tam) => {
+  tam = tam || 150;
+  return `<g filter="url(#sombraTexto)"><text class="rot ${cls}" text-anchor="middle" font-size="${tam}" fill="#fff">${ini}</text>
+    ${legenda ? `<text class="rotm" y="${tam * 0.42}" text-anchor="middle" font-size="${Math.round(tam * 0.22)}" fill="#fff" opacity="0.85" letter-spacing="3">${legenda}</text>` : ""}</g>`;
+};
+// régua de medida limpa (linhas brancas, pílula com o valor)
+const medida = (x0, y0, x1, y1, txt, o) => {
+  o = o || {};
+  const a = Math.atan2(y1 - y0, x1 - x0), nx = -Math.sin(a) * 14, ny = Math.cos(a) * 14, cor = o.cor || "#fff";
+  return `<g class="${o.cls || "medida"}"><path class="medidaL" d="M${x0} ${y0} L ${x1} ${y1} M${x0 - nx} ${y0 - ny} L ${x0 + nx} ${y0 + ny} M${x1 - nx} ${y1 - ny} L ${x1 + nx} ${y1 + ny}" stroke="${cor}" stroke-width="4" stroke-linecap="round" fill="none" filter="url(#sombraTexto)"/>
+    <g transform="translate(${(x0 + x1) / 2 + (o.dx || 0)} ${(y0 + y1) / 2 + (o.dy || 0)})">${pilula(txt, o.pil || "#fff", o.tam || 26)}</g></g>`;
+};
+// seta limpa (linha arredondada com ponta)
+const setaClean = (x0, y0, x1, y1, cor, esp) => {
+  const a = Math.atan2(y1 - y0, x1 - x0), L = 22, b = 0.5;
+  cor = cor || "#fff"; esp = esp || 6;
+  return `<g filter="url(#sombraTexto)"><path class="setaL" d="M${x0} ${y0} L ${x1} ${y1}" stroke="${cor}" stroke-width="${esp}" stroke-linecap="round" fill="none"/>
+    <path class="setaP" d="M${x1 - L * Math.cos(a - b)} ${y1 - L * Math.sin(a - b)} L ${x1} ${y1} L ${x1 - L * Math.cos(a + b)} ${y1 - L * Math.sin(a + b)}" stroke="${cor}" stroke-width="${esp}" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>`;
+};
+// foto pequena em cartão (imagens 1:1), centrada em 0,0
+const fotoCartao = (nome, lado, legenda) => `<g filter="url(#sombraCartao)"><rect x="${-lado / 2 - 10}" y="${-lado / 2 - 10}" width="${lado + 20}" height="${lado + 20 + (legenda ? 64 : 0)}" rx="30" fill="#fff"/></g>
+  <clipPath id="cf_${nome}"><rect x="${-lado / 2}" y="${-lado / 2}" width="${lado}" height="${lado}" rx="22"/></clipPath>
+  <image href="assets/imagens/${nome}.jpg" x="${-lado / 2}" y="${-lado / 2}" width="${lado}" height="${lado}" clip-path="url(#cf_${nome})" preserveAspectRatio="xMidYMid slice"/>
+  ${legenda ? `<text class="rot" y="${lado / 2 + 48}" text-anchor="middle" font-size="30" fill="${CL.tinta}">${legenda}</text>` : ""}`;

@@ -205,6 +205,11 @@ def montar(roteiro, ag, pasta, pasta_video):
     for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "oceano.js", AQUI / "lottie.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
+    # imagens geradas do vídeo (motor/imagens.py → videos/<tema>/imagens/*.jpg)
+    if (Path(pasta_video) / "imagens").is_dir():
+        (pasta / "assets" / "imagens").mkdir()
+        for arq in (Path(pasta_video) / "imagens").glob("*.jpg"):
+            shutil.copy(arq, pasta / "assets" / "imagens" / arq.name)
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}
     html = (AQUI / "template.html").read_text()
     html = html.replace("/*__DADOS__*/null", json.dumps(dados, ensure_ascii=False)).replace("__TOTAL__", str(ag["total"]))
