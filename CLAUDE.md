@@ -220,6 +220,13 @@ Outras skills instaladas em `.claude/skills/` para consulta: `gsap-*` (oficiais 
 
 Referência completa: `videos/navio/cenas.js`. Todas são funções puras do tempo (seguras para seek).
 
+- **Zoom que revela detalhes** (zoom semântico, da skill motion-explainer; aprovado pelo dono;
+  referência: `videos/tsunami/cenas.js`, cena 7, sensor do fundo do mar): desenhe dentro do
+  objeto detalhes minúsculos (texto ~5 px com `letter-spacing` ~0,1 px, linhas de 0,5 px:
+  peças internas, medidas, uma leitura que muda) num `<g>` com `opacity 0`; com `cameraFases`
+  mergulhe a ~6× no objeto na palavra em que ele é dito, mostre os detalhes quando a escala passa
+  de ~2,8×, esconda o rótulo de fora e os painéis que cobririam o objeto, e recue antes da cena
+  seguinte. Use onde houver um objeto que valha "abrir" (um aparelho, uma peça, uma célula).
 - **Sem bonecos** (pedido do dono): não use pessoas/personagens (`pessoa`, `gente`,
   `personagem`); conte a história com objetos (bola de praia, papiro, pulmões, colete…).
 - **Câmera em fases**: o mundo da cena fica em `<g class="cam">` e

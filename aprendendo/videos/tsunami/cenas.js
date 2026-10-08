@@ -359,6 +359,23 @@ CENAS.alerta = (el, c, B) => {
     <path d="M-44 0 H -34 M34 0 H 44" ${LT.aresta}/><path d="M-14 26 Q 0 56 14 26" class="cheio" ${LT.aresta}/></g>`;
   const sensor = `<g class="holo-am"><rect x="-34" y="-50" width="68" height="44" rx="8" class="cheio" ${LT.contorno}/><path d="M-50 -6 H 50 L 40 8 H -40 Z" ${LT.aresta}/>
     <circle cx="0" cy="-28" r="9" ${LT.aresta}/><path d="M0 -50 V -70" ${LT.aresta}/></g>`;
+  // zoom semântico (skill motion-explainer): detalhes desenhados minúsculos (texto ~5 px, linhas
+  // de 0,5 px) que só ficam legíveis quando a câmera mergulha a ~6×; o rótulo de fora some
+  const mt = (x, y, tx, anc, cor) => `<text class="monol" style="letter-spacing:0.1px" x="${x}" y="${y}" font-size="4.6" fill="${cor || "#ffe9a8"}" text-anchor="${anc || "middle"}">${tx}</text>`;
+  const micro = `<g class="micro" opacity="0">
+    <circle cx="0" cy="-28" r="6" fill="none" stroke="#ffe9a8" stroke-width="0.5" stroke-dasharray="1 1"/><circle cx="0" cy="-28" r="3" fill="none" stroke="#ffe9a8" stroke-width="0.5"/>
+    <path d="M-30 -44 H -14 V -36 H -8 M30 -44 H 14 V -36 H 8 M-30 -14 H -16 V -20 M30 -14 H 16 V -20" fill="none" stroke="#ffe9a8" stroke-width="0.45"/>
+    ${[-26, -21, -16].map((x) => `<rect x="${x}" y="-12" width="3.6" height="4" fill="none" stroke="#ffe9a8" stroke-width="0.4"/>`).join("")}
+    ${[16, 21, 26].map((x) => `<rect x="${x - 3.6}" y="-12" width="3.6" height="4" fill="none" stroke="#ffe9a8" stroke-width="0.4"/>`).join("")}
+    ${mt(0, -44.5, "TRANSDUTOR")}${mt(0, -15.5, "MEMBRANA")}
+    ${mt(-24, 2.5, "BATERIA")}${mt(24, 2.5, "MODEM")}
+    <path d="M-36 -30 H -50 M36 -30 H 50 M0 8 V 20 H 12" fill="none" stroke="#8fe3ff" stroke-width="0.5"/>
+    ${mt(-52, -31, "PROF.", "end", "#8fe3ff")}${mt(-52, -25, "4.000 m", "end", "#8fe3ff")}
+    ${mt(52, -31, "LEITURA A", "start", "#8fe3ff")}${mt(52, -25, "CADA 15 s", "start", "#8fe3ff")}
+    ${mt(14, 21.5, "ÂNCORA", "start", "#8fe3ff")}
+    <path d="M0 -70 V -76" stroke="#ffd23f" stroke-width="0.5"/>
+    <rect x="-27" y="-86" width="54" height="10" fill="rgba(4,10,28,0.85)" stroke="#ffd23f" stroke-width="0.5"/>
+    <text class="mono microP" style="letter-spacing:0.1px" x="0" y="-79" font-size="5.6" fill="#ffd23f" text-anchor="middle">4.012,30 dbar</text></g>`;
   const torre = `<g class="holo-vd"><path d="M-30 0 L -8 -190 H 8 L 30 0 Z" ${LT.contorno}/><path d="M-24 -40 L 20 -80 M20 -40 L -20 -80 M-16 -100 L 14 -140 M14 -100 L -14 -140" ${LT.fina}/>
     <rect x="-22" y="-224" width="44" height="34" class="cheio" ${LT.aresta}/><path d="M30 -220 q 30 -10 40 -40" ${LT.aresta}/></g>`;
   el.innerHTML = `<g class="cam">${cenarioHud({ horizonte: SUP, agua: true })}
@@ -369,7 +386,7 @@ CENAS.alerta = (el, c, B) => {
     <g class="ondasAc">${[0, 1, 2, 3].map(() => `<path class="ac" d="M${SX - 70} 0 Q ${SX} -40 ${SX + 70} 0" fill="none" stroke="${C.amarelo}" stroke-width="3" opacity="0"/>`).join("")}</g>
     <path class="feixe1" d="M${SX} ${SUP - 170} L 700 420" stroke="${C.ciano}" stroke-width="3" stroke-dasharray="10 8" opacity="0"/>
     <path class="feixe2" d="M700 420 L 990 ${SUP - 240}" stroke="${C.vermelho}" stroke-width="3" stroke-dasharray="10 8" opacity="0"/>
-    <g transform="translate(${SX} ${FUN - 4})"><g class="sensor">${sensor}</g></g>
+    <g transform="translate(${SX} ${FUN - 4})"><g class="sensor">${sensor}${micro}</g></g>
     <g transform="translate(${SX} ${SUP})"><g class="boia"><g class="boiaB">${boia}</g></g></g>
     <g transform="translate(700 420)"><g class="sat">${sat}</g></g>
     <g transform="translate(990 ${SUP - 10})"><g class="torre">${torre}<circle class="sirene" cx="0" cy="-207" r="40" fill="${C.vermelho}" opacity="0"/></g></g>
@@ -383,7 +400,14 @@ CENAS.alerta = (el, c, B) => {
   boiar($(".boiaB", el), c.ini, c.fim, 6);
   [".sensor", ".boia", ".sat", ".torre"].forEach((s, q) => entrar($(s, el), [tse - 0.1, tb - 0.4, tsat - 0.4, tco - 0.4][q], ["baixo", "cima", "escala", "dir"][q]));
   animChamada($(".c1", el), tse + 0.2);
-  entrar($(".pPress", el), tcm - 0.5, "esq");
+  // mergulho no sensor: os detalhes aparecem quando a escala passa de ~2,8× e o rótulo de fora some
+  const tz0 = tse + 0.15, tz1 = tcm + 0.35;
+  tl.to($(".micro", el), { opacity: 1, duration: 0.35 }, tz0 + 0.6);
+  tl.to($(".micro", el), { opacity: 0, duration: 0.25 }, tz1 + 0.15);
+  tl.to($(".c1", el), { opacity: 0, duration: 0.25 }, tz0 + 0.5);
+  tl.to($(".c1", el), { opacity: 1, duration: 0.3 }, tz1 + 0.6);
+  contador($(".microP", el), 4012.30, 4012.33, tcm - 0.3, 0.8, (v) => v.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " dbar");
+  entrar($(".pPress", el), tcm + 1.0, "esq");
   const pt = $$(".pPress text", el);
   contador(pt[3], 0, 3, tcm - 0.3, 0.8, (v) => "+" + Math.round(v) + " cm");
   aCadaQuadro((t) => { if (t > c.fim + 0.6) return; pt[1].textContent = t > tcm - 0.3 ? "ANOMALIA" : "NORMAL"; pt[1].setAttribute("fill", t > tcm - 0.3 ? C.vermelho : "#fff"); });
@@ -397,7 +421,7 @@ CENAS.alerta = (el, c, B) => {
   tl.fromTo($(".sirene", el), { opacity: 0 }, { opacity: 0.8, duration: 0.2, yoyo: true, repeat: 9, ease: "none", immediateRender: false }, tco + 0.4);
   entrar($(".tAlerta", el), tco + 0.3, "escala");
   reflexoPassando($(".tAlerta", el), "ALERTA DE TSUNAMI", 40, tco + 0.8);
-  cameraFases($(".cam", el), [[c.ini - 0.5, 1.02, 540, 900], [tse - 0.3, 1.02, 540, 900], [tse + 0.5, 1.15, 480, 1080], [tb - 0.4, 1.15, 480, 1080], [tb + 0.4, 1.08, 480, 800], [tsat - 0.3, 1.08, 480, 800], [tsat + 0.5, 1.02, 560, 700], [tco, 1.0, 560, 760], [c.fim + 0.5, 1.02, 560, 780]], c.fim);
+  cameraFases($(".cam", el), [[c.ini - 0.5, 1.02, 540, 900], [tse - 0.3, 1.02, 540, 900], [tz0 + 1.0, 6, SX, FUN - 40], [tz1, 6, SX, FUN - 40], [tz1 + 1.0, 1.15, 480, 1080], [tb - 0.4, 1.15, 480, 1080], [tb + 0.4, 1.08, 480, 800], [tsat - 0.3, 1.08, 480, 800], [tsat + 0.5, 1.02, 560, 700], [tco, 1.0, 560, 760], [c.fim + 0.5, 1.02, 560, 780]], c.fim);
 };
 
 // =============== 8. resumo: de volta ao navio em alto mar (3D) ===============
