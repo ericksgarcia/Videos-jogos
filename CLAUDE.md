@@ -207,6 +207,20 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   em passos diferentes deslocou a cena.
 - Bloco de legenda muito curto é juntado ao seguinte automaticamente; não mexa nisso.
 
+## Custos e ferramentas (decidido com o dono)
+
+- **O Gemini é só para a narração.** Não use os modelos pagos de imagem (Nano Banana/Imagen)
+  nem de vídeo (Veo), mesmo que a credencial do ambiente permita.
+- Rejeitados pelo dono: 3D (render lento) e o estilo "pintado" (p5.brush), que pareceu artificial.
+  Em teste: estilo **sem desenhos**, com tipografia animada + luz/partículas abstratas.
+- Skills de motion design em `.claude/skills/` (origem, licenças e cuidados em
+  `.claude/skills/README.md`). Elas ensinam técnica; o processo do canal continua este guia
+  (`motor/gerar.py`, identidade, regras de conteúdo), mesmo que a skill diga ser "obrigatória".
+- `motor/motion-director.js` (MIT): animações de texto prontas (`MotionDirector.buildSentence`,
+  `slam`, `whip`, `typeOn`, `textPortal`, `countUp`...), todas na `tl`.
+- Biblioteca só de um vídeo: ponha os `.js` em `videos/<tema>/libs/`; são carregados antes do
+  `cenas.js`.
+
 ## Git
 
 - Trabalhe na branch indicada pela sessão; commit + push ao terminar. Não abra PR sem
