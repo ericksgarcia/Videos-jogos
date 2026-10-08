@@ -1,0 +1,44 @@
+{
+  "slug": "estilo-globo",
+  "titulo": "Como a eletricidade é gerada",
+  "gancho": "DE ONDE VEM A ELETRICIDADE?",
+  "gancho_destaque": "ELETRICIDADE",
+  "voz": "Achird",
+  "sons": {
+    "cabos": [
+      "zap",
+      0.4
+    ],
+    "distancia": [
+      "whoosh_curto",
+      0.5
+    ],
+    "transformador": [
+      "clique",
+      0.7
+    ],
+    "tomada": [
+      "clique",
+      0.7
+    ],
+    "lampada": [
+      "plim",
+      0.7
+    ]
+  },
+  "cenas": [
+    {
+      "id": "caminho",
+      "tipo": "transmissao",
+      "titulo": "Até a sua casa",
+      "fala": "Depois de gerada, ela viaja por cabos enormes, pendurados em torres, às vezes por centenas de quilômetros. Perto da sua casa, um transformador baixa a força dela pra um nível seguro. Ela entra pela parede, chega na tomada e acende a sua lâmpada.",
+      "batidas": {
+        "cabos": "cabos",
+        "centenas": "distancia",
+        "transformador": "transformador",
+        "tomada": "tomada",
+        "lâmpada.": "lampada"
+      }
+    }
+  ]
+}
