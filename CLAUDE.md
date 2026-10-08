@@ -79,8 +79,23 @@ O vídeo inteiro é escrito para a pessoa não sair, não só o começo. Referê
 
 ## Padrão visual (o dono pediu explicitamente "profissional", não "simples")
 
-Estilo de canal de divulgação científica premium (tipo Kurzgesagt), em motion design
-vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rejeitada**.
+**Desde o vídeo do navio: estilo TECNOLÓGICO holograma/HUD** (o dono achou o estilo
+cartoon "infantil"). Referência: `videos/navio/cenas.js`. Kit em `motor/biblioteca.js`:
+- `cenarioHud({horizonte, agua, fuga})`: fundo escuro, pontos, grade em perspectiva;
+  `hudOverlay(el, c, "CANAL")`: linhas de varredura, faixa de scanner, cantos de visor e
+  código de tempo (aplicado no acabamento de cada cena).
+- Objetos em linhas neon: envolva QUALQUER desenho em `<g class="holo">` (ou `holo-am`,
+  `holo-vm`, `holo-vd`, `holo-rs`, `holo-lr`, `holo-az`); `class="cheio"` = preenchimento
+  mais forte, `class="vazio"` = sem preenchimento. Cor animada: tween de `stroke`/`fill`
+  por estilo (o atributo `fill` é sobrescrito pelo CSS).
+- Textos: `tag(txt, cor, tam, sub)` (caixa de interface com cantoneiras), `numeroHud`
+  (contadores), `cota()` (linha de medida), `mira()` (alvo), `painelHud()` (leituras),
+  fonte técnica JetBrains Mono (`.mono`/`.monol`). Nada de pílulas arredondadas nem
+  desenho estilo cartoon (sol sorridente, nuvens fofas, árvores, casinhas).
+- Revelações tecnológicas: `varredura()` (scanner que revela o objeto), `desenhar()` nas
+  linhas, sonar, réguas e sensores com números que mudam.
+
+O que continua valendo do padrão anterior:
 
 - **Cada cena é um ambiente completo em tela cheia** (SVG 1080×1920): céu, morros,
   chão, primeiro plano. Nada de desenho isolado sobre fundo liso.
@@ -187,6 +202,10 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   `_comEfeitos("tipo", (el, c, B, frente) => {...})` no fim do `cenas.js`.
 
 ### Técnicas das skills do HyperFrames (`motor/efeitos.js`) — padrão desde o vídeo do navio
+
+Outras skills instaladas em `.claude/skills/` para consulta: `gsap-*` (oficiais do GSAP),
+`motion-design`, `motion-director`, `motion-effects`, `high-end-visual-design`,
+`vox-explainer`, `animated-chart` e `video-review-loop` (revisão do MP4 final).
 
 Referência completa: `videos/navio/cenas.js`. Todas são funções puras do tempo (seguras para seek).
 
