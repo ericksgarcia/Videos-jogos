@@ -79,29 +79,38 @@ O vídeo inteiro é escrito para a pessoa não sair, não só o começo. Referê
 
 ## Padrão visual (o dono pediu explicitamente "profissional", não "simples")
 
-**PADRÃO ATUAL (desde o tsunami v2): MODERNO E CLEAN com imagens geradas.** O dono pediu
-"algo mais moderno e clean", **sem neon** e **sem 3D**. Referência: `videos/tsunami/cenas.js`.
-- **Imagens geradas** (`motor/imagens.py`, Replicate FLUX.2 [klein] 4B, ~US$ 0,002 cada; chave em
-  `REPLICATE_API_TOKEN`, variável de ambiente ou `.env`): liste as imagens do vídeo em
-  `videos/<tema>/imagens.json` (`nome`, `descricao` em inglês, `seed`, `formato` 9:16 ou 1:1, `mp`)
-  e rode `python aprendendo/motor/imagens.py <tema> --lista`. Elas ficam em
-  `videos/<tema>/imagens/` (versionadas; o render sai sempre igual) e o estilo do canal
-  (`ESTILO` em imagens.py: render editorial limpo, luz suave, paleta navy/azuis/areia, sem
-  texto e sem pessoas) é somado a toda descrição. Uma ou duas imagens por cena, mais
-  imagens 1:1 para cartões. Olhe todas antes de usar; refaça a que sair estranha (`--refazer`,
-  outra `seed` ou outra descrição). A conta tem limite de pedidos por minuto (o gerador espera).
-- **Kit clean** (`motor/biblioteca.js`, "KIT CLEAN"): `foto(nome)` (imagem em tela cheia com folga
-  para a câmera), `velas()` (escurece topo e base para os textos lerem), `kenBurns()`,
-  `cartao(txt, {sub, cor, tam, larg, barra, fundo, tinta})` (cartão branco arredondado com
-  barrinha de destaque; em fundo claro use fundo escuro `#0a1230` e tinta branca),
-  `pilula(txt, cor)`, `numeroGrande(cls, ini, legenda)` (+ `contador`), `medida()` (régua
-  limpa), `setaClean()`, `fotoCartao(nome, lado, legenda)` (foto 1:1 em cartão).
-- Diagramas: linhas brancas grossas e arredondadas, áreas chapadas (navy, areia `#e7dcc6`,
-  céu claro), sem brilho neon, sem grade técnica, sem fonte mono. Texto sempre Nunito.
-- Toda cena: foto (ou diagrama limpo) em tela cheia + câmera (`cameraFases`/`kenBurns`) +
-  1 cartão/número/rótulo por batida. Textos pequenos ≥ 24 px (celular).
-- Técnicas que continuam: câmera em fases, contador, entradas variadas, zoom que revela
-  detalhes, foco seletivo, sem bonecos.
+**PADRÃO ATUAL (tsunami v3): MODERNO E CLEAN, ANIMADO EM CAMADAS.** O dono pediu "moderno e clean",
+**sem neon**, **sem 3D** e rejeitou foto parada de fundo ("vai ficar muito parado"). Referência:
+`videos/tsunami/cenas.js`. Método:
+1. **Primeiro a cena como animação**: o ambiente é desenhado em código e se mexe o tempo todo
+   (céu em degradê com nuvens andando, superfície do mar ondulando, fundo do mar, praia em corte,
+   raios de luz, bolhas). Ex.: `marAberto()` (céu, sol, mar e navio boiando) em tsunami/cenas.js.
+2. **Objetos sob encomenda**: cada coisa que precisa aparecer (navio, boia, palmeira, peixe, avião…)
+   é gerada isolada e recortada: liste em `videos/<tema>/imagens.json` com `"objeto": true`
+   (`descricao` em inglês, de lado/perfil quando o objeto vai andar, `seed`) e rode
+   `python aprendendo/motor/imagens.py <tema> --lista`. O gerador (Replicate FLUX.2 [klein],
+   ~US$ 0,002) pede o objeto sobre **magenta chapado**, e `motor/recorte.py` recorta AQUI, sem
+   serviço externo (fundo ligado à borda + vãos internos + sombra magenta + despill) → PNG
+   transparente em `imagens/<nome>.png` (o bruto fica em `imagens/_bruto/`). Olhe todos sobre
+   fundo escuro e claro; refaça o que sair errado (outra `seed`/descrição, `--refazer`).
+3. **Estilo dos objetos** (`ESTILO_OBJ` em imagens.py): ilustração vetorial semi-plana, proporções
+   reais, degradês suaves com volume leve, contorno fino discreto, cores sóbrias na paleta do
+   canal (navy, azuis, areia, off-white, amarelo só de destaque). Nada fotográfico, nada de
+   desenho infantil/ícone.
+4. **Objetos como camadas animadas**: `objeto(nome, largura, {ancora, afunda, espelhar})` (âncora
+   na base: põe no chão/na água) dentro de um `<g>` que você anima: boiar na superfície calculada
+   (posição e inclinação), andar, quicar, se curvar, cruzar a tela; profundidade com velocidades
+   diferentes por distância. Tudo amarrado às batidas da fala.
+5. Por cima: kit clean (abaixo) — cartões, números grandes, réguas, setas. Foto inteira só em
+   `fotoCartao` quando fizer sentido.
+- **Kit clean** (`motor/biblioteca.js`, "KIT CLEAN"): `cartao(txt, {sub, cor, tam, larg, barra,
+  fundo, tinta})` (cartão branco arredondado; em fundo claro use fundo `#0a1230` e tinta branca),
+  `pilula(txt, cor)`, `numeroGrande(cls, ini, legenda)` (+ `contador`), `medida()`, `setaClean()`,
+  `fotoCartao()`, `velas()` (escurece topo e base para os textos), `foto()` e `kenBurns()`.
+- Diagramas: linhas brancas grossas e arredondadas, áreas chapadas (navy, areia `#e7dcc6`, céu
+  claro), sem brilho neon, sem grade técnica, sem fonte mono. Texto sempre Nunito, ≥ 24 px.
+- Técnicas que continuam: câmera em fases, contador, entradas variadas, zoom que revela detalhes
+  (agora no objeto recortado: o PNG tem resolução para 3×), foco seletivo, sem bonecos.
 
 *Padrão anterior (holograma/HUD, vídeos navio e tsunami v1), não usar em vídeo novo:*
 estilo tecnológico holograma/HUD. Referência: `videos/navio/cenas.js`. Kit em `motor/biblioteca.js`:

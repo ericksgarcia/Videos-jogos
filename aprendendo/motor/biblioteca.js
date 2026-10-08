@@ -456,3 +456,12 @@ const fotoCartao = (nome, lado, legenda) => `<g filter="url(#sombraCartao)"><rec
   <clipPath id="cf_${nome}"><rect x="${-lado / 2}" y="${-lado / 2}" width="${lado}" height="${lado}" rx="22"/></clipPath>
   <image href="assets/imagens/${nome}.jpg" x="${-lado / 2}" y="${-lado / 2}" width="${lado}" height="${lado}" clip-path="url(#cf_${nome})" preserveAspectRatio="xMidYMid slice"/>
   ${legenda ? `<text class="rot" y="${lado / 2 + 48}" text-anchor="middle" font-size="30" fill="${CL.tinta}">${legenda}</text>` : ""}`;
+// objeto ilustrado e recortado (imagens.py --objeto → videos/<tema>/imagens/<nome>.png), com a
+// proporção certa. ancora: "base" (padrão: 0,0 = meio da base, para pôr no chão/na água),
+// "centro" ou "topo". espelhar: vira na horizontal. Anime sempre um <g> por fora dele.
+const objeto = (nome, larg, o) => {
+  o = o || {};
+  const [w, h] = (window.IMG || {})[nome] || [1, 1], alt = larg * h / w;
+  const y = o.ancora === "centro" ? -alt / 2 : o.ancora === "topo" ? 0 : -alt + (o.afunda || 0);
+  return `<image href="assets/imagens/${nome}.png" x="${-larg / 2}" y="${y.toFixed(1)}" width="${larg}" height="${alt.toFixed(1)}"${o.espelhar ? ` transform="scale(-1 1)"` : ""}/>`;
+};

@@ -29,6 +29,15 @@ def recortar(entrada, saida, margem=12):
     rot, _ = ndimage.label(parecido)
     ids = np.unique(np.concatenate([rot[0], rot[-1], rot[:, 0], rot[:, -1]]))
     eh_fundo = np.isin(rot, ids[ids > 0])
+    # "sombra" que o gerador às vezes desenha no fundo: magenta mais escuro (R e B bem acima de G);
+    # sai se estiver encostada no fundo já detectado (repete para seguir a sombra inteira)
+    r_, g_, b_ = im[..., 0], im[..., 1], im[..., 2]
+    magenta = (r_ - g_ > 55) & (b_ - g_ > 45) & (np.abs(r_ - b_) < 110)
+    for _ in range(40):
+        novo = magenta & ~eh_fundo & ndimage.binary_dilation(eh_fundo, iterations=2)
+        if not novo.any():
+            break
+        eh_fundo |= novo
     # buracos internos (vão de grade, entre folhas): só saem se a cor for quase idêntica ao fundo
     buracos, _ = ndimage.label((dist < 55) & ~eh_fundo)
     tam = ndimage.sum(np.ones_like(dist), buracos, index=np.arange(1, buracos.max() + 1)) if buracos.max() else []

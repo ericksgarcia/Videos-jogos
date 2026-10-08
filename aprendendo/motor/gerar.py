@@ -210,6 +210,11 @@ def montar(roteiro, ag, pasta, pasta_video):
         (pasta / "assets" / "imagens").mkdir()
         for arq in [*(Path(pasta_video) / "imagens").glob("*.jpg"), *(Path(pasta_video) / "imagens").glob("*.png")]:
             shutil.copy(arq, pasta / "assets" / "imagens" / arq.name)
+        # tamanhos dos objetos recortados (PNG), para o JS manter a proporção: window.IMG = {nome: [l, a]}
+        from PIL import Image
+        tams = {f.stem: list(Image.open(f).size) for f in (Path(pasta_video) / "imagens").glob("*.png")}
+        with open(pasta / "assets" / "lottie_dados.js", "a") as js:
+            js.write("window.IMG = " + json.dumps(tams) + ";\n")
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}
     html = (AQUI / "template.html").read_text()
     html = html.replace("/*__DADOS__*/null", json.dumps(dados, ensure_ascii=False)).replace("__TOTAL__", str(ag["total"]))
