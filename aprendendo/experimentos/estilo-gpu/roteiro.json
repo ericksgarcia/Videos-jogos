@@ -1,0 +1,151 @@
+{
+  "slug": "estilo-gpu",
+  "titulo": "Por que a cerveja congela quando você abre",
+  "gancho": "POR QUE A CERVEJA CONGELA QUANDO VOCÊ ABRE?",
+  "gancho_destaque": "CONGELA",
+  "voz": "Achird",
+  "sons": {
+    "liquida": [
+      "pop",
+      0.35
+    ],
+    "abre": [
+      "vapor",
+      0.8
+    ],
+    "gelo": [
+      "brilho",
+      0.7
+    ],
+    "titulo": [
+      "pop",
+      0.5
+    ],
+    "agua": [
+      "agua",
+      0.5
+    ],
+    "moleculas": [
+      "pop",
+      0.4
+    ],
+    "lentas": [
+      "whoosh_curto",
+      0.3
+    ],
+    "encaixa": [
+      "clique",
+      0.6
+    ],
+    "menos2": [
+      "plim",
+      0.5
+    ],
+    "semente": [
+      "plim",
+      0.5
+    ],
+    "bolha": [
+      "pop",
+      0.4
+    ],
+    "garrafa": [
+      "thud",
+      0.4
+    ],
+    "menos6": [
+      "whoosh_curto",
+      0.4
+    ],
+    "nome": [
+      "brilho",
+      0.6
+    ],
+    "bolhas": [
+      "agua",
+      0.5
+    ],
+    "plateia": [
+      "pop",
+      0.3
+    ],
+    "comeca": [
+      "clique",
+      0.6
+    ],
+    "espalha": [
+      "whoosh",
+      0.6
+    ],
+    "bloco": [
+      "thud",
+      0.5
+    ],
+    "calor": [
+      "brilho",
+      0.5
+    ],
+    "raspa": [
+      "pop",
+      0.5
+    ],
+    "batida": [
+      "thud",
+      0.8
+    ],
+    "hora": [
+      "brilho",
+      0.7
+    ],
+    "aumenta": [
+      "whoosh_curto",
+      0.5
+    ],
+    "nove": [
+      "pop",
+      0.5
+    ],
+    "estoura": [
+      "zap",
+      0.6
+    ],
+    "fim": [
+      "plim",
+      0.5
+    ],
+    "passo1": [
+      "pop",
+      0.45
+    ],
+    "passo2": [
+      "pop",
+      0.45
+    ],
+    "passo3": [
+      "pop",
+      0.45
+    ],
+    "passo4": [
+      "pop",
+      0.45
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Por que congela?",
+      "fala": "Você tira a cerveja do congelador, e ela está líquida. Aí você abre, e em poucos segundos ela vira gelo, bem na sua frente. Parece mágica, mas não é. Vou te explicar, do jeito mais fácil possível.",
+      "batidas": {
+        "líquida.": "liquida",
+        "abre,": "abre",
+        "gelo,": "gelo",
+        "fácil": "titulo"
+      }
+    }
+  ]
+}

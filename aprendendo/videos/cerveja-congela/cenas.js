@@ -4,8 +4,9 @@
 
 const MD = MotionDirector;
 const GARRAFA = garrafaPontos(3);
+const GARRAFA_G = garrafaPontos(3, 46000, 62000);   // versão densa (GPU)
 // distâncias usadas pelas frentes de congelamento (coordenadas da garrafa)
-GARRAFA.forEach((p) => {
+[...GARRAFA, ...GARRAFA_G].forEach((p) => {
   p.dTopo = Math.hypot(p.y - 790, p.rr);
   p.dFundo = Math.hypot(p.y - 12, p.rr * 0.6);
   p.dedo = 0.18 * Math.sin(p.a * 6 + p.y * 0.02) + 0.25 * (p.n - 0.5);   // "dedos" do cristal
@@ -64,7 +65,7 @@ function desenharMoleculas(x, M, t, T, trava, a = 1, cor = "143,227,255", esc = 
 CENAS.abertura = (el, c, B) => {
   const q = tempoPalavras(c), tL = B("liquida"), tA = B("abre"), tG = B("gelo");
   mostrarGancho(tA - 0.35);
-  const T = telaPontos(el, c);
+  const T = telaGPU(el, c);
   const tx = palcoTexto(el, [
     ["temp", 780, 92, "−5 °C", "pt-ci", "left:690px;width:360px;text-align:left"],
     ["liq", 890, 40, "líquida", "pt-fino", "left:694px;width:360px;text-align:left"],
@@ -75,28 +76,37 @@ CENAS.abertura = (el, c, B) => {
   MD.leave(tl, [tx.temp, tx.liq], tA + 1.3);
   MD.arrive(tl, tx.magica, q("não"), { y: 16 });
   MD.leave(tl, tx.magica, c.fim - 0.6);
-  const neve = ambienteP(160, 5), bolhas = bolhasGarrafa(140, 9);
+  const neve = ambienteP(2500, 5), bolhas = bolhasGarrafa(140, 9), nvN = T.nuvem(2500), nvG = T.nuvem(GARRAFA_G.length);
+  // "Parece mágica": as partículas da garrafa congelada se transformam num floco de neve gigante
+  const tM = q("Parece") + 0.2, alvos = flocoAlvosP(GARRAFA_G.length, 5, 540, 900, 400);
+  GARRAFA_G.forEach((p, i) => { p.alvo = alvos[i]; });
   T.quadro((x, t) => {
     brilhoP(x, 540, 1500, 1100, "60,120,230", 0.22);
-    desenharAmbiente(x, neve, t, "210,230,255", 0.9, 1);
+    ambienteGPU(nvN, neve, t, [0.8, 0.88, 1.0], 1, 1);
     const o = { cx: 540, cy: 1380, esc: 0.7 * (1 + 0.05 * PT.ss((t - tA) / 4)), rot: t * 0.25, t, geloMedio: PT.ss((t - tG) / 2),
       geada: (p) => (p.n < 0.16 ? 1 : 0),
       tampa: { dy: 520 * PT.out((t - tA) / 0.9) + 40 * PT.ss((t - tA) / 0.1), rot: (t - tA > 0 ? (t - tA) * 6 : 0), a: 1 - PT.ss((t - tA - 0.4) / 0.5) },
       gelo: frenteGelo(t, tG - 0.15, 420, (p) => p.dTopo), agita: PT.jan(t, tA, tA + 1.2, 0.05, 0.6) };
     // brilho frio ao congelar
     brilhoP(x, 540, 1380 - 420 * 0.7, 520, "143,227,255", 0.3 * PT.jan(t, tG, tG + 2.4, 0.4, 1.2));
-    desenharGarrafa(x, GARRAFA, o);
+    o.desloca = t > tM ? (p, sx, sy) => {
+      const m = PT.ss((t - tM - p.n * 0.9) / 1.4); if (m <= 0 || !p.alvo) return [sx, sy];
+      const ang = (p.n - 0.5) * 6 * Math.sin(m * Math.PI), mx = sx + (p.alvo[0] - sx) * m - 540, my = sy + (p.alvo[1] - sy) * m - 900, k = 1 + 0.35 * Math.sin(m * Math.PI);
+      return [540 + (mx * Math.cos(ang) - my * Math.sin(ang)) * k, 900 + (mx * Math.sin(ang) + my * Math.cos(ang)) * k];
+    } : null;
+    if (t > tM) o.geada = () => 0;
+    desenharGarrafaGPU(nvG, GARRAFA_G, o);
     desenharBolhas(x, bolhas, o, t, tA + 0.15, 1 - PT.ss((t - tG - 1.5) / 0.8));
     vaporP(x, 540, 1380 - 962 * o.esc, t, tA, 140, 4, 1);
     // cintilância do gelo pronto
-    if (t > tG + 1.6) for (let k = 0; k < 12; k++) { const u = (t * 0.7 + k * 0.37) % 1, p = GARRAFA[(k * 397) % GARRAFA.length], [sx, sy] = projGarrafa(p, o); brilhoP(x, sx, sy, 26, "255,255,255", Math.sin(u * Math.PI) * 0.8); }
+    if (t > tG + 1.6 && t < tM) for (let k = 0; k < 12; k++) { const u = (t * 0.7 + k * 0.37) % 1, p = GARRAFA[(k * 397) % GARRAFA.length], [sx, sy] = projGarrafa(p, o); brilhoP(x, sx, sy, 26, "255,255,255", Math.sin(u * Math.PI) * 0.8); }
   });
 };
 
 // =============== 2. o que é congelar: moléculas que desaceleram e se encaixam ===============
 CENAS.congelar = (el, c, B) => {
   const q = tempoPalavras(c), tAg = B("agua"), tMo = B("moleculas"), tEs = q("esfria,"), tLe = B("lentas"), tEn = B("encaixa"), tGe = B("gelo"), tZe = q("zero"), tDo = q("dois");
-  const T = telaPontos(el, c);
+  const T = telaGPU(el, c);
   const tx = palcoTexto(el, [
     ["mol", 380, 56, "moléculas de água", "pt-fino"],
     ["temp", 360, 120, "20 °C", "pt-la"],
@@ -115,17 +125,25 @@ CENAS.congelar = (el, c, B) => {
   MD.arrive(tl, tx.cerv, tDo - 0.1, { y: 16 });
   MD.leave(tl, [tx.pura, tx.cerv], c.fim - 0.4);
   const M = moleculasRede(540, 830, 58, 9, 6, 21);
-  const r = prng(2), liquido = Array.from({ length: 1500 }, () => [r() * W, 300 + r() * 1100, r(), r()]);
+  const r = prng(2), liquido = Array.from({ length: 40000 }, () => [r() * W, 280 + r() * 1140, r(), r(), r() * 6.283, Math.sqrt(r()) * 14]);
+  const nvL = T.nuvem(liquido.length);
   T.quadro((x, t) => {
     const Tq = 1 - 0.85 * PT.ss((t - tEs) / (tLe + 0.6 - tEs));                  // temperatura (agitação)
     brilhoP(x, 540, 860, 900, "255,140,60", 0.16 * Tq);
     brilhoP(x, 540, 860, 900, "60,140,255", 0.18 * (1 - Tq));
     // de perto, a cerveja é um mar de pontos âmbar; em "água" os pontos viram moléculas
     const vira = PT.ss((t - tAg + 0.2) / 1.2);
-    liquido.forEach(([lx, ly, a, f]) => pontoP(x, lx + Math.sin(t * 2 + f * 9) * 8, ly + Math.cos(t * 1.7 + a * 9) * 8, 2.2, "255,170,50", (0.25 + 0.4 * a) * (1 - vira) * PT.ss((t - c.ini + 0.5) / 0.6)));
     // encaixe: do centro para fora, em "encaixam"
     const trava = (m) => PT.ss((t - tEn - m.dc / 900) / 0.5);
-    desenharMoleculas(x, M, t, Tq, trava, vira, "143,227,255", 1, 1);
+    const pos = desenharMoleculas(x, M, t, Tq, trava, PT.ss((vira - 0.6) / 0.4), "143,227,255", 1, 1);
+    // o mar âmbar (40 mil pontos) escorre para dentro das moléculas
+    const ent = PT.ss((t - c.ini + 0.5) / 0.6);
+    if (vira < 1) liquido.forEach(([lx, ly, a, f, ang, d], i) => {
+      const alvo = pos[i % pos.length], k = PT.inOut(PT.cl(vira * 1.25 - a * 0.25));
+      const px = lx + Math.sin(t * 2 + f * 9) * 8, py = ly + Math.cos(t * 1.7 + a * 9) * 8;
+      nvL.ponto(i, px + (alvo[0] + Math.cos(ang) * d - px) * k, py + (alvo[1] + Math.sin(ang) * d - py) * k, 1.0, 0.62 + 0.3 * k, 0.2 + 0.75 * k, (0.45 + 0.4 * a) * ent * (1 - PT.ss((vira - 0.75) / 0.25)) * (1 - 0.75 * k) * PT.ss((ly - 280) / 260) * PT.ss((1420 - ly) / 260) * PT.ss(Math.min(lx, W - lx) / 160), 3.2);
+    });
+    nvL.total(vira < 1 ? liquido.length : 0);
     // a rede de gelo pronta brilha em "gelo"
     brilhoP(x, 540, 860, 600, "143,227,255", 0.25 * PT.jan(t, tGe, tGe + 1.2, 0.2, 0.8));
   });
@@ -134,7 +152,7 @@ CENAS.congelar = (el, c, B) => {
 // =============== 3. falta uma semente: super-resfriamento ===============
 CENAS.semente = (el, c, B) => {
   const q = tempoPalavras(c), tSe = B("semente"), tBo = B("bolha"), tPo = q("poeira,"), tAr = q("arranhão"), tGa = B("garrafa"), tNe = q("nenhuma."), tPa = q("passa"), tLi = q("líquida,"), tM6 = B("menos6"), tNo = B("nome"), tNm = q("nome:");
-  const T = telaPontos(el, c);
+  const T = telaGPU(el, c);
   const tx = palcoTexto(el, [
     ["sem", 380, 130, "semente", "pt-am"],
     ["nada", 380, 96, "sem semente", "pt-ve"],
@@ -150,7 +168,7 @@ CENAS.semente = (el, c, B) => {
   MD.leave(tl, tx.liq, tNm - 0.3);
   MD.slam(tl, tx.s1, tNm, { from: 1.2 });
   MD.slam(tl, tx.s2, tNo, { from: 1.2 });
-  const M = moleculasRede(540, 880, 58, 9, 5, 33, 110);
+  const M = moleculasRede(540, 880, 58, 9, 5, 33, 110), nvG = T.nuvem(GARRAFA_G.length);
   const pares = []; const r = prng(8);
   for (let k = 0; k < 40; k++) { const i = Math.floor(r() * M.rede.lig.length); pares.push([M.rede.lig[i], r() * 5, 0.6 + r()]); }
   T.quadro((x, t) => {
@@ -181,7 +199,7 @@ CENAS.semente = (el, c, B) => {
       const temp = -6 * PT.ss((t - tPa) / (tM6 + 0.3 - tPa));
       const o = { cx: 400, cy: 1330, esc: 0.72, rot: t * 0.22, t, a: vistaGar };
       brilhoP(x, 400, 1330 - 400 * 0.72, 560, "76,201,240", 0.12 * vistaGar + 0.3 * PT.ss((t - tNm) / 0.6));
-      desenharGarrafa(x, GARRAFA, o);
+      desenharGarrafaGPU(nvG, GARRAFA_G, o);
       termometroP(x, 850, 600, 600, -8, 4, temp, vistaGar * PT.ss((t - tPa + 0.4) / 0.6), [[0, "0 °C", "255,255,255"], [-2, "−2 °C", "255,210,63"], [-6, "−6 °C", "143,227,255"]]);
     }
   });
@@ -190,7 +208,7 @@ CENAS.semente = (el, c, B) => {
 // =============== 4. quando você abre: bolhas viram sementes; a plateia; o gelo se espalha ===============
 CENAS.abrir = (el, c, B) => {
   const q = tempoPalavras(c), tA = B("abre"), tPr = q("pressão"), tEs = q("escapa"), tBo = B("bolhas"), tSe = B("semente"), tPl = B("plateia"), tPri = q("primeiro."), tCo = B("comeca"), tTe = q("teatro"), tGi = q("igual:"), tNa = q("nasce"), tSp = B("espalha");
-  const T = telaPontos(el, c);
+  const T = telaGPU(el, c);
   const tx = palcoTexto(el, [
     ["pres", 380, 84, "a pressão cai", "pt-fino"],
     ["seme", 380, 76, "cada bolha = semente", "pt-am"],
@@ -208,7 +226,8 @@ CENAS.abrir = (el, c, B) => {
   const bolhas = bolhasGarrafa(420, 14);
   const sementes = bolhas.slice(0, 7).map((b, k) => ({ y: 620 + k * 26, a: b.a, rr: 30 + 60 * b.f }));
   const dSem = (p) => Math.min(...sementes.map((s) => Math.hypot(p.y - s.y, p.rr * Math.sin(p.a) - s.rr * Math.sin(s.a), p.rr * Math.cos(p.a) - s.rr * Math.cos(s.a))));
-  GARRAFA.forEach((p) => { p.dSem = p.k === 1 ? dSem(p) : 0; });
+  GARRAFA_G.forEach((p) => { p.dSem = p.k === 1 ? dSem(p) : 0; });
+  const nvG = T.nuvem(GARRAFA_G.length);
   // plateia: fileiras em perspectiva
   const r = prng(31), plateia = [];
   for (let f = 0; f < 13; f++) for (let k = 0; k < 15 + f; k++) {
@@ -224,7 +243,7 @@ CENAS.abrir = (el, c, B) => {
       const o = { cx: 540, cy: 1500, esc: 0.95, rot: t * 0.2, t, a: vistaG,
         tampa: { dy: 600 * PT.out((t - tA) / 0.9), rot: (t > tA ? (t - tA) * 6 : 0), a: 1 - PT.ss((t - tA - 0.4) / 0.5) },
         gelo: t > tNa ? frenteGelo(t, tSp - 0.4, 300, (p) => p.dSem) : null, geloMedio: PT.ss((t - tSp) / 2.5), agita: PT.jan(t, tA, tA + 1.5, 0.05, 0.8) };
-      desenharGarrafa(x, GARRAFA, o);
+      desenharGarrafaGPU(nvG, GARRAFA_G, o);
       const dens = 0.15 + 0.85 * PT.ss((t - tEs) / (tBo - tEs + 0.3));
       desenharBolhas(x, bolhas, o, t, tA + 0.2, dens * (1 - 0.6 * PT.ss((t - tSp - 1) / 1)), PT.ss((t - tSe + 0.1) / 0.4) * (1 - PT.ss((t - tPl + 0.4) / 0.4)));
       vaporP(x, 540, 1500 - 962 * 0.95, t, tA, 160, 6, 1.1);
@@ -252,7 +271,7 @@ CENAS.abrir = (el, c, B) => {
 // =============== 5. por que vira raspadinha: o gelo solta calor; o truque da batidinha ===============
 CENAS.raspadinha = (el, c, B) => {
   const q = tempoPalavras(c), tBl = B("bloco"), tPo = q("Porque,"), tSo = q("solta"), tCa = B("calor"), tEsq = q("esquenta"), tM2 = B("menos2"), tPa = q("para"), tRe = q("Resultado:"), tRa = B("raspa"), tTr = q("truque:"), tBa = B("batida"), tAp = q("aparece");
-  const T = telaPontos(el, c);
+  const T = telaGPU(el, c);
   const tx = palcoTexto(el, [
     ["bloco", 380, 96, "bloco de gelo?", ""],
     ["calor", 380, 120, "calor", "pt-la"],
@@ -269,16 +288,17 @@ CENAS.raspadinha = (el, c, B) => {
   MD.leave(tl, tx.truq, c.fim - 0.5);
   // bloco de gelo: cubo de pontos girando
   const r = prng(41), cubo = [];
-  for (let i = 0; i < 900; i++) { const f = Math.floor(r() * 6), u = r() * 2 - 1, v = r() * 2 - 1, p = [u, v]; const ax = f >> 1, sg = f & 1 ? 1 : -1; const P3 = [0, 0, 0]; P3[ax] = sg; P3[(ax + 1) % 3] = p[0]; P3[(ax + 2) % 3] = p[1]; cubo.push(P3); }
+  for (let i = 0; i < 30000; i++) { const f = Math.floor(r() * 6), u = r() * 2 - 1, v = r() * 2 - 1, p = [u, v]; const ax = f >> 1, sg = f & 1 ? 1 : -1; const P3 = [0, 0, 0]; P3[ax] = sg; P3[(ax + 1) % 3] = p[0]; P3[(ax + 2) % 3] = p[1]; cubo.push(P3); }
   for (let e = 0; e < 12; e++) { const ax = e >> 2, s1 = e & 1 ? 1 : -1, s2 = e & 2 ? 1 : -1; for (let i = 0; i <= 60; i++) { const P3 = [0, 0, 0]; P3[ax] = -1 + i / 30; P3[(ax + 1) % 3] = s1; P3[(ax + 2) % 3] = s2; P3.borda = 1; cubo.push(P3); } }
   const M = moleculasRede(400, 860, 52, 7, 6, 51, 100);
-  const bolhasB = bolhasGarrafa(220, 17, 20);
+  const bolhasB = bolhasGarrafa(220, 17, 20), nvC = T.nuvem(cubo.length), nvG = T.nuvem(2 * GARRAFA_G.length);
   T.quadro((x, t) => {
     const fases = [PT.jan(t, c.ini - 0.6, tPo + 0.1, 0.5, 0.6), PT.jan(t, tPo + 0.1, tRe - 0.5, 0.6, 0.6), PT.jan(t, tRe - 0.5, tTr - 0.4, 0.6, 0.6), PT.jan(t, tTr - 0.4, c.fim + 1, 0.6, 0.6)];
     brilhoP(x, 540, 900, 900, "60,140,255", 0.18);
     if (fases[0] > 0.01) { // cubo
       const a = fases[0], ry = t * 0.6, rx = 0.5, s = 230;
-      cubo.forEach((P3) => { const [X, Y, Z] = P3, x1 = X * Math.cos(ry) + Z * Math.sin(ry), z1 = -X * Math.sin(ry) + Z * Math.cos(ry), y2 = Y * Math.cos(rx) - z1 * Math.sin(rx), z2 = Y * Math.sin(rx) + z1 * Math.cos(rx); pontoP(x, 540 + x1 * s, 860 + y2 * s, P3.borda ? 3.2 : 2.2, "225,242,255", a * (P3.borda ? 0.9 : 0.2 + 0.25 * (z2 + 1))); });
+      cubo.forEach((P3, i) => { const [X, Y, Z] = P3, x1 = X * Math.cos(ry) + Z * Math.sin(ry), z1 = -X * Math.sin(ry) + Z * Math.cos(ry), y2 = Y * Math.cos(rx) - z1 * Math.sin(rx), z2 = Y * Math.sin(rx) + z1 * Math.cos(rx); nvC.ponto(i, 540 + x1 * s, 860 + y2 * s, 0.85, 0.94, 1.0, a * (P3.borda ? 0.9 : 0.12 + 0.12 * (z2 + 1)), P3.borda ? 3.6 : 2.8); });
+      nvC.total(cubo.length);
       brilhoP(x, 540, 860, 420, "143,227,255", 0.2 * a);
     }
     if (fases[1] > 0.01) { // cristal crescendo e soltando calor; termômetro sobe de -6 para -2
@@ -293,12 +313,12 @@ CENAS.raspadinha = (el, c, B) => {
     }
     if (fases[2] > 0.01) { // raspadinha: metade cristal, metade líquido
       const o = { cx: 540, cy: 1360, esc: 0.78, rot: t * 0.25, t, a: fases[2], gelo: (p) => (p.n2 < 0.5 ? 1 : 0.15 * p.n2), agita: 0.3, geloMedio: 0.5 };
-      desenharGarrafa(x, GARRAFA, o);
+      desenharGarrafaGPU(nvG, GARRAFA_G, o);
     }
     if (fases[3] > 0.01) { // a batidinha: tranco no fundo, bolhas e gelo subindo
       const u = t - tBa, pulo = u > 0 && u < 0.4 ? Math.sin(u / 0.4 * Math.PI) * 14 : 0;
       const o = { cx: 540, cy: 1360 - pulo, esc: 0.78, rot: t * 0.25, t, a: fases[3], gelo: frenteGelo(t, tAp - 0.2, 650, (p) => p.dFundo), geloMedio: PT.ss((t - tAp) / 1.2), agita: PT.jan(t, tBa, tBa + 0.6, 0.02, 0.4) };
-      desenharGarrafa(x, GARRAFA, o);
+      desenharGarrafaGPU(nvG, GARRAFA_G, o);
       if (u > 0 && u < 1.4) { const k = PT.out(u / 1.4); anelP(x, 540, 1360, 60 + k * 520, "255,236,190", 0.7 * (1 - k), 5); brilhoP(x, 540, 1360, 260, "255,236,190", 0.5 * (1 - k)); }
       desenharBolhas(x, bolhasB, o, t, tBa + 0.05, 1 - PT.ss((t - tAp - 0.6) / 0.6));
     }
@@ -308,7 +328,7 @@ CENAS.raspadinha = (el, c, B) => {
 // =============== 6. cuidado: o gelo é 9% maior e a garrafa estoura ===============
 CENAS.cuidado = (el, c, B) => {
   const q = tempoPalavras(c), tAu = B("aumenta"), tNo = B("nove"), tNu = q("Numa"), tEs = B("estoura"), tPc = q("ponto") - 0.15, tBg = q("bem"), tFi = B("fim");
-  const T = telaPontos(el, c);
+  const T = telaGPU(el, c);
   const tx = palcoTexto(el, [
     ["mais", 320, 150, "+0%", "pt-ci"],
     ["vol", 486, 44, "de volume", "pt-fino"],
@@ -324,7 +344,7 @@ CENAS.cuidado = (el, c, B) => {
   MD.leave(tl, tx.est, tPc - 0.2);
   MD.slam(tl, tx.bem, tBg, { from: 1.25 });
   MD.arrive(tl, tx.nao, tFi - 0.25, { y: 14 });
-  const M = moleculasRede(540, 960, 50, 9, 7, 61, 0);
+  const M = moleculasRede(540, 960, 50, 9, 7, 61, 0), nvG = T.nuvem(2 * GARRAFA_G.length);
   T.quadro((x, t) => {
     brilhoP(x, 540, 900, 900, "60,140,255", 0.18);
     const vRede = PT.jan(t, tAu - 1.2, tNu - 0.2, 0.6, 0.6), vGar = Math.pow(1 - vRede, 3), vBoa = PT.ss((t - tPc + 0.2) / 0.7);
@@ -341,15 +361,14 @@ CENAS.cuidado = (el, c, B) => {
       // garrafa esquecida: congelada, treme sob pressão e trinca em "estourar"
       const a = vGar * (1 - vBoa), u = t - tEs, tensao = PT.ss((t - tNu) / (tEs - tNu)), quebra = PT.out(u / 1.2);
       const o = { cx: 540, cy: 1360, esc: 0.78, rot: 0.4 + t * 0.05, t, a, gelo: () => 1, geloMedio: 1, agita: 0.6 * tensao * (u < 0 ? 1 : 0) };
-      if (u <= 0) desenharGarrafa(x, GARRAFA, o);
+      if (u <= 0) desenharGarrafaGPU(nvG, GARRAFA_G, o);
       else {
         // trinca: cada lado vai para um lado, cacos voam
-        [-1, 1].forEach((lado) => {
-          x.save(); x.translate(lado * 90 * quebra, 30 * quebra * quebra); x.translate(540, 1100); x.rotate(lado * 0.12 * quebra); x.translate(-540, -1100);
-          const sub = GARRAFA.filter((p) => (Math.sin(p.a + o.rot) > -0.05 + 0.1 * Math.sin(p.y * 0.05)) === (lado > 0));
-          desenharGarrafa(x, sub, { ...o, a: a * (1 - 0.5 * quebra) });
-          x.restore();
-        });
+        const desloca = (p, sx, sy) => {
+          const lado = Math.sin(p.a + o.rot) > -0.05 + 0.1 * Math.sin(p.y * 0.05) ? 1 : -1, ang = lado * 0.12 * quebra, dx = sx - 540, dy = sy - 1100;
+          return [540 + dx * Math.cos(ang) - dy * Math.sin(ang) + lado * 90 * quebra, 1100 + dx * Math.sin(ang) + dy * Math.cos(ang) + 30 * quebra * quebra];
+        };
+        desenharGarrafaGPU(nvG, GARRAFA_G, { ...o, a: a * (1 - 0.5 * quebra), desloca });
         const rr = prng(77);
         for (let i = 0; i < 90; i++) { const ang = rr() * 6.283, v = 300 + rr() * 900, yy = 500 + rr() * 800; pontoP(x, 540 + Math.cos(ang) * v * quebra, yy + Math.sin(ang) * v * quebra * 0.6 + 900 * quebra * quebra * 0.4, 3, "225,242,255", a * (1 - quebra)); }
         brilhoP(x, 540, 1000, 700, "239,71,111", 0.45 * Math.exp(-u * 2.5) * a);
@@ -359,7 +378,7 @@ CENAS.cuidado = (el, c, B) => {
     if (vBoa > 0.01) { // o ponto certo: bem gelada, com geada, mas líquida
       const o = { cx: 540, cy: 1360, esc: 0.78, rot: t * 0.25, t, a: vBoa, geada: (p) => (p.n < 0.16 ? 1 : 0) };
       brilhoP(x, 540, 1060, 520, "143,227,255", 0.18 * vBoa);
-      desenharGarrafa(x, GARRAFA, o);
+      desenharGarrafaGPU(nvG, GARRAFA_G, o);
     }
   });
 };
@@ -367,16 +386,16 @@ CENAS.cuidado = (el, c, B) => {
 // =============== 7. resumo em 4 passos + chamada ===============
 CENAS.resumo = (el, c, B) => {
   const tP = [B("passo1"), B("passo2"), B("passo3"), B("passo4")], tC = B("cta");
-  const T = telaPontos(el, c);
+  const T = telaGPU(el, c);
   const Y = [430, 640, 850, 1060];
   const textos = ["passa do ponto de congelar", "você abre: o gás vira bolha", "a bolha vira semente", "o gelo se espalha"];
   const tx = palcoTexto(el, textos.map((s, k) => [`p${k}`, Y[k] - 34, 56, s, "", "left:270px;width:760px;text-align:left;white-space:normal"]));
   textos.forEach((_, k) => { MD.arrive(tl, tx[`p${k}`], tP[k] - 0.15, { y: 20 }); });
   MD.leave(tl, textos.map((_, k) => tx[`p${k}`]), tC + 0.45);
-  const neve = ambienteP(120, 12), M = moleculasRede(170, Y[3], 16, 5, 3, 71, 0);
+  const neve = ambienteP(2000, 12), M = moleculasRede(170, Y[3], 16, 5, 3, 71, 0), nvN = T.nuvem(2000);
   T.quadro((x, t) => {
     brilhoP(x, 540, 900, 900, "60,140,255", 0.15);
-    desenharAmbiente(x, neve, t, "210,230,255", 0.6, 1);
+    ambienteGPU(nvN, neve, t, [0.8, 0.88, 1.0], 0.7, 1);
     const sai = 1 - PT.ss((t - tC - 0.45) / 0.5);
     const a = tP.map((tp) => PT.ss((t - tp + 0.2) / 0.4) * sai);
     // ícones de pontos: termômetro, bolhas, semente, cristal
