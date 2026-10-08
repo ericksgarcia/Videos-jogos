@@ -212,7 +212,8 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - **O Gemini é só para a narração.** Não use os modelos pagos de imagem (Nano Banana/Imagen)
   nem de vídeo (Veo), mesmo que a credencial do ambiente permita.
 - Rejeitados pelo dono: 3D (render lento) e o estilo "pintado" (p5.brush), que pareceu artificial.
-  Em teste: estilo **sem desenhos**, com tipografia animada + luz/partículas abstratas.
+  Em teste: estilo **sem desenhos**, com tipografia animada + luz/partículas abstratas, e o estilo
+  **pontos de luz** (objetos desenhados com pontos; o dono gostou do globo de pontos).
 - Skills de motion design em `.claude/skills/` (origem, licenças e cuidados em
   `.claude/skills/README.md`). Elas ensinam técnica; o processo do canal continua este guia
   (`motor/gerar.py`, identidade, regras de conteúdo), mesmo que a skill diga ser "obrigatória".
@@ -220,6 +221,23 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   `slam`, `whip`, `typeOn`, `textPortal`, `countUp`...), todas na `tl`.
 - Biblioteca só de um vídeo: ponha os `.js` em `videos/<tema>/libs/`; são carregados antes do
   `cenas.js`.
+
+### Estilo "pontos de luz" (`motor/pontos.js`) — aprovado para teste no vídeo da cerveja
+
+- Tudo é nuvem de pontos num canvas por cena, com brilho aditivo (sem desenho de contorno).
+  Exemplo completo: `videos/cerveja-congela/cenas.js`; globo: `experimentos/estilo-globo/`.
+- `const T = telaPontos(el, c)` → canvas da cena; `T.quadro((x, t) => {...})` desenha cada quadro
+  (x já limpo, modo "lighter"). `palcoTexto(el, [[id, y, tam, texto, classes, estilo]])` → textos
+  por cima (classes `pt-ci`, `pt-am`, `pt-la`, `pt-ve`, `pt-fino`), animados com MotionDirector.
+- `tempoPalavras(c)("palavra", n)` → instante da n-ésima vez que a palavra é dita (para sincronizar
+  além das batidas; cuidado com palavras repetidas como "o", "a").
+- Primitivas: `brilhoP`, `pontoP`, `discoP`, `anelP`, `linhaP`, `rotuloP`, `ambienteP`/`desenharAmbiente`.
+- Objetos: `garrafaPontos` + `desenharGarrafa` (vidro, líquido, tampa, `gelo(p)`, `geada(p)`,
+  `geloMedio`), `projGarrafa`, `moleculaP` (H₂O), `redeHex` (gelo), `flocoP`, `bolhaP`,
+  `termometroP`. `PT` (lerp, ss, out, jan...) e `COR`.
+- Velocidade alta de rotação "dobra" com o desfoque de movimento: texto girando deve ir devagar.
+- `voz.realinhar(json)` refaz a divisão das palavras de uma narração em cache sem chamar nada
+  (o alinhamento passou a ignorar respirações no começo da frase, que espremiam as palavras).
 
 ## Git
 

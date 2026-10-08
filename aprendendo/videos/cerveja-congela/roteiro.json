@@ -1,0 +1,231 @@
+{
+  "slug": "por-que-a-cerveja-congela-quando-voce-abre",
+  "titulo": "Por que a cerveja congela quando você abre",
+  "gancho": "POR QUE A CERVEJA CONGELA QUANDO VOCÊ ABRE?",
+  "gancho_destaque": "CONGELA",
+  "voz": "Achird",
+  "sons": {
+    "liquida": [
+      "pop",
+      0.35
+    ],
+    "abre": [
+      "vapor",
+      0.8
+    ],
+    "gelo": [
+      "brilho",
+      0.7
+    ],
+    "titulo": [
+      "pop",
+      0.5
+    ],
+    "agua": [
+      "agua",
+      0.5
+    ],
+    "moleculas": [
+      "pop",
+      0.4
+    ],
+    "lentas": [
+      "whoosh_curto",
+      0.3
+    ],
+    "encaixa": [
+      "clique",
+      0.6
+    ],
+    "menos2": [
+      "plim",
+      0.5
+    ],
+    "semente": [
+      "plim",
+      0.5
+    ],
+    "bolha": [
+      "pop",
+      0.4
+    ],
+    "garrafa": [
+      "thud",
+      0.4
+    ],
+    "menos6": [
+      "whoosh_curto",
+      0.4
+    ],
+    "nome": [
+      "brilho",
+      0.6
+    ],
+    "bolhas": [
+      "agua",
+      0.5
+    ],
+    "plateia": [
+      "pop",
+      0.3
+    ],
+    "comeca": [
+      "clique",
+      0.6
+    ],
+    "espalha": [
+      "whoosh",
+      0.6
+    ],
+    "bloco": [
+      "thud",
+      0.5
+    ],
+    "calor": [
+      "brilho",
+      0.5
+    ],
+    "raspa": [
+      "pop",
+      0.5
+    ],
+    "batida": [
+      "thud",
+      0.8
+    ],
+    "hora": [
+      "brilho",
+      0.7
+    ],
+    "aumenta": [
+      "whoosh_curto",
+      0.5
+    ],
+    "nove": [
+      "pop",
+      0.5
+    ],
+    "estoura": [
+      "zap",
+      0.6
+    ],
+    "fim": [
+      "plim",
+      0.5
+    ],
+    "passo1": [
+      "pop",
+      0.45
+    ],
+    "passo2": [
+      "pop",
+      0.45
+    ],
+    "passo3": [
+      "pop",
+      0.45
+    ],
+    "passo4": [
+      "pop",
+      0.45
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Por que congela?",
+      "fala": "Você tira a cerveja do congelador, e ela está líquida. Aí você abre, e em poucos segundos ela vira gelo, bem na sua frente. Parece mágica, mas não é. Vou te explicar, do jeito mais fácil possível.",
+      "batidas": {
+        "líquida.": "liquida",
+        "abre,": "abre",
+        "gelo,": "gelo",
+        "fácil": "titulo"
+      }
+    },
+    {
+      "id": "conceito",
+      "tipo": "congelar",
+      "titulo": "O que é congelar",
+      "fala": "Primeiro: a cerveja é quase toda água. E a água é feita de moléculas, bolinhas minúsculas que vivem se mexendo e esbarrando umas nas outras. Quando ela esfria, elas vão ficando lentas. E, no frio, elas se encaixam umas nas outras, numa estrutura bem organizada. Isso é o gelo. Na água pura, isso acontece a zero grau. Na cerveja, por causa do álcool e do açúcar, só lá pelos dois graus negativos.",
+      "batidas": {
+        "água.": "agua",
+        "moléculas,": "moleculas",
+        "lentas.": "lentas",
+        "encaixam": "encaixa",
+        "gelo.": "gelo",
+        "negativos.": "menos2"
+      }
+    },
+    {
+      "id": "mecanismo",
+      "tipo": "semente",
+      "titulo": "Falta uma semente",
+      "fala": "Mas tem um detalhe. Pra começar a virar gelo, as moléculas precisam de um ponto de partida: uma semente. Pode ser uma bolhinha, um grão de poeira, um arranhão no vidro. Dentro da garrafa fechada, lisinha e parada, não tem semente nenhuma. Então a cerveja passa do ponto de congelar e continua líquida, a cinco, seis graus negativos. Isso tem nome: super-resfriamento.",
+      "batidas": {
+        "semente.": "semente",
+        "bolhinha,": "bolha",
+        "fechada,": "garrafa",
+        "seis": "menos6",
+        "super-resfriamento.": "nome"
+      }
+    },
+    {
+      "id": "abrir",
+      "tipo": "abrir",
+      "titulo": "Quando você abre",
+      "fala": "Aí você abre a garrafa. A pressão cai de repente, e o gás que estava dissolvido escapa em milhares de bolhinhas. E cada bolha é uma semente. Pensa numa plateia em silêncio: todo mundo quer aplaudir, mas ninguém quer ser o primeiro. Basta uma pessoa começar, e o teatro inteiro aplaude em segundos. O gelo faz igual: nasce nas bolhas e se espalha pela garrafa inteira.",
+      "batidas": {
+        "abre": "abre",
+        "bolhinhas.": "bolhas",
+        "semente.": "semente",
+        "plateia": "plateia",
+        "começar,": "comeca",
+        "espalha": "espalha"
+      }
+    },
+    {
+      "id": "raspadinha",
+      "tipo": "raspadinha",
+      "titulo": "Por que vira raspadinha",
+      "fala": "E por que não vira um bloco de gelo? Porque, quando a água congela, ela solta um pouquinho de calor. Esse calor esquenta o resto da cerveja de volta pros dois graus negativos, e o gelo para de crescer. Resultado: raspadinha. E tem um truque: uma batidinha no fundo da garrafa também cria bolhas, e o gelo aparece na hora.",
+      "batidas": {
+        "bloco": "bloco",
+        "calor.": "calor",
+        "negativos,": "menos2",
+        "raspadinha.": "raspa",
+        "batidinha": "batida",
+        "hora.": "hora"
+      }
+    },
+    {
+      "id": "cuidado",
+      "tipo": "cuidado",
+      "titulo": "Cuidado no congelador",
+      "fala": "Mas cuidado com o congelador. Quando vira gelo, a água aumenta uns nove por cento de tamanho. Numa garrafa esquecida lá dentro, não tem pra onde ir, e o vidro pode estourar. O ponto certo é bem gelada, mas não esquecida.",
+      "batidas": {
+        "aumenta": "aumenta",
+        "nove": "nove",
+        "estourar.": "estoura",
+        "esquecida.": "fim"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: a cerveja passa do ponto de congelar, mas sem semente não vira gelo. Você abre, o gás vira bolha, a bolha vira semente, e o gelo se espalha. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "congelar,": "passo1",
+        "bolha,": "passo2",
+        "semente,": "passo3",
+        "espalha.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}

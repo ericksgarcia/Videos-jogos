@@ -205,12 +205,30 @@ def _alinhar_gemini(texto, wav):
             if perto:
                 t = max(perto)[1]
         ajustados.append(max(t, ajustados[-1] + 0.15) if ajustados else max(0.0, t))
+    return _distribuir(ws, frases, ajustados, pausas, dur)
+
+
+def _frases(ws):
+    frases, atual = [], []
+    for i, w in enumerate(ws):
+        atual.append(i)
+        if w.endswith((".", "!", "?", ",", ":", ";")):
+            frases.append(atual)
+            atual = []
+    if atual:
+        frases.append(atual)
+    return frases
+
+
+def _distribuir(ws, frases, ajustados, pausas, dur):
+    """Divide as palavras de cada frase entre o início dela e o fim da fala (pausa antes da próxima)."""
     out = []
     for k, f in enumerate(frases):
         t0 = ajustados[k]
         t1 = ajustados[k + 1] if k + 1 < len(frases) else dur
-        # o fim da fala da frase é o início da pausa antes da próxima, se houver
-        fala_fim = max((a for a, _ in pausas if t0 < a < t1), default=t1)
+        # o fim da fala da frase é o início da pausa antes da próxima, se houver; uma respiração
+        # logo no começo da frase não conta (senão as palavras ficam espremidas no início)
+        fala_fim = max((a for a, _ in pausas if t0 + 0.55 * (t1 - t0) < a < t1), default=t1)
         peso = [len(ws[i]) + 1 for i in f]
         t = t0
         for i, p in zip(f, peso):
@@ -424,3 +442,18 @@ def legendas(fala, inicio, max_palavras=4):
         fim = blocos[i + 1][0][1] if i + 1 < len(blocos) else b[-1][2] + 0.6
         out.append({"ini": b[0][1], "fim": round(fim, 3), "palavras": b})
     return out
+
+
+def realinhar(arq_json):
+    """Refaz a divisão das palavras de uma narração em cache usando os inícios de frase já
+    salvos (sem chamar serviço nenhum). Útil depois de melhorar _distribuir()."""
+    meta = json.loads(Path(arq_json).read_text())
+    ws = [w for w, _, _ in meta["palavras"]]
+    frases = _frases(ws)
+    inicios, i = [], 0
+    for f in frases:
+        inicios.append(meta["palavras"][f[0]][1])
+    pausas, dur = _pausas(meta["wav"], 0.08)
+    meta["palavras"] = _distribuir(ws, frases, inicios, pausas, dur)
+    Path(arq_json).write_text(json.dumps(meta, ensure_ascii=False))
+    return meta
