@@ -227,8 +227,8 @@ CENAS.velocidade = (el, c, B) => {
   // avião ao lado da frente de onda, mesma rota
   tl.set($(".rota", el), { opacity: 0.8 }, tav - 0.2); desenhar($(".rota", el), tav - 0.2, 0.8);
   tl.set($(".aviao", el), { opacity: 1 }, tav);
-  tl.fromTo($(".aviao", el), { motionPath: { path: $(".rota", el), align: $(".rota", el), alignOrigin: [0.5, 0.5], autoRotate: 180, start: 0, end: 0 } },
-    { motionPath: { path: $(".rota", el), align: $(".rota", el), alignOrigin: [0.5, 0.5], autoRotate: 180, start: 0, end: 1 }, duration: Math.max(1, th + 0.6 - tav), ease: "none", immediateRender: false }, tav);
+  tl.fromTo($(".aviao", el), { motionPath: { path: $(".rota", el), align: $(".rota", el), alignOrigin: [0.5, 0.5], autoRotate: true, start: 0, end: 0 } },
+    { motionPath: { path: $(".rota", el), align: $(".rota", el), alignOrigin: [0.5, 0.5], autoRotate: true, start: 0, end: 1 }, duration: Math.max(1, th + 0.6 - tav), ease: "none", immediateRender: false }, tav);
   // 2004: epicentro e frentes de onda até a África (relógio 0 → 7 h)
   tl.set($(".epi", el), { opacity: 1 }, ti - 0.2);
   tl.fromTo($(".epi", el), { scale: 3 }, { scale: 1, transformOrigin: "50% 50%", duration: 0.5, ease: "expo.out", immediateRender: false }, ti - 0.2);
