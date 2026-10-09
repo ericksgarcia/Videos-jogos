@@ -1,0 +1,248 @@
+{
+  "slug": "voce-esta-a-1500-kmh-agora",
+  "titulo": "Você está a 1.500 km/h agora",
+  "gancho": "VOCÊ ESTÁ A 1.500 KM/H AGORA",
+  "gancho_destaque": "1.500",
+  "voz": "Achird",
+  "sons": {
+    "parado": [
+      "clique",
+      0.6
+    ],
+    "mil": [
+      "whoosh",
+      0.55
+    ],
+    "comeco": [
+      "pop",
+      0.4
+    ],
+    "oitocentos": [
+      "whoosh",
+      0.55
+    ],
+    "nada": [
+      "plim",
+      0.55
+    ],
+    "gira": [
+      "whoosh_curto",
+      0.45
+    ],
+    "equador": [
+      "pop",
+      0.4
+    ],
+    "quarenta": [
+      "pop",
+      0.4
+    ],
+    "conta": [
+      "clique",
+      0.6
+    ],
+    "brasil": [
+      "plim",
+      0.55
+    ],
+    "aviao": [
+      "whoosh",
+      0.55
+    ],
+    "sente": [
+      "pop",
+      0.4
+    ],
+    "mudanca": [
+      "whoosh_curto",
+      0.45
+    ],
+    "cafe": [
+      "agua",
+      0.5
+    ],
+    "curva": [
+      "whoosh_curto",
+      0.45
+    ],
+    "igual": [
+      "pop",
+      0.4
+    ],
+    "juntos": [
+      "plim",
+      0.55
+    ],
+    "sol": [
+      "brilho",
+      0.55
+    ],
+    "bilhao": [
+      "pop",
+      0.4
+    ],
+    "cento": [
+      "whoosh",
+      0.55
+    ],
+    "lactea": [
+      "brilho",
+      0.55
+    ],
+    "duzentos": [
+      "pop",
+      0.4
+    ],
+    "para": [
+      "thud",
+      0.7
+    ],
+    "sentir": [
+      "thud",
+      0.7
+    ],
+    "oceanos": [
+      "agua",
+      0.5
+    ],
+    "leste": [
+      "whoosh",
+      0.55
+    ],
+    "furacao": [
+      "vento",
+      0.5
+    ],
+    "calma": [
+      "plim",
+      0.55
+    ],
+    "freando": [
+      "pop",
+      0.4
+    ],
+    "ms": [
+      "clique",
+      0.6
+    ],
+    "seculo": [
+      "pop",
+      0.4
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "1.500 km/h",
+      "fala": "Agora, parado aí, você está se movendo a uns mil e quinhentos quilômetros por hora. E isso é só o começo. Até o final do vídeo, você vai descobrir que está cruzando o espaço a mais de oitocentos mil quilômetros por hora. Sem sentir absolutamente nada.",
+      "batidas": {
+        "parado": "parado",
+        "mil": "mil",
+        "começo.": "comeco",
+        "oitocentos": "oitocentos",
+        "nada.": "nada"
+      }
+    },
+    {
+      "id": "giro",
+      "tipo": "giro",
+      "titulo": "O giro",
+      "fala": "Primeiro: a Terra gira em volta de si mesma uma vez por dia. Lá no equador, o chão dá uma volta de quarenta mil quilômetros em vinte e quatro horas. Faz a conta: dá mais de mil e seiscentos quilômetros por hora. Aqui no Brasil, um pouco menos, mas ainda mais rápido que um avião.",
+      "batidas": {
+        "gira": "gira",
+        "equador,": "equador",
+        "quarenta": "quarenta",
+        "conta:": "conta",
+        "Brasil,": "brasil",
+        "avião.": "aviao"
+      }
+    },
+    {
+      "id": "sentir",
+      "tipo": "sentir",
+      "titulo": "Por que não sentimos",
+      "fala": "Então por que você não sente? Porque o seu corpo não sente velocidade. Ele sente mudança de velocidade. Pensa num avião voando reto: você pode servir um café que ele não derrama. Você só sente na decolagem, na freada, na curva. E a Terra gira sempre igual, sem acelerar e sem frear. Você, o ar e tudo em volta vão juntos.",
+      "batidas": {
+        "sente?": "sente",
+        "mudança": "mudanca",
+        "café": "cafe",
+        "curva.": "curva",
+        "igual,": "igual",
+        "juntos.": "juntos"
+      }
+    },
+    {
+      "id": "sol",
+      "tipo": "orbita",
+      "titulo": "Mais rápido ainda",
+      "fala": "Mas tem mais. A Terra também dá uma volta em torno do Sol por ano: um passeio de quase um bilhão de quilômetros. Isso dá uns cento e sete mil quilômetros por hora. E o Sol, levando a gente junto, gira em volta do centro da Via Láctea a mais de oitocentos mil quilômetros por hora. Uma volta completa leva uns duzentos e trinta milhões de anos.",
+      "batidas": {
+        "Sol": "sol",
+        "bilhão": "bilhao",
+        "cento": "cento",
+        "Láctea": "lactea",
+        "oitocentos": "oitocentos",
+        "duzentos": "duzentos"
+      }
+    },
+    {
+      "id": "parar",
+      "tipo": "parar",
+      "titulo": "E se parasse?",
+      "fala": "E se a Terra parasse de repente? Aí você ia sentir. Tudo que não está preso ao chão, o ar, os oceanos, você, continuaria indo pro leste a mais de mil e quinhentos quilômetros por hora. Ventos mais fortes que qualquer furacão varreriam o planeta inteiro.",
+      "batidas": {
+        "parasse": "para",
+        "sentir.": "sentir",
+        "oceanos,": "oceanos",
+        "leste": "leste",
+        "furacão": "furacao"
+      }
+    },
+    {
+      "id": "calma",
+      "tipo": "calma",
+      "titulo": "Calma",
+      "fala": "Calma: isso não vai acontecer. A Terra está freando, sim, mas tão devagar que o dia fica mais longo só uns dois milésimos de segundo a cada século.",
+      "batidas": {
+        "Calma:": "calma",
+        "freando,": "freando",
+        "milésimos": "ms",
+        "século.": "seculo"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: você gira a uns mil e quinhentos quilômetros por hora, voa em volta do Sol a cento e sete mil e cruza a galáxia a mais de oitocentos mil. E não sente nada, porque o corpo só sente quando a velocidade muda. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "gira": "passo1",
+        "Sol": "passo2",
+        "galáxia": "passo3",
+        "muda.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}

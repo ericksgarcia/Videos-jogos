@@ -205,7 +205,7 @@ def _alinhar_gemini(texto, wav):
             if perto:
                 t = max(perto)[1]
         ajustados.append(max(t, ajustados[-1] + 0.15) if ajustados else max(0.0, t))
-    return _distribuir(ws, frases, _corrigir_inicios(ws, frases, ajustados, pausas), pausas, dur)
+    return _distribuir(ws, frases, _corrigir_inicios(ws, frases, ajustados, pausas, dur=dur), pausas, dur)
 
 
 def _frases(ws):
@@ -220,7 +220,7 @@ def _frases(ws):
     return frases
 
 
-def _corrigir_inicios(ws, frases, inicios, pausas, por_letra=0.035):
+def _corrigir_inicios(ws, frases, inicios, pausas, por_letra=0.035, dur=None):
     """Uma frase não pode durar menos que o mínimo para ser falada (~0,035 s por letra): se a
     próxima começar cedo demais, ela passa para o fim da primeira pausa depois desse mínimo."""
     out = list(inicios)
@@ -229,6 +229,13 @@ def _corrigir_inicios(ws, frases, inicios, pausas, por_letra=0.035):
         if out[k] < minimo:
             depois = [b for _, b in pausas if b >= minimo]
             out[k] = min(depois) if depois else minimo
+    # e também não pode começar tão tarde que não caiba antes da próxima (ou do fim do áudio)
+    if dur is not None:
+        for k in range(len(frases) - 1, 0, -1):
+            limite = (out[k + 1] if k + 1 < len(frases) else dur) - por_letra * sum(len(ws[i]) + 1 for i in frases[k])
+            if out[k] > limite:
+                antes = [b for _, b in pausas if out[k - 1] < b <= limite]
+                out[k] = max(antes) if antes else max(limite, out[k - 1] + 0.1)
     return out
 
 
@@ -466,6 +473,6 @@ def realinhar(arq_json):
     for f in frases:
         inicios.append(meta["palavras"][f[0]][1])
     pausas, dur = _pausas(meta["wav"], 0.08)
-    meta["palavras"] = _distribuir(ws, frases, _corrigir_inicios(ws, frases, inicios, pausas), pausas, dur)
+    meta["palavras"] = _distribuir(ws, frases, _corrigir_inicios(ws, frases, inicios, pausas, dur=dur), pausas, dur)
     Path(arq_json).write_text(json.dumps(meta, ensure_ascii=False))
     return meta

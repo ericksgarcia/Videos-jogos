@@ -1,0 +1,263 @@
+{
+  "slug": "e-se-voce-caisse-num-buraco-negro",
+  "titulo": "E se você caísse num buraco negro",
+  "gancho": "E SE VOCÊ CAÍSSE NUM BURACO NEGRO?",
+  "gancho_destaque": "BURACO",
+  "voz": "Achird",
+  "sons": {
+    "cai": [
+      "whoosh",
+      0.55
+    ],
+    "nunca": [
+      "thud",
+      0.7
+    ],
+    "estranha": [
+      "pop",
+      0.4
+    ],
+    "final": [
+      "plim",
+      0.55
+    ],
+    "tamanho": [
+      "pop",
+      0.4
+    ],
+    "estrela": [
+      "brilho",
+      0.55
+    ],
+    "desaba": [
+      "thud",
+      0.7
+    ],
+    "espreme": [
+      "whoosh_curto",
+      0.45
+    ],
+    "cidade": [
+      "pop",
+      0.4
+    ],
+    "escapa": [
+      "whoosh",
+      0.55
+    ],
+    "luz": [
+      "zap",
+      0.5
+    ],
+    "horizonte": [
+      "brilho",
+      0.55
+    ],
+    "semvolta": [
+      "thud",
+      0.7
+    ],
+    "gira": [
+      "whoosh",
+      0.55
+    ],
+    "milhoes": [
+      "brilho",
+      0.55
+    ],
+    "foto": [
+      "clique",
+      0.6
+    ],
+    "queda": [
+      "whoosh",
+      0.55
+    ],
+    "pes": [
+      "pop",
+      0.4
+    ],
+    "cabeca": [
+      "pop",
+      0.4
+    ],
+    "estica": [
+      "whoosh_curto",
+      0.45
+    ],
+    "macarrao": [
+      "pop",
+      0.4
+    ],
+    "espaguete": [
+      "plim",
+      0.55
+    ],
+    "amigo": [
+      "pop",
+      0.4
+    ],
+    "lento": [
+      "whoosh_curto",
+      0.45
+    ],
+    "vermelho": [
+      "pop",
+      0.4
+    ],
+    "sumir": [
+      "thud",
+      0.7
+    ],
+    "tempo": [
+      "clique",
+      0.6
+    ],
+    "devagar": [
+      "pop",
+      0.4
+    ],
+    "surpresa": [
+      "brilho",
+      0.55
+    ],
+    "gigante": [
+      "thud",
+      0.7
+    ],
+    "galaxia": [
+      "brilho",
+      0.55
+    ],
+    "igual": [
+      "pop",
+      0.4
+    ],
+    "nada": [
+      "whoosh_curto",
+      0.45
+    ],
+    "sair": [
+      "thud",
+      0.7
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "A queda",
+      "fala": "Imagina que você cai num buraco negro. Pra quem está de fora, você nunca chega a cair. E pra você, acontece uma coisa muito mais estranha. Fica comigo até o final, porque a resposta muda completamente dependendo do tamanho do buraco negro.",
+      "batidas": {
+        "cai": "cai",
+        "nunca": "nunca",
+        "estranha.": "estranha",
+        "final,": "final",
+        "tamanho": "tamanho"
+      }
+    },
+    {
+      "id": "oque",
+      "tipo": "oque",
+      "titulo": "O que é",
+      "fala": "Primeiro: um buraco negro é o que sobra quando uma estrela gigante morre e desaba sobre si mesma. Imagina espremer dez Sóis numa bola do tamanho de uma cidade. A gravidade ali fica tão forte que nada consegue escapar. Nem a luz. Por isso ele é negro.",
+      "batidas": {
+        "estrela": "estrela",
+        "desaba": "desaba",
+        "espremer": "espreme",
+        "cidade.": "cidade",
+        "escapar.": "escapa",
+        "luz.": "luz"
+      }
+    },
+    {
+      "id": "borda",
+      "tipo": "borda",
+      "titulo": "A linha sem volta",
+      "fala": "A borda dele se chama horizonte de eventos. É a linha sem volta. Pra sair de lá, você precisaria ir mais rápido que a luz, e nada consegue. Em volta, o gás que está caindo gira tão rápido que esquenta a milhões de graus e brilha. É esse anel de luz que os telescópios já conseguiram fotografar.",
+      "batidas": {
+        "horizonte": "horizonte",
+        "volta.": "semvolta",
+        "luz,": "luz",
+        "gira": "gira",
+        "milhões": "milhoes",
+        "fotografar.": "foto"
+      }
+    },
+    {
+      "id": "espaguete",
+      "tipo": "espaguete",
+      "titulo": "Virar espaguete",
+      "fala": "Agora, a queda. Num buraco negro pequeno, a gravidade puxando os seus pés seria muito mais forte do que puxando a sua cabeça. Você seria esticado, fino e comprido, como um fio de macarrão. Os cientistas chamam isso, sério, de espaguetificação.",
+      "batidas": {
+        "queda.": "queda",
+        "pés": "pes",
+        "cabeça.": "cabeca",
+        "esticado,": "estica",
+        "macarrão.": "macarrao",
+        "espaguetificação.": "espaguete"
+      }
+    },
+    {
+      "id": "amigo",
+      "tipo": "amigo",
+      "titulo": "O que o seu amigo vê",
+      "fala": "E o seu amigo, olhando de longe? Ele te veria ficar cada vez mais lento perto da borda, cada vez mais vermelho e mais apagado, até sumir. Pra ele, você nunca chega a atravessar. Porque perto de um buraco negro, o tempo passa mais devagar.",
+      "batidas": {
+        "amigo,": "amigo",
+        "lento": "lento",
+        "vermelho": "vermelho",
+        "sumir.": "sumir",
+        "tempo": "tempo",
+        "devagar.": "devagar"
+      }
+    },
+    {
+      "id": "gigante",
+      "tipo": "gigante",
+      "titulo": "A surpresa",
+      "fala": "Mas aqui vem a surpresa. Num buraco negro gigante, como o do centro da nossa galáxia, a borda fica tão longe do centro que seus pés e sua cabeça são puxados quase igual. Você atravessaria o horizonte sem sentir nada. Sem dor, sem aviso. E nunca mais poderia sair.",
+      "batidas": {
+        "surpresa.": "surpresa",
+        "gigante,": "gigante",
+        "galáxia,": "galaxia",
+        "igual.": "igual",
+        "nada.": "nada",
+        "sair.": "sair"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: buraco negro é massa demais num espaço pequeno demais. Num pequeno, você vira espaguete. Num gigante, você atravessa sem perceber. E de fora, ninguém nunca te vê cair. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "demais.": "passo1",
+        "espaguete.": "passo2",
+        "perceber.": "passo3",
+        "cair.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}

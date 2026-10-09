@@ -1,0 +1,269 @@
+{
+  "slug": "o-que-tem-dentro-de-um-raio",
+  "titulo": "O que tem dentro de um raio",
+  "gancho": "O QUE TEM DENTRO DE UM RAIO?",
+  "gancho_destaque": "RAIO",
+  "voz": "Achird",
+  "sons": {
+    "quente": [
+      "brilho",
+      0.55
+    ],
+    "sol": [
+      "brilho",
+      0.55
+    ],
+    "brasil": [
+      "plim",
+      0.55
+    ],
+    "milhoes": [
+      "zap",
+      0.5
+    ],
+    "truque": [
+      "plim",
+      0.55
+    ],
+    "frio": [
+      "vento",
+      0.5
+    ],
+    "granizo": [
+      "pop",
+      0.4
+    ],
+    "batidas": [
+      "zap",
+      0.5
+    ],
+    "balao": [
+      "pop",
+      0.4
+    ],
+    "separa": [
+      "whoosh_curto",
+      0.45
+    ],
+    "negativa": [
+      "zap",
+      0.5
+    ],
+    "ar": [
+      "whoosh_curto",
+      0.45
+    ],
+    "degraus": [
+      "zap",
+      0.5
+    ],
+    "raizes": [
+      "zap",
+      0.5
+    ],
+    "chao": [
+      "pop",
+      0.4
+    ],
+    "sobe": [
+      "whoosh_curto",
+      0.45
+    ],
+    "toca": [
+      "zap",
+      0.5
+    ],
+    "fecha": [
+      "thud",
+      0.7
+    ],
+    "clarao": [
+      "zap",
+      0.5
+    ],
+    "corrente": [
+      "zap",
+      0.5
+    ],
+    "milesimo": [
+      "clique",
+      0.6
+    ],
+    "trinta": [
+      "brilho",
+      0.55
+    ],
+    "explode": [
+      "thud",
+      0.7
+    ],
+    "trovao": [
+      "thud",
+      0.7
+    ],
+    "duas": [
+      "pop",
+      0.4
+    ],
+    "mentira": [
+      "thud",
+      0.7
+    ],
+    "alto": [
+      "whoosh_curto",
+      0.45
+    ],
+    "cristo": [
+      "zap",
+      0.5
+    ],
+    "empire": [
+      "zap",
+      0.5
+    ],
+    "vinte": [
+      "pop",
+      0.4
+    ],
+    "luz": [
+      "brilho",
+      0.55
+    ],
+    "som": [
+      "whoosh",
+      0.55
+    ],
+    "conta": [
+      "clique",
+      0.6
+    ],
+    "km": [
+      "pop",
+      0.4
+    ],
+    "casa": [
+      "plim",
+      0.55
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Dentro de um raio",
+      "fala": "Um raio é cinco vezes mais quente que a superfície do Sol. E o Brasil é o país onde mais caem raios no mundo: são dezenas de milhões por ano. Fica até o final, porque eu vou te ensinar um truque pra saber, só de ouvir, a que distância um raio caiu.",
+      "batidas": {
+        "quente": "quente",
+        "Sol.": "sol",
+        "Brasil": "brasil",
+        "milhões": "milhoes",
+        "truque": "truque"
+      }
+    },
+    {
+      "id": "nuvem",
+      "tipo": "nuvem",
+      "titulo": "Dentro da nuvem",
+      "fala": "Tudo começa dentro da nuvem. Lá em cima faz muito frio, e o vento joga gotas, granizo e cristais de gelo uns contra os outros, milhões de vezes. Nessas batidas, eles trocam eletricidade, como quando você esfrega um balão no cabelo. E a nuvem se separa: em cima fica a carga positiva, embaixo, a negativa.",
+      "batidas": {
+        "frio,": "frio",
+        "granizo": "granizo",
+        "batidas,": "batidas",
+        "balão": "balao",
+        "separa:": "separa",
+        "negativa.": "negativa"
+      }
+    },
+    {
+      "id": "caminho",
+      "tipo": "caminho",
+      "titulo": "Abrindo caminho",
+      "fala": "Só que o ar não deixa a eletricidade passar fácil. Então a nuvem vai abrindo caminho aos poucos, em degraus de dezenas de metros, se ramificando pra todo lado, como as raízes de uma árvore. Lá do chão, sobe uma faísca pra encontrar. E quando as duas se tocam, o circuito fecha.",
+      "batidas": {
+        "ar": "ar",
+        "degraus": "degraus",
+        "raízes": "raizes",
+        "chão,": "chao",
+        "sobe": "sobe",
+        "tocam,": "toca",
+        "fecha.": "fecha"
+      }
+    },
+    {
+      "id": "clarao",
+      "tipo": "clarao",
+      "titulo": "O clarão e o trovão",
+      "fala": "Aí vem o clarão. Uma corrente gigantesca volta pelo mesmo caminho em menos de um milésimo de segundo, e esquenta o ar a uns trinta mil graus. O ar se expande tão rápido que explode. E essa explosão é o trovão.",
+      "batidas": {
+        "clarão.": "clarao",
+        "corrente": "corrente",
+        "milésimo": "milesimo",
+        "trinta": "trinta",
+        "explode.": "explode",
+        "trovão.": "trovao"
+      }
+    },
+    {
+      "id": "mito",
+      "tipo": "mito",
+      "titulo": "O mito",
+      "fala": "E aquela frase, 'um raio nunca cai duas vezes no mesmo lugar'? É mentira. O raio procura o caminho mais fácil, e o ponto mais alto é sempre o mais fácil. O Cristo Redentor leva vários raios todo ano. E o Empire State, em Nova York, é atingido umas vinte vezes por ano.",
+      "batidas": {
+        "duas": "duas",
+        "mentira.": "mentira",
+        "alto": "alto",
+        "Cristo": "cristo",
+        "Empire": "empire",
+        "vinte": "vinte"
+      }
+    },
+    {
+      "id": "truque",
+      "tipo": "truque",
+      "titulo": "O truque",
+      "fala": "Agora, o truque que eu prometi. A luz chega na hora, mas o som do trovão anda devagar, uns trezentos e quarenta metros por segundo. Então, viu o clarão, conta os segundos até o trovão. A cada três segundos, é mais ou menos um quilômetro. Se deu menos de trinta segundos, o raio está perto o bastante pra te alcançar. Entra em casa.",
+      "batidas": {
+        "luz": "luz",
+        "som": "som",
+        "clarão,": "clarao",
+        "segundos": "conta",
+        "quilômetro.": "km",
+        "trinta": "trinta",
+        "casa.": "casa"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: o gelo se bate e carrega a nuvem, ela abre caminho em degraus, o clarão esquenta o ar e o ar explode em trovão. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "carrega": "passo1",
+        "degraus,": "passo2",
+        "esquenta": "passo3",
+        "trovão.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}
