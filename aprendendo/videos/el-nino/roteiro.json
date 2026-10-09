@@ -181,7 +181,7 @@
       "id": "normal",
       "tipo": "normal",
       "titulo": "O Pacífico normal",
-      "fala": "Pensa no Oceano Pacífico, o maior do planeta. No meio dele, na linha do Equador, sopram ventos fortes, os alísios, sempre do leste pro oeste. Eles empurram a água quente da superfície pro lado da Austrália, como um ventilador soprando a água de uma banheira. E, do lado da América do Sul, sobe água fria do fundo do mar.",
+      "fala": "Pensa no Oceano Pacífico, o maior do planeta. No meio dele, na linha do Equador, sopram ventos fortes, os alísios, sempre do leste pro oeste. Eles empurram a água quente da superfície pro lado da Austrália, como um ventilador soprando a água de uma banheira. E, do lado da América do Sul, sobe água fria do fundo do mar. Só que, às vezes, esse ventilador falha. E é aí que começa o problema.",
       "batidas": {
         "Pacífico,": "pacifico",
         "alísios,": "alisios",
@@ -194,7 +194,7 @@
       "id": "nino",
       "tipo": "nino",
       "titulo": "O El Niño",
-      "fala": "De tempos em tempos, a cada dois a sete anos, esses ventos enfraquecem. Sem o ventilador, a água quente volta, e se espalha pelo meio do Pacífico até perto do Peru. É uma faixa de água morna de milhares de quilômetros. Os pescadores peruanos notavam isso perto do Natal, e chamaram de El Niño: o menino, em espanhol.",
+      "fala": "A cada dois a sete anos, mais ou menos, esses ventos enfraquecem. Sem o ventilador, a água quente volta, e se espalha pelo meio do Pacífico até perto do Peru. É uma faixa de água morna de milhares de quilômetros. Os pescadores peruanos notavam isso perto do Natal, e chamaram de El Niño: o menino, em espanhol.",
       "batidas": {
         "enfraquecem.": "fraco",
         "volta,": "volta",
@@ -208,7 +208,7 @@
       "id": "mundo",
       "tipo": "mundo",
       "titulo": "O mundo sente",
-      "fala": "E por que isso mexe com o Brasil, tão longe? Porque o oceano esquenta o ar em cima dele. Onde a água está quente, o ar sobe e forma nuvens de chuva. Então a chuva muda de lugar, e o caminho dos ventos no mundo inteiro muda junto. É como mudar o fogão de lugar: o calor da casa toda muda.",
+      "fala": "E por que isso mexe com o Brasil, tão longe? Porque o oceano esquenta o ar em cima dele. Onde a água está quente, o ar sobe e forma nuvens de chuva. Então a chuva muda de lugar, e o caminho dos ventos no mundo inteiro muda junto. É como mudar o fogão de lugar: o calor da casa toda muda. E aí vem a parte estranha que eu prometi.",
       "batidas": {
         "Brasil,": "brasil",
         "esquenta": "esquenta",

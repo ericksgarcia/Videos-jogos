@@ -96,6 +96,8 @@ CENAS.normal = (el, c, B) => {
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["pac", 330, 70, "Oceano Pacífico", "pt-ci"], ["ali", 330, 76, "ventos alísios", "pt-ci"], ["dir", 425, 46, "leste → oeste", "pt-fino"], ["ban", 330, 60, "um ventilador na banheira", "pt-am"]]);
   MD.arrive(tl, tx.pac, tP - 0.1, { y: 14 }); MD.leave(tl, tx.pac, tA - 0.4); MD.slam(tl, tx.ali, tA - 0.05, { from: 1.3 }); MD.arrive(tl, tx.dir, tA + 0.5, { y: 14 }); MD.leave(tl, [tx.ali, tx.dir], tB - 0.5); MD.slam(tl, tx.ban, tB - 0.1, { from: 1.25 });
+  const tFa = tempoPalavras(c)("falha"), tx2 = palcoTexto(el, [["fal", 330, 80, "...e se ele falhar?", "pt-ve"]]);
+  MD.leave(tl, tx.ban, tFa - 0.4); MD.slam(tl, tx2.fal, tFa - 0.05, { from: 1.4 });
   const nv = T.nuvem(60000), est = est0(5);
   T.quadro((x, t) => {
     estD(x, est, t);
@@ -144,6 +146,8 @@ CENAS.mundo = (el, c, B) => {
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["lon", 330, 66, "tão longe?", "pt-ci"], ["sob", 330, 66, "água quente → ar sobe", "pt-la"], ["chu", 330, 66, "a chuva muda de lugar", "pt-ci"], ["fog", 330, 60, "mudou o fogão de lugar", "pt-am"]]);
   MD.arrive(tl, tx.lon, tB - 0.1, { y: 14 }); MD.leave(tl, tx.lon, tS - 0.5); MD.slam(tl, tx.sob, tS - 0.05, { from: 1.25 }); MD.leave(tl, tx.sob, tC - 0.3); MD.slam(tl, tx.chu, tC + 0.1, { from: 1.25 }); MD.leave(tl, tx.chu, tF - 0.4); MD.slam(tl, tx.fog, tF - 0.05, { from: 1.25 });
+  const tEs = tempoPalavras(c)("estranha"), tx2 = palcoTexto(el, [["est", 330, 80, "a parte estranha", "pt-la"]]);
+  MD.leave(tl, tx.fog, tEs - 0.4); MD.slam(tl, tx2.est, tEs - 0.05, { from: 1.4 });
   const nv = T.nuvem(40000), est = est0(9), Y0 = 1120, Y1 = 1330;
   const NUV = (() => { const r = prng(10), o = []; for (let i = 0; i < 9000; i++) { const a = r() * 6.283, d = Math.sqrt(r()); o.push({ dx: Math.cos(a) * d * 230 * (0.7 + 0.3 * r()), dy: -Math.abs(Math.sin(a)) * d * 110 + r() * 30, n: r() }); } return o; })();
   T.quadro((x, t) => {

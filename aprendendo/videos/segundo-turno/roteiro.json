@@ -172,7 +172,7 @@
       "id": "regra",
       "tipo": "regra",
       "titulo": "A regra de ouro",
-      "fala": "A regra é simples: pra ganhar no primeiro turno, não basta ser o mais votado. Tem que ter mais da metade dos votos. Pensa numa pizza: o candidato precisa ficar com mais da metade dela sozinho. Se os votos se dividem entre muitos candidatos, ninguém chega lá. A ideia é que quem governa tenha o apoio da maioria.",
+      "fala": "A regra é simples: pra ganhar no primeiro turno, não basta ser o mais votado. Tem que ter mais da metade dos votos. Pensa numa pizza: o candidato precisa ficar com mais da metade dela sozinho. Se os votos se dividem entre muitos candidatos, ninguém chega lá. A ideia é que quem governa tenha o apoio da maioria. Só que tem uma pegadinha: nem todo voto entra nessa conta.",
       "batidas": {
         "metade": "metade",
         "pizza:": "pizza",
@@ -185,7 +185,7 @@
       "id": "validos",
       "tipo": "validos",
       "titulo": "Votos válidos",
-      "fala": "Mas que votos contam? Só os votos válidos: os que vão pra algum candidato. Branco e nulo ficam fora da conta. Então, se cem pessoas votam, e dez votam branco ou nulo, a metade é calculada em cima de noventa. Quem passar de quarenta e cinco, leva.",
+      "fala": "Mas que votos contam? Só os votos válidos: os que vão pra algum candidato. Branco e nulo ficam fora da conta. Então, se cem pessoas votam, e dez votam branco ou nulo, a metade é calculada em cima de noventa. Quem passar de quarenta e cinco, leva. E isso derruba um mito que muita gente repete.",
       "batidas": {
         "válidos:": "validos",
         "Branco": "branco",
@@ -210,7 +210,7 @@
       "id": "segundo",
       "tipo": "segundo",
       "titulo": "O segundo turno",
-      "fala": "Quando ninguém passa da metade, os dois mais votados vão pra uma nova eleição. Com só dois na disputa, um deles vai ter mais da metade, na certa. Isso vale pra presidente, pra governador e pra prefeito de cidade com mais de duzentos mil eleitores. Nas cidades menores, ganha quem tiver mais votos, e pronto.",
+      "fala": "Quando ninguém passa da metade, os dois mais votados vão pra uma nova eleição. Com só dois na disputa, um deles vai ter mais da metade, na certa. Isso vale pra presidente, pra governador e pra prefeito de cidade com mais de duzentos mil eleitores. Nas cidades menores, ganha quem tiver mais votos, e pronto. Agora, a regra que eu prometi lá no começo.",
       "batidas": {
         "dois": "dois",
         "nova": "nova",

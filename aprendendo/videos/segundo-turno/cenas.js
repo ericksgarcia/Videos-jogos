@@ -93,8 +93,9 @@ CENAS.abertura = (el, c, B) => {
 CENAS.regra = (el, c, B) => {
   const tM = B("metade"), tP = B("pizza"), tS = B("sozinho"), tD = B("divide"), tMa = B("maioria");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["met", 330, 74, "mais da metade", "pt-am"], ["div", 330, 66, "dividiu: ninguém chega", "pt-ve"], ["mai", 330, 76, "apoio da maioria", "pt-ci"]]);
-  MD.slam(tl, tx.met, tM - 0.1, { from: 1.3 }); MD.leave(tl, tx.met, tD - 0.3); MD.slam(tl, tx.div, tD + 0.2, { from: 1.25 }); MD.leave(tl, tx.div, tMa - 0.35); MD.slam(tl, tx.mai, tMa - 0.05, { from: 1.3 });
+  const tPg = tempoPalavras(c)("pegadinha");
+  const tx = palcoTexto(el, [["met", 330, 74, "mais da metade", "pt-am"], ["div", 330, 66, "dividiu: ninguém chega", "pt-ve"], ["mai", 330, 76, "apoio da maioria", "pt-ci"], ["peg", 330, 96, "PEGADINHA", "pt-ve"]]);
+  MD.slam(tl, tx.met, tM - 0.1, { from: 1.3 }); MD.leave(tl, tx.met, tD - 0.3); MD.slam(tl, tx.div, tD + 0.2, { from: 1.25 }); MD.leave(tl, tx.div, tMa - 0.35); MD.slam(tl, tx.mai, tMa - 0.05, { from: 1.3 }); MD.leave(tl, tx.mai, tPg - 0.35); MD.slam(tl, tx.peg, tPg - 0.05, { from: 1.5 });
   const nv = T.nuvem(NE + 10), est = fundoE(7), cx = 540, cy = 900, R = 330;
   const fases = [[0, barras(T1)], [c.ini + 1.2, multidao(9, [180, 560, 720, 700])],
     [tP - 0.3, pizza([{ v: 1, cor: "cz", a: 0.6 }], cx, cy, R)], [tS - 0.4, pizza([{ v: 0.53, cor: "am" }, { v: 0.47, cor: "cz", a: 0.45 }], cx, cy, R)],
@@ -121,6 +122,8 @@ CENAS.validos = (el, c, B) => {
   const tx = palcoTexto(el, [["val", 330, 76, "votos válidos", "pt-ve"], ["fora", 420, 50, "branco e nulo: fora", "pt-fino"], ["cem", 330, 76, "100 votos", "pt-ci"], ["nov", 330, 76, "90 válidos", "pt-ci"], ["met", 420, 54, "metade: 45", "pt-fino"], ["pas", 330, 80, "46 = vence", "pt-am"]]);
   MD.slam(tl, tx.val, tV - 0.1, { from: 1.3 }); MD.arrive(tl, tx.fora, tB, { y: 14 }); MD.leave(tl, [tx.val, tx.fora], tC - 0.4);
   MD.slam(tl, tx.cem, tC - 0.05, { from: 1.2 }); MD.leave(tl, tx.cem, tN - 0.35); MD.slam(tl, tx.nov, tN - 0.05, { from: 1.2 }); MD.arrive(tl, tx.met, tN + 0.25, { y: 14 }); MD.leave(tl, [tx.nov, tx.met], tP - 0.3); MD.slam(tl, tx.pas, tP - 0.05, { from: 1.35 });
+  const tDe = tempoPalavras(c)("derruba"), tx2 = palcoTexto(el, [["mit", 330, 96, "UM MITO...", "pt-ve"]]);
+  MD.leave(tl, tx.pas, tDe - 0.35); MD.slam(tl, tx2.mit, tDe - 0.05, { from: 1.5 });
   const nv = T.nuvem(100 * FIG.length + 10), est = fundoE(11);
   T.quadro((x, t) => {
     fundoD(x, est, t);
@@ -169,6 +172,8 @@ CENAS.segundo = (el, c, B) => {
     ["pre", 330, 64, "presidente", "pt-ci"], ["gov", 420, 64, "governador", "pt-ci"], ["pref", 510, 50, "prefeito: cidade grande", "pt-fino"]]);
   MD.slam(tl, tx.seg, tN - 0.05, { from: 1.3 }); MD.arrive(tl, tx.mai, tC - 0.2, { y: 14 }); MD.leave(tl, [tx.seg, tx.mai], tP - 0.3);
   MD.arrive(tl, tx.pre, tP - 0.1, { y: 14 }); MD.arrive(tl, tx.gov, tG - 0.1, { y: 14 }); MD.arrive(tl, tx.pref, tDu - 0.6, { y: 14 });
+  const tPr = tempoPalavras(c)("prometi"), tx2 = palcoTexto(el, [["pro", 330, 80, "a regra prometida", "pt-am"]]);
+  MD.leave(tl, [tx.pre, tx.gov, tx.pref], tPr - 0.6); MD.slam(tl, tx2.pro, tPr - 0.3, { from: 1.4 });
   const nv = T.nuvem(NE + 10), est = fundoE(17);
   const T1b = T1.map((g, k) => k > 1 ? { ...g, a: 0.25 } : g), T2 = [{ v: 0.53, cor: "am", x: 380 }, { v: 0.47, cor: "ci", x: 700 }];
   const cid = discos([{ v: 0.82, cx: 360, cy: 1000, R: 250, cor: "ci" }, { v: 0.18, cx: 820, cy: 1120, R: 120, cor: "ve" }]);

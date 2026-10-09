@@ -86,6 +86,18 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
      assunto complicado você quer que eu explique no próximo vídeo."
 - Frases curtas e faladas, com "você", "pensa num…", "imagina…".
 
+### Retenção (o dono pediu: "apele com todas as técnicas")
+
+- **1º segundo:** número chocante ou paradoxo, falado e escrito (sem "oi, pessoal").
+- **Promessa no gancho** ("fica até o final, porque…") paga só na penúltima cena.
+- **Re-gancho a cada ~20–30 s:** fim de cada parte puxa a próxima ("só que tem uma
+  pegadinha", "e isso derruba um mito", "agora, a regra que eu prometi"), com texto grande na
+  tela na mesma palavra (`tempoPalavras`).
+- **Mito derrubado** ou **virada** no meio; **pergunta ao espectador** ("por que você não
+  sente?") antes da resposta.
+- Algo muda na tela a cada 2–3 s (batidas); nenhuma cena parada.
+- Resumo curto e rápido; o cartão final entra durante a chamada.
+
 ## Padrão visual (o dono pediu explicitamente "profissional", não "simples")
 
 Estilo de canal de divulgação científica premium (tipo Kurzgesagt), em motion design
