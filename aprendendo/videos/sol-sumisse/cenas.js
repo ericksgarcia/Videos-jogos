@@ -3,6 +3,7 @@
 // hidrotermal no começo), contagem regressiva, ganchos no fim das partes e virada final.
 
 const MD = MotionDirector;
+const mixC = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
 const vecS = (lat, lon) => { const a = lat * Math.PI / 180, b = lon * Math.PI / 180; return [Math.cos(a) * Math.sin(b), Math.sin(a), Math.cos(a) * Math.cos(b)]; };
 const TERRA_M = new Set();
 for (let k = 0; k < GLOBO_TERRA.length; k += 2) TERRA_M.add(`${Math.floor(GLOBO_TERRA[k] / 20)}:${Math.floor(GLOBO_TERRA[k + 1] / 20)}`);
@@ -25,16 +26,20 @@ function desenharTerra(nv, x, proj, R, cx, cy, o) {
   const a = o.a ?? 1, L = o.L || [-0.7, 0.35, 0.62], luz = o.luz ?? 1, gl = o.gelo ?? 90;
   brilhoP(x, cx, cy, R * 1.35, "60,140,255", 0.18 * a * (0.3 + 0.7 * luz));
   anelP(x, cx, cy, R * 1.01, "143,227,255", (0.12 + 0.3 * luz) * a, 3);
+  // volume: lado do dia iluminado e névoa branca do gelo
+  if (luz > 0.01) { const g = x.createRadialGradient(cx + L[0] * R * 0.55, cy - L[1] * R * 0.55, R * 0.05, cx, cy, R); g.addColorStop(0, `rgba(90,150,255,${0.5 * luz * a})`); g.addColorStop(0.7, `rgba(40,80,200,${0.18 * luz * a})`); g.addColorStop(1, "rgba(20,40,120,0)"); x.fillStyle = g; x.beginPath(); x.arc(cx, cy, R, 0, 6.283); x.fill(); }
+  const fracGelo = 1 - gl / 90;
+  if (fracGelo > 0.01) { const g = x.createRadialGradient(cx, cy, R * 0.2, cx, cy, R); g.addColorStop(0, `rgba(200,230,255,${0.12 * fracGelo * a})`); g.addColorStop(1, `rgba(200,230,255,${0.35 * fracGelo * a})`); x.fillStyle = g; x.beginPath(); x.arc(cx, cy, R, 0, 6.283); x.fill(); }
   let i = nv.k;
   for (const p of TERRA_P) {
     const [px, py, z, nx, ny] = proj(p.v); if (z <= 0) continue;
     const dia = Math.max(0, nx * L[0] + ny * L[1] + z * L[2]) * luz, gelo = Math.abs(p.lat) > gl ? 1 : 0;
     let c, al;
-    if (gelo) { c = [0.85, 0.94, 1.0]; al = 0.25 + 0.6 * dia + 0.15; }
-    else if (p.terra) { c = [0.45 + 0.35 * dia, 0.8, 0.55 + 0.3 * (1 - dia)]; al = 0.12 + 0.75 * dia; }
-    else { c = [0.2, 0.45, 1.0]; al = 0.05 + 0.4 * dia; }
-    nv.ponto(i++, px, py, c[0], c[1], c[2], a * al * (0.5 + 0.5 * z), p.terra ? 3 : 2.6);
-    if (o.cidades && p.terra && p.n < 0.1 && dia < 0.15) nv.ponto(i++, px, py, 1.0, 0.8, 0.4, a * o.cidades * (0.6 + 0.4 * Math.sin(p.n * 300 + (o.t || 0))), 3.2);
+    if (gelo) { c = [0.88, 0.96, 1.0]; al = 0.75 + 0.25 * dia; }
+    else if (p.terra) { c = [0.45 + 0.45 * dia, 0.88, 0.55 + 0.35 * (1 - dia)]; al = Math.min(1, 0.2 + 1.3 * dia); }
+    else { c = [0.3, 0.55, 1.0]; al = 0.1 + 0.9 * dia; }
+    nv.ponto(i++, px, py, c[0], c[1], c[2], a * al * (0.55 + 0.45 * z), (p.terra ? 3.4 : 3) * Math.max(1, R / 300));
+    if (o.cidades && p.terra && p.n < 0.14 && dia < 0.15) nv.ponto(i++, px, py, 1.0, 0.8, 0.4, a * o.cidades * (0.8 + 0.2 * Math.sin(p.n * 300 + (o.t || 0))), 4.2);
   }
   nv.total(i);
 }
@@ -102,7 +107,7 @@ CENAS.oito = (el, c, B) => {
   const fimLuz = c.fim + 3.4;                               // a luz acaba de chegar em "apaga" (cena seguinte)
   const raio = (t) => 400 * PT.cl((t - c.ini + 6) / (fimLuz - c.ini + 6));
   aCadaQuadro((t) => { if (t < c.ini - 0.5 || t > c.fim) return; const rest = Math.max(0, 500 * (1 - raio(t) / 400)), m = Math.floor(rest / 60), s = Math.floor(rest % 60); tx.rel.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`; });
-  const nv = T.nuvem(50000), r = prng(7), fot = Array.from({ length: 9000 }, () => ({ ang: r() * 6.283, u: r(), v: r() }));
+  const nv = T.nuvem(50000), r = prng(7), fot = Array.from({ length: 20000 }, () => ({ ang: r() * 6.283, u: r(), v: r() }));
   T.quadro((x, t) => {
     const cx = 540, cy = 900, R = 400, ri = raio(t);
     // lugar vazio do Sol
@@ -110,8 +115,10 @@ CENAS.oito = (el, c, B) => {
     rotuloP(x, "SOL", cx, cy, 30, "255,210,140", 0.6 + 0.3 * PT.jan(t, tE - 0.2, c.fim, 0.2, 0.3) * Math.abs(Math.sin(t * 12)));
     // casca de luz: fótons saindo, do raio interno (escuro) para fora
     let i = nv.k;
-    for (const f of fot) { const rr = ri + (((f.u + t * 0.06) % 1) * (1100 - ri)); nv.ponto(i++, cx + Math.cos(f.ang) * rr, cy + Math.sin(f.ang) * rr, 1.0, 0.8, 0.45, 0.25 + 0.3 * f.v * PT.ss((t - tL + 0.5) / 0.6) + 0.1, 2.4); }
+    for (const f of fot) { const rr = ri + (((f.u + t * 0.06) % 1) * (1100 - ri)); nv.ponto(i++, cx + Math.cos(f.ang) * rr, cy + Math.sin(f.ang) * rr, 1.0, 0.8, 0.45, 0.55 + 0.35 * f.v * PT.ss((t - tL + 0.5) / 0.6), 3.2); }
     nv.total(i);
+    const rL = prng(77);
+    for (let k = 0; k < 900; k++) { const ang = rL() * 6.283, u = (rL() + t * 0.18) % 1, r0 = ri + u * (1150 - ri), l = 18 + 30 * rL(); linhaP(x, cx + Math.cos(ang) * r0, cy + Math.sin(ang) * r0, cx + Math.cos(ang) * (r0 + l), cy + Math.sin(ang) * (r0 + l), "255,215,140", 0.35 + 0.35 * PT.ss((t - tL + 0.5) / 0.6), 2); }
     anelP(x, cx, cy, ri, "255,220,150", 0.6, 3);
     if (t > tG - 0.2) for (let k = 0; k < 3; k++) anelP(x, cx, cy, ri - k * 14, "143,227,255", PT.ss((t - tG + 0.2) / 0.5) * (0.8 - k * 0.25), 3);
     // órbita e a Terra girando em volta de um Sol que já não existe
@@ -143,7 +150,7 @@ CENAS.escuro = (el, c, B) => {
     }
     if (vO > 0.01) {
       // vista de cima: a Terra sai pela tangente e segue reto
-      const cx = 540, cy = 900, R = 340, ang0 = -0.6 + tRe * 0.12, solto = Math.max(0, t - tRe);
+      const cx = 540, cy = 1000, R = 270, ang0 = -0.6 + tRe * 0.12, solto = Math.max(0, t - tRe);
       for (let k = 0; k < 180; k++) { const b = k / 180 * 6.283; pontoP(x, cx + Math.cos(b) * R, cy + Math.sin(b) * R, 2, "143,227,255", 0.3 * vO); }
       const ang = t < tRe ? -0.6 + t * 0.12 : ang0, tx0 = -Math.sin(ang0), ty0 = Math.cos(ang0);
       const ex = cx + Math.cos(ang) * R + tx0 * solto * 70, ey = cy + Math.sin(ang) * R + ty0 * solto * 70;
@@ -152,11 +159,11 @@ CENAS.escuro = (el, c, B) => {
       // analogia: bola girando presa num barbante, que solta
       const a2 = PT.jan(t, tBa - 0.4, tPi - 0.4, 0.5, 0.5) * vO;
       if (a2 > 0.01) {
-        const ox = 820, oy = 1230, rr = 110, w = 7, angB = t < tSo ? t * w : tSo * w, sb = Math.max(0, t - tSo);
+        const ox = 540, oy = 520, rr = 110, w = 7, angB = t < tSo ? t * w : tSo * w, sb = Math.max(0, t - tSo);
         const bx = ox + Math.cos(angB) * rr - Math.sin(angB) * rr * w * sb * 0.5, by = oy + Math.sin(angB) * rr + Math.cos(angB) * rr * w * sb * 0.5;
         discoP(x, ox, oy, 6, "255,255,255", a2);
-        if (t < tSo) linhaP(x, ox, oy, bx, by, "220,230,255", 0.7 * a2, 2);
-        discoP(x, bx, by, 16, "255,138,61", a2); brilhoP(x, bx, by, 40, "255,138,61", 0.4 * a2);
+        if (t < tSo) linhaP(x, ox, oy, bx, by, "220,230,255", 0.8 * a2, 3);
+        discoP(x, bx, by, 26, "255,138,61", a2); brilhoP(x, bx, by, 70, "255,138,61", 0.5 * a2);
       }
     }
   });
@@ -178,8 +185,8 @@ CENAS.frio = (el, c, B) => {
   MD.slam(tl, tx.sur, tSu - 0.3, { from: 1.2 });
   const nv = T.nuvem(45000), r = prng(3);
   // planta de pontos (caule + folhas) e pirâmide de alimentos
-  const planta = []; for (let k = 0; k < 900; k++) { const u = r(); planta.push({ x: 0, y: -u * 300, folha: 0, n: r() }); }
-  for (let f = 0; f < 6; f++) for (let k = 0; k < 500; k++) { const b = f * 1.1 + 0.4, l = 60 + f * 8, u = r(), w = Math.sin(u * Math.PI) * 26 * (r() - 0.5) * 2; planta.push({ x: Math.cos(-b) * u * l * (f % 2 ? 1 : -1) + w * 0.3, y: -80 - f * 40 - Math.sin(b) * u * l * 0.6 + w, folha: 1, n: r(), f }); }
+  const planta = []; for (let k = 0; k < 500; k++) { const u = r(); planta.push({ x: (r() - 0.5) * 6, y: -u * 300, folha: 0, n: r() }); }
+  for (let f = 0; f < 6; f++) for (let k = 0; k < 600; k++) { const lado = f % 2 ? 1 : -1, l = 110 - f * 10, u = r(), w = Math.sin(u * Math.PI) * 22 * (r() - 0.5) * 2; planta.push({ x: lado * u * l, y: -70 - f * 38 - u * l * 0.35 + w, folha: 1, n: r(), f }); }
   const piramide = []; [[5, "143,227,120"], [4, "200,230,140"], [3, "255,200,120"], [2, "255,138,61"], [1, "239,71,111"]].forEach(([n, cor], nivel) => { for (let k = 0; k < n; k++) piramide.push({ nivel, x: (k - (n - 1) / 2) * 90, cor, n: r() }); });
   T.quadro((x, t) => {
     const vG = 1 - PT.ss((t - tPl + 0.4) / 0.7), vP = PT.jan(t, tPl - 0.4, tSu - 0.6, 0.7, 0.6);
@@ -190,8 +197,8 @@ CENAS.frio = (el, c, B) => {
     }
     if (vP > 0.01) {
       // a planta perde o verde e murcha; a cadeia de alimentos desaba
-      const murcha = PT.ss((t - tPl) / 3), px = 300, py = 1200;
-      planta.forEach((p) => { const cai = p.folha ? murcha * (40 + p.n * 40) : 0, cor = p.folha ? PT.mix([80, 220, 120], [120, 110, 100], murcha) : "120,200,110"; pontoP(x, px + p.x * (1 - 0.2 * murcha), py + p.y + cai * (p.y / -300), 2.6, cor, vP * (0.5 - 0.2 * murcha)); });
+      const murcha = PT.ss((t - tPl) / 3), px = 290, py = 1260;
+      planta.forEach((p) => { const cai = p.folha ? murcha * (40 + p.n * 40) : 0, cor = p.folha ? PT.mix([80, 220, 120], [120, 110, 100], murcha) : PT.mix([90, 170, 90], [110, 100, 90], murcha); pontoP(x, px + p.x * 1.7 * (1 - 0.2 * murcha), py + (p.y + cai * (p.y / -300)) * 1.5, 3.4, cor, vP * (0.75 - 0.3 * murcha)); });
       piramide.forEach((p) => { const qd = PT.ss((t - tD - p.nivel * 0.12) / 0.8), y = 1180 - p.nivel * 100 + qd * (400 + p.n * 200), xx = 760 + p.x * 0.55 + qd * (p.n - 0.5) * 200; discoP(x, xx, y, 20, p.cor, vP * (1 - qd) * 0.85); brilhoP(x, xx, y, 46, p.cor, 0.25 * vP * (1 - qd)); });
     }
     if (t > tSu - 0.5) brilhoP(x, 540, 1300, 600, "255,150,60", 0.3 * PT.ss((t - tSu + 0.5) / 1));
@@ -211,7 +218,7 @@ CENAS.oceano = (el, c, B) => {
   const calor = Array.from({ length: 2500 }, () => ({ x: 120 + r() * 840, v: 0.15 + r() * 0.25, n: r() }));
   T.quadro((x, t) => {
     let i = nv.k; const esp = 140 * PT.ss((t - tC + 0.3) / 2.5), cob = PT.jan(t, tCo - 0.2, tL, 0.4, 0.6);
-    for (const p of agua) { if (p.y < 600 + esp) continue; const dx = Math.sin(t * 0.4 + p.f) * 10, aq = PT.ss((t - tCa) / 1) * Math.exp(-(1300 - p.y) / 250); const c2 = mixC([0.2, 0.45, 1.0], [1.0, 0.55, 0.25], aq * 0.6); nv.ponto(i++, p.x + dx, p.y + Math.cos(t * 0.5 + p.f) * 6, c2[0], c2[1], c2[2], 0.3 + 0.25 * p.n + 0.4 * PT.jan(t, tL - 0.2, tCa, 0.4, 0.6), 2.6); }
+    for (const p of agua) { if (p.y < 600 + esp) continue; const dx = Math.sin(t * 0.4 + p.f) * 10, aq = PT.ss((t - tCa) / 1) * Math.exp(-(1300 - p.y) / 250); const c2 = mixC([0.2, 0.45, 1.0], [1.0, 0.55, 0.25], aq * 0.6); nv.ponto(i++, p.x + dx, p.y + Math.cos(t * 0.5 + p.f) * 6, c2[0], c2[1], c2[2], 0.55 + 0.3 * p.n + 0.4 * PT.jan(t, tL - 0.2, tCa, 0.4, 0.6), 3.2); }
     for (const p of gelo) { const y = 600 + p.u * esp; nv.ponto(i++, p.x, y, 0.85, 0.94, 1.0, 0.45 + 0.4 * p.n + 0.4 * cob, 3); }
     for (const p of rocha) nv.ponto(i++, p.x, p.y, 0.7, 0.42, 0.25, 0.5 + 0.3 * p.n, 2.8);
     const ca = PT.ss((t - tCa + 0.3) / 0.8);
@@ -228,7 +235,7 @@ CENAS.fundo = (el, c, B) => {
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [
     ["fon", 330, 96, "fontes hidrotermais", "pt-la", "white-space:normal;left:60px;width:960px"],
-    ["temp", 450, 48, "água a mais de 300 °C", "pt-fino"],
+    ["temp", 540, 48, "água a mais de 300 °C", "pt-fino"],
     ["dif", 330, 96, "nenhuma diferença", "", "color:#06d6a0;text-shadow:0 0 34px rgba(6,214,160,0.8),0 0 100px rgba(6,214,160,0.45);white-space:normal;left:60px;width:960px"],
   ]);
   MD.slam(tl, tx.fon, tF - 0.2, { from: 1.25 }); MD.arrive(tl, tx.temp, tFe, { y: 14 }); MD.leave(tl, [tx.fon, tx.temp], tB - 0.4);
