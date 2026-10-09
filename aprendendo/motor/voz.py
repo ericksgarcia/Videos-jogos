@@ -205,7 +205,7 @@ def _alinhar_gemini(texto, wav):
             if perto:
                 t = max(perto)[1]
         ajustados.append(max(t, ajustados[-1] + 0.15) if ajustados else max(0.0, t))
-    return _distribuir(ws, frases, ajustados, pausas, dur)
+    return _distribuir(ws, frases, _corrigir_inicios(ws, frases, ajustados, pausas), pausas, dur)
 
 
 def _frases(ws):
@@ -218,6 +218,18 @@ def _frases(ws):
     if atual:
         frases.append(atual)
     return frases
+
+
+def _corrigir_inicios(ws, frases, inicios, pausas, por_letra=0.035):
+    """Uma frase não pode durar menos que o mínimo para ser falada (~0,035 s por letra): se a
+    próxima começar cedo demais, ela passa para o fim da primeira pausa depois desse mínimo."""
+    out = list(inicios)
+    for k in range(1, len(frases)):
+        minimo = out[k - 1] + por_letra * sum(len(ws[i]) + 1 for i in frases[k - 1])
+        if out[k] < minimo:
+            depois = [b for _, b in pausas if b >= minimo]
+            out[k] = min(depois) if depois else minimo
+    return out
 
 
 def _distribuir(ws, frases, ajustados, pausas, dur):
@@ -454,6 +466,6 @@ def realinhar(arq_json):
     for f in frases:
         inicios.append(meta["palavras"][f[0]][1])
     pausas, dur = _pausas(meta["wav"], 0.08)
-    meta["palavras"] = _distribuir(ws, frases, inicios, pausas, dur)
+    meta["palavras"] = _distribuir(ws, frases, _corrigir_inicios(ws, frases, inicios, pausas), pausas, dur)
     Path(arq_json).write_text(json.dumps(meta, ensure_ascii=False))
     return meta

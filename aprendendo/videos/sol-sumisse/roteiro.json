@@ -1,0 +1,277 @@
+{
+  "slug": "e-se-o-sol-sumisse-agora",
+  "titulo": "E se o Sol sumisse agora",
+  "gancho": "E SE O SOL SUMISSE AGORA?",
+  "gancho_destaque": "SOL",
+  "voz": "Achird",
+  "sons": {
+    "some": [
+      "zap",
+      0.7
+    ],
+    "nada": [
+      "thud",
+      0.5
+    ],
+    "tempo": [
+      "clique",
+      0.6
+    ],
+    "susto": [
+      "thud",
+      0.7
+    ],
+    "unico": [
+      "brilho",
+      0.6
+    ],
+    "luz": [
+      "brilho",
+      0.5
+    ],
+    "chega": [
+      "plim",
+      0.5
+    ],
+    "gravidade": [
+      "whoosh",
+      0.5
+    ],
+    "gira": [
+      "whoosh_curto",
+      0.4
+    ],
+    "existe": [
+      "thud",
+      0.5
+    ],
+    "apaga": [
+      "thud",
+      0.8
+    ],
+    "lua": [
+      "whoosh_curto",
+      0.4
+    ],
+    "reta": [
+      "whoosh",
+      0.6
+    ],
+    "barbante": [
+      "pop",
+      0.4
+    ],
+    "solta": [
+      "whoosh",
+      0.6
+    ],
+    "pior": [
+      "thud",
+      0.6
+    ],
+    "frio": [
+      "vento",
+      0.6
+    ],
+    "semana": [
+      "pop",
+      0.4
+    ],
+    "menos18": [
+      "clique",
+      0.5
+    ],
+    "menos73": [
+      "thud",
+      0.6
+    ],
+    "plantas": [
+      "pop",
+      0.4
+    ],
+    "desaba": [
+      "thud",
+      0.6
+    ],
+    "surpresa": [
+      "brilho",
+      0.5
+    ],
+    "congela": [
+      "brilho",
+      0.5
+    ],
+    "cobertor": [
+      "whoosh_curto",
+      0.4
+    ],
+    "liquida": [
+      "agua",
+      0.5
+    ],
+    "calor": [
+      "vapor",
+      0.4
+    ],
+    "fontes": [
+      "vapor",
+      0.6
+    ],
+    "ferve": [
+      "vapor",
+      0.5
+    ],
+    "bacterias": [
+      "pop",
+      0.35
+    ],
+    "vermes": [
+      "pop",
+      0.35
+    ],
+    "camaroes": [
+      "pop",
+      0.35
+    ],
+    "quimica": [
+      "brilho",
+      0.5
+    ],
+    "diferenca": [
+      "plim",
+      0.6
+    ],
+    "calma": [
+      "plim",
+      0.5
+    ],
+    "bilhoes": [
+      "brilho",
+      0.5
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "passo5": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "E se o Sol sumisse?",
+      "fala": "Se o Sol sumisse agora, neste exato segundo, você não ia perceber nada. Nada. Por oito minutos e vinte segundos. E o que vem depois é assustador. Fica até o final, porque eu vou te mostrar o único lugar da Terra onde a vida continuaria.",
+      "batidas": {
+        "agora,": "some",
+        "Nada.": "nada",
+        "vinte": "tempo",
+        "assustador.": "susto",
+        "único": "unico"
+      }
+    },
+    {
+      "id": "oito",
+      "tipo": "oito",
+      "titulo": "Os 8 minutos",
+      "fala": "Por quê? Porque a luz do Sol leva oito minutos e vinte segundos pra chegar até aqui. A luz que você vê agora saiu de lá há oito minutos. E a gravidade também viaja na velocidade da luz. Então, durante esse tempo, a Terra continua girando em volta de um Sol que nem existe mais.",
+      "batidas": {
+        "luz": "luz",
+        "chegar": "chega",
+        "gravidade": "gravidade",
+        "girando": "gira",
+        "existe": "existe"
+      }
+    },
+    {
+      "id": "escuro",
+      "tipo": "escuro",
+      "titulo": "O céu apaga",
+      "fala": "Aí, de repente, o céu apaga. E a Lua some junto, porque ela só brilha refletindo a luz do Sol. Sem nada segurando, a Terra sai da órbita e segue em linha reta pelo espaço, como uma bola que você gira presa num barbante e, de repente, solta. Mas o pior ainda não chegou.",
+      "batidas": {
+        "apaga.": "apaga",
+        "Lua": "lua",
+        "reta": "reta",
+        "barbante": "barbante",
+        "solta.": "solta",
+        "pior": "pior"
+      }
+    },
+    {
+      "id": "frio",
+      "tipo": "frio",
+      "titulo": "O frio",
+      "fala": "O pior é o frio. Pelas contas dos cientistas, em uma semana a temperatura média do planeta cai pra uns dezoito graus negativos. Em um ano, pra mais de setenta graus negativos. As plantas param de fazer fotossíntese na hora, e quase toda a cadeia de alimentos desaba. Mas segura, que a parte mais surpreendente vem agora.",
+      "batidas": {
+        "frio.": "frio",
+        "semana": "semana",
+        "dezoito": "menos18",
+        "setenta": "menos73",
+        "plantas": "plantas",
+        "desaba.": "desaba",
+        "surpreendente": "surpresa"
+      }
+    },
+    {
+      "id": "oceano",
+      "tipo": "oceano",
+      "titulo": "Debaixo do gelo",
+      "fala": "Os oceanos congelam por cima. Só que esse gelo funciona como um cobertor. Embaixo dele, a água continua líquida por muito, muito tempo, aquecida pelo calor que vem de dentro da própria Terra.",
+      "batidas": {
+        "congelam": "congela",
+        "cobertor.": "cobertor",
+        "líquida": "liquida",
+        "calor": "calor"
+      }
+    },
+    {
+      "id": "fundo",
+      "tipo": "fundo",
+      "titulo": "A vida que não precisa do Sol",
+      "fala": "E lá no fundo do mar existem fontes hidrotermais: rachaduras no chão do oceano por onde sai água fervendo, cheia de minerais. Em volta delas vivem bactérias, vermes gigantes e camarões que nunca precisaram do Sol. Eles se alimentam da química que sai da Terra. Pra eles, o Sol sumir não faria a menor diferença.",
+      "batidas": {
+        "hidrotermais:": "fontes",
+        "fervendo,": "ferve",
+        "bactérias,": "bacterias",
+        "vermes": "vermes",
+        "camarões": "camaroes",
+        "química": "quimica",
+        "diferença.": "diferenca"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Calma",
+      "fala": "Calma: isso não vai acontecer. O Sol não tem como sumir, e ainda tem combustível pra uns cinco bilhões de anos. Resumindo: oito minutos sem perceber, depois escuridão, a Terra solta no espaço, um frio extremo, e a vida resistindo no fundo do mar. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "Calma:": "calma",
+        "cinco": "bilhoes",
+        "perceber,": "passo1",
+        "escuridão,": "passo2",
+        "espaço,": "passo3",
+        "extremo,": "passo4",
+        "mar.": "passo5",
+        "Segue": "cta"
+      }
+    }
+  ]
+}
