@@ -1,0 +1,258 @@
+{
+  "slug": "como-funciona-um-tsunami",
+  "titulo": "Como funciona um tsunami",
+  "gancho": "COMO FUNCIONA UM TSUNAMI?",
+  "gancho_destaque": "TSUNAMI",
+  "voz": "Achird",
+  "sons": {
+    "recua": [
+      "agua",
+      0.6
+    ],
+    "peixes": [
+      "pop",
+      0.3
+    ],
+    "perigo": [
+      "thud",
+      0.6
+    ],
+    "tsunami": [
+      "whoosh",
+      0.7
+    ],
+    "titulo": [
+      "pop",
+      0.5
+    ],
+    "vento": [
+      "vento",
+      0.6
+    ],
+    "pele": [
+      "agua",
+      0.4
+    ],
+    "inteiro": [
+      "whoosh",
+      0.6
+    ],
+    "soprar": [
+      "vento",
+      0.4
+    ],
+    "chutar": [
+      "thud",
+      0.6
+    ],
+    "terremoto": [
+      "thud",
+      0.8
+    ],
+    "placas": [
+      "pop",
+      0.4
+    ],
+    "embaixo": [
+      "whoosh_curto",
+      0.4
+    ],
+    "tensao": [
+      "zap",
+      0.3
+    ],
+    "regua": [
+      "clique",
+      0.4
+    ],
+    "solta": [
+      "thud",
+      0.9
+    ],
+    "levanta": [
+      "agua",
+      0.7
+    ],
+    "espalha": [
+      "whoosh",
+      0.6
+    ],
+    "vel": [
+      "whoosh_curto",
+      0.5
+    ],
+    "aviao": [
+      "whoosh",
+      0.5
+    ],
+    "metro": [
+      "pop",
+      0.4
+    ],
+    "navio": [
+      "pop",
+      0.35
+    ],
+    "raso": [
+      "agua",
+      0.5
+    ],
+    "freia": [
+      "thud",
+      0.5
+    ],
+    "amontoa": [
+      "whoosh_curto",
+      0.5
+    ],
+    "engarrafa": [
+      "pop",
+      0.4
+    ],
+    "sobe": [
+      "agua",
+      0.8
+    ],
+    "trinta": [
+      "thud",
+      0.7
+    ],
+    "alto": [
+      "plim",
+      0.5
+    ],
+    "varias": [
+      "pop",
+      0.4
+    ],
+    "maior": [
+      "thud",
+      0.5
+    ],
+    "brasil": [
+      "plim",
+      0.5
+    ],
+    "longe": [
+      "whoosh_curto",
+      0.4
+    ],
+    "passo1": [
+      "pop",
+      0.45
+    ],
+    "passo2": [
+      "pop",
+      0.45
+    ],
+    "passo3": [
+      "pop",
+      0.45
+    ],
+    "passo4": [
+      "pop",
+      0.45
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Como funciona?",
+      "fala": "Imagina você na praia. De repente, o mar recua centenas de metros, e os peixes ficam pulando na areia. Parece curioso, mas é o sinal mais perigoso que existe: um tsunami está chegando. Vou te explicar como ele funciona, do jeito mais fácil possível.",
+      "batidas": {
+        "recua": "recua",
+        "peixes": "peixes",
+        "perigoso": "perigo",
+        "tsunami": "tsunami",
+        "fácil": "titulo"
+      }
+    },
+    {
+      "id": "conceito",
+      "tipo": "ondas",
+      "titulo": "Onda comum x tsunami",
+      "fala": "Primeiro: uma onda comum é feita pelo vento, e mexe só a pele do mar, os primeiros metros. O tsunami é outra coisa: ele mexe o oceano inteiro, do fundo até a superfície. É a diferença entre soprar um balde de água e chutar o balde.",
+      "batidas": {
+        "vento,": "vento",
+        "pele": "pele",
+        "inteiro,": "inteiro",
+        "soprar": "soprar",
+        "chutar": "chutar"
+      }
+    },
+    {
+      "id": "mecanismo",
+      "tipo": "placas",
+      "titulo": "O tranco no fundo do mar",
+      "fala": "E o que mexe tanta água? Quase sempre, um terremoto no fundo do mar. A crosta da Terra é dividida em placas gigantes. Em alguns lugares, uma placa entra embaixo da outra, mas elas ficam presas, acumulando tensão por séculos, como uma régua que você vai entortando. Um dia, ela solta. O fundo do mar dá um tranco de vários metros pra cima e levanta toda a água que está em cima dele.",
+      "batidas": {
+        "terremoto": "terremoto",
+        "placas": "placas",
+        "embaixo": "embaixo",
+        "tensão": "tensao",
+        "régua": "regua",
+        "solta.": "solta",
+        "levanta": "levanta"
+      }
+    },
+    {
+      "id": "viagem",
+      "tipo": "viagem",
+      "titulo": "Rápido e baixinho",
+      "fala": "Essa água desce e se espalha em ondas, pra todos os lados. Em mar aberto, o tsunami viaja a uns setecentos quilômetros por hora, a velocidade de um avião. Mas ali ele tem menos de um metro de altura. Um navio passa por cima dele e nem percebe.",
+      "batidas": {
+        "espalha": "espalha",
+        "setecentos": "vel",
+        "avião.": "aviao",
+        "metro": "metro",
+        "navio": "navio"
+      }
+    },
+    {
+      "id": "chegada",
+      "tipo": "chegada",
+      "titulo": "Quando chega no raso",
+      "fala": "O problema é quando ele chega perto da costa. O mar fica raso, e a frente da onda freia. Só que a parte de trás continua vindo rápido e se amontoa em cima. Pensa num engarrafamento: os carros da frente param e os de trás vão encostando. A água que estava espalhada no oceano inteiro sobe de uma vez, e pode passar de dez, vinte, até trinta metros.",
+      "batidas": {
+        "raso,": "raso",
+        "freia.": "freia",
+        "amontoa": "amontoa",
+        "engarrafamento:": "engarrafa",
+        "sobe": "sobe",
+        "trinta": "trinta"
+      }
+    },
+    {
+      "id": "seguranca",
+      "tipo": "seguranca",
+      "titulo": "Se um dia acontecer",
+      "fala": "Por isso, se você estiver na praia, sentir um terremoto forte ou ver o mar recuar de repente, não vai olhar: sobe pra um lugar alto na hora. E não volta logo: o tsunami vem em várias ondas, e a primeira nem sempre é a maior. Aqui no Brasil o risco é muito baixo, porque a nossa costa fica longe das bordas das placas.",
+      "batidas": {
+        "recuar": "recua",
+        "alto": "alto",
+        "várias": "varias",
+        "maior.": "maior",
+        "Brasil": "brasil",
+        "longe": "longe"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: o fundo do mar dá um tranco, levanta o oceano inteiro, a onda cruza o mar na velocidade de um avião e cresce quando chega no raso. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "tranco,": "passo1",
+        "inteiro,": "passo2",
+        "avião": "passo3",
+        "raso.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}
