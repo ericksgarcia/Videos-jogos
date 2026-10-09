@@ -61,6 +61,10 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
 - Antes de cada vídeo novo, **pesquise os assuntos mais buscados no Brasil no momento**
   (Google Trends "Em alta" BR, notícias da semana, via WebSearch) e escolha um que renda um
   "assunto complicado explicado fácil" (ciência, clima, economia, regras, tecnologia...).
+- Comece por `python aprendendo/motor/tendencias.py [horas] [quantos]`: lista o "Em alta" do
+  Google Brasil (últimas 24 h por padrão) ordenado por volume de buscas, com categoria e buscas
+  relacionadas. TikTok Creative Center ainda não abre aqui (faltam os domínios de CDN da
+  ByteDance na rede); Instagram fica de fora (pedido do dono).
 - Confira em `aprendendo/videos/` se o tema **ainda não foi feito**.
 - Política: só explique **regras e funcionamento** (como funciona o segundo turno), de forma
   neutra; nunca candidatos, partidos ou opinião. Tragédias: foco no mecanismo e na segurança.
