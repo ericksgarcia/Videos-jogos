@@ -29,7 +29,27 @@ aprendendo/
 "Faça um vídeo sobre X". Isso significa: escrever o roteiro, criar as cenas animadas,
 gerar a narração, renderizar, **revisar os frames**, corrigir, entregar o MP4 com
 `SendUserFile` e fazer commit + push na branch de trabalho. Ao entregar, ofereça uma
-descrição para o TikTok (gancho, 3–5 linhas, hashtags).
+descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
+
+### Descrição e hashtags (sempre com técnicas de engajamento e alcance)
+
+- **1ª linha = gancho** (até ~70 caracteres, é o que aparece antes do "mais"): número
+  chocante, paradoxo ou pergunta. Não repita o título do vídeo; complemente.
+- **Palavras de busca (SEO do TikTok):** escreva na descrição, em linguagem natural, o que
+  a pessoa digitaria na busca ("como funciona o raio", "por que o trovão faz barulho").
+  Use as mesmas palavras do texto na tela e da fala.
+- **Loop aberto:** prometa algo que só se resolve no vídeo ("o fim muda tudo") sem entregar
+  a resposta, para segurar até o final.
+- **Pergunta para comentar:** uma pergunta fácil de responder (opinião, experiência pessoal,
+  "você sabia?", escolha entre A ou B). Comentário é o sinal que mais pesa.
+- **Pedido de salvar/compartilhar:** "salva pra mostrar pra alguém" ou "manda pra quem
+  tem medo de raio". Salvamento e compartilhamento aumentam o alcance.
+- **Sugestão de comentário fixado:** ofereça um comentário para o dono fixar (curiosidade
+  extra ou pergunta) e puxar conversa.
+- **Hashtags: 4–6, misturando** 1–2 amplas (#ciencia, #curiosidades), 2–3 do nicho do tema
+  (#buraconegro, #astronomia) e a da marca (#aprendendofacil). Nada de lista enorme nem
+  hashtags sem relação (#fyp/#viral não ajudam). Sem emoji demais: 1–2 no máximo.
+- Mesma descrição serve para Reels e Shorts (no Shorts, coloque #shorts).
 
 ## Regras de conteúdo (decididas com o dono do canal)
 
