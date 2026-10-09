@@ -250,12 +250,35 @@ def _acabamento():
     return ",".join(f) or "null"
 
 
-def codificar(mudo, wav, mp4, dur):
+def metadados(roteiro):
+    """Título, descrição e tags gravados no MP4 (roteiro: "titulo", "descricao", "hashtags").
+    Não aumentam o alcance (as redes recodificam o vídeo), mas deixam o arquivo organizado."""
+    desc = roteiro.get("descricao", "")
+    tags = " ".join(roteiro.get("hashtags", []))
+    campos = {"title": roteiro["titulo"], "artist": MARCA["nome"], "album_artist": MARCA["nome"],
+              "comment": "\n\n".join(x for x in (desc, tags) if x), "description": desc,
+              "keywords": tags, "genre": "Educação", "copyright": MARCA["nome"]}
+    out = []
+    for k, v in campos.items():
+        if v:
+            out += ["-metadata", f"{k}={v}"]
+    return out
+
+
+def gravar_metadados(roteiro, mp4):
+    """Regrava só os metadados de um MP4 pronto (sem recodificar)."""
+    tmp = Path(mp4).with_suffix(".meta.mp4")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mp4), "-map", "0", "-c", "copy", "-map_metadata", "-1",
+                    *metadados(roteiro), "-movflags", "+faststart+use_metadata_tags", str(tmp)], check=True)
+    tmp.replace(mp4)
+
+
+def codificar(mudo, wav, mp4, dur, meta=()):
     """MP4 final: CRF 24; se passar do limite de envio (marca.json), refaz em 2 passadas
     com a taxa de bits calculada para caber (~92% do limite)."""
     limite = MARCA["video"]["tamanho_maximo_mb"] * 1024 * 1024
     vf = ["-vf", _acabamento()]
-    comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart", "-c:a", "aac", "-b:a", "160k", "-shortest"]
+    comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart+use_metadata_tags", *meta, "-c:a", "aac", "-b:a", "160k", "-shortest"]
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf,
                     "-c:v", "libx264", "-preset", "slow", "-crf", "24", *comum, str(mp4)], check=True)
     if Path(mp4).stat().st_size <= limite * 0.95:
@@ -275,11 +298,17 @@ def main():
     ap.add_argument("--qualidade", default="high", choices=["draft", "standard", "high"])
     ap.add_argument("--so-montar", action="store_true", help="monta o projeto sem renderizar")
     ap.add_argument("--previa", action="store_true", help="só tira fotos de cada cena (output/<tema>/previa)")
+    ap.add_argument("--metadados", action="store_true", help="só regrava título/descrição/hashtags no MP4 já pronto")
     a = ap.parse_args()
     pasta_video = Path(a.video)
     if pasta_video.is_file():
         pasta_video = pasta_video.parent
     roteiro = json.loads((pasta_video / "roteiro.json").read_text())
+    if a.metadados:
+        mp4 = RAIZ / "output" / pasta_video.name / f"{roteiro['slug']}.mp4"
+        gravar_metadados(roteiro, mp4)
+        print("metadados gravados:", mp4)
+        return
     falas = narrar(roteiro)
     print("narração:", {f["provedor"] for f in falas}, "| duração das falas:", round(sum(f["dur"] for f in falas), 1), "s")
     ag = agenda(roteiro, falas)
@@ -299,7 +328,7 @@ def main():
     renderizar(pasta, mudo, qualidade=a.qualidade)
     mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"))
     mp4 = saida / f"{roteiro['slug']}.mp4"
-    codificar(mudo, pasta / "trilha.wav", mp4, ag["total"])
+    codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], metadados(roteiro))
     print("pronto:", mp4)
 
 

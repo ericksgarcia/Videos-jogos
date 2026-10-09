@@ -50,6 +50,11 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
   (#buraconegro, #astronomia) e a da marca (#aprendendofacil). Nada de lista enorme nem
   hashtags sem relação (#fyp/#viral não ajudam). Sem emoji demais: 1–2 no máximo.
 - Mesma descrição serve para Reels e Shorts (no Shorts, coloque #shorts).
+- Grave a descrição e as hashtags no roteiro (`"descricao"`, `"hashtags"`, logo depois de
+  `"titulo"`): o `gerar.py` põe título, descrição e hashtags nos metadados do MP4.
+  `gerar.py <pasta> --metadados` regrava só isso num MP4 pronto, sem renderizar.
+  Metadados não dão alcance (as redes recodificam o vídeo); o que dá alcance é a descrição
+  digitada no post, as palavras faladas e o texto na tela.
 
 ## Regras de conteúdo (decididas com o dono do canal)
 
