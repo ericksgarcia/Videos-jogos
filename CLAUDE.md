@@ -98,6 +98,22 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
 - Algo muda na tela a cada 2–3 s (batidas); nenhuma cena parada.
 - Resumo curto e rápido; o cartão final entra durante a chamada.
 
+### O que a ciência apoia (pesquisa feita com o dono; use em todo roteiro)
+
+- **Curiosidade de "meio-saber"** (Loewenstein 1994; Kang et al. 2009; Gruber et al. 2014):
+  a curiosidade é máxima quando a pessoa *acha* que sabe. Gancho e viradas em forma de
+  "Você acha que…?" sobre algo popular; mito derrubado.
+- **Promessa só com lacuna real** (o efeito Zeigarnik não se replicou, meta-análise 2025):
+  "no final eu te conto X" precisa de um X curioso, não "espera que tem mais".
+- **Emoção que ativa** (Berger & Milkman 2012): pelo menos 1 momento de **assombro**
+  (escala, número gigante) por vídeo; evite tom triste/desanimado.
+- **Utilidade prática** aumenta compartilhamento: 1 dica acionável curta por vídeo.
+- **Tom de conversa com "você"** e voz humana amigável (Mayer: personalização d≈0,79).
+- **Corte curiosidades soltas** (detalhes sedutores atrapalham): todo fato serve à explicação.
+- **Vídeos mais curtos prendem mais** (Guo et al. 2014): mire 1:45–2:20; corte toda frase que não serve.
+- Voz: um teste A/B (out/2026) mostrou que a direção atual da Achird soa mais enérgica que uma
+  direção "mais entusiasmada"; mantenha a atual.
+
 ## Padrão visual (o dono pediu explicitamente "profissional", não "simples")
 
 Estilo de canal de divulgação científica premium (tipo Kurzgesagt), em motion design

@@ -10,8 +10,8 @@
     "#educacao",
     "#aprendendofacil"
   ],
-  "gancho": "POR QUE EXISTE SEGUNDO TURNO?",
-  "gancho_destaque": "TURNO",
+  "gancho": "O MAIS VOTADO PODE PERDER?",
+  "gancho_destaque": "PERDER?",
   "voz": "Achird",
   "sons": {
     "votos": [
@@ -153,6 +153,10 @@
     "cta": [
       "plim",
       0.6
+    ],
+    "dica": [
+      "plim",
+      0.6
     ]
   },
   "cenas": [
@@ -160,24 +164,24 @@
       "id": "gancho",
       "tipo": "abertura",
       "titulo": "Segundo turno",
-      "fala": "Um candidato pode ter mais votos que todos os outros, e mesmo assim não ganhar a eleição. É por isso que existe o segundo turno, que este ano vai ser no dia vinte e cinco de outubro. E fica até o final, porque tem uma regra de desempate que quase ninguém conhece.",
+      "fala": "Você acha que quem tem mais votos ganha a eleição? Nem sempre. Dá pra ser o mais votado e mesmo assim não levar. É por isso que existe o segundo turno, que este ano é no dia vinte e cinco de outubro. E no final eu te conto o que acontece se der empate: a regra é bem inesperada.",
       "batidas": {
         "votos": "votos",
-        "ganhar": "ganhar",
+        "levar.": "ganhar",
         "vinte": "data",
-        "desempate": "desempate"
+        "empate:": "desempate"
       }
     },
     {
       "id": "regra",
       "tipo": "regra",
       "titulo": "A regra de ouro",
-      "fala": "A regra é simples: pra ganhar no primeiro turno, não basta ser o mais votado. Tem que ter mais da metade dos votos. Pensa numa pizza: o candidato precisa ficar com mais da metade dela sozinho. Se os votos se dividem entre muitos candidatos, ninguém chega lá. A ideia é que quem governa tenha o apoio da maioria. Só que tem uma pegadinha: nem todo voto entra nessa conta.",
+      "fala": "A regra é esta: pra ganhar no primeiro turno, não basta ser o mais votado. Tem que ter mais da metade dos votos. Pensa numa pizza: um candidato tem que ficar com mais da metade dela sozinho. Se a pizza se divide entre muitos, ninguém chega lá. É pra garantir que quem governa tenha o apoio da maioria. Só que tem uma pegadinha: nem todo voto entra nessa conta.",
       "batidas": {
         "metade": "metade",
         "pizza:": "pizza",
         "sozinho.": "sozinho",
-        "dividem": "divide",
+        "divide": "divide",
         "maioria.": "maioria"
       }
     },
@@ -185,7 +189,7 @@
       "id": "validos",
       "tipo": "validos",
       "titulo": "Votos válidos",
-      "fala": "Mas que votos contam? Só os votos válidos: os que vão pra algum candidato. Branco e nulo ficam fora da conta. Então, se cem pessoas votam, e dez votam branco ou nulo, a metade é calculada em cima de noventa. Quem passar de quarenta e cinco, leva. E isso derruba um mito que muita gente repete.",
+      "fala": "Você acha que o voto branco vai pra quem está ganhando? Não vai. Só contam os votos válidos: os que vão pra algum candidato. Branco e nulo ficam fora. Então, se cem pessoas votam, e dez votam branco ou nulo, a metade é calculada em cima de noventa. Quem passar de quarenta e cinco, leva. E isso derruba um mito que muita gente repete.",
       "batidas": {
         "válidos:": "validos",
         "Branco": "branco",
@@ -198,19 +202,20 @@
       "id": "mito",
       "tipo": "mito",
       "titulo": "O mito do nulo",
-      "fala": "E aquela história de que, se mais da metade votar nulo, a eleição é anulada? É mito. O voto nulo simplesmente não entra na conta. A eleição só é refeita se a Justiça Eleitoral anular votos, por fraude, por exemplo.",
+      "fala": "Se mais da metade votar nulo, a eleição é anulada? Muita gente jura que sim. É mito. O voto nulo simplesmente não entra na conta. A eleição só é refeita se a Justiça Eleitoral anular votos, por fraude, por exemplo. Então guarda isso: se você quer que o seu voto conte, ele tem que ir pra um candidato.",
       "batidas": {
         "nulo,": "nulo",
         "mito.": "mito",
         "conta.": "conta",
-        "fraude,": "fraude"
+        "fraude,": "fraude",
+        "candidato.": "dica"
       }
     },
     {
       "id": "segundo",
       "tipo": "segundo",
       "titulo": "O segundo turno",
-      "fala": "Quando ninguém passa da metade, os dois mais votados vão pra uma nova eleição. Com só dois na disputa, um deles vai ter mais da metade, na certa. Isso vale pra presidente, pra governador e pra prefeito de cidade com mais de duzentos mil eleitores. Nas cidades menores, ganha quem tiver mais votos, e pronto. Agora, a regra que eu prometi lá no começo.",
+      "fala": "Quando ninguém passa da metade, os dois mais votados vão pra uma nova eleição. Com só dois na disputa, um deles passa da metade, na certa. Isso vale pra presidente, pra governador e pra prefeito de cidade com mais de duzentos mil eleitores. Nas cidades menores, ganha quem tiver mais votos, e pronto. Agora, a regra que eu prometi lá no começo.",
       "batidas": {
         "dois": "dois",
         "nova": "nova",
@@ -225,7 +230,7 @@
       "id": "empate",
       "tipo": "empate",
       "titulo": "O desempate",
-      "fala": "Mas e se der empate exato? Não tem pênalti, nem cara ou coroa. A Constituição manda: ganha o candidato mais velho. E se um dos dois desistir antes do segundo turno, quem entra no lugar é o terceiro colocado.",
+      "fala": "Se der empate exato no segundo turno, não tem pênalti, nem cara ou coroa. A Constituição manda: ganha o candidato mais velho. E se um dos dois desistir antes do segundo turno, quem entra no lugar é o terceiro colocado.",
       "batidas": {
         "empate": "empate",
         "pênalti,": "penalti",
@@ -238,11 +243,11 @@
       "id": "resumo",
       "tipo": "resumo",
       "titulo": "Resumindo",
-      "fala": "Resumindo: pra ganhar, precisa de mais da metade dos votos válidos. Branco e nulo não contam. Se ninguém chega lá, os dois primeiros disputam de novo. E, no empate, ganha o mais velho. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "fala": "Resumindo: precisa de mais da metade dos votos válidos, branco e nulo não contam, se ninguém chega lá tem segundo turno, e no empate ganha o mais velho. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
       "batidas": {
         "metade": "passo1",
-        "contam.": "passo2",
-        "novo.": "passo3",
+        "contam,": "passo2",
+        "turno,": "passo3",
         "velho.": "passo4",
         "Segue": "cta"
       }

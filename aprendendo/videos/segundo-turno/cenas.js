@@ -120,6 +120,8 @@ CENAS.validos = (el, c, B) => {
   const tV = B("validos"), tB = B("branco"), tC = B("cem"), tN = B("noventa"), tP = B("passa");
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["val", 330, 76, "votos válidos", "pt-ve"], ["fora", 420, 50, "branco e nulo: fora", "pt-fino"], ["cem", 330, 76, "100 votos", "pt-ci"], ["nov", 330, 76, "90 válidos", "pt-ci"], ["met", 420, 54, "metade: 45", "pt-fino"], ["pas", 330, 80, "46 = vence", "pt-am"]]);
+  const txq = palcoTexto(el, [["q", 330, 62, "branco vai pra quem ganha?", "pt-ci", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, txq.q, c.ini + 0.4, { from: 1.25 }); MD.leave(tl, txq.q, tV - 0.4);
   MD.slam(tl, tx.val, tV - 0.1, { from: 1.3 }); MD.arrive(tl, tx.fora, tB, { y: 14 }); MD.leave(tl, [tx.val, tx.fora], tC - 0.4);
   MD.slam(tl, tx.cem, tC - 0.05, { from: 1.2 }); MD.leave(tl, tx.cem, tN - 0.35); MD.slam(tl, tx.nov, tN - 0.05, { from: 1.2 }); MD.arrive(tl, tx.met, tN + 0.25, { y: 14 }); MD.leave(tl, [tx.nov, tx.met], tP - 0.3); MD.slam(tl, tx.pas, tP - 0.05, { from: 1.35 });
   const tDe = tempoPalavras(c)("derruba"), tx2 = palcoTexto(el, [["mit", 330, 96, "UM MITO...", "pt-ve"]]);
@@ -148,6 +150,8 @@ CENAS.mito = (el, c, B) => {
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["mit", 330, 120, "MITO", "pt-ve"], ["fra", 330, 56, "refaz: só se a Justiça anular votos", "pt-ci", "white-space:normal;left:70px;width:940px"]]);
   MD.slam(tl, tx.mit, tM - 0.08, { from: 1.6 }); MD.leave(tl, tx.mit, tF - 0.4); MD.slam(tl, tx.fra, tF - 0.05, { from: 1.2 });
+  const tDi = B("dica"), tx2 = palcoTexto(el, [["dic", 330, 66, "quer que conte? vote em alguém", "pt-am", "white-space:normal;left:60px;width:960px"]]);
+  MD.leave(tl, tx.fra, tDi - 1.6); MD.slam(tl, tx2.dic, tDi - 1.3, { from: 1.3 });
   const nv = T.nuvem(NE + 10), est = fundoE(13);
   const mito = barras([{ v: 0.22, cor: "am", x: 260 }, { v: 0.18, cor: "ci", x: 470 }, { v: 0.6, cor: "cz", x: 800, a: 0.75 }]);
   const fases = [[0, multidao(15)], [tN - 0.4, mito], [tC - 0.1, barras([{ v: 0.22, cor: "am", x: 260 }, { v: 0.18, cor: "ci", x: 470 }, { v: 0.6, cor: "cz", x: 800, a: 0.22 }])]];

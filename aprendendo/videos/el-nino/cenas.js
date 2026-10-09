@@ -95,7 +95,8 @@ CENAS.normal = (el, c, B) => {
   const tP = B("pacifico"), tA = B("alisios"), tAu = B("australia"), tB = B("banheira"), tF = B("fria");
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["pac", 330, 70, "Oceano Pacífico", "pt-ci"], ["ali", 330, 76, "ventos alísios", "pt-ci"], ["dir", 425, 46, "leste → oeste", "pt-fino"], ["ban", 330, 60, "um ventilador na banheira", "pt-am"]]);
-  MD.arrive(tl, tx.pac, tP - 0.1, { y: 14 }); MD.leave(tl, tx.pac, tA - 0.4); MD.slam(tl, tx.ali, tA - 0.05, { from: 1.3 }); MD.arrive(tl, tx.dir, tA + 0.5, { y: 14 }); MD.leave(tl, [tx.ali, tx.dir], tB - 0.5); MD.slam(tl, tx.ban, tB - 0.1, { from: 1.25 });
+  const tCo = B("continentes"), txc = palcoTexto(el, [["cont", 330, 62, "cabem todos os continentes", "pt-am", "white-space:normal;left:60px;width:960px"]]);
+  MD.arrive(tl, tx.pac, tP - 0.1, { y: 14 }); MD.leave(tl, tx.pac, tCo - 0.3); MD.slam(tl, txc.cont, tCo - 0.05, { from: 1.3 }); MD.leave(tl, txc.cont, tA - 0.4); MD.slam(tl, tx.ali, tA - 0.05, { from: 1.3 }); MD.arrive(tl, tx.dir, tA + 0.5, { y: 14 }); MD.leave(tl, [tx.ali, tx.dir], tB - 0.5); MD.slam(tl, tx.ban, tB - 0.1, { from: 1.25 });
   const tFa = tempoPalavras(c)("falha"), tx2 = palcoTexto(el, [["fal", 330, 80, "...e se ele falhar?", "pt-ve"]]);
   MD.leave(tl, tx.ban, tFa - 0.4); MD.slam(tl, tx2.fal, tFa - 0.05, { from: 1.4 });
   const nv = T.nuvem(60000), est = est0(5);
@@ -104,6 +105,7 @@ CENAS.normal = (el, c, B) => {
     const proj = projS(PAC.lat, PAC.lon + Math.sin(t * 0.1) * 3, PAC.R, PAC.cx, PAC.cy);
     desenharGlobo(nv, x, proj, PAC.R, PAC.cx, PAC.cy, { e: 0 });
     desenharVento(x, proj, t, 1, PT.ss((t - tA + 0.3) / 0.8));
+    const aCo = PT.jan(t, tCo - 0.2, tA - 0.3, 0.4, 0.5); if (aCo > 0) { brilhoP(x, PAC.cx, PAC.cy, PAC.R * 1.3, "120,180,255", 0.12 * aCo); anelP(x, PAC.cx, PAC.cy, PAC.R * (1.02 + 0.06 * Math.sin((t - tCo) * 3)), "143,227,255", 0.7 * aCo, 6); }
     rotGlobo(x, proj, -25, 134, "AUSTRÁLIA", "150,255,190", PT.ss((t - tAu + 0.3) / 0.5));
     if (t > tAu - 0.3) { const [px, py] = proj(vecS(0, 150)); brilhoP(x, px, py, 200, "255,120,40", 0.4 * PT.ss((t - tAu + 0.3) / 0.6)); rotGlobo(x, proj, 12, 150, "ÁGUA QUENTE", "255,180,110", PT.ss((t - tAu) / 0.6)); }
     rotGlobo(x, proj, -12, -62, "AMÉRICA DO SUL", "150,255,190", PT.ss((t - tF + 1.2) / 0.5), 0, 26);
@@ -115,11 +117,11 @@ CENAS.normal = (el, c, B) => {
 
 // =============== 3. o El Niño ===============
 CENAS.nino = (el, c, B) => {
-  const tF = B("fraco"), tV = B("volta"), tP = B("peru"), tFa = B("faixa"), tN = B("natal"), tM = B("menino");
+  const tF = B("fraco"), tV = B("volta"), tP = B("peru"), tFa = B("faixa"), tM = B("menino"), tN = tM;
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["anos", 330, 64, "a cada 2 a 7 anos", "pt-ci"], ["fra", 425, 46, "os ventos enfraquecem", "pt-fino"], ["km", 330, 66, "milhares de km", "pt-la"], ["nat", 330, 66, "perto do Natal", "pt-am"], ["men", 330, 86, "El Niño = o menino", "pt-la"]]);
+  const tx = palcoTexto(el, [["anos", 330, 64, "a cada 2 a 7 anos", "pt-ci"], ["fra", 425, 46, "os ventos enfraquecem", "pt-fino"], ["km", 330, 66, "milhares de km", "pt-la"], ["men", 330, 96, "isso é o El Niño", "pt-la"]]);
   MD.arrive(tl, tx.anos, c.ini + 0.6, { y: 14 }); MD.arrive(tl, tx.fra, tF - 0.2, { y: 14 }); MD.leave(tl, [tx.anos, tx.fra], tFa - 0.6);
-  MD.slam(tl, tx.km, tFa - 0.05, { from: 1.25 }); MD.leave(tl, tx.km, tN - 0.4); MD.slam(tl, tx.nat, tN - 0.05, { from: 1.2 }); MD.leave(tl, tx.nat, tM - 0.4); MD.slam(tl, tx.men, tM - 0.05, { from: 1.35 });
+  MD.slam(tl, tx.km, tFa - 0.05, { from: 1.25 }); MD.leave(tl, tx.km, tM - 0.4); MD.slam(tl, tx.men, tM - 0.05, { from: 1.35 });
   const nv = T.nuvem(60000), est = est0(7);
   T.quadro((x, t) => {
     estD(x, est, t);
@@ -134,9 +136,6 @@ CENAS.nino = (el, c, B) => {
     rotGlobo(x, proj, -9, -76, "PERU", "150,255,190", PT.ss((t - tP + 0.3) / 0.5), 0, 30);
     const aK = PT.jan(t, tFa - 0.2, tN, 0.4, 0.5);
     if (aK > 0) { x.setLineDash([12, 10]); const pts = [[-12, 175], [12, 175], [12, -85], [-12, -85]]; x.strokeStyle = `rgba(255,210,63,${0.85 * aK})`; x.lineWidth = 4; x.beginPath(); for (let s = 0; s <= 4; s++) { const [la, lo] = pts[s % 4], [la2, lo2] = pts[(s + 1) % 4]; for (let u = 0; u <= 20; u++) { const L = lo + (lo2 - lo + (Math.abs(lo2 - lo) > 180 ? (lo2 > lo ? -360 : 360) : 0)) * u / 20, la3 = la + (la2 - la) * u / 20, [px, py, z] = proj(vecS(la3, ((L + 540) % 360) - 180)); if (z > 0) (s === 0 && u === 0 ? x.moveTo(px, py) : x.lineTo(px, py)); } } x.stroke(); x.setLineDash([]); }
-    // barquinho de pescadores perto do Peru (no Natal)
-    const aB = PT.ss((t - tN + 0.3) / 0.5);
-    if (aB > 0) { const [px, py, z] = proj(vecS(-6, -84)); if (z > 0) { const bal = Math.sin(t * 2) * 4; linhaP(x, px - 22, py + bal, px + 22, py + bal, "255,226,140", aB, 6); linhaP(x, px, py + bal, px, py - 30 + bal, "255,226,140", aB, 3); linhaP(x, px, py - 30 + bal, px + 16, py - 8 + bal, "255,226,140", aB, 3); brilhoP(x, px, py, 50, "255,210,63", 0.4 * aB); } }
   });
 };
 
@@ -178,6 +177,8 @@ CENAS.brasil = (el, c, B) => {
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["div", 330, 76, "um país dividido", "pt-am"], ["for", 330, 72, "este ano: muito forte", "pt-la"]]);
   MD.slam(tl, tx.div, tD - 0.05, { from: 1.25 }); MD.leave(tl, tx.div, tF - 0.5); MD.slam(tl, tx.for, tF - 0.05, { from: 1.3 });
+  const tDi = B("dica"), txd = palcoTexto(el, [["dic", 330, 64, "beba água antes da sede", "pt-ci"], ["sol", 420, 46, "e fuja do sol das 10h às 16h", "pt-fino"]]);
+  MD.leave(tl, tx.for, tDi - 2.2); MD.slam(tl, txd.dic, tDi - 1.9, { from: 1.25 }); MD.arrive(tl, txd.sol, tDi + 0.9, { y: 14 });
   const nv = T.nuvem(50000), est = est0(11), R = 1000, cy = 980;
   T.quadro((x, t) => {
     estD(x, est, t);

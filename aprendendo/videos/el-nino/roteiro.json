@@ -10,7 +10,7 @@
     "#curiosidades",
     "#aprendendofacil"
   ],
-  "gancho": "O QUE É O EL NIÑO?",
+  "gancho": "O CALOR TEM NOME: EL NIÑO",
   "gancho_destaque": "NIÑO",
   "voz": "Achird",
   "sons": {
@@ -161,6 +161,14 @@
     "cta": [
       "plim",
       0.6
+    ],
+    "continentes": [
+      "brilho",
+      0.6
+    ],
+    "dica": [
+      "plim",
+      0.6
     ]
   },
   "cenas": [
@@ -168,10 +176,10 @@
       "id": "gancho",
       "tipo": "abertura",
       "titulo": "El Niño",
-      "fala": "Uma água morna do outro lado do mundo está deixando o Brasil mais quente. O nome dela é El Niño. E fica até o final, porque ele faz uma coisa estranha: seca o Norte do Brasil e encharca o Sul, ao mesmo tempo.",
+      "fala": "Você acha que esse calor todo é só o verão chegando mais cedo? Tem mais coisa. Uma água morna do outro lado do mundo está esquentando o Brasil. O nome dela é El Niño. E ele faz uma coisa estranha: seca o Norte do Brasil e encharca o Sul, ao mesmo tempo. No final, eu te conto o que vem depois dele.",
       "batidas": {
         "morna": "morna",
-        "quente.": "quente",
+        "esquentando": "quente",
         "nome": "nome",
         "seca": "seca",
         "encharca": "encharca"
@@ -181,9 +189,10 @@
       "id": "normal",
       "tipo": "normal",
       "titulo": "O Pacífico normal",
-      "fala": "Pensa no Oceano Pacífico, o maior do planeta. No meio dele, na linha do Equador, sopram ventos fortes, os alísios, sempre do leste pro oeste. Eles empurram a água quente da superfície pro lado da Austrália, como um ventilador soprando a água de uma banheira. E, do lado da América do Sul, sobe água fria do fundo do mar. Só que, às vezes, esse ventilador falha. E é aí que começa o problema.",
+      "fala": "Pensa no Oceano Pacífico. Ele é tão grande que cabem nele todos os continentes juntos, e ainda sobra espaço. No meio dele, na linha do Equador, sopram os ventos alísios, sempre do leste pro oeste. Eles empurram a água quente da superfície pro lado da Austrália, como um ventilador soprando a água de uma banheira. E, do lado da América do Sul, sobe água fria do fundo do mar. Só que, às vezes, esse ventilador falha.",
       "batidas": {
-        "Pacífico,": "pacifico",
+        "Pacífico.": "pacifico",
+        "continentes": "continentes",
         "alísios,": "alisios",
         "Austrália,": "australia",
         "banheira.": "banheira",
@@ -194,21 +203,20 @@
       "id": "nino",
       "tipo": "nino",
       "titulo": "O El Niño",
-      "fala": "A cada dois a sete anos, mais ou menos, esses ventos enfraquecem. Sem o ventilador, a água quente volta, e se espalha pelo meio do Pacífico até perto do Peru. É uma faixa de água morna de milhares de quilômetros. Os pescadores peruanos notavam isso perto do Natal, e chamaram de El Niño: o menino, em espanhol.",
+      "fala": "A cada dois a sete anos, mais ou menos, esses ventos enfraquecem. Sem o ventilador, a água quente volta, e se espalha pelo meio do Pacífico até perto do Peru. Uma faixa de água morna de milhares de quilômetros. É isso que a gente chama de El Niño.",
       "batidas": {
         "enfraquecem.": "fraco",
         "volta,": "volta",
         "Peru.": "peru",
         "milhares": "faixa",
-        "Natal,": "natal",
-        "menino,": "menino"
+        "Niño.": "menino"
       }
     },
     {
       "id": "mundo",
       "tipo": "mundo",
       "titulo": "O mundo sente",
-      "fala": "E por que isso mexe com o Brasil, tão longe? Porque o oceano esquenta o ar em cima dele. Onde a água está quente, o ar sobe e forma nuvens de chuva. Então a chuva muda de lugar, e o caminho dos ventos no mundo inteiro muda junto. É como mudar o fogão de lugar: o calor da casa toda muda. E aí vem a parte estranha que eu prometi.",
+      "fala": "Mas por que isso mexe com o Brasil, tão longe? Porque o oceano esquenta o ar em cima dele. Onde a água está quente, o ar sobe e forma nuvens de chuva. Então a chuva muda de lugar, e o caminho dos ventos no mundo inteiro muda junto. É como mudar o fogão de lugar: o calor da casa toda muda. E aí vem a parte estranha que eu prometi.",
       "batidas": {
         "Brasil,": "brasil",
         "esquenta": "esquenta",
@@ -221,14 +229,15 @@
       "id": "brasil",
       "tipo": "brasil",
       "titulo": "No Brasil",
-      "fala": "Aqui, o resultado é um país dividido. No Norte e no Nordeste, chove menos: seca na Amazônia e no sertão. No Sul, chove demais, e vêm as enchentes. E no Centro-Oeste e no Sudeste, o calor aperta, com ondas de calor uma atrás da outra. E o El Niño deste ano é considerado muito forte.",
+      "fala": "Aqui, o país fica dividido. No Norte e no Nordeste, chove menos: seca na Amazônia e no sertão. No Sul, chove demais, e vêm as enchentes. E no Centro-Oeste e no Sudeste, o calor aperta, com ondas de calor uma atrás da outra. E o El Niño deste ano é considerado muito forte. Então, a dica: na onda de calor, beba água antes de sentir sede, e fuja do sol entre dez da manhã e quatro da tarde.",
       "batidas": {
         "dividido.": "dividido",
         "Norte": "norte",
         "Sul,": "sul",
         "enchentes.": "enchente",
         "calor": "calor",
-        "forte.": "forte"
+        "forte.": "forte",
+        "sede,": "dica"
       }
     },
     {
@@ -248,7 +257,7 @@
       "id": "resumo",
       "tipo": "resumo",
       "titulo": "Resumindo",
-      "fala": "Resumindo: os ventos do Pacífico enfraquecem, a água quente se espalha, a chuva muda de lugar, e o Brasil fica com seca no Norte, chuva no Sul e mais calor no meio. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "fala": "Resumindo: os ventos do Pacífico enfraquecem, a água quente se espalha, a chuva muda de lugar, e o Brasil fica com seca no Norte, chuva no Sul e calor no meio. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
       "batidas": {
         "enfraquecem,": "passo1",
         "espalha,": "passo2",
