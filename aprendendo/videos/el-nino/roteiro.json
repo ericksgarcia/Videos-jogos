@@ -1,0 +1,261 @@
+{
+  "slug": "o-que-e-o-el-nino",
+  "titulo": "O que é o El Niño",
+  "descricao": "Uma água morna do outro lado do mundo está esquentando o Brasil 🌊🔥\nO que é o El Niño, por que ele causa ondas de calor e como ele mexe com a chuva no Brasil.\nEle faz uma coisa estranha: seca o Norte e encharca o Sul ao mesmo tempo.\nE no final: o que costuma vir depois dele.\nManda pra quem está reclamando do calor e salva pra entender a previsão do tempo.\nComo está o calor aí na sua cidade? Comenta aí 👇",
+  "hashtags": [
+    "#elnino",
+    "#ondadecalor",
+    "#clima",
+    "#ciencia",
+    "#curiosidades",
+    "#aprendendofacil"
+  ],
+  "gancho": "O QUE É O EL NIÑO?",
+  "gancho_destaque": "NIÑO",
+  "voz": "Achird",
+  "sons": {
+    "morna": [
+      "agua",
+      0.5
+    ],
+    "quente": [
+      "brilho",
+      0.55
+    ],
+    "nome": [
+      "plim",
+      0.55
+    ],
+    "seca": [
+      "vento",
+      0.5
+    ],
+    "encharca": [
+      "agua",
+      0.5
+    ],
+    "pacifico": [
+      "agua",
+      0.5
+    ],
+    "alisios": [
+      "vento",
+      0.55
+    ],
+    "australia": [
+      "whoosh",
+      0.5
+    ],
+    "banheira": [
+      "agua",
+      0.5
+    ],
+    "fria": [
+      "brilho",
+      0.5
+    ],
+    "fraco": [
+      "vento",
+      0.45
+    ],
+    "volta": [
+      "whoosh",
+      0.55
+    ],
+    "peru": [
+      "agua",
+      0.5
+    ],
+    "faixa": [
+      "brilho",
+      0.55
+    ],
+    "natal": [
+      "plim",
+      0.55
+    ],
+    "menino": [
+      "plim",
+      0.55
+    ],
+    "brasil": [
+      "pop",
+      0.45
+    ],
+    "esquenta": [
+      "brilho",
+      0.55
+    ],
+    "sobe": [
+      "whoosh_curto",
+      0.45
+    ],
+    "chuva": [
+      "agua",
+      0.5
+    ],
+    "fogao": [
+      "pop",
+      0.45
+    ],
+    "dividido": [
+      "thud",
+      0.7
+    ],
+    "norte": [
+      "vento",
+      0.5
+    ],
+    "sul": [
+      "agua",
+      0.5
+    ],
+    "enchente": [
+      "agua",
+      0.55
+    ],
+    "calor": [
+      "brilho",
+      0.55
+    ],
+    "forte": [
+      "thud",
+      0.7
+    ],
+    "contrario": [
+      "whoosh",
+      0.5
+    ],
+    "menina": [
+      "plim",
+      0.55
+    ],
+    "esfria": [
+      "brilho",
+      0.5
+    ],
+    "troca": [
+      "whoosh_curto",
+      0.45
+    ],
+    "balanco": [
+      "agua",
+      0.5
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "El Niño",
+      "fala": "Uma água morna do outro lado do mundo está deixando o Brasil mais quente. O nome dela é El Niño. E fica até o final, porque ele faz uma coisa estranha: seca o Norte do Brasil e encharca o Sul, ao mesmo tempo.",
+      "batidas": {
+        "morna": "morna",
+        "quente.": "quente",
+        "nome": "nome",
+        "seca": "seca",
+        "encharca": "encharca"
+      }
+    },
+    {
+      "id": "normal",
+      "tipo": "normal",
+      "titulo": "O Pacífico normal",
+      "fala": "Pensa no Oceano Pacífico, o maior do planeta. No meio dele, na linha do Equador, sopram ventos fortes, os alísios, sempre do leste pro oeste. Eles empurram a água quente da superfície pro lado da Austrália, como um ventilador soprando a água de uma banheira. E, do lado da América do Sul, sobe água fria do fundo do mar.",
+      "batidas": {
+        "Pacífico,": "pacifico",
+        "alísios,": "alisios",
+        "Austrália,": "australia",
+        "banheira.": "banheira",
+        "fria": "fria"
+      }
+    },
+    {
+      "id": "nino",
+      "tipo": "nino",
+      "titulo": "O El Niño",
+      "fala": "De tempos em tempos, a cada dois a sete anos, esses ventos enfraquecem. Sem o ventilador, a água quente volta, e se espalha pelo meio do Pacífico até perto do Peru. É uma faixa de água morna de milhares de quilômetros. Os pescadores peruanos notavam isso perto do Natal, e chamaram de El Niño: o menino, em espanhol.",
+      "batidas": {
+        "enfraquecem.": "fraco",
+        "volta,": "volta",
+        "Peru.": "peru",
+        "milhares": "faixa",
+        "Natal,": "natal",
+        "menino,": "menino"
+      }
+    },
+    {
+      "id": "mundo",
+      "tipo": "mundo",
+      "titulo": "O mundo sente",
+      "fala": "E por que isso mexe com o Brasil, tão longe? Porque o oceano esquenta o ar em cima dele. Onde a água está quente, o ar sobe e forma nuvens de chuva. Então a chuva muda de lugar, e o caminho dos ventos no mundo inteiro muda junto. É como mudar o fogão de lugar: o calor da casa toda muda.",
+      "batidas": {
+        "Brasil,": "brasil",
+        "esquenta": "esquenta",
+        "sobe": "sobe",
+        "chuva.": "chuva",
+        "fogão": "fogao"
+      }
+    },
+    {
+      "id": "brasil",
+      "tipo": "brasil",
+      "titulo": "No Brasil",
+      "fala": "Aqui, o resultado é um país dividido. No Norte e no Nordeste, chove menos: seca na Amazônia e no sertão. No Sul, chove demais, e vêm as enchentes. E no Centro-Oeste e no Sudeste, o calor aperta, com ondas de calor uma atrás da outra. E o El Niño deste ano é considerado muito forte.",
+      "batidas": {
+        "dividido.": "dividido",
+        "Norte": "norte",
+        "Sul,": "sul",
+        "enchentes.": "enchente",
+        "calor": "calor",
+        "forte.": "forte"
+      }
+    },
+    {
+      "id": "depois",
+      "tipo": "depois",
+      "titulo": "E depois?",
+      "fala": "E depois? Muitas vezes vem o contrário: a La Niña, a menina. Os ventos sopram ainda mais forte, o Pacífico esfria, e o Brasil troca de lado: mais chuva no Norte, mais seca no Sul. O planeta vive balançando entre os dois, como a água de uma banheira indo e voltando.",
+      "batidas": {
+        "contrário:": "contrario",
+        "menina.": "menina",
+        "esfria,": "esfria",
+        "troca": "troca",
+        "banheira": "balanco"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: os ventos do Pacífico enfraquecem, a água quente se espalha, a chuva muda de lugar, e o Brasil fica com seca no Norte, chuva no Sul e mais calor no meio. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "enfraquecem,": "passo1",
+        "espalha,": "passo2",
+        "lugar,": "passo3",
+        "calor": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}

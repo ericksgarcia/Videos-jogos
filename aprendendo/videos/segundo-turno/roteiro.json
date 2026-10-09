@@ -1,0 +1,251 @@
+{
+  "slug": "como-funciona-o-segundo-turno",
+  "titulo": "Como funciona o segundo turno",
+  "descricao": "Dá pra ter mais votos que todo mundo e mesmo assim não ganhar a eleição 🗳️\nComo funciona o segundo turno, o que são votos válidos e por que branco e nulo não entram na conta.\n\"Se a maioria votar nulo, a eleição é anulada\"? É mito, e o vídeo explica por quê.\nNo final: a regra de desempate que quase ninguém conhece.\nManda pra quem ainda tem dúvida sobre o segundo turno e salva pra consultar.\nVocê sabia dessa regra do empate? Comenta aí 👇",
+  "hashtags": [
+    "#segundoturno",
+    "#eleicoes2026",
+    "#eleicoes",
+    "#curiosidades",
+    "#educacao",
+    "#aprendendofacil"
+  ],
+  "gancho": "POR QUE EXISTE SEGUNDO TURNO?",
+  "gancho_destaque": "TURNO",
+  "voz": "Achird",
+  "sons": {
+    "votos": [
+      "pop",
+      0.45
+    ],
+    "ganhar": [
+      "thud",
+      0.7
+    ],
+    "data": [
+      "plim",
+      0.55
+    ],
+    "desempate": [
+      "plim",
+      0.55
+    ],
+    "metade": [
+      "zap",
+      0.5
+    ],
+    "pizza": [
+      "pop",
+      0.45
+    ],
+    "sozinho": [
+      "brilho",
+      0.55
+    ],
+    "divide": [
+      "whoosh_curto",
+      0.45
+    ],
+    "maioria": [
+      "plim",
+      0.55
+    ],
+    "validos": [
+      "brilho",
+      0.55
+    ],
+    "branco": [
+      "whoosh_curto",
+      0.45
+    ],
+    "cem": [
+      "pop",
+      0.45
+    ],
+    "noventa": [
+      "clique",
+      0.6
+    ],
+    "passa": [
+      "plim",
+      0.55
+    ],
+    "nulo": [
+      "urna",
+      0.6
+    ],
+    "mito": [
+      "thud",
+      0.7
+    ],
+    "conta": [
+      "whoosh_curto",
+      0.45
+    ],
+    "fraude": [
+      "zap",
+      0.5
+    ],
+    "dois": [
+      "whoosh",
+      0.5
+    ],
+    "nova": [
+      "urna",
+      0.6
+    ],
+    "certa": [
+      "plim",
+      0.55
+    ],
+    "presidente": [
+      "pop",
+      0.4
+    ],
+    "governador": [
+      "pop",
+      0.4
+    ],
+    "duzentos": [
+      "pop",
+      0.45
+    ],
+    "menores": [
+      "clique",
+      0.6
+    ],
+    "empate": [
+      "thud",
+      0.7
+    ],
+    "penalti": [
+      "whoosh_curto",
+      0.45
+    ],
+    "velho": [
+      "plim",
+      0.6
+    ],
+    "desiste": [
+      "whoosh_curto",
+      0.45
+    ],
+    "terceiro": [
+      "pop",
+      0.45
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Segundo turno",
+      "fala": "Um candidato pode ter mais votos que todos os outros, e mesmo assim não ganhar a eleição. É por isso que existe o segundo turno, que este ano vai ser no dia vinte e cinco de outubro. E fica até o final, porque tem uma regra de desempate que quase ninguém conhece.",
+      "batidas": {
+        "votos": "votos",
+        "ganhar": "ganhar",
+        "vinte": "data",
+        "desempate": "desempate"
+      }
+    },
+    {
+      "id": "regra",
+      "tipo": "regra",
+      "titulo": "A regra de ouro",
+      "fala": "A regra é simples: pra ganhar no primeiro turno, não basta ser o mais votado. Tem que ter mais da metade dos votos. Pensa numa pizza: o candidato precisa ficar com mais da metade dela sozinho. Se os votos se dividem entre muitos candidatos, ninguém chega lá. A ideia é que quem governa tenha o apoio da maioria.",
+      "batidas": {
+        "metade": "metade",
+        "pizza:": "pizza",
+        "sozinho.": "sozinho",
+        "dividem": "divide",
+        "maioria.": "maioria"
+      }
+    },
+    {
+      "id": "validos",
+      "tipo": "validos",
+      "titulo": "Votos válidos",
+      "fala": "Mas que votos contam? Só os votos válidos: os que vão pra algum candidato. Branco e nulo ficam fora da conta. Então, se cem pessoas votam, e dez votam branco ou nulo, a metade é calculada em cima de noventa. Quem passar de quarenta e cinco, leva.",
+      "batidas": {
+        "válidos:": "validos",
+        "Branco": "branco",
+        "cem": "cem",
+        "noventa.": "noventa",
+        "passar": "passa"
+      }
+    },
+    {
+      "id": "mito",
+      "tipo": "mito",
+      "titulo": "O mito do nulo",
+      "fala": "E aquela história de que, se mais da metade votar nulo, a eleição é anulada? É mito. O voto nulo simplesmente não entra na conta. A eleição só é refeita se a Justiça Eleitoral anular votos, por fraude, por exemplo.",
+      "batidas": {
+        "nulo,": "nulo",
+        "mito.": "mito",
+        "conta.": "conta",
+        "fraude,": "fraude"
+      }
+    },
+    {
+      "id": "segundo",
+      "tipo": "segundo",
+      "titulo": "O segundo turno",
+      "fala": "Quando ninguém passa da metade, os dois mais votados vão pra uma nova eleição. Com só dois na disputa, um deles vai ter mais da metade, na certa. Isso vale pra presidente, pra governador e pra prefeito de cidade com mais de duzentos mil eleitores. Nas cidades menores, ganha quem tiver mais votos, e pronto.",
+      "batidas": {
+        "dois": "dois",
+        "nova": "nova",
+        "certa.": "certa",
+        "presidente,": "presidente",
+        "governador": "governador",
+        "duzentos": "duzentos",
+        "menores,": "menores"
+      }
+    },
+    {
+      "id": "empate",
+      "tipo": "empate",
+      "titulo": "O desempate",
+      "fala": "Mas e se der empate exato? Não tem pênalti, nem cara ou coroa. A Constituição manda: ganha o candidato mais velho. E se um dos dois desistir antes do segundo turno, quem entra no lugar é o terceiro colocado.",
+      "batidas": {
+        "empate": "empate",
+        "pênalti,": "penalti",
+        "velho.": "velho",
+        "desistir": "desiste",
+        "terceiro": "terceiro"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: pra ganhar, precisa de mais da metade dos votos válidos. Branco e nulo não contam. Se ninguém chega lá, os dois primeiros disputam de novo. E, no empate, ganha o mais velho. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "metade": "passo1",
+        "contam.": "passo2",
+        "novo.": "passo3",
+        "velho.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}

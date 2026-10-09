@@ -56,6 +56,18 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
   Metadados não dão alcance (as redes recodificam o vídeo); o que dá alcance é a descrição
   digitada no post, as palavras faladas e o texto na tela.
 
+### Escolha do tema (pedido do dono: sempre)
+
+- Antes de cada vídeo novo, **pesquise os assuntos mais buscados no Brasil no momento**
+  (Google Trends "Em alta" BR, notícias da semana, via WebSearch) e escolha um que renda um
+  "assunto complicado explicado fácil" (ciência, clima, economia, regras, tecnologia...).
+- Confira em `aprendendo/videos/` se o tema **ainda não foi feito**.
+- Política: só explique **regras e funcionamento** (como funciona o segundo turno), de forma
+  neutra; nunca candidatos, partidos ou opinião. Tragédias: foco no mecanismo e na segurança.
+- Confira os fatos (lei, número, data) em fontes confiáveis antes de pôr no roteiro; número
+  que não se confirmou fica fora.
+- Ao entregar, diga ao dono qual tendência motivou o tema.
+
 ## Regras de conteúdo (decididas com o dono do canal)
 
 - **O público é ADULTO.** Só o *método* é simples: técnica de Feynman, "como se
