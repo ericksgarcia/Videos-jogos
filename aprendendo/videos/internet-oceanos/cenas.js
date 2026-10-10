@@ -12,10 +12,10 @@ function projI(lat0, lon0, R, cx, cy) { const ca = Math.cos(-lon0 * Math.PI / 18
 const TERRA_I = (() => { const o = []; for (let k = 0; k < GLOBO_TERRA.length; k += 2) o.push(vecI(GLOBO_TERRA[k] / 10, GLOBO_TERRA[k + 1] / 10)); for (let k = 0; k < GLOBO_BRASIL.length; k += 4) o.push(vecI(GLOBO_BRASIL[k] / 10, GLOBO_BRASIL[k + 1] / 10)); return o; })();
 // globo de pontos; devolve a projeção para desenhar cabos por cima
 function globoI(nv, x, cx, cy, R, lat0, lon0, a) {
-  const pj = projI(lat0, lon0, R, cx, cy); if (a <= 0.01) { nv.total(0); return pj; }
+  const pj = projI(lat0, lon0, R, cx, cy); if (a <= 0.01) return pj;
   brilhoP(x, cx, cy, R * 1.25, "60,140,255", 0.2 * a); anelP(x, cx, cy, R, CI, 0.35 * a, 3);
   const g = x.createRadialGradient(cx - R * 0.3, cy - R * 0.3, R * 0.1, cx, cy, R); g.addColorStop(0, `rgba(60,120,255,${0.22 * a})`); g.addColorStop(1, "rgba(20,40,120,0.02)"); x.fillStyle = g; x.beginPath(); x.arc(cx, cy, R, 0, 6.283); x.fill();
-  let i = 0; for (const v of TERRA_I) { const [px, py, z] = pj(v); if (z <= 0) continue; nv.ponto(i++, px, py, 0.55, 0.9, 0.62, a * (0.3 + 0.6 * z), Math.max(2.4, R / 140)); } nv.total(i); return pj;
+  let i = nv.k; for (const v of TERRA_I) { const [px, py, z] = pj(v); if (z <= 0) continue; nv.ponto(i++, px, py, 0.55, 0.9, 0.62, a * (0.3 + 0.6 * z), Math.max(2.4, R / 140)); } nv.total(i); return pj;
 }
 // cabo no globo (arco de círculo máximo entre dois pontos lat/lon); prog = quanto já foi desenhado
 function arcoI(x, pj, A, Bp, cor, a, prog = 1, lw = 4, altura = 0.0) {
@@ -74,10 +74,10 @@ CENAS.abertura = (el, c, B) => {
   const tH = B("hacker"), tTu = B("tubarao0"), tAn = B("ancora0"), tF = B("fundo"), tM = B("mangueira0"), tP = B("promessa");
   const p2 = tAn + 0.9, p3 = tM - 1.2, p4 = tP - 2.6;
   mostrarGancho(p2 - 0.2);
-  const T = telaGPU(el, c);
+  const T = telaI(el, c);
   const tx = palcoTexto(el, [["qua", 330, 66, "quase toda a internet", "pt-ci"], ["fun", 420, 46, "entre continentes: no fundo do mar", "pt-fino"], ["man", 330, 64, "da grossura de uma mangueira", "pt-am", "white-space:normal;left:60px;width:960px"], ["pra", 330, 66, "qual praia? no final", "pt-am"]]);
   MD.slam(tl, tx.qua, p2 + 0.2, { from: 1.3 }); MD.arrive(tl, tx.fun, tF - 0.6, { y: 14 }); MD.leave(tl, [tx.qua, tx.fun], p3 - 0.1); MD.slam(tl, tx.man, tM - 0.3, { from: 1.2 }); MD.leave(tl, tx.man, p4 - 0.1); MD.slam(tl, tx.pra, p4 + 0.2, { from: 1.3 });
-  const nv = T.nuvem(9000), est = estF(3), CX = 540, CY = 900, R = 380;
+  const nv = T.nuvem(90000), est = estF(3), CX = 540, CY = 900, R = 380;
   T.quadro((x, t) => {
     estD(x, est, t);
     // plano 1: fundo do mar; a âncora desce e corta o cabo
@@ -113,11 +113,11 @@ CENAS.abertura = (el, c, B) => {
 CENAS.cabo = (el, c, B) => {
   const tSa = B("satelite"), tN = B("noventa"), tCa = B("camadas"), tV = B("vidro"), tL = B("luz"), tBi = B("bilhoes"), tQ = B("quica");
   const pA2 = tN - 0.4, pB = tCa - 0.5, pC = tL - 0.5;
-  const T = telaGPU(el, c);
+  const T = telaI(el, c);
   const tx = palcoTexto(el, [["sat", 330, 80, "satélite?", "pt-am"], ["n99", 330, 66, "99% pelo fundo do mar", "pt-ci"], ["cam", 330, 66, "plástico, aço e cobre", "pt-ci"], ["vid", 330, 64, "fios de vidro finos como cabelo", "pt-am", "white-space:normal;left:60px;width:960px"], ["luz", 330, 70, "a mensagem vira luz", "pt-am"], ["qui", 330, 64, "a luz quica e não escapa", "pt-ci"]]);
   MD.slam(tl, tx.sat, tSa - 0.3, { from: 1.4 }); MD.leave(tl, tx.sat, pA2 - 0.1); MD.slam(tl, tx.n99, tN - 0.1, { from: 1.25 }); MD.leave(tl, tx.n99, pB - 0.1); MD.slam(tl, tx.cam, tCa - 0.1, { from: 1.25 }); MD.leave(tl, tx.cam, tV - 0.35);
   MD.slam(tl, tx.vid, tV - 0.1, { from: 1.2 }); MD.leave(tl, tx.vid, pC - 0.1); MD.slam(tl, tx.luz, tL - 0.1, { from: 1.3 }); MD.leave(tl, tx.luz, tQ - 0.35); MD.slam(tl, tx.qui, tQ - 0.1, { from: 1.25 });
-  const nv = T.nuvem(9000), est = estF(5), CX = 540, CY = 950, R = 360;
+  const nv = T.nuvem(90000), est = estF(5), CX = 540, CY = 950, R = 360;
   T.quadro((x, t) => {
     estD(x, est, t);
     // plano A1: satélite? (o caminho pelo espaço é riscado)
@@ -154,7 +154,7 @@ CENAS.cabo = (el, c, B) => {
 CENAS.viagem = (el, c, B) => {
   const tAd = B("adivinha"), tS = B("seismil"), tVo = B("voltar"), tSe = B("sessenta"), tE = B("enfraquece"), tSt = B("setenta"), tR = B("reforco");
   const pB = tSe - 0.4, pC = tE - 0.4;
-  const T = telaGPU(el, c);
+  const T = telaI(el, c);
   const tx = palcoTexto(el, [["adv", 330, 80, "adivinha", "pt-am"], ["km", 330, 72, "≈ 6.000 km", "pt-ci"], ["vol", 330, 64, "ida e volta: quanto tempo?", "pt-ci"], ["ms", 330, 66, "menos de 60 milésimos", "pt-am"], ["fra", 330, 70, "a luz enfraquece", "pt-ve"], ["amp", 330, 60, "um reforço a cada ~70 km", "pt-ve", "color:#78ffbe"]]);
   MD.slam(tl, tx.adv, tAd - 0.1, { from: 1.4 }); MD.leave(tl, tx.adv, tS - 0.4); MD.slam(tl, tx.km, tS - 0.1, { from: 1.3 }); MD.leave(tl, tx.km, tVo - 1.0); MD.slam(tl, tx.vol, tVo - 0.8, { from: 1.2 }); MD.leave(tl, tx.vol, pB - 0.1);
   MD.slam(tl, tx.ms, tSe - 0.1, { from: 1.3 }); MD.leave(tl, tx.ms, pC - 0.1); MD.slam(tl, tx.fra, tE - 0.1, { from: 1.3 }); MD.leave(tl, tx.fra, tSt - 0.35); MD.slam(tl, tx.amp, tSt - 0.1, { from: 1.2 });
@@ -188,7 +188,7 @@ CENAS.inimigo = (el, c, B) => {
   const tA = B("ancora"), tC = B("cento"), tP = B("pesca"), tVm = B("vermelho"), tT = B("tres"), tD = B("desvia"), tE = B("emenda");
   const tEsp = tempoPalavras(c)("especial") || tD + 1.2;
   const pB = tP - 0.6, pC = tVm - 0.7, pD = tD - 0.5;
-  const T = telaGPU(el, c);
+  const T = telaI(el, c);
   const tx = palcoTexto(el, [["anc", 330, 76, "a âncora", "pt-ve"], ["n150", 330, 64, "≈ 150 rompimentos por ano", "pt-am", "white-space:normal;left:60px;width:960px"], ["pes", 330, 64, "redes de pesca e âncoras", "pt-ve"], ["mv", 330, 66, "2024, Mar Vermelho", "pt-ci"], ["tre", 330, 76, "3 cabos de uma vez", "pt-ve"], ["des", 330, 66, "a internet desvia", "pt-ci"], ["eme", 330, 66, "e um navio emenda o cabo", "pt-ve", "color:#78ffbe"]]);
   MD.slam(tl, tx.anc, tA - 0.3, { from: 1.4 }); MD.leave(tl, tx.anc, tC - 0.4); MD.slam(tl, tx.n150, tC - 0.1, { from: 1.2 }); MD.leave(tl, tx.n150, pB - 0.1); MD.slam(tl, tx.pes, tP - 0.1, { from: 1.25 }); MD.leave(tl, tx.pes, pC - 0.1);
   MD.slam(tl, tx.mv, tVm - 0.3, { from: 1.25 }); MD.leave(tl, tx.mv, tT - 0.4); MD.slam(tl, tx.tre, tT - 0.1, { from: 1.4 }); MD.leave(tl, tx.tre, pD - 0.1); MD.slam(tl, tx.des, tD - 0.1, { from: 1.25 }); MD.leave(tl, tx.des, tEsp - 0.5); MD.slam(tl, tx.eme, tEsp - 0.2, { from: 1.25 });
@@ -225,8 +225,8 @@ CENAS.inimigo = (el, c, B) => {
 CENAS.pergunta = (el, c, B) => {
   const tC = B("comenta"), tCo = B("cortados"), tCh = B("chegaria"), tS = B("simnao");
   const pB = tCo - 1.0, pC = tCh - 0.1;
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "chuta nos comentários", "pt-ci"], ["cor", 330, 64, "todos os cabos cortados", "pt-ve"], ["che", 420, 46, "a mensagem pra sua cidade chega?", "pt-fino"], ["sim", 330, 86, "sim ou não?", "pt-am"]]);
+  const T = telaI(el, c);
+  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "chuta nos comentários", "pt-ci"], ["cor", 330, 64, "todos os cabos cortados", "pt-ve"], ["che", 420, 34, "a mensagem pra sua cidade chega?", "pt-fino"], ["sim", 330, 86, "sim ou não?", "pt-am"]]);
   MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, pB - 0.1); MD.slam(tl, tx.cor, pB + 0.1, { from: 1.25 }); MD.arrive(tl, tx.che, tCo + 0.6, { y: 14 }); MD.leave(tl, [tx.cor, tx.che], pC - 0.1); MD.slam(tl, tx.sim, pC + 0.1, { from: 1.45 });
   const est = estF(21);
   T.quadro((x, t) => {
@@ -244,11 +244,11 @@ CENAS.pergunta = (el, c, B) => {
 CENAS.praia = (el, c, B) => {
   const tF = B("futuro"), tD = B("dezesseis"), tM = B("mundo"), tS = B("seiscentos"), tMi = B("milhao"), tV = B("voltas");
   const pB = tS - 0.6, pC = tV - 0.7;
-  const T = telaGPU(el, c);
+  const T = telaI(el, c);
   const tx = palcoTexto(el, [["pro", 330, 66, "a praia prometida", "pt-am"], ["fut", 330, 62, "Praia do Futuro, Fortaleza", "pt-ci", "white-space:normal;left:60px;width:960px"], ["n16", 330, 72, "≈ 16 cabos", "pt-am"], ["n600", 330, 72, "≈ 600 cabos no mundo", "pt-ci"], ["km", 420, 50, "+ de 1 milhão de km", "pt-fino"], ["vol", 330, 72, "+ de 25 voltas na Terra", "pt-am"]]);
   MD.slam(tl, tx.pro, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.pro, tF - 0.9); MD.slam(tl, tx.fut, tF - 0.6, { from: 1.2 }); MD.leave(tl, tx.fut, tD - 0.4); MD.slam(tl, tx.n16, tD - 0.1, { from: 1.3 }); MD.leave(tl, tx.n16, pB - 0.1);
   MD.slam(tl, tx.n600, tS - 0.1, { from: 1.25 }); MD.arrive(tl, tx.km, tMi - 0.2, { y: 14 }); MD.leave(tl, [tx.n600, tx.km], pC - 0.1); MD.slam(tl, tx.vol, tV - 0.2, { from: 1.35 });
-  const nv = T.nuvem(9000), est = estF(9), r = prng(91);
+  const nv = T.nuvem(90000), est = estF(9), r = prng(91);
   const MUITOS = Array.from({ length: 40 }, () => [[(r() - 0.5) * 120, (r() - 0.5) * 300], [(r() - 0.5) * 120, (r() - 0.5) * 300]]);
   T.quadro((x, t) => {
     estD(x, est, t);
@@ -269,7 +269,7 @@ CENAS.praia = (el, c, B) => {
 // =============== 7. a dica ===============
 CENAS.dica = (el, c, B) => {
   const tS = B("servidor"), tA = B("atraso"), tR = B("resolve");
-  const T = telaGPU(el, c);
+  const T = telaI(el, c);
   const tx = palcoTexto(el, [["srv", 330, 66, "jogo? servidor no Brasil", "pt-am"], ["atr", 330, 66, "oceano no meio = atraso", "pt-ve"], ["res", 330, 60, "internet mais rápida não resolve", "pt-ci", "white-space:normal;left:60px;width:960px"]]);
   MD.slam(tl, tx.srv, tS - 0.1, { from: 1.25 }); MD.leave(tl, tx.srv, tA - 1.6); MD.slam(tl, tx.atr, tA - 1.3, { from: 1.25 }); MD.leave(tl, tx.atr, tR - 0.35); MD.slam(tl, tx.res, tR - 0.1, { from: 1.2 });
   const est = estF(13);
@@ -290,12 +290,12 @@ CENAS.dica = (el, c, B) => {
 // =============== 8. resumo + chamada ===============
 CENAS.resumo = (el, c, B) => {
   const tP = [B("passo1"), B("passo2"), B("passo3")], tC = B("cta");
-  const T = telaGPU(el, c);
+  const T = telaI(el, c);
   const Y = [560, 720, 880], textos = ["a mensagem vira luz", "a luz corre no vidro, no fundo do mar", "o perigo é a âncora"];
   const tx = palcoTexto(el, textos.map((s, k) => [`p${k}`, Y[k] - 32, 52, s, "", "left:230px;width:800px;text-align:left;white-space:normal"]));
   textos.forEach((_, k) => MD.arrive(tl, tx[`p${k}`], tP[k] - 0.15, { y: 18 }));
   MD.leave(tl, textos.map((_, k) => tx[`p${k}`]), tC + 1.0);
-  const nv = T.nuvem(9000), est = estF(17);
+  const nv = T.nuvem(90000), est = estF(17);
   T.quadro((x, t) => {
     estD(x, est, t);
     const sai = 1 - PT.ss((t - tC - 1.0) / 0.5), a0 = PT.ss((t - c.ini - 0.2) / 0.5) * sai;
@@ -305,3 +305,30 @@ CENAS.resumo = (el, c, B) => {
   });
   cartaoFinal(el, tC + 1.4);
 };
+
+// ---------- padrão novo (out/2026): os desenhos de contorno viram objetos em pontos de luz ----------
+// telaI = telaGPU com uma nuvem grande; durante o quadro, NVI/TI apontam para a nuvem e o tempo da cena,
+// e as funções de desenho abaixo (mesmos nomes de antes) desenham formas em pontos nela.
+let NVI = null, TI = 0;
+function telaI(el, c) {
+  const T = telaGPU(el, c), nv = T.nuvem(90000);
+  return { ...T, nuvem: () => nv, quadro: (fn) => T.quadro((x, t) => { NVI = nv; TI = t; fn(x, t); }) };
+}
+const corI = (s) => s.split(",").map((v) => Number(v) / 255);
+const TUBARAO_D = { desenho: (g, R) => { const q = (dx, dy) => [R * 0.5 + dx * R / 340, R * 0.5 + dy * R / 340]; g.beginPath(); g.moveTo(...q(-130, 0)); g.quadraticCurveTo(...q(-20, -45), ...q(110, -5)); g.lineTo(...q(150, -40)); g.lineTo(...q(140, 0)); g.lineTo(...q(150, 35)); g.lineTo(...q(110, 8)); g.quadraticCurveTo(...q(-20, 40), ...q(-130, 0)); g.closePath(); g.fill(); g.beginPath(); g.moveTo(...q(-10, -30)); g.lineTo(...q(10, -75)); g.lineTo(...q(35, -25)); g.closePath(); g.fill(); g.globalCompositeOperation = "destination-out"; g.beginPath(); g.arc(...q(-95, -8), R * 0.012, 0, 6.283); g.fill(); } };
+const SAT_I = { desenho: (g, R) => { g.fillRect(R * 0.4, R * 0.38, R * 0.2, R * 0.24); for (const x0 of [0.06, 0.64]) for (let k = 0; k < 3; k++) g.fillRect(R * (x0 + k * 0.105), R * 0.42, R * 0.09, R * 0.16); g.fillRect(R * 0.34, R * 0.48, R * 0.32, R * 0.04); } };
+const MANG_I = { desenho: (g, R) => { g.strokeStyle = "#fff"; g.lineWidth = R * 0.07; g.beginPath(); g.arc(R * 0.4, R * 0.4, R * 0.2, 0, 6.283); g.stroke(); g.beginPath(); g.moveTo(R * 0.6, R * 0.4); g.bezierCurveTo(R * 0.75, R * 0.5, R * 0.65, R * 0.8, R * 0.9, R * 0.88); g.stroke(); } };
+const FI = { barco: formaPontos("boat", 7000), tubarao: formaPontos(TUBARAO_D, 7000), ancora: formaPontos("anchor", 7000), servidor: formaPontos("hard-drives", 6000), casa: formaPontos("house", 5000), sat: formaPontos(SAT_I, 4000), xis: formaPontos("x-circle", 3000), hacker: formaPontos("detective", 7000), mangueira: formaPontos(MANG_I, 7000), cel: formaPontos("device-mobile", 7000), check: formaPontos("check-circle", 3000) };
+function navioI(x, cx, cy, s, a, cor = BRC) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.barco, { cx, cy: cy - 40 * s, esc: 330 * s, cor: corI(cor), a, t: TI }); }
+function tubaraoI(x, cx, cy, s, a, esp = 1) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.tubarao, { cx, cy, esc: 340 * s, sx: esp, cor: CORF.cinza, a, t: TI }); }
+function ancoraI(x, cx, cy, s, a) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.ancora, { cx, cy: cy - 15 * s, esc: 190 * s, rot: 0.15 * Math.sin(TI * 1.5), cor: CORF.branco, a, t: TI }); }
+function servidorI(x, cx, cy, s, cor, a, t) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.servidor, { cx, cy, esc: 230 * s, cor: corI(cor), a, t: TI }); }
+function casaI(x, cx, cy, s, a) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.casa, { cx, cy: cy - 30 * s, esc: 230 * s, cor: CORF.branco, a, t: TI }); }
+function satI(x, cx, cy, s, a) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.sat, { cx, cy, esc: 150 * s, cor: CORF.branco, a, t: TI }); }
+function xisI(x, cx, cy, r, a) { if (a <= 0.01 || !NVI) return; const e = Math.min(1, a * 1.5); desenharForma(NVI, FI.xis, { cx, cy, esc: 2.4 * r * (0.7 + 0.3 * e), cor: CORF.vermelho, a, t: TI }); }
+function hackerI(x, cx, cy, s, a) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.hacker, { cx, cy, esc: 260 * s, cor: CORF.lilas, a, t: TI }); }
+function mangueiraI(x, cx, cy, s, a) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.mangueira, { cx: cx + 40 * s, cy: cy + 40 * s, esc: 300 * s, cor: CORF.verde, a, t: TI }); }
+function checkI(x, cx, cy, r, a, cor = VD) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.check, { cx, cy, esc: 2.4 * r, cor: corI(cor), a, t: TI }); }
+function fCelular(x, cx, cy, h, cor, a, tela = 0.12) { if (a <= 0.01 || !NVI) return; desenharForma(NVI, FI.cel, { cx, cy, esc: h * 1.05, cor: corI(cor), a, t: TI }); }
+function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) { if (a <= 0.01 || !NVI) return; balaoPergunta(NVI, x, t, a, cx, cy, 600 * s); }
+function setaComent(x, a, t) { setaComentarios(x, a, t); }

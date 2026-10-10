@@ -5,7 +5,9 @@ Antes de começar cada um, confira em `aprendendo/videos/` se o tema já foi fei
 Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Em produção
-- A fila "Refazer do zero" abaixo (um de cada vez).
+- A fila "Refazer do zero" abaixo (um de cada vez). Desde out/2026 no padrão de qualidade novo (CLAUDE.md).
+- Voz, comida, fone, GPS, cartão, chave e internet: cenas prontas no padrão novo; faltam narração
+  (cota diária do TTS), render e entrega, um de cada vez.
 
 ## Refazer do zero (pedido do dono; um de cada vez)
 Roteiro e cenas novos, com as regras de retenção do começo ao fim do CLAUDE.md.
