@@ -13,130 +13,165 @@ function fone(x, cx, cy, s, a, ligado = 0) { if (a <= 0.01) return; x.beginPath(
 function aviao(x, cx, cy, s, a) { if (a <= 0.01) return; fRR(x, cx - 260 * s, cy - 40 * s, 520 * s, 80 * s, 40 * s); x.strokeStyle = `rgba(${BRC},${a})`; x.lineWidth = 5; x.stroke(); x.beginPath(); x.moveTo(cx - 40 * s, cy); x.lineTo(cx - 140 * s, cy + 170 * s); x.lineTo(cx + 20 * s, cy + 170 * s); x.lineTo(cx + 60 * s, cy); x.stroke(); x.beginPath(); x.moveTo(cx - 200 * s, cy - 30 * s); x.lineTo(cx - 260 * s, cy - 130 * s); x.lineTo(cx - 190 * s, cy - 130 * s); x.lineTo(cx - 150 * s, cy - 35 * s); x.stroke(); for (let k = 0; k < 8; k++) discoP(x, cx - 120 * s + k * 40 * s, cy - 10 * s, 7 * s, CI, 0.6 * a); }
 function espectroR(x, cx, cy, w, h, corte, a, rot) { if (a <= 0.01) return; const n = 14; for (let k = 0; k < n; k++) { const u = k / (n - 1), v = 0.55 + 0.3 * Math.sin(u * 5 + 1), g = u < 0.5; const bh = h * v * (g ? 1 - corte : 1 - 0.3 * corte); fCaixa(x, cx - w / 2 + (k + 0.5) * w / n, cy - bh / 2, w / n * 0.7, Math.max(4, bh), 4, g ? LA : CI, a, 2, 0.5); } rotuloP(x, rot, cx, cy + 40, 30, "255,255,255", 0.85 * a); rotuloP(x, "graves", cx - w / 2, cy + 80, 24, "255,190,140", 0.8 * a, "left"); rotuloP(x, "agudos", cx + w / 2, cy + 80, 24, "200,220,255", 0.8 * a, "right"); }
 
+const planoC = (t, a, b, e = 0.4, s = 0.4) => PT.jan(t, a, b, e, s);
+function setaComent(x, a, t) { if (a <= 0.01) return; const b = Math.sin(t * 6) * 16; fSeta(x, 700 + b, 1250, 900 + b, 1250, AM, a, 12); brilhoP(x, 1010, 1250, 90, AM, 0.35 * a * (0.7 + 0.3 * Math.sin(t * 6))); rotuloP(x, "comentários", 780, 1180, 38, "255,226,140", a); }
+function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) {
+  if (a <= 0.01) return; fCaixa(x, cx, cy, 520 * s, 330 * s, 60 * s, CI, a, 8 * s, 0.12);
+  x.beginPath(); x.moveTo(cx - 120 * s, cy + 160 * s); x.lineTo(cx - 190 * s, cy + 250 * s); x.lineTo(cx - 40 * s, cy + 160 * s); x.fillStyle = `rgba(${CI},${0.5 * a})`; x.fill();
+  brilhoP(x, cx, cy, 380 * s, CI, 0.18 * a); rotuloP(x, txt, cx, cy + 6 * s, 190 * s, "255,226,140", a * (0.85 + 0.15 * Math.sin(t * 4)));
+}
+// barulho + anti-barulho = silêncio (cancelamento k: 0..1)
+function cancelamento(x, t, a, k, y0 = 700) { if (a <= 0.01) return; const am = 70, ff = 16, fs = t * 7; ondaP(x, 120, 960, y0, am, ff, fs, VE, a, 7); rotuloP(x, "barulho", 120, y0 - 90, 34, "255,170,180", a, "left"); rotuloP(x, "+", 540, y0 + 105, 60, "255,255,255", a * k); ondaP(x, 120, 960, y0 + 210, am, ff, fs + Math.PI, CI, a * k, 7); rotuloP(x, "som ao contrário", 120, y0 + 310, 34, "180,235,255", a * k, "left"); const kz = PT.ss((k - 0.5) * 2); rotuloP(x, "=", 540, y0 + 380, 60, "255,255,255", a * kz); ondaP(x, 120, 960, y0 + 490, am * (1 - kz) * 0.9, ff, fs, VD, a * kz, 7); brilhoP(x, 540, y0 + 490, 300, VD, 0.25 * a * kz); rotuloP(x, "silêncio", 540, y0 + 580, 40, "150,255,200", a * kz); }
+function pessoaFala(x, cx, cy, s, a, t, cor = AM) { if (a <= 0.01) return; fPessoa(x, cx, cy, s, cor, a); for (let k = 0; k < 3; k++) { const u = ((t * 1.2 + k / 3) % 1); x.beginPath(); x.arc(cx + 40 * s, cy - 70 * s, (20 + u * 60) * s, -0.6, 0.6); x.strokeStyle = `rgba(${cor},${a * (1 - u)})`; x.lineWidth = 4; x.stroke(); } }
+// onda irregular (voz)
+function vozOnda(x, x0, x1, cy, amp, t, cor, a, lw = 5) { if (a <= 0.01) return; x.beginPath(); for (let q = 0; q <= 200; q++) { const u = q / 200, px = x0 + (x1 - x0) * u, e = 0.4 + 0.6 * Math.abs(Math.sin(u * 5 + t * 2)), py = cy + (Math.sin(u * 60 + t * 9) * 0.6 + Math.sin(u * 23 - t * 5) * 0.4) * amp * e; q ? x.lineTo(px, py) : x.moveTo(px, py); } x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = lw; x.stroke(); }
+
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tM = B("maissom"), tA = B("apaga"), tB = B("botao"), tS = B("some"), tP = B("promessa");
-  mostrarGancho(tA - 0.2);
+  const tA = B("apaga"), tS = B("silencio"), tM = B("maissom"), tB = B("botao"), tSo = B("some"), tP = B("promessa");
+  const p2 = tM + 0.6, p3 = tP - 2.4;
+  mostrarGancho(tS - 0.6);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["sum", 330, 76, "o barulho some", "pt-ci"], ["lad", 330, 62, "e a voz de quem está do lado?", "pt-am", "white-space:normal;left:60px;width:960px"]]);
-  MD.slam(tl, tx.sum, tS - 0.05, { from: 1.3 }); MD.leave(tl, tx.sum, tP - 2.0); MD.slam(tl, tx.lad, tP - 1.7, { from: 1.25 });
+  const tx = palcoTexto(el, [["mai", 330, 70, "silêncio = mais som", "pt-am"], ["sum", 330, 76, "o avião some", "pt-ci"], ["voz", 330, 62, "e a voz do lado? no final", "pt-ve", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.mai, tS - 0.3, { from: 1.3 }); MD.leave(tl, tx.mai, p2 + 0.4); MD.slam(tl, tx.sum, tSo - 0.05, { from: 1.35 }); MD.leave(tl, tx.sum, p3); MD.slam(tl, tx.voz, p3 + 0.2, { from: 1.25 });
   const est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
-    // quadro 0: barulho + anti-barulho = silêncio (o "plano do trailer")
-    const a0 = 1 - PT.ss((t - tB + 0.8) / 0.5);
-    if (a0 > 0.01) {
-      const am = 70, ff = 16, fs = t * 7, aI = PT.ss((t - 0.3) / 0.5), aZ = PT.ss((t - tM + 0.6) / 0.6);
-      ondaP(x, 120, 960, 700, am, ff, fs, VE, a0, 7); rotuloP(x, "barulho", 120, 610, 34, "255,170,180", a0, "left");
-      rotuloP(x, "+", 540, 805, 60, "220,228,245", a0 * aI);
-      ondaP(x, 120, 960, 910, am, ff, fs + Math.PI, CI, a0 * aI, 7); rotuloP(x, "som do fone (ao contrário)", 120, 1010, 34, "180,235,255", a0 * aI, "left");
-      rotuloP(x, "=", 540, 1080, 60, "220,228,245", a0 * aZ);
-      ondaP(x, 120, 960, 1190, am * (1 - aZ) * 0.9, ff, fs, VD, a0 * aZ, 7); brilhoP(x, 540, 1190, 300, VD, 0.25 * a0 * aZ); rotuloP(x, "silêncio", 540, 1280, 40, "150,255,200", a0 * aZ);
-    }
-    // o avião e o fone
-    const aS = PT.ss((t - tB + 0.6) / 0.5);
-    if (aS > 0.01) {
-      aviao(x, 540, 700, 0.9, 0.8 * aS);
-      const lig = PT.ss((t - tB) / 0.3), some = PT.ss((t - tS + 0.4) / 0.8);
-      for (let k = 0; k < 3; k++) ondaP(x, 80, 1000, 800 + k * 40, 26 * (1 - 0.85 * some), 18 + k * 4, t * (8 + k), VE, 0.6 * (1 - 0.6 * some) * aS, 4);
-      fone(x, 540, 1100, 1.1, aS, lig);
-      ondaP(x, 300, 780, 1130, 30, 14, t * 8 + Math.PI, CI, lig * (1 - PT.ss((t - tP + 1) / 0.6)), 5);
-      if (lig > 0) { discoP(x, 540 + 220 * 1.1 + 50, 1160, 10, VD, lig); rotuloP(x, "ANC", 540 + 220 * 1.1 + 50, 1210, 26, "150,255,200", lig); }
-    }
+    // plano 1 (quadro 0): barulho + som ao contrário = silêncio
+    const a1 = 1 - PT.ss((t - p2) / 0.4);
+    cancelamento(x, t, a1, PT.ss((t - 0.4) / Math.max(0.8, tA + 0.4)), 640);
+    // plano 2: o avião e o fone; aperta o botão e o barulho some
+    const a2 = planoC(t, p2, p3);
+    if (a2 > 0.01) { aviao(x, 540, 700, 0.9, 0.8 * a2); const lig = PT.ss((t - tB) / 0.3), some = PT.ss((t - tSo + 0.4) / 0.8); for (let k = 0; k < 3; k++) ondaP(x, 80, 1000, 800 + k * 40, 26 * (1 - 0.85 * some), 18 + k * 4, t * (8 + k), VE, 0.6 * (1 - 0.6 * some) * a2, 4); fone(x, 540, 1100, 1.1, a2, lig); ondaP(x, 300, 780, 1130, 30, 14, t * 8 + Math.PI, CI, lig * a2, 5); if (lig > 0) { discoP(x, 540 + 292, 1160, 10, VD, lig * a2); rotuloP(x, "ANC", 540 + 292, 1210, 26, "150,255,200", lig * a2); } }
+    // plano 3: alguém falando do lado — a voz passa (teaser)
+    const a3 = PT.ss((t - p3) / 0.5);
+    if (a3 > 0.01) { fone(x, 380, 1000, 0.8, a3, 1); pessoaFala(x, 800, 1100, 2.4, a3, t); vozOnda(x, 480, 720, 1000, 40, t, AM, a3, 4); rotuloP(x, "?", 540, 780, 130, AM, a3); }
   });
 };
 
 // =============== 2. o som é uma onda ===============
 CENAS.onda = (el, c, B) => {
-  const tE = B("empurrado"), tC = B("corda"), tD = B("desce"), tA = B("apertado"), tT = B("timpano");
+  const tE = B("empurrado"), tC = B("corda"), tD = B("desce"), tT = B("timpano"), tP = B("pensa"), tCo = B("contrario");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["som", 330, 76, "som = ar vibrando", "pt-ci"], ["cor", 330, 64, "uma corda balançando", "pt-am"]]);
-  MD.slam(tl, tx.som, tE - 0.05, { from: 1.25 }); MD.leave(tl, tx.som, tC - 0.3); MD.slam(tl, tx.cor, tC - 0.05, { from: 1.25 });
-  const nv = T.nuvem(6100), est = estF(5);
+  const tx = palcoTexto(el, [["ar", 330, 62, "som = ar empurrado e puxado", "pt-ci", "white-space:normal;left:60px;width:960px"], ["cor", 330, 70, "como uma corda", "pt-am"], ["tim", 330, 66, "o tímpano vibra", "pt-ci"], ["pen", 330, 76, "pensa rápido", "pt-am"], ["con", 330, 62, "e uma onda ao contrário?", "pt-ve"]]);
+  MD.slam(tl, tx.ar, tE - 0.2, { from: 1.2 }); MD.leave(tl, tx.ar, tC - 0.35); MD.slam(tl, tx.cor, tC - 0.05, { from: 1.3 }); MD.leave(tl, tx.cor, tT - 0.35); MD.slam(tl, tx.tim, tT - 0.05, { from: 1.25 }); MD.leave(tl, tx.tim, tP - 0.35); MD.slam(tl, tx.pen, tP - 0.05, { from: 1.4 }); MD.leave(tl, tx.pen, tCo - 1.5); MD.slam(tl, tx.con, tCo - 1.2, { from: 1.25 });
+  const nv = T.nuvem(4100), est = estF(5);
+  const pB = tC - 0.6, pC = tT - 0.6, pD = tP - 0.4;
   T.quadro((x, t) => {
     estD(x, est, t);
-    // ar: pontos que se apertam e se soltam (ondas de compressão)
-    let i = nv.k; const r = prng(7); for (let k = 0; k < 6000; k++) { const x0 = 80 + r() * 920, y0 = 580 + r() * 260, d = Math.sin(x0 * 0.03 - t * 5) * 18; nv.ponto(i++, x0 + d, y0, 0.6, 0.85, 1.0, 0.4 + 0.5 * Math.max(0, Math.cos(x0 * 0.03 - t * 5)), 3.4); } nv.total(i);
-    rotuloP(x, "ar", 80, 560, 30, "200,230,255", 0.8, "left");
-    // corda (onda) com cristas e vales
-    const aC = PT.ss((t - tC + 0.3) / 0.5); ondaP(x, 80, 1000, 1060, 110, 12, -t * 5, AM, aC, 7);
-    const aA = PT.ss((t - tA + 0.3) / 0.5); if (aA > 0) { rotuloP(x, "ar apertado", 260, 920, 30, "255,226,140", aA); rotuloP(x, "ar solto", 520, 1210, 30, "255,226,140", aA); }
-    // tímpano
-    const aT = PT.ss((t - tT + 0.4) / 0.5); if (aT > 0) { const v = Math.sin(t * 30) * 8; x.beginPath(); x.ellipse(1010 + v, 1060, 14, 90, 0, 0, 6.283); x.strokeStyle = `rgba(255,200,180,${aT})`; x.lineWidth = 6; x.stroke(); rotuloP(x, "tímpano", 990, 1190, 28, "255,210,190", aT, "right"); }
+    // plano A: o ar apertado e solto (pontos se juntando em faixas)
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
+    let i = nv.k; if (aA > 0.01) for (let k = 0; k < 4000; k++) { const r0 = (k * 0.6180339) % 1, r1 = (k * 0.7548776) % 1, bx = 100 + r0 * 880, desl = Math.sin(bx * 0.02 - t * 6) * 22, dens = 0.5 + 0.5 * Math.cos(bx * 0.02 - t * 6); nv.ponto(i++, bx + desl, 700 + r1 * 600, 0.56, 0.89, 1.0, aA * (0.25 + 0.55 * dens), 3.2); } nv.total(i);
+    if (aA > 0.01) { fCaixa(x, 70, 1000, 60, 260, 12, BRC, aA, 5, 0.15); linhaP(x, 70 + Math.sin(t * 6) * 18, 880, 70 + Math.sin(t * 6) * 18, 1120, AM, aA, 8); }
+    // plano B: a corda balançando
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { ondaP(x, 160, 960, 1000, 120 * Math.sin(t * 2.2) * 0.3 + 90, 10, -t * 6, AM, aB, 9); fCaixa(x, 130, 1000 + Math.sin(-t * 6) * 90, 60, 90, 20, "255,210,180", aB, 4, 0.2); rotuloP(x, "sobe", 900, 820, 36, "255,226,140", aB); rotuloP(x, "desce", 900, 1190, 36, "255,226,140", aB); }
+    // plano C: o tímpano vibrando
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) { ondaP(x, 80, 560, 1000, 50, 12, -t * 8, CI, aC, 6); const v = Math.sin(t * 25) * 18; x.beginPath(); x.ellipse(660 + v, 1000, 40, 200, 0, 0, 6.283); x.strokeStyle = `rgba(255,200,180,${aC})`; x.lineWidth = 8; x.stroke(); brilhoP(x, 660, 1000, 160, "255,200,180", 0.3 * aC); rotuloP(x, "tímpano", 760, 1260, 38, "255,200,180", aC); }
+    // plano D: duas ondas iguais, uma ao contrário, se aproximando
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) { const j = PT.ss((t - pD) / 3.5); ondaP(x, 120, 960, PT.lerp(820, 940, j), 70, 16, t * 7, VE, aD, 7); ondaP(x, 120, 960, PT.lerp(1180, 1060, j), 70, 16, t * 7 + Math.PI, CI, aD, 7); rotuloP(x, "?", 540, 1000, 120, AM, aD * PT.ss((t - tCo + 0.4) / 0.4)); }
   });
 };
 
 // =============== 3. a onda ao contrário ===============
 CENAS.anti = (el, c, B) => {
-  const tC = B("contrario"), tS = B("sobe"), tCa = B("cancela"), tSi = B("silencio"), tL = B("lueg"), tR = B("rapida");
+  const tD = B("desce2"), tC = B("cancela"), tS = B("silencio2"), tT = B("trinta"), tL = B("lenta");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["con", 330, 66, "onda + onda ao contrário", "pt-ci"], ["sil", 330, 100, "= silêncio", "pt-am"], ["lue", 330, 60, "Paul Lueg, anos 1930", "pt-ci"], ["len", 420, 50, "eletrônica lenta demais", "pt-fino"]]);
-  MD.arrive(tl, tx.con, tC - 0.1, { y: 14 }); MD.leave(tl, tx.con, tSi - 0.35); MD.slam(tl, tx.sil, tSi - 0.05, { from: 1.5 }); MD.leave(tl, tx.sil, tL - 0.4); MD.arrive(tl, tx.lue, tL - 0.1, { y: 14 }); MD.arrive(tl, tx.len, tR - 0.2, { y: 14 });
+  const tx = palcoTexto(el, [["can", 330, 76, "uma cancela a outra", "pt-ci"], ["sil", 330, 96, "silêncio", "pt-ve", "color:#78ffbe"], ["ano", 330, 62, "ideia dos anos 1930", "pt-am"], ["len", 330, 62, "mas a eletrônica era lenta", "pt-ve", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.can, tC - 0.1, { from: 1.3 }); MD.leave(tl, tx.can, tS - 0.35); MD.slam(tl, tx.sil, tS - 0.05, { from: 1.5 }); MD.leave(tl, tx.sil, tT - 1.7); MD.slam(tl, tx.ano, tT - 1.4, { from: 1.25 }); MD.leave(tl, tx.ano, tL - 0.6); MD.slam(tl, tx.len, tL - 0.3, { from: 1.2 });
   const est = estF(7);
+  const pB = tS + 0.6, pC = tL - 0.8;
   T.quadro((x, t) => {
     estD(x, est, t);
-    const f = -t * 4, aN = PT.ss((t - c.ini - 0.3) / 0.5), aI = PT.ss((t - tC + 0.3) / 0.5), junta = PT.inOut((t - tCa + 0.2) / 1.2);
-    // barulho (vermelho) e anti-onda (ciano), que descem e se juntam
-    const y1 = PT.lerp(720, 1000, junta), y2 = PT.lerp(1280, 1000, junta);
-    ondaP(x, 100, 980, y1, 90 * (1 - junta * 0.999), 14, f, VE, aN * (1 - junta), 6); ondaP(x, 100, 980, y2, 90 * (1 - junta * 0.999), 14, f + Math.PI, CI, aI * (1 - junta), 6);
-    if (aN > 0 && junta < 0.5) rotuloP(x, "barulho", 100, y1 - 120, 30, "255,160,170", aN * (1 - 2 * junta), "left"); if (aI > 0 && junta < 0.5) rotuloP(x, "anti-onda", 100, y2 + 120, 30, "180,235,255", aI * (1 - 2 * junta), "left");
-    // setas: quando uma sobe, a outra desce
-    const aS = PT.jan(t, tS - 0.3, tCa, 0.3, 0.4); if (aS > 0) { fSeta(x, 540, 760, 540, 640, VE, aS, 6); fSeta(x, 540, 1240, 540, 1360, CI, aS, 6); }
-    // a soma: linha quase reta
-    if (junta > 0) { ondaP(x, 100, 980, 1000, 4, 14, f, "255,255,255", junta, 5); brilhoP(x, 540, 1000, 300, "255,255,255", 0.15 * junta); }
-    // patente antiga
-    const aL = PT.ss((t - tL + 0.3) / 0.5); if (aL > 0) { fCaixa(x, 820, 1250, 260, 170, 10, "230,215,180", aL * (1 - junta * 0.3), 4, 0.08); rotuloP(x, "PATENTE", 820, 1220, 30, "240,225,190", aL); rotuloP(x, "1936", 820, 1270, 34, "240,225,190", aL); }
+    const aA = PT.ss((t - c.ini) / 0.3) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) { const j = PT.ss((t - tC + 0.6) / 1.0), am = 80 * (1 - j); ondaP(x, 120, 960, PT.lerp(880, 1000, j), am + 4, 16, t * 7, VE, aA * (1 - j * 0.6), 7); ondaP(x, 120, 960, PT.lerp(1120, 1000, j), am + 4, 16, t * 7 + Math.PI, CI, aA * (1 - j * 0.6), 7); const kz = PT.ss((t - tS + 0.3) / 0.4); linhaP(x, 120, 1000, 960, 1000, VD, aA * kz, 8); brilhoP(x, 540, 1000, 320, VD, 0.3 * aA * kz); }
+    // plano B: a patente antiga
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { fCaixa(x, 540, 1000, 560, 700, 16, "240,220,180", aB, 5, 0.06); rotuloP(x, "PATENTE", 540, 720, 46, "255,226,170", aB); ondaP(x, 340, 740, 900, 40, 12, 0, VE, aB * 0.8, 4); ondaP(x, 340, 740, 1000, 40, 12, Math.PI, CI, aB * 0.8, 4); linhaP(x, 340, 1100, 740, 1100, VD, aB * 0.8, 4); rotuloP(x, "anos 1930", 540, 1250, 44, "255,226,170", aB * PT.ss((t - tT + 0.5) / 0.4)); }
+    // plano C: com atraso, as ondas não se encaixam
+    const aC = PT.ss((t - pC) / 0.5);
+    if (aC > 0.01) { const atraso = 1.2; ondaP(x, 120, 960, 900, 70, 16, t * 7, VE, aC, 7); ondaP(x, 120, 960, 1060, 70, 16, t * 7 + Math.PI - atraso, CI, aC, 7); relogioP(x, 860, 720, 70, t * 0.6, aC); ondaP(x, 120, 960, 1240, 60, 16, t * 7 - atraso / 2, VE, aC * 0.8, 6); rotuloP(x, "ainda tem barulho", 540, 1330, 34, "255,170,180", aC); }
   });
 };
+function relogioP(x, cx, cy, r, ang, a) { if (a <= 0.01) return; anelP(x, cx, cy, r, AM, a, 6); linhaP(x, cx, cy, cx + Math.cos(ang - 1.57) * r * 0.75, cy + Math.sin(ang - 1.57) * r * 0.75, AM, a, 5); discoP(x, cx, cy, 6, AM, a); }
 
 // =============== 4. dentro do fone ===============
 CENAS.fone = (el, c, B) => {
-  const tM = B("microfones"), tC = B("chip"), tA = B("antionda"), tMi = B("milesimo"), tAt = B("atrasar"), tF = B("falha");
+  const tM = B("mics"), tC = B("chip"), tA = B("antionda"), tR = B("rapido");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["ms", 330, 76, "< 1 milésimo de segundo", "pt-am"], ["atr", 330, 72, "atrasou? falhou", "pt-ve"]]);
-  MD.slam(tl, tx.ms, tMi - 0.05, { from: 1.3 }); MD.leave(tl, tx.ms, tAt - 0.35); MD.slam(tl, tx.atr, tAt - 0.05, { from: 1.3 });
+  const tx = palcoTexto(el, [["mic", 330, 66, "microfones escutam fora", "pt-ci"], ["chi", 330, 66, "um chip calcula", "pt-am"], ["ant", 330, 66, "toca a anti-onda", "pt-ci"], ["rap", 330, 70, "< 1 milésimo de segundo", "pt-am"]]);
+  MD.slam(tl, tx.mic, tM - 0.1, { from: 1.25 }); MD.leave(tl, tx.mic, tC - 0.35); MD.slam(tl, tx.chi, tC - 0.05, { from: 1.3 }); MD.leave(tl, tx.chi, tA - 0.35); MD.slam(tl, tx.ant, tA - 0.05, { from: 1.25 }); MD.leave(tl, tx.ant, tR - 0.35); MD.slam(tl, tx.rap, tR - 0.05, { from: 1.3 });
   const est = estF(9);
+  const pB = tC - 0.5, pC = tA - 0.4, pD = tR - 0.6;
   T.quadro((x, t) => {
     estD(x, est, t);
-    // corte do fone: concha, microfone fora, chip, alto-falante dentro, ouvido
-    const aF = PT.ss((t - c.ini - 0.3) / 0.5);
-    fCaixa(x, 540, 900, 520, 520, 120, BRC, aF, 6, 0.04);
-    const aM = PT.ss((t - tM + 0.3) / 0.4); if (aM > 0) { [[300, 720], [300, 1080]].forEach(([px, py]) => { fCaixa(x, px, py, 50, 80, 25, CI, aM, 4, 0.3); }); rotuloP(x, "microfones", 300, 640, 28, "180,235,255", aM); }
-    const aC = PT.ss((t - tC + 0.3) / 0.4); if (aC > 0) { fCaixa(x, 520, 900, 140, 140, 14, AM, aC, 5, 0.15); for (let k = 0; k < 4; k++) { linhaP(x, 450 + k * 46, 820, 450 + k * 46, 800, AM, aC, 4); linhaP(x, 450 + k * 46, 980, 450 + k * 46, 1000, AM, aC, 4); } rotuloP(x, "CHIP", 520, 900, 32, "255,236,170", aC); }
-    const aA = PT.ss((t - tA + 0.3) / 0.4); if (aA > 0) { x.beginPath(); x.moveTo(720, 760); x.lineTo(760, 760); x.lineTo(820, 700); x.lineTo(820, 1100); x.lineTo(760, 1040); x.lineTo(720, 1040); x.closePath(); x.strokeStyle = `rgba(${VD},${aA})`; x.lineWidth = 5; x.stroke(); rotuloP(x, "alto-falante", 770, 1150, 28, "150,255,200", aA); }
-    // sinais: barulho entra → chip → anti-onda sai
-    ondaP(x, 60, 280, 900, 30, 10, -t * 9, VE, aF, 4);
-    if (aM > 0) ondaP(x, 330, 450, 900, 20, 6, -t * 9, VE, aM, 3);
-    const atraso = PT.ss((t - tAt) / 0.5) * (1 - PT.ss((t - tF - 0.8) / 0.6));
-    if (aA > 0) { ondaP(x, 590, 720, 900, 20, 6, -t * 9 + Math.PI, CI, aA, 3); ondaP(x, 830, 1040, 900, 30 * atraso + 2, 10, -t * 9 + Math.PI * (1 - atraso * 0.6), atraso > 0.3 ? VE : "255,255,255", aA, 4); rotuloP(x, atraso > 0.3 ? "não encaixa" : "silêncio", 935, 990, 28, atraso > 0.3 ? "255,160,170" : "255,255,255", aA); }
-    // cronômetro
-    const aMi = PT.ss((t - tMi + 0.3) / 0.4); if (aMi > 0) { anelP(x, 540, 1300, 70, AM, aMi, 6); const an = -Math.PI / 2 + (t - tMi) * 20; linhaP(x, 540, 1300, 540 + Math.cos(an) * 55, 1300 + Math.sin(an) * 55, AM, aMi, 5); }
+    // concha do fone em corte (sempre)
+    const aF = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pD) / 0.4));
+    if (aF > 0.01) { fCaixa(x, 620, 1000, 320, 520, 140, BRC, aF, 8, 0.05); x.beginPath(); x.ellipse(860, 1000, 60, 140, 0, 0, 6.283); x.strokeStyle = `rgba(255,200,180,${aF})`; x.lineWidth = 6; x.stroke(); rotuloP(x, "ouvido", 880, 1190, 30, "255,200,180", aF); }
+    // plano A: o barulho chega e os microfones escutam
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) { ondaP(x, 40, 460, 1000, 50, 10, t * 7, VE, aA, 6); for (const y of [820, 1180]) { discoP(x, 470, y, 16, AM, aA); brilhoP(x, 470, y, 60, AM, 0.6 * aA * (0.6 + 0.4 * Math.sin(t * 8))); } }
+    // plano B: o chip calcula
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { fCaixa(x, 620, 1000, 160, 160, 16, AM, aB, 5, 0.15); for (let k = 0; k < 4; k++) { linhaP(x, 540, 940 + k * 40, 500, 940 + k * 40, AM, aB, 3); linhaP(x, 700, 940 + k * 40, 740, 940 + k * 40, AM, aB, 3); } for (let k = 0; k < 6; k++) { const u = ((t * 2 + k / 6) % 1); rotuloP(x, k % 2 ? "1" : "0", 620 + Math.cos(k) * 60 * u, 1000 - u * 160, 30, "255,226,140", aB * (1 - u)); } ondaP(x, 40, 460, 1000, 50, 10, t * 7, VE, aB * 0.8, 5); }
+    // plano C: o alto-falante toca a anti-onda; dentro, silêncio
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) { ondaP(x, 40, 460, 1000, 50, 10, t * 7, VE, aC, 6); ondaP(x, 500, 800, 960, 40, 8, t * 7 + Math.PI, CI, aC, 6); linhaP(x, 500, 1060, 800, 1060, VD, aC, 6); brilhoP(x, 650, 1060, 160, VD, 0.3 * aC); rotuloP(x, "silêncio", 650, 1110, 30, "150,255,200", aC); }
+    // plano D: o cronômetro
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) { relogioP(x, 540, 1000, 240, (t - pD) * 30, aD); rotuloP(x, "0,001 s", 540, 1310, 60, "255,226,140", aD); }
   });
 };
 
-// =============== 5. por que a voz passa ===============
+// =============== 5. a pergunta para os comentários ===============
+CENAS.pergunta = (el, c, B) => {
+  const tC = B("comenta"), tS = B("som2"), tT = B("total"), tSN = B("simnao");
+  const T = telaGPU(el, c);
+  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["sal", 330, 62, "uma sala em silêncio total?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["sim", 330, 86, "sim ou não?", "pt-am"]]);
+  MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, tS - 0.4); MD.slam(tl, tx.sal, tS - 0.1, { from: 1.2 }); MD.leave(tl, tx.sal, tSN - 0.35); MD.slam(tl, tx.sim, tSN - 0.05, { from: 1.45 });
+  const est = estF(21);
+  const pB = tS - 0.5, pC = tSN - 0.4;
+  T.quadro((x, t) => {
+    estD(x, est, t);
+    balaoCom(x, 540, 960, 1.2, PT.ss((t - c.ini - 0.1) / 0.4) * (1 - PT.ss((t - pB) / 0.4)), "?", t);
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { fCaixa(x, 540, 1000, 820, 600, 20, BRC, aB, 6, 0.04); for (const [px, py] of [[160, 730], [920, 730], [160, 1270], [920, 1270]]) { fCaixa(x, px, py, 70, 90, 12, CI, aB, 4, 0.2); for (let k = 0; k < 3; k++) { const u = ((t * 0.8 + k / 3) % 1); anelP(x, px, py, 40 + u * 160, CI, aB * (1 - u) * 0.6, 3); } } fPessoa(x, 540, 1060, 2.4, AM, aB); rotuloP(x, "?", 540, 820, 110, AM, aB * PT.ss((t - tT + 0.4) / 0.4)); }
+    const aC = PT.ss((t - pC) / 0.4);
+    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); setaComent(x, aC, t); }
+  });
+};
+
+// =============== 6. por que a voz passa ===============
 CENAS.voz = (el, c, B) => {
-  const tG = B("graves"), tM = B("motor"), tP = B("prever"), tA = B("agudo"), tE = B("espuma"), tC = B("conversa");
+  const tL = B("lado"), tG = B("graves"), tP = B("prever"), tA = B("agudo"), tC = B("conversa");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["gr", 330, 66, "graves constantes: apaga", "pt-ci", "white-space:normal;left:60px;width:960px"], ["ag", 330, 66, "voz e agudos: passam", "pt-ve"], ["dic", 330, 56, "ótimo contra ar-condicionado e trânsito", "pt-am", "white-space:normal;left:60px;width:960px"]]);
-  MD.slam(tl, tx.gr, tG - 0.05, { from: 1.25 }); MD.leave(tl, tx.gr, tA - 0.35); MD.slam(tl, tx.ag, tA - 0.05, { from: 1.25 }); MD.leave(tl, tx.ag, tC - 2.0); MD.slam(tl, tx.dic, tC - 1.7, { from: 1.2 });
+  const tx = palcoTexto(el, [["lad", 330, 62, "e a voz do lado?", "pt-am"], ["gra", 330, 62, "grave e constante: fácil", "pt-ci"], ["pre", 330, 66, "dá pra prever", "pt-ci"], ["agu", 330, 62, "a voz muda o tempo todo", "pt-ve", "white-space:normal;left:60px;width:960px"], ["con", 330, 60, "melhor contra ar e trânsito", "pt-am", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.lad, tL - 0.2, { from: 1.3 }); MD.leave(tl, tx.lad, tG - 0.35); MD.slam(tl, tx.gra, tG - 0.05, { from: 1.25 }); MD.leave(tl, tx.gra, tP - 0.35); MD.slam(tl, tx.pre, tP - 0.05, { from: 1.25 }); MD.leave(tl, tx.pre, tA - 0.35); MD.slam(tl, tx.agu, tA - 0.05, { from: 1.2 }); MD.leave(tl, tx.agu, tC - 1.6); MD.slam(tl, tx.con, tC - 1.3, { from: 1.2 });
   const est = estF(11);
+  const pB = tG - 0.6, pC = tA - 0.6, pD = tC - 1.5;
   T.quadro((x, t) => {
     estD(x, est, t);
-    // motor: onda grave e regular; voz: onda irregular e aguda
-    const aG = PT.ss((t - tG + 0.3) / 0.5); ondaP(x, 100, 980, 640, 60, 8, -t * 4, LA, aG, 6); if (aG > 0) rotuloP(x, "ronco do motor (previsível)", 100, 560, 28, "255,200,160", aG, "left");
-    const aA = PT.ss((t - tA + 0.3) / 0.5); if (aA > 0) { x.beginPath(); for (let k = 0; k <= 240; k++) { const u = k / 240, y = 880 + Math.sin(u * 70 + t * 14) * 30 * (0.4 + 0.6 * Math.abs(Math.sin(u * 7 + t * 2))) + Math.sin(u * 150 + t * 30) * 10; k ? x.lineTo(100 + u * 880, y) : x.moveTo(100 + u * 880, y); } x.strokeStyle = `rgba(${CI},${aA})`; x.lineWidth = 4; x.stroke(); rotuloP(x, "voz (muda o tempo todo)", 100, 800, 28, "180,235,255", aA, "left"); }
-    // espectro com o cancelamento ligado
-    const aE = PT.ss((t - tP + 0.4) / 0.5); espectroR(x, 540, 1180, 700, 180, PT.ss((t - tP) / 1), aE, "com cancelamento ligado");
-    const aEs = PT.ss((t - tE + 0.3) / 0.5); if (aEs > 0) { brilhoP(x, 800, 1130, 180, CI, 0.3 * aEs); rotuloP(x, "a espuma ajuda aqui", 800, 1010, 28, "180,235,255", aEs); }
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) { fone(x, 360, 1000, 0.8, aA, 1); pessoaFala(x, 820, 1120, 2.6, aA, t); vozOnda(x, 460, 740, 1000, 45, t, AM, aA, 4); }
+    // plano B: o ronco do motor — grave, constante, a previsão (tracejada) encaixa
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { ondaP(x, 120, 960, 1000, 110, 6, t * 3, LA, aB, 9); x.setLineDash([14, 12]); ondaP(x, 120, 960, 1000, 110, 6, t * 3, BRC, aB * PT.ss((t - tP + 0.5) / 0.4), 4); x.setLineDash([]); rotuloP(x, "motor", 540, 820, 40, "255,190,140", aB); if (t > tP - 0.3) { anelP(x, 880, 760, 40, VD, aB, 6); linhaP(x, 860, 762, 876, 780, VD, aB, 7); linhaP(x, 876, 780, 904, 742, VD, aB, 7); } }
+    // plano C: a voz — rápida e aguda, a previsão não encaixa
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) { vozOnda(x, 120, 960, 1000, 110, t, AM, aC, 6); x.setLineDash([14, 12]); ondaP(x, 120, 960, 1000, 80, 30, t * 5, BRC, aC * 0.7, 4); x.setLineDash([]); rotuloP(x, "voz", 540, 820, 40, "255,226,140", aC); linhaP(x, 860, 740, 900, 780, VE, aC, 7); linhaP(x, 860, 780, 900, 740, VE, aC, 7); }
+    // plano D: funciona melhor contra ar-condicionado e trânsito
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) { fCaixa(x, 300, 900, 300, 120, 16, CI, aD, 5, 0.1); for (let k = 0; k < 5; k++) linhaP(x, 180 + k * 60, 930, 180 + k * 60, 950, CI, aD, 4); rotuloP(x, "ar-condicionado", 300, 1010, 30, "180,230,255", aD); fCaixa(x, 780, 900, 260, 90, 30, LA, aD, 5, 0.1); anelP(x, 720, 950, 26, LA, aD, 5); anelP(x, 840, 950, 26, LA, aD, 5); rotuloP(x, "trânsito", 780, 1010, 30, "255,190,140", aD); for (const px of [300, 780]) { anelP(x, px, 760, 36, VD, aD, 5); } pessoaFala(x, 540, 1300, 1.4, aD * 0.6, t); }
   });
 };
 
-// =============== 6. resumo + chamada ===============
+// =============== 7. resumo relâmpago + chamada ===============
 CENAS.resumo = (el, c, B) => {
-  const tP = [B("passo1"), B("passo2"), B("passo3"), B("passo4")], tC = B("cta");
+  const tP = [B("passo1"), B("passo2"), B("passo3")], tC = B("cta");
   const T = telaGPU(el, c);
-  const Y = [480, 640, 800, 960], textos = ["som é uma onda", "onda ao contrário cancela", "o fone calcula em tempo real", "vence os graves, não a voz"];
+  const Y = [560, 720, 880], textos = ["som é uma onda", "ao contrário, uma cancela a outra", "o fone calcula em tempo real"];
   const tx = palcoTexto(el, textos.map((s, k) => [`p${k}`, Y[k] - 32, 52, s, "", "left:230px;width:800px;text-align:left;white-space:normal"]));
   textos.forEach((_, k) => MD.arrive(tl, tx[`p${k}`], tP[k] - 0.15, { y: 18 }));
   MD.leave(tl, textos.map((_, k) => tx[`p${k}`]), tC + 1.0);
@@ -144,8 +179,8 @@ CENAS.resumo = (el, c, B) => {
   T.quadro((x, t) => {
     estD(x, est, t);
     const sai = 1 - PT.ss((t - tC - 1.0) / 0.5);
-    fone(x, 540, 1230, 0.6, 0.7 * sai, 1);
-    tP.forEach((tp, k) => { const a = PT.ss((t - tp + 0.2) / 0.4) * sai; if (a > 0) { discoP(x, 160, Y[k], 14, [VE, CI, AM, LA][k], a); brilhoP(x, 160, Y[k], 50, "220,230,255", 0.4 * a); } });
+    fone(x, 540, 1260, 0.7, 0.7 * sai * PT.ss((t - c.ini) / 0.5), 1);
+    tP.forEach((tp, k) => { const a = PT.ss((t - tp + 0.2) / 0.4) * sai; if (a > 0) { discoP(x, 160, Y[k], 14, [VE, CI, VD][k], a); brilhoP(x, 160, Y[k], 50, "220,230,255", 0.4 * a); } });
   });
   cartaoFinal(el, tC + 1.4);
 };
