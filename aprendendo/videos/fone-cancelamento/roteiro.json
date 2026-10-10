@@ -1,7 +1,7 @@
 {
  "slug": "como-o-fone-com-cancelamento-de-ruido-apaga-o-som",
  "titulo": "Como o fone com cancelamento de ruído apaga o som",
- "descricao": "Pra criar silêncio, o seu fone toca MAIS som 🎧\nComo funciona o cancelamento de ruído: microfones, um chip e uma onda ao contrário que apaga o barulho.\nA ideia é dos anos 30, mas só deu certo quando a eletrônica ficou rápida.\nNo final: por que ele apaga o avião mas não apaga a voz de quem está do seu lado.\nManda pra quem vive de fone e salva pra entender o seu.\nVocê usa cancelamento de ruído? Pra quê? Comenta aí 👇",
+ "descricao": "Dá pra apagar um som tocando outro som 🎧\nComo funciona o cancelamento de ruído: microfones, um chip e uma onda ao contrário que apaga o barulho.\nA ideia é dos anos 30, mas só deu certo quando a eletrônica ficou rápida.\nNo final: por que ele apaga o avião mas não apaga a voz de quem está do seu lado.\nManda pra quem vive de fone e salva pra entender o seu.\nSe dá pra apagar som com som, dava pra deixar uma sala inteira em silêncio total? Sim ou não? 👇",
  "hashtags": [
   "#tecnologia",
   "#fone",
@@ -10,10 +10,22 @@
   "#curiosidades",
   "#aprendendofacil"
  ],
- "gancho": "SILÊNCIO FEITO DE SOM",
+ "gancho": "APAGAR SOM COM SOM",
  "gancho_destaque": "SOM",
  "voz": "Achird",
  "sons": {
+  "apaga": [
+   "thud",
+   0.6
+  ],
+  "silencio": [
+   "whoosh_curto",
+   0.45
+  ],
+  "maissom": [
+   "brilho",
+   0.5
+  ],
   "botao": [
    "clique",
    0.6
@@ -22,43 +34,35 @@
    "whoosh",
    0.5
   ],
-  "apaga": [
-   "plim",
-   0.5
-  ],
-  "maissom": [
-   "thud",
-   0.65
-  ],
   "promessa": [
    "plim",
    0.55
   ],
   "empurrado": [
-   "whoosh_curto",
+   "pop",
    0.45
   ],
   "corda": [
-   "pop",
+   "whoosh_curto",
    0.45
   ],
   "desce": [
    "pop",
-   0.4
+   0.45
   ],
-  "apertado": [
+  "timpano": [
    "clique",
    0.5
   ],
-  "timpano": [
-   "thud",
+  "pensa": [
+   "plim",
    0.55
   ],
   "contrario": [
-   "whoosh",
+   "pop",
    0.5
   ],
-  "sobe": [
+  "desce2": [
    "pop",
    0.45
   ],
@@ -66,65 +70,69 @@
    "thud",
    0.6
   ],
-  "silencio": [
+  "silencio2": [
    "brilho",
-   0.55
-  ],
-  "lueg": [
-   "plim",
-   0.5
-  ],
-  "rapida": [
-   "zap",
-   0.5
-  ],
-  "microfones": [
-   "clique",
-   0.55
-  ],
-  "chip": [
-   "zap",
-   0.5
-  ],
-  "antionda": [
-   "whoosh",
-   0.5
-  ],
-  "milesimo": [
-   "clique",
    0.6
   ],
-  "atrasar": [
+  "trinta": [
+   "clique",
+   0.5
+  ],
+  "lenta": [
    "thud",
    0.55
   ],
-  "falha": [
+  "mics": [
+   "pop",
+   0.45
+  ],
+  "chip": [
+   "clique",
+   0.6
+  ],
+  "antionda": [
    "zap",
+   0.5
+  ],
+  "rapido": [
+   "whoosh_curto",
+   0.5
+  ],
+  "comenta": [
+   "plim",
+   0.6
+  ],
+  "som2": [
+   "pop",
+   0.45
+  ],
+  "total": [
+   "brilho",
+   0.5
+  ],
+  "simnao": [
+   "pop",
+   0.5
+  ],
+  "lado": [
+   "pop",
    0.5
   ],
   "graves": [
    "thud",
-   0.6
-  ],
-  "motor": [
-   "whoosh",
-   0.45
+   0.5
   ],
   "prever": [
    "plim",
    0.5
   ],
   "agudo": [
-   "plim",
-   0.45
-  ],
-  "espuma": [
-   "pop",
+   "zap",
    0.45
   ],
   "conversa": [
-   "plim",
-   0.55
+   "pop",
+   0.5
   ],
   "passo1": [
    "pop",
@@ -138,10 +146,6 @@
    "pop",
    0.4
   ],
-  "passo4": [
-   "pop",
-   0.4
-  ],
   "cta": [
    "plim",
    0.6
@@ -151,11 +155,12 @@
   {
    "id": "gancho",
    "tipo": "abertura",
-   "titulo": "O silêncio",
-   "fala": "Pra criar silêncio, o seu fone toca mais som. Parece loucura, mas é assim que ele apaga o ronco de um avião. Você aperta um botão, e o barulho some. E não é só a espuma tampando o ouvido. No final eu te conto por que ele não consegue apagar a voz de quem fala do seu lado.",
+   "titulo": "Som que apaga som",
+   "fala": "Dá pra apagar um som tocando outro som. É exatamente isso que o seu fone faz: pra criar silêncio, ele toca mais som. Você aperta um botão, e o ronco do avião some. E no final eu te conto por que ele não consegue apagar a voz de quem fala do seu lado.",
    "batidas": {
-    "som.": "maissom",
-    "avião.": "apaga",
+    "som.": "apaga",
+    "silêncio,": "silencio",
+    "mais": "maissom",
     "botão,": "botao",
     "some.": "some",
     "lado.": "promessa"
@@ -165,54 +170,63 @@
    "id": "onda",
    "tipo": "onda",
    "titulo": "O som é uma onda",
-   "fala": "Primeiro: som é ar sendo empurrado e puxado muito rápido. Pensa numa corda balançando: sobe, desce, sobe, desce. A parte de cima é o ar apertado, a de baixo é o ar mais solto. É isso que chega no seu ouvido e faz o tímpano vibrar.",
+   "fala": "Primeiro: som é ar sendo empurrado e puxado muito rápido. Pensa numa corda balançando: sobe, desce, sobe, desce. É isso que chega no seu ouvido e faz o tímpano vibrar. Agora, pensa rápido: o que acontece se você juntar duas ondas iguais, só que uma ao contrário?",
    "batidas": {
     "empurrado": "empurrado",
     "corda": "corda",
     "desce.": "desce",
-    "apertado,": "apertado",
-    "tímpano": "timpano"
+    "tímpano": "timpano",
+    "rápido:": "pensa",
+    "contrário?": "contrario"
    }
   },
   {
    "id": "anti",
    "tipo": "anti",
    "titulo": "A onda ao contrário",
-   "fala": "Agora imagina juntar duas ondas iguais, mas uma ao contrário da outra: quando uma sobe, a outra desce. Uma cancela a outra, e sobra quase nada. Silêncio. Essa ideia foi patenteada por um físico alemão, Paul Lueg, nos anos trinta. Mas a eletrônica da época não era rápida o bastante.",
+   "fala": "Quando uma sobe, a outra desce. Uma cancela a outra, e sobra quase nada. Silêncio. Essa ideia foi patenteada por um físico alemão nos anos trinta. Mas tinha um problema: a eletrônica da época era lenta demais.",
    "batidas": {
-    "contrário": "contrario",
-    "sobe,": "sobe",
+    "desce.": "desce2",
     "cancela": "cancela",
-    "Silêncio.": "silencio",
-    "Lueg,": "lueg",
-    "rápida": "rapida"
+    "Silêncio.": "silencio2",
+    "trinta.": "trinta",
+    "lenta": "lenta"
    }
   },
   {
    "id": "fone",
    "tipo": "fone",
    "titulo": "Dentro do fone",
-   "fala": "No fone, microfones minúsculos escutam o barulho de fora o tempo todo. Um chip calcula a onda ao contrário, e o alto-falante toca essa anti-onda junto com a sua música. Tudo isso em menos de um milésimo de segundo, sem parar. Se atrasar um pouquinho, as ondas não se encaixam, e o cancelamento falha.",
+   "fala": "No seu fone, microfones minúsculos escutam o barulho de fora o tempo todo. Um chip calcula a onda ao contrário, e o alto-falante toca essa anti-onda junto com a sua música. Tudo isso em menos de um milésimo de segundo, sem parar.",
    "batidas": {
-    "microfones": "microfones",
+    "microfones": "mics",
     "chip": "chip",
     "anti-onda": "antionda",
-    "milésimo": "milesimo",
-    "atrasar": "atrasar",
-    "falha.": "falha"
+    "segundo,": "rapido"
+   }
+  },
+  {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Responde nos comentários",
+   "fala": "Pergunta difícil, responde nos comentários: se dá pra apagar som com som, dava pra deixar uma sala inteira em silêncio total? Sim ou não?",
+   "batidas": {
+    "comentários:": "comenta",
+    "som,": "som2",
+    "total?": "total",
+    "não?": "simnao"
    }
   },
   {
    "id": "voz",
    "tipo": "voz",
    "titulo": "Por que a voz passa",
-   "fala": "E por que ele não apaga a voz do lado? O fone vai muito bem com sons graves e constantes, como o ronco do motor, que dá pra prever. Já a voz muda o tempo todo e tem muito som agudo, que o chip não acompanha tão bem. Quem segura os agudos é a espuma. Por isso, pra estudar ou dormir, ele funciona melhor contra ar-condicionado e trânsito do que contra conversa.",
+   "fala": "E por que ele não apaga a voz do lado? O fone vai muito bem com sons graves e constantes, como o ronco do motor, que dá pra prever. Já a voz muda o tempo todo e tem muito som agudo, que o chip não acompanha tão bem. Por isso ele funciona melhor contra ar-condicionado e trânsito do que contra conversa.",
    "batidas": {
-    "graves": "graves",
-    "motor,": "motor",
+    "lado?": "lado",
+    "constantes,": "graves",
     "prever.": "prever",
     "agudo,": "agudo",
-    "espuma.": "espuma",
     "conversa.": "conversa"
    }
   },
@@ -220,12 +234,11 @@
    "id": "resumo",
    "tipo": "resumo",
    "titulo": "Resumindo",
-   "fala": "Resumindo: som é uma onda, uma onda ao contrário cancela a outra, o fone calcula essa anti-onda em tempo real, e ele vence os graves, mas não a voz. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "fala": "Resumindo: som é uma onda, uma onda ao contrário cancela a outra, e o fone calcula essa anti-onda em tempo real. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
    "batidas": {
     "onda,": "passo1",
     "outra,": "passo2",
-    "real,": "passo3",
-    "voz.": "passo4",
+    "real.": "passo3",
     "Segue": "cta"
    }
   }
