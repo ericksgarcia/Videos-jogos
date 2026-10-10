@@ -196,6 +196,34 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Textos dentro da arte: `rotulo()` (pílula colorida) e `callout()` (anotação com
   linha de chamada). Poucos e curtos.
 
+### Padrão de qualidade (pedido do dono, out/2026: vale para todo vídeo a partir de agora)
+
+1. **Objetos em pontos de luz com volume** (`motor/formas.js`): nada de ícone de contorno desenhado à
+   mão. `formaPontos("car")` usa os ícones Phosphor (`motor/icones.js`, MIT, ~1400 nomes em
+   phosphoricons.com), `formaTexto("47")` faz números/palavras em pontos e `formaPontos({ desenho })`
+   aceita um desenho próprio (ex.: a chave de controle remoto do vídeo da chave). Desenhe com
+   `desenharForma(nv, F, { cx, cy, esc, cor: CORF.amarelo, t, giro, rot, revela })` numa nuvem da
+   `telaGPU`. Objeto pequeno/repetido: menos pontos (`formaPontos("car", 1400)`); principal: 9–14 mil.
+2. **Pontos que se transformam** em vez de um plano sumir e outro aparecer: `morfo(nv, A, B, u, { de, para })`
+   (u de 0 a 1 em ~0,8–1,2 s). Ex.: carro de frente → carro de lado; cadeado fechado → aberto; objeto → "?".
+3. **Câmera com profundidade** (`motor/fisica.js`): `cameraProf([[t, {x, y, zoom, foco}], ...])`, coisas com
+   distância `z` (1 = plano principal, >1 longe, <1 perto). O que está fora do `foco` vira bokeh. Use
+   aproximação na revelação e troca de foco ("rack focus"). Fundo: `fundoProfundo(seed)` + `desenharFundo`.
+4. **Textos nítidos**: `rotuloP` na `telaGPU` vai para uma camada sem bloom (automático). Caixa com texto
+   dentro: fundo bem fraco (`fCaixa(..., 0.04)`).
+5. **Animação com física** (`FIS` em `motor/fisica.js`): `chegar` (mola: passa ~7% e assenta), `antes`
+   (antecipação), `impacto` (achatar/esticar), `balanco`, `cascata`, `arco`, `tremor`, `flutua`. Nada entra
+   ou para "em bloco" e nada anda em linha reta. Dose de adulto (nada de elástico de desenho infantil).
+6. **Capa**: o `gerar.py` grava `output/<tema>/capa.jpg` (quadro da abertura sem legenda + gancho em letras
+   grandes). Envie junto com o vídeo. Opcional no roteiro: `"capa": {"t": 3.2, "texto": "...", "destaque": "..."}`.
+   `gerar.py <pasta> --capa` refaz só a capa.
+7. **Final que emenda no começo**: automático no `codificar()` (`LOOP_FINAL`): os últimos 0,5 s se fundem
+   com o quadro 0, e quando a rede repete o vídeo a volta é contínua.
+
+- Exemplo completo: abertura de `videos/chave-carro/cenas.js` (estacionamento em profundidade, chave em
+  primeiro plano, foco que muda para o carro que pisca, carro que vira de lado, cadeado que abre, "?").
+- Muitos pontos por quadro (100 mil+) é normal na GPU; use `T.nuvem(110000)` quando a cena tiver muitas formas.
+
 ### Identidade (em `aprendendo/identidade/`, não mude sem pedido)
 
 - Marca no topo esquerdo: selo amarelo com lâmpada + "APRENDENDO **FÁCIL**".

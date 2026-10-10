@@ -21,8 +21,10 @@ const PG_BLUR_FS = `uniform sampler2D uTex; uniform vec2 uDir; varying vec2 vUv;
     s += texture2D(uTex, vUv + uDir * 1.3846).rgb * 0.3162162; s += texture2D(uTex, vUv - uDir * 1.3846).rgb * 0.3162162;
     s += texture2D(uTex, vUv + uDir * 3.2307).rgb * 0.0702702; s += texture2D(uTex, vUv - uDir * 3.2307).rgb * 0.0702702;
     gl_FragColor = vec4(s, 1.0); }`;
-const PG_COMPOE_FS = `uniform sampler2D uCena, uB1, uB2; uniform vec3 uFundo; uniform float uK1, uK2; varying vec2 vUv;
-  void main() { gl_FragColor = vec4(uFundo + texture2D(uCena, vUv).rgb + texture2D(uB1, vUv).rgb * uK1 + texture2D(uB2, vUv).rgb * uK2, 1.0); }`;
+// a camada de texto (uTexto) entra depois do bloom: rótulos sempre nítidos
+const PG_COMPOE_FS = `uniform sampler2D uCena, uB1, uB2, uTexto; uniform vec3 uFundo; uniform float uK1, uK2; varying vec2 vUv;
+  void main() { vec3 c = uFundo + texture2D(uCena, vUv).rgb + texture2D(uB1, vUv).rgb * uK1 + texture2D(uB2, vUv).rgb * uK2; vec4 tx = texture2D(uTexto, vUv);
+    gl_FragColor = vec4(c * (1.0 - tx.a) + tx.rgb, 1.0); }`;
 
 function telaGPU(el, c, o = {}) {
   const fundo = o.fundo || [0.024, 0.043, 0.133];
@@ -35,6 +37,12 @@ function telaGPU(el, c, o = {}) {
   const x = c2.getContext("2d");
   const tex2 = new THREE.CanvasTexture(c2);
   tex2.premultiplyAlpha = true; tex2.generateMipmaps = false; tex2.minFilter = THREE.LinearFilter; tex2.magFilter = THREE.LinearFilter;
+  // camada de texto: não passa pelo bloom (rotuloP desenha aqui quando x._texto existe)
+  const c3 = document.createElement("canvas"); c3.width = W; c3.height = H;
+  const x3 = c3.getContext("2d"); x._texto = x3; x3._usado = false;
+  const tex3 = new THREE.CanvasTexture(c3);
+  tex3.premultiplyAlpha = true; tex3.generateMipmaps = false; tex3.minFilter = THREE.LinearFilter; tex3.magFilter = THREE.LinearFilter;
+  let tex3Sujo = false;
   const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   const cena = new THREE.Scene();
   const fundo2D = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ vertexShader: PG_TELA_VS, fragmentShader: PG_TEX_FS, uniforms: { uTex: { value: tex2 } }, depthTest: false, depthWrite: false, transparent: true, blending: THREE.AdditiveBlending }));
@@ -48,7 +56,7 @@ function telaGPU(el, c, o = {}) {
   const sh = (fs, u) => new THREE.ShaderMaterial({ vertexShader: PG_TELA_VS, fragmentShader: fs, uniforms: u, depthTest: false });
   const mBr = sh(PG_BRILHO_FS, { uTex: { value: rCena.texture }, uLim: { value: o.limiar ?? 0.35 } });
   const mBl = sh(PG_BLUR_FS, { uTex: { value: null }, uDir: { value: new THREE.Vector2() } });
-  const mCo = sh(PG_COMPOE_FS, { uCena: { value: rCena.texture }, uB1: { value: a1.texture }, uB2: { value: a2.texture }, uFundo: { value: new THREE.Vector3(...fundo) }, uK1: { value: o.bloom1 ?? 1.1 }, uK2: { value: o.bloom2 ?? 1.6 } });
+  const mCo = sh(PG_COMPOE_FS, { uCena: { value: rCena.texture }, uB1: { value: a1.texture }, uB2: { value: a2.texture }, uTexto: { value: tex3 }, uFundo: { value: new THREE.Vector3(...fundo) }, uK1: { value: o.bloom1 ?? 1.1 }, uK2: { value: o.bloom2 ?? 1.6 } });
   const passe = (m, alvo) => { quad.material = m; ren.setRenderTarget(alvo); ren.render(cenaQ, cam); };
   const borra = (a, b, w, h) => { for (let i = 0; i < 2; i++) { mBl.uniforms.uTex.value = a.texture; mBl.uniforms.uDir.value.set(1 / w, 0); passe(mBl, b); mBl.uniforms.uTex.value = b.texture; mBl.uniforms.uDir.value.set(0, 1 / h); passe(mBl, a); } };
   return {
@@ -77,8 +85,12 @@ function telaGPU(el, c, o = {}) {
         x.globalCompositeOperation = "source-over"; x.clearRect(0, 0, W, H);
         x.globalCompositeOperation = "lighter";
         nuvens.forEach((nv) => { nv.k = 0; });
+        if (tex3Sujo) { x3.setTransform(1, 0, 0, 1, 0, 0); x3.clearRect(0, 0, W, H); }
+        x3._usado = false;
         fn(x, t);
         tex2.needsUpdate = true;
+        if (x3._usado || tex3Sujo) tex3.needsUpdate = true;
+        tex3Sujo = x3._usado;
         nuvens.forEach((nv) => nv._envia());
         ren.setRenderTarget(rCena); ren.setClearColor(0x000000, 1); ren.clear(); ren.render(cena, cam);
         passe(mBr, a1); borra(a1, b1, W / 4, H / 4);

@@ -42,6 +42,10 @@ DIRECAO = MARCA["voz"]["direcao"]  # narrador adulto de divulgação científica
 INICIO_VOZ = 0.55     # a voz entra um pouco depois da cena abrir
 FOLGA_FIM = 0.55      # respiro depois da fala antes da próxima cena
 
+# final que emenda no começo: nos últimos LOOP_FINAL s o vídeo se funde com o quadro 0, então quando
+# a rede repete o vídeo a volta é contínua (conta como replay). Pedido do dono, out/2026.
+LOOP_FINAL = 0.5
+
 # som padrão de uma batida sem som definido no roteiro ("sons": {"evento": ["efeito", ganho]})
 SOM_PADRAO = ("pop", 0.4)
 
@@ -160,7 +164,7 @@ def montar(roteiro, ag, pasta, pasta_video):
     (pasta / "assets" / "lottie_dados.js").write_text("window.LOTTIE = " + json.dumps(lot, separators=(",", ":")) + ";\n")
     for arq in (IDENTIDADE / "fontes").glob("*.woff2"):
         shutil.copy(arq, pasta / "assets" / arq.name)
-    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "lottie.js", AQUI / "motion-director.js", AQUI / "pontos.js", AQUI / "pontos-gpu.js", AQUI / "montagem.js"):
+    for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "lottie.js", AQUI / "motion-director.js", AQUI / "pontos.js", AQUI / "pontos-gpu.js", AQUI / "icones.js", AQUI / "formas.js", AQUI / "fisica.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
     # bibliotecas só deste vídeo (videos/<tema>/libs/*.js, ex.: p5.brush), carregadas antes do cenas.js
@@ -229,6 +233,64 @@ def verificar(pasta, passo=0.25):
     if erros:
         raise SystemExit("erros de JavaScript no vídeo:\n  " + "\n  ".join(erros))
     print("   [verificar] timeline sem erros")
+
+
+CAPA_JS = """
+import { chromium } from "__MOD__";
+const [pagina, saida, dados] = process.argv.slice(2), D = JSON.parse(dados);
+const nav = await chromium.launch(__OPCOES__), pg = await nav.newPage({ viewport: { width: 1080, height: 1920 } });
+await pg.goto(pagina); await new Promise((r) => setTimeout(r, 1500));
+await pg.evaluate(async (D) => {
+  await document.fonts.ready; window.__timelines.main.seek(D.t);
+  for (const s of ["#leg", "#capitulo", "#gancho", "#progresso", ".pt-palco", ".fim"]) document.querySelectorAll(s).forEach((e) => { e.style.visibility = "hidden"; });
+  const c = document.createElement("div"); c.id = "capa";
+  c.innerHTML = `<div class="fundo"></div><div class="txt">${D.linhas.map((l) => `<div>${l.map(([w, d]) => `<span class="${d ? "d" : ""}">${w}</span>`).join(" ")}</div>`).join("")}</div>`;
+  const st = document.createElement("style");
+  st.textContent = `#capa { position: absolute; inset: 0; z-index: 50; font-family: "Nunito", sans-serif; }
+    #capa .fundo { position: absolute; inset: 0; background: radial-gradient(95% 26% at 50% 61%, rgba(4,8,26,0.8), rgba(4,8,26,0.25) 70%, rgba(4,8,26,0) 100%); }
+    #capa .txt { position: absolute; left: 50px; right: 50px; top: ${D.y}px; transform: translateY(-50%); text-align: center; font-weight: 900; font-size: ${D.tam}px; line-height: 1.02; text-transform: uppercase; color: #fff;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6); letter-spacing: -0.01em; }
+    #capa .txt span { display: inline-block; } #capa .txt .d { color: #ffd23f; text-shadow: 0 0 40px rgba(255,190,60,0.75), 0 10px 40px rgba(0,0,0,0.7); }`;
+  document.head.appendChild(st); document.querySelector("#root").appendChild(c);
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+}, D);
+await pg.screenshot({ path: saida }); await nav.close(); console.log("ok");
+"""
+
+
+def capa(roteiro, ag, pasta, destino):
+    """Capa do vídeo (para escolher como capa no TikTok/Reels): o quadro mais bonito da abertura,
+    sem legendas, com o gancho em letras grandes no centro (área que aparece na grade do perfil).
+    roteiro: "capa": {"t": instante, "texto": "OUTRO TEXTO", "destaque": "PALAVRA"} (opcional)."""
+    cfg = roteiro.get("capa", {})
+    c0 = ag["cenas"][0]
+    t = cfg.get("t") or (min(c0["batidas"].values()) + 0.5 if c0["batidas"] else c0["ini"] + 2.0)
+    texto, dest = cfg.get("texto") or roteiro["gancho"], (cfg.get("destaque") or roteiro.get("gancho_destaque", "")).upper()
+    pal = [(w, bool(dest) and dest in w.upper()) for w in texto.split()]
+    # quebra em linhas de até ~12 caracteres
+    linhas, atual = [], []
+    for w in pal:
+        if atual and len(" ".join(x for x, _ in atual + [w])) > 12:
+            linhas.append(atual); atual = []
+        atual.append(w)
+    linhas.append(atual)
+    tam = 150 if len(linhas) <= 3 else 124
+    mod = next(iter(sorted(glob.glob("/opt/node*/lib/node_modules/playwright/index.mjs")) + sorted(glob.glob("/usr/lib/node_modules/playwright/index.mjs"))), None)
+    if not mod:
+        print("   [capa] playwright ausente; capa não gerada")
+        return None
+    shell = os.environ.get("PRODUCER_HEADLESS_SHELL_PATH") or (sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell")) or [None])[-1]
+    script = Path(pasta) / "_capa.mjs"
+    script.write_text(CAPA_JS.replace("__MOD__", mod).replace("__OPCOES__", json.dumps({"executablePath": shell}) if shell else ""))
+    png = Path(pasta) / "capa.png"
+    r = subprocess.run(["node", str(script), (Path(pasta) / "index.html").resolve().as_uri(), str(png),
+                        json.dumps({"t": t, "linhas": linhas, "tam": tam, "y": cfg.get("y", 1170)})], capture_output=True, text=True, timeout=600)
+    script.unlink(missing_ok=True)
+    if not png.exists():
+        print("   [capa] falhou:", (r.stderr or r.stdout)[-300:])
+        return None
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(png), "-q:v", "2", str(destino)], check=True)
+    return destino
 
 
 def renderizar(pasta, saida, qualidade="high"):
@@ -302,22 +364,41 @@ def gravar_metadados(roteiro, mp4):
     tmp.replace(mp4)
 
 
+def _duracao(arq):
+    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", str(arq)], capture_output=True, text=True, check=True)
+    return float(r.stdout.strip())
+
+
+def _filtro_video(mudo, i_quadro):
+    """Acabamento + final que emenda no quadro 0 (entrada i_quadro = foto do quadro 0)."""
+    if not LOOP_FINAL:
+        return ["-filter_complex", f"[0:v]{_acabamento()}[v]"]
+    dm = _duracao(mudo)
+    fc = (f"[{i_quadro}:v]fps=60,format=yuv420p,setsar=1[q];[0:v]fps=60,format=yuv420p,setsar=1[m];"
+          f"[m][q]xfade=transition=fade:duration={LOOP_FINAL}:offset={max(0.1, dm - LOOP_FINAL):.3f},{_acabamento()}[v]")
+    return ["-filter_complex", fc]
+
+
 def codificar(mudo, wav, mp4, dur, meta=()):
     """MP4 final: CRF 24; se passar do limite de envio (marca.json), refaz em 2 passadas
-    com a taxa de bits calculada para caber (~92% do limite)."""
+    com a taxa de bits calculada para caber (~92% do limite). Os últimos LOOP_FINAL s se fundem
+    com o quadro 0 (o vídeo emenda no começo quando a rede repete) e o som some junto."""
     limite = MARCA["video"]["tamanho_maximo_mb"] * 1024 * 1024
-    vf = ["-vf", _acabamento()]
-    comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart+use_metadata_tags", *meta, "-c:a", "aac", "-b:a", "160k", "-shortest"]
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf,
+    quadro0 = Path(mudo).with_name("quadro0.png")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-frames:v", "1", str(quadro0)], check=True)
+    q = ["-loop", "1", "-framerate", "60", "-t", f"{LOOP_FINAL + 0.3:.2f}", "-i", str(quadro0)]
+    af = ["-af", f"afade=t=out:st={max(0, dur - LOOP_FINAL):.3f}:d={LOOP_FINAL}"] if LOOP_FINAL else []
+    comum = ["-pix_fmt", "yuv420p", "-movflags", "+faststart+use_metadata_tags", *meta, "-c:a", "aac", "-b:a", "160k", *af, "-shortest"]
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), *q, *_filtro_video(mudo, 2), "-map", "[v]", "-map", "1:a",
                     "-c:v", "libx264", "-preset", "slow", "-crf", "24", *comum, str(mp4)], check=True)
     if Path(mp4).stat().st_size <= limite * 0.95:
         return
     kbps = int(limite * 0.92 * 8 / 1024 / dur - 170)
     print(f"   arquivo acima do limite; recodificando a {kbps} kb/s")
     log = Path(mudo).with_suffix(".2pass")
-    base = ["ffmpeg", "-v", "error", "-y", "-i", str(mudo), *vf, "-c:v", "libx264", "-preset", "slow", "-b:v", f"{kbps}k", "-passlogfile", str(log)]
-    subprocess.run(base + ["-pass", "1", "-an", "-f", "mp4", "/dev/null"], check=True)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), "-map", "0:v", "-map", "1:a", *vf, "-c:v", "libx264", "-preset", "slow",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), *q, *_filtro_video(mudo, 1), "-map", "[v]", "-c:v", "libx264", "-preset", "slow",
+                    "-b:v", f"{kbps}k", "-passlogfile", str(log), "-pass", "1", "-an", "-f", "mp4", "/dev/null"], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(mudo), "-i", str(wav), *q, *_filtro_video(mudo, 2), "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "slow",
                     "-b:v", f"{kbps}k", "-passlogfile", str(log), "-pass", "2", *comum, str(mp4)], check=True)
 
 
@@ -328,6 +409,7 @@ def main():
     ap.add_argument("--so-montar", action="store_true", help="monta o projeto sem renderizar")
     ap.add_argument("--previa", action="store_true", help="só tira fotos de cada cena (output/<tema>/previa)")
     ap.add_argument("--metadados", action="store_true", help="só regrava título/descrição/hashtags no MP4 já pronto")
+    ap.add_argument("--capa", action="store_true", help="só gera a capa (output/<tema>/capa.jpg) a partir do projeto montado")
     a = ap.parse_args()
     pasta_video = Path(a.video)
     if pasta_video.is_file():
@@ -349,6 +431,9 @@ def main():
     saida.mkdir(parents=True, exist_ok=True)
     pasta = saida / "build"
     montar(roteiro, ag, pasta, pasta_video)
+    if a.capa:
+        print("capa:", capa(roteiro, ag, pasta, saida / "capa.jpg"))
+        return
     verificar(pasta, 2.0 if a.so_montar else 0.25)
     if a.previa:
         previa(ag, pasta, saida / "previa")
@@ -360,6 +445,7 @@ def main():
     mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"))
     mp4 = saida / f"{roteiro['slug']}.mp4"
     codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], metadados(roteiro))
+    print("capa:", capa(roteiro, ag, pasta, saida / "capa.jpg"))
     print("pronto:", mp4)
 
 

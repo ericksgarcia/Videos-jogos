@@ -81,6 +81,16 @@ const linhaP = (x, x0, y0, x1, y1, cor, a, lw = 2) => { if (a <= 0.004) return; 
 // texto no canvas (rótulos pequenos dentro da arte)
 function rotuloP(x, txt, px, py, tam, cor, a, alinhar = "center") {
   if (a <= 0.01) return;
+  // telaGPU: o texto vai para uma camada sem bloom (nítido), com o mesmo transform e um brilho suave
+  const y = x._texto;
+  if (y) {
+    y._usado = true; y.save(); y.setTransform(x.getTransform()); y.globalAlpha = x.globalAlpha;
+    y.font = `800 ${tam}px Nunito`; y.textAlign = alinhar; y.textBaseline = "middle";
+    y.shadowColor = `rgba(${cor},${0.55 * a})`; y.shadowBlur = Math.max(6, tam * 0.45);
+    y.fillStyle = `rgba(${cor},${a})`; y.fillText(txt, px, py);
+    y.shadowBlur = 0; y.fillText(txt, px, py); y.restore();
+    return;
+  }
   const op = x.globalCompositeOperation; x.globalCompositeOperation = "source-over";
   x.font = `800 ${tam}px Nunito`; x.textAlign = alinhar; x.textBaseline = "middle";
   x.fillStyle = `rgba(${cor},${a})`; x.fillText(txt, px, py); x.globalCompositeOperation = op;

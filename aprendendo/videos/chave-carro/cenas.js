@@ -63,39 +63,80 @@ function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) {
 const SEUK = 19;
 function estacionamento(x, a, pis, apaga = 0) { if (a <= 0.01) return; for (let lin = 0; lin < 4; lin++) linhaP(x, 70, 535 + lin * 170, 950, 535 + lin * 170, CZ, 0.3 * a, 2); for (let k = 0; k < 32; k++) { const col = k % 8, lin = Math.floor(k / 8), seu = k === SEUK; carroCima(x, 130 + col * 110, 620 + lin * 170, 0.9, seu ? AM : CZ, a * (seu ? 1 : 0.9 - 0.45 * apaga), seu ? pis : 0); } }
 
-// =============== 1. gancho ===============
+// =============== 1. gancho (padrão novo: objetos em pontos, câmera com profundidade, física) ===============
+// chave de controle remoto desenhada (corpo, argola e dois botões)
+const FOB_K = { desenho: (g, R) => { g.beginPath(); g.roundRect(R * 0.33, R * 0.28, R * 0.34, R * 0.6, R * 0.15); g.fill(); g.lineWidth = R * 0.045; g.strokeStyle = "#fff"; g.beginPath(); g.arc(R * 0.5, R * 0.2, R * 0.07, 0, 6.283); g.stroke(); g.globalCompositeOperation = "destination-out"; for (const y of [0.45, 0.63]) { g.beginPath(); g.arc(R * 0.5, R * y, R * 0.07, 0, 6.283); g.fill(); } g.globalCompositeOperation = "source-over"; for (const y of [0.45, 0.63]) { g.beginPath(); g.arc(R * 0.5, R * y, R * 0.045, 0, 6.283); g.fill(); } } };
+const FK = { chave: formaPontos(FOB_K, 12000), carroPerto: formaPontos("car", 1400), carroLonge: formaPontos("car", 800), seu: formaPontos("car", 9000), perfil: formaPontos("car-profile", 12000), relogio: formaPontos("timer", 6000), cad: formaPontos("lock-key", 12000), cadAb: formaPontos("lock-key-open", 12000), ok: formaPontos("check-circle", 5000), casa: formaPontos("house", 5000), sinal: formaPontos("broadcast", 3000), interr: formaTexto("?", 10000) };
+const FUNDOK = fundoProfundo(21);
+// estacionamento em profundidade: fileiras mais longe (z maior) ficam menores e andam menos
+// (cada fileira tem a altura na tela pensada para câmera em (540, 960) e zoom 1: Y = 960 + (y_tela - 960) * z)
+const LOTE_K = (() => { const L = []; [[1.35, 1110], [1.8, 1000], [2.4, 905], [3.2, 830]].forEach(([z, yt], r) => { const nc = Math.ceil((620 * z) / 260); for (let c = -nc; c <= nc; c++) L.push({ x: 540 + c * 260 + (r % 2) * 130, y: 960 + (yt - 960) * z, z, r, seu: r === 1 && c === 1 }); }); return L; })();
+const SEU_K = LOTE_K.find((q) => q.seu);
+function aneisPontos(nv, cx, cy, t, a, cor, R, i, n = 4, pts = 140) { if (a <= 0.01) return i; for (let k = 0; k < n; k++) { const u = ((t * 0.8 + k / n) % 1), r = 40 + u * R; for (let j = 0; j < pts && i < nv.n; j++) { const an = (j / pts) * 6.283; nv.ponto(i++, cx + Math.cos(an) * r, cy + Math.sin(an) * r, cor[0], cor[1], cor[2], a * (1 - u) * 0.9, 3.2); } } return i; }
+
 CENAS.abertura = (el, c, B) => {
   const tP = B("pisca"), tMi = B("minuto"), tN = B("nada"), tPr = B("promessa");
-  const p2 = tMi - 1.6, p3 = tN - 0.5, p4 = tPr - 2.6;
+  const p2 = tMi - 1.6, p3 = tN - 0.6, p4 = tPr - 2.6;
   mostrarGancho(p2 - 0.2);
-  const T = telaGPU(el, c);
+  const T = telaGPU(el, c), nv = T.nuvem(110000);
   const tx = palcoTexto(el, [["min", 330, 72, "em menos de 1 minuto", "pt-ve"], ["nad", 330, 72, "sem quebrar nada", "pt-am"], ["tru", 330, 66, "o truque: no final", "pt-am"], ["pro", 420, 44, "e como se proteger", "pt-fino"]]);
-  MD.slam(tl, tx.min, tMi - 0.5, { from: 1.35 }); MD.leave(tl, tx.min, p3 - 0.1); MD.slam(tl, tx.nad, p3 + 0.1, { from: 1.3 }); MD.leave(tl, tx.nad, p4 - 0.1);
+  MD.slam(tl, tx.min, tMi - 0.5, { from: 1.35 }); MD.leave(tl, tx.min, p3 - 0.1); MD.slam(tl, tx.nad, tN - 0.3, { from: 1.3 }); MD.leave(tl, tx.nad, p4 - 0.1);
   MD.slam(tl, tx.tru, p4 + 0.2, { from: 1.25 }); MD.arrive(tl, tx.pro, tPr - 0.6, { y: 14 });
-  const est = estF(3);
+  // câmera: começa colada na chave (lote desfocado atrás), recua revelando o estacionamento, muda o foco
+  // para o seu carro quando ele pisca e se aproxima dele
+  const CAM = cameraProf([[0, { x: 540, y: 1130, zoom: 1.55, foco: 0.8 }], [2.0, { x: 540, y: 980, zoom: 1.0, foco: 0.8 }], [tP - 0.5, { x: 560, y: 970, zoom: 1.05, foco: 0.8 }], [tP + 0.3, { x: 600, y: 960, zoom: 1.15, foco: SEU_K.z }], [p2, { x: SEU_K.x, y: SEU_K.y, zoom: 2.3, foco: SEU_K.z }]]);
+  const KX = 540, KY = 1190, KZ = 0.8, aperta = (t) => Math.max(PT.jan(t, 0.15, 0.55, 0.06, 0.25), PT.jan(t, tP - 1.0, tP - 0.4, 0.06, 0.25));
   T.quadro((x, t) => {
-    estD(x, est, t);
-    // plano 1 (quadro 0): o estacionamento lotado; a chave aperta e só um carro pisca
-    const a1 = 1 - PT.ss((t - p2) / 0.4);
+    const cam = CAM(t); let i = desenharFundo(nv, FUNDOK, t, cam, [0.7, 0.8, 1], 1, 0);
+    // ---- plano 1: a chave e o estacionamento (até p2)
+    const a1 = 1 - PT.ss((t - p2 - 0.2) / 0.5);
     if (a1 > 0.01) {
-      const zc = PT.lerp(1.5, 1.0, PT.out(t / (tP + 0.4))); x.save(); x.translate(540, 960); x.scale(zc, zc); x.translate(-540, -960);
-      const pis = t > tP - 0.3 ? Math.max(0, Math.sin((t - tP + 0.3) * 9)) : 0, ach = PT.ss((t - tP + 0.3) / 0.4);
-      estacionamento(x, a1, pis, ach);
-      const sx = 130 + (SEUK % 8) * 110, sy = 620 + Math.floor(SEUK / 8) * 170;
-      if (ach > 0) { anelP(x, sx, sy, 110 + 10 * Math.sin(t * 5), AM, a1 * ach, 6); brilhoP(x, sx, sy, 220, AM, 0.35 * a1 * ach); }
-      x.restore();
-      const ap = Math.max(PT.jan(t, 0.0, 0.9, 0.05, 0.3), PT.jan(t, tP - 1.2, tP - 0.2, 0.1, 0.3));
-      chaveK(x, 540, 1320, 0.9, a1, ap); ondasR(x, 540, 1280, t, a1 * Math.max(PT.jan(t, 0.0, 1.6, 0.1, 0.4), PT.jan(t, tP - 1.1, tP + 0.8, 0.2, 0.4)), CI, 520);
+      const pis = t > tP - 0.15 ? Math.max(0, Math.sin((t - tP + 0.15) * 9)) : 0, apaga = PT.ss((t - tP + 0.2) / 0.5);
+      LOTE_K.forEach((q, k) => {
+        if (q.seu) return;
+        const ch = FIS.cascata(t, 0.8, (q.r * 5 + Math.abs(q.x - 540) / 130) % 12, 0.06, 0.55);
+        i = desenharForma(nv, q.z < 2 ? FK.carroPerto : FK.carroLonge, { cx: q.x, cy: q.y - 30 * Math.max(0, ch - 1), esc: 230, cam, z: q.z, cor: CORF.cinza, a: a1 * (0.45 + 0.55 * Math.min(1, ch)) * (1 - 0.6 * apaga) * (t > p2 - 0.4 ? 1 - PT.ss((t - p2 + 0.4) / 0.4) : 1), t, brilho: 0.6, i0: i });
+      });
+      // o seu carro: dá um pulinho quando pisca (física) e fica amarelo
+      const [sx, sy] = FIS.impacto(t, tP - 0.1, 0.18), dz = SEU_K.z;
+      if (t < p2) i = desenharForma(nv, t < tP - 0.15 ? FK.carroPerto : FK.seu, { cx: SEU_K.x, cy: SEU_K.y - 14 * Math.max(0, FIS.balanco(t, tP - 0.1, 1, 1.6, 4)), esc: 230, cam, z: dz, cor: apaga > 0 ? CORF.amarelo : CORF.cinza, a: a1 * (0.45 + 0.55 * Math.min(1, FIS.cascata(t, 0.8, 6, 0.06, 0.55))), t, sx, sy, brilho: t < tP - 0.15 ? 0.6 : 1 + 0.6 * pis, i0: i });
+      if (pis > 0 && t < p2) { const [hx, hy, k] = projP(cam, SEU_K.x, SEU_K.y, dz); for (const dx of [-0.2156, 0.2156]) { brilhoP(x, hx + dx * 230 * k, hy + 0.0575 * 230 * k, 70 * k, AM, 0.9 * pis * a1); discoP(x, hx + dx * 230 * k, hy + 0.0575 * 230 * k, 9 * k, "255,240,190", pis * a1); } }
+      // a chave em primeiro plano: aperta (afunda e volta) e solta as ondas
+      const ap = aperta(t), [kx, ky, kk] = projP(cam, KX, KY, KZ), esK = 420 * kk * (1 - 0.06 * ap);
+      i = aneisPontos(nv, kx, ky - 0.05 * esK, t, a1 * Math.max(PT.jan(t, 0.2, 1.8, 0.1, 0.5), PT.jan(t, tP - 0.9, tP + 0.8, 0.1, 0.5)), CORF.ciano, 900 * cam.zoom, i);
+      i = desenharForma(nv, FK.chave, { cx: KX, cy: KY + 10 * ap, esc: 420 * (1 - 0.06 * ap), cam, z: KZ, cor: CORF.branco, borda: CORF.ciano, a: a1, t, giro: 0.35 * Math.sin(t * 0.7), i0: i });
+      if (ap > 0) { brilhoP(x, kx, ky - 0.05 * esK, 0.12 * esK, AM, ap * a1); discoP(x, kx, ky - 0.05 * esK, 0.035 * esK, "255,240,190", ap * a1); }
     }
-    // plano 2: o carro levado em menos de um minuto
+    // ---- plano 2: o seu carro vira o carro de lado e é levado; o ladrão e o cronômetro
     const a2 = planoC(t, p2, p3);
-    if (a2 > 0.01) { const sai = PT.ss((t - tMi - 0.2) / 1.2); carroLado(x, 470 + sai * 260, 1010, 1.25, BRC, a2 * (1 - 0.6 * sai), PT.jan(t, p2 + 0.4, p2 + 1.2, 0.1, 0.2)); ladraoK(x, 140, 1000, 2.6, a2); cronoK(x, 780, 690, 120, PT.lerp(0, 47, PT.ss((t - p2) / Math.max(0.8, tMi - p2 + 0.3))), a2); for (let k = 0; k < 6; k++) { const u = ((t * 1.4 + k / 6) % 1); linhaP(x, 300 + sai * 300 - u * 260, 1120 - k * 22, 360 + sai * 300 - u * 260, 1120 - k * 22, BRC, a2 * sai * (1 - u) * 0.6, 3); } }
-    // plano 3: sem quebrar nada — vidro inteiro e o cadeado abrindo sozinho
+    if (t > p2 - 0.1 && t < p3 + 0.6) {
+      const u = (t - p2 + 0.1) / 0.9, saiu = FIS.antes(t, tMi - 0.4, 1.1, 0.06), vel = Math.max(0, Math.min(1, (t - tMi + 0.15) / 0.4)) * (1 - Math.min(1, Math.max(0, t - tMi - 0.5)));
+      const para = { cx: 540 + saiu * 760, cy: 1080, esc: 560, cor: CORF.ciano, sx: 1 + 0.25 * vel, sy: 1 - 0.08 * vel, a: 1 - PT.ss((t - p3) / 0.4) };
+      i = morfo(nv, FK.seu, FK.perfil, PT.cl(u), { de: { cx: SEU_K.x, cy: SEU_K.y, esc: 230, cam, z: SEU_K.z, cor: CORF.amarelo }, para, t, onda: 0.3, curva: 0.25, i0: i });
+      const cr = FIS.chegar(t, p2 + 0.15, 0.6), seg = PT.lerp(0, 47, PT.ss((t - p2) / Math.max(0.8, tMi - p2 + 0.4)));
+      i = desenharForma(nv, FK.relogio, { cx: 540, cy: 700, esc: 330 * Math.max(0.01, cr), cor: CORF.rosa, a: a2, t, i0: i });
+      rotuloP(x, `0:${String(Math.floor(seg)).padStart(2, "0")}`, 540, 728, 84, "255,205,215", a2 * cr);
+    }
+    // ---- plano 3: sem quebrar nada — o cadeado abre sozinho (fechado vira aberto)
     const a3 = planoC(t, p3, p4);
-    if (a3 > 0.01) { const ab = PT.ss((t - tN + 0.1) / 0.4); carroLado(x, 540, 1060, 1.9, BRC, a3, ab * Math.max(0, Math.sin((t - tN) * 9))); cadeadoK(x, 540, 700, 1.3, ab > 0.5 ? VD : CI, a3, ab); checkK(x, 400, 1290, 30, a3 * PT.ss((t - tN - 0.2) / 0.3)); rotuloP(x, "vidro inteiro", 560, 1290, 36, "170,255,210", a3 * PT.ss((t - tN - 0.2) / 0.3)); }
-    // plano 4: o truque (escondido): dois aparelhos e um "?"
+    if (a3 > 0.01) {
+      const ab = PT.ss((t - tN + 0.15) / 0.45), sw = FIS.balanco(t, tN + 0.2, 0.12, 1.8, 3.2), ch = FIS.chegar(t, p3, 0.6);
+      i = morfo(nv, FK.cad, FK.cadAb, ab, { de: { cx: 540, cy: 880, esc: 560 * ch, cor: CORF.ciano, rot: sw }, para: { cx: 540, cy: 880, esc: 560 * ch, cor: CORF.verde, rot: sw }, t, onda: 0.15, curva: 0.15, a: a3, i0: i });
+      const okc = FIS.chegar(t, tN + 0.3, 0.5);
+      i = desenharForma(nv, FK.ok, { cx: 380, cy: 1260, esc: 120 * okc, cor: CORF.verde, a: a3 * Math.min(1, okc), t, i0: i });
+      rotuloP(x, "vidro inteiro", 600, 1262, 44, "170,255,210", a3 * PT.ss((t - tN - 0.3) / 0.3));
+    }
+    // ---- plano 4: o truque (escondido): casa e carro desfocados, sinais piscando e um "?" de pontos
     const a4 = PT.ss((t - p4) / 0.5);
-    if (a4 > 0.01) { casaK(x, 250, 860, 1.0, a4 * 0.8); carroLado(x, 760, 1180, 0.9, BRC, a4 * 0.8); caixaRelay(x, 380, 1000, 0.8, a4, VE, 1, t); caixaRelay(x, 600, 1230, 0.8, a4, VE, 1, t + 1); x.setLineDash([14, 12]); x.beginPath(); x.moveTo(400, 950); x.quadraticCurveTo(620, 880, 610, 1150); x.strokeStyle = `rgba(${VE},${0.7 * a4})`; x.lineWidth = 4; x.stroke(); x.setLineDash([]); rotuloP(x, "?", 560, 900, 150, AM, a4 * PT.ss((t - p4 - 0.4) / 0.4) * (0.85 + 0.15 * Math.sin(t * 4))); }
+    if (a4 > 0.01) {
+      const camF = { x: 540, y: 960, zoom: 1, foco: 1 };
+      i = desenharForma(nv, FK.casa, { cx: 220, cy: 720, esc: 280, cam: camF, z: 1.6, cor: CORF.branco, a: 0.8 * a4, t, i0: i });
+      i = desenharForma(nv, FK.perfil, { cx: 790, cy: 1210, esc: 260, cam: camF, z: 1.6, cor: CORF.branco, a: 0.8 * a4, brilho: 0.45, t, i0: i });
+      for (const [sx, sy, f] of [[330, 860, 0], [660, 1170, 1.3]]) i = desenharForma(nv, FK.sinal, { cx: sx, cy: sy, esc: 120, cor: CORF.rosa, a: a4 * (0.5 + 0.5 * Math.sin(t * 6 + f)), t, i0: i });
+      const ch = FIS.chegar(t, p4 + 0.2, 0.7);
+      i = morfo(nv, FK.cadAb, FK.interr, PT.ss((t - p4 + 0.2) / 0.9), { de: { cx: 540, cy: 880, esc: 560, cor: CORF.verde }, para: { cx: 560, cy: 950, esc: 680 * (0.6 + 0.4 * ch), cor: CORF.amarelo }, t, onda: 0.3, curva: 0.4, i0: i });
+    }
+    nv.total(i);
   });
 };
 
