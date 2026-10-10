@@ -1,0 +1,246 @@
+{
+  "slug": "como-o-cartao-por-aproximacao-funciona-sem-bateria",
+  "titulo": "Como o cartão por aproximação funciona sem bateria",
+  "descricao": "Seu cartão não tem bateria. Então de onde vem a energia pra pagar por aproximação? 💳\nComo funciona o pagamento por aproximação (NFC): uma antena escondida no cartão e a energia que vem da própria maquininha.\nTudo em menos de meio segundo.\nNo final: por que copiar o sinal do seu cartão não serve pra nada.\nManda pra quem tem medo de pagar por aproximação e salva a dica do limite.\nVocê paga mais por aproximação ou com senha? Comenta aí 👇",
+  "hashtags": [
+    "#tecnologia",
+    "#cartao",
+    "#nfc",
+    "#curiosidades",
+    "#educacaofinanceira",
+    "#aprendendofacil"
+  ],
+  "gancho": "CARTÃO SEM BATERIA PAGA COMO?",
+  "gancho_destaque": "BATERIA",
+  "voz": "Achird",
+  "sons": {
+    "apita": [
+      "plim",
+      0.6
+    ],
+    "bateria": [
+      "thud",
+      0.6
+    ],
+    "energia": [
+      "zap",
+      0.5
+    ],
+    "promessa": [
+      "plim",
+      0.55
+    ],
+    "voltas": [
+      "whoosh_curto",
+      0.45
+    ],
+    "antena": [
+      "pop",
+      0.45
+    ],
+    "chip": [
+      "clique",
+      0.6
+    ],
+    "campo": [
+      "zap",
+      0.5
+    ],
+    "treze": [
+      "brilho",
+      0.55
+    ],
+    "atravessa": [
+      "whoosh",
+      0.45
+    ],
+    "corrente": [
+      "zap",
+      0.55
+    ],
+    "semfio": [
+      "pop",
+      0.45
+    ],
+    "alimenta": [
+      "brilho",
+      0.55
+    ],
+    "cm": [
+      "clique",
+      0.55
+    ],
+    "fraco": [
+      "thud",
+      0.5
+    ],
+    "acorda": [
+      "brilho",
+      0.55
+    ],
+    "meio": [
+      "clique",
+      0.6
+    ],
+    "pergunta": [
+      "pop",
+      0.45
+    ],
+    "assinatura": [
+      "zap",
+      0.5
+    ],
+    "aprova": [
+      "plim",
+      0.6
+    ],
+    "muda": [
+      "whoosh_curto",
+      0.45
+    ],
+    "chave": [
+      "clique",
+      0.6
+    ],
+    "umavez": [
+      "pop",
+      0.5
+    ],
+    "copiar": [
+      "zap",
+      0.45
+    ],
+    "recusa": [
+      "thud",
+      0.7
+    ],
+    "duzentos": [
+      "pop",
+      0.45
+    ],
+    "seguranca": [
+      "plim",
+      0.5
+    ],
+    "limite": [
+      "clique",
+      0.55
+    ],
+    "app": [
+      "plim",
+      0.6
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Sem bateria",
+      "fala": "Você encosta o cartão na maquininha, apita, e a compra está paga. Mas esse cartão não tem bateria, não tem fio, não tem nada ligado na tomada. De onde ele tira energia pra conversar com a máquina? E no final eu te conto por que copiar o sinal dele não serve pra nada.",
+      "batidas": {
+        "apita,": "apita",
+        "bateria,": "bateria",
+        "energia": "energia",
+        "nada.": "promessa"
+      }
+    },
+    {
+      "id": "antena",
+      "tipo": "antena",
+      "titulo": "A antena escondida",
+      "fala": "Por dentro do plástico, tem um fio fininho dando várias voltas pelas bordas do cartão. É uma antena, ligada a um chip minúsculo. E a maquininha também tem uma antena, que fica soltando um campo magnético invisível, que vai e volta uns treze milhões de vezes por segundo.",
+      "batidas": {
+        "voltas": "voltas",
+        "antena,": "antena",
+        "chip": "chip",
+        "magnético": "campo",
+        "segundo.": "treze"
+      }
+    },
+    {
+      "id": "inducao",
+      "tipo": "inducao",
+      "titulo": "A energia vem da máquina",
+      "fala": "Quando o cartão chega perto, esse campo atravessa as voltas do fio e cria uma corrente elétrica dentro dele. É a mesma ideia do carregador de celular sem fio. O cartão literalmente se alimenta da maquininha. Por isso tem que chegar bem perto: a poucos centímetros, o campo já fica fraco demais.",
+      "batidas": {
+        "atravessa": "atravessa",
+        "corrente": "corrente",
+        "fio.": "semfio",
+        "alimenta": "alimenta",
+        "centímetros,": "cm",
+        "demais.": "fraco"
+      }
+    },
+    {
+      "id": "conversa",
+      "tipo": "conversa",
+      "titulo": "A conversa",
+      "fala": "Com essa energia, o chip acorda e conversa com a máquina. Tudo leva menos de meio segundo: a máquina pergunta, o chip responde com os dados do cartão e uma assinatura secreta, e o banco aprova.",
+      "batidas": {
+        "acorda": "acorda",
+        "segundo:": "meio",
+        "pergunta,": "pergunta",
+        "assinatura": "assinatura",
+        "aprova.": "aprova"
+      }
+    },
+    {
+      "id": "seguranca",
+      "tipo": "seguranca",
+      "titulo": "Por que copiar não adianta",
+      "fala": "E a parte que eu prometi: essa assinatura muda a cada compra. O chip guarda uma chave secreta que nunca sai dele, e usa essa chave pra criar um código que só vale uma vez, pra aquela compra e aquele valor. Se alguém copiar o sinal, vai ter um código já usado, que o banco recusa.",
+      "batidas": {
+        "muda": "muda",
+        "chave": "chave",
+        "vez,": "umavez",
+        "copiar": "copiar",
+        "recusa.": "recusa"
+      }
+    },
+    {
+      "id": "dica",
+      "tipo": "dica",
+      "titulo": "A dica",
+      "fala": "E a dica: no Brasil, os bancos costumam liberar compra por aproximação sem senha até uns duzentos reais. Se você quiser mais segurança, peça ao seu banco pra baixar esse limite. Em muitos bancos, dá pra ajustar isso direto no aplicativo.",
+      "batidas": {
+        "duzentos": "duzentos",
+        "segurança,": "seguranca",
+        "limite.": "limite",
+        "aplicativo.": "app"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: a maquininha cria um campo, a antena do cartão transforma esse campo em energia, o chip responde com um código que só vale uma vez, e tudo isso em meio segundo. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "campo,": "passo1",
+        "energia,": "passo2",
+        "vez,": "passo3",
+        "segundo.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}
