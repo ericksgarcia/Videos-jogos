@@ -340,6 +340,9 @@ def main():
         return
     falas = narrar(roteiro)
     print("narração:", {f["provedor"] for f in falas}, "| duração das falas:", round(sum(f["dur"] for f in falas), 1), "s")
+    faltou = [c["id"] for c, f in zip(roteiro["cenas"], falas) if f["provedor"] != MARCA["voz"]["provedor"]]
+    if faltou and not a.so_montar:
+        raise SystemExit(f"narração sem a voz da marca nas cenas {faltou}: rode de novo (a falha não fica em cache) ou avise o dono")
     ag = agenda(roteiro, falas)
     print("vídeo:", ag["total"], "s")
     saida = RAIZ / "output" / pasta_video.name
