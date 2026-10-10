@@ -1,7 +1,7 @@
 {
  "slug": "por-que-a-sua-voz-soa-estranha-gravada",
  "titulo": "Por que a sua voz soa estranha gravada",
- "descricao": "Ouviu seu próprio áudio e pensou: essa voz não é minha? 🎙️\nPor que a nossa voz soa estranha gravada: você se ouve por dois caminhos, pelo ar e pelos ossos da cabeça.\nTem um teste que você pode fazer agora com os dedos nos ouvidos.\nNo final: o experimento que mostra que, sem saber que era a sua, você ia gostar da sua voz.\nManda pra quem odeia mandar áudio e salva pra testar.\nVocê gosta da sua voz gravada? Comenta aí 👇",
+ "descricao": "Odeia ouvir o seu próprio áudio? Sem saber que era você, você ia gostar da sua voz 🎙️\nPor que a nossa voz soa estranha gravada: você se ouve por dois caminhos, pelo ar e pelos ossos da cabeça.\nCom o rosto acontece igual: a sua foto espelhada te parece mais bonita.\nNo final: um teste pra fazer agora, só com dois dedos.\nManda pra quem odeia mandar áudio e salva pra testar.\nSe a voz do áudio é a que todo mundo ouve, quem ouve a sua voz de verdade: você ou os outros? 👇",
  "hashtags": [
   "#voz",
   "#cerebro",
@@ -10,21 +10,29 @@
   "#curiosidades",
   "#aprendendofacil"
  ],
- "gancho": "VOCÊ NUNCA OUVIU SUA VOZ",
+ "gancho": "VOCÊ IA GOSTAR DA SUA VOZ",
  "gancho_destaque": "VOZ",
  "voz": "Achird",
  "sons": {
-  "minha": [
-   "thud",
+  "audio": [
+   "pop",
+   0.5
+  ],
+  "voce": [
+   "clique",
+   0.5
+  ],
+  "gostar": [
+   "brilho",
    0.6
   ],
-  "essa": [
-   "pop",
-   0.45
+  "estranha": [
+   "thud",
+   0.55
   ],
-  "todo": [
-   "plim",
-   0.5
+  "literal": [
+   "whoosh_curto",
+   0.45
   ],
   "promessa": [
    "plim",
@@ -32,14 +40,18 @@
   ],
   "dois": [
    "pop",
-   0.45
+   0.5
   ],
   "ar": [
-   "whoosh",
+   "whoosh_curto",
    0.45
   ],
-  "ossos": [
+  "dentro": [
    "thud",
+   0.5
+  ],
+  "ossos": [
+   "clique",
    0.55
   ],
   "graves": [
@@ -50,85 +62,93 @@
    "brilho",
    0.5
   ],
-  "soar": [
-   "whoosh",
-   0.45
-  ],
-  "perde": [
+  "ar2": [
    "whoosh_curto",
    0.45
   ],
   "fina": [
-   "plim",
-   0.45
-  ],
-  "magra": [
-   "pop",
-   0.4
-  ],
-  "todos": [
-   "thud",
-   0.6
-  ],
-  "dentro": [
-   "brilho",
-   0.5
-  ],
-  "tampa": [
-   "tampa",
-   0.55
-  ],
-  "fala": [
-   "pop",
-   0.45
-  ],
-  "grave2": [
-   "thud",
-   0.6
-  ],
-  "ossos2": [
-   "thud",
-   0.55
-  ],
-  "acostumado": [
-   "plim",
-   0.55
-  ],
-  "familiar": [
-   "pop",
-   0.45
-  ],
-  "nervosismo": [
    "zap",
    0.45
   ],
-  "hesitacao": [
-   "clique",
+  "adivinha": [
+   "plim",
    0.55
   ],
-  "choque": [
+  "audio2": [
    "thud",
-   0.7
+   0.65
   ],
-  "oitenta": [
+  "dentro2": [
+   "brilho",
+   0.5
+  ],
+  "tanto": [
    "pop",
    0.45
+  ],
+  "repente": [
+   "whoosh_curto",
+   0.45
+  ],
+  "espelho": [
+   "brilho",
+   0.55
+  ],
+  "normal": [
+   "pop",
+   0.5
+  ],
+  "oitenta": [
+   "clique",
+   0.55
   ],
   "escondida": [
    "whoosh_curto",
    0.45
   ],
   "percebeu": [
-   "clique",
-   0.55
+   "pop",
+   0.5
   ],
   "alta": [
    "brilho",
-   0.55
+   0.6
   ],
-  "gosta": [
+  "comenta": [
    "plim",
    0.6
+  ],
+  "verdade": [
+   "pop",
+   0.5
+  ],
+  "outros": [
+   "pop",
+   0.5
+  ],
+  "teoria": [
+   "pop",
+   0.5
+  ],
+  "prometi": [
+   "plim",
+   0.55
+  ],
+  "dedos": [
+   "clique",
+   0.55
+  ],
+  "grave2": [
+   "thud",
+   0.55
+  ],
+  "ossos2": [
+   "clique",
+   0.5
+  ],
+  "conhece": [
+   "brilho",
+   0.55
   ],
   "passo1": [
    "pop",
@@ -142,16 +162,8 @@
    "pop",
    0.4
   ],
-  "passo4": [
-   "pop",
-   0.4
-  ],
   "cta": [
    "plim",
-   0.6
-  ],
-  "nunca": [
-   "thud",
    0.6
   ]
  },
@@ -160,89 +172,101 @@
    "id": "gancho",
    "tipo": "abertura",
    "titulo": "A sua voz",
-   "fala": "Todo mundo que você conhece ouve uma voz sua que você nunca ouviu. Até o dia em que você escuta um áudio seu e pensa: essa voz não pode ser minha. Calma: todo mundo sente isso. E no final eu te conto um experimento que mostra que, sem saber que era a sua, você ia gostar dela.",
+   "fala": "Odeia ouvir o seu próprio áudio? Um experimento mostrou que, sem saber que era você, você ia gostar da sua voz. Então por que ela soa tão estranha? A resposta está dentro da sua cabeça, literalmente. E no final tem um teste pra você fazer agora, só com dois dedos.",
    "batidas": {
-    "ouviu.": "nunca",
-    "minha.": "minha",
-    "isso.": "todo",
-    "dela.": "promessa"
+    "áudio?": "audio",
+    "você,": "voce",
+    "voz.": "gostar",
+    "estranha?": "estranha",
+    "literalmente.": "literal",
+    "dedos.": "promessa"
    }
   },
   {
    "id": "caminhos",
    "tipo": "caminhos",
    "titulo": "Dois caminhos",
-   "fala": "Quando você fala, a sua voz chega no seu ouvido por dois caminhos. Um é pelo ar, como pra qualquer pessoa. O outro é por dentro: a vibração da garganta passa pelos ossos da cabeça e vai direto pro ouvido. E os ossos levam muito bem os sons graves. Por isso, na sua cabeça, a sua voz soa mais grave e mais encorpada do que ela é.",
+   "fala": "Quando você fala, a sua voz chega no seu ouvido por dois caminhos. Um é pelo ar, como pra todo mundo. O outro é por dentro: a vibração passa pelos ossos da cabeça e vai direto pro ouvido. E os ossos levam muito bem os sons graves. Por isso, na sua cabeça, a sua voz é mais grave e mais encorpada.",
    "batidas": {
     "dois": "dois",
     "ar,": "ar",
+    "dentro:": "dentro",
     "ossos": "ossos",
     "graves.": "graves",
-    "encorpada": "encorpada"
+    "encorpada.": "encorpada"
    }
   },
   {
    "id": "gravacao",
    "tipo": "gravacao",
    "titulo": "O gravador",
-   "fala": "O gravador só pega o caminho do ar. Ele perde o reforço dos ossos. Então a voz gravada soa mais fina e mais magra pra você. E o detalhe que incomoda: essa voz do áudio é a voz que todo mundo sempre ouviu. A versão que só você conhecia é a de dentro.",
+   "fala": "O gravador só pega o caminho do ar. Então a voz gravada soa mais fina pra você. E aqui vem a parte que incomoda: adivinha qual das duas é a voz que todo mundo ouve? A do áudio. A versão que só você conhecia é a de dentro.",
    "batidas": {
-    "ar.": "soar",
-    "ossos.": "perde",
+    "ar.": "ar2",
     "fina": "fina",
-    "magra": "magra",
-    "ouviu.": "todos",
-    "dentro.": "dentro"
-   }
-  },
-  {
-   "id": "teste",
-   "tipo": "teste",
-   "titulo": "Faça o teste",
-   "fala": "Quer sentir isso agora? Tampa os dois ouvidos com os dedos e fala alguma coisa. A voz fica mais grave e mais alta, porque agora chega muito mais som pelos ossos. Esse é o som com que você está acostumado.",
-   "batidas": {
-    "ouvidos": "tampa",
-    "fala": "fala",
-    "grave": "grave2",
-    "ossos.": "ossos2",
-    "acostumado.": "acostumado"
+    "adivinha": "adivinha",
+    "áudio.": "audio2",
+    "dentro.": "dentro2"
    }
   },
   {
    "id": "choque",
    "tipo": "choque",
    "titulo": "Por que incomoda",
-   "fala": "Mas por que incomoda tanto? Porque o cérebro estranha quando algo muito familiar muda de repente. E na gravação aparecem detalhes que você nem percebia: um nervosismo, uma hesitação. É o choque entre a voz que você imagina e a voz real.",
+   "fala": "E por que incomoda tanto? Porque o cérebro estranha quando algo muito familiar muda de repente. Com o rosto acontece igual: num estudo, as pessoas preferiam a própria foto espelhada, e os amigos preferiam a foto normal.",
    "batidas": {
-    "familiar": "familiar",
-    "nervosismo,": "nervosismo",
-    "hesitação.": "hesitacao",
-    "choque": "choque"
+    "tanto?": "tanto",
+    "repente.": "repente",
+    "espelhada,": "espelho",
+    "normal.": "normal"
    }
   },
   {
    "id": "experimento",
    "tipo": "experimento",
    "titulo": "O experimento",
-   "fala": "E agora o experimento que eu prometi. Em dois mil e treze, pesquisadoras americanas pediram pra oitenta pessoas darem nota pra várias vozes gravadas. Escondida no meio, estava a voz da própria pessoa, e quase ninguém percebeu. Resultado: cada um deu nota mais alta pra própria voz do que os outros deram. Quando você não sabe que é você, você gosta.",
+   "fala": "Em dois mil e treze, pesquisadoras americanas pediram pra oitenta pessoas darem nota pra vozes gravadas. Escondida no meio, estava a voz da própria pessoa, e a maioria nem percebeu. Resultado: cada um deu nota mais alta pra própria voz do que os outros deram.",
    "batidas": {
     "oitenta": "oitenta",
     "Escondida": "escondida",
     "percebeu.": "percebeu",
-    "alta": "alta",
-    "gosta.": "gosta"
+    "alta": "alta"
+   }
+  },
+  {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Responde nos comentários",
+   "fala": "Pergunta difícil, responde nos comentários: se a voz do áudio é a que todo mundo ouve, quem ouve a sua voz de verdade, você ou os outros? Qual é a sua teoria?",
+   "batidas": {
+    "comentários:": "comenta",
+    "verdade,": "verdade",
+    "outros?": "outros",
+    "teoria?": "teoria"
+   }
+  },
+  {
+   "id": "teste",
+   "tipo": "teste",
+   "titulo": "O teste dos dedos",
+   "fala": "E o teste que eu prometi: tampa os dois ouvidos com os dedos e fala alguma coisa. A voz fica mais grave e mais alta, porque agora quase tudo chega pelos ossos. É essa a voz que só você conhece.",
+   "batidas": {
+    "prometi:": "prometi",
+    "dedos": "dedos",
+    "grave": "grave2",
+    "ossos.": "ossos2",
+    "conhece.": "conhece"
    }
   },
   {
    "id": "resumo",
    "tipo": "resumo",
    "titulo": "Resumindo",
-   "fala": "Resumindo: por dentro, os ossos deixam a sua voz mais grave, o gravador só pega o ar, a voz do áudio é a que todo mundo ouve, e você até ia gostar dela sem saber que é sua. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "fala": "Resumindo: por dentro, os ossos deixam a sua voz mais grave, o gravador só pega o ar, e a voz do áudio é a que todo mundo ouve. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
    "batidas": {
     "grave,": "passo1",
     "ar,": "passo2",
-    "ouve,": "passo3",
-    "sua.": "passo4",
+    "ouve.": "passo3",
     "Segue": "cta"
    }
   }
