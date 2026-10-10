@@ -16,20 +16,27 @@ function ondasR(x, cx, cy, t, a, cor = CI, R = 250) { if (a <= 0.01) return; for
 function pacote(x, cx, cy, id, cod, a, corCod = AM) { if (a <= 0.01) return; fCaixa(x, cx - 130, cy, 240, 70, 12, CI, a, 4, 0.12); rotuloP(x, "ID " + id, cx - 130, cy, 32, "200,240,255", a); fCaixa(x, cx + 130, cy, 240, 70, 12, corCod, a, 4, 0.12); rotuloP(x, cod, cx + 130, cy, 32, "255,240,190", a); }
 function casaK(x, cx, cy, s, a) { if (a <= 0.01) return; fCaixa(x, cx, cy, 240 * s, 170 * s, 8 * s, BRC, a, 5 * s, 0.05); x.beginPath(); x.moveTo(cx - 140 * s, cy - 85 * s); x.lineTo(cx, cy - 190 * s); x.lineTo(cx + 140 * s, cy - 85 * s); x.strokeStyle = `rgba(${BRC},${a})`; x.lineWidth = 5 * s; x.stroke(); fCaixa(x, cx + 60 * s, cy + 35 * s, 50 * s, 100 * s, 4 * s, BRC, a, 4 * s, 0.05); }
 
+function relogioK(x, cx, cy, r, ang, a) { if (a <= 0.01) return; anelP(x, cx, cy, r, VE, a, 6); linhaP(x, cx, cy, cx + Math.cos(ang - 1.57) * r * 0.75, cy + Math.sin(ang - 1.57) * r * 0.75, VE, a, 6); discoP(x, cx, cy, 6, VE, a); }
+
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tP = B("pisca"), tG = B("gravar"), tN = B("naoabre"), tPr = B("promessa"), tPt = B("proteger");
-  mostrarGancho(tP - 0.6);
+  const tP = B("pisca"), tMi = B("minuto"), tG = B("gravar"), tN = B("naoabre"), tPr = B("promessa"), tPt = B("proteger");
+  mostrarGancho(tMi - 0.4);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["gra", 330, 66, "e se gravar o sinal?", "pt-ci"], ["nao", 330, 86, "não abre", "pt-ve"], ["lad", 330, 62, "o truque dos ladrões", "pt-am"]]);
+  const tx = palcoTexto(el, [["min", 330, 76, "levado em ~1 minuto", "pt-ve"], ["gra", 330, 66, "e se gravar o sinal?", "pt-ci"], ["nao", 330, 86, "não abre", "pt-ve"], ["lad", 330, 62, "o truque dos ladrões", "pt-am"]]);
+  MD.slam(tl, tx.min, tMi - 0.6, { from: 1.35 }); MD.leave(tl, tx.min, tG - 0.3);
   MD.slam(tl, tx.gra, tG - 0.05, { from: 1.25 }); MD.leave(tl, tx.gra, tN - 0.3); MD.slam(tl, tx.nao, tN - 0.05, { from: 1.4 }); MD.leave(tl, tx.nao, tPr - 0.4); MD.slam(tl, tx.lad, tPr - 0.1, { from: 1.25 });
   const est = estF(3), SEU = 23;
   T.quadro((x, t) => {
     estD(x, est, t);
+    const zc = PT.lerp(1.45, 1.0, PT.out(t / (tP + 0.3))); x.save(); x.translate(540, 760); x.scale(zc, zc); x.translate(-540, -760);
     const pis = t > tP - 0.2 && t < tG ? Math.max(0, Math.sin((t - tP) * 10)) : 0;
     for (let k = 0; k < 40; k++) { const col = k % 8, lin = Math.floor(k / 8); carroCima(x, 140 + col * 115, 620 + lin * 170, 0.9, k === SEU ? AM : CZ, 0.9, k === SEU ? pis : 0); }
     for (let lin = 0; lin < 5; lin++) linhaP(x, 80, 535 + lin * 170, 1000, 535 + lin * 170, CZ, 0.3, 2);
-    const aK = PT.ss((t - 1) / 0.5); chave(x, 900, 1350, 1, aK, PT.jan(t, tP - 0.8, tP + 0.4, 0.1, 0.3)); ondasR(x, 900, 1300, t, PT.jan(t, tP - 0.6, tG, 0.2, 0.4), CI, 400);
+    x.restore();
+    // alerta: o carro "levado" em ~1 minuto
+    const aMi = PT.jan(t, tMi - 0.6, tG - 0.2, 0.2, 0.4); if (aMi > 0) { const cx = 140 + 7 * 115, cy = 620 + 2 * 170, p = ((t - tMi) * 1.5) % 1; anelP(x, cx, cy, 90 + p * 120, VE, aMi * (1 - p), 6); brilhoP(x, cx, cy, 160, VE, 0.5 * aMi); relogioK(x, cx - 230, cy, 60, (t - tMi) * 4, aMi); }
+    const aK = PT.ss((t + 0.2) / 0.3); chave(x, 900, 1350, 1, aK, PT.jan(t, tP - 1.4, tP + 0.4, 0.1, 0.3)); ondasR(x, 900, 1300, t, PT.jan(t, tP - 1.2, tG, 0.2, 0.4), CI, 400);
     // gravador do ladrão
     const aG = PT.jan(t, tG - 0.3, tPr - 0.3, 0.3, 0.4); if (aG > 0) { fCaixa(x, 220, 1350, 160, 100, 14, VE, aG, 4, 0.1); discoP(x, 180, 1350, 10, VE, aG * (0.5 + 0.5 * Math.sin(t * 8))); rotuloP(x, "REC", 240, 1350, 28, "255,160,170", aG); }
   });

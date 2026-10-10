@@ -9,9 +9,22 @@ Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 - Como a internet inteira atravessa os oceanos? → `videos/internet-oceanos` (cenas prontas; render depois da chave)
 
 ## Próximos (na ordem)
-10. Por que a água do mar é tão salgada e a do rio não?
-11. Como a tecnologia da linha do gol sabe que a bola entrou em milissegundos?
-12. Por que é tão difícil prever o tempo, mesmo com tanta tecnologia?
+1. Por que a água do mar é tão salgada e a do rio não?
+2. Como a tecnologia da linha do gol sabe que a bola entrou em milissegundos?
+3. Por que é tão difícil prever o tempo, mesmo com tanta tecnologia?
+4. Como construíram as pontes antigas embaixo d'água sem tecnologia?
+5. Como a grama dos estádios aguenta um show de 50 mil pessoas num dia e um jogo de futebol perfeito no outro?
+6. O que impede os túneis de metrô de desabarem debaixo do peso de cidades gigantes?
+7. Como os atletas de apneia conseguem prender a respiração por 10 minutos debaixo d'água sem desmaiar?
+8. Por que o suor não tem cheiro ruim quando acaba de sair do corpo?
+9. Por que nós trememos de frio e como isso salva a nossa vida?
+10. Por que a batida do funk e do sertanejo gruda na cabeça e a gente não consegue esquecer a letra?
+11. Como o disco de vinil, um pedaço de plástico arranhado por uma agulha, produz uma música inteira?
+12. Como o algoritmo do TikTok sabe exatamente o que você quer ver antes de você mesmo saber?
+13. Como a inteligência artificial consegue inventar o rosto de pessoas que não existem?
+14. Por que reiniciar o roteador ou o celular "conserta" 90% dos problemas de tecnologia?
+15. Como os antigos egípcios empilharam pedras de 2 toneladas a 140 metros de altura sem máquinas?
+16. O que aconteceria com o seu corpo se você caísse num poço que atravessasse a Terra de um lado ao outro?
 
 ## Feitos
 - Como o cartão por aproximação funciona sem bateria? → `videos/cartao-aproximacao` (entregue)

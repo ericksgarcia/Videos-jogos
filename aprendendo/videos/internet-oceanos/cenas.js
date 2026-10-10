@@ -42,24 +42,48 @@ const FOR = [-3.7, -38.5], SIN = [37.95, -8.9];
 const CABOS = [[FOR, SIN], [FOR, [25.8, -80.2]], [FOR, [36.85, -76]], [FOR, [-8.8, 13.2]], [[-22.9, -43.2], [-33.9, 18.4]], [[-23.9, -46.3], [-36.5, -56.7]], [FOR, [-22.9, -43.2]], [[40.6, -73.9], [50.8, -4.5]], [[36.85, -76], [43.3, -2.9]], [[6.45, 3.4], [37.95, -8.9]], [[25.8, -80.2], [40.6, -73.9]], [[-8.8, 13.2], [6.45, 3.4]], [[43.3, 5.4], [31.2, 29.9]], [[50.8, -4.5], [40.6, -73.9]]];
 
 // =============== 1. gancho ===============
+// quadro 0 = o plano mais impressionante: o cabo brilhando no fundo do mar, câmera mergulhando.
 CENAS.abertura = (el, c, B) => {
-  const tS = B("segundo"), tSa = B("satelite"), tN = B("nao"), tC = B("cabos"), tP = B("promessa");
-  mostrarGancho(tS - 0.5);
+  const tAq = B("aqui"), tM = B("mangueira0"), tSa = B("satelite"), tN = B("nao"), tAt = B("atlantico"), tS = B("segundo"), tP = B("promessa");
+  mostrarGancho(tSa - 0.4);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["seg", 330, 70, "menos de 1 segundo", "pt-ci"], ["sat", 330, 76, "pelo satélite?", "pt-am"], ["cab", 330, 66, "99%: cabos no fundo do mar", "pt-ci", "white-space:normal;left:60px;width:960px"], ["ini", 330, 66, "o maior inimigo deles?", "pt-ve"]]);
-  MD.slam(tl, tx.seg, tS - 0.3, { from: 1.25 }); MD.leave(tl, tx.seg, tSa - 0.3); MD.slam(tl, tx.sat, tSa - 0.05, { from: 1.35 }); MD.leave(tl, tx.sat, tC - 0.35); MD.slam(tl, tx.cab, tC - 0.05, { from: 1.2 }); MD.leave(tl, tx.cab, tP - 2.0); MD.slam(tl, tx.ini, tP - 1.7, { from: 1.3 });
-  const nv = T.nuvem(9000), est = estF(3), CX = 540, CY = 930, R = 380;
+  const tx = palcoTexto(el, [["sat", 330, 76, "satélite?", "pt-am"], ["atl", 330, 62, "desce até o fundo do Atlântico", "pt-ci", "white-space:normal;left:60px;width:960px"], ["seg", 330, 70, "menos de 1 segundo", "pt-am"], ["ini", 330, 66, "o maior inimigo deles?", "pt-ve"]]);
+  MD.slam(tl, tx.sat, tSa - 0.05, { from: 1.35 }); MD.leave(tl, tx.sat, tAt - 0.35); MD.slam(tl, tx.atl, tAt - 0.05, { from: 1.2 }); MD.leave(tl, tx.atl, tS - 0.3); MD.slam(tl, tx.seg, tS - 0.05, { from: 1.3 }); MD.leave(tl, tx.seg, tP - 2.0); MD.slam(tl, tx.ini, tP - 1.7, { from: 1.3 });
+  const nv = T.nuvem(9000), est = estF(3), CX = 540, CY = 930, R = 380, troca = tSa - 0.5;
   T.quadro((x, t) => {
     estD(x, est, t);
-    const pj = globoI(nv, x, CX, CY, R, 12, -28 + (t - c.ini) * 0.8, 1);
-    const a0 = PT.ss((t - c.ini - 0.6) / 0.5), pA = pj(vecI(...FOR)), pB = pj(vecI(...SIN));
-    for (const [p, nome] of [[pA, "Brasil"], [pB, "Portugal"]]) { discoP(x, p[0], p[1], 12, AM, a0); brilhoP(x, p[0], p[1], 50, AM, 0.5 * a0); rotuloP(x, nome, p[0], p[1] + 46, 30, "255,226,140", a0); }
-    // a mensagem: tracinho voando de lá pra cá
-    const aM = PT.jan(t, c.ini + 1, tSa - 0.4, 0.3, 0.3); if (aM > 0) { const u = ((t - c.ini - 1) * 0.6) % 1, p = pontoArco(pj, FOR, SIN, u, 0.08); discoP(x, p[0], p[1], 10, CI, aM); brilhoP(x, p[0], p[1], 50, CI, 0.7 * aM); arcoI(x, pj, FOR, SIN, CI, 0.4 * aM, u, 3, 0.08); }
-    // caminho do satélite (riscado no "não")
-    const aSa = PT.jan(t, tSa - 0.3, tC - 0.2, 0.4, 0.4); if (aSa > 0) { const S = [CX + 330, CY - R - 20]; satI(x, S[0], S[1], 1.1, aSa); x.setLineDash([10, 12]); linhaP(x, pA[0], pA[1], S[0], S[1] + 20, BRC, 0.6 * aSa, 3); linhaP(x, S[0], S[1] + 20, pB[0], pB[1], BRC, 0.6 * aSa, 3); x.setLineDash([]); xisI(x, PT.lerp(pA[0], S[0], 0.6), PT.lerp(pA[1], S[1], 0.6), 44, PT.ss((t - tN + 0.15) / 0.3) * aSa); }
-    // os cabos de verdade
-    const aC = PT.ss((t - tC + 0.4) / 0.8); if (aC > 0) CABOS.forEach((cb, k) => { const prog = PT.ss((t - tC + 0.4 - k * 0.08) / 1.2); arcoI(x, pj, cb[0], cb[1], k === 0 ? AM : CI, (k === 0 ? 1 : 0.65) * aC, prog, k === 0 ? 6 : 3); });
+    // ---- plano 1: fundo do mar (0 → satélite)
+    const a1 = 1 - PT.ss((t - troca) / 0.5);
+    if (a1 > 0.01) {
+      const z = PT.lerp(1.25, 1.0, PT.out(Math.min(1, t / (troca + 0.5)))) ; x.save(); x.globalAlpha = a1; x.translate(540, 1100); x.scale(z, z); x.translate(-540, -1100);
+      marI(x, t, 700, 1330, 1);
+      // feixes de luz vindos da superfície
+      for (let k = 0; k < 5; k++) { const px = 140 + k * 200 + Math.sin(t * 0.4 + k) * 30; const g = x.createLinearGradient(0, 710, 0, 1200); g.addColorStop(0, "rgba(140,200,255,0.12)"); g.addColorStop(1, "rgba(140,200,255,0)"); x.fillStyle = g; x.beginPath(); x.moveTo(px - 30, 710); x.lineTo(px + 30, 710); x.lineTo(px + 120, 1200); x.lineTo(px + 20, 1200); x.closePath(); x.fill(); }
+      // cabos ao fundo (profundidade)
+      for (const [yy, aa] of [[1110, 0.25], [1160, 0.35]]) { x.beginPath(); for (let px = -40; px <= 1120; px += 12) { const py = yy + Math.sin(px * 0.008 + yy) * 14; px === -40 ? x.moveTo(px, py) : x.lineTo(px, py); } x.strokeStyle = `rgba(${CI},${aa})`; x.lineWidth = 6; x.stroke(); }
+      // o cabo principal, grosso e brilhando, com pulsos de luz correndo
+      const yc = (px) => 1250 + Math.sin(px * 0.006) * 22;
+      x.beginPath(); for (let px = -40; px <= 1120; px += 10) px === -40 ? x.moveTo(px, yc(px)) : x.lineTo(px, yc(px)); x.strokeStyle = `rgba(${CI},0.12)`; x.lineWidth = 46; x.stroke(); x.strokeStyle = `rgba(${BRC},0.45)`; x.lineWidth = 20; x.stroke(); x.strokeStyle = `rgba(${CI},0.6)`; x.lineWidth = 4; x.stroke();
+      for (let k = 0; k < 9; k++) { const u = ((t * 0.32 + k / 9) % 1), px = -40 + u * 1160; discoP(x, px, yc(px), 8, AM, 0.9); brilhoP(x, px, yc(px), 55, AM, 0.5); }
+      // "passa por aqui": alvo pulsando no cabo
+      const aA = PT.ss((t - tAq + 0.3) / 0.4); if (aA > 0) { const p = ((t - tAq) * 1.2) % 1; anelP(x, 540, yc(540), 60 + p * 90, AM, aA * (1 - p), 5); anelP(x, 540, yc(540), 60, AM, aA, 6); fSeta(x, 540, 900, 540, yc(540) - 80, AM, aA, 7); }
+      // "grossura de uma mangueira": medida
+      const aM = PT.ss((t - tM + 0.3) / 0.4); if (aM > 0) { linhaP(x, 700, yc(700) - 30, 700, yc(700) + 30, VD, aM, 4); rotuloP(x, "≈ 2 cm", 700, yc(700) - 75, 40, "160,255,210", aM); }
+      x.restore();
+    }
+    // ---- plano 2: o globo (satélite? não. cabos.)
+    const a2 = PT.ss((t - troca) / 0.5);
+    const pj = globoI(nv, x, CX, CY, R, 12, -28 + (t - troca) * 0.8, a2);
+    if (a2 > 0.01) {
+      const pA = pj(vecI(...FOR)), pB = pj(vecI(...SIN));
+      for (const [p, nome] of [[pA, "Brasil"], [pB, "Portugal"]]) { discoP(x, p[0], p[1], 12, AM, a2); brilhoP(x, p[0], p[1], 50, AM, 0.5 * a2); rotuloP(x, nome, p[0], p[1] + 46, 30, "255,226,140", a2); }
+      const aSa = PT.jan(t, troca, tAt - 0.2, 0.4, 0.4); if (aSa > 0) { const S = [CX + 330, CY - R - 20]; satI(x, S[0], S[1], 1.1, aSa); x.setLineDash([10, 12]); linhaP(x, pA[0], pA[1], S[0], S[1] + 20, BRC, 0.6 * aSa, 3); linhaP(x, S[0], S[1] + 20, pB[0], pB[1], BRC, 0.6 * aSa, 3); x.setLineDash([]); xisI(x, PT.lerp(pA[0], S[0], 0.6), PT.lerp(pA[1], S[1], 0.6), 44, PT.ss((t - tN + 0.15) / 0.3) * aSa); }
+      // a mensagem desce e atravessa pelo cabo
+      const aC = PT.ss((t - tAt + 0.4) / 0.6); if (aC > 0) { const pr = PT.ss((t - tAt + 0.2) / 2.2); arcoI(x, pj, FOR, SIN, AM, aC, Math.max(0.02, pr), 6); const p = pontoArco(pj, FOR, SIN, pr); discoP(x, p[0], p[1], 12, AM, aC); brilhoP(x, p[0], p[1], 70, AM, 0.8 * aC); }
+      const aT = PT.ss((t - tS + 0.4) / 0.8); if (aT > 0) CABOS.forEach((cb, k) => { if (k) arcoI(x, pj, cb[0], cb[1], CI, 0.6 * aT, PT.ss((t - tS + 0.4 - k * 0.08) / 1.2), 3); });
+      // promessa: um tubarão passa na frente
+      const aTu = PT.ss((t - tP + 1.8) / 0.5); if (aTu > 0) tubaraoI(x, PT.lerp(1200, -150, PT.ss((t - tP + 1.8) / 3.5)), 1250, 1.3, 0.8 * aTu);
+    }
   });
 };
 
@@ -67,7 +91,7 @@ CENAS.abertura = (el, c, B) => {
 CENAS.cabo = (el, c, B) => {
   const tM = B("mangueira"), tV = B("vidro"), tL = B("luz"), tBi = B("bilhoes"), tQ = B("quica");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["man", 330, 66, "grossura de uma mangueira", "pt-ci", "white-space:normal;left:60px;width:960px"], ["vid", 330, 66, "fios de vidro finos como cabelo", "pt-am", "white-space:normal;left:60px;width:960px"], ["luz", 330, 70, "a mensagem vira luz", "pt-am"], ["qui", 330, 66, "a luz quica e não escapa", "pt-ci"]]);
+  const tx = palcoTexto(el, [["man", 330, 66, "plástico, aço e cobre", "pt-ci"], ["vid", 330, 66, "fios de vidro finos como cabelo", "pt-am", "white-space:normal;left:60px;width:960px"], ["luz", 330, 70, "a mensagem vira luz", "pt-am"], ["qui", 330, 66, "a luz quica e não escapa", "pt-ci"]]);
   MD.slam(tl, tx.man, tM - 0.05, { from: 1.25 }); MD.leave(tl, tx.man, tV - 0.3); MD.slam(tl, tx.vid, tV - 0.05, { from: 1.2 }); MD.leave(tl, tx.vid, tL - 0.3); MD.slam(tl, tx.luz, tL - 0.05, { from: 1.3 }); MD.leave(tl, tx.luz, tQ - 0.3); MD.slam(tl, tx.qui, tQ - 0.05, { from: 1.25 });
   const est = estF(5);
   T.quadro((x, t) => {

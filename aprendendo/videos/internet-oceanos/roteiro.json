@@ -10,8 +10,8 @@
   "#ciencia",
   "#aprendendofacil"
  ],
- "gancho": "A INTERNET VEM DO SATÉLITE?",
- "gancho_destaque": "SATÉLITE",
+ "gancho": "99% DA INTERNET PASSA AQUI",
+ "gancho_destaque": "99%",
  "voz": "Achird",
  "sons": {
   "segundo": [
@@ -25,10 +25,6 @@
   "nao": [
    "thud",
    0.65
-  ],
-  "cabos": [
-   "pop",
-   0.5
   ],
   "promessa": [
    "plim",
@@ -161,6 +157,18 @@
   "cta": [
    "plim",
    0.6
+  ],
+  "aqui": [
+   "thud",
+   0.7
+  ],
+  "mangueira0": [
+   "pop",
+   0.5
+  ],
+  "atlantico": [
+   "whoosh",
+   0.5
   ]
  },
  "cenas": [
@@ -168,12 +176,14 @@
    "id": "gancho",
    "tipo": "abertura",
    "titulo": "Satélite?",
-   "fala": "Você manda uma mensagem pra alguém em Portugal e ela chega em menos de um segundo. Você acha que ela foi pelo satélite? Não foi. Mais de noventa e nove por cento dos dados entre continentes passam por cabos no fundo do mar. E no final eu te conto qual é o maior inimigo desses cabos. Não é tubarão.",
+   "fala": "Noventa e nove por cento da internet entre os continentes passa por aqui: um cabo da grossura de uma mangueira, no fundo do oceano. Você achava que era satélite? Não. Quando você manda uma mensagem pra Portugal, ela desce até o fundo do Atlântico e chega do outro lado em menos de um segundo. E no final eu te conto qual é o maior inimigo desses cabos. Não é tubarão.",
    "batidas": {
-    "segundo.": "segundo",
+    "aqui:": "aqui",
+    "mangueira,": "mangueira0",
     "satélite?": "satelite",
-    "Não": "nao",
-    "cabos": "cabos",
+    "Não.": "nao",
+    "Atlântico": "atlantico",
+    "segundo.": "segundo",
     "tubarão.": "promessa"
    }
   },
@@ -181,9 +191,9 @@
    "id": "cabo",
    "tipo": "cabo",
    "titulo": "Dentro do cabo",
-   "fala": "Pensa numa mangueira de jardim. No fundo do oceano, o cabo tem mais ou menos essa grossura. Lá dentro, uns fios de vidro finos como um fio de cabelo. A sua mensagem vira pulsos de luz, piscando bilhões de vezes por segundo, e a luz vai quicando dentro do vidro sem escapar.",
+   "fala": "Por fora, ele é só plástico, aço e cobre. Mas lá dentro tem uns fios de vidro finos como um fio de cabelo. A sua mensagem vira pulsos de luz, piscando bilhões de vezes por segundo, e a luz vai quicando dentro do vidro sem escapar.",
    "batidas": {
-    "mangueira": "mangueira",
+    "plástico,": "mangueira",
     "vidro": "vidro",
     "luz,": "luz",
     "bilhões": "bilhoes",

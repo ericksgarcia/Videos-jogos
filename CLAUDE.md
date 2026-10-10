@@ -113,6 +113,18 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
   carrinho do mercado sai cada vez mais vazio?", "Tenta agora: faz cócegas no seu pé".
 - O assunto (o nome técnico) só aparece depois que a pergunta já prendeu.
 
+### Abertura que impressiona (pedido do dono: "apele mais no início")
+
+- Os **3 primeiros segundos** decidem se a pessoa fica. Ela tem que se impressionar e querer ver.
+- **1ª frase = o fato mais chocante do vídeo** (número gigante, paradoxo, "isso aqui faz X"), dita já
+  na primeira palavra; a situação do dia a dia e a pergunta "você acha que…?" vêm logo depois.
+- **A imagem mais bonita/impressionante já no quadro 0**, em movimento (nada de tela vazia, globo
+  parado ou cenário surgindo aos poucos). Pense em "o plano do trailer".
+- O `gancho` escrito na tela é a mesma afirmação chocante, curta (até ~5 palavras), com o número ou a
+  palavra forte em `gancho_destaque`.
+- Algo muda na tela a cada ~1,5 s nos primeiros 6 s (texto que bate, corte de plano, zoom).
+- A promessa ("no final eu te conto…") fica até ~15 s, depois do choque, nunca antes.
+
 ### O que a ciência apoia (pesquisa feita com o dono; use em todo roteiro)
 
 - **Curiosidade de "meio-saber"** (Loewenstein 1994; Kang et al. 2009; Gruber et al. 2014):
