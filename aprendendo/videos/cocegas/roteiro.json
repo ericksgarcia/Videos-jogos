@@ -1,7 +1,7 @@
 {
  "slug": "por-que-voce-nao-consegue-fazer-cocegas-em-si-mesmo",
  "titulo": "Por que você não consegue fazer cócegas em si mesmo",
- "descricao": "Seu cérebro abaixa o volume de tudo que você mesmo toca 🤯\nPor que a gente não consegue fazer cócegas em si mesmo: o cerebelo prevê o seu toque e tira a surpresa.\nTem um robô que faz você sentir cócegas de si mesmo.\nE no final: o experimento que explica por que toda briga de irmão só piora.\nManda pra quem não aguenta cócegas e salva pra testar.\nVocê já jurou que o outro bateu mais forte? Comenta aí 👇",
+ "descricao": "Seu cérebro abaixa o volume de tudo que você mesmo toca 🤯\nPor que a gente não consegue fazer cócegas em si mesmo: o cerebelo prevê o seu toque e tira a surpresa.\nTem um robô que faz você sentir cócegas de si mesmo.\nE no final: o único tipo de cócegas que você consegue fazer em você mesmo (testa na hora).\nManda pra quem não aguenta cócegas e salva pra testar.\nFuncionou o teste do lábio aí? Comenta 👇",
  "hashtags": [
   "#cocegas",
   "#cerebro",
@@ -25,14 +25,6 @@
   "nada": [
    "clique",
    0.5
-  ],
-  "briga": [
-   "whoosh_curto",
-   0.5
-  ],
-  "piora": [
-   "thud",
-   0.6
   ],
   "promessa": [
    "plim",
@@ -98,46 +90,6 @@
    "zap",
    0.5
   ],
-  "briga2": [
-   "whoosh",
-   0.5
-  ],
-  "frente": [
-   "pop",
-   0.45
-  ],
-  "dedo": [
-   "clique",
-   0.55
-  ],
-  "mesma": [
-   "pop",
-   0.5
-  ],
-  "pensa": [
-   "plim",
-   0.55
-  ],
-  "subia": [
-   "whoosh_curto",
-   0.5
-  ],
-  "fraca": [
-   "thud",
-   0.5
-  ],
-  "trinta": [
-   "clique",
-   0.6
-  ],
-  "juram": [
-   "pop",
-   0.5
-  ],
-  "verdade": [
-   "brilho",
-   0.6
-  ],
   "favor": [
    "plim",
    0.5
@@ -173,6 +125,46 @@
   "cta": [
    "plim",
    0.6
+  ],
+  "tipo": [
+   "pop",
+   0.5
+  ],
+  "mesmo": [
+   "clique",
+   0.5
+  ],
+  "prometi": [
+   "plim",
+   0.55
+  ],
+  "dois": [
+   "pop",
+   0.5
+  ],
+  "rir": [
+   "whoosh_curto",
+   0.45
+  ],
+  "outra": [
+   "pop",
+   0.45
+  ],
+  "pena": [
+   "brilho",
+   0.5
+  ],
+  "mesmo2": [
+   "plim",
+   0.55
+  ],
+  "labio": [
+   "clique",
+   0.5
+  ],
+  "sentiu": [
+   "brilho",
+   0.6
   ]
  },
  "cenas": [
@@ -180,14 +172,14 @@
    "id": "gancho",
    "tipo": "abertura",
    "titulo": "O volume do toque",
-   "fala": "Seu cérebro abaixa o volume de tudo que você mesmo toca. Por isso, quase ninguém consegue fazer cócegas em si mesmo. Tenta agora, na sola do pé. Nada, né? E esse mesmo truque do cérebro explica por que toda briga de irmão só piora. No final eu te mostro o experimento que provou isso.",
+   "fala": "Seu cérebro abaixa o volume de tudo que você mesmo toca. Por isso, quase ninguém consegue fazer cócegas em si mesmo. Tenta agora, na sola do pé. Nada, né? Mas existe um tipo de cócegas que você consegue fazer em você mesmo. No final eu te mostro, e você vai testar na hora.",
    "batidas": {
     "toca.": "volume0",
     "pé.": "pe",
     "Nada,": "nada",
-    "briga": "briga",
-    "piora.": "piora",
-    "isso.": "promessa"
+    "tipo": "tipo",
+    "mesmo.": "mesmo",
+    "hora.": "promessa"
    }
   },
   {
@@ -209,7 +201,7 @@
    "id": "robo",
    "tipo": "robo",
    "titulo": "Enganando o cérebro",
-   "fala": "Uma neurocientista de Londres fez isso com um robô. A pessoa mexia uma alavanca, e o robô passava uma escovinha na mão dela. Sem atraso, nada de cócegas. Agora, adivinha o que aconteceu quando o robô atrasava só dois décimos de segundo? As cócegas voltaram. A pessoa nem percebia o atraso, mas o cérebro errava a previsão. E é aqui que entra a briga.",
+   "fala": "Uma neurocientista de Londres fez isso com um robô. A pessoa mexia uma alavanca, e o robô passava uma escovinha na mão dela. Sem atraso, nada de cócegas. Agora, adivinha o que aconteceu quando o robô atrasava só dois décimos de segundo? As cócegas voltaram. A pessoa nem percebia o atraso, mas o cérebro errava a previsão. E agora, o tipo de cócegas que eu prometi.",
    "batidas": {
     "robô.": "robo",
     "alavanca,": "alavanca",
@@ -219,32 +211,22 @@
     "décimos": "decimos",
     "voltaram.": "voltaram",
     "errava": "errava",
-    "briga.": "briga2"
+    "prometi.": "prometi"
    }
   },
   {
-   "id": "experimento",
-   "tipo": "experimento",
-   "titulo": "O experimento da briga",
-   "fala": "Pesquisadores colocaram duas pessoas frente a frente. Uma apertava o dedo da outra com uma máquina, e a outra tinha que devolver com a mesma força. Só isso. Pensa rápido: o que aconteceu?",
+   "id": "tipos",
+   "tipo": "tipos",
+   "titulo": "Os dois tipos de cócegas",
+   "fala": "Existem dois tipos de cócegas. O que faz rir, nas costelas e na sola do pé, precisa de surpresa. Então precisa de outra pessoa. Mas o outro é aquele toque bem leve, de pena, que dá arrepio. Esse você consegue fazer em você mesmo. Testa agora: passa a ponta do dedo bem de leve no lábio. Sentiu? É esse.",
    "batidas": {
-    "frente.": "frente",
-    "dedo": "dedo",
-    "força.": "mesma",
-    "Pensa": "pensa"
-   }
-  },
-  {
-   "id": "escalada",
-   "tipo": "escalada",
-   "titulo": "Os dois têm razão",
-   "fala": "A força só subia. Como a força que você mesmo faz parece mais fraca, cada um devolvia mais forte sem perceber: trinta e oito por cento a mais, em média, a cada vez. Por isso, numa briga, os dois juram que o outro bateu mais forte. E os dois estão falando a verdade.",
-   "batidas": {
-    "subia.": "subia",
-    "fraca,": "fraca",
-    "trinta": "trinta",
-    "juram": "juram",
-    "verdade.": "verdade"
+    "dois": "dois",
+    "rir,": "rir",
+    "pessoa.": "outra",
+    "pena,": "pena",
+    "mesmo.": "mesmo2",
+    "lábio.": "labio",
+    "Sentiu?": "sentiu"
    }
   },
   {

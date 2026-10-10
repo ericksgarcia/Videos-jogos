@@ -10,6 +10,19 @@ Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Refazer do zero (pedido do dono; um de cada vez)
 Roteiro e cenas novos, com as regras de retenção do começo ao fim do CLAUDE.md.
+Ganchos escolhidos pelo dono (caixas de seleção):
+- Cócegas: "existe um tipo de cócegas que você consegue fazer em si mesmo" (promessa; paga no fim com o teste do lábio)
+- Celular: "Seu celular não precisa te ouvir pra saber do que você falou."
+- Chuva: "Você já sentiu o cheiro de um raio, sem perceber."
+- Remédio: "O remédio pra dor de cabeça não vai pra sua cabeça."
+- Porta: "Atravessar uma porta faz o seu cérebro esquecer, e isso foi medido em laboratório."
+- Voz: "Odeia ouvir o seu próprio áudio? Um experimento mostrou que, sem saber que era você, você ia gostar da sua voz."
+- Comida: "Uma reação parecida com a ferrugem consegue esquentar o seu almoço no meio do mato."
+- Fone: "Dá pra apagar um som... tocando outro som."
+- GPS: "Sem a teoria do Einstein, o GPS do seu celular erraria uns 10 km por dia."
+- Cartão: "Seu cartão não tem bateria, e mesmo assim liga e cria um código secreto em menos de meio segundo."
+- Chave: "Quinhentos carros, um botão, e só o seu pisca. Mas tem carro que ladrão leva sem a chave em cerca de um minuto."
+- Internet: "O maior inimigo da internet mundial não é hacker nem tubarão: é âncora de navio."
 1. Cócegas → `videos/cocegas`
 2. Celular escuta → `videos/celular-escuta`
 3. Cheiro de chuva → `videos/cheiro-de-chuva`
