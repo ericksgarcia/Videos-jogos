@@ -183,7 +183,7 @@ CENAS.dica = (el, c, B) => {
     if (aB > 0.01) { fPessoa(x, 760, 1200, 2.4, "255,226,190", aB); for (let k = 0; k < 5; k++) { const u = ((t - pB) * 0.9 + k / 5) % 1; fSeta(x, 40 + u * 420, 900 + k * 80, 220 + u * 420, 910 + k * 80, "220,230,255", aB * Math.sin(u * Math.PI), 6); } linhaP(x, 960, 900, 960, 1180, "255,255,255", aB * 0.5, 14); linhaP(x, 960, 1180, 960, PT.lerp(960, 1120, PT.ss((t - tV) / 1)), CI, aB, 10); discoP(x, 960, 1195, 22, CI, aB); }
     // plano C: a tempestade com raios
     const aC = planoC(t, pC, pD);
-    if (aC > 0.01) { const fl = Math.max(0, Math.sin(t * 5) * Math.sin(t * 1.7)); nuvemP(nv, 540, 640, 520, t, 0.9 * aC, fl); raioZ(x, 380, 780, 300, 1250, Math.floor(t * 2), fl * 1.4 * aC); } else if (t < pD + 0.5) nv.total(nv.k);
+    if (aC > 0.01) { const fl = Math.max(0, Math.sin(t * 5) * Math.sin(t * 1.7)); nuvemP(nv, 540, 820, 460, t, 0.9 * aC, fl); raioZ(x, 400, 960, 320, 1330, Math.floor(t * 2), fl * 1.4 * aC); } else if (t < pD + 0.5) nv.total(nv.k);
     // plano D: a casinha de abrigo
     const aD = PT.ss((t - pD) / 0.5);
     if (aD > 0.01) { fCaixa(x, 420, 1180, 300, 200, 8, AM, aD, 6, 0.12); x.beginPath(); x.moveTo(250, 1080); x.lineTo(420, 940); x.lineTo(590, 1080); x.strokeStyle = `rgba(${AM},${aD})`; x.lineWidth = 7; x.stroke(); fPessoa(x, 820, 1200, 2.0, "255,226,190", aD); fSeta(x, 740, 1180, 600, 1180, VD, aD, 7); }
