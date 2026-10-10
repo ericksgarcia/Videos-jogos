@@ -285,6 +285,9 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   `transform="translate(0 0) scale(1)"` no `<g>`. Misturar x/y/scale/svgOrigin do GSAP
   em passos diferentes deslocou a cena.
 - Bloco de legenda muito curto é juntado ao seguinte automaticamente; não mexa nisso.
+- **Nomes globais:** o `cenas.js` divide o escopo global com o motor (`PT`, `BR`, `nuvem`, `COR`...).
+  Uma `const` com nome repetido apaga o vídeo inteiro (tela vazia). Dê nomes do próprio vídeo
+  (ex.: `BRR`, `nuvemP`). O `gerar.py --so-montar` já verifica e acusa esse erro.
 
 ## Custos e ferramentas (decidido com o dono)
 

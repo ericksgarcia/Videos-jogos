@@ -177,26 +177,55 @@ def montar(roteiro, ag, pasta, pasta_video):
     (pasta / "meta.json").write_text(json.dumps({"id": roteiro["slug"], "name": roteiro["titulo"]}))
 
 
-def verificar(pasta):
-    """Abre a página do vídeo e percorre a timeline inteira (a cada 0,25 s) procurando erros
-    de JavaScript. Um erro no meio do vídeo trava o quadro (cena vazia, legendas encavaladas)."""
+VERIFICA_JS = """
+import { chromium } from "%s";
+const [pagina, passo] = process.argv.slice(2), erros = [];
+const nav = await chromium.launch(), pg = await nav.newPage({ viewport: { width: 1080, height: 1920 } });
+pg.on("pageerror", (e) => erros.push("carregando: " + e.message));
+await pg.goto(pagina); await new Promise((r) => setTimeout(r, 1500));
+if (!erros.length) erros.push(...await pg.evaluate((dt) => { const tl = window.__timelines.main, T = tl.duration(), e = [];
+  for (let t = 0; t < T; t += dt) { try { tl.seek(t); } catch (x) { e.push(t.toFixed(2) + " s: " + x.message); } } tl.seek(0); return e.slice(0, 10); }, Number(passo)));
+await nav.close(); console.log(JSON.stringify(erros));
+"""
+
+
+def verificar(pasta, passo=0.25):
+    """Abre a página do vídeo e percorre a timeline inteira (a cada `passo` s) procurando erros
+    de JavaScript. Um erro trava o quadro (cena vazia, legendas encavaladas); um nome global
+    repetido entre o cenas.js e o motor (ex.: const BR) apaga o vídeo inteiro."""
+    pagina = (Path(pasta) / "index.html").resolve().as_uri()
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        print("   [verificar] playwright ausente; pulando a verificação")
-        return
-    shell = os.environ.get("PRODUCER_HEADLESS_SHELL_PATH") or (sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell")) or [None])[-1]
-    erros = []
-    with sync_playwright() as p:
-        nav = p.chromium.launch(**({"executable_path": shell} if shell else {}))
-        pg = nav.new_page(viewport={"width": 1080, "height": 1920})
-        pg.on("pageerror", lambda e: erros.append(f"carregando: {e}"))
-        pg.goto((Path(pasta) / "index.html").resolve().as_uri())
-        pg.wait_for_timeout(1500)
-        erros += pg.evaluate("""() => { const tl = window.__timelines.main, T = tl.duration(), e = [];
-          for (let t = 0; t < T; t += 0.25) { try { tl.seek(t); } catch (x) { e.push(t.toFixed(2) + " s: " + x.message); } }
-          tl.seek(0); return e.slice(0, 10); }""")
-        nav.close()
+        sync_playwright = None
+    if sync_playwright:
+        shell = os.environ.get("PRODUCER_HEADLESS_SHELL_PATH") or (sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/*/headless_shell")) or [None])[-1]
+        erros = []
+        with sync_playwright() as p:
+            nav = p.chromium.launch(**({"executable_path": shell} if shell else {}))
+            pg = nav.new_page(viewport={"width": 1080, "height": 1920})
+            pg.on("pageerror", lambda e: erros.append(f"carregando: {e}"))
+            pg.goto(pagina)
+            pg.wait_for_timeout(1500)
+            erros += pg.evaluate("""(dt) => { const tl = window.__timelines.main, T = tl.duration(), e = [];
+              for (let t = 0; t < T; t += dt) { try { tl.seek(t); } catch (x) { e.push(t.toFixed(2) + " s: " + x.message); } }
+              tl.seek(0); return e.slice(0, 10); }""", passo)
+            nav.close()
+    else:
+        # sem o playwright do Python: usa o do Node (instalação global)
+        mod = next(iter(sorted(glob.glob("/opt/node*/lib/node_modules/playwright/index.mjs")) + sorted(glob.glob("/usr/lib/node_modules/playwright/index.mjs"))), None)
+        if not mod:
+            print("   [verificar] playwright ausente; pulando a verificação")
+            return
+        script = Path(pasta) / "_verifica.mjs"
+        script.write_text(VERIFICA_JS % mod)
+        r = subprocess.run(["node", str(script), pagina, str(passo)], capture_output=True, text=True, timeout=900)
+        script.unlink(missing_ok=True)
+        try:
+            erros = json.loads(r.stdout.strip().splitlines()[-1])
+        except (ValueError, IndexError):
+            print("   [verificar] não consegui verificar:", (r.stderr or r.stdout)[-300:])
+            return
     if erros:
         raise SystemExit("erros de JavaScript no vídeo:\n  " + "\n  ".join(erros))
     print("   [verificar] timeline sem erros")
@@ -317,8 +346,7 @@ def main():
     saida.mkdir(parents=True, exist_ok=True)
     pasta = saida / "build"
     montar(roteiro, ag, pasta, pasta_video)
-    if not a.so_montar:
-        verificar(pasta)
+    verificar(pasta, 2.0 if a.so_montar else 0.25)
     if a.previa:
         previa(ag, pasta, saida / "previa")
         return
