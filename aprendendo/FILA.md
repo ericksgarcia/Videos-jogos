@@ -5,10 +5,9 @@ Antes de começar cada um, confira em `aprendendo/videos/` se o tema já foi fei
 Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Em produção
-- Como o fone com cancelamento de ruído consegue "apagar" o som do mundo?
+- Como o GPS do celular sabe exatamente onde você está no meio do nada?
 
 ## Próximos (na ordem)
-6. Como o GPS do celular sabe exatamente onde você está no meio do nada?
 7. Como o cartão por aproximação paga a conta se não tem bateria dentro?
 8. Como a chave do carro destranca só o seu carro num estacionamento lotado?
 9. Como a internet inteira atravessa os oceanos?
@@ -17,6 +16,7 @@ Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 12. Por que é tão difícil prever o tempo, mesmo com tanta tecnologia?
 
 ## Feitos
+- Como o fone com cancelamento de ruído apaga o som? → `videos/fone-cancelamento` (entregue)
 - Como a comida esquenta sem fogo? → `videos/comida-sem-fogo` (entregue)
 - Por que a sua voz soa estranha gravada? → `videos/voz-gravada` (entregue)
 - Por que você esquece o que ia fazer quando passa por uma porta? → `videos/porta-esquece` (entregue)
