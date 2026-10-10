@@ -5,10 +5,10 @@ Antes de começar cada um, confira em `aprendendo/videos/` se o tema já foi fei
 Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Em produção
-- Como a chave do carro destranca só o seu carro num estacionamento lotado?
+- Como a chave do carro destranca só o seu carro num estacionamento lotado? → `videos/chave-carro` (renderizando)
+- Como a internet inteira atravessa os oceanos? → `videos/internet-oceanos` (cenas prontas; render depois da chave)
 
 ## Próximos (na ordem)
-9. Como a internet inteira atravessa os oceanos?
 10. Por que a água do mar é tão salgada e a do rio não?
 11. Como a tecnologia da linha do gol sabe que a bola entrou em milissegundos?
 12. Por que é tão difícil prever o tempo, mesmo com tanta tecnologia?

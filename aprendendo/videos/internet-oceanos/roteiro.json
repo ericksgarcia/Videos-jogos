@@ -1,0 +1,261 @@
+{
+ "slug": "como-a-internet-atravessa-os-oceanos",
+ "titulo": "Como a internet atravessa os oceanos",
+ "descricao": "Sua mensagem pra Europa não vai pelo satélite. Vai pelo fundo do mar 🌊\nComo a internet atravessa o oceano: cabos submarinos de fibra óptica, da grossura de uma mangueira, levando a sua mensagem em forma de luz.\nNo Brasil, a maioria deles chega numa praia só.\nNo final: o maior inimigo desses cabos (não é tubarão).\nManda pra quem acha que a internet vem do satélite e salva a dica do ping.\nVocê achava que era satélite ou cabo? Comenta aí 👇",
+ "hashtags": [
+  "#internet",
+  "#tecnologia",
+  "#cabosubmarino",
+  "#curiosidades",
+  "#ciencia",
+  "#aprendendofacil"
+ ],
+ "gancho": "A INTERNET VEM DO SATÉLITE?",
+ "gancho_destaque": "SATÉLITE",
+ "voz": "Achird",
+ "sons": {
+  "segundo": [
+   "plim",
+   0.55
+  ],
+  "satelite": [
+   "whoosh_curto",
+   0.45
+  ],
+  "nao": [
+   "thud",
+   0.65
+  ],
+  "cabos": [
+   "pop",
+   0.5
+  ],
+  "promessa": [
+   "plim",
+   0.55
+  ],
+  "mangueira": [
+   "pop",
+   0.45
+  ],
+  "vidro": [
+   "brilho",
+   0.5
+  ],
+  "luz": [
+   "zap",
+   0.5
+  ],
+  "bilhoes": [
+   "clique",
+   0.55
+  ],
+  "quica": [
+   "whoosh_curto",
+   0.4
+  ],
+  "seismil": [
+   "whoosh",
+   0.45
+  ],
+  "sessenta": [
+   "plim",
+   0.6
+  ],
+  "enfraquece": [
+   "thud",
+   0.5
+  ],
+  "setenta": [
+   "clique",
+   0.55
+  ],
+  "reforco": [
+   "brilho",
+   0.55
+  ],
+  "lugar": [
+   "pop",
+   0.5
+  ],
+  "seiscentos": [
+   "pop",
+   0.5
+  ],
+  "milhao": [
+   "brilho",
+   0.55
+  ],
+  "voltas": [
+   "whoosh",
+   0.5
+  ],
+  "praia": [
+   "plim",
+   0.55
+  ],
+  "futuro": [
+   "pop",
+   0.5
+  ],
+  "casa": [
+   "clique",
+   0.5
+  ],
+  "tubarao": [
+   "thud",
+   0.6
+  ],
+  "cento": [
+   "clique",
+   0.5
+  ],
+  "pesca": [
+   "whoosh_curto",
+   0.45
+  ],
+  "ancoras": [
+   "thud",
+   0.6
+  ],
+  "desvia": [
+   "whoosh_curto",
+   0.45
+  ],
+  "navio": [
+   "vento",
+   0.45
+  ],
+  "emenda": [
+   "plim",
+   0.55
+  ],
+  "servidor": [
+   "pop",
+   0.5
+  ],
+  "atraso": [
+   "clique",
+   0.55
+  ],
+  "resolve": [
+   "thud",
+   0.5
+  ],
+  "passo1": [
+   "pop",
+   0.4
+  ],
+  "passo2": [
+   "pop",
+   0.4
+  ],
+  "passo3": [
+   "pop",
+   0.4
+  ],
+  "passo4": [
+   "pop",
+   0.4
+  ],
+  "cta": [
+   "plim",
+   0.6
+  ]
+ },
+ "cenas": [
+  {
+   "id": "gancho",
+   "tipo": "abertura",
+   "titulo": "Satélite?",
+   "fala": "Você manda uma mensagem pra alguém em Portugal e ela chega em menos de um segundo. Você acha que ela foi pelo satélite? Não foi. Mais de noventa e nove por cento dos dados entre continentes passam por cabos no fundo do mar. E no final eu te conto qual é o maior inimigo desses cabos. Não é tubarão.",
+   "batidas": {
+    "segundo.": "segundo",
+    "satélite?": "satelite",
+    "Não": "nao",
+    "cabos": "cabos",
+    "tubarão.": "promessa"
+   }
+  },
+  {
+   "id": "cabo",
+   "tipo": "cabo",
+   "titulo": "Dentro do cabo",
+   "fala": "Pensa numa mangueira de jardim. No fundo do oceano, o cabo tem mais ou menos essa grossura. Lá dentro, uns fios de vidro finos como um fio de cabelo. A sua mensagem vira pulsos de luz, piscando bilhões de vezes por segundo, e a luz vai quicando dentro do vidro sem escapar.",
+   "batidas": {
+    "mangueira": "mangueira",
+    "vidro": "vidro",
+    "luz,": "luz",
+    "bilhões": "bilhoes",
+    "quicando": "quica"
+   }
+  },
+  {
+   "id": "viagem",
+   "tipo": "viagem",
+   "titulo": "A viagem da luz",
+   "fala": "E essa luz é rápida. De Fortaleza até Portugal são uns seis mil quilômetros, e o sinal vai e volta em menos de sessenta milésimos de segundo. Só que, numa distância dessas, a luz enfraquece. Então, a cada setenta quilômetros, mais ou menos, tem um amplificador no meio do cabo, que dá um reforço na luz. Mas onde esses cabos chegam no Brasil? Quase todos no mesmo lugar.",
+   "batidas": {
+    "seis": "seismil",
+    "sessenta": "sessenta",
+    "enfraquece.": "enfraquece",
+    "setenta": "setenta",
+    "reforço": "reforco",
+    "lugar.": "lugar"
+   }
+  },
+  {
+   "id": "rede",
+   "tipo": "rede",
+   "titulo": "A rede do mundo",
+   "fala": "Hoje existem cerca de seiscentos cabos assim, somando mais de um milhão de quilômetros. Dá pra dar mais de vinte e cinco voltas na Terra. E aqui no Brasil, a maioria chega numa praia só: a Praia do Futuro, em Fortaleza, com mais de quinze cabos. De lá, a internet segue por cabos em terra até a sua casa.",
+   "batidas": {
+    "seiscentos": "seiscentos",
+    "milhão": "milhao",
+    "voltas": "voltas",
+    "praia": "praia",
+    "Futuro,": "futuro",
+    "casa.": "casa"
+   }
+  },
+  {
+   "id": "inimigo",
+   "tipo": "inimigo",
+   "titulo": "O maior inimigo",
+   "fala": "E o maior inimigo deles? Não é tubarão. São uns cento e cinquenta rompimentos por ano, e a maioria é causada por redes de pesca e âncoras de navio arrastando no fundo. Quando um cabo quebra, a internet desvia por outros cabos, e um navio especial vai até lá, puxa o cabo pra superfície e emenda.",
+   "batidas": {
+    "tubarão.": "tubarao",
+    "cento": "cento",
+    "pesca": "pesca",
+    "âncoras": "ancoras",
+    "desvia": "desvia",
+    "navio": "navio",
+    "emenda.": "emenda"
+   }
+  },
+  {
+   "id": "dica",
+   "tipo": "dica",
+   "titulo": "A dica",
+   "fala": "E a dica: em jogo online, escolha um servidor no Brasil. Servidor do outro lado do oceano soma, só pela distância, dezenas de milésimos de segundo de atraso. E nenhuma internet mais rápida resolve isso.",
+   "batidas": {
+    "servidor": "servidor",
+    "atraso.": "atraso",
+    "resolve": "resolve"
+   }
+  },
+  {
+   "id": "resumo",
+   "tipo": "resumo",
+   "titulo": "Resumindo",
+   "fala": "Resumindo: sua mensagem vira luz, a luz corre num fio de vidro no fundo do mar, amplificadores dão reforço pelo caminho, e ela chega do outro lado em milésimos de segundo. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "batidas": {
+    "luz,": "passo1",
+    "mar,": "passo2",
+    "caminho,": "passo3",
+    "segundo.": "passo4",
+    "Segue": "cta"
+   }
+  }
+ ]
+}
