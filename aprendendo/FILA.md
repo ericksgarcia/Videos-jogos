@@ -5,13 +5,9 @@ Antes de começar cada um, confira em `aprendendo/videos/` se o tema já foi fei
 Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Em produção
-- Por que imprimir dinheiro deixa todo mundo mais pobre? → `videos/imprimir-dinheiro`
-- Por que você não consegue fazer cócegas em si mesmo? → `videos/cocegas`
-- Por que parece que o celular escuta suas conversas? → `videos/celular-escuta`
-- Por que sentimos cheiro de chuva antes de ela começar? → `videos/cheiro-de-chuva`
+- Como o remédio (paracetamol/ibuprofeno) sabe exatamente onde está doendo?
 
 ## Próximos (na ordem)
-1. Como o remédio (paracetamol/ibuprofeno) sabe exatamente onde está doendo?
 2. Por que você esquece o que ia fazer assim que passa por uma porta?
 3. Por que a nossa própria voz soa tão horrível quando ouvimos gravada?
 4. Como uma comida esquenta sem fogo nem calor externo? (marmita/ração autoaquecível)
@@ -25,5 +21,9 @@ Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 12. Por que é tão difícil prever o tempo, mesmo com tanta tecnologia?
 
 ## Feitos
+- Por que imprimir dinheiro deixa todo mundo mais pobre? → `videos/imprimir-dinheiro` (entregue)
+- Por que você não consegue fazer cócegas em si mesmo? → `videos/cocegas` (entregue)
+- Por que parece que o celular escuta suas conversas? → `videos/celular-escuta` (entregue)
+- Por que sentimos cheiro de chuva antes de ela começar? → `videos/cheiro-de-chuva` (entregue)
 - (o pedido "Por que o governo não imprime mais dinheiro para acabar com a pobreza?" é o
   mesmo tema de `videos/imprimir-dinheiro`, que já responde isso)
