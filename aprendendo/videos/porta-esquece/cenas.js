@@ -24,17 +24,24 @@ function medidor(x, cx, cy, v, a, rot) { if (a <= 0.01) return; for (let k = 0; 
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tS = B("sofa"), tP = B("porta"), tPr = B("pronto"), tV = B("voce"), tT = B("truque");
-  mostrarGancho(tP + 0.4);
+  const tE0 = B("esq0"), tL = B("lab"), tS = B("sofa"), tP = B("porta"), tPr = B("pronto"), tV = B("voce"), tT = B("truque");
+  mostrarGancho(tL - 0.3);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["esq", 330, 92, "esqueceu!", "pt-ve"], ["nao", 330, 66, "não é só com você", "pt-ci"]]);
+  const tx = palcoTexto(el, [["lab", 330, 62, "medido em laboratório", "pt-ci"], ["esq", 330, 92, "esqueceu!", "pt-ve"], ["nao", 330, 66, "não é só com você", "pt-ci"]]);
+  MD.slam(tl, tx.lab, tL - 0.1, { from: 1.25 }); MD.leave(tl, tx.lab, tS - 0.2);
   MD.slam(tl, tx.esq, tPr - 0.05, { from: 1.4 }); MD.leave(tl, tx.esq, tV - 0.35); MD.slam(tl, tx.nao, tV - 0.05, { from: 1.25 });
   const est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
-    casaCorte(x, PT.ss(t / 0.5));
+    // quadro 0: uma porta enorme, brilhando; as lembranças passam por ela e se desfazem
+    const a0 = 1 - PT.ss((t - tS + 0.5) / 0.5);
+    if (a0 > 0.01) {
+      const DX = 540, DY = 980, W = 340, H = 640; brilhoP(x, DX, DY, 520, "255,220,150", 0.08 * a0); fCaixa(x, DX, DY, W, H, 10, "255,226,170", a0, 10, 0.18); fCaixa(x, DX, DY, W - 50, H - 50, 6, "255,240,210", 0.5 * a0, 3, 0.06);
+      for (let k = 0; k < 7; k++) { const g = (-1.3 + k * 0.45) * 1.2, x0 = PT.lerp(70, DX + W / 2 + 330, Math.max(0, Math.min(1, ((t * 0.28 + k / 7) % 1) * 1.3 - 0.15))), sumiu = PT.ss((x0 - DX) / 220); const px = x0, py = DY + g * 140 + Math.sin(t * 2 + k) * 14; if (sumiu < 1) { discoP(x, px, py, 22 * (1 - sumiu), CI, a0 * (1 - sumiu)); anelP(x, px, py, 30, CI, a0 * 0.6 * (1 - sumiu), 3); } for (let q = 0; q < 6 * sumiu; q++) { const r = prng(k * 17 + q); discoP(x, px + (r() - 0.5) * 140 * sumiu, py + (r() - 0.5) * 140 * sumiu, 4, CI, a0 * 0.8 * (1 - sumiu)); } }
+    }
+    casaCorte(x, PT.ss((t - tS + 0.6) / 0.5));
     const q = PT.inOut((t - tS) / (tPr - tS + 0.6)), px = PT.lerp(240, 760, q), py = 1170 - Math.abs(Math.sin(q * 20)) * 8;
-    fPessoa(x, px, py, 1.8, "255,226,190", 1);
+    fPessoa(x, px, py, 1.8, "255,226,190", PT.ss((t - tS + 0.6) / 0.5));
     const perdeu = PT.ss((t - tPr + 0.2) / 0.5);
     bolha(x, px - 40, py - 200, 70, CI, PT.ss((t - tS) / 0.5));
     copo(x, px - 40, py - 200, 0.8, CI, PT.ss((t - tS) / 0.5) * (1 - perdeu));

@@ -30,21 +30,24 @@ function pulso(x, pts, t, vel, cor, a, n = 4) { if (a <= 0.01) return; x.beginPa
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tP = B("pe"), tC = B("contorce"), tT = B("toque"), tF = B("futuro"), tTr = B("truque");
-  mostrarGancho(tP + 0.6);
+  const tV = B("volume"), tP = B("pe"), tC = B("contorce"), tT = B("toque"), tF = B("futuro"), tTr = B("truque");
+  mostrarGancho(tP - 0.2);
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["voce", 330, 66, "você: nada", "pt-ci"], ["outro", 330, 66, "outra pessoa: socorro!", "pt-ve"], ["fut", 330, 62, "o cérebro adivinha o futuro", "pt-am", "white-space:normal;left:60px;width:960px"]]);
   MD.arrive(tl, tx.voce, tP + 0.5, { y: 14 }); MD.leave(tl, tx.voce, tC - 0.3); MD.slam(tl, tx.outro, tC - 0.05, { from: 1.3 }); MD.leave(tl, tx.outro, tF - 0.6); MD.slam(tl, tx.fut, tF - 0.3, { from: 1.25 });
   const nv = T.nuvem(9100), est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
-    const aPe = 1 - PT.ss((t - tF + 0.8) / 0.6), treme = PT.jan(t, tC - 0.1, tT + 0.6, 0.2, 0.5);
+    const aPe = PT.ss((t - tP + 1.0) / 0.5) * (1 - PT.ss((t - tF + 0.8) / 0.6)), treme = PT.jan(t, tC - 0.1, tT + 0.6, 0.2, 0.5);
     pe(x, 540, 980, 1.25, PELE, aPe, treme, t);
     // a própria mão (azul) e a mão de outra pessoa (rosa) passando na sola
     const aMe = PT.jan(t, tP - 0.5, tC - 0.2, 0.4, 0.3), aOu = PT.jan(t, tC - 0.3, tF - 0.6, 0.3, 0.4), mov = Math.sin(t * 7) * 40;
     mao(x, 700 + mov, 1060, 0.8, -0.6, CI, aMe * aPe); mao(x, 700 + mov, 1060, 0.8, -0.6, RO, aOu * aPe);
     faisca(x, 540, 1000, t, treme * aPe, 14, 200);
-    const aB = PT.ss((t - tF + 0.7) / 0.7); if (aB > 0) { fCerebro(nv, 540, 880, 330, aB, { cerebelo: 0.4 * (0.5 + 0.5 * Math.sin(t * 3)) }); rotuloP(x, "?", 540, 1230, 120, AM, aB * PT.ss((t - tTr) / 0.5)); } else nv.total(nv.k);
+    // quadro 0: o cérebro brilhando e o "volume" do próprio toque caindo
+    const a0 = 1 - PT.ss((t - tP + 1.2) / 0.5), vol = 1 - 0.85 * PT.ss((t - tV + 0.6) / 0.9);
+    if (a0 > 0) { for (let k = 0; k < 10; k++) { const on = k / 10 < vol; fCaixa(x, 940, 1180 - k * 46, 70, 34, 6, k > 6 ? RO : k > 3 ? AM : "120,255,190", a0 * (on ? 1 : 0.18), 3, on ? 0.5 : 0.05); } rotuloP(x, "volume", 940, 1250, 30, "220,228,245", a0); mao(x, 300 + Math.sin(t * 3) * 30, 1290, 0.7, -0.3, CI, a0 * PT.ss((t - tV + 1.2) / 0.5)); brilhoP(x, 500, 880, 420, "255,140,200", 0.3 * a0 * (0.8 + 0.2 * Math.sin(t * 2))); for (let k = 0; k < 14; k++) { const r = prng(k + 3), an = r() * 6.283, d = ((t * 0.4 + r()) % 1); discoP(x, 500 + Math.cos(an) * (80 + d * 260), 880 + Math.sin(an) * (60 + d * 200), 5, "255,200,230", a0 * (1 - d) * vol); } }
+    const aB = Math.max(PT.ss((t - tF + 0.7) / 0.7), a0); if (aB > 0) { fCerebro(nv, t < tF - 1 ? 500 : 540, 880, t < tF - 1 ? 300 : 330, aB, { cerebelo: 0.4 * (0.5 + 0.5 * Math.sin(t * 3)) + (t < tF - 1 ? 0.6 * (1 - vol) : 0), cor: t < tF - 1 ? [1.0, 0.72, 0.88] : undefined }); rotuloP(x, "?", 540, 1230, 120, AM, aB * PT.ss((t - tTr) / 0.5)); } else nv.total(nv.k);
   });
 };
 

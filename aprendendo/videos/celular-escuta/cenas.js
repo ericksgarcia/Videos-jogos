@@ -22,16 +22,24 @@ function predio(x, cx, cy, w, h, cor, a) { if (a <= 0.01) return; fCaixa(x, cx, 
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tT = B("tenis"), tA = B("anuncio"), tO = B("ouvindo"), tE = B("estranha"), tM = B("microfone");
-  mostrarGancho(tT + 0.8);
+  const tOu = B("ouvir0"), tFa = B("falou"), tT = B("tenis"), tA = B("anuncio"), tO = B("ouvindo"), tE = B("estranha"), tM = B("microfone");
+  mostrarGancho(tA - 1.2);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["dia", 330, 56, "no dia seguinte...", "pt-fino"], ["ouv", 330, 80, "ele estava ouvindo?", "pt-ve"], ["alivio", 330, 62, "um alívio... e mais estranho", "pt-am", "white-space:normal;left:60px;width:960px"]]);
+  const tx = palcoTexto(el, [["dia", 330, 56, "no dia seguinte...", "pt-fino"], ["ouv", 330, 80, "ele estava ouvindo?", "pt-ve"], ["alivio", 330, 62, "a resposta é mais estranha", "pt-am", "white-space:normal;left:60px;width:960px"]]);
   MD.arrive(tl, tx.dia, tA - 1.0, { y: 14 }); MD.leave(tl, tx.dia, tO - 0.4); MD.slam(tl, tx.ouv, tO - 0.1, { from: 1.35 }); MD.leave(tl, tx.ouv, tE - 1.0); MD.slam(tl, tx.alivio, tE - 0.7, { from: 1.25 });
   const est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
+    // quadro 0: o celular brilhando, microfone riscado, e os seus rastros entrando nele
+    const a0 = 1 - PT.ss((t - tT + 1.0) / 0.5);
+    if (a0 > 0.01) {
+      brilhoP(x, 540, 960, 520, "90,160,255", 0.35 * a0); fCelular(x, 540, 960, 720, BRC, a0, 0.1);
+      microfone(x, 540, 900, 1.6, CI, a0, PT.ss((t - tOu + 0.2) / 0.4));
+      const nomes = ["onde foi", "o que buscou", "quem estava perto", "o que assistiu"], aR = PT.ss((t - tFa + 0.8) / 0.6);
+      nomes.forEach((nm, k) => { const [px, py] = [[195, 680], [885, 680], [195, 1240], [885, 1240]][k]; rotuloP(x, nm, px, py, 33, "255,226,140", aR * a0 * PT.ss((t - tFa + 0.8 - k * 0.25) / 0.4)); for (let q = 0; q < 4; q++) { const u = ((t * 0.7 + q / 4 + k * 0.13) % 1); discoP(x, PT.lerp(px, 540, u), PT.lerp(py + 30, 960, u), 7, AM, aR * a0 * (1 - u * 0.5)); } });
+    }
     // conversa (antes do anúncio)
-    const aC = 1 - PT.ss((t - tA + 1.2) / 0.5);
+    const aC = PT.ss((t - tT + 1.1) / 0.4) * (1 - PT.ss((t - tA + 1.2) / 0.5));
     if (aC > 0.01) { fPessoa(x, 330, 1120, 3, CI, aC); fPessoa(x, 750, 1120, 3, AM, aC); balao(x, 380, 790, 300, "tênis!", CI, aC * PT.ss((t - tT + 0.4) / 0.4)); fCelular(x, 540, 1290, 150, BRC, aC * 0.9, 0.1); }
     // o celular com o anúncio
     const aF = PT.ss((t - tA + 1.0) / 0.6) * (1 - PT.ss((t - tM + 0.8) / 0.5));

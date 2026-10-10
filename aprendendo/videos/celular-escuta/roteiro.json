@@ -1,244 +1,254 @@
 {
-  "slug": "por-que-parece-que-o-celular-escuta-suas-conversas",
-  "titulo": "Por que parece que o celular escuta suas conversas",
-  "descricao": "Falou de tênis e apareceu anúncio de tênis. O celular estava ouvindo? 📱\nPesquisadores testaram mais de 17 mil aplicativos procurando microfone ligado escondido. O que eles acharam é mais estranho.\nComo os anúncios sabem tanto de você, e o truque do seu próprio cérebro.\nNo final: onde ver quais apps usam seu microfone e sua localização.\nManda pra quem jura que o celular escuta e salva pra revisar suas permissões.\nJá aconteceu com você? Qual foi o anúncio mais assustador? Comenta aí 👇",
-  "hashtags": [
-    "#celular",
-    "#privacidade",
-    "#tecnologia",
-    "#curiosidades",
-    "#dicas",
-    "#aprendendofacil"
+ "slug": "por-que-parece-que-o-celular-escuta-suas-conversas",
+ "titulo": "Por que parece que o celular escuta suas conversas",
+ "descricao": "Falou de tênis e apareceu anúncio de tênis. O celular estava ouvindo? 📱\nPesquisadores testaram mais de 17 mil aplicativos procurando microfone ligado escondido. O que eles acharam é mais estranho.\nComo os anúncios sabem tanto de você, e o truque do seu próprio cérebro.\nNo final: onde ver quais apps usam seu microfone e sua localização.\nManda pra quem jura que o celular escuta e salva pra revisar suas permissões.\nJá aconteceu com você? Qual foi o anúncio mais assustador? Comenta aí 👇",
+ "hashtags": [
+  "#celular",
+  "#privacidade",
+  "#tecnologia",
+  "#curiosidades",
+  "#dicas",
+  "#aprendendofacil"
+ ],
+ "gancho": "ELE NÃO PRECISA TE OUVIR",
+ "gancho_destaque": "OUVIR",
+ "voz": "Achird",
+ "sons": {
+  "tenis": [
+   "pop",
+   0.45
   ],
-  "gancho": "SEU CELULAR ESTÁ TE OUVINDO?",
-  "gancho_destaque": "OUVINDO?",
-  "voz": "Achird",
-  "sons": {
-    "tenis": [
-      "pop",
-      0.45
-    ],
-    "anuncio": [
-      "plim",
-      0.55
-    ],
-    "ouvindo": [
-      "whoosh_curto",
-      0.45
-    ],
-    "estranha": [
-      "thud",
-      0.7
-    ],
-    "microfone": [
-      "clique",
-      0.6
-    ],
-    "dezessete": [
-      "zap",
-      0.5
-    ],
-    "mic": [
-      "clique",
-      0.55
-    ],
-    "nenhum": [
-      "thud",
-      0.6
-    ],
-    "tela": [
-      "zap",
-      0.5
-    ],
-    "empresas": [
-      "whoosh",
-      0.5
-    ],
-    "ouvir": [
-      "thud",
-      0.7
-    ],
-    "local": [
-      "pop",
-      0.45
-    ],
-    "pesquisa": [
-      "clique",
-      0.55
-    ],
-    "video": [
-      "pop",
-      0.45
-    ],
-    "wifi": [
-      "brilho",
-      0.5
-    ],
-    "juntos": [
-      "pop",
-      0.45
-    ],
-    "pontos": [
-      "zap",
-      0.5
-    ],
-    "culpado": [
-      "thud",
-      0.6
-    ],
-    "cerebro": [
-      "brilho",
-      0.55
-    ],
-    "centenas": [
-      "whoosh",
-      0.45
-    ],
-    "esquece": [
-      "whoosh_curto",
-      0.4
-    ],
-    "conversa": [
-      "plim",
-      0.55
-    ],
-    "carro": [
-      "pop",
-      0.45
-    ],
-    "acertos": [
-      "plim",
-      0.55
-    ],
-    "somem": [
-      "whoosh_curto",
-      0.45
-    ],
-    "config": [
-      "clique",
-      0.6
-    ],
-    "privacidade": [
-      "clique",
-      0.6
-    ],
-    "localizacao": [
-      "pop",
-      0.45
-    ],
-    "tira": [
-      "clique",
-      0.6
-    ],
-    "pontinho": [
-      "plim",
-      0.6
-    ],
-    "passo1": [
-      "pop",
-      0.4
-    ],
-    "passo2": [
-      "pop",
-      0.4
-    ],
-    "passo3": [
-      "pop",
-      0.4
-    ],
-    "passo4": [
-      "pop",
-      0.4
-    ],
-    "cta": [
-      "plim",
-      0.6
-    ]
-  },
-  "cenas": [
-    {
-      "id": "gancho",
-      "tipo": "abertura",
-      "titulo": "O celular ouve?",
-      "fala": "Você falou de tênis com um amigo, e no dia seguinte apareceu anúncio de tênis no seu celular. Parece que ele estava ouvindo, né? Pesquisadores foram atrás disso. E a resposta é ao mesmo tempo um alívio e bem mais estranha. No final eu te mostro onde ver quem usa o seu microfone.",
-      "batidas": {
-        "tênis": "tenis",
-        "anúncio": "anuncio",
-        "ouvindo,": "ouvindo",
-        "estranha.": "estranha",
-        "microfone.": "microfone"
-      }
-    },
-    {
-      "id": "teste",
-      "tipo": "teste",
-      "titulo": "O teste",
-      "fala": "Em dois mil e dezoito, pesquisadores de uma universidade americana testaram mais de dezessete mil aplicativos, procurando algum que ligasse o microfone escondido. Não acharam nenhum. Mas acharam outra coisa: aplicativos gravando a tela do celular e mandando pra outras empresas. Ou seja: ele nem precisa te ouvir.",
-      "batidas": {
-        "dezessete": "dezessete",
-        "microfone": "mic",
-        "nenhum.": "nenhum",
-        "tela": "tela",
-        "empresas.": "empresas",
-        "ouvir.": "ouvir"
-      }
-    },
-    {
-      "id": "rastros",
-      "tipo": "rastros",
-      "titulo": "Seus rastros",
-      "fala": "Pensa em tudo que você deixa pra trás num dia: onde você esteve, o que pesquisou, quanto tempo parou num vídeo, quem estava no mesmo wi-fi que você. Se o seu amigo pesquisou tênis, e vocês passaram a tarde juntos, o sistema liga os pontos: quem anda com ele pode querer tênis também. Mas tem um segundo culpado.",
-      "batidas": {
-        "esteve,": "local",
-        "pesquisou,": "pesquisa",
-        "vídeo,": "video",
-        "wi-fi": "wifi",
-        "juntos,": "juntos",
-        "pontos:": "pontos",
-        "culpado.": "culpado"
-      }
-    },
-    {
-      "id": "cerebro",
-      "tipo": "cerebro",
-      "titulo": "O seu cérebro",
-      "fala": "O seu próprio cérebro. Você vê centenas de anúncios por dia e esquece quase todos. Mas, quando um bate com uma conversa, você lembra. É o mesmo efeito de quando você compra um carro e começa a ver aquele carro em todo lugar. Os acertos ficam na memória. Os erros somem.",
-      "batidas": {
-        "cérebro.": "cerebro",
-        "centenas": "centenas",
-        "esquece": "esquece",
-        "conversa,": "conversa",
-        "carro": "carro",
-        "acertos": "acertos",
-        "somem.": "somem"
-      }
-    },
-    {
-      "id": "dica",
-      "tipo": "dica",
-      "titulo": "Onde ver",
-      "fala": "Então faz isso agora: abre as configurações, vai em privacidade, e veja quais aplicativos têm acesso ao microfone e à localização. Tira o que não precisa. E repara: quando o microfone ou a câmera estão em uso, acende um pontinho colorido no canto da tela.",
-      "batidas": {
-        "configurações,": "config",
-        "privacidade,": "privacidade",
-        "microfone": "mic",
-        "localização.": "localizacao",
-        "precisa.": "tira",
-        "pontinho": "pontinho"
-      }
-    },
-    {
-      "id": "resumo",
-      "tipo": "resumo",
-      "titulo": "Resumindo",
-      "fala": "Resumindo: os estudos não acharam celular ouvindo escondido, mas os seus rastros dizem muito, o cérebro só guarda os acertos, e quem controla as permissões é você. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
-      "batidas": {
-        "escondido,": "passo1",
-        "rastros": "passo2",
-        "acertos,": "passo3",
-        "você.": "passo4",
-        "Segue": "cta"
-      }
-    }
+  "anuncio": [
+   "plim",
+   0.55
+  ],
+  "ouvindo": [
+   "whoosh_curto",
+   0.45
+  ],
+  "estranha": [
+   "thud",
+   0.7
+  ],
+  "microfone": [
+   "clique",
+   0.6
+  ],
+  "dezessete": [
+   "zap",
+   0.5
+  ],
+  "mic": [
+   "clique",
+   0.55
+  ],
+  "nenhum": [
+   "thud",
+   0.6
+  ],
+  "tela": [
+   "zap",
+   0.5
+  ],
+  "empresas": [
+   "whoosh",
+   0.5
+  ],
+  "ouvir": [
+   "thud",
+   0.7
+  ],
+  "local": [
+   "pop",
+   0.45
+  ],
+  "pesquisa": [
+   "clique",
+   0.55
+  ],
+  "video": [
+   "pop",
+   0.45
+  ],
+  "wifi": [
+   "brilho",
+   0.5
+  ],
+  "juntos": [
+   "pop",
+   0.45
+  ],
+  "pontos": [
+   "zap",
+   0.5
+  ],
+  "culpado": [
+   "thud",
+   0.6
+  ],
+  "cerebro": [
+   "brilho",
+   0.55
+  ],
+  "centenas": [
+   "whoosh",
+   0.45
+  ],
+  "esquece": [
+   "whoosh_curto",
+   0.4
+  ],
+  "conversa": [
+   "plim",
+   0.55
+  ],
+  "carro": [
+   "pop",
+   0.45
+  ],
+  "acertos": [
+   "plim",
+   0.55
+  ],
+  "somem": [
+   "whoosh_curto",
+   0.45
+  ],
+  "config": [
+   "clique",
+   0.6
+  ],
+  "privacidade": [
+   "clique",
+   0.6
+  ],
+  "localizacao": [
+   "pop",
+   0.45
+  ],
+  "tira": [
+   "clique",
+   0.6
+  ],
+  "pontinho": [
+   "plim",
+   0.6
+  ],
+  "passo1": [
+   "pop",
+   0.4
+  ],
+  "passo2": [
+   "pop",
+   0.4
+  ],
+  "passo3": [
+   "pop",
+   0.4
+  ],
+  "passo4": [
+   "pop",
+   0.4
+  ],
+  "cta": [
+   "plim",
+   0.6
+  ],
+  "ouvir0": [
+   "thud",
+   0.6
+  ],
+  "falou": [
+   "zap",
+   0.45
   ]
+ },
+ "cenas": [
+  {
+   "id": "gancho",
+   "tipo": "abertura",
+   "titulo": "O celular ouve?",
+   "fala": "Seu celular não precisa te ouvir pra saber do que você falou. Você comenta de tênis com um amigo, e no dia seguinte aparece anúncio de tênis. Parece que ele estava ouvindo, né? Pesquisadores foram atrás disso, e a resposta é bem mais estranha. No final eu te mostro onde ver quem usa o seu microfone.",
+   "batidas": {
+    "ouvir": "ouvir0",
+    "falou.": "falou",
+    "tênis": "tenis",
+    "anúncio": "anuncio",
+    "ouvindo,": "ouvindo",
+    "estranha.": "estranha",
+    "microfone.": "microfone"
+   }
+  },
+  {
+   "id": "teste",
+   "tipo": "teste",
+   "titulo": "O teste",
+   "fala": "Em dois mil e dezoito, pesquisadores de uma universidade americana testaram mais de dezessete mil aplicativos, procurando algum que ligasse o microfone escondido. Não acharam nenhum. Mas acharam outra coisa: aplicativos gravando a tela do celular e mandando pra outras empresas. Ou seja: ele nem precisa te ouvir.",
+   "batidas": {
+    "dezessete": "dezessete",
+    "microfone": "mic",
+    "nenhum.": "nenhum",
+    "tela": "tela",
+    "empresas.": "empresas",
+    "ouvir.": "ouvir"
+   }
+  },
+  {
+   "id": "rastros",
+   "tipo": "rastros",
+   "titulo": "Seus rastros",
+   "fala": "Pensa em tudo que você deixa pra trás num dia: onde você esteve, o que pesquisou, quanto tempo parou num vídeo, quem estava no mesmo wi-fi que você. Se o seu amigo pesquisou tênis, e vocês passaram a tarde juntos, o sistema liga os pontos: quem anda com ele pode querer tênis também. Mas tem um segundo culpado.",
+   "batidas": {
+    "esteve,": "local",
+    "pesquisou,": "pesquisa",
+    "vídeo,": "video",
+    "wi-fi": "wifi",
+    "juntos,": "juntos",
+    "pontos:": "pontos",
+    "culpado.": "culpado"
+   }
+  },
+  {
+   "id": "cerebro",
+   "tipo": "cerebro",
+   "titulo": "O seu cérebro",
+   "fala": "O seu próprio cérebro. Você vê centenas de anúncios por dia e esquece quase todos. Mas, quando um bate com uma conversa, você lembra. É o mesmo efeito de quando você compra um carro e começa a ver aquele carro em todo lugar. Os acertos ficam na memória. Os erros somem.",
+   "batidas": {
+    "cérebro.": "cerebro",
+    "centenas": "centenas",
+    "esquece": "esquece",
+    "conversa,": "conversa",
+    "carro": "carro",
+    "acertos": "acertos",
+    "somem.": "somem"
+   }
+  },
+  {
+   "id": "dica",
+   "tipo": "dica",
+   "titulo": "Onde ver",
+   "fala": "Então faz isso agora: abre as configurações, vai em privacidade, e veja quais aplicativos têm acesso ao microfone e à localização. Tira o que não precisa. E repara: quando o microfone ou a câmera estão em uso, acende um pontinho colorido no canto da tela.",
+   "batidas": {
+    "configurações,": "config",
+    "privacidade,": "privacidade",
+    "microfone": "mic",
+    "localização.": "localizacao",
+    "precisa.": "tira",
+    "pontinho": "pontinho"
+   }
+  },
+  {
+   "id": "resumo",
+   "tipo": "resumo",
+   "titulo": "Resumindo",
+   "fala": "Resumindo: os estudos não acharam celular ouvindo escondido, mas os seus rastros dizem muito, o cérebro só guarda os acertos, e quem controla as permissões é você. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "batidas": {
+    "escondido,": "passo1",
+    "rastros": "passo2",
+    "acertos,": "passo3",
+    "você.": "passo4",
+    "Segue": "cta"
+   }
+  }
+ ]
 }

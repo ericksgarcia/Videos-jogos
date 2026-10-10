@@ -16,20 +16,21 @@ function relogio(x, cx, cy, r, ang, cor, a) { if (a <= 0.01) return; anelP(x, cx
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
   const tF = B("fogo"), tA = B("agua"), tQ = B("quente"), tC = B("calor"), tFe = B("ferrugem"), tCu = B("cuidado");
-  mostrarGancho(tF + 1.0);
+  mostrarGancho(tQ - 0.3);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["min", 330, 76, "10 minutos: quente", "pt-la"], ["fer", 330, 86, "a ferrugem?!", "pt-am"]]);
-  MD.slam(tl, tx.min, tQ - 0.1, { from: 1.3 }); MD.leave(tl, tx.min, tFe - 0.4); MD.slam(tl, tx.fer, tFe - 0.05, { from: 1.4 });
+  const tx = palcoTexto(el, [["min", 330, 76, "sem fogo, sem tomada", "pt-la"], ["dond", 330, 76, "de onde vem o calor?", "pt-ci"], ["fer", 330, 86, "a ferrugem?!", "pt-am"]]);
+  MD.slam(tl, tx.min, tF - 0.4, { from: 1.3 }); MD.leave(tl, tx.min, tC - 1.3); MD.slam(tl, tx.dond, tC - 1.0, { from: 1.25 }); MD.leave(tl, tx.dond, tFe - 0.4); MD.slam(tl, tx.fer, tFe - 0.05, { from: 1.4 });
   const est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
     // mato: folhas em volta
     for (let k = 0; k < 14; k++) { const bx = (k * 83) % 1080, by = 1340 - (k % 3) * 20; for (let f = 0; f < 3; f++) linhaP(x, bx, by, bx + (f - 1) * 40 + Math.sin(t + k) * 6, by - 120 - f * 20, VD, 0.4, 5); }
-    fPessoa(x, 250, 1180, 2.4, "180,200,150", 1);
-    const calor = PT.ss((t - tA - 0.5) / (tQ - tA)); saquinho(x, 640, 1100, 1, PT.ss((t - 1) / 0.5), calor);
-    const aG = PT.jan(t, tA - 0.6, tA + 0.8, 0.3, 0.4); gota(x, 640, PT.lerp(760, 920, PT.ss((t - tA + 0.6) / 0.8)), 30, CI, aG);
-    vapor(x, 640, 920, t, PT.ss((t - tQ + 0.4) / 0.6));
-    if (t > tC) termometroP(x, 900, 760, 380, 0, 100, PT.lerp(25, 80, PT.ss((t - tA) / 4)), PT.ss((t - tC) / 0.5));
+    fPessoa(x, 250, 1180, 2.4, "180,200,150", PT.ss((t - tF + 1.5) / 0.6));
+    // quadro 0: a gota cai, o saquinho esquenta e solta vapor, o termômetro sobe
+    const calor = PT.ss((t - 0.4) / 2.2); saquinho(x, 640, 1100, 1, 1, calor);
+    const aG = PT.jan(t, 0, 1.0, 0.05, 0.3); gota(x, 640, PT.lerp(760, 920, PT.ss(t / 0.8)), 30, CI, aG);
+    vapor(x, 640, 920, t, PT.ss((t - 1.0) / 0.8));
+    termometroP(x, 900, 760, 380, 0, 100, PT.lerp(20, 75, calor), PT.ss((t - 0.2) / 0.4)); rotuloP(x, `${Math.round(PT.lerp(20, 75, calor))} °C`, 880, 540, 64, calor > 0.5 ? "255,170,90" : "180,235,255", PT.ss((t - 0.2) / 0.4));
   });
 };
 

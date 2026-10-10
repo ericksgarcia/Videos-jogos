@@ -22,18 +22,26 @@ function estrelas5(x, cx, cy, v, a, cor = AM) { for (let k = 0; k < 5; k++) { co
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tM = B("minha"), tE = B("essa"), tT = B("todo"), tP = B("promessa");
-  mostrarGancho(tM - 0.5);
+  const tNu = B("nunca"), tM = B("minha"), tT = B("todo"), tP = B("promessa"), tE = tM;
+  mostrarGancho(tM - 0.6);
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["que", 330, 86, "que voz é essa?", "pt-ve"], ["tod", 330, 66, "todo mundo sente isso", "pt-ci"]]);
   MD.slam(tl, tx.que, tE - 0.05, { from: 1.35 }); MD.leave(tl, tx.que, tT - 0.35); MD.slam(tl, tx.tod, tT - 0.05, { from: 1.25 });
-  const est = estF(3);
+  const est = estF(3), nv = T.nuvem(15100);
   T.quadro((x, t) => {
     estD(x, est, t);
+    // quadro 0: a sua cabeça vibrando por dentro, e a voz que sai pro mundo
+    const a0 = 1 - PT.ss((t - tM + 1.4) / 0.5);
+    if (a0 > 0.01) {
+      brilhoP(x, 400, 880, 400, "255,190,140", 0.22 * a0); cabeca(nv, 420, 900, 1.1, a0, 1, t);
+      for (let k = 0; k < 5; k++) { const u = ((t * 0.6 + k / 5) % 1), R = 60 + u * 420; x.beginPath(); x.arc(420 + 262 * 1.1, 900 + 140 * 1.1, R, -0.6, 0.6); x.strokeStyle = `rgba(${VD},${a0 * (1 - u) * 0.8})`; x.lineWidth = 5; x.stroke(); }
+      const aR = PT.ss((t - tNu + 1.6) / 0.5) * a0; rotuloP(x, "a voz que você ouve", 360, 580, 40, "255,226,140", aR); rotuloP(x, "a que os outros ouvem", 760, 1300, 40, "160,255,210", aR);
+    } else nv.total(nv.k);
+    const aP = PT.ss((t - tM + 1.2) / 0.5); x.save(); x.globalAlpha = aP;
     fCelular(x, 540, 980, 760, BRC, 1, 0.06);
     // mensagem de áudio tocando
     fCaixa(x, 540, 980, 300, 100, 50, VD, 1, 4, 0.12); discoP(x, 430, 980, 22, VD, 0.8); ondaSom(x, 570, 980, 170, 18, t, VD, PT.ss((t - 1) / 0.5), 0.6);
-    rotuloP(x, "0:12", 540, 1060, 28, "200,255,220", 0.8);
+    rotuloP(x, "0:12", 540, 1060, 28, "200,255,220", 0.8); x.restore();
     const aC = PT.ss((t - tM + 0.4) / 0.4); if (aC > 0) { for (let k = 0; k < 6; k++) { const an = k * 1.05 + t; linhaP(x, 540 + Math.cos(an) * 200, 980 + Math.sin(an) * 160, 540 + Math.cos(an) * 240, 980 + Math.sin(an) * 190, VE, aC * 0.8, 5); } }
     if (t > tP - 0.4) rotuloP(x, "?", 820, 760, 120, AM, PT.ss((t - tP + 0.4) / 0.4));
   });

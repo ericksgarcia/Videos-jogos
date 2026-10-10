@@ -18,14 +18,25 @@ function semSinal(x, cx, cy, a) { if (a <= 0.01) return; for (let k = 1; k <= 3;
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tI = B("internet"), tA = B("azul"), tO = B("onde"), tE = B("einstein");
-  mostrarGancho(tI + 0.4);
+  const tD = B("dez"), tI = B("internet"), tA = B("azul"), tO = B("onde"), tE = B("einstein");
+  mostrarGancho(tI - 0.4);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["onde", 330, 76, "como ele sabe?", "pt-ci"], ["ein", 330, 70, "graças ao Einstein?", "pt-am"]]);
+  const tx = palcoTexto(el, [["sem", 330, 70, "funciona sem internet", "pt-ci"], ["onde", 330, 76, "como ele sabe?", "pt-ci"], ["ein", 330, 70, "graças ao Einstein?", "pt-am"]]);
+  MD.slam(tl, tx.sem, tI - 0.1, { from: 1.25 }); MD.leave(tl, tx.sem, tO - 0.35);
   MD.slam(tl, tx.onde, tO - 0.05, { from: 1.3 }); MD.leave(tl, tx.onde, tE - 0.4); MD.slam(tl, tx.ein, tE - 0.1, { from: 1.35 });
-  const est = estF(3);
+  const est = estF(3), nv = T.nuvem(9000);
   T.quadro((x, t) => {
     estD(x, est, t);
+    // quadro 0: a Terra, os satélites, e o erro crescendo sem a correção do Einstein
+    const a0 = 1 - PT.ss((t - tI + 0.8) / 0.5);
+    if (a0 > 0.01) {
+      const CX = 540, CY = 960, R = 300; globoG(nv, x, CX, CY, R, -50 + t * 4, a0);
+      for (let k = 0; k < 8; k++) { const an = k * 0.785 + t * 0.2, rr = R * (1.55 + (k % 2) * 0.15); satelite(x, CX + Math.cos(an) * rr, CY + Math.sin(an) * rr * 0.55, 0.7, a0 * (Math.sin(an) > -0.2 || Math.abs(Math.cos(an)) > 0.6 ? 1 : 0.25)); }
+      const P = [CX + 40, CY - 60], er = PT.ss((t - 0.4) / Math.max(0.5, tD - 0.4)); pinoAzul(x, P[0], P[1], a0, t);
+      anelP(x, P[0], P[1], 20 + er * 170, VE, a0 * er, 6); brilhoP(x, P[0], P[1], 40 + er * 200, VE, 0.25 * a0 * er);
+      rotuloP(x, `erro: ${Math.round(er * 10)} km`, P[0], P[1] + 250, 46, "255,170,180", a0 * PT.ss((t - 0.4) / 0.4));
+    } else nv.total(nv.k);
+    const aE = PT.ss((t - tI + 0.6) / 0.5); x.save(); x.globalAlpha = aE;
     // estrada em perspectiva
     for (const s of [-1, 1]) linhaP(x, 540 + s * 60, 900, 540 + s * 520, 1420, BRC, 0.5, 4);
     for (let k = 0; k < 6; k++) { const u = ((t * 0.5 + k / 6) % 1), y = 900 + u * u * 520; linhaP(x, 540, y, 540, y + 10 + 40 * u, AM, 0.6 * u, 4 + 6 * u); }
@@ -35,6 +46,7 @@ CENAS.abertura = (el, c, B) => {
     linhaP(x, 400, 960, 690, 850, "120,140,200", 0.7, 6);
     semSinal(x, 620, 680, PT.ss((t - tI + 0.3) / 0.4));
     pinoAzul(x, 540, 910, PT.ss((t - tA + 0.3) / 0.4), t);
+    x.restore();
   });
 };
 

@@ -1,252 +1,262 @@
 {
-  "slug": "por-que-voce-esquece-o-que-ia-fazer-quando-passa-por-uma-porta",
-  "titulo": "Por que você esquece o que ia fazer quando passa por uma porta",
-  "descricao": "Foi na cozinha buscar alguma coisa e esqueceu o quê? A culpa pode ser da porta 🚪\nPor que a gente esquece o que ia fazer ao passar por uma porta: o cérebro divide o dia em capítulos.\nUm experimento de 2011 mostrou o efeito, e um de 2021 trouxe uma virada.\nNo final: o truque simples pra não esquecer mais.\nManda pra quem vive esquecendo o que foi buscar e salva pra lembrar (se não esquecer 😅).\nIsso acontece muito com você? Comenta aí 👇",
-  "hashtags": [
-    "#memoria",
-    "#cerebro",
-    "#psicologia",
-    "#curiosidades",
-    "#ciencia",
-    "#aprendendofacil"
+ "slug": "por-que-voce-esquece-o-que-ia-fazer-quando-passa-por-uma-porta",
+ "titulo": "Por que você esquece o que ia fazer quando passa por uma porta",
+ "descricao": "Foi na cozinha buscar alguma coisa e esqueceu o quê? A culpa pode ser da porta 🚪\nPor que a gente esquece o que ia fazer ao passar por uma porta: o cérebro divide o dia em capítulos.\nUm experimento de 2011 mostrou o efeito, e um de 2021 trouxe uma virada.\nNo final: o truque simples pra não esquecer mais.\nManda pra quem vive esquecendo o que foi buscar e salva pra lembrar (se não esquecer 😅).\nIsso acontece muito com você? Comenta aí 👇",
+ "hashtags": [
+  "#memoria",
+  "#cerebro",
+  "#psicologia",
+  "#curiosidades",
+  "#ciencia",
+  "#aprendendofacil"
+ ],
+ "gancho": "A PORTA APAGA SUA MEMÓRIA",
+ "gancho_destaque": "PORTA",
+ "voz": "Achird",
+ "sons": {
+  "sofa": [
+   "pop",
+   0.45
   ],
-  "gancho": "POR QUE A PORTA FAZ VOCÊ ESQUECER?",
-  "gancho_destaque": "ESQUECER?",
-  "voz": "Achird",
-  "sons": {
-    "sofa": [
-      "pop",
-      0.45
-    ],
-    "porta": [
-      "whoosh",
-      0.5
-    ],
-    "pronto": [
-      "thud",
-      0.7
-    ],
-    "voce": [
-      "plim",
-      0.5
-    ],
-    "truque": [
-      "plim",
-      0.55
-    ],
-    "virtual": [
-      "brilho",
-      0.5
-    ],
-    "sala": [
-      "pop",
-      0.45
-    ],
-    "mais": [
-      "thud",
-      0.6
-    ],
-    "verdade": [
-      "plim",
-      0.55
-    ],
-    "filme": [
-      "whoosh_curto",
-      0.45
-    ],
-    "capitulos": [
-      "clique",
-      0.6
-    ],
-    "serie": [
-      "pop",
-      0.45
-    ],
-    "fim": [
-      "thud",
-      0.6
-    ],
-    "arquiva": [
-      "tampa",
-      0.55
-    ],
-    "gaveta": [
-      "tampa",
-      0.6
-    ],
-    "volta": [
-      "whoosh",
-      0.5
-    ],
-    "hora": [
-      "plim",
-      0.6
-    ],
-    "nasceu": [
-      "brilho",
-      0.5
-    ],
-    "abre": [
-      "tampa",
-      0.5
-    ],
-    "virada": [
-      "thud",
-      0.7
-    ],
-    "londres": [
-      "whoosh",
-      0.45
-    ],
-    "diferenca": [
-      "pop",
-      0.45
-    ],
-    "ocupada": [
-      "zap",
-      0.5
-    ],
-    "conta": [
-      "clique",
-      0.6
-    ],
-    "empurrao": [
-      "whoosh_curto",
-      0.45
-    ],
-    "cheia": [
-      "thud",
-      0.7
-    ],
-    "alta": [
-      "plim",
-      0.55
-    ],
-    "imagina": [
-      "brilho",
-      0.55
-    ],
-    "forca": [
-      "plim",
-      0.55
-    ],
-    "saiu": [
-      "whoosh",
-      0.45
-    ],
-    "passo1": [
-      "pop",
-      0.4
-    ],
-    "passo2": [
-      "pop",
-      0.4
-    ],
-    "passo3": [
-      "pop",
-      0.4
-    ],
-    "passo4": [
-      "pop",
-      0.4
-    ],
-    "cta": [
-      "plim",
-      0.6
-    ]
-  },
-  "cenas": [
-    {
-      "id": "gancho",
-      "tipo": "abertura",
-      "titulo": "A porta",
-      "fala": "Você levanta do sofá pra pegar alguma coisa na cozinha. Passa pela porta, e pronto: esqueceu o que ia buscar. Não é só com você, e tem cientista que estudou exatamente isso. E no final eu te ensino um truque simples pra não esquecer.",
-      "batidas": {
-        "sofá": "sofa",
-        "porta,": "porta",
-        "pronto:": "pronto",
-        "você,": "voce",
-        "esquecer.": "truque"
-      }
-    },
-    {
-      "id": "experimento",
-      "tipo": "experimento",
-      "titulo": "O experimento",
-      "fala": "Em dois mil e onze, o psicólogo Gabriel Radvansky, nos Estados Unidos, pediu pra pessoas levarem objetos de uma mesa pra outra, num mundo virtual. Às vezes elas atravessavam uma porta, às vezes andavam a mesma distância dentro da mesma sala. Quem passava pela porta esquecia mais. Ele repetiu o teste com salas de verdade, e o resultado se repetiu.",
-      "batidas": {
-        "virtual.": "virtual",
-        "porta,": "porta",
-        "sala.": "sala",
-        "mais.": "mais",
-        "verdade,": "verdade"
-      }
-    },
-    {
-      "id": "capitulos",
-      "tipo": "capitulos",
-      "titulo": "Capítulos",
-      "fala": "Por quê? O seu cérebro não grava o dia como um filme contínuo. Ele divide tudo em capítulos, como os episódios de uma série. E uma porta é um ótimo marcador de fim de capítulo: lugar novo, cena nova. Quando você entra na cozinha, o cérebro arquiva o capítulo da sala, e a sua intenção fica guardada lá, numa gaveta que acabou de fechar.",
-      "batidas": {
-        "filme": "filme",
-        "capítulos,": "capitulos",
-        "série.": "serie",
-        "capítulo:": "fim",
-        "arquiva": "arquiva",
-        "fechar.": "gaveta"
-      }
-    },
-    {
-      "id": "voltar",
-      "tipo": "voltar",
-      "titulo": "Por que voltar funciona",
-      "fala": "É por isso que, quando você volta pro sofá, muitas vezes lembra na hora. O lugar onde a ideia nasceu ajuda a abrir a gaveta de novo. Mas tem uma virada nessa história.",
-      "batidas": {
-        "volta": "volta",
-        "hora.": "hora",
-        "nasceu": "nasceu",
-        "novo.": "abre",
-        "virada": "virada"
-      }
-    },
-    {
-      "id": "virada",
-      "tipo": "virada",
-      "titulo": "A virada",
-      "fala": "Em dois mil e vinte e um, pesquisadores de Londres refizeram o teste em realidade virtual, e a porta sozinha quase não fez diferença. O esquecimento só apareceu quando as pessoas estavam com a cabeça ocupada, fazendo uma conta ao mesmo tempo. Ou seja: a porta dá o empurrão, mas quem derruba é a cabeça cheia.",
-      "batidas": {
-        "Londres": "londres",
-        "diferença.": "diferenca",
-        "ocupada,": "ocupada",
-        "conta": "conta",
-        "empurrão,": "empurrao",
-        "cheia.": "cheia"
-      }
-    },
-    {
-      "id": "dica",
-      "tipo": "dica",
-      "titulo": "O truque",
-      "fala": "Então o truque é simples: antes de levantar, fala em voz alta o que você vai buscar, ou imagina você pegando o objeto. Isso grava a intenção com mais força. E se esquecer mesmo assim, volta pro lugar de onde saiu.",
-      "batidas": {
-        "alta": "alta",
-        "imagina": "imagina",
-        "força.": "forca",
-        "saiu.": "saiu"
-      }
-    },
-    {
-      "id": "resumo",
-      "tipo": "resumo",
-      "titulo": "Resumindo",
-      "fala": "Resumindo: o cérebro divide o dia em capítulos, a porta fecha um capítulo, a cabeça cheia piora tudo, e falar em voz alta ajuda. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
-      "batidas": {
-        "capítulos,": "passo1",
-        "capítulo,": "passo2",
-        "tudo,": "passo3",
-        "ajuda.": "passo4",
-        "Segue": "cta"
-      }
-    }
+  "porta": [
+   "whoosh",
+   0.5
+  ],
+  "pronto": [
+   "thud",
+   0.7
+  ],
+  "voce": [
+   "plim",
+   0.5
+  ],
+  "truque": [
+   "plim",
+   0.55
+  ],
+  "virtual": [
+   "brilho",
+   0.5
+  ],
+  "sala": [
+   "pop",
+   0.45
+  ],
+  "mais": [
+   "thud",
+   0.6
+  ],
+  "verdade": [
+   "plim",
+   0.55
+  ],
+  "filme": [
+   "whoosh_curto",
+   0.45
+  ],
+  "capitulos": [
+   "clique",
+   0.6
+  ],
+  "serie": [
+   "pop",
+   0.45
+  ],
+  "fim": [
+   "thud",
+   0.6
+  ],
+  "arquiva": [
+   "tampa",
+   0.55
+  ],
+  "gaveta": [
+   "tampa",
+   0.6
+  ],
+  "volta": [
+   "whoosh",
+   0.5
+  ],
+  "hora": [
+   "plim",
+   0.6
+  ],
+  "nasceu": [
+   "brilho",
+   0.5
+  ],
+  "abre": [
+   "tampa",
+   0.5
+  ],
+  "virada": [
+   "thud",
+   0.7
+  ],
+  "londres": [
+   "whoosh",
+   0.45
+  ],
+  "diferenca": [
+   "pop",
+   0.45
+  ],
+  "ocupada": [
+   "zap",
+   0.5
+  ],
+  "conta": [
+   "clique",
+   0.6
+  ],
+  "empurrao": [
+   "whoosh_curto",
+   0.45
+  ],
+  "cheia": [
+   "thud",
+   0.7
+  ],
+  "alta": [
+   "plim",
+   0.55
+  ],
+  "imagina": [
+   "brilho",
+   0.55
+  ],
+  "forca": [
+   "plim",
+   0.55
+  ],
+  "saiu": [
+   "whoosh",
+   0.45
+  ],
+  "passo1": [
+   "pop",
+   0.4
+  ],
+  "passo2": [
+   "pop",
+   0.4
+  ],
+  "passo3": [
+   "pop",
+   0.4
+  ],
+  "passo4": [
+   "pop",
+   0.4
+  ],
+  "cta": [
+   "plim",
+   0.6
+  ],
+  "esq0": [
+   "whoosh",
+   0.5
+  ],
+  "lab": [
+   "clique",
+   0.55
   ]
+ },
+ "cenas": [
+  {
+   "id": "gancho",
+   "tipo": "abertura",
+   "titulo": "A porta",
+   "fala": "Atravessar uma porta faz o seu cérebro esquecer, e isso foi medido em laboratório. Você levanta do sofá pra pegar alguma coisa na cozinha. Passa pela porta, e pronto: esqueceu o que ia buscar. Não é só com você. E no final eu te ensino um truque simples pra não esquecer.",
+   "batidas": {
+    "esquecer,": "esq0",
+    "laboratório.": "lab",
+    "sofá": "sofa",
+    "porta,": "porta",
+    "pronto:": "pronto",
+    "você.": "voce",
+    "esquecer.": "truque"
+   }
+  },
+  {
+   "id": "experimento",
+   "tipo": "experimento",
+   "titulo": "O experimento",
+   "fala": "Em dois mil e onze, o psicólogo Gabriel Radvansky, nos Estados Unidos, pediu pra pessoas levarem objetos de uma mesa pra outra, num mundo virtual. Às vezes elas atravessavam uma porta, às vezes andavam a mesma distância dentro da mesma sala. Quem passava pela porta esquecia mais. Ele repetiu o teste com salas de verdade, e o resultado se repetiu.",
+   "batidas": {
+    "virtual.": "virtual",
+    "porta,": "porta",
+    "sala.": "sala",
+    "mais.": "mais",
+    "verdade,": "verdade"
+   }
+  },
+  {
+   "id": "capitulos",
+   "tipo": "capitulos",
+   "titulo": "Capítulos",
+   "fala": "Por quê? O seu cérebro não grava o dia como um filme contínuo. Ele divide tudo em capítulos, como os episódios de uma série. E uma porta é um ótimo marcador de fim de capítulo: lugar novo, cena nova. Quando você entra na cozinha, o cérebro arquiva o capítulo da sala, e a sua intenção fica guardada lá, numa gaveta que acabou de fechar.",
+   "batidas": {
+    "filme": "filme",
+    "capítulos,": "capitulos",
+    "série.": "serie",
+    "capítulo:": "fim",
+    "arquiva": "arquiva",
+    "fechar.": "gaveta"
+   }
+  },
+  {
+   "id": "voltar",
+   "tipo": "voltar",
+   "titulo": "Por que voltar funciona",
+   "fala": "É por isso que, quando você volta pro sofá, muitas vezes lembra na hora. O lugar onde a ideia nasceu ajuda a abrir a gaveta de novo. Mas tem uma virada nessa história.",
+   "batidas": {
+    "volta": "volta",
+    "hora.": "hora",
+    "nasceu": "nasceu",
+    "novo.": "abre",
+    "virada": "virada"
+   }
+  },
+  {
+   "id": "virada",
+   "tipo": "virada",
+   "titulo": "A virada",
+   "fala": "Em dois mil e vinte e um, pesquisadores de Londres refizeram o teste em realidade virtual, e a porta sozinha quase não fez diferença. O esquecimento só apareceu quando as pessoas estavam com a cabeça ocupada, fazendo uma conta ao mesmo tempo. Ou seja: a porta dá o empurrão, mas quem derruba é a cabeça cheia.",
+   "batidas": {
+    "Londres": "londres",
+    "diferença.": "diferenca",
+    "ocupada,": "ocupada",
+    "conta": "conta",
+    "empurrão,": "empurrao",
+    "cheia.": "cheia"
+   }
+  },
+  {
+   "id": "dica",
+   "tipo": "dica",
+   "titulo": "O truque",
+   "fala": "Então o truque é simples: antes de levantar, fala em voz alta o que você vai buscar, ou imagina você pegando o objeto. Isso grava a intenção com mais força. E se esquecer mesmo assim, volta pro lugar de onde saiu.",
+   "batidas": {
+    "alta": "alta",
+    "imagina": "imagina",
+    "força.": "forca",
+    "saiu.": "saiu"
+   }
+  },
+  {
+   "id": "resumo",
+   "tipo": "resumo",
+   "titulo": "Resumindo",
+   "fala": "Resumindo: o cérebro divide o dia em capítulos, a porta fecha um capítulo, a cabeça cheia piora tudo, e falar em voz alta ajuda. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "batidas": {
+    "capítulos,": "passo1",
+    "capítulo,": "passo2",
+    "tudo,": "passo3",
+    "ajuda.": "passo4",
+    "Segue": "cta"
+   }
+  }
+ ]
 }

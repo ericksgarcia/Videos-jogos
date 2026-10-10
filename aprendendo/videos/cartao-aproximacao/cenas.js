@@ -22,19 +22,22 @@ function campo(x, cx, cy, t, a, n = 5, R = 300) { if (a <= 0.01) return; for (le
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tA = B("apita"), tB = B("bateria"), tE = B("energia"), tP = B("promessa");
-  mostrarGancho(tA + 0.6);
+  const tB = B("bateria"), tM0 = B("meio0"), tA = B("apita"), tE = B("energia"), tP = B("promessa");
+  mostrarGancho(tA - 0.3);
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["sem", 330, 76, "sem bateria, sem fio", "pt-ve"], ["ene", 330, 72, "de onde vem a energia?", "pt-am", "white-space:normal;left:60px;width:960px"]]);
-  MD.slam(tl, tx.sem, tB - 0.05, { from: 1.3 }); MD.leave(tl, tx.sem, tE - 0.35); MD.slam(tl, tx.ene, tE - 0.05, { from: 1.3 });
+  MD.slam(tl, tx.sem, tA + 0.2, { from: 1.3 }); MD.leave(tl, tx.sem, tE - 0.35); MD.slam(tl, tx.ene, tE - 0.05, { from: 1.3 });
   const est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
-    const enc = PT.inOut((t - 0.3) / (tA - 0.3)), apito = PT.jan(t, tA - 0.1, tB + 0.5, 0.1, 0.5);
+    // quadro 0: o cartão brilhando no ar, a bateria riscada e o cronômetro de meio segundo
+    const a0 = 1 - PT.ss((t - tA + 1.6) / 0.4);
+    if (a0 > 0.01) { brilhoP(x, 540, 700, 360, "240,200,120", 0.25 * a0); const cr = PT.ss((t - tM0 + 1.2) / 0.8); rotuloP(x, `${(cr * 0.5).toFixed(2).replace(".", ",")} s`, 260, 1220, 64, "150,255,200", a0 * PT.ss((t - tM0 + 1.4) / 0.3)); }
+    const enc = PT.inOut((t - tA + 1.5) / 1.5), apito = PT.jan(t, tA - 0.1, tB + 0.5, 0.1, 0.5);
     maquininha(x, 540, 1060, 1, 1, apito);
     cartao(x, 540, PT.lerp(560, 860, enc), 0.8, 1, 0, 0, t, -0.15 * (1 - enc));
     if (apito > 0) for (let k = 0; k < 3; k++) anelP(x, 540, 900, 60 + k * 50 + (t - tA) * 200, VD, apito * (1 - k * 0.3), 4);
-    const aB = PT.ss((t - tB + 0.3) / 0.4); if (aB > 0) { x.save(); x.translate(860, 650); fCaixa(x, 0, 0, 160, 80, 12, "170,178,195", aB, 5, 0.05); fCaixa(x, 90, 0, 16, 30, 4, "170,178,195", aB, 4, 0.3); linhaP(x, -100, -60, 100, 60, VE, aB, 8); x.restore(); }
+    const aB = PT.ss((t - 0.1) / 0.3) * (1 - PT.ss((t - tE - 1) / 0.5)); if (aB > 0) { x.save(); x.translate(860, 650); fCaixa(x, 0, 0, 160, 80, 12, "170,178,195", aB, 5, 0.05); fCaixa(x, 90, 0, 16, 30, 4, "170,178,195", aB, 4, 0.3); linhaP(x, -100, -60, 100, 60, VE, aB, 8); x.restore(); }
     if (t > tE - 0.3) rotuloP(x, "?", 260, 860, 140, AM, PT.ss((t - tE + 0.3) / 0.4) * (0.8 + 0.2 * Math.sin(t * 4)));
   });
 };

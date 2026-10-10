@@ -26,15 +26,16 @@ function gotasCaindo(x, t, x0, x1, y0, y1, n, a, seed = 5) { if (a <= 0.01) retu
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tC = B("chover"), tG = B("gota"), tD = B("dois"), tR = B("raio"), tS = B("sinal");
-  mostrarGancho(tC + 0.8);
+  const tR0 = B("raio0"), tC = B("chover"), tG = B("gota"), tD = B("dois"), tR = B("raio"), tS = B("sinal");
+  mostrarGancho(tG - 1.6);
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["ain", 330, 62, "mas ainda não choveu", "pt-ci"], ["dois", 330, 86, "2 cheiros", "pt-am"], ["raio", 430, 52, "um vem de um raio", "pt-fino"]]);
-  MD.arrive(tl, tx.ain, tG + 0.4, { y: 14 }); MD.leave(tl, tx.ain, tD - 0.4); MD.slam(tl, tx.dois, tD - 0.05, { from: 1.35 }); MD.arrive(tl, tx.raio, tR - 0.1, { y: 14 });
+  MD.arrive(tl, tx.ain, tG - 1.4, { y: 14 }); MD.leave(tl, tx.ain, tD - 0.4); MD.slam(tl, tx.dois, tD - 0.05, { from: 1.35 }); MD.arrive(tl, tx.raio, tR - 0.1, { y: 14 });
   const nv = T.nuvem(14100), est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
-    const flash = Math.exp(-Math.max(0, t - tR) * 4) * (t > tR - 0.05 ? 1 : 0);
+    const fl = (t0) => (t > t0 - 0.05 ? Math.exp(-Math.max(0, t - t0) * 4) : 0);
+    const flash = Math.max(fl(tR), fl(0.15), fl(tR0 - 0.1), 0.7 * fl(tR0 + 0.35));
     nuvemP(nv, 540, 620, 520, t, 0.9, flash);
     perfil(x, 820, 1150, 1.3, "255,226,190", PT.ss(t / 0.8));
     cheiro(x, 120, 1000, 680, 1150, t, PT.ss((t - tD) / 0.5) > 0 ? OZ : "200,215,255", PT.ss((t - 0.6) / 0.8), PT.ss((t - tD) / 0.5) > 0 ? 2 : 3);
@@ -42,6 +43,8 @@ CENAS.abertura = (el, c, B) => {
     // a primeira gota parada no ar, com interrogação
     const aG = PT.jan(t, tG - 0.3, tD, 0.3, 0.5); if (aG > 0) { discoP(x, 400, 900, 16, CI, aG); rotuloP(x, "?", 400, 830, 70, AM, aG); }
     raioZ(x, 300, 760, 180, 1300, 7, flash * 1.3);
+    // quadro 0: o ozônio do raio vindo até o nariz
+    const aO = PT.jan(t, 0.3, tC + 0.5, 0.6, 0.6); for (let k = 0; k < 6; k++) { const u = ((t * 0.18 + k / 6) % 1); molecula(x, PT.lerp(220, 700, u), PT.lerp(1250, 1060, u) + Math.sin(u * 9 + k) * 30, 3, 20, OZ, aO * Math.sin(u * Math.PI), u * 3 + k, 1); }
   });
 };
 

@@ -21,18 +21,20 @@ function inchaco(x, cx, cy, k, a) { if (a <= 0.01) return; x.beginPath(); x.elli
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
   const tC = B("cabeca"), tB = B("barriga"), tI = B("ir"), tN = B("naosabe"), tE = B("erro");
-  mostrarGancho(tB + 0.6);
+  mostrarGancho(tB + 0.8);
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["ir", 330, 70, "como ele sabe onde ir?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["nao", 330, 96, "ele não sabe", "pt-ve"]]);
   MD.slam(tl, tx.ir, tI - 0.1, { from: 1.25 }); MD.leave(tl, tx.ir, tN - 0.35); MD.slam(tl, tx.nao, tN - 0.05, { from: 1.4 });
   const nv = T.nuvem(16100), est = estF(3), CX = 540, CY = 1000, E = 400;
   T.quadro((x, t) => {
     estD(x, est, t);
-    corpo(nv, CX, CY, E, PT.ss(t / 0.6), [0.6, 0.75, 1.0]);
+    corpo(nv, CX, CY, E, 1, [0.6, 0.75, 1.0]);
     // dor na cabeça (pulsando), que some depois
-    const dor = PT.ss((t - tC + 0.4) / 0.5) * (1 - PT.ss((t - tN) / 2)); if (dor > 0) { const pu = 0.7 + 0.3 * Math.sin(t * 7); brilhoP(x, CX, CY - 0.8 * E, 120 * pu, VE, 0.7 * dor); for (let k = 0; k < 8; k++) { const an = k / 8 * 6.283 + t; linhaP(x, CX + Math.cos(an) * 80, CY - 0.8 * E + Math.sin(an) * 80, CX + Math.cos(an) * 110, CY - 0.8 * E + Math.sin(an) * 110, VE, dor * pu, 5); } }
+    const dor = 1 - PT.ss((t - tN) / 2); if (dor > 0) { const pu = 0.7 + 0.3 * Math.sin(t * 7); brilhoP(x, CX, CY - 0.8 * E, 120 * pu, VE, 0.7 * dor); for (let k = 0; k < 8; k++) { const an = k / 8 * 6.283 + t; linhaP(x, CX + Math.cos(an) * 80, CY - 0.8 * E + Math.sin(an) * 80, CX + Math.cos(an) * 110, CY - 0.8 * E + Math.sin(an) * 110, VE, dor * pu, 5); } }
     // o comprimido descendo até a barriga
-    const q = PT.inOut((t - tC) / (tB - tC + 0.4)); if (t > tC - 0.6) capsula(x, CX + 0.04 * E * q, PT.lerp(CY - 0.95 * E, CY - 0.12 * E, q), 1, 0.4 + q, PT.ss((t - tC + 0.6) / 0.4) * (1 - PT.ss((t - tI) / 0.6)));
+    // quadro 0: o comprimido grande, apontando pra cabeça... e riscado
+    const a0 = 1 - PT.ss((t - tC - 1.1) / 0.4); if (a0 > 0.01) { capsula(x, CX + 300, CY - 0.95 * E, 2.2, -0.5 + Math.sin(t * 2) * 0.1, a0); x.setLineDash([12, 12]); linhaP(x, CX + 230, CY - 0.92 * E, CX + 80, CY - 0.82 * E, AM, 0.7 * a0, 4); x.setLineDash([]); const aX = PT.ss((t - tC - 0.4) / 0.3) * a0; linhaP(x, CX + 120, CY - 0.95 * E, CX + 200, CY - 0.75 * E, VE, aX, 10); linhaP(x, CX + 120, CY - 0.75 * E, CX + 200, CY - 0.95 * E, VE, aX, 10); }
+    const q = PT.inOut((t - tC - 1.1) / (tB - tC - 0.9)); if (t > tC + 0.9) capsula(x, PT.lerp(CX + 300, CX + 0.04 * E, PT.ss(q * 3)), PT.lerp(CY - 0.95 * E, CY - 0.12 * E, q), 1 + 1.2 * (1 - PT.ss(q * 2)), 0.4 + q, PT.ss((t - tC - 0.9) / 0.3) * (1 - PT.ss((t - tI) / 0.6)));
     if (t > tB - 0.2) rotuloP(x, "barriga", CX + 0.45 * E, CY - 0.12 * E, 34, "255,200,150", PT.ss((t - tB + 0.2) / 0.4) * (1 - PT.ss((t - tN) / 0.6)), "left");
   });
 };

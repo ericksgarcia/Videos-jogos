@@ -15,21 +15,34 @@ function espectroR(x, cx, cy, w, h, corte, a, rot) { if (a <= 0.01) return; cons
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const q = tempoPalavras(c), tB = B("botao"), tS = B("some"), tA = B("apaga"), tM = q("som", 1), tP = B("promessa");
-  mostrarGancho(tB + 0.8);
+  const tM = B("maissom"), tA = B("apaga"), tB = B("botao"), tS = B("some"), tP = B("promessa");
+  mostrarGancho(tA - 0.2);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["como", 330, 72, "como ele apaga o som?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["mais", 330, 76, "tocando MAIS som", "pt-am"]]);
-  MD.slam(tl, tx.como, tA - 0.1, { from: 1.25 }); MD.leave(tl, tx.como, tM - 0.6); MD.slam(tl, tx.mais, tM - 0.3, { from: 1.4 });
+  const tx = palcoTexto(el, [["sum", 330, 76, "o barulho some", "pt-ci"], ["lad", 330, 62, "e a voz de quem está do lado?", "pt-am", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.sum, tS - 0.05, { from: 1.3 }); MD.leave(tl, tx.sum, tP - 2.0); MD.slam(tl, tx.lad, tP - 1.7, { from: 1.25 });
   const est = estF(3);
   T.quadro((x, t) => {
     estD(x, est, t);
-    aviao(x, 540, 700, 0.9, 0.8);
-    const lig = PT.ss((t - tB) / 0.3), some = PT.ss((t - tS + 0.4) / 0.8);
-    // barulho do avião (ondas vermelhas) que somem perto do fone
-    for (let k = 0; k < 3; k++) ondaP(x, 80, 1000, 800 + k * 40, 26 * (1 - 0.85 * some), 18 + k * 4, t * (8 + k), VE, 0.6 * (1 - 0.6 * some), 4);
-    fone(x, 540, 1100, 1.1, 1, lig);
-    if (t > tM - 0.3) ondaP(x, 300, 780, 1130, 30, 14, t * 8 + Math.PI, CI, PT.ss((t - tM + 0.3) / 0.5) * (1 - PT.ss((t - tP + 1) / 0.6)), 5);
-    if (lig > 0) { discoP(x, 540 + 220 * 1.1 + 50, 1160, 10, VD, lig); rotuloP(x, "ANC", 540 + 220 * 1.1 + 50, 1210, 26, "150,255,200", lig); }
+    // quadro 0: barulho + anti-barulho = silêncio (o "plano do trailer")
+    const a0 = 1 - PT.ss((t - tB + 0.8) / 0.5);
+    if (a0 > 0.01) {
+      const am = 70, ff = 16, fs = t * 7, aI = PT.ss((t - 0.3) / 0.5), aZ = PT.ss((t - tM + 0.6) / 0.6);
+      ondaP(x, 120, 960, 700, am, ff, fs, VE, a0, 7); rotuloP(x, "barulho", 120, 610, 34, "255,170,180", a0, "left");
+      rotuloP(x, "+", 540, 805, 60, "220,228,245", a0 * aI);
+      ondaP(x, 120, 960, 910, am, ff, fs + Math.PI, CI, a0 * aI, 7); rotuloP(x, "som do fone (ao contrário)", 120, 1010, 34, "180,235,255", a0 * aI, "left");
+      rotuloP(x, "=", 540, 1080, 60, "220,228,245", a0 * aZ);
+      ondaP(x, 120, 960, 1190, am * (1 - aZ) * 0.9, ff, fs, VD, a0 * aZ, 7); brilhoP(x, 540, 1190, 300, VD, 0.25 * a0 * aZ); rotuloP(x, "silêncio", 540, 1280, 40, "150,255,200", a0 * aZ);
+    }
+    // o avião e o fone
+    const aS = PT.ss((t - tB + 0.6) / 0.5);
+    if (aS > 0.01) {
+      aviao(x, 540, 700, 0.9, 0.8 * aS);
+      const lig = PT.ss((t - tB) / 0.3), some = PT.ss((t - tS + 0.4) / 0.8);
+      for (let k = 0; k < 3; k++) ondaP(x, 80, 1000, 800 + k * 40, 26 * (1 - 0.85 * some), 18 + k * 4, t * (8 + k), VE, 0.6 * (1 - 0.6 * some) * aS, 4);
+      fone(x, 540, 1100, 1.1, aS, lig);
+      ondaP(x, 300, 780, 1130, 30, 14, t * 8 + Math.PI, CI, lig * (1 - PT.ss((t - tP + 1) / 0.6)), 5);
+      if (lig > 0) { discoP(x, 540 + 220 * 1.1 + 50, 1160, 10, VD, lig); rotuloP(x, "ANC", 540 + 220 * 1.1 + 50, 1210, 26, "150,255,200", lig); }
+    }
   });
 };
 
