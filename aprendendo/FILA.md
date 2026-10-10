@@ -5,10 +5,9 @@ Antes de começar cada um, confira em `aprendendo/videos/` se o tema já foi fei
 Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Em produção
-- Por que a nossa própria voz soa tão horrível quando ouvimos gravada?
+- Como uma comida esquenta sem fogo nem calor externo? (marmita/ração autoaquecível)
 
 ## Próximos (na ordem)
-4. Como uma comida esquenta sem fogo nem calor externo? (marmita/ração autoaquecível)
 5. Como o fone com cancelamento de ruído consegue "apagar" o som do mundo?
 6. Como o GPS do celular sabe exatamente onde você está no meio do nada?
 7. Como o cartão por aproximação paga a conta se não tem bateria dentro?
@@ -19,6 +18,7 @@ Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 12. Por que é tão difícil prever o tempo, mesmo com tanta tecnologia?
 
 ## Feitos
+- Por que a sua voz soa estranha gravada? → `videos/voz-gravada` (entregue)
 - Por que você esquece o que ia fazer quando passa por uma porta? → `videos/porta-esquece` (entregue)
 - Como o remédio sabe onde está doendo? → `videos/remedio-dor` (entregue)
 - Por que imprimir dinheiro deixa todo mundo mais pobre? → `videos/imprimir-dinheiro` (entregue)

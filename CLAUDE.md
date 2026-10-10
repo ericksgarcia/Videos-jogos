@@ -101,7 +101,8 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
   tela na mesma palavra (`tempoPalavras`).
 - **Mito derrubado** ou **virada** no meio; **pergunta ao espectador** ("por que você não
   sente?") antes da resposta.
-- Algo muda na tela a cada 2–3 s (batidas); nenhuma cena parada.
+- Algo muda na tela a cada 2–3 s (batidas); nenhuma cena parada. Cuidado com cena cuja 1ª batida
+  vem segundos depois do início: faça o cenário entrar em `c.ini + 0.5`, não na batida.
 - Resumo curto e rápido; o cartão final entra durante a chamada.
 
 ### Abertura: dor ou curiosidade, nunca o assunto (dica de ouro do dono)
