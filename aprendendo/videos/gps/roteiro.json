@@ -1,7 +1,7 @@
 {
  "slug": "como-o-gps-sabe-onde-voce-esta",
  "titulo": "Como o GPS sabe onde você está",
- "descricao": "Sem internet, no meio do nada, e o pontinho azul continua certinho. Como? 🛰️\nComo funciona o GPS do celular: ele não manda nada, só escuta mais de 30 satélites que gritam a hora sem parar.\nO atraso de cada sinal vira distância, e 4 distâncias dão a sua posição.\nNo final: por que o GPS só funciona graças ao Einstein.\nManda pra quem vive pegando estrada e salva a dica do mapa off-line.\nVocê já se perdeu sem sinal? Comenta aí 👇",
+ "descricao": "Sem o Einstein, o GPS do seu celular erraria uns 10 km por dia 🛰️\nComo funciona o GPS: o celular não manda nada pro satélite, só escuta mais de 30 satélites gritando a hora sem parar.\nO atraso de cada sinal vira distância, e 4 distâncias dão a sua posição.\nNo final: onde o Einstein entra nisso.\nManda pra quem vive pegando estrada e salva a dica do mapa off-line.\nSe o GPS só escuta, quantas pessoas você acha que estão usando os mesmos satélites agora? Chuta um número 👇",
  "hashtags": [
   "#gps",
   "#tecnologia",
@@ -14,9 +14,13 @@
  "gancho_destaque": "10",
  "voz": "Achird",
  "sons": {
-  "internet": [
+  "dez": [
    "thud",
-   0.55
+   0.65
+  ],
+  "internet": [
+   "pop",
+   0.45
   ],
   "azul": [
    "plim",
@@ -24,15 +28,15 @@
   ],
   "onde": [
    "pop",
-   0.45
+   0.5
   ],
   "einstein": [
-   "plim",
+   "brilho",
    0.55
   ],
   "escuta": [
-   "whoosh_curto",
-   0.45
+   "thud",
+   0.55
   ],
   "vinte": [
    "whoosh",
@@ -40,41 +44,45 @@
   ],
   "trinta": [
    "brilho",
-   0.5
+   0.55
   ],
   "gritando": [
    "zap",
-   0.45
+   0.5
   ],
   "bilionesimos": [
    "clique",
    0.6
   ],
   "luz": [
-   "brilho",
-   0.55
+   "whoosh_curto",
+   0.5
   ],
   "trovao": [
    "thud",
-   0.65
+   0.6
   ],
   "longe": [
-   "whoosh",
+   "pop",
    0.45
   ],
   "atrasou": [
    "clique",
-   0.6
+   0.55
   ],
   "distancia": [
+   "plim",
+   0.5
+  ],
+  "basta": [
+   "pop",
+   0.5
+  ],
+  "um": [
    "pop",
    0.45
   ],
-  "esfera": [
-   "pop",
-   0.45
-  ],
-  "circulo": [
+  "dois": [
    "pop",
    0.45
   ],
@@ -82,55 +90,67 @@
    "pop",
    0.45
   ],
-  "espaco": [
-   "whoosh_curto",
-   0.45
-  ],
-  "quarto": [
+  "quatro": [
    "clique",
-   0.6
+   0.55
   ],
   "exata": [
-   "plim",
-   0.6
-  ],
-  "rapido": [
-   "zap",
-   0.5
-  ],
-  "milionesimos": [
-   "clique",
-   0.6
-  ],
-  "fraca": [
-   "whoosh",
-   0.45
-  ],
-  "relatividade": [
    "brilho",
    0.6
   ],
-  "dez": [
-   "thud",
-   0.65
+  "comenta": [
+   "plim",
+   0.6
   ],
-  "dia": [
+  "escuta2": [
+   "pop",
+   0.45
+  ],
+  "agora": [
+   "whoosh_curto",
+   0.45
+  ],
+  "numero": [
+   "pop",
+   0.5
+  ],
+  "prometi": [
+   "plim",
+   0.55
+  ],
+  "rapido": [
+   "whoosh_curto",
+   0.45
+  ],
+  "micro": [
+   "clique",
+   0.55
+  ],
+  "gravidade": [
    "thud",
    0.5
   ],
-  "internet2": [
+  "einstein2": [
+   "brilho",
+   0.6
+  ],
+  "erro": [
+   "thud",
+   0.65
+  ],
+  "gasta": [
    "pop",
    0.45
   ],
   "mapa": [
-   "whoosh_curto",
-   0.45
+   "clique",
+   0.5
   ],
   "offline": [
    "plim",
-   0.6
+   0.55
   ],
-  "funcionando": [
+  "funciona": [
    "brilho",
    0.5
   ],
@@ -159,8 +179,8 @@
   {
    "id": "gancho",
    "tipo": "abertura",
-   "titulo": "O pontinho azul",
-   "fala": "Sem a teoria do Einstein, o GPS do seu celular erraria uns dez quilômetros por dia. E ele funciona até sem internet: no meio de uma estrada vazia, o pontinho azul continua certinho. Como ele sabe onde você está? No final eu te conto onde o Einstein entra nisso.",
+   "titulo": "Sem o Einstein",
+   "fala": "Sem a teoria do Einstein, o GPS do seu celular erraria uns dez quilômetros por dia. E ele funciona até sem internet: no meio de uma estrada vazia, o pontinho azul continua certinho. Como ele sabe onde você está? No final eu te mostro onde o Einstein entra nisso.",
    "batidas": {
     "dia.": "dez",
     "internet:": "internet",
@@ -173,7 +193,7 @@
    "id": "escuta",
    "tipo": "escuta",
    "titulo": "Ele só escuta",
-   "fala": "Primeiro: o celular não manda nada pro satélite. Ele só escuta. Lá em cima, a uns vinte mil quilômetros, tem mais de trinta satélites de GPS girando em volta da Terra. Cada um fica gritando, sem parar: eu sou o satélite tal, e agora são tantas horas, com precisão de bilionésimos de segundo.",
+   "fala": "Primeiro: o celular não manda nada pro satélite. Ele só escuta. Lá em cima, a uns vinte mil quilômetros, tem mais de trinta satélites de GPS. E cada um fica gritando, sem parar: eu sou o satélite tal, e agora são tantas horas, com precisão de bilionésimos de segundo.",
    "batidas": {
     "escuta.": "escuta",
     "vinte": "vinte",
@@ -186,53 +206,65 @@
    "id": "atraso",
    "tipo": "atraso",
    "titulo": "O atraso vira distância",
-   "fala": "O sinal viaja na velocidade da luz, mas ainda leva um tempinho pra chegar. Pensa num trovão: quanto mais o barulho demora, mais longe caiu o raio. O celular faz a mesma conta: vê quanto o sinal atrasou e descobre a que distância está daquele satélite.",
+   "fala": "Esse grito viaja na velocidade da luz, mas ainda leva um tempinho pra chegar. Pensa num trovão: quanto mais o barulho demora, mais longe caiu o raio. O celular faz a mesma conta: vê quanto o sinal atrasou e descobre a que distância está daquele satélite. Mas uma distância só não basta.",
    "batidas": {
     "luz,": "luz",
     "trovão:": "trovao",
     "longe": "longe",
     "atrasou": "atrasou",
-    "distância": "distancia"
+    "distância": "distancia",
+    "basta.": "basta"
    }
   },
   {
    "id": "circulos",
    "tipo": "circulos",
-   "titulo": "Os círculos",
-   "fala": "Com um satélite, você sabe que está em algum ponto de uma esfera enorme. Com dois, as esferas se cruzam num círculo. Com três, sobram só dois pontos, e um deles fica no espaço. E o quarto satélite acerta o relógio do próprio celular, que é bem menos preciso. Pronto: posição exata.",
+   "titulo": "Quatro satélites",
+   "fala": "Com um satélite, você está em algum ponto de uma bolha enorme. Com dois, as bolhas se cruzam num círculo. Com três, sobram só dois pontos, e um deles fica no espaço. E o quarto acerta o relógio do próprio celular. Pronto: posição exata.",
    "batidas": {
-    "esfera": "esfera",
-    "círculo.": "circulo",
+    "satélite,": "um",
+    "dois,": "dois",
     "três,": "tres",
-    "espaço.": "espaco",
-    "quarto": "quarto",
+    "quarto": "quatro",
     "exata.": "exata"
+   }
+  },
+  {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Responde nos comentários",
+   "fala": "Pergunta difícil, responde nos comentários: se o GPS só escuta, quantas pessoas no mundo você acha que estão usando os mesmos satélites agora? Chuta um número.",
+   "batidas": {
+    "comentários:": "comenta",
+    "escuta,": "escuta2",
+    "agora?": "agora",
+    "número.": "numero"
    }
   },
   {
    "id": "einstein",
    "tipo": "einstein",
    "titulo": "O Einstein",
-   "fala": "Agora a parte que eu prometi. Os relógios dos satélites andam mais rápido que os daqui de baixo, uns trinta e oito milionésimos de segundo por dia, porque lá em cima a gravidade é mais fraca. É a relatividade do Einstein. Parece nada, mas se ninguém corrigisse, o GPS erraria uns dez quilômetros a mais a cada dia.",
+   "fala": "Agora, a parte que eu prometi. Os relógios dos satélites andam mais rápido que os daqui de baixo, uns trinta e oito milionésimos de segundo por dia, porque lá em cima a gravidade é mais fraca. É a relatividade do Einstein. Parece nada, mas sem a correção, o GPS erraria uns dez quilômetros a mais a cada dia.",
    "batidas": {
+    "prometi.": "prometi",
     "rápido": "rapido",
-    "milionésimos": "milionesimos",
-    "fraca.": "fraca",
-    "Einstein.": "relatividade",
-    "dez": "dez",
-    "dia.": "dia"
+    "dia,": "micro",
+    "fraca.": "gravidade",
+    "Einstein.": "einstein2",
+    "dia.": "erro"
    }
   },
   {
    "id": "dica",
    "tipo": "dica",
    "titulo": "A dica",
-   "fala": "E a dica: o GPS não gasta internet, mas o mapa gasta. Antes de viajar pra lugar sem sinal, baixa o mapa da região pra usar off-line. O pontinho azul continua funcionando.",
+   "fala": "E a dica: antes de viajar pra lugar sem sinal, baixa o mapa da região pra usar off-line. O GPS continua funcionando sem internet.",
    "batidas": {
-    "internet,": "internet2",
+    "sinal,": "gasta",
     "mapa": "mapa",
     "off-line.": "offline",
-    "funcionando.": "funcionando"
+    "internet.": "funciona"
    }
   },
   {
