@@ -5,10 +5,9 @@ Antes de começar cada um, confira em `aprendendo/videos/` se o tema já foi fei
 Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Em produção
-- Como o remédio (paracetamol/ibuprofeno) sabe exatamente onde está doendo?
+- Por que você esquece o que ia fazer assim que passa por uma porta?
 
 ## Próximos (na ordem)
-2. Por que você esquece o que ia fazer assim que passa por uma porta?
 3. Por que a nossa própria voz soa tão horrível quando ouvimos gravada?
 4. Como uma comida esquenta sem fogo nem calor externo? (marmita/ração autoaquecível)
 5. Como o fone com cancelamento de ruído consegue "apagar" o som do mundo?
@@ -21,6 +20,7 @@ Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 12. Por que é tão difícil prever o tempo, mesmo com tanta tecnologia?
 
 ## Feitos
+- Como o remédio sabe onde está doendo? → `videos/remedio-dor` (entregue)
 - Por que imprimir dinheiro deixa todo mundo mais pobre? → `videos/imprimir-dinheiro` (entregue)
 - Por que você não consegue fazer cócegas em si mesmo? → `videos/cocegas` (entregue)
 - Por que parece que o celular escuta suas conversas? → `videos/celular-escuta` (entregue)
