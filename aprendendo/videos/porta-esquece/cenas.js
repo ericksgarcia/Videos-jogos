@@ -78,7 +78,7 @@ CENAS.experimento = (el, c, B) => {
     estD(x, est, t);
     // plano A: o mundo virtual — duas mesas e a caixa sendo levada
     const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
-    if (aA > 0.01) { for (let k = 0; k < 9; k++) { linhaP(x, 540 + (k - 4) * 60, 760, 540 + (k - 4) * 220, 1400, CI, 0.25 * aA, 2); const y = 760 + k * k * 8; linhaP(x, 100, y, 980, y, CI, 0.2 * aA, 2); } fCaixa(x, 260, 1150, 220, 30, 6, AM, aA, 4, 0.2); fCaixa(x, 820, 1150, 220, 30, 6, AM, aA, 4, 0.2); const q = PT.ss(((t - tO + 0.5) % 4) / 3); fCaixa(x, PT.lerp(260, 820, q), 1100 - Math.sin(q * Math.PI) * 60, 70, 60, 8, CI, aA * PT.ss((t - tO + 0.5) / 0.4), 4, 0.25); }
+    if (aA > 0.01) { for (let k = 0; k < 9; k++) { linhaP(x, 540 + (k - 4) * 60, 760, 540 + (k - 4) * 220, 1400, CI, 0.25 * aA, 2); const y = 760 + k * k * 8; linhaP(x, 100, y, 980, y, CI, 0.2 * aA, 2); } fCaixa(x, 260, 1150, 220, 30, 6, AM, aA, 4, 0.2); fCaixa(x, 820, 1150, 220, 30, 6, AM, aA, 4, 0.2); const q = PT.ss(((t - c.ini) % 4) / 3); fCaixa(x, PT.lerp(260, 820, q), 1100 - Math.sin(q * Math.PI) * 60, 70, 60, 8, CI, aA * PT.ss((t - c.ini - 0.5) / 0.4), 4, 0.25); }
     // plano B: dois caminhos, mesma distância — um com porta, outro sem
     const aB = planoC(t, pB, pC);
     if (aB > 0.01) { for (const [y, porta, nome] of [[860, true, "com porta"], [1240, false, "sem porta"]]) { linhaP(x, 120, y, 960, y, BRC, 0.4 * aB, 4); if (porta) portaG(x, 540, y - 90, 90, 180, aB); const u = ((t - pB) * 0.25) % 1; fPessoa(x, PT.lerp(140, 940, u), y - 40, 1.0, "255,226,190", aB); fCaixa(x, PT.lerp(140, 940, u) + 40, y - 70, 36, 30, 6, CI, aB, 3, 0.25); rotuloP(x, nome, 200, y + 50, 32, porta ? "255,226,170" : "180,230,255", aB, "left"); } }
