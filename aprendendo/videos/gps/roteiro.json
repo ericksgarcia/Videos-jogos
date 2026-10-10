@@ -1,0 +1,251 @@
+{
+  "slug": "como-o-gps-sabe-onde-voce-esta",
+  "titulo": "Como o GPS sabe onde você está",
+  "descricao": "Sem internet, no meio do nada, e o pontinho azul continua certinho. Como? 🛰️\nComo funciona o GPS do celular: ele não manda nada, só escuta mais de 30 satélites que gritam a hora sem parar.\nO atraso de cada sinal vira distância, e 4 distâncias dão a sua posição.\nNo final: por que o GPS só funciona graças ao Einstein.\nManda pra quem vive pegando estrada e salva a dica do mapa off-line.\nVocê já se perdeu sem sinal? Comenta aí 👇",
+  "hashtags": [
+    "#gps",
+    "#tecnologia",
+    "#espaco",
+    "#ciencia",
+    "#curiosidades",
+    "#aprendendofacil"
+  ],
+  "gancho": "COMO O GPS SABE ONDE VOCÊ ESTÁ?",
+  "gancho_destaque": "GPS",
+  "voz": "Achird",
+  "sons": {
+    "internet": [
+      "thud",
+      0.55
+    ],
+    "azul": [
+      "plim",
+      0.55
+    ],
+    "onde": [
+      "pop",
+      0.45
+    ],
+    "einstein": [
+      "plim",
+      0.55
+    ],
+    "escuta": [
+      "whoosh_curto",
+      0.45
+    ],
+    "vinte": [
+      "whoosh",
+      0.5
+    ],
+    "trinta": [
+      "brilho",
+      0.5
+    ],
+    "gritando": [
+      "zap",
+      0.45
+    ],
+    "bilionesimos": [
+      "clique",
+      0.6
+    ],
+    "luz": [
+      "brilho",
+      0.55
+    ],
+    "trovao": [
+      "thud",
+      0.65
+    ],
+    "longe": [
+      "whoosh",
+      0.45
+    ],
+    "atrasou": [
+      "clique",
+      0.6
+    ],
+    "distancia": [
+      "pop",
+      0.45
+    ],
+    "esfera": [
+      "pop",
+      0.45
+    ],
+    "circulo": [
+      "pop",
+      0.45
+    ],
+    "tres": [
+      "pop",
+      0.45
+    ],
+    "espaco": [
+      "whoosh_curto",
+      0.45
+    ],
+    "quarto": [
+      "clique",
+      0.6
+    ],
+    "exata": [
+      "plim",
+      0.6
+    ],
+    "rapido": [
+      "zap",
+      0.5
+    ],
+    "milionesimos": [
+      "clique",
+      0.6
+    ],
+    "fraca": [
+      "whoosh",
+      0.45
+    ],
+    "relatividade": [
+      "brilho",
+      0.6
+    ],
+    "dez": [
+      "thud",
+      0.65
+    ],
+    "dia": [
+      "thud",
+      0.5
+    ],
+    "internet2": [
+      "pop",
+      0.45
+    ],
+    "mapa": [
+      "whoosh_curto",
+      0.45
+    ],
+    "offline": [
+      "plim",
+      0.6
+    ],
+    "funcionando": [
+      "brilho",
+      0.5
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "O pontinho azul",
+      "fala": "Você está no meio de uma estrada vazia, sem sinal de internet, e o mapa do celular continua mostrando o pontinho azul certinho. Como ele sabe onde você está? E no final eu te conto por que o GPS só funciona graças ao Einstein.",
+      "batidas": {
+        "internet,": "internet",
+        "azul": "azul",
+        "está?": "onde",
+        "Einstein.": "einstein"
+      }
+    },
+    {
+      "id": "escuta",
+      "tipo": "escuta",
+      "titulo": "Ele só escuta",
+      "fala": "Primeiro: o celular não manda nada pro satélite. Ele só escuta. Lá em cima, a uns vinte mil quilômetros, tem mais de trinta satélites de GPS girando em volta da Terra. Cada um fica gritando, sem parar: eu sou o satélite tal, e agora são tantas horas, com precisão de bilionésimos de segundo.",
+      "batidas": {
+        "escuta.": "escuta",
+        "vinte": "vinte",
+        "trinta": "trinta",
+        "gritando,": "gritando",
+        "bilionésimos": "bilionesimos"
+      }
+    },
+    {
+      "id": "atraso",
+      "tipo": "atraso",
+      "titulo": "O atraso vira distância",
+      "fala": "O sinal viaja na velocidade da luz, mas ainda leva um tempinho pra chegar. Pensa num trovão: quanto mais o barulho demora, mais longe caiu o raio. O celular faz a mesma conta: vê quanto o sinal atrasou e descobre a que distância está daquele satélite.",
+      "batidas": {
+        "luz,": "luz",
+        "trovão:": "trovao",
+        "longe": "longe",
+        "atrasou": "atrasou",
+        "distância": "distancia"
+      }
+    },
+    {
+      "id": "circulos",
+      "tipo": "circulos",
+      "titulo": "Os círculos",
+      "fala": "Com um satélite, você sabe que está em algum ponto de uma esfera enorme. Com dois, as esferas se cruzam num círculo. Com três, sobram só dois pontos, e um deles fica no espaço. E o quarto satélite acerta o relógio do próprio celular, que é bem menos preciso. Pronto: posição exata.",
+      "batidas": {
+        "esfera": "esfera",
+        "círculo.": "circulo",
+        "três,": "tres",
+        "espaço.": "espaco",
+        "quarto": "quarto",
+        "exata.": "exata"
+      }
+    },
+    {
+      "id": "einstein",
+      "tipo": "einstein",
+      "titulo": "O Einstein",
+      "fala": "Agora a parte que eu prometi. Os relógios dos satélites andam mais rápido que os daqui de baixo, uns trinta e oito milionésimos de segundo por dia, porque lá em cima a gravidade é mais fraca. É a relatividade do Einstein. Parece nada, mas se ninguém corrigisse, o GPS erraria uns dez quilômetros a mais a cada dia.",
+      "batidas": {
+        "rápido": "rapido",
+        "milionésimos": "milionesimos",
+        "fraca.": "fraca",
+        "Einstein.": "relatividade",
+        "dez": "dez",
+        "dia.": "dia"
+      }
+    },
+    {
+      "id": "dica",
+      "tipo": "dica",
+      "titulo": "A dica",
+      "fala": "E a dica: o GPS não gasta internet, mas o mapa gasta. Antes de viajar pra lugar sem sinal, baixa o mapa da região pra usar off-line. O pontinho azul continua funcionando.",
+      "batidas": {
+        "internet,": "internet2",
+        "mapa": "mapa",
+        "off-line.": "offline",
+        "funcionando.": "funcionando"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: os satélites gritam a hora, o atraso vira distância, quatro distâncias dão a posição, e o Einstein corrige os relógios. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "hora,": "passo1",
+        "distância,": "passo2",
+        "posição,": "passo3",
+        "relógios.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}
