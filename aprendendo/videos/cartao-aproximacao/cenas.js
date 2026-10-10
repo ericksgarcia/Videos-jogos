@@ -125,14 +125,15 @@ CENAS.pergunta = (el, c, B) => {
   const tC = B("comenta"), tM = B("maquina"), tN = B("nela"), tS = B("simnao");
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["car", 330, 62, "dava pra carregar o celular?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["sim", 330, 86, "sim ou não?", "pt-am"]]);
-  MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, tM - 0.4); MD.slam(tl, tx.car, tM - 0.1, { from: 1.2 }); MD.leave(tl, tx.car, tS - 0.35); MD.slam(tl, tx.sim, tS - 0.05, { from: 1.45 });
+  MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, tM - 0.4); MD.slam(tl, tx.car, tM - 0.1, { from: 1.2 }); MD.leave(tl, tx.car, tS - 0.75); MD.slam(tl, tx.sim, tS - 0.45, { from: 1.45 });
   const est = estF(21);
-  const pB = tM - 0.5, pC = tS - 0.4;
+  const tCar = tempoPalavras(c)("carregar") || tM + 1.2;
+  const pB = tM - 0.5, pC = tN - 0.1;
   T.quadro((x, t) => {
     estD(x, est, t);
     balaoCom(x, 540, 960, 1.2, PT.ss((t - c.ini - 0.1) / 0.4) * (1 - PT.ss((t - pB) / 0.4)), "?", t);
     const aB = planoC(t, pB, pC);
-    if (aB > 0.01) { maquininha(x, 540, 1150, 1.0, aB, 0); campo(x, 540, 900, t, aB, 5, 300); fCelular(x, 540, 760, 360, BRC, aB, 0.08); fCaixa(x, 540, 760, 60, 100, 8, VD, aB, 4, 0.05); rotuloP(x, "?", 820, 700, 120, AM, aB * PT.ss((t - tN + 0.4) / 0.4)); }
+    if (aB > 0.01) { maquininha(x, 540, 1150, 1.0, aB, 0); campo(x, 540, 900, t, aB, 5, 300); fCelular(x, 540, 760, 360, BRC, aB, 0.08); fCaixa(x, 540, 760, 60, 100, 8, VD, aB, 4, 0.05); rotuloP(x, "?", 820, 700, 120, AM, aB * PT.ss((t - tCar) / 0.4)); }
     const aC = PT.ss((t - pC) / 0.4);
     if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); setaComent(x, aC, t); }
   });
