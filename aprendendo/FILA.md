@@ -25,7 +25,7 @@ Ganchos escolhidos pelo dono (caixas de seleção):
 - Internet: "O maior inimigo da internet mundial não é hacker nem tubarão: é âncora de navio."
 1. Cócegas → `videos/cocegas` ✅ refeito e entregue
 2. Celular escuta → `videos/celular-escuta` ✅ refeito e entregue
-3. Cheiro de chuva → `videos/cheiro-de-chuva`
+3. Cheiro de chuva → `videos/cheiro-de-chuva` ✅ refeito e entregue
 4. Remédio sabe onde dói → `videos/remedio-dor`
 5. Porta faz esquecer → `videos/porta-esquece`
 6. Voz gravada → `videos/voz-gravada`
