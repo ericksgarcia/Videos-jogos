@@ -170,7 +170,7 @@ function ondaPontos(nv, x0, x1, cy, amp, ciclos, t, cor, a, i0 = nv.k, esp = 1, 
   const n = Math.round((x1 - x0) / 2.2), camadas = Math.max(1, Math.round(esp * 4));
   for (let c = 0; c < camadas; c++) for (let k = 0; k <= n && i < nv.n; k++) {
     const u = k / n, env = Math.sin(u * Math.PI), y = cy + Math.sin(u * ciclos * 6.283 - t * vel) * amp * env + (c - (camadas - 1) / 2) * 3.2;
-    nv.ponto(i++, x0 + u * (x1 - x0), y, cor[0], cor[1], cor[2], a * (0.5 + 0.5 * env) * (1.3 / Math.sqrt(camadas)), 4);
+    nv.ponto(i++, x0 + u * (x1 - x0), y, cor[0], cor[1], cor[2], a * (0.5 + 0.5 * env) * (2.2 / Math.sqrt(camadas)), 4);
   }
   nv.total(i); return i;
 }

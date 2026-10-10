@@ -59,7 +59,7 @@ CENAS.abertura = (el, c, B) => {
     // plano 2: o experimento — a careta vira joinha e as estrelas acendem em cascata; a plateia ao fundo, fora de foco
     const a2 = planoC(t, p2, p3);
     if (t > p2 - 0.1 && t < p3 + 0.5) {
-      i = desenharForma(nv, FV.pessoas, { cx: 540, cy: 420, esc: 760, cam: { ...cam, foco: 1 }, z: 2.2, cor: CORF.lilas, a: 0.9 * a2, t, i0: i });
+      i = desenharForma(nv, FV.pessoas, { cx: 540, cy: 100, esc: 760, cam: { ...cam, foco: 1 }, z: 2.2, cor: CORF.lilas, a: 0.9 * a2, t, i0: i });
       const u = PT.ss((t - tG + 0.6) / 0.8);
       i = morfo(nv, FV.careta, FV.joinha, u, { de: { cx: 790, cy: 820, esc: 330, cor: CORF.rosa }, para: { cx: 540, cy: 900, esc: 520, cor: CORF.amarelo, giro: 0.2 * Math.sin(t) }, t, a: a2, onda: 0.3, curva: 0.3, i0: i });
       for (let k = 0; k < 5; k++) { const e = FIS.cascata(t, tG + 0.1, k, 0.09, 0.5); i = desenharForma(nv, FV.estrela, { cx: 340 + k * 100, cy: 1230, esc: 95 * Math.max(0.01, e), cor: CORF.amarelo, a: a2 * Math.min(1, e * 2), t, i0: i }); }
@@ -215,7 +215,7 @@ CENAS.experimento = (el, c, B) => {
     if (aD > 0.01) {
       for (const [k, alt, cor, rot] of [[0, 420, CORF.ciano, "os outros"], [1, 600, CORF.amarelo, "a própria"]]) {
         const e = FIS.chegar(t, tA - 0.3 + k * 0.25, 0.7), h = alt * Math.max(0, e), bx = 380 + k * 320;
-        for (let q = 0; q < 900 && i < nv.n; q++) { const u = (q * 0.7548776662) % 1, v = (q * 0.5698402910) % 1; nv.ponto(i++, bx - 90 + u * 180, 1300 - v * h, cor[0], cor[1], cor[2], aD * (0.35 + 0.4 * (v > 0.97 ? 1 : 0)), 3.2); }
+        for (let q = 0; q < 900 && i < nv.n; q++) { const u = (q * 0.7548776662) % 1, v = (q * 0.5698402910) % 1; nv.ponto(i++, bx - 90 + u * 180, 1300 - v * h, cor[0], cor[1], cor[2], aD * (0.75 + 0.6 * (v > 0.97 ? 1 : 0)), 4.2); }
         rotuloP(x, rot, bx, 1360, 40, k ? "255,226,140" : "170,230,255", aD);
       }
       const st = FIS.chegar(t, tA + 0.4, 0.5); i = desenharForma(nv, FV.estrela, { cx: 700, cy: 640, esc: 150 * Math.max(0.01, st), cor: CORF.amarelo, a: aD, t, i0: i });
