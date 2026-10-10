@@ -65,7 +65,9 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
   Google Brasil (últimas 24 h por padrão) ordenado por volume de buscas, com categoria e buscas
   relacionadas. TikTok Creative Center ainda não abre aqui (faltam os domínios de CDN da
   ByteDance na rede); Instagram fica de fora (pedido do dono).
-- Confira em `aprendendo/videos/` se o tema **ainda não foi feito**.
+- Confira em `aprendendo/videos/` se o tema **ainda não foi feito** (sempre, antes de qualquer vídeo).
+- Pedidos em lista vão para `aprendendo/FILA.md` e são feitos **um de cada vez** (roteiro,
+  narração, cenas, render, entrega); não gere todos os roteiros/narrações de uma vez.
 - Política: só explique **regras e funcionamento** (como funciona o segundo turno), de forma
   neutra; nunca candidatos, partidos ou opinião. Tragédias: foco no mecanismo e na segurança.
 - Confira os fatos (lei, número, data) em fontes confiáveis antes de pôr no roteiro; número
@@ -101,6 +103,14 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
   sente?") antes da resposta.
 - Algo muda na tela a cada 2–3 s (batidas); nenhuma cena parada.
 - Resumo curto e rápido; o cartão final entra durante a chamada.
+
+### Abertura: dor ou curiosidade, nunca o assunto (dica de ouro do dono)
+
+- **Nunca** comece com "hoje vamos falar sobre X" / "vou te explicar X". Comece pela **dor ou
+  curiosidade concreta** da pessoa, numa situação do dia a dia: "Você já se perguntou por que o
+  seu fone de 200 reais consegue silenciar o motor de um avião?", "Você já reparou que o
+  carrinho do mercado sai cada vez mais vazio?", "Tenta agora: faz cócegas no seu pé".
+- O assunto (o nome técnico) só aparece depois que a pergunta já prendeu.
 
 ### O que a ciência apoia (pesquisa feita com o dono; use em todo roteiro)
 

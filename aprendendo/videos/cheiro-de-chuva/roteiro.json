@@ -1,0 +1,235 @@
+{
+  "slug": "por-que-sentimos-cheiro-de-chuva-antes-de-ela-comecar",
+  "titulo": "Por que sentimos cheiro de chuva antes de ela começar",
+  "descricao": "Você sente o cheiro da chuva antes da primeira gota. Mas cheiro de quê? 🌧️\nPor que a gente sente cheiro de chuva: o ozônio que vem do raio e o petricor, o cheiro de terra molhada.\nÁgua pura não tem cheiro. E o seu nariz é absurdamente sensível a esse cheiro.\nNo final: o sinal no ar que avisa que uma tempestade com raios está chegando.\nManda pra quem ama cheiro de chuva e salva pra lembrar na próxima tempestade.\nVocê também ama esse cheiro? Comenta aí 👇",
+  "hashtags": [
+    "#chuva",
+    "#petricor",
+    "#natureza",
+    "#ciencia",
+    "#curiosidades",
+    "#aprendendofacil"
+  ],
+  "gancho": "QUE CHEIRO É ESSE DE CHUVA?",
+  "gancho_destaque": "CHUVA?",
+  "voz": "Achird",
+  "sons": {
+    "chover": [
+      "vento",
+      0.45
+    ],
+    "gota": [
+      "agua",
+      0.5
+    ],
+    "dois": [
+      "pop",
+      0.45
+    ],
+    "raio": [
+      "zap",
+      0.55
+    ],
+    "sinal": [
+      "plim",
+      0.55
+    ],
+    "ozonio": [
+      "brilho",
+      0.55
+    ],
+    "quebra": [
+      "zap",
+      0.55
+    ],
+    "oxigenio": [
+      "pop",
+      0.45
+    ],
+    "juntam": [
+      "pop",
+      0.45
+    ],
+    "cloro": [
+      "plim",
+      0.5
+    ],
+    "descem": [
+      "vento",
+      0.55
+    ],
+    "nariz": [
+      "brilho",
+      0.5
+    ],
+    "molhada": [
+      "agua",
+      0.5
+    ],
+    "agua": [
+      "thud",
+      0.6
+    ],
+    "petricor": [
+      "plim",
+      0.6
+    ],
+    "oleos": [
+      "pop",
+      0.45
+    ],
+    "geosmina": [
+      "brilho",
+      0.55
+    ],
+    "gotas": [
+      "agua",
+      0.55
+    ],
+    "bolhas": [
+      "pop",
+      0.45
+    ],
+    "vento": [
+      "vento",
+      0.5
+    ],
+    "impressionante": [
+      "thud",
+      0.6
+    ],
+    "sensivel": [
+      "brilho",
+      0.55
+    ],
+    "trilhao": [
+      "zap",
+      0.5
+    ],
+    "colher": [
+      "clique",
+      0.6
+    ],
+    "piscina": [
+      "agua",
+      0.55
+    ],
+    "agua2": [
+      "plim",
+      0.55
+    ],
+    "frio": [
+      "vento",
+      0.5
+    ],
+    "raios": [
+      "zap",
+      0.55
+    ],
+    "abrigo": [
+      "thud",
+      0.7
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Cheiro de chuva",
+      "fala": "Você sente aquele cheiro no ar e pensa: vai chover. E muitas vezes acerta, antes da primeira gota. Mas, se ainda não choveu, o que você está cheirando? São dois cheiros diferentes. E um deles vem de um raio que caiu a quilômetros de você. No final, eu te conto o sinal no ar que avisa que uma tempestade perigosa está chegando.",
+      "batidas": {
+        "chover.": "chover",
+        "gota.": "gota",
+        "dois": "dois",
+        "raio": "raio",
+        "chegando.": "sinal"
+      }
+    },
+    {
+      "id": "ozonio",
+      "tipo": "ozonio",
+      "titulo": "O cheiro do raio",
+      "fala": "O primeiro é o ozônio. O raio é tão quente que quebra as moléculas de oxigênio do ar, e elas se juntam de outro jeito, formando ozônio, que tem um cheiro meio de cloro, de limpo. Aí, os ventos fortes que descem da nuvem trazem esse ar lá de cima até o seu nariz, antes da chuva chegar.",
+      "batidas": {
+        "ozônio.": "ozonio",
+        "quebra": "quebra",
+        "oxigênio": "oxigenio",
+        "juntam": "juntam",
+        "cloro,": "cloro",
+        "descem": "descem",
+        "nariz,": "nariz"
+      }
+    },
+    {
+      "id": "petricor",
+      "tipo": "petricor",
+      "titulo": "Terra molhada",
+      "fala": "O segundo é o famoso cheiro de terra molhada. E não, não é cheiro de água: água pura não tem cheiro. Ele tem até nome: petricor. Em dias secos, plantas soltam óleos que ficam no chão, e bactérias da terra produzem uma substância chamada geosmina. Quando as primeiras gotas caem, elas jogam esse cheiro pro ar, como as bolhinhas de um refrigerante. E o vento traz o cheiro de onde já está chovendo.",
+      "batidas": {
+        "molhada.": "molhada",
+        "água:": "agua",
+        "petricor.": "petricor",
+        "óleos": "oleos",
+        "geosmina.": "geosmina",
+        "gotas": "gotas",
+        "refrigerante.": "bolhas",
+        "vento": "vento"
+      }
+    },
+    {
+      "id": "nariz",
+      "tipo": "nariz",
+      "titulo": "Nariz de detetive",
+      "fala": "E aqui vem a parte impressionante: o seu nariz é absurdamente sensível à geosmina. A gente sente esse cheiro mesmo quando ele é só algumas partes por trilhão. É como sentir uma colher de sopa numa piscina olímpica. Uma ideia dos cientistas é que nossos antepassados usavam esse faro pra achar água.",
+      "batidas": {
+        "impressionante:": "impressionante",
+        "sensível": "sensivel",
+        "trilhão.": "trilhao",
+        "colher": "colher",
+        "olímpica.": "piscina",
+        "água.": "agua2"
+      }
+    },
+    {
+      "id": "dica",
+      "tipo": "dica",
+      "titulo": "O sinal",
+      "fala": "E o sinal que eu prometi: se você sentir aquele cheiro de cloro no ar, junto com um vento forte e frio de repente, é sinal de tempestade com raios chegando. Hora de sair de lugar aberto e procurar abrigo.",
+      "batidas": {
+        "cloro": "cloro",
+        "vento": "vento",
+        "frio": "frio",
+        "raios": "raios",
+        "abrigo.": "abrigo"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: o raio cria o ozônio e o vento traz até você, as gotas jogam no ar o cheiro da terra, e o seu nariz é um detector finíssimo. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "ozônio": "passo1",
+        "terra,": "passo2",
+        "detector": "passo3",
+        "Segue": "cta"
+      }
+    }
+  ]
+}

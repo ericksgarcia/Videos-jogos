@@ -1,0 +1,248 @@
+{
+  "slug": "por-que-imprimir-dinheiro-deixa-todo-mundo-mais-pobre",
+  "titulo": "Por que imprimir dinheiro deixa todo mundo mais pobre",
+  "descricao": "O carrinho do mercado sai cada vez mais vazio. Por que não imprimir mais dinheiro? 💸\nPor que imprimir dinheiro causa inflação, explicado com uma ilha, dez cocos e dez fichas.\nTeve país com nota de 100 trilhões que mal comprava um pão.\nE no final: o país que viveu isso de perto, e você provavelmente conhece alguém que lembra.\nManda pra quem acha que é só imprimir mais dinheiro e salva pra explicar depois.\nVocê ou alguém da sua família lembra da inflação antes do Real? Comenta aí 👇",
+  "hashtags": [
+    "#inflacao",
+    "#economia",
+    "#dinheiro",
+    "#educacaofinanceira",
+    "#curiosidades",
+    "#aprendendofacil"
+  ],
+  "gancho": "POR QUE NÃO IMPRIMIR MAIS DINHEIRO?",
+  "gancho_destaque": "DINHEIRO?",
+  "voz": "Achird",
+  "sons": {
+    "rico": [
+      "plim",
+      0.55
+    ],
+    "contrario": [
+      "thud",
+      0.7
+    ],
+    "nota": [
+      "zap",
+      0.5
+    ],
+    "lembra": [
+      "whoosh_curto",
+      0.45
+    ],
+    "cocos": [
+      "pop",
+      0.45
+    ],
+    "fichas": [
+      "clique",
+      0.6
+    ],
+    "imprime": [
+      "whoosh",
+      0.5
+    ],
+    "dobro": [
+      "pop",
+      0.45
+    ],
+    "duas": [
+      "clique",
+      0.6
+    ],
+    "dobrou": [
+      "thud",
+      0.7
+    ],
+    "inflacao": [
+      "thud",
+      0.7
+    ],
+    "compra": [
+      "pop",
+      0.45
+    ],
+    "rapido": [
+      "whoosh_curto",
+      0.45
+    ],
+    "menos": [
+      "pop",
+      0.4
+    ],
+    "primeiro": [
+      "plim",
+      0.55
+    ],
+    "ultimo": [
+      "thud",
+      0.6
+    ],
+    "alemanha": [
+      "whoosh",
+      0.5
+    ],
+    "dobravam": [
+      "zap",
+      0.5
+    ],
+    "carrinho": [
+      "pop",
+      0.45
+    ],
+    "zimbabue": [
+      "whoosh",
+      0.5
+    ],
+    "dia": [
+      "zap",
+      0.5
+    ],
+    "pao": [
+      "thud",
+      0.7
+    ],
+    "brasil": [
+      "plim",
+      0.6
+    ],
+    "doismil": [
+      "zap",
+      0.55
+    ],
+    "novo": [
+      "whoosh_curto",
+      0.45
+    ],
+    "remarcar": [
+      "clique",
+      0.6
+    ],
+    "pagamento": [
+      "pop",
+      0.45
+    ],
+    "real": [
+      "brilho",
+      0.55
+    ],
+    "gaveta": [
+      "tampa",
+      0.5
+    ],
+    "dica": [
+      "plim",
+      0.6
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ],
+    "vazio": [
+      "thud",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Dinheiro impresso",
+      "fala": "Você já reparou que, com o mesmo dinheiro, o carrinho do mercado sai cada vez mais vazio? Aí vem a pergunta: por que o governo não imprime mais dinheiro e dá pra todo mundo? Já fizeram isso de verdade, e o resultado foi o contrário. No Zimbábue, chegaram a imprimir uma nota de cem trilhões. E no final eu te conto qual país viveu isso de perto. Você provavelmente conhece alguém que lembra.",
+      "batidas": {
+        "vazio?": "vazio",
+        "mundo?": "rico",
+        "contrário.": "contrario",
+        "trilhões.": "nota",
+        "lembra.": "lembra"
+      }
+    },
+    {
+      "id": "ilha",
+      "tipo": "ilha",
+      "titulo": "A ilha dos cocos",
+      "fala": "Pensa numa ilha com dez pessoas, dez cocos e dez fichas. Cada coco custa uma ficha. Agora, alguém imprime mais dez fichas e dá pra todo mundo. Cada um tem o dobro de fichas, mas continuam existindo só dez cocos. O que acontece? O dono do coco percebe e passa a cobrar duas fichas. Ninguém ficou mais rico. Só o preço dobrou.",
+      "batidas": {
+        "cocos": "cocos",
+        "fichas.": "fichas",
+        "imprime": "imprime",
+        "dobro": "dobro",
+        "duas": "duas",
+        "dobrou.": "dobrou"
+      }
+    },
+    {
+      "id": "inflacao",
+      "tipo": "inflacao",
+      "titulo": "Inflação",
+      "fala": "Isso tem nome: inflação. O dinheiro não vale pelo papel, vale pelo que ele compra. Se o dinheiro cresce mais rápido do que as coisas pra comprar, cada nota compra menos. E tem um detalhe cruel: quem pega o dinheiro novo primeiro gasta antes de os preços subirem. Quem recebe por último, como quem vive de salário, paga a conta.",
+      "batidas": {
+        "inflação.": "inflacao",
+        "compra.": "compra",
+        "rápido": "rapido",
+        "menos.": "menos",
+        "primeiro": "primeiro",
+        "último,": "ultimo"
+      }
+    },
+    {
+      "id": "descontrole",
+      "tipo": "descontrole",
+      "titulo": "Fora de controle",
+      "fala": "E quando o governo exagera, vira uma bola de neve. Na Alemanha, em mil novecentos e vinte e três, os preços dobravam a cada três ou quatro dias. As pessoas levavam o salário num carrinho de mão. No Zimbábue, em dois mil e oito, os preços chegaram a dobrar a cada dia. E aquela nota de cem trilhões mal comprava um pão.",
+      "batidas": {
+        "Alemanha,": "alemanha",
+        "dobravam": "dobravam",
+        "carrinho": "carrinho",
+        "Zimbábue,": "zimbabue",
+        "dia.": "dia",
+        "pão.": "pao"
+      }
+    },
+    {
+      "id": "brasil",
+      "tipo": "brasil",
+      "titulo": "E o Brasil?",
+      "fala": "E o país que eu prometi? É o Brasil. Em mil novecentos e noventa e três, os preços subiram mais de dois mil por cento num ano só. Parte do problema era o governo gastando mais do que arrecadava e cobrindo a diferença com dinheiro novo. O mercado tinha funcionário só pra remarcar preço, e as pessoas corriam pra gastar o salário no dia do pagamento. Isso só foi controlado em noventa e quatro, com o Plano Real. A lição pra hoje: dinheiro parado na gaveta perde valor. Guarde num lugar que renda pelo menos a inflação.",
+      "batidas": {
+        "Brasil.": "brasil",
+        "dois": "doismil",
+        "novo.": "novo",
+        "remarcar": "remarcar",
+        "pagamento.": "pagamento",
+        "Real.": "real",
+        "gaveta": "gaveta",
+        "inflação.": "dica"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: o dinheiro vale pelo que compra, imprimir mais não cria mais coisas, os preços sobem, e quem vive de salário perde. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "compra,": "passo1",
+        "coisas,": "passo2",
+        "sobem,": "passo3",
+        "perde.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}

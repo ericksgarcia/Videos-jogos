@@ -205,3 +205,31 @@ function termometroP(x, px, py, alt, tMin, tMax, v, a, marcas = []) {
   marcas.forEach(([temp, txt, c2]) => { const yy = yDe(temp); linhaP(x, px - 34, yy, px + 34, yy, c2 || "255,255,255", 0.6 * a, 2); rotuloP(x, txt, px + 50, yy, 26, c2 || "255,255,255", 0.85 * a, "left"); });
   return yDe;
 }
+
+// ================= formas simples em luz (2D), prefixo f: usadas por vários vídeos =================
+// caminho de retângulo arredondado
+function fRR(x, x0, y0, w, h, r) { x.beginPath(); x.moveTo(x0 + r, y0); x.arcTo(x0 + w, y0, x0 + w, y0 + h, r); x.arcTo(x0 + w, y0 + h, x0, y0 + h, r); x.arcTo(x0, y0 + h, x0, y0, r); x.arcTo(x0, y0, x0 + w, y0, r); x.closePath(); }
+// contorno + preenchimento suave de retângulo arredondado
+function fCaixa(x, cx, cy, w, h, r, cor, a, lw = 4, fundo = 0.1) { if (a <= 0.01) return; fRR(x, cx - w / 2, cy - h / 2, w, h, r); x.fillStyle = `rgba(${cor},${fundo * a})`; x.fill(); x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = lw; x.stroke(); }
+// cédula: retângulo com moldura, oval central e valor
+function fNota(x, cx, cy, w, cor, a, txt = "", ang = 0) {
+  if (a <= 0.01) return; const h = w * 0.46; x.save(); x.translate(cx, cy); x.rotate(ang);
+  fCaixa(x, 0, 0, w, h, w * 0.05, cor, a, Math.max(2, w / 70), txt ? 0.06 : 0.16); fCaixa(x, 0, 0, w * 0.86, h * 0.72, w * 0.03, cor, 0.45 * a, Math.max(1, w / 140), 0);
+  x.beginPath(); x.ellipse(0, 0, w * 0.16, h * 0.26, 0, 0, 6.283); x.strokeStyle = `rgba(${cor},${0.7 * a})`; x.lineWidth = Math.max(1.5, w / 110); x.stroke();
+  if (txt) { const op = x.globalCompositeOperation; x.globalCompositeOperation = "source-over"; x.font = `900 ${w * 0.16}px Nunito`; x.textAlign = "left"; x.textBaseline = "middle"; x.fillStyle = `rgba(230,255,240,${0.9 * a})`; x.fillText(txt, -w * 0.4, -h * 0.2); x.globalCompositeOperation = op; }
+  x.restore();
+}
+// moeda/ficha dourada
+function fMoeda(x, cx, cy, r, a, cor = "255,210,63") { if (a <= 0.01) return; brilhoP(x, cx, cy, r * 2.2, cor, 0.35 * a); discoP(x, cx, cy, r, cor, 0.55 * a); anelP(x, cx, cy, r, "255,240,190", 0.9 * a, Math.max(2, r / 6)); anelP(x, cx, cy, r * 0.62, "255,240,190", 0.5 * a, Math.max(1, r / 10)); }
+// pessoa simples (cabeça + ombros)
+function fPessoa(x, cx, cy, esc, cor, a) { if (a <= 0.01) return; discoP(x, cx, cy - 34 * esc, 15 * esc, cor, 0.8 * a); x.beginPath(); x.ellipse(cx, cy + 14 * esc, 26 * esc, 30 * esc, 0, Math.PI, 0); x.closePath(); x.fillStyle = `rgba(${cor},${0.6 * a})`; x.fill(); brilhoP(x, cx, cy, 50 * esc, cor, 0.2 * a); }
+// celular: corpo, tela e ilha da câmera
+function fCelular(x, cx, cy, h, cor, a, tela = 0.12) { if (a <= 0.01) return; const w = h * 0.49; fCaixa(x, cx, cy, w, h, w * 0.14, cor, a, Math.max(3, h / 90), tela); fRR(x, cx - w * 0.15, cy - h * 0.46, w * 0.3, h * 0.035, h * 0.017); x.fillStyle = `rgba(${cor},${0.8 * a})`; x.fill(); }
+// seta com ponta
+function fSeta(x, x0, y0, x1, y1, cor, a, lw = 5) { if (a <= 0.01) return; linhaP(x, x0, y0, x1, y1, cor, a, lw); const an = Math.atan2(y1 - y0, x1 - x0), p = lw * 4; linhaP(x, x1, y1, x1 - Math.cos(an - 0.5) * p, y1 - Math.sin(an - 0.5) * p, cor, a, lw); linhaP(x, x1, y1, x1 - Math.cos(an + 0.5) * p, y1 - Math.sin(an + 0.5) * p, cor, a, lw); }
+// gráfico de linha em pontos: pts = [[x, y], ...]; desenha até a fração k
+function fLinhaPts(x, pts, k, cor, a, lw = 5) { if (a <= 0.01 || pts.length < 2) return; const n = Math.max(1, Math.floor((pts.length - 1) * PT.cl(k))); x.beginPath(); x.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i <= n; i++) x.lineTo(pts[i][0], pts[i][1]); x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = lw; x.lineJoin = "round"; x.stroke(); const u = pts[n]; brilhoP(x, u[0], u[1], 40, cor, 0.6 * a); discoP(x, u[0], u[1], lw * 1.4, "255,255,255", a); }
+// nuvem de pontos de um cérebro (de lado, nariz para a direita): {x, y, cer} em coordenadas -1..1
+const F_CEREBRO = (() => { const r = prng(404), out = []; while (out.length < 9000) { const px = r() * 2 - 1, py = r() * 1.6 - 0.8; const corpo = (px * px) / 1 + (py * py) / 0.42 < 1 && py < 0.5 - 0.15 * px; const cer = Math.pow((px + 0.55) / 0.34, 2) + Math.pow((py - 0.52) / 0.2, 2) < 1; if (corpo || cer) { const sulco = Math.sin(px * 13 + Math.sin(py * 9) * 2) * Math.sin(py * 11 + px * 3); out.push({ x: px, y: py, cer: cer && !corpo ? 1 : 0, s: sulco, n: r() }); } } return out; })();
+function fCerebro(nv, cx, cy, esc, a, o = {}) { let i = nv.k; const realce = o.cerebelo || 0, cor = o.cor || [0.95, 0.6, 0.75]; for (const p of F_CEREBRO) { const c = p.cer ? mixCor(cor, [0.35, 0.95, 1.0], realce) : cor, al = a * (0.5 + 0.5 * (0.5 + 0.5 * p.s)) * (p.cer ? 1 + realce : 1); nv.ponto(i++, cx + p.x * esc, cy + p.y * esc, c[0], c[1], c[2], al, Math.max(3.2, esc / 85) + (p.cer ? realce * 1.2 : 0)); } nv.total(i); }
+function mixCor(a, b, k) { return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k]; }
