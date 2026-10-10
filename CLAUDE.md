@@ -123,6 +123,17 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
 - **Final sem queda:** a revelação forte vem logo antes do resumo relâmpago; nada de lista longa no
   fim. Se der, a última frase conversa com a primeira (loop: quem chega ao fim quer rever).
 
+### Pergunta para os comentários (pedido do dono: em todo vídeo)
+
+- Todo vídeo tem **1 pergunta extremamente intrigante** pedindo a resposta nos comentários, numa
+  cena curta própria (~6–9 s), logo depois da revelação principal (antes da dica/resumo).
+- Falada e escrita grande na tela, com um ícone de comentário; termine com uma escolha fácil
+  ("sim ou não?", "A ou B?", "chuta um número") para comentar sem pensar muito.
+- Tipos que funcionam: enigma com resposta não óbvia ligado ao mecanismo do vídeo, dilema, "qual a sua
+  teoria?". Nada de pergunta genérica ("gostou?").
+- A pergunta é só para as pessoas responderem nos comentários: **não** prometa resposta, nem fale em
+  comentário fixado com a resposta. A mesma pergunta entra na descrição.
+
 ### Abertura: dor ou curiosidade, nunca o assunto (dica de ouro do dono)
 
 - **Nunca** comece com "hoje vamos falar sobre X" / "vou te explicar X". Comece pela **dor ou

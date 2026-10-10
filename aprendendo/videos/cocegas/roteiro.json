@@ -1,7 +1,7 @@
 {
  "slug": "por-que-voce-nao-consegue-fazer-cocegas-em-si-mesmo",
  "titulo": "Por que você não consegue fazer cócegas em si mesmo",
- "descricao": "Seu cérebro abaixa o volume de tudo que você mesmo toca 🤯\nPor que a gente não consegue fazer cócegas em si mesmo: o cerebelo prevê o seu toque e tira a surpresa.\nTem um robô que faz você sentir cócegas de si mesmo.\nE no final: o único tipo de cócegas que você consegue fazer em você mesmo (testa na hora).\nManda pra quem não aguenta cócegas e salva pra testar.\nFuncionou o teste do lábio aí? Comenta 👇",
+ "descricao": "Seu cérebro abaixa o volume de tudo que você mesmo toca 🤯\nPor que a gente não consegue fazer cócegas em si mesmo: o cerebelo prevê o seu toque e tira a surpresa.\nTem um robô que faz você sentir cócegas de si mesmo.\nE no final: o único tipo de cócegas que você consegue fazer em você mesmo (testa na hora).\nManda pra quem não aguenta cócegas e salva pra testar.\nQuando um cientista faz cócegas num rato, ele faz uma coisa que nenhum humano consegue ouvir. O quê? Chuta aí 👇",
  "hashtags": [
   "#cocegas",
   "#cerebro",
@@ -10,6 +10,7 @@
   "#curiosidades",
   "#aprendendofacil"
  ],
+ "comentario_fixado": "Resposta: eles RIEM! 🐀 Uma risadinha tão aguda (ultrassom, acima de 50 mil hertz) que o ouvido humano não escuta. Só deu pra ouvir com microfones especiais. Quem acertou? 👇",
  "gancho": "VOCÊ NÃO SE FAZ CÓCEGAS",
  "gancho_destaque": "CÓCEGAS",
  "voz": "Achird",
@@ -165,6 +166,26 @@
   "sentiu": [
    "brilho",
    0.6
+  ],
+  "comenta": [
+   "plim",
+   0.6
+  ],
+  "rato": [
+   "pop",
+   0.5
+  ],
+  "ouvir": [
+   "whoosh_curto",
+   0.45
+  ],
+  "oque": [
+   "thud",
+   0.6
+  ],
+  "chuta": [
+   "pop",
+   0.5
   ]
  },
  "cenas": [
@@ -227,6 +248,19 @@
     "mesmo.": "mesmo2",
     "lábio.": "labio",
     "Sentiu?": "sentiu"
+   }
+  },
+  {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Responde nos comentários",
+   "fala": "Pergunta difícil, responde nos comentários: quando um cientista faz cócegas num rato, ele faz uma coisa que nenhum humano consegue ouvir. O quê? Chuta aí.",
+   "batidas": {
+    "comentários:": "comenta",
+    "rato,": "rato",
+    "ouvir.": "ouvir",
+    "quê?": "oque",
+    "aí.": "chuta"
    }
   },
   {

@@ -57,6 +57,22 @@ function cinemaC(x, cx, cy, a, carimbo, t) {
   if (carimbo > 0) { x.save(); x.translate(cx, cy); x.rotate(-0.18); const e = 1 + 0.6 * (1 - PT.out(carimbo)); x.scale(e, e); fCaixa(x, 0, 0, 520, 130, 12, "255,90,110", a * carimbo, 9, 0.15); rotuloP(x, "SPOILER", 0, 4, 84, "255,120,140", a * carimbo); x.restore(); }
 }
 
+// rato de perfil (corpo, cabeça, orelha, olho, bigodes, rabo)
+function ratoC(x, cx, cy, s, a, t) {
+  if (a <= 0.01) return; const cor = "220,210,235";
+  x.beginPath(); x.ellipse(cx, cy, 190 * s, 110 * s, 0, 0, 6.283); x.fillStyle = `rgba(${cor},${0.12 * a})`; x.fill(); x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = 6 * s; x.stroke();
+  x.beginPath(); x.ellipse(cx + 210 * s, cy - 40 * s, 90 * s, 65 * s, -0.3, 0, 6.283); x.fillStyle = `rgba(${cor},${0.12 * a})`; x.fill(); x.stroke();
+  anelP(x, cx + 170 * s, cy - 110 * s, 42 * s, "255,170,190", a, 5 * s); discoP(x, cx + 235 * s, cy - 55 * s, 9 * s, cor, a); discoP(x, cx + 296 * s, cy - 18 * s, 10 * s, "255,150,170", a);
+  for (const d of [-1, 0, 1]) linhaP(x, cx + 290 * s, cy - 15 * s, cx + 380 * s, cy - 15 * s + d * 28 * s + Math.sin(t * 6 + d) * 4, cor, 0.7 * a, 3);
+  x.beginPath(); x.moveTo(cx - 185 * s, cy + 10 * s); x.bezierCurveTo(cx - 300 * s, cy + 60 * s, cx - 330 * s, cy - 80 * s, cx - 420 * s, cy - 20 * s + Math.sin(t * 3) * 15); x.strokeStyle = `rgba(255,170,190,${a})`; x.lineWidth = 6 * s; x.stroke();
+}
+// balão de comentário com "?" (ou reticências)
+function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) {
+  if (a <= 0.01) return; fCaixa(x, cx, cy, 520 * s, 330 * s, 60 * s, CI, a, 8 * s, 0.12);
+  x.beginPath(); x.moveTo(cx - 120 * s, cy + 160 * s); x.lineTo(cx - 190 * s, cy + 250 * s); x.lineTo(cx - 40 * s, cy + 160 * s); x.fillStyle = `rgba(${CI},${0.5 * a})`; x.fill();
+  brilhoP(x, cx, cy, 380 * s, CI, 0.18 * a); rotuloP(x, txt, cx, cy + 6 * s, 190 * s, "255,226,140", a * (0.85 + 0.15 * Math.sin(t * 4)));
+}
+
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
   const tV = B("volume0"), tP = B("pe"), tN = B("nada"), tT = B("tipo"), tM = B("mesmo"), tPr = B("promessa");
@@ -198,7 +214,33 @@ CENAS.tipos = (el, c, B) => {
   });
 };
 
-// =============== 5. o truque do médico ===============
+// =============== 5. a pergunta para os comentários ===============
+CENAS.pergunta = (el, c, B) => {
+  const tC = B("comenta"), tR = B("rato"), tO = B("ouvir"), tQ = B("oque"), tCh = B("chuta");
+  const T = telaGPU(el, c);
+  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["rat", 330, 70, "cócegas num rato", "pt-am"], ["ouv", 330, 62, "um som que ninguém ouve", "pt-ve"], ["que", 330, 100, "o quê?", "pt-am"], ["chu", 330, 76, "chuta aí embaixo", "pt-ci"]]);
+  MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, tR - 0.6); MD.slam(tl, tx.rat, tR - 0.3, { from: 1.25 }); MD.leave(tl, tx.rat, tO - 0.6);
+  MD.slam(tl, tx.ouv, tO - 0.3, { from: 1.25 }); MD.leave(tl, tx.ouv, tQ - 0.25); MD.slam(tl, tx.que, tQ - 0.05, { from: 1.5 }); MD.leave(tl, tx.que, tCh - 0.25); MD.slam(tl, tx.chu, tCh - 0.05, { from: 1.3 });
+  const est = estF(19);
+  const pB = tR - 0.6, pC = tQ - 0.3;
+  T.quadro((x, t) => {
+    estD(x, est, t);
+    // plano A: o balão de comentário com "?"
+    balaoCom(x, 540, 960, 1.2, PT.ss((t - c.ini - 0.1) / 0.4) * (1 - PT.ss((t - pB) / 0.4)), "?", t);
+    // plano B: o rato, a mão fazendo cócegas e ondas de som "invisíveis"
+    const aB = planoC(t, pB, pC, 0.4, 0.4);
+    if (aB > 0.01) {
+      const tr = Math.sin(t * 18) * 4; ratoC(x, 520, 1080 + tr, 1.0, aB, t); mao(x, 470 + Math.sin(t * 9) * 30, 1250, 0.7, -0.2, PELE, aB * PT.ss((t - tR + 0.2) / 0.4));
+      faisca(x, 470, 1120, t, aB * PT.ss((t - tR) / 0.4), 10, 100);
+      const aO = PT.ss((t - tO + 0.8) / 0.5); x.setLineDash([6, 16]); for (let k = 0; k < 4; k++) { const v = ((t * 0.7 + k / 4) % 1); x.beginPath(); x.arc(820, 1040, 60 + v * 260, -0.9, 0.9); x.strokeStyle = `rgba(190,170,255,${aB * aO * (1 - v) * 0.7})`; x.lineWidth = 6; x.stroke(); } x.setLineDash([]);
+    }
+    // plano C: o balão volta, com a seta para os comentários
+    const aC = PT.ss((t - pC) / 0.4);
+    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); const aS = PT.ss((t - tCh + 0.2) / 0.3); const b = Math.sin(t * 6) * 18; fSeta(x, 540, 1180 + b, 540, 1340 + b, AM, aC * aS, 10); }
+  });
+};
+
+// =============== 6. o truque do médico ===============
 CENAS.medico = (el, c, B) => {
   const tF = B("favor"), tMe = B("medico"), tM = B("maodica"), tG = B("guia"), tD = B("diminuem");
   const T = telaGPU(el, c);
@@ -218,7 +260,7 @@ CENAS.medico = (el, c, B) => {
   });
 };
 
-// =============== 6. resumo relâmpago + chamada ===============
+// =============== 7. resumo relâmpago + chamada ===============
 CENAS.resumo = (el, c, B) => {
   const tP = [B("passo1"), B("passo2"), B("passo3")], tC = B("cta");
   const T = telaGPU(el, c);
