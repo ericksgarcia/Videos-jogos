@@ -57,18 +57,23 @@ CENAS.radio = (el, c, B) => {
 CENAS.codigo = (el, c, B) => {
   const tG = B("gravar2"), tD = B("diferente"), tS = B("segredo"), tC = B("contador"), tSo = B("sobe"), tV = B("vale");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["dif", 330, 66, "a cada clique, um código novo", "pt-am", "white-space:normal;left:60px;width:960px"], ["seg", 330, 66, "segredo + contador", "pt-ci"], ["val", 330, 70, "usado = nunca mais", "pt-ve"]]);
+  const tx = palcoTexto(el, [["nb", 330, 76, "só o ID não basta", "pt-ve"], ["dif", 330, 66, "a cada clique, um código novo", "pt-am", "white-space:normal;left:60px;width:960px"], ["seg", 330, 66, "segredo + contador", "pt-ci"], ["val", 330, 70, "usado = nunca mais", "pt-ve"]]);
+  MD.slam(tl, tx.nb, c.ini + 0.4, { from: 1.3 }); MD.leave(tl, tx.nb, tD - 0.35);
   MD.slam(tl, tx.dif, tD - 0.05, { from: 1.25 }); MD.leave(tl, tx.dif, tS - 0.3); MD.slam(tl, tx.seg, tS - 0.05, { from: 1.25 }); MD.leave(tl, tx.seg, tV - 0.35); MD.slam(tl, tx.val, tV - 0.05, { from: 1.35 });
   const est = estF(7), hex = "0123456789ABCDEF";
   T.quadro((x, t) => {
     estD(x, est, t);
     // ladrão gravando e repetindo (falha)
-    const aG = PT.jan(t, tG - 0.3, tD - 0.2, 0.3, 0.4); if (aG > 0) { fCaixa(x, 540, 800, 300, 120, 16, VE, aG, 4, 0.08); rotuloP(x, "gravar e repetir?", 540, 800, 34, "255,160,170", aG); }
+    const aG = PT.jan(t, tG - 0.3, tD - 0.2, 0.3, 0.4), aW = PT.jan(t, c.ini + 0.5, tD - 0.2, 0.4, 0.4);
+    ondasR(x, 200, 1260, t, aW, CI, 420);
+    if (aG > 0) { fCaixa(x, 540, 800, 420, 150, 18, VE, aG, 5, 0.08); rotuloP(x, "gravar e repetir?", 540, 800, 44, "255,160,170", aG);
+      fCaixa(x, 540, 1060, 200, 110, 14, VE, aG, 4, 0.1); discoP(x, 490, 1060, 12, VE, aG * (0.5 + 0.5 * Math.sin(t * 8))); rotuloP(x, "REC", 565, 1060, 32, "255,160,170", aG); }
     // sequência de cliques: contador e código
     const aD = PT.ss((t - tD + 0.4) / 0.5);
     if (aD > 0) { const n = 1 + Math.floor(Math.max(0, t - tD) / 1.3); for (let k = 0; k < Math.min(n, 5); k++) { const r = prng(k * 13 + 1); let s = ""; for (let q = 0; q < 8; q++) s += hex[Math.floor(r() * 16)]; const a = aD * PT.ss((t - tD - k * 1.3) / 0.3), usado = k < n - 1; pacote(x, 600, 640 + k * 110, "4F2A", s, a * (usado ? 0.45 : 1), usado ? CZ : AM); rotuloP(x, `#${1040 + k}`, 120, 640 + k * 110, 30, usado ? "150,160,190" : "255,226,140", a, "left"); if (usado && t > tV - 0.3) linhaP(x, 360, 640 + k * 110, 860, 640 + k * 110, VE, a * PT.ss((t - tV + 0.3) / 0.4), 4); } }
     // segredo compartilhado (chave + carro)
-    const aS = PT.ss((t - tS + 0.3) / 0.5); if (aS > 0) { chave(x, 200, 1300, 0.7, aS); carroLado(x, 800, 1320, 0.7, BRC, aS); x.setLineDash([8, 10]); linhaP(x, 260, 1300, 680, 1300, AM, aS * 0.7, 3); x.setLineDash([]); rotuloP(x, "mesmo segredo", 480, 1270, 28, "255,226,140", aS); }
+    const aS = PT.ss((t - tS + 0.3) / 0.5), aB = Math.max(aS, PT.ss((t - c.ini - 0.5) / 0.5)); chave(x, 200, 1300, 0.7, aB, PT.jan(t, c.ini + 0.5, tD - 0.2, 0.1, 0.3)); carroLado(x, 800, 1320, 0.7, BRC, aB);
+    if (aS > 0) { x.setLineDash([8, 10]); linhaP(x, 260, 1300, 680, 1300, AM, aS * 0.7, 3); x.setLineDash([]); rotuloP(x, "mesmo segredo", 480, 1270, 28, "255,226,140", aS); }
   });
 };
 
