@@ -23,7 +23,7 @@ Ganchos escolhidos pelo dono (caixas de seleção):
 - Cartão: "Seu cartão não tem bateria, e mesmo assim liga e cria um código secreto em menos de meio segundo."
 - Chave: "Quinhentos carros, um botão, e só o seu pisca. Mas tem carro que ladrão leva sem a chave em cerca de um minuto."
 - Internet: "O maior inimigo da internet mundial não é hacker nem tubarão: é âncora de navio."
-1. Cócegas → `videos/cocegas`
+1. Cócegas → `videos/cocegas` ✅ refeito e entregue
 2. Celular escuta → `videos/celular-escuta`
 3. Cheiro de chuva → `videos/cheiro-de-chuva`
 4. Remédio sabe onde dói → `videos/remedio-dor`
