@@ -127,7 +127,8 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
 
 - Todo vídeo tem **1 pergunta extremamente intrigante** pedindo a resposta nos comentários, numa
   cena curta própria (~6–9 s), logo depois da revelação principal (antes da dica/resumo).
-- Falada e escrita grande na tela, com um ícone de comentário; termine com uma escolha fácil
+- Falada e escrita grande na tela, com um ícone de comentário e uma seta apontando para o botão de
+  comentários na lateral direita (nunca "aí embaixo"); termine com uma escolha fácil
   ("sim ou não?", "A ou B?", "chuta um número") para comentar sem pensar muito.
 - Tipos que funcionam: enigma com resposta não óbvia ligado ao mecanismo do vídeo, dilema, "qual a sua
   teoria?". Nada de pergunta genérica ("gostou?").
@@ -188,6 +189,10 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
   - `y < 300`: marca (topo esquerdo) e título do capítulo — não ponha nada importante;
   - `y 300–1420`: ilustração;
   - `y 1480–1670`: legenda; a faixa escura de baixo começa em ~1360.
+  - **Lateral direita** (`x > ~950`, `y ~900–1600`): botões do TikTok/Reels/Shorts (curtir,
+    **comentários**, salvar, compartilhar). Nada importante ali. Os comentários abrem por esse botão
+    da direita: ao pedir comentário, aponte para a direita ("chuta nos comentários" + seta →), nunca
+    "aí embaixo".
 - Textos dentro da arte: `rotulo()` (pílula colorida) e `callout()` (anotação com
   linha de chamada). Poucos e curtos.
 

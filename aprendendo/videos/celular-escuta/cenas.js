@@ -22,6 +22,8 @@ function wifi(x, cx, cy, s, cor, a, t = 0) { if (a <= 0.01) return; for (let k =
 function predio(x, cx, cy, w, h, cor, a) { if (a <= 0.01) return; fCaixa(x, cx, cy, w, h, 6, cor, a, 4, 0.12); for (let i = 0; i < 3; i++) for (let j = 0; j < 4; j++) discoP(x, cx - w / 3 + i * w / 3, cy - h / 2 + 25 + j * (h - 40) / 4, 6, cor, 0.7 * a); }
 
 const planoC = (t, a, b, e = 0.4, s = 0.4) => PT.jan(t, a, b, e, s);
+// seta para o botão de comentários (lateral direita do TikTok/Reels/Shorts, ~y 1250)
+function setaComent(x, a, t) { if (a <= 0.01) return; const b = Math.sin(t * 6) * 16; fSeta(x, 700 + b, 1250, 900 + b, 1250, AM, a, 12); brilhoP(x, 1010, 1250, 90, AM, 0.35 * a * (0.7 + 0.3 * Math.sin(t * 6))); rotuloP(x, "comentários", 780, 1180, 38, "255,226,140", a); }
 // balão de comentário com "?"
 function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) {
   if (a <= 0.01) return; fCaixa(x, cx, cy, 520 * s, 330 * s, 60 * s, CI, a, 8 * s, 0.12);
@@ -164,7 +166,7 @@ CENAS.pergunta = (el, c, B) => {
     const aB = planoC(t, pB, pC);
     if (aB > 0.01) { fPessoa(x, 300, 1160, 3.2, CI, aB); pensamentoC(x, 560, 760, 1.0, aB * PT.ss((t - tP + 0.6) / 0.4)); tenis(x, 560, 760, 1.0, "255,235,180", aB * PT.ss((t - tP + 0.4) / 0.4)); fCelular(x, 820, 1200, 300, BRC, aB, 0.08); anuncio(x, 820, 1200, 120, aB * PT.ss((t - tP) / 0.4), 0.8); microfone(x, 640, 1260, 0.5, BRC, aB * PT.ss((t - tN) / 0.4), PT.ss((t - tN) / 0.4)); const aPe = PT.ss((t - tPe + 0.2) / 0.3); if (aPe > 0) { fCaixa(x, 300, 640, 260, 60, 30, BRC, aB * aPe, 3, 0.1); rotuloP(x, "busca", 300, 640, 30, "255,255,255", aB * aPe); linhaP(x, 180, 670, 420, 610, VE, aB * aPe, 7); } }
     const aC = PT.ss((t - pC) / 0.4);
-    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); const b = Math.sin(t * 6) * 18; fSeta(x, 540, 1180 + b, 540, 1340 + b, AM, aC, 10); }
+    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); setaComent(x, aC, t); }
   });
 };
 

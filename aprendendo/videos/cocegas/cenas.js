@@ -66,6 +66,8 @@ function ratoC(x, cx, cy, s, a, t) {
   for (const d of [-1, 0, 1]) linhaP(x, cx + 290 * s, cy - 15 * s, cx + 380 * s, cy - 15 * s + d * 28 * s + Math.sin(t * 6 + d) * 4, cor, 0.7 * a, 3);
   x.beginPath(); x.moveTo(cx - 185 * s, cy + 10 * s); x.bezierCurveTo(cx - 300 * s, cy + 60 * s, cx - 330 * s, cy - 80 * s, cx - 420 * s, cy - 20 * s + Math.sin(t * 3) * 15); x.strokeStyle = `rgba(255,170,190,${a})`; x.lineWidth = 6 * s; x.stroke();
 }
+// seta para o botão de comentários (lateral direita do TikTok/Reels/Shorts, ~y 1250)
+function setaComent(x, a, t) { if (a <= 0.01) return; const b = Math.sin(t * 6) * 16; fSeta(x, 700 + b, 1250, 900 + b, 1250, AM, a, 12); brilhoP(x, 1010, 1250, 90, AM, 0.35 * a * (0.7 + 0.3 * Math.sin(t * 6))); rotuloP(x, "comentários", 780, 1180, 38, "255,226,140", a); }
 // balão de comentário com "?" (ou reticências)
 function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) {
   if (a <= 0.01) return; fCaixa(x, cx, cy, 520 * s, 330 * s, 60 * s, CI, a, 8 * s, 0.12);
@@ -218,7 +220,7 @@ CENAS.tipos = (el, c, B) => {
 CENAS.pergunta = (el, c, B) => {
   const tC = B("comenta"), tR = B("rato"), tO = B("ouvir"), tQ = B("oque"), tCh = B("chuta");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["rat", 330, 70, "cócegas num rato", "pt-am"], ["ouv", 330, 62, "um som que ninguém ouve", "pt-ve"], ["que", 330, 100, "o quê?", "pt-am"], ["chu", 330, 76, "chuta aí embaixo", "pt-ci"]]);
+  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["rat", 330, 70, "cócegas num rato", "pt-am"], ["ouv", 330, 62, "um som que ninguém ouve", "pt-ve"], ["que", 330, 100, "o quê?", "pt-am"], ["chu", 330, 62, "chuta nos comentários", "pt-ci", "white-space:normal;left:60px;width:960px"]]);
   MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, tR - 0.6); MD.slam(tl, tx.rat, tR - 0.3, { from: 1.25 }); MD.leave(tl, tx.rat, tO - 0.6);
   MD.slam(tl, tx.ouv, tO - 0.3, { from: 1.25 }); MD.leave(tl, tx.ouv, tQ - 0.25); MD.slam(tl, tx.que, tQ - 0.05, { from: 1.5 }); MD.leave(tl, tx.que, tCh - 0.25); MD.slam(tl, tx.chu, tCh - 0.05, { from: 1.3 });
   const est = estF(19);
@@ -236,7 +238,7 @@ CENAS.pergunta = (el, c, B) => {
     }
     // plano C: o balão volta, com a seta para os comentários
     const aC = PT.ss((t - pC) / 0.4);
-    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); const aS = PT.ss((t - tCh + 0.2) / 0.3); const b = Math.sin(t * 6) * 18; fSeta(x, 540, 1180 + b, 540, 1340 + b, AM, aC * aS, 10); }
+    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); const aS = PT.ss((t - tCh + 0.2) / 0.3); setaComent(x, aC * aS, t); }
   });
 };
 
