@@ -80,7 +80,7 @@ CENAS.escuta = (el, c, B) => {
     if (aC > 0.01) { satelite(x, 540, 900, 2.2, aC); for (let k = 0; k < 4; k++) { const u = ((t * 0.9 + k / 4) % 1); anelP(x, 540, 900, 80 + u * 400, CI, aC * (1 - u), 4); } rotuloP(x, "12:00:00", 540, 1180, 70, "255,226,140", aC); }
     // plano D: o relógio atômico — bilionésimos
     const aD = PT.ss((t - pD) / 0.5);
-    if (aD > 0.01) { const ns = String(Math.floor((t * 1e7) % 1e9)).padStart(9, "0"); fCaixa(x, 540, 1000, 900, 220, 30, AM, aD, 6, 0.08); rotuloP(x, `12:00:00,${ns}`, 540, 1005, 70, "255,226,140", aD); rotuloP(x, "relógio atômico", 540, 1180, 36, "255,226,140", aD); }
+    if (aD > 0.01) { const ns = String(Math.floor((t * 123456789.123) % 1e9)).padStart(9, "0"); fCaixa(x, 540, 1000, 900, 220, 30, AM, aD, 6, 0.08); rotuloP(x, `12:00:00,${ns}`, 540, 1005, 70, "255,226,140", aD); rotuloP(x, "relógio atômico", 540, 1180, 36, "255,226,140", aD); }
   });
 };
 
@@ -116,14 +116,14 @@ CENAS.circulos = (el, c, B) => {
   const T = telaGPU(el, c);
   const tx = palcoTexto(el, [["s1", 330, 62, "1 satélite: uma bolha", "pt-ci"], ["s2", 330, 62, "2: um círculo", "pt-ci"], ["s3", 330, 62, "3: dois pontos", "pt-ci"], ["s4", 330, 62, "o 4º acerta o relógio", "pt-am"], ["ok", 330, 86, "posição exata", "pt-am"]]);
   MD.arrive(tl, tx.s1, tU - 0.2, { y: 14 }); MD.leave(tl, tx.s1, tD - 0.3); MD.arrive(tl, tx.s2, tD - 0.1, { y: 14 }); MD.leave(tl, tx.s2, tT - 0.3); MD.arrive(tl, tx.s3, tT - 0.1, { y: 14 }); MD.leave(tl, tx.s3, tQ - 0.3); MD.arrive(tl, tx.s4, tQ - 0.1, { y: 14 }); MD.leave(tl, tx.s4, tX - 0.4); MD.slam(tl, tx.ok, tX - 0.05, { from: 1.35 });
-  const est = estF(9), P = [560, 1000];
-  const SAT = [[240, 620], [880, 660], [560, 1380]];
+  const est = estF(9), P = [540, 1000];
+  const SAT = [[290, 780], [820, 760], [560, 1290]];
   T.quadro((x, t) => {
     estD(x, est, t);
     const cr = [PT.ss((t - tU + 0.3) / 0.6), PT.ss((t - tD + 0.3) / 0.6), PT.ss((t - tT + 0.3) / 0.6)];
     SAT.forEach(([sx, sy], k) => { if (cr[k] <= 0) return; satelite(x, sx, sy, 0.8, cr[k]); const R = Math.hypot(P[0] - sx, P[1] - sy); x.beginPath(); x.arc(sx, sy, R * PT.out(cr[k]), 0, 6.283); x.strokeStyle = `rgba(${[CI, VD, AM][k]},${0.7 * cr[k]})`; x.lineWidth = 4; x.stroke(); });
-    const aE = PT.jan(t, tT + 1.0, tX, 0.3, 0.4); if (aE > 0) { discoP(x, 560, 440, 12, VE, aE); linhaP(x, 530, 410, 590, 470, VE, aE, 5); linhaP(x, 590, 410, 530, 470, VE, aE, 5); rotuloP(x, "no espaço: descarta", 560, 500, 28, "255,160,170", aE); }
-    const aQ = PT.ss((t - tQ + 0.3) / 0.5); if (aQ > 0) { satelite(x, 900, 1250, 0.8, aQ); relogioG(x, 900, 1350, 50, -Math.PI / 2 + PT.ss((t - tQ) / 1) * 2, AM, aQ * (1 - PT.ss((t - tX) / 0.5))); }
+    const aE = PT.jan(t, tT + 1.0, tX, 0.3, 0.4); if (aE > 0) { discoP(x, 560, 560, 12, VE, aE); linhaP(x, 530, 530, 590, 590, VE, aE, 5); linhaP(x, 590, 530, 530, 590, VE, aE, 5); rotuloP(x, "no espaço: descarta", 560, 620, 28, "255,160,170", aE); }
+    const aQ = PT.ss((t - tQ + 0.3) / 0.5); if (aQ > 0) { satelite(x, 860, 1250, 0.8, aQ); relogioG(x, 860, 1350, 50, -Math.PI / 2 + PT.ss((t - tQ) / 1) * 2, AM, aQ * (1 - PT.ss((t - tX) / 0.5))); }
     const aX = PT.ss((t - tX + 0.4) / 0.4); pinoAzul(x, P[0], P[1], Math.max(aX, 0.4 * cr[2]), t); if (aX > 0) brilhoP(x, P[0], P[1], 160, AZ, 0.5 * aX);
   });
 };
