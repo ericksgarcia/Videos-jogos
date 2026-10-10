@@ -1,7 +1,7 @@
 {
  "slug": "por-que-sentimos-cheiro-de-chuva-antes-de-ela-comecar",
  "titulo": "Por que sentimos cheiro de chuva antes de ela começar",
- "descricao": "Você sente o cheiro da chuva antes da primeira gota. Mas cheiro de quê? 🌧️\nPor que a gente sente cheiro de chuva: o ozônio que vem do raio e o petricor, o cheiro de terra molhada.\nÁgua pura não tem cheiro. E o seu nariz é absurdamente sensível a esse cheiro.\nNo final: o sinal no ar que avisa que uma tempestade com raios está chegando.\nManda pra quem ama cheiro de chuva e salva pra lembrar na próxima tempestade.\nVocê também ama esse cheiro? Comenta aí 👇",
+ "descricao": "Você já sentiu o cheiro de um raio, sem perceber ⚡\nPor que a gente sente cheiro de chuva antes de ela começar: o ozônio que vem do raio e o petricor, o cheiro de terra molhada.\nÁgua pura não tem cheiro. E o seu nariz sente esse cheiro em quantidades absurdamente pequenas.\nNo final: o sinal no ar que avisa que uma tempestade com raios está chegando.\nManda pra quem ama cheiro de chuva e salva pra lembrar na próxima tempestade.\nSe água pura não tem cheiro, que cheiro tem a chuva no meio do oceano, longe de qualquer terra? Chuta aí 👇",
  "hashtags": [
   "#chuva",
   "#petricor",
@@ -14,113 +14,113 @@
  "gancho_destaque": "RAIO",
  "voz": "Achird",
  "sons": {
+  "raio0": [
+   "zap",
+   0.6
+  ],
   "chover": [
-   "vento",
+   "pop",
    0.45
   ],
   "gota": [
    "agua",
    0.5
   ],
+  "cheirando": [
+   "plim",
+   0.5
+  ],
   "dois": [
    "pop",
-   0.45
+   0.5
+  ],
+  "promessa": [
+   "plim",
+   0.55
   ],
   "raio": [
    "zap",
-   0.55
+   0.6
   ],
-  "sinal": [
-   "plim",
+  "quebra": [
+   "clique",
    0.55
   ],
   "ozonio": [
    "brilho",
    0.55
   ],
-  "quebra": [
-   "zap",
-   0.55
-  ],
-  "oxigenio": [
-   "pop",
-   0.45
-  ],
-  "juntam": [
-   "pop",
-   0.45
-  ],
   "cloro": [
-   "plim",
-   0.5
+   "pop",
+   0.45
   ],
   "descem": [
    "vento",
-   0.55
-  ],
-  "nariz": [
-   "brilho",
    0.5
   ],
-  "molhada": [
-   "agua",
+  "estranho": [
+   "whoosh_curto",
    0.5
+  ],
+  "terra": [
+   "pop",
+   0.45
   ],
   "agua": [
    "thud",
-   0.6
-  ],
-  "petricor": [
-   "plim",
-   0.6
-  ],
-  "oleos": [
-   "pop",
-   0.45
+   0.55
   ],
   "geosmina": [
    "brilho",
-   0.55
+   0.5
   ],
-  "gotas": [
+  "bolhinhas": [
    "agua",
-   0.55
+   0.5
   ],
-  "bolhas": [
+  "refri": [
    "pop",
-   0.45
-  ],
-  "vento": [
-   "vento",
    0.5
   ],
-  "impressionante": [
-   "thud",
-   0.6
-  ],
-  "sensivel": [
-   "brilho",
-   0.55
-  ],
-  "trilhao": [
-   "zap",
-   0.5
-  ],
-  "colher": [
-   "clique",
-   0.6
-  ],
-  "piscina": [
-   "agua",
-   0.55
-  ],
-  "agua2": [
+  "adivinha": [
    "plim",
    0.55
   ],
-  "frio": [
-   "vento",
+  "nada": [
+   "thud",
+   0.6
+  ],
+  "trilhao": [
+   "clique",
+   0.55
+  ],
+  "piscina": [
+   "agua",
    0.5
+  ],
+  "antepassados": [
+   "whoosh",
+   0.45
+  ],
+  "comenta": [
+   "plim",
+   0.6
+  ],
+  "oceano": [
+   "agua",
+   0.5
+  ],
+  "chuta": [
+   "pop",
+   0.5
+  ],
+  "sinal": [
+   "plim",
+   0.55
+  ],
+  "vento": [
+   "vento",
+   0.55
   ],
   "raios": [
    "zap",
@@ -128,7 +128,7 @@
   ],
   "abrigo": [
    "thud",
-   0.7
+   0.55
   ],
   "passo1": [
    "pop",
@@ -145,81 +145,82 @@
   "cta": [
    "plim",
    0.6
-  ],
-  "raio0": [
-   "zap",
-   0.55
   ]
  },
  "cenas": [
   {
    "id": "gancho",
    "tipo": "abertura",
-   "titulo": "Cheiro de chuva",
-   "fala": "Você já sentiu o cheiro de um raio, sem perceber. Sabe aquele cheiro que avisa: vai chover? Se ainda não choveu, o que você está cheirando? São dois cheiros. E um deles vem de um raio que caiu a quilômetros de você. No final, eu te conto o sinal no ar que avisa que uma tempestade perigosa está chegando.",
+   "titulo": "O cheiro do raio",
+   "fala": "Você já sentiu o cheiro de um raio, sem perceber. Sabe aquele cheiro que avisa: vai chover? Às vezes ele chega antes da primeira gota. Se ainda não choveu, o que você está cheirando? São dois cheiros. E no final eu te conto o sinal no ar que avisa que uma tempestade perigosa está chegando.",
    "batidas": {
     "raio,": "raio0",
     "chover?": "chover",
-    "cheirando?": "gota",
+    "gota.": "gota",
+    "cheirando?": "cheirando",
     "dois": "dois",
-    "raio": "raio",
-    "chegando.": "sinal"
+    "chegando.": "promessa"
    }
   },
   {
    "id": "ozonio",
    "tipo": "ozonio",
-   "titulo": "O cheiro do raio",
-   "fala": "O primeiro é o ozônio. O raio é tão quente que quebra as moléculas de oxigênio do ar, e elas se juntam de outro jeito, formando ozônio, que tem um cheiro meio de cloro, de limpo. Aí, os ventos fortes que descem da nuvem trazem esse ar lá de cima até o seu nariz, antes da chuva chegar.",
+   "titulo": "O primeiro: o raio",
+   "fala": "O primeiro vem do raio. Ele é cinco vezes mais quente que a superfície do Sol, e quebra o oxigênio do ar. Os pedaços se juntam de outro jeito e viram ozônio, que tem um cheiro meio de cloro, de limpo. Aí os ventos que descem da nuvem trazem esse ar até o seu nariz. Só que o segundo cheiro é ainda mais estranho.",
    "batidas": {
-    "ozônio.": "ozonio",
+    "raio.": "raio",
     "quebra": "quebra",
-    "oxigênio": "oxigenio",
-    "juntam": "juntam",
+    "ozônio,": "ozonio",
     "cloro,": "cloro",
     "descem": "descem",
-    "nariz,": "nariz"
+    "estranho.": "estranho"
    }
   },
   {
    "id": "petricor",
    "tipo": "petricor",
-   "titulo": "Terra molhada",
-   "fala": "O segundo é o famoso cheiro de terra molhada. E não, não é cheiro de água: água pura não tem cheiro. Ele tem até nome: petricor. Em dias secos, plantas soltam óleos que ficam no chão, e bactérias da terra produzem uma substância chamada geosmina. Quando as primeiras gotas caem, elas jogam esse cheiro pro ar, como as bolhinhas de um refrigerante. E o vento traz o cheiro de onde já está chovendo.",
+   "titulo": "O segundo: a terra",
+   "fala": "É o famoso cheiro de terra molhada. E não é cheiro de água: água pura não tem cheiro. Em dias secos, bactérias da terra produzem uma substância chamada geosmina. Quando as gotas caem, prendem bolhinhas de ar que estouram e jogam esse cheiro pra cima, igual refrigerante. Agora, adivinha quanto disso o seu nariz precisa pra sentir?",
    "batidas": {
-    "molhada.": "molhada",
-    "água:": "agua",
-    "petricor.": "petricor",
-    "óleos": "oleos",
+    "terra": "terra",
+    "cheiro.": "agua",
     "geosmina.": "geosmina",
-    "gotas": "gotas",
-    "refrigerante.": "bolhas",
-    "vento": "vento"
+    "bolhinhas": "bolhinhas",
+    "refrigerante.": "refri",
+    "adivinha": "adivinha"
    }
   },
   {
    "id": "nariz",
    "tipo": "nariz",
-   "titulo": "Nariz de detetive",
-   "fala": "E aqui vem a parte impressionante: o seu nariz é absurdamente sensível à geosmina. A gente sente esse cheiro mesmo quando ele é só algumas partes por trilhão. É como sentir uma colher de sopa numa piscina olímpica. Uma ideia dos cientistas é que nossos antepassados usavam esse faro pra achar água.",
+   "titulo": "O seu nariz",
+   "fala": "Quase nada. O seu nariz sente a geosmina mesmo quando ela é só algumas partes por trilhão. É como sentir umas gotinhas numa piscina olímpica inteira. Uma ideia dos cientistas é que os nossos antepassados usavam esse faro pra achar água.",
    "batidas": {
-    "impressionante:": "impressionante",
-    "sensível": "sensivel",
+    "nada.": "nada",
     "trilhão.": "trilhao",
-    "colher": "colher",
-    "olímpica.": "piscina",
-    "água.": "agua2"
+    "piscina": "piscina",
+    "antepassados": "antepassados"
+   }
+  },
+  {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Responde nos comentários",
+   "fala": "Pergunta difícil, responde nos comentários: se água pura não tem cheiro, que cheiro tem a chuva no meio do oceano, longe de qualquer terra? Chuta aí.",
+   "batidas": {
+    "comentários:": "comenta",
+    "oceano,": "oceano",
+    "aí.": "chuta"
    }
   },
   {
    "id": "dica",
    "tipo": "dica",
-   "titulo": "O sinal",
-   "fala": "E o sinal que eu prometi: se você sentir aquele cheiro de cloro no ar, junto com um vento forte e frio de repente, é sinal de tempestade com raios chegando. Hora de sair de lugar aberto e procurar abrigo.",
+   "titulo": "O sinal no ar",
+   "fala": "E o sinal que eu prometi: se você sentir aquele cheiro de cloro no ar, junto com um vento frio e forte de repente, é tempestade com raios chegando. Hora de sair de lugar aberto e procurar abrigo.",
    "batidas": {
-    "cloro": "cloro",
+    "prometi:": "sinal",
     "vento": "vento",
-    "frio": "frio",
     "raios": "raios",
     "abrigo.": "abrigo"
    }
@@ -228,11 +229,11 @@
    "id": "resumo",
    "tipo": "resumo",
    "titulo": "Resumindo",
-   "fala": "Resumindo: o raio cria o ozônio e o vento traz até você, as gotas jogam no ar o cheiro da terra, e o seu nariz é um detector finíssimo. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "fala": "Resumindo: o raio cria o ozônio, as gotas jogam no ar o cheiro da terra, e o seu nariz é um detector finíssimo. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
    "batidas": {
-    "ozônio": "passo1",
+    "ozônio,": "passo1",
     "terra,": "passo2",
-    "detector": "passo3",
+    "finíssimo.": "passo3",
     "Segue": "cta"
    }
   }
