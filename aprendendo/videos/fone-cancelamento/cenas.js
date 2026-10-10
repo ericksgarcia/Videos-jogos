@@ -45,7 +45,7 @@ CENAS.abertura = (el, c, B) => {
     if (a2 > 0.01) { aviao(x, 540, 700, 0.9, 0.8 * a2); const lig = PT.ss((t - tB) / 0.3), some = PT.ss((t - tSo + 0.4) / 0.8); for (let k = 0; k < 3; k++) ondaP(x, 80, 1000, 800 + k * 40, 26 * (1 - 0.85 * some), 18 + k * 4, t * (8 + k), VE, 0.6 * (1 - 0.6 * some) * a2, 4); fone(x, 540, 1100, 1.1, a2, lig); ondaP(x, 300, 780, 1130, 30, 14, t * 8 + Math.PI, CI, lig * a2, 5); if (lig > 0) { discoP(x, 540 + 292, 1160, 10, VD, lig * a2); rotuloP(x, "ANC", 540 + 292, 1210, 26, "150,255,200", lig * a2); } }
     // plano 3: alguém falando do lado — a voz passa (teaser)
     const a3 = PT.ss((t - p3) / 0.5);
-    if (a3 > 0.01) { fone(x, 380, 1000, 0.8, a3, 1); pessoaFala(x, 800, 1100, 2.4, a3, t); vozOnda(x, 480, 720, 1000, 40, t, AM, a3, 4); rotuloP(x, "?", 540, 780, 130, AM, a3); }
+    if (a3 > 0.01) { fone(x, 340, 1000, 0.8, a3, 1); pessoaFala(x, 740, 1100, 2.4, a3, t); vozOnda(x, 440, 680, 1000, 40, t, AM, a3, 4); rotuloP(x, "?", 540, 780, 130, AM, a3); }
   });
 };
 
@@ -61,7 +61,7 @@ CENAS.onda = (el, c, B) => {
     estD(x, est, t);
     // plano A: o ar apertado e solto (pontos se juntando em faixas)
     const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
-    let i = nv.k; if (aA > 0.01) for (let k = 0; k < 4000; k++) { const r0 = (k * 0.6180339) % 1, r1 = (k * 0.7548776) % 1, bx = 100 + r0 * 880, desl = Math.sin(bx * 0.02 - t * 6) * 22, dens = 0.5 + 0.5 * Math.cos(bx * 0.02 - t * 6); nv.ponto(i++, bx + desl, 700 + r1 * 600, 0.56, 0.89, 1.0, aA * (0.25 + 0.55 * dens), 3.2); } nv.total(i);
+    let i = nv.k; if (aA > 0.01) for (let k = 0; k < 4000; k++) { const r0 = (k * 0.6180339) % 1, r1 = (k * 0.7548776) % 1, bx = 100 + r0 * 880, desl = Math.sin(bx * 0.02 - t * 6) * 22, dens = 0.5 + 0.5 * Math.cos(bx * 0.02 - t * 6); nv.ponto(i++, bx + desl, 700 + r1 * 600, 0.56, 0.89, 1.0, aA * (0.4 + 0.6 * dens), 3.8); } nv.total(i);
     if (aA > 0.01) { fCaixa(x, 70, 1000, 60, 260, 12, BRC, aA, 5, 0.15); linhaP(x, 70 + Math.sin(t * 6) * 18, 880, 70 + Math.sin(t * 6) * 18, 1120, AM, aA, 8); }
     // plano B: a corda balançando
     const aB = planoC(t, pB, pC);
@@ -163,7 +163,7 @@ CENAS.voz = (el, c, B) => {
     if (aC > 0.01) { vozOnda(x, 120, 960, 1000, 110, t, AM, aC, 6); x.setLineDash([14, 12]); ondaP(x, 120, 960, 1000, 80, 30, t * 5, BRC, aC * 0.7, 4); x.setLineDash([]); rotuloP(x, "voz", 540, 820, 40, "255,226,140", aC); linhaP(x, 860, 740, 900, 780, VE, aC, 7); linhaP(x, 860, 780, 900, 740, VE, aC, 7); }
     // plano D: funciona melhor contra ar-condicionado e trânsito
     const aD = PT.ss((t - pD) / 0.5);
-    if (aD > 0.01) { fCaixa(x, 300, 900, 300, 120, 16, CI, aD, 5, 0.1); for (let k = 0; k < 5; k++) linhaP(x, 180 + k * 60, 930, 180 + k * 60, 950, CI, aD, 4); rotuloP(x, "ar-condicionado", 300, 1010, 30, "180,230,255", aD); fCaixa(x, 780, 900, 260, 90, 30, LA, aD, 5, 0.1); anelP(x, 720, 950, 26, LA, aD, 5); anelP(x, 840, 950, 26, LA, aD, 5); rotuloP(x, "trânsito", 780, 1010, 30, "255,190,140", aD); for (const px of [300, 780]) { anelP(x, px, 760, 36, VD, aD, 5); } pessoaFala(x, 540, 1300, 1.4, aD * 0.6, t); }
+    if (aD > 0.01) { fCaixa(x, 300, 900, 300, 120, 16, CI, aD, 5, 0.1); for (let k = 0; k < 5; k++) linhaP(x, 180 + k * 60, 930, 180 + k * 60, 950, CI, aD, 4); rotuloP(x, "ar-condicionado", 300, 1010, 30, "180,230,255", aD); fCaixa(x, 780, 900, 260, 90, 30, LA, aD, 5, 0.1); anelP(x, 720, 950, 26, LA, aD, 5); anelP(x, 840, 950, 26, LA, aD, 5); rotuloP(x, "trânsito", 780, 1010, 30, "255,190,140", aD); for (const px of [300, 780]) { anelP(x, px, 760, 36, VD, aD, 5); linhaP(x, px - 16, 762, px - 2, 778, VD, aD, 6); linhaP(x, px - 2, 778, px + 20, 744, VD, aD, 6); } pessoaFala(x, 480, 1280, 1.5, aD * 0.8, t); linhaP(x, 640, 1180, 690, 1230, VE, aD, 7); linhaP(x, 640, 1230, 690, 1180, VE, aD, 7); }
   });
 };
 
