@@ -1,211 +1,294 @@
-// Cenas do vídeo "Por que a sua voz soa estranha gravada" — pontos de luz na GPU.
-// Retenção: dor do dia a dia (o próprio áudio), promessa (o experimento de 2013), dois caminhos do
-// som (ar e ossos), teste para fazer na hora (dedos nos ouvidos), choque e virada final.
+// Cenas do vídeo "Por que a sua voz soa estranha gravada" — padrão novo (out/2026): objetos em pontos de
+// luz com volume, pontos que se transformam, câmera com profundidade e movimento com física.
+// Retenção: dor do dia a dia (o próprio áudio), virada (você ia gostar da sua voz), dois caminhos do som,
+// previsão ("adivinha qual todo mundo ouve?"), experimento de 2013, pergunta e o teste dos dedos.
 
 const MD = MotionDirector;
 const mixC = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
-const CI = "143,227,255", AM = "255,210,63", VE = "255,110,130", VD = "120,255,190", LA = "255,150,70", BRC = "220,228,245";
-const estF = (seed) => ambienteP(200, seed);
-const estD = (x, est, t) => desenharAmbiente(x, est, t, "200,215,255", 0.5);
+const planoC = (t, a, b, e = 0.4, s = 0.4) => PT.jan(t, a, b, e, s);
+const FUNDOV = fundoProfundo(31);
 
-// cabeça de perfil (olhando para a direita), coordenadas relativas a (0,0) = centro do crânio, escala 1 ≈ 1 px
+// cabeça de perfil em pontos (olhando para a direita): (0,0) = centro do crânio, escala 1 ≈ 1 px; osso = borda do crânio
 const PERFIL = [[150, -235], [215, -150], [232, -60], [238, -10], [300, 50], [250, 80], [262, 120], [242, 140], [255, 170], [228, 200], [215, 245], [150, 262], [95, 300], [95, 420]];
 const perfilX = (y) => { for (let k = 1; k < PERFIL.length; k++) { const [x0, y0] = PERFIL[k - 1], [x1, y1] = PERFIL[k]; if (y >= y0 && y <= y1) return x0 + (x1 - x0) * (y - y0) / Math.max(1e-6, y1 - y0); } return -1e9; };
 const CABECA = (() => { const r = prng(77), o = []; const dentro = (x, y) => (Math.pow(x / 230, 2) + Math.pow((y + 20) / 250, 2) < 1) || (x > 0 && y > -235 && y < 262 && x < perfilX(y)) || (x > -120 && x < 95 && y > 150 && y < 420); while (o.length < 15000) { const x = r() * 600 - 280, y = r() * 720 - 300; if (dentro(x, y)) o.push({ x, y, n: r(), osso: Math.abs(Math.hypot(x / 230, (y + 20) / 250) - 0.93) < 0.05 && x < 150 }); } return o; })();
 const OUVIDO = [-20, 20], BOCA = [262, 140], GARGANTA = [30, 300];
-function perfilLinha(x, cx, cy, s, a) { if (a <= 0.01) return; x.beginPath(); PERFIL.forEach(([px, py], k) => k ? x.lineTo(cx + px * s, cy + py * s) : x.moveTo(cx + px * s, cy + py * s)); x.strokeStyle = `rgba(230,235,255,${0.8 * a})`; x.lineWidth = 4; x.lineJoin = "round"; x.stroke(); }
-function cabeca(nv, cx, cy, s, a, vib = 0, t = 0) { let i = nv.k; for (const p of CABECA) { const d = Math.hypot(p.x - GARGANTA[0], p.y - GARGANTA[1]), onda = vib * Math.max(0, Math.sin(d * 0.05 - t * 9)); const c = p.osso ? mixC([0.95, 0.9, 0.85], [1.0, 0.6, 0.3], onda) : mixC([0.55, 0.65, 0.95], [1.0, 0.6, 0.3], onda * 0.7); nv.ponto(i++, cx + p.x * s, cy + p.y * s, c[0], c[1], c[2], a * ((p.osso ? 0.55 : 0.2) + 0.25 * p.n + 0.5 * onda), p.osso ? 3.6 : 3); } nv.total(i); }
-// barras de frequência (graves à esquerda)
-function espectro(x, cx, cy, w, h, graves, cor, a, rot) { if (a <= 0.01) return; const n = 14; for (let k = 0; k < n; k++) { const u = k / (n - 1), v = 0.35 + 0.35 * Math.sin(u * 7 + 1) * 0.5 + graves * Math.exp(-u * 4) * 0.6; const bh = h * PT.cl(v); fCaixa(x, cx - w / 2 + (k + 0.5) * w / n, cy - bh / 2, w / n * 0.7, bh, 4, u < 0.3 ? LA : cor, a, 2, 0.5); } rotuloP(x, rot, cx, cy + 40, 30, "255,255,255", 0.85 * a); rotuloP(x, "graves", cx - w / 2, cy + 80, 24, "255,190,140", 0.7 * a, "left"); rotuloP(x, "agudos", cx + w / 2, cy + 80, 24, "200,220,255", 0.7 * a, "right"); }
-function ondaSom(x, cx, cy, w, amp, t, cor, a, f = 1) { if (a <= 0.01) return; x.beginPath(); for (let k = 0; k <= 120; k++) { const u = k / 120, y = cy + Math.sin(u * 40 * f + t * 6) * amp * Math.sin(u * Math.PI) * (0.6 + 0.4 * Math.sin(u * 9 + t)); k ? x.lineTo(cx - w / 2 + u * w, y) : x.moveTo(cx - w / 2 + u * w, y); } x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = 4; x.stroke(); }
-function estrelas5(x, cx, cy, v, a, cor = AM) { for (let k = 0; k < 5; k++) { const on = k < v; const px = cx - 80 + k * 40; x.beginPath(); for (let q = 0; q < 10; q++) { const an = -Math.PI / 2 + q * Math.PI / 5, rr = q % 2 ? 7 : 16; q ? x.lineTo(px + Math.cos(an) * rr, cy + Math.sin(an) * rr) : x.moveTo(px + Math.cos(an) * rr, cy + Math.sin(an) * rr); } x.closePath(); x.fillStyle = `rgba(${on ? cor : "120,128,150"},${(on ? 0.7 : 0.25) * a})`; x.fill(); } }
-
-const planoC = (t, a, b, e = 0.4, s = 0.4) => PT.jan(t, a, b, e, s);
-function setaComent(x, a, t) { if (a <= 0.01) return; const b = Math.sin(t * 6) * 16; fSeta(x, 700 + b, 1250, 900 + b, 1250, AM, a, 12); brilhoP(x, 1010, 1250, 90, AM, 0.35 * a * (0.7 + 0.3 * Math.sin(t * 6))); rotuloP(x, "comentários", 780, 1180, 38, "255,226,140", a); }
-function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) {
-  if (a <= 0.01) return; fCaixa(x, cx, cy, 520 * s, 330 * s, 60 * s, CI, a, 8 * s, 0.12);
-  x.beginPath(); x.moveTo(cx - 120 * s, cy + 160 * s); x.lineTo(cx - 190 * s, cy + 250 * s); x.lineTo(cx - 40 * s, cy + 160 * s); x.fillStyle = `rgba(${CI},${0.5 * a})`; x.fill();
-  brilhoP(x, cx, cy, 380 * s, CI, 0.18 * a); rotuloP(x, txt, cx, cy + 6 * s, 190 * s, "255,226,140", a * (0.85 + 0.15 * Math.sin(t * 4)));
+// vib = vibração por dentro (ossos acendem em ondas a partir da garganta)
+function cabecaV(nv, cx, cy, s, a, vib = 0, t = 0, i0 = nv.k) {
+  let i = i0; if (a <= 0.01) { nv.total(i); return i; }
+  for (const p of CABECA) { if (i >= nv.n) break; const d = Math.hypot(p.x - GARGANTA[0], p.y - GARGANTA[1]), onda = vib * Math.max(0, Math.sin(d * 0.05 - t * 9)); const c = p.osso ? mixC([0.95, 0.9, 0.85], [1.0, 0.6, 0.3], onda) : mixC([0.55, 0.65, 0.95], [1.0, 0.6, 0.3], onda * 0.7); nv.ponto(i++, cx + p.x * s, cy + p.y * s, c[0], c[1], c[2], a * ((p.osso ? 0.55 : 0.2) + 0.25 * p.n + 0.5 * onda), (p.osso ? 3.6 : 3) * Math.max(0.8, s)); }
+  nv.total(i); return i;
 }
-function estrelasG(x, cx, cy, s, v, a) { if (a <= 0.01) return; x.save(); x.translate(cx, cy); x.scale(s, s); estrelas5(x, 0, 0, v, a); x.restore(); }
-// mensagem de áudio (bolha verde com play e onda)
-function msgAudio(x, cx, cy, s, a, t, cor = VD) { if (a <= 0.01) return; fCaixa(x, cx, cy, 520 * s, 140 * s, 70 * s, cor, a, 5, 0.12); discoP(x, cx - 190 * s, cy, 34 * s, cor, 0.8 * a); x.beginPath(); x.moveTo(cx - 200 * s, cy - 18 * s); x.lineTo(cx - 172 * s, cy); x.lineTo(cx - 200 * s, cy + 18 * s); x.closePath(); x.fillStyle = `rgba(10,18,48,${a})`; x.fill(); ondaSom(x, cx + 50 * s, cy, 360 * s, 30 * s, t, cor, a, 0.6); }
-// rosto simples; espelho = 1 inverte o lado do cabelo e da pinta
-function rostoC(x, cx, cy, s, a, espelho, cor) { if (a <= 0.01) return; const m = espelho ? -1 : 1; anelP(x, cx, cy, 150 * s, cor, a, 6); discoP(x, cx - 55 * s, cy - 30 * s, 12 * s, cor, a); discoP(x, cx + 55 * s, cy - 30 * s, 12 * s, cor, a); x.beginPath(); x.arc(cx, cy + 30 * s, 60 * s, 0.2, Math.PI - 0.2); x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = 6; x.stroke(); x.beginPath(); x.moveTo(cx - 150 * s, cy - 40 * s); x.quadraticCurveTo(cx - 60 * m * s, cy - 230 * s, cx + 150 * s * m, cy - 60 * s); x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = 10; x.stroke(); discoP(x, cx + 85 * m * s, cy + 40 * s, 9 * s, LA, a); }
-// mão com o dedo no ouvido (lado: -1 esquerdo, 1 direito)
-function dedoOuvido(x, cx, cy, s, lado, a) { if (a <= 0.01) return; x.save(); x.translate(cx, cy); x.scale(lado, 1); fCaixa(x, 60 * s, 60 * s, 70 * s, 110 * s, 30 * s, "255,210,180", a, 4, 0.2); x.beginPath(); x.moveTo(40 * s, 10 * s); x.lineTo(5 * s, -10 * s); x.strokeStyle = `rgba(255,210,180,${a})`; x.lineWidth = 20 * s; x.lineCap = "round"; x.stroke(); x.restore(); }
+// partículas do som pelo ar: da boca, contornando a frente do rosto, até o ouvido (u = 0..1 no caminho)
+function caminhoAr(cx, cy, s, u) { const [bx, by] = BOCA, [ox, oy] = OUVIDO; const px = bx + 260 * Math.sin(u * Math.PI), q = u; return [cx + (bx + (ox - bx) * q + (px - bx) * Math.sin(q * Math.PI) * 0.9) * s, cy + (by + (oy - by) * q - 220 * Math.sin(q * Math.PI)) * s]; }
+function somAr(nv, cx, cy, s, t, a, i0 = nv.k, alvo = null) {
+  let i = i0; if (a <= 0.01) { nv.total(i); return i; }
+  for (let k = 0; k < 160 && i < nv.n; k++) { const u = ((t * 0.45 + k / 160) % 1); let px, py; if (alvo) { const [bx, by] = [cx + BOCA[0] * s, cy + BOCA[1] * s]; px = bx + (alvo[0] - bx) * u; py = by + (alvo[1] - by) * u + Math.sin(u * 18 + k) * 14 * s; } else [px, py] = caminhoAr(cx, cy, s, u); nv.ponto(i++, px, py, 0.56, 0.89, 1, a * 1.3 * Math.sin(u * Math.PI), 6 * Math.max(0.8, s)); }
+  nv.total(i); return i;
+}
+
+const FV = {
+  cel: formaPontos("device-mobile", 9000), onda: formaPontos("waveform", 7000), careta: formaPontos("smiley-nervous", 10000), joinha: formaPontos("thumbs-up", 10000),
+  estrela: formaPontos("star", 1600), pessoas: formaPontos("users-three", 9000), pessoa: formaPontos("user", 900), mic: formaPontos("microphone", 10000),
+  orelha: formaPontos("ear", 10000), cranio: formaPontos("skull", 12000), osso: formaPontos("bone", 8000), interr: formaTexto("?", 10000),
+  sorriso: formaPontos("smiley", 10000), derrete: formaPontos("smiley-melting", 10000), retrato: formaPontos("user-circle", 9000), coracao: formaPontos("heart", 2500),
+  mao: formaPontos("hand-pointing", 7000), n2013: formaTexto("2013", 10000), lupa: formaPontos("magnifying-glass", 6000),
+};
 
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tAu = B("audio"), tV = B("voce"), tG = B("gostar"), tE = B("estranha"), tL = B("literal"), tP = B("promessa");
-  const p2 = tV - 0.6, p3 = tE - 0.6, p4 = tP - 2.6;
-  mostrarGancho(p2 - 0.1);
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["gos", 330, 70, "você ia gostar dela", "pt-am"], ["est", 330, 70, "então por que é estranha?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["den", 330, 62, "está dentro da sua cabeça", "pt-ve"], ["tes", 330, 62, "o teste dos 2 dedos: no final", "pt-am", "white-space:normal;left:60px;width:960px"]]);
-  MD.slam(tl, tx.gos, tG - 0.1, { from: 1.3 }); MD.leave(tl, tx.gos, tE - 0.35); MD.slam(tl, tx.est, tE - 0.05, { from: 1.25 }); MD.leave(tl, tx.est, tL - 1.6); MD.slam(tl, tx.den, tL - 1.3, { from: 1.3 }); MD.leave(tl, tx.den, p4); MD.slam(tl, tx.tes, p4 + 0.2, { from: 1.25 });
-  const nv = T.nuvem(15100), est = estF(3);
+  const tA = B("audio"), tV = B("voce"), tG = B("gostar"), tE = B("estranha"), tL = B("literal"), tP = B("promessa");
+  const p2 = tV - 0.5, p3 = tE - 0.6, p4 = tL - 0.9, p5 = tP - 2.6;
+  mostrarGancho(tV - 0.9);
+  const T = telaGPU(el, c), nv = T.nuvem(90000);
+  const tx = palcoTexto(el, [["exp", 330, 64, "sem saber que era você", "pt-ci"], ["gos", 330, 76, "você ia gostar", "pt-am"], ["est", 330, 66, "então por que soa estranha?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["den", 330, 66, "dentro da sua cabeça", "pt-am"], ["tes", 330, 62, "o teste dos 2 dedos: no final", "pt-am", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.exp, tV - 0.3, { from: 1.25 }); MD.leave(tl, tx.exp, tG - 0.4); MD.slam(tl, tx.gos, tG - 0.2, { from: 1.4 }); MD.leave(tl, tx.gos, p3 - 0.1);
+  MD.slam(tl, tx.est, tE - 0.5, { from: 1.2 }); MD.leave(tl, tx.est, p4 - 0.1); MD.slam(tl, tx.den, tL - 0.6, { from: 1.3 }); MD.leave(tl, tx.den, p5 - 0.1); MD.slam(tl, tx.tes, p5 + 0.2, { from: 1.2 });
+  const CAM = cameraProf([[0, { zoom: 1.25, y: 1000, foco: 1 }], [p2, { zoom: 1.0 }], [p4, { zoom: 1.0 }], [p5 - 0.2, { zoom: 1.5, y: 900 }], [p5 + 0.4, { zoom: 1.0, y: 960 }]]);
   T.quadro((x, t) => {
-    estD(x, est, t);
-    // plano 1 (quadro 0): o seu áudio tocando no celular — e a careta
-    const a1 = 1 - PT.ss((t - p2) / 0.4);
-    if (a1 > 0.01) { fCelular(x, 540, 980, 760, BRC, a1, 0.06); msgAudio(x, 540, 980, 0.6, a1, t); rotuloP(x, "você", 540, 1080, 30, "200,255,220", a1); for (let k = 0; k < 6; k++) { const an = k * 1.05 + t; linhaP(x, 540 + Math.cos(an) * 200, 980 + Math.sin(an) * 160, 540 + Math.cos(an) * 240, 980 + Math.sin(an) * 190, VE, a1 * 0.8 * PT.ss((t - tAu + 0.3) / 0.3), 5); } }
-    // plano 2: sem saber que é você, nota 5 estrelas
+    const cam = CAM(t); let i = desenharFundo(nv, FUNDOV, t, cam, [0.7, 0.8, 1], 1, 0);
+    // plano 1 (quadro 0): o celular tocando o seu áudio; a careta de vergonha pula
+    const a1 = 1 - PT.ss((t - p2) / 0.45);
+    if (a1 > 0.01) {
+      const [dx, dy] = FIS.tremor(t, tA, 10, 0.5);
+      i = desenharForma(nv, FV.cel, { cx: 470 + dx, cy: 980 + dy, esc: 820, cor: CORF.branco, borda: CORF.ciano, a: a1, t, giro: -0.25 + 0.08 * Math.sin(t * 0.8), cam, z: 1, i0: i });
+      i = desenharForma(nv, FV.onda, { cx: 470 + dx, cy: 990 + dy, esc: 300, sy: 0.6 + 0.4 * Math.abs(Math.sin(t * 7)), cor: CORF.amarelo, a: a1, t, cam, z: 1, i0: i });
+      const ch = FIS.chegar(t, tA - 0.2, 0.55);
+      i = desenharForma(nv, FV.careta, { cx: 790, cy: 820, esc: 330 * Math.max(0.01, ch), rot: 0.15 * FIS.balanco(t, tA, 1, 2.4, 3), cor: CORF.rosa, a: a1 * Math.min(1, ch * 2), t, cam, z: 0.9, i0: i });
+    }
+    // plano 2: o experimento — a careta vira joinha e as estrelas acendem em cascata; a plateia ao fundo, fora de foco
     const a2 = planoC(t, p2, p3);
-    if (a2 > 0.01) { msgAudio(x, 540, 900, 1.2, a2, t, CI); rotuloP(x, "voz misteriosa", 540, 760, 36, "180,230,255", a2); estrelasG(x, 540 + 3 * 80, 1150, 3, Math.round(PT.lerp(1, 5, PT.ss((t - tG + 0.5) / 0.8))), a2); }
-    // plano 3: a resposta está dentro da cabeça
+    if (t > p2 - 0.1 && t < p3 + 0.5) {
+      i = desenharForma(nv, FV.pessoas, { cx: 540, cy: 420, esc: 760, cam: { ...cam, foco: 1 }, z: 2.2, cor: CORF.lilas, a: 0.9 * a2, t, i0: i });
+      const u = PT.ss((t - tG + 0.6) / 0.8);
+      i = morfo(nv, FV.careta, FV.joinha, u, { de: { cx: 790, cy: 820, esc: 330, cor: CORF.rosa }, para: { cx: 540, cy: 900, esc: 520, cor: CORF.amarelo, giro: 0.2 * Math.sin(t) }, t, a: a2, onda: 0.3, curva: 0.3, i0: i });
+      for (let k = 0; k < 5; k++) { const e = FIS.cascata(t, tG + 0.1, k, 0.09, 0.5); i = desenharForma(nv, FV.estrela, { cx: 340 + k * 100, cy: 1230, esc: 95 * Math.max(0.01, e), cor: CORF.amarelo, a: a2 * Math.min(1, e * 2), t, i0: i }); }
+    }
+    // plano 3: o joinha vira um "?" — por que soa estranha?
     const a3 = planoC(t, p3, p4);
-    if (a3 > 0.01) { cabeca(nv, 470, 1000, 1.2, a3, PT.ss((t - tL + 0.8) / 0.5), t); } else if (t < p4) nv.total(nv.k);
-    // plano 4: o teste dos dedos (teaser)
-    const a4 = PT.ss((t - p4) / 0.5);
-    if (a4 > 0.01) { cabeca(nv, 470, 1000, 1.2, a4, 0.4, t); dedoOuvido(x, 470 + OUVIDO[0] * 1.2, 1000 + OUVIDO[1] * 1.2, 1.4, -1, a4); rotuloP(x, "?", 860, 720, 150, AM, a4); }
+    if (a3 > 0.01) i = morfo(nv, FV.joinha, FV.interr, PT.ss((t - p3) / 0.9), { de: { cx: 540, cy: 900, esc: 520, cor: CORF.amarelo }, para: { cx: 540, cy: 900, esc: 760, cor: CORF.ciano }, t, a: a3, onda: 0.35, curva: 0.4, i0: i });
+    // plano 4: o "?" vira um crânio e a câmera mergulha nele (dentro da sua cabeça, literalmente)
+    const a4 = planoC(t, p4, p5);
+    if (a4 > 0.01) { i = morfo(nv, FV.interr, FV.cranio, PT.ss((t - p4) / 0.9), { de: { cx: 540, cy: 900, esc: 760, cor: CORF.ciano }, para: { cx: 540, cy: 920, esc: 640, cor: CORF.branco, cam, z: 1 }, t, a: a4, onda: 0.3, curva: 0.3, i0: i }); i = aneisVib(nv, 540, 960, t, a4 * PT.ss((t - tL + 0.5) / 0.4), i); }
+    // plano 5: o teste prometido — duas mãos apontando para a orelha
+    const a5 = PT.ss((t - p5) / 0.5);
+    if (a5 > 0.01) {
+      i = desenharForma(nv, FV.orelha, { cx: 540, cy: 930, esc: 430, cor: CORF.branco, borda: CORF.amarelo, a: a5, t, i0: i });
+      for (const [lado, f] of [[-1, 0], [1, 0.12]]) { const e = FIS.chegar(t, p5 + 0.3 + f, 0.6), [mx, my] = FIS.arco(540 + lado * 620, 1150, 540 + lado * 300, 960, e, 120); i = desenharForma(nv, FV.mao, { cx: mx, cy: my, esc: 260, rot: lado * Math.PI / 2, cor: CORF.amarelo, a: a5, t, i0: i }); }
+    }
+    nv.total(i);
   });
 };
+function aneisVib(nv, cx, cy, t, a, i, n = 4, R = 320) { if (a <= 0.01) return i; for (let k = 0; k < n; k++) { const u = ((t * 1.1 + k / n) % 1), r = 30 + u * R; for (let j = 0; j < 110 && i < nv.n; j++) { const an = (j / 110) * 6.283; nv.ponto(i++, cx + Math.cos(an) * r, cy + Math.sin(an) * r * 0.9, 1, 0.62, 0.3, a * (1 - u) * 0.9, 3.4); } } return i; }
 
 // =============== 2. dois caminhos ===============
 CENAS.caminhos = (el, c, B) => {
-  const tD = B("dois"), tA = B("ar"), tDe = B("dentro"), tO = B("ossos"), tG = B("graves"), tE = B("encorpada");
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["doi", 330, 76, "2 caminhos", "pt-am"], ["ar", 330, 66, "1: pelo ar", "pt-ci"], ["den", 330, 66, "2: pelos ossos", "pt-am"], ["gra", 330, 66, "osso reforça os graves", "pt-am"], ["enc", 330, 62, "por dentro: mais grave", "pt-ci"]]);
-  MD.slam(tl, tx.doi, tD - 0.1, { from: 1.35 }); MD.leave(tl, tx.doi, tA - 0.35); MD.slam(tl, tx.ar, tA - 0.05, { from: 1.25 }); MD.leave(tl, tx.ar, tDe - 0.35); MD.slam(tl, tx.den, tDe - 0.05, { from: 1.25 }); MD.leave(tl, tx.den, tG - 0.35);
-  MD.slam(tl, tx.gra, tG - 0.05, { from: 1.25 }); MD.leave(tl, tx.gra, tE - 0.35); MD.slam(tl, tx.enc, tE - 0.05, { from: 1.25 });
-  const nv = T.nuvem(15100), est = estF(5), CX = 440, CY = 980, S = 1.15;
-  const pB = tA - 0.5, pC = tDe - 0.5, pD = tG - 0.8;
+  const tD = B("dois"), tAr = B("ar"), tDe = B("dentro"), tO = B("ossos"), tGr = B("graves"), tEn = B("encorpada");
+  const pB = tDe - 0.5, pC = tGr - 0.6;
+  const T = telaGPU(el, c), nv = T.nuvem(70000);
+  const tx = palcoTexto(el, [["doi", 330, 76, "dois caminhos", "pt-am"], ["ar", 330, 70, "1. pelo ar", "pt-ci"], ["den", 330, 70, "2. por dentro, nos ossos", "pt-am"], ["gra", 330, 64, "os ossos levam os graves", "pt-am"], ["enc", 330, 66, "mais grave e encorpada", "pt-ci"]]);
+  MD.slam(tl, tx.doi, tD - 0.2, { from: 1.35 }); MD.leave(tl, tx.doi, tAr - 0.5); MD.slam(tl, tx.ar, tAr - 0.3, { from: 1.25 }); MD.leave(tl, tx.ar, pB - 0.1);
+  MD.slam(tl, tx.den, tDe - 0.2, { from: 1.2 }); MD.leave(tl, tx.den, pC - 0.1); MD.slam(tl, tx.gra, tGr - 0.3, { from: 1.2 }); MD.leave(tl, tx.gra, tEn - 0.9); MD.slam(tl, tx.enc, tEn - 0.6, { from: 1.3 });
+  const CAM = cameraProf([[c.ini, { zoom: 1.0 }], [pB, { zoom: 1.0 }], [pB + 1.2, { zoom: 1.45, x: 520, y: 960 }], [pC, { zoom: 1.6, x: 500, y: 980 }]]);
   T.quadro((x, t) => {
-    estD(x, est, t);
-    const boca = [CX + BOCA[0] * S, CY + BOCA[1] * S], ouv = [CX + OUVIDO[0] * S, CY + OUVIDO[1] * S];
-    // planos A–C: a cabeça; os dois caminhos
-    const aH = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pD) / 0.4));
-    if (aH > 0.01) {
-      cabeca(nv, CX, CY, S, aH, PT.ss((t - tO + 0.3) / 0.5) * planoC(t, pC, pD), t);
-      const aD = 1 - PT.ss((t - pB) / 0.4); if (aD > 0.01) { rotuloP(x, "1", boca[0] + 200, CY - 300, 70, "180,230,255", aH * aD); rotuloP(x, "2", CX, CY + 40, 70, "255,200,150", aH * aD); }
-      // caminho 1: pelo ar (por fora)
-      const aAr = planoC(t, pB, pC); if (aAr > 0.01) { const ctl = [boca[0] + 380, CY - 520], pts = []; for (let k = 0; k <= 24; k++) { const u = k / 24; pts.push([(1 - u) * (1 - u) * boca[0] + 2 * u * (1 - u) * ctl[0] + u * u * ouv[0], (1 - u) * (1 - u) * boca[1] + 2 * u * (1 - u) * ctl[1] + u * u * ouv[1]]); } fLinhaPts(x, pts, PT.ss((t - pB) / 1.2), CI, aH * aAr, 6); for (let k = 0; k < 3; k++) { const u = ((t * 0.5 + k / 3) % 1); x.beginPath(); x.arc(boca[0], boca[1], 40 + u * 140, -0.8, 0.5); x.strokeStyle = `rgba(${CI},${aH * aAr * (1 - u)})`; x.lineWidth = 4; x.stroke(); } }
-      // caminho 2: por dentro (ossos)
-      const aDe = planoC(t, pC, pD); if (aDe > 0.01) { fLinhaPts(x, [[CX + GARGANTA[0] * S, CY + GARGANTA[1] * S], [CX + 40 * S, CY + 120 * S], ouv], PT.ss((t - pC) / 1.0), LA, aH * aDe, 8); brilhoP(x, ouv[0], ouv[1], 90, LA, 0.5 * aH * aDe); }
-    } else nv.total(nv.k);
-    // plano D: as barras — por dentro, os graves ficam fortes
-    const aE = PT.ss((t - pD) / 0.5);
-    if (aE > 0.01) espectro(x, 540, 1150, 820, 420, PT.ss((t - tG + 0.2) / 0.6), CI, aE, "a sua voz por dentro");
+    const cam = CAM(t); let i = desenharFundo(nv, FUNDOV, t, cam, [0.7, 0.8, 1], 1, 0);
+    // A e B: a cabeça; o som pelo ar (por fora) e pelos ossos (por dentro); a câmera entra na cabeça
+    const aAB = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pC) / 0.45));
+    if (aAB > 0.01) {
+      const [hx, hy, k] = projP(cam, 470, 940, 1), s = 1.15 * k, vib = PT.ss((t - tDe + 0.3) / 0.6) * (0.6 + 0.4 * PT.ss((t - tO + 0.2) / 0.4));
+      i = cabecaV(nv, hx, hy, s, aAB, vib, t, i);
+      const aAr = PT.ss((t - tAr + 0.4) / 0.5) * (1 - 0.6 * PT.ss((t - pB) / 0.6));
+      i = somAr(nv, hx, hy, s, t, aAB * aAr, i);
+      const dois = FIS.chegar(t, tD - 0.1, 0.5);
+      if (dois > 0.01 && t < tAr + 0.6) { for (let q = 0; q < 2; q++) { const e = FIS.cascata(t, tD - 0.1, q, 0.15, 0.5); rotuloP(x, q ? "por dentro" : "pelo ar", q ? hx - 60 * s : hx + 330 * s, q ? hy + 120 * s : hy - 240 * s, 40, q ? "255,200,140" : "170,230,255", aAB * Math.min(1, e) * (1 - PT.ss((t - tAr - 0.2) / 0.4))); } }
+      if (vib > 0.3) rotuloP(x, "ossos", 180, 640, 44, "255,200,140", aAB * PT.ss((t - tO + 0.2) / 0.3));
+      brilhoP(x, hx + OUVIDO[0] * s, hy + OUVIDO[1] * s, 60 * s, AMB_V, 0.6 * aAB * Math.max(aAr * 0.6, vib));
+    }
+    // C: graves passam pelo osso, agudos ficam; a voz de dentro fica grossa (encorpada)
+    const aC = PT.ss((t - pC) / 0.5);
+    if (aC > 0.01) {
+      const ch = FIS.chegar(t, pC + 0.1, 0.6);
+      i = desenharForma(nv, FV.osso, { cx: 540, cy: 960, esc: 360 * Math.max(0.01, ch), rot: -0.5, cor: CORF.branco, borda: CORF.ambar, a: aC, t, i0: i });
+      const grosso = 1 + 2 * PT.ss((t - tEn + 0.5) / 0.6);
+      i = ondaPontos(nv, 80, 1000, 780, 70, 2.2, t, CORF.ambar, aC, i, grosso, 4);
+      i = ondaPontos(nv, 80, 470, 1150, 26, 7, t, CORF.ciano, aC * (1 - 0.6 * PT.ss((t - tGr - 0.4) / 0.6)), i, 0.6, 9);
+      rotuloP(x, "graves", 160, 700, 36, "255,200,140", aC); rotuloP(x, "agudos", 200, 1230, 36, "170,230,255", aC);
+    }
+    nv.total(i);
   });
 };
+const AMB_V = "255,170,90";
 
 // =============== 3. o gravador ===============
 CENAS.gravacao = (el, c, B) => {
-  const tA = B("ar2"), tF = B("fina"), tAd = B("adivinha"), tAu = B("audio2"), tD = B("dentro2");
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["gra", 330, 66, "o gravador só pega o ar", "pt-ci"], ["fin", 330, 76, "mais fina", "pt-ve"], ["adv", 330, 70, "adivinha qual é a real?", "pt-am"], ["aud", 330, 76, "a do áudio", "pt-ve"], ["den", 330, 62, "a de dentro: só você", "pt-ci"]]);
-  MD.slam(tl, tx.gra, tA - 0.3, { from: 1.25 }); MD.leave(tl, tx.gra, tF - 0.35); MD.slam(tl, tx.fin, tF - 0.05, { from: 1.35 }); MD.leave(tl, tx.fin, tAd - 0.35); MD.slam(tl, tx.adv, tAd - 0.05, { from: 1.3 }); MD.leave(tl, tx.adv, tAu - 0.35); MD.slam(tl, tx.aud, tAu - 0.05, { from: 1.45 }); MD.leave(tl, tx.aud, tD - 0.6); MD.slam(tl, tx.den, tD - 0.3, { from: 1.25 });
-  const est = estF(7);
-  const pB = tF - 0.5, pC = tAd - 0.5, pD = tAu - 0.4;
+  const tAr = B("ar2"), tF = B("fina"), tAd = B("adivinha"), tAu = B("audio2"), tDe = B("dentro2");
+  const pB = tF - 0.5, pC = tAd - 0.5, pD = tAu - 0.5;
+  const T = telaGPU(el, c), nv = T.nuvem(80000);
+  const tx = palcoTexto(el, [["gra", 330, 64, "o gravador só pega o ar", "pt-ci"], ["fin", 330, 74, "soa mais fina", "pt-ci"], ["adv", 330, 76, "adivinha", "pt-am"], ["qua", 420, 46, "qual todo mundo ouve?", "pt-fino"], ["aud", 330, 72, "a do áudio", "pt-ci"], ["den", 420, 46, "a de dentro: só você", "pt-fino"]]);
+  MD.slam(tl, tx.gra, tAr - 0.6, { from: 1.25 }); MD.leave(tl, tx.gra, pB - 0.1); MD.slam(tl, tx.fin, tF - 0.2, { from: 1.3 }); MD.leave(tl, tx.fin, pC - 0.1);
+  MD.slam(tl, tx.adv, tAd - 0.1, { from: 1.4 }); MD.arrive(tl, tx.qua, tAd + 0.6, { y: 14 }); MD.leave(tl, [tx.adv, tx.qua], pD - 0.1); MD.slam(tl, tx.aud, tAu - 0.2, { from: 1.35 }); MD.arrive(tl, tx.den, tDe - 0.3, { y: 14 });
   T.quadro((x, t) => {
-    estD(x, est, t);
-    // plano A: o microfone só pega as ondas do ar
-    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
-    if (aA > 0.01) { perfilLinha(x, 300, 980, 1.0, aA); fCaixa(x, 820, 980, 90, 170, 45, BRC, aA, 6, 0.15); linhaP(x, 820, 1065, 820, 1200, BRC, aA, 8); for (let k = 0; k < 4; k++) { const u = ((t * 0.6 + k / 4) % 1); x.beginPath(); x.arc(560, 1120, 40 + u * 220, -0.5, 0.5); x.strokeStyle = `rgba(${CI},${aA * (1 - u)})`; x.lineWidth = 5; x.stroke(); } }
-    // plano B: sem os ossos, os graves somem
+    let i = desenharFundo(nv, FUNDOV, t, null, [0.7, 0.8, 1], 1, 0);
+    // A: a cabeça fala; só as partículas do ar chegam ao microfone; por dentro fica dentro
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.45));
+    if (aA > 0.01) {
+      i = cabecaV(nv, 330, 980, 0.95, aA, 0.7, t, i);
+      const ch = FIS.chegar(t, c.ini + 0.3, 0.6);
+      i = desenharForma(nv, FV.mic, { cx: 820, cy: 960, esc: 330 * Math.max(0.01, ch), rot: -0.35, cor: CORF.branco, borda: CORF.ciano, a: aA, t, i0: i });
+      i = somAr(nv, 330, 980, 0.95, t, aA * PT.ss((t - tAr + 0.6) / 0.5), i, [770, 930]);
+    }
+    // B: a gravação é a onda fina; a de dentro, grossa
     const aB = planoC(t, pB, pC);
-    if (aB > 0.01) espectro(x, 540, 1150, 820, 420, 1 - PT.ss((t - tF + 0.3) / 0.6), CI, aB, "a voz gravada");
-    // plano C: as duas versões — qual é a real?
+    if (aB > 0.01) { i = ondaPontos(nv, 90, 990, 800, 80, 2.2, t, CORF.ambar, aB, i, 3, 4); i = ondaPontos(nv, 90, 990, 1120, 60, 6, t, CORF.ciano, aB * PT.ss((t - tF + 0.4) / 0.4), i, 0.7, 8); rotuloP(x, "na sua cabeça", 540, 690, 40, "255,200,140", aB); rotuloP(x, "no áudio", 540, 1230, 40, "170,230,255", aB); }
+    // C: adivinha — as duas lado a lado e um "?" no meio
     const aC = planoC(t, pC, pD);
-    if (aC > 0.01) { msgAudio(x, 540, 820, 0.9, aC, t, LA); rotuloP(x, "por dentro", 540, 720, 34, "255,200,150", aC); msgAudio(x, 540, 1180, 0.9, aC, t, CI); rotuloP(x, "no áudio", 540, 1080, 34, "180,230,255", aC); rotuloP(x, "?", 900, 1000, 120, AM, aC); }
-    // plano D: todo mundo ouve a do áudio; a de dentro é só sua
+    if (aC > 0.01) { i = ondaPontos(nv, 90, 990, 760, 70, 2.2, t, CORF.ambar, aC * 0.8, i, 3, 4); i = ondaPontos(nv, 90, 990, 1180, 55, 6, t, CORF.ciano, aC * 0.8, i, 0.7, 8); const e = FIS.chegar(t, tAd, 0.6); i = desenharForma(nv, FV.interr, { cx: 540, cy: 970, esc: 300 * Math.max(0.01, e), cor: CORF.amarelo, a: aC, t, i0: i }); }
+    // D: todo mundo ouve a do áudio; a de dentro some para dentro de uma cabeça
     const aD = PT.ss((t - pD) / 0.5);
-    if (aD > 0.01) { for (let k = 0; k < 7; k++) { const px = 150 + k * 130, q = PT.ss((t - pD - k * 0.08) / 0.3); fPessoa(x, px, 1180, 1.3, CI, aD * q); } msgAudio(x, 540, 880, 0.9, aD, t, CI); const aM = PT.ss((t - tD + 0.5) / 0.4); if (aM > 0) { fPessoa(x, 540, 1400, 1.0, LA, aD * aM); } }
+    if (aD > 0.01) {
+      i = ondaPontos(nv, 140, 940, 900, 55, 6, t, CORF.ciano, aD, i, 0.8, 8);
+      for (let k = 0; k < 5; k++) { const e = FIS.cascata(t, tAu, k, 0.08, 0.55), ang = -2.6 + k * 0.55; i = desenharForma(nv, FV.pessoa, { cx: 540 + Math.cos(ang) * 400, cy: 900 + Math.sin(ang) * 300 + 260, esc: 150 * Math.max(0.01, e), cor: CORF.lilas, a: aD, t, i0: i }); }
+      const so = PT.ss((t - tDe + 0.2) / 0.6);
+      i = cabecaV(nv, 540, 1180, 0.35, aD * so, 0.9, t, i);
+    }
+    nv.total(i);
   });
 };
 
 // =============== 4. por que incomoda ===============
 CENAS.choque = (el, c, B) => {
   const tT = B("tanto"), tR = B("repente"), tE = B("espelho"), tN = B("normal");
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["inc", 330, 70, "por que incomoda?", "pt-am"], ["fam", 330, 62, "o familiar mudou de repente", "pt-ci", "white-space:normal;left:60px;width:960px"], ["ros", 330, 66, "com o rosto é igual", "pt-am"]]);
-  MD.slam(tl, tx.inc, tT - 0.1, { from: 1.3 }); MD.leave(tl, tx.inc, tR - 1.6); MD.slam(tl, tx.fam, tR - 1.3, { from: 1.25 }); MD.leave(tl, tx.fam, tE - 2.6); MD.slam(tl, tx.ros, tE - 2.3, { from: 1.3 });
-  const est = estF(9);
-  const pB = tE - 2.5;
+  const pB = tR - 1.6, pC = tE - 2.0;
+  const T = telaGPU(el, c), nv = T.nuvem(70000);
+  const tx = palcoTexto(el, [["tan", 330, 66, "por que incomoda tanto?", "pt-ci"], ["rep", 330, 66, "familiar que muda de repente", "pt-am", "white-space:normal;left:60px;width:960px"], ["esp", 330, 62, "você prefere a foto espelhada", "pt-ci", "white-space:normal;left:60px;width:960px"], ["nor", 330, 62, "os amigos, a normal", "pt-am"]]);
+  MD.slam(tl, tx.tan, tT - 0.2, { from: 1.3 }); MD.leave(tl, tx.tan, pB - 0.1); MD.slam(tl, tx.rep, pB + 0.2, { from: 1.2 }); MD.leave(tl, tx.rep, pC - 0.1);
+  MD.slam(tl, tx.esp, tE - 0.5, { from: 1.2 }); MD.leave(tl, tx.esp, tN - 0.5); MD.slam(tl, tx.nor, tN - 0.3, { from: 1.25 });
   T.quadro((x, t) => {
-    estD(x, est, t);
-    // plano A: algo familiar que muda de repente (o rosto conhecido "pula")
-    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
-    if (aA > 0.01) { const pulo = PT.ss((t - tR + 0.4) / 0.3); rostoC(x, 540 + Math.sin(t * 30) * 8 * pulo * (1 - PT.ss((t - tR) / 0.6)), 1000, 1.6, aA, pulo > 0.5, pulo > 0.5 ? VE : BRC); if (pulo > 0.5) rotuloP(x, "!", 830, 760, 130, VE, aA); }
-    // plano B: a sua foto espelhada (você prefere) x a foto normal (os amigos preferem)
-    const aB = PT.ss((t - pB) / 0.5);
-    if (aB > 0.01) { rostoC(x, 300, 980, 1.0, aB, true, AM); rostoC(x, 780, 980, 1.0, aB, false, CI); rotuloP(x, "espelhada", 300, 1220, 36, "255,226,140", aB); rotuloP(x, "normal", 780, 1220, 36, "180,230,255", aB); const aV = PT.ss((t - tE + 0.4) / 0.4), aN = PT.ss((t - tN + 0.4) / 0.4); if (aV > 0) { fPessoa(x, 300, 1380, 1.0, AM, aB * aV); rotuloP(x, "você", 300, 1460, 30, "255,226,140", aB * aV); estrelasG(x, 300 + 160, 760, 1.6, 5, aB * aV); } if (aN > 0) { for (let k = 0; k < 3; k++) fPessoa(x, 700 + k * 80, 1380, 0.9, CI, aB * aN); rotuloP(x, "amigos", 780, 1460, 30, "180,230,255", aB * aN); estrelasG(x, 780 + 160, 760, 1.6, 5, aB * aN); } }
+    let i = desenharFundo(nv, FUNDOV, t, null, [0.7, 0.8, 1], 1, 0);
+    // A: o cérebro estranhando
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.45));
+    if (aA > 0.01) { i0Cerebro(nv, i); fCerebro(nv, 540, 940, 330 + 10 * FIS.flutua(t, 0, 1, 0.4), aA, { cerebelo: 0 }); i = nv.k; const e = FIS.chegar(t, tT, 0.5); rotuloP(x, "?", 820, 700, 150 * Math.max(0.01, e), "255,226,140", aA); }
+    // B: o rosto conhecido muda de repente (sorriso → derretendo)
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) i = morfo(nv, FV.sorriso, FV.derrete, PT.ss((t - tR + 0.3) / 0.7), { de: { cx: 540, cy: 930, esc: 620, cor: CORF.amarelo }, para: { cx: 540, cy: 930, esc: 620, cor: CORF.rosa }, t, a: aB, onda: 0.2, curva: 0.2, i0: i });
+    // C: as duas fotos — espelhada (você prefere) e normal (amigos preferem)
+    const aC = PT.ss((t - pC) / 0.5);
+    if (aC > 0.01) {
+      for (const [lado, tt, cor] of [[-1, tE, CORF.ciano], [1, tN, CORF.amarelo]]) {
+        const px = 540 + lado * 230, e = FIS.chegar(t, pC + 0.2 + (lado > 0 ? 0.15 : 0), 0.6);
+        i = desenharForma(nv, FV.retrato, { cx: px, cy: 940, esc: 380 * Math.max(0.01, e), sx: lado < 0 ? -1 : 1, cor: CORF.branco, a: aC, t, i0: i });
+        const pz = px + (lado < 0 ? -1 : 1) * 30 * e; discoP(x, pz, 905, 9 * e, "255,150,120", aC); brilhoP(x, pz, 905, 26 * e, "255,150,120", 0.6 * aC);
+        const h = FIS.chegar(t, tt - 0.1, 0.5); i = desenharForma(nv, FV.coracao, { cx: px, cy: 1180, esc: 130 * Math.max(0.01, h), cor, a: aC * Math.min(1, h * 2), t, i0: i });
+        rotuloP(x, lado < 0 ? "espelhada" : "normal", px, 1290, 40, lado < 0 ? "170,230,255" : "255,226,140", aC * Math.min(1, h * 2));
+      }
+    }
+    nv.total(i);
   });
 };
+const i0Cerebro = (nv, i) => { nv.k = i; };
 
 // =============== 5. o experimento ===============
 CENAS.experimento = (el, c, B) => {
   const tO = B("oitenta"), tE = B("escondida"), tP = B("percebeu"), tA = B("alta");
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["ano", 330, 62, "2013: 80 pessoas", "pt-ci"], ["esc", 330, 62, "a sua voz, escondida no meio", "pt-am", "white-space:normal;left:60px;width:960px"], ["per", 330, 66, "quase ninguém percebeu", "pt-ci"], ["alt", 330, 62, "nota mais alta pra própria voz", "pt-am", "white-space:normal;left:60px;width:960px"]]);
-  MD.slam(tl, tx.ano, tO - 0.3, { from: 1.25 }); MD.leave(tl, tx.ano, tE - 0.35); MD.slam(tl, tx.esc, tE - 0.05, { from: 1.2 }); MD.leave(tl, tx.esc, tP - 0.35); MD.slam(tl, tx.per, tP - 0.05, { from: 1.25 }); MD.leave(tl, tx.per, tA - 0.35); MD.slam(tl, tx.alt, tA - 0.05, { from: 1.2 });
-  const est = estF(11);
-  const pB = tE - 0.5, pC = tA - 0.6;
+  const pB = tO - 0.6, pC = tE - 0.5, pD = tA - 0.8;
+  const T = telaGPU(el, c), nv = T.nuvem(80000);
+  const tx = palcoTexto(el, [["ano", 330, 66, "um experimento de 2013", "pt-ci"], ["n80", 330, 76, "80 pessoas", "pt-am"], ["esc", 330, 62, "a voz delas, escondida no meio", "pt-ci", "white-space:normal;left:60px;width:960px"], ["per", 330, 66, "quase ninguém percebeu", "pt-am"], ["alt", 330, 62, "e deram nota mais alta", "pt-am"]]);
+  MD.slam(tl, tx.ano, c.ini + 0.3, { from: 1.3 }); MD.leave(tl, tx.ano, pB - 0.1); MD.slam(tl, tx.n80, tO - 0.2, { from: 1.4 }); MD.leave(tl, tx.n80, pC - 0.1);
+  MD.slam(tl, tx.esc, tE - 0.2, { from: 1.2 }); MD.leave(tl, tx.esc, tP - 0.6); MD.slam(tl, tx.per, tP - 0.4, { from: 1.25 }); MD.leave(tl, tx.per, pD - 0.1); MD.slam(tl, tx.alt, tA - 0.4, { from: 1.25 });
+  const PESS = Array.from({ length: 80 }, (_, k) => ({ x: 150 + (k % 8) * 112, y: 600 + Math.floor(k / 8) * 82, k }));
   T.quadro((x, t) => {
-    estD(x, est, t);
-    // plano A: 80 pessoas com fone
-    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
-    if (aA > 0.01) for (let k = 0; k < 80; k++) { const col = k % 10, lin = Math.floor(k / 10), q = PT.ss((t - c.ini - 0.2 - k * 0.02) / 0.3); discoP(x, 150 + col * 87, 640 + lin * 95, 16, CI, aA * q); fCaixa(x, 150 + col * 87, 670 + lin * 95, 34, 30, 12, CI, aA * q * 0.7, 2, 0.15); }
-    // plano B: várias vozes; uma é a sua (escondida)
+    let i = desenharFundo(nv, FUNDOV, t, null, [0.7, 0.8, 1], 1, 0);
+    // A: "2013" em pontos
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.45));
+    if (aA > 0.01) { const e = FIS.chegar(t, c.ini + 0.2, 0.6); i = desenharForma(nv, FV.n2013, { cx: 540, cy: 930, esc: 820 * Math.max(0.01, e), cor: CORF.ciano, a: aA, t, giro: 0.2 * Math.sin(t * 0.7), i0: i }); }
+    // B: as 80 pessoas acendendo em onda
     const aB = planoC(t, pB, pC);
-    if (aB > 0.01) { for (let k = 0; k < 5; k++) { const sua = k === 2, y = 720 + k * 150; msgAudio(x, 540, y, 0.85, aB, t + k, sua && t > tP - 0.3 ? AM : CI); if (sua) rotuloP(x, t > tP - 0.3 ? "era você!" : "?", 910, y, t > tP - 0.3 ? 38 : 70, "255,226,140", aB); } }
-    // plano C: as notas — você dá mais pra própria voz
-    const aC = PT.ss((t - pC) / 0.5);
-    if (aC > 0.01) { const h = PT.ss((t - tA + 0.2) / 0.6); fCaixa(x, 360, 1250 - 200 * h, 170, 400 * h + 1, 12, AM, aC, 5, 0.3); fCaixa(x, 720, 1250 - 130 * h, 170, 260 * h + 1, 12, CI, aC, 5, 0.3); rotuloP(x, "você deu", 360, 1310, 36, "255,226,140", aC); rotuloP(x, "os outros", 720, 1310, 36, "180,230,255", aC); estrelasG(x, 360 + 160, 760, 1.4, 5, aC * h); estrelasG(x, 720 + 160, 900, 1.4, 3, aC * h); }
+    if (aB > 0.01) PESS.forEach((p) => { const e = FIS.cascata(t, tO - 0.3, (p.k % 8) + Math.floor(p.k / 8), 0.05, 0.5); i = desenharForma(nv, FV.pessoa, { cx: p.x, cy: p.y - 10 * Math.max(0, e - 1) * 4, esc: 90 * Math.max(0.01, e), cor: CORF.lilas, a: aB, t, i0: i }); });
+    // C: seis vozes; uma é a da própria pessoa (escondida) — e a lupa passa sem achar
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) {
+      for (let k = 0; k < 6; k++) { const y = 640 + k * 110, sua = k === 3; i = ondaPontos(nv, 160, 920, y, 28, 3 + k * 0.7, t + k, sua ? CORF.amarelo : CORF.ciano, aC * (sua ? 1 : 0.6), i, 0.6, 6); }
+      const lu = PT.inOut(((t - pC) / 3) % 1); i = desenharForma(nv, FV.lupa, { cx: PT.lerp(220, 860, lu), cy: 900 + 140 * Math.sin(lu * 6.283), esc: 220, cor: CORF.branco, a: aC * PT.ss((t - tP + 0.8) / 0.4), t, i0: i });
+    }
+    // D: nota da própria voz (alta) x nota dos outros
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) {
+      for (const [k, alt, cor, rot] of [[0, 420, CORF.ciano, "os outros"], [1, 600, CORF.amarelo, "a própria"]]) {
+        const e = FIS.chegar(t, tA - 0.3 + k * 0.25, 0.7), h = alt * Math.max(0, e), bx = 380 + k * 320;
+        for (let q = 0; q < 900 && i < nv.n; q++) { const u = (q * 0.7548776662) % 1, v = (q * 0.5698402910) % 1; nv.ponto(i++, bx - 90 + u * 180, 1300 - v * h, cor[0], cor[1], cor[2], aD * (0.35 + 0.4 * (v > 0.97 ? 1 : 0)), 3.2); }
+        rotuloP(x, rot, bx, 1360, 40, k ? "255,226,140" : "170,230,255", aD);
+      }
+      const st = FIS.chegar(t, tA + 0.4, 0.5); i = desenharForma(nv, FV.estrela, { cx: 700, cy: 640, esc: 150 * Math.max(0.01, st), cor: CORF.amarelo, a: aD, t, i0: i });
+    }
+    nv.total(i);
   });
 };
 
 // =============== 6. a pergunta para os comentários ===============
 CENAS.pergunta = (el, c, B) => {
   const tC = B("comenta"), tV = B("verdade"), tO = B("outros"), tT = B("teoria");
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["ver", 330, 62, "quem ouve a voz de verdade?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["teo", 330, 80, "qual a sua teoria?", "pt-am"]]);
-  MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, tV - 1.6); MD.slam(tl, tx.ver, tV - 1.3, { from: 1.2 }); MD.leave(tl, tx.ver, tT - 0.35); MD.slam(tl, tx.teo, tT - 0.05, { from: 1.4 });
-  const nv = T.nuvem(15100), est = estF(21);
-  const pB = tV - 1.4, pC = tT - 0.5;
+  const pB = tC + 0.6, pC = tO + 0.3;
+  const T = telaGPU(el, c), nv = T.nuvem(50000);
+  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["que", 330, 62, "quem ouve a sua voz de verdade?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["teo", 330, 76, "qual a sua teoria?", "pt-am"]]);
+  MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, pB - 0.1); MD.slam(tl, tx.que, pB + 0.1, { from: 1.2 }); MD.leave(tl, tx.que, pC - 0.1); MD.slam(tl, tx.teo, pC + 0.1, { from: 1.4 });
   T.quadro((x, t) => {
-    estD(x, est, t);
-    balaoCom(x, 540, 960, 1.2, PT.ss((t - c.ini - 0.1) / 0.4) * (1 - PT.ss((t - pB) / 0.4)), "?", t);
+    let i = desenharFundo(nv, FUNDOV, t, null, [0.7, 0.8, 1], 1, 0);
+    const aA = FIS.chegar(t, c.ini + 0.1, 0.6) * (1 - PT.ss((t - pB) / 0.4));
+    i = balaoPergunta(nv, x, t, Math.max(0, Math.min(1, aA)), 540, 930, 620, i);
     const aB = planoC(t, pB, pC);
-    if (aB > 0.01) { cabeca(nv, 330, 1000, 0.8, aB, 1, t); rotuloP(x, "você", 330, 1310, 36, "255,200,150", aB); rotuloP(x, "ou", 620, 1000, 50, "255,255,255", aB); for (let k = 0; k < 3; k++) fPessoa(x, 760 + k * 90, 1060, 1.2, CI, aB * PT.ss((t - tO + 0.6) / 0.4)); rotuloP(x, "os outros", 850, 1310, 36, "180,230,255", aB * PT.ss((t - tO + 0.6) / 0.4)); } else nv.total(nv.k);
+    if (aB > 0.01) {
+      i = desenharForma(nv, FV.orelha, { cx: 300, cy: 940, esc: 330, cor: CORF.branco, borda: CORF.amarelo, a: aB, t, i0: i }); rotuloP(x, "você", 300, 1160, 44, "255,226,140", aB);
+      const e = FIS.chegar(t, tV - 0.2, 0.6); i = desenharForma(nv, FV.pessoas, { cx: 780, cy: 940, esc: 380 * Math.max(0.01, e), cor: CORF.lilas, a: aB, t, i0: i }); rotuloP(x, "os outros", 780, 1160, 44, "210,190,255", aB * Math.min(1, e));
+      rotuloP(x, "?", 540, 930, 150, "255,226,140", aB * PT.ss((t - tO + 0.3) / 0.3));
+    }
     const aC = PT.ss((t - pC) / 0.4);
-    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); setaComent(x, aC, t); }
+    if (aC > 0.01) { i = balaoPergunta(nv, x, t, aC, 540, 900, 580, i); setaComentarios(x, aC, t); }
+    nv.total(i);
   });
 };
 
-// =============== 7. o teste prometido ===============
+// =============== 7. o teste dos dedos ===============
 CENAS.teste = (el, c, B) => {
-  const tP = B("prometi"), tD = B("dedos"), tG = B("grave2"), tO = B("ossos2"), tC = B("conhece");
-  const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["pro", 330, 66, "o teste prometido", "pt-am"], ["ded", 330, 62, "dedos nos ouvidos + fala", "pt-ci"], ["gra", 330, 76, "mais grave", "pt-am"], ["con", 330, 62, "a voz que só você conhece", "pt-ci", "white-space:normal;left:60px;width:960px"]]);
-  MD.slam(tl, tx.pro, tP - 0.2, { from: 1.3 }); MD.leave(tl, tx.pro, tD - 0.35); MD.slam(tl, tx.ded, tD - 0.05, { from: 1.25 }); MD.leave(tl, tx.ded, tG - 0.35); MD.slam(tl, tx.gra, tG - 0.05, { from: 1.4 }); MD.leave(tl, tx.gra, tC - 0.6); MD.slam(tl, tx.con, tC - 0.3, { from: 1.25 });
-  const nv = T.nuvem(15100), est = estF(13);
-  const pB = tD - 0.4, pC = tO - 0.6;
+  const tPm = B("prometi"), tD = B("dedos"), tG = B("grave2"), tO = B("ossos2"), tC = B("conhece");
+  const pB = tD - 0.7, pC = tO - 0.6;
+  const T = telaGPU(el, c), nv = T.nuvem(70000);
+  const tx = palcoTexto(el, [["pro", 330, 70, "o teste prometido", "pt-am"], ["ded", 330, 62, "tampa os ouvidos e fala", "pt-ci"], ["gra", 330, 66, "mais grave e mais alta", "pt-am"], ["oss", 330, 62, "quase tudo pelos ossos", "pt-am"], ["con", 420, 46, "a voz que só você conhece", "pt-fino"]]);
+  MD.slam(tl, tx.pro, tPm - 0.5, { from: 1.35 }); MD.leave(tl, tx.pro, pB - 0.1); MD.slam(tl, tx.ded, tD - 0.4, { from: 1.25 }); MD.leave(tl, tx.ded, tG - 0.5); MD.slam(tl, tx.gra, tG - 0.3, { from: 1.3 }); MD.leave(tl, tx.gra, pC - 0.1);
+  MD.slam(tl, tx.oss, tO - 0.4, { from: 1.25 }); MD.arrive(tl, tx.con, tC - 0.4, { y: 14 });
   T.quadro((x, t) => {
-    estD(x, est, t);
-    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
-    if (aA > 0.01) { rostoC(x, 540, 980, 1.5, aA, false, BRC); const ent = PT.ss((t - tD + 0.6) / 0.5); dedoOuvido(x, 540 - 230 - 60 * (1 - ent), 990, 1.6, -1, aA); dedoOuvido(x, 540 + 230 + 60 * (1 - ent), 990, 1.6, 1, aA); }
-    const aB = planoC(t, pB, pC);
-    if (aB > 0.01) { cabeca(nv, 470, 770, 0.85, aB, PT.ss((t - tG + 0.3) / 0.5), t); dedoOuvido(x, 470 + OUVIDO[0] * 0.85, 770 + OUVIDO[1] * 0.85, 1.1, -1, aB); espectro(x, 540, 1370, 700, 220, PT.ss((t - tG + 0.3) / 0.5) * 1.2, CI, aB, "dedo no ouvido"); } else if (t < pC) nv.total(nv.k);
-    const aC = PT.ss((t - pC) / 0.5);
-    if (aC > 0.01) { cabeca(nv, 470, 1000, 1.2, aC, 1, t); brilhoP(x, 470 + OUVIDO[0] * 1.2, 1000 + OUVIDO[1] * 1.2, 160, LA, 0.6 * aC); } else nv.total(nv.k);
+    let i = desenharFundo(nv, FUNDOV, t, null, [0.7, 0.8, 1], 1, 0);
+    // A: a orelha e a mão chegando em arco
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.45));
+    if (aA > 0.01) { i = desenharForma(nv, FV.orelha, { cx: 540, cy: 940, esc: 520, cor: CORF.branco, borda: CORF.amarelo, a: aA, t, giro: 0.15 * Math.sin(t * 0.8), i0: i }); const e = FIS.chegar(t, tPm, 0.7), [mx, my] = FIS.arco(1000, 1300, 700, 1000, e, 160); i = desenharForma(nv, FV.mao, { cx: mx, cy: my, esc: 260, rot: -Math.PI / 2 - 0.3, cor: CORF.amarelo, a: aA * Math.min(1, e * 2), t, i0: i }); }
+    // B e C: a cabeça com o dedo no ouvido; a vibração por dentro cresce; os ossos acendem
+    const aBC = PT.ss((t - pB) / 0.5);
+    if (aBC > 0.01) {
+      const vib = PT.ss((t - tG + 0.4) / 0.6) * (0.7 + 0.3 * PT.ss((t - tO + 0.3) / 0.4)), [dx, dy] = FIS.tremor(t, tG - 0.1, 6, 0.4);
+      i = cabecaV(nv, 470 + dx, 960 + dy, 1.2, aBC, vib, t, i);
+      const e = FIS.chegar(t, pB + 0.2, 0.6), [mx, my] = FIS.arco(130, 1250, 470 + OUVIDO[0] * 1.2 - 130, 960 + OUVIDO[1] * 1.2 + 10, e, 140);
+      i = desenharForma(nv, FV.mao, { cx: mx, cy: my, esc: 230, rot: Math.PI / 2 - 0.2, cor: CORF.amarelo, a: aBC, t, i0: i });
+      i = aneisVib(nv, 470 + OUVIDO[0] * 1.2, 960 + OUVIDO[1] * 1.2, t, aBC * vib * 0.7, i, 3, 220);
+      if (t > pC) rotuloP(x, "ossos", 230, 700, 44, "255,200,140", aBC * PT.ss((t - pC - 0.2) / 0.3));
+    }
+    nv.total(i);
   });
 };
 
-// =============== 8. resumo relâmpago + chamada ===============
+// =============== 8. resumo ===============
 CENAS.resumo = (el, c, B) => {
   const tP = [B("passo1"), B("passo2"), B("passo3")], tC = B("cta");
-  const T = telaGPU(el, c);
-  const Y = [560, 720, 880], textos = ["por dentro: os ossos engrossam", "o gravador só pega o ar", "a do áudio é a que todos ouvem"];
-  const tx = palcoTexto(el, textos.map((s, k) => [`p${k}`, Y[k] - 32, 52, s, "", "left:230px;width:800px;text-align:left;white-space:normal"]));
+  const T = telaGPU(el, c), nv = T.nuvem(40000);
+  const Y = [560, 760, 960], textos = ["por dentro, os ossos: voz mais grave", "o gravador só pega o ar", "a do áudio é a que todos ouvem"];
+  const tx = palcoTexto(el, textos.map((s, k) => [`p${k}`, Y[k] - 32, 50, s, "", "left:250px;width:780px;text-align:left;white-space:normal"]));
   textos.forEach((_, k) => MD.arrive(tl, tx[`p${k}`], tP[k] - 0.15, { y: 18 }));
   MD.leave(tl, textos.map((_, k) => tx[`p${k}`]), tC + 1.0);
-  const est = estF(17);
+  const IC = [[FV.osso, CORF.ambar], [FV.mic, CORF.ciano], [FV.pessoas, CORF.lilas]];
   T.quadro((x, t) => {
-    estD(x, est, t);
+    let i = desenharFundo(nv, FUNDOV, t, null, [0.7, 0.8, 1], 1, 0);
     const sai = 1 - PT.ss((t - tC - 1.0) / 0.5);
-    msgAudio(x, 540, 1240, 0.8, 0.7 * sai * PT.ss((t - c.ini) / 0.5), t);
-    tP.forEach((tp, k) => { const a = PT.ss((t - tp + 0.2) / 0.4) * sai; if (a > 0) { discoP(x, 160, Y[k], 14, [LA, CI, VD][k], a); brilhoP(x, 160, Y[k], 50, "220,230,255", 0.4 * a); } });
+    tP.forEach((tp, k) => { const e = FIS.chegar(t, tp - 0.2, 0.5), ent = FIS.cascata(t, c.ini + 0.3, k, 0.12, 0.6); i = desenharForma(nv, IC[k][0], { cx: 160, cy: Y[k] + 10, esc: 130 * Math.max(0.01, Math.min(1, ent)) * (1 + 0.15 * Math.max(0, e - 1) * 4), cor: IC[k][1], a: sai * Math.min(1, ent) * (0.3 + 0.7 * PT.cl(e)), t, i0: i }); });
+    i = ondaPontos(nv, 120, 960, 1230, 60, 3, t, CORF.ambar, 0.7 * sai * PT.ss((t - c.ini - 0.2) / 0.5), i, 1.5, 5);
+    nv.total(i);
   });
   cartaoFinal(el, tC + 1.4);
 };

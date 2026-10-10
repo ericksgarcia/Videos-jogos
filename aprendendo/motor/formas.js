@@ -148,3 +148,29 @@ function morfo(nv, A, B, u, o = {}) {
 }
 // cores prontas (0–1) a partir da paleta do canal
 const CORF = { amarelo: [1, 0.82, 0.25], ambar: [1, 0.66, 0.2], laranja: [1, 0.54, 0.24], ciano: [0.56, 0.89, 1], azul: [0.3, 0.79, 0.94], verde: [0.3, 0.92, 0.66], rosa: [1, 0.36, 0.56], vermelho: [0.94, 0.28, 0.44], branco: [0.92, 0.94, 1], cinza: [0.55, 0.6, 0.72], cobre: [0.88, 0.54, 0.29], lilas: [0.75, 0.62, 1] };
+
+// ---------- pergunta para os comentários (padrão de todo vídeo) ----------
+// balão de comentário em pontos com um "?" e a seta para o botão de comentários na lateral direita
+const _BALAO_F = formaPontos("chat-circle-dots", 9000), _INTERR_F = formaTexto("?", 7000);
+function balaoPergunta(nv, x, t, a, cx = 540, cy = 930, esc = 620, i0 = nv.k) {
+  if (a <= 0.01) { nv.total(i0); return i0; }
+  const ch = Math.max(0.01, a);
+  let i = desenharForma(nv, _BALAO_F, { cx, cy, esc: esc * (0.85 + 0.15 * ch), cor: CORF.ciano, a, t, giro: 0.12 * Math.sin(t * 0.9), i0 });
+  i = desenharForma(nv, _INTERR_F, { cx, cy: cy - esc * 0.02, esc: esc * 0.42, cor: CORF.amarelo, a: a * (0.85 + 0.15 * Math.sin(t * 4)), t, i0: i });
+  return i;
+}
+function setaComentarios(x, a, t) {
+  if (a <= 0.01) return; const b = Math.sin(t * 6) * 16;
+  fSeta(x, 700 + b, 1250, 900 + b, 1250, "255,210,63", a, 12); brilhoP(x, 1010, 1250, 90, "255,210,63", 0.35 * a * (0.7 + 0.3 * Math.sin(t * 6)));
+  rotuloP(x, "comentários", 780, 1180, 40, "255,226,140", a);
+}
+// onda sonora em pontos (grossa = grave/encorpada, fina = aguda): de x0 a x1, centro cy
+function ondaPontos(nv, x0, x1, cy, amp, ciclos, t, cor, a, i0 = nv.k, esp = 1, vel = 6) {
+  let i = i0; if (a <= 0.01) { nv.total(i); return i; }
+  const n = Math.round((x1 - x0) / 2.2), camadas = Math.max(1, Math.round(esp * 4));
+  for (let c = 0; c < camadas; c++) for (let k = 0; k <= n && i < nv.n; k++) {
+    const u = k / n, env = Math.sin(u * Math.PI), y = cy + Math.sin(u * ciclos * 6.283 - t * vel) * amp * env + (c - (camadas - 1) / 2) * 3.2;
+    nv.ponto(i++, x0 + u * (x1 - x0), y, cor[0], cor[1], cor[2], a * (0.5 + 0.5 * env) * (1.3 / Math.sqrt(camadas)), 4);
+  }
+  nv.total(i); return i;
+}

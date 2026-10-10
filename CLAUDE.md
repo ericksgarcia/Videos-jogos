@@ -220,6 +220,8 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 7. **Final que emenda no começo**: automático no `codificar()` (`LOOP_FINAL`): os últimos 0,5 s se fundem
    com o quadro 0, e quando a rede repete o vídeo a volta é contínua.
 
+- Pergunta para os comentários: `balaoPergunta(nv, x, t, a)` (balão em pontos com "?") + `setaComentarios(x, a, t)`.
+  Ondas sonoras: `ondaPontos(nv, x0, x1, cy, amp, ciclos, t, cor, a, i0, espessura)`.
 - Exemplo completo: abertura de `videos/chave-carro/cenas.js` (estacionamento em profundidade, chave em
   primeiro plano, foco que muda para o carro que pisca, carro que vira de lado, cadeado que abre, "?").
 - Muitos pontos por quadro (100 mil+) é normal na GPU; use `T.nuvem(110000)` quando a cena tiver muitas formas.

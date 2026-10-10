@@ -111,7 +111,7 @@ CENAS.abertura = (el, c, B) => {
     const a2 = planoC(t, p2, p3);
     if (t > p2 - 0.1 && t < p3 + 0.6) {
       const u = (t - p2 + 0.1) / 0.9, saiu = FIS.antes(t, tMi - 0.4, 1.1, 0.06), vel = Math.max(0, Math.min(1, (t - tMi + 0.15) / 0.4)) * (1 - Math.min(1, Math.max(0, t - tMi - 0.5)));
-      const para = { cx: 540 + saiu * 760, cy: 1080, esc: 560, cor: CORF.ciano, sx: 1 + 0.25 * vel, sy: 1 - 0.08 * vel, a: 1 - PT.ss((t - p3) / 0.4) };
+      const para = { cx: 540 + saiu * 760, cy: 1080, esc: 560, cor: CORF.ciano, sx: -(1 + 0.25 * vel), sy: 1 - 0.08 * vel, a: 1 - PT.ss((t - p3) / 0.4) };
       i = morfo(nv, FK.seu, FK.perfil, PT.cl(u), { de: { cx: SEU_K.x, cy: SEU_K.y, esc: 230, cam, z: SEU_K.z, cor: CORF.amarelo }, para, t, onda: 0.3, curva: 0.25, i0: i });
       const cr = FIS.chegar(t, p2 + 0.15, 0.6), seg = PT.lerp(0, 47, PT.ss((t - p2) / Math.max(0.8, tMi - p2 + 0.4)));
       i = desenharForma(nv, FK.relogio, { cx: 540, cy: 700, esc: 330 * Math.max(0.01, cr), cor: CORF.rosa, a: a2, t, i0: i });
@@ -131,7 +131,7 @@ CENAS.abertura = (el, c, B) => {
     if (a4 > 0.01) {
       const camF = { x: 540, y: 960, zoom: 1, foco: 1 };
       i = desenharForma(nv, FK.casa, { cx: 220, cy: 720, esc: 280, cam: camF, z: 1.6, cor: CORF.branco, a: 0.8 * a4, t, i0: i });
-      i = desenharForma(nv, FK.perfil, { cx: 790, cy: 1210, esc: 260, cam: camF, z: 1.6, cor: CORF.branco, a: 0.8 * a4, brilho: 0.45, t, i0: i });
+      i = desenharForma(nv, FK.perfil, { cx: 790, cy: 1210, esc: 260, sx: -1, cam: camF, z: 1.6, cor: CORF.branco, a: 0.8 * a4, brilho: 0.45, t, i0: i });
       for (const [sx, sy, f] of [[330, 860, 0], [660, 1170, 1.3]]) i = desenharForma(nv, FK.sinal, { cx: sx, cy: sy, esc: 120, cor: CORF.rosa, a: a4 * (0.5 + 0.5 * Math.sin(t * 6 + f)), t, i0: i });
       const ch = FIS.chegar(t, p4 + 0.2, 0.7);
       i = morfo(nv, FK.cadAb, FK.interr, PT.ss((t - p4 + 0.2) / 0.9), { de: { cx: 540, cy: 880, esc: 560, cor: CORF.verde }, para: { cx: 560, cy: 950, esc: 680 * (0.6 + 0.4 * ch), cor: CORF.amarelo }, t, onda: 0.3, curva: 0.4, i0: i });
