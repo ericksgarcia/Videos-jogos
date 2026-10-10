@@ -26,7 +26,7 @@ Ganchos escolhidos pelo dono (caixas de seleção):
 2. Celular escuta → `videos/celular-escuta` ✅ refeito e entregue
 3. Cheiro de chuva → `videos/cheiro-de-chuva` ✅ refeito e entregue
 4. Remédio sabe onde dói → `videos/remedio-dor` ✅ refeito e entregue
-5. Porta faz esquecer → `videos/porta-esquece`
+5. Porta faz esquecer → `videos/porta-esquece` ✅ refeito e entregue (cenas no padrão antigo; com capa e final em loop)
 6. Voz gravada → `videos/voz-gravada`
 7. Comida sem fogo → `videos/comida-sem-fogo`
 8. Fone com cancelamento → `videos/fone-cancelamento`
