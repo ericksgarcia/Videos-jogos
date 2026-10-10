@@ -1,5 +1,5 @@
 // Cenas do vídeo "Como o remédio sabe onde está doendo" — pontos de luz na GPU.
-// Retenção: dor do dia a dia (o comprimido vai pra barriga e a cabeça melhora), paradoxo ("ele não
+// Refeito do zero. Retenção: dor do dia a dia (o comprimido vai pra barriga e a cabeça melhora), paradoxo ("ele não
 // sabe"), assombro (o sangue dá a volta no corpo em ~1 min), mistério do paracetamol e dica prática.
 
 const MD = MotionDirector;
@@ -18,145 +18,207 @@ function medidor(x, cx, cy, v, a, rot) { if (a <= 0.01) return; for (let k = 0; 
 function engrenagem(x, cx, cy, R, ang, cor, a) { if (a <= 0.01) return; x.beginPath(); for (let k = 0; k <= 48; k++) { const u = k / 48 * 6.283 + ang, rr = R * (Math.floor(k / 2) % 2 ? 1 : 0.8); k ? x.lineTo(cx + Math.cos(u) * rr, cy + Math.sin(u) * rr) : x.moveTo(cx + Math.cos(u) * rr, cy + Math.sin(u) * rr); } x.closePath(); x.fillStyle = `rgba(${cor},${0.12 * a})`; x.fill(); x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = 6; x.stroke(); anelP(x, cx, cy, R * 0.32, cor, a, 6); }
 function inchaco(x, cx, cy, k, a) { if (a <= 0.01) return; x.beginPath(); x.ellipse(cx, cy, 90 + 70 * k, 60 + 45 * k, 0, 0, 6.283); x.fillStyle = `rgba(255,90,110,${0.12 * a * k})`; x.fill(); x.strokeStyle = `rgba(255,150,160,${a})`; x.lineWidth = 5; x.stroke(); brilhoP(x, cx, cy, 120 + 80 * k, VE, 0.3 * a * k); }
 
+const planoC = (t, a, b, e = 0.4, s = 0.4) => PT.jan(t, a, b, e, s);
+function setaComent(x, a, t) { if (a <= 0.01) return; const b = Math.sin(t * 6) * 16; fSeta(x, 700 + b, 1250, 900 + b, 1250, AM, a, 12); brilhoP(x, 1010, 1250, 90, AM, 0.35 * a * (0.7 + 0.3 * Math.sin(t * 6))); rotuloP(x, "comentários", 780, 1180, 38, "255,226,140", a); }
+function balaoCom(x, cx, cy, s, a, txt = "?", t = 0) {
+  if (a <= 0.01) return; fCaixa(x, cx, cy, 520 * s, 330 * s, 60 * s, CI, a, 8 * s, 0.12);
+  x.beginPath(); x.moveTo(cx - 120 * s, cy + 160 * s); x.lineTo(cx - 190 * s, cy + 250 * s); x.lineTo(cx - 40 * s, cy + 160 * s); x.fillStyle = `rgba(${CI},${0.5 * a})`; x.fill();
+  brilhoP(x, cx, cy, 380 * s, CI, 0.18 * a); rotuloP(x, txt, cx, cy + 6 * s, 190 * s, "255,226,140", a * (0.85 + 0.15 * Math.sin(t * 4)));
+}
+function coracao(x, cx, cy, s, a, t) { if (a <= 0.01) return; const b = 1 + 0.08 * Math.max(0, Math.sin(t * 7)); s *= b; x.beginPath(); x.moveTo(cx, cy + 90 * s); x.bezierCurveTo(cx - 150 * s, cy - 10 * s, cx - 90 * s, cy - 120 * s, cx, cy - 50 * s); x.bezierCurveTo(cx + 90 * s, cy - 120 * s, cx + 150 * s, cy - 10 * s, cx, cy + 90 * s); x.fillStyle = `rgba(${VE},${0.25 * a})`; x.fill(); x.strokeStyle = `rgba(255,150,165,${a})`; x.lineWidth = 6; x.stroke(); brilhoP(x, cx, cy, 200 * s, VE, 0.3 * a); }
+function sino(x, cx, cy, s, a, t, toca) { if (a <= 0.01) return; const ang = toca * Math.sin(t * 22) * 0.25; x.save(); x.translate(cx, cy - 90 * s); x.rotate(ang); x.beginPath(); x.moveTo(-90 * s, 140 * s); x.quadraticCurveTo(-80 * s, 20 * s, 0, 10 * s); x.quadraticCurveTo(80 * s, 20 * s, 90 * s, 140 * s); x.closePath(); x.fillStyle = `rgba(${AM},${0.2 * a})`; x.fill(); x.strokeStyle = `rgba(${AM},${a})`; x.lineWidth = 6; x.stroke(); discoP(x, 0, 160 * s, 16 * s, AM, a); x.restore(); if (toca > 0) for (let k = 0; k < 3; k++) { const u = ((t * 1.5 + k / 3) % 1); for (const sd of [-1, 1]) { x.beginPath(); x.arc(cx, cy, (110 + u * 120) * s, sd > 0 ? -0.5 : Math.PI - 0.5, sd > 0 ? 0.5 : Math.PI + 0.5); x.strokeStyle = `rgba(${VE},${a * toca * (1 - u)})`; x.lineWidth = 5; x.stroke(); } } }
+function figado(x, cx, cy, s, a, alerta) { if (a <= 0.01) return; x.beginPath(); x.moveTo(cx - 230 * s, cy - 40 * s); x.bezierCurveTo(cx - 120 * s, cy - 150 * s, cx + 160 * s, cy - 130 * s, cx + 230 * s, cy - 60 * s); x.bezierCurveTo(cx + 180 * s, cy + 40 * s, cx - 60 * s, cy + 140 * s, cx - 230 * s, cy - 40 * s); const cor = alerta > 0.5 ? "255,110,130" : "220,140,110"; x.fillStyle = `rgba(${cor},${0.22 * a})`; x.fill(); x.strokeStyle = `rgba(${cor},${a})`; x.lineWidth = 6; x.stroke(); if (alerta > 0) brilhoP(x, cx, cy, 300 * s, VE, 0.35 * a * alerta); }
+function caixaRem(x, cx, cy, s, a, nome, aberta = 0) { if (a <= 0.01) return; fCaixa(x, cx, cy, 340 * s, 220 * s, 14 * s, BRR, a, 5, 0.08); fCaixa(x, cx, cy - 20 * s, 300 * s, 70 * s, 10 * s, CI, a, 3, 0.15); rotuloP(x, nome, cx, cy - 20 * s, 40 * s, "255,255,255", a); rotuloP(x, "comprimidos", cx, cy + 60 * s, 26 * s, "200,210,230", a * 0.8); if (aberta > 0) { capsula(x, cx - 60 * s, cy - 150 * s * aberta, 1.3 * s, 0.2, a * aberta); rotuloP(x, "paracetamol", cx + 60 * s, cy - 150 * s * aberta - 60 * s, 34 * s, "255,200,140", a * aberta); } }
+
 // =============== 1. gancho ===============
 CENAS.abertura = (el, c, B) => {
-  const tC = B("cabeca"), tB = B("barriga"), tI = B("ir"), tN = B("naosabe"), tE = B("erro");
-  mostrarGancho(tB + 0.8);
+  const tC = B("cabeca"), tB = B("barriga"), tPa = B("passa"), tI = B("ir"), tN = B("naosabe"), tP = B("promessa");
+  const p2 = tB - 0.9, p3 = tI - 0.6, p4 = tP - 2.4;
+  mostrarGancho(p2 - 0.1);
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["ir", 330, 70, "como ele sabe onde ir?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["nao", 330, 96, "ele não sabe", "pt-ve"]]);
-  MD.slam(tl, tx.ir, tI - 0.1, { from: 1.25 }); MD.leave(tl, tx.ir, tN - 0.35); MD.slam(tl, tx.nao, tN - 0.05, { from: 1.4 });
+  const tx = palcoTexto(el, [["bar", 330, 70, "cai na barriga", "pt-ci"], ["pas", 330, 76, "e a dor passa", "pt-am"], ["ir", 330, 70, "como ele sabe?", "pt-ci"], ["nao", 330, 96, "ele não sabe", "pt-ve"], ["err", 330, 60, "o erro do antigripal: no final", "pt-am", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.bar, tB - 0.1, { from: 1.3 }); MD.leave(tl, tx.bar, tPa - 0.35); MD.slam(tl, tx.pas, tPa - 0.05, { from: 1.3 }); MD.leave(tl, tx.pas, tI - 0.35);
+  MD.slam(tl, tx.ir, tI - 0.1, { from: 1.25 }); MD.leave(tl, tx.ir, tN - 0.35); MD.slam(tl, tx.nao, tN - 0.05, { from: 1.45 }); MD.leave(tl, tx.nao, p4); MD.slam(tl, tx.err, p4 + 0.2, { from: 1.25 });
   const nv = T.nuvem(16100), est = estF(3), CX = 540, CY = 1000, E = 400;
   T.quadro((x, t) => {
     estD(x, est, t);
-    corpo(nv, CX, CY, E, 1, [0.6, 0.75, 1.0]);
-    // dor na cabeça (pulsando), que some depois
-    const dor = 1 - PT.ss((t - tN) / 2); if (dor > 0) { const pu = 0.7 + 0.3 * Math.sin(t * 7); brilhoP(x, CX, CY - 0.8 * E, 120 * pu, VE, 0.7 * dor); for (let k = 0; k < 8; k++) { const an = k / 8 * 6.283 + t; linhaP(x, CX + Math.cos(an) * 80, CY - 0.8 * E + Math.sin(an) * 80, CX + Math.cos(an) * 110, CY - 0.8 * E + Math.sin(an) * 110, VE, dor * pu, 5); } }
-    // o comprimido descendo até a barriga
-    // quadro 0: o comprimido grande, apontando pra cabeça... e riscado
-    const a0 = 1 - PT.ss((t - tC - 1.1) / 0.4); if (a0 > 0.01) { capsula(x, CX + 300, CY - 0.95 * E, 2.2, -0.5 + Math.sin(t * 2) * 0.1, a0); x.setLineDash([12, 12]); linhaP(x, CX + 230, CY - 0.92 * E, CX + 80, CY - 0.82 * E, AM, 0.7 * a0, 4); x.setLineDash([]); const aX = PT.ss((t - tC - 0.4) / 0.3) * a0; linhaP(x, CX + 120, CY - 0.95 * E, CX + 200, CY - 0.75 * E, VE, aX, 10); linhaP(x, CX + 120, CY - 0.75 * E, CX + 200, CY - 0.95 * E, VE, aX, 10); }
-    const q = PT.inOut((t - tC - 1.1) / (tB - tC - 0.9)); if (t > tC + 0.9) capsula(x, PT.lerp(CX + 300, CX + 0.04 * E, PT.ss(q * 3)), PT.lerp(CY - 0.95 * E, CY - 0.12 * E, q), 1 + 1.2 * (1 - PT.ss(q * 2)), 0.4 + q, PT.ss((t - tC - 0.9) / 0.3) * (1 - PT.ss((t - tI) / 0.6)));
-    if (t > tB - 0.2) rotuloP(x, "barriga", CX + 0.45 * E, CY - 0.12 * E, 34, "255,200,150", PT.ss((t - tB + 0.2) / 0.4) * (1 - PT.ss((t - tN) / 0.6)), "left");
+    const aCorpo = 1 - PT.ss((t - p4) / 0.4);
+    if (aCorpo > 0.01) corpo(nv, CX, CY, E, aCorpo, [0.6, 0.75, 1.0]); else nv.total(nv.k);
+    // dor na cabeça (pulsa e some quando passa)
+    const dor = aCorpo * (1 - PT.ss((t - tPa) / 0.8)); if (dor > 0) { const pu = 0.7 + 0.3 * Math.sin(t * 7); brilhoP(x, CX, CY - 0.8 * E, 120 * pu, VE, 0.7 * dor); for (let k = 0; k < 8; k++) { const an = k / 8 * 6.283 + t; linhaP(x, CX + Math.cos(an) * 80, CY - 0.8 * E + Math.sin(an) * 80, CX + Math.cos(an) * 110, CY - 0.8 * E + Math.sin(an) * 110, VE, dor * pu, 5); } }
+    // plano 1 (quadro 0): o comprimido grande apontando pra cabeça... e riscado
+    const a1 = 1 - PT.ss((t - p2) / 0.4);
+    if (a1 > 0.01) { capsula(x, CX + 300, CY - 0.95 * E, 2.2, -0.5 + Math.sin(t * 2) * 0.1, a1); x.setLineDash([12, 12]); linhaP(x, CX + 230, CY - 0.92 * E, CX + 80, CY - 0.82 * E, AM, 0.7 * a1, 4); x.setLineDash([]); const aX = PT.ss((t - tC - 0.3) / 0.3) * a1; linhaP(x, CX + 120, CY - 0.95 * E, CX + 200, CY - 0.75 * E, VE, aX, 10); linhaP(x, CX + 120, CY - 0.75 * E, CX + 200, CY - 0.95 * E, VE, aX, 10); }
+    // plano 2: o comprimido desce até a barriga
+    const a2 = planoC(t, p2, p3);
+    if (a2 > 0.01) { const q = PT.inOut((t - p2) / (tB - p2 + 0.3)); capsula(x, PT.lerp(CX + 300, CX + 0.04 * E, PT.ss(q * 2)), PT.lerp(CY - 0.95 * E, CY - 0.12 * E, q), 1.6 - 0.6 * q, 0.4 + q, a2); if (t > tB - 0.2) rotuloP(x, "barriga", CX + 0.45 * E, CY - 0.12 * E, 34, "255,200,150", a2 * PT.ss((t - tB + 0.2) / 0.4), "left"); }
+    // plano 3: "como ele sabe?" — e ele não sabe: vai pra todo lado
+    const a3 = planoC(t, p3, p4);
+    if (a3 > 0.01) { const aN = PT.ss((t - tN + 0.2) / 0.4); for (let k = 0; k < 12; k++) { const an = k / 12 * 6.283, L = 140 + 320 * aN; fSeta(x, CX + 0.04 * E, CY - 0.12 * E, CX + 0.04 * E + Math.cos(an) * L, CY - 0.12 * E + Math.sin(an) * L * 1.3, LA, a3 * (0.3 + 0.7 * aN), 4); } if (aN < 0.5) rotuloP(x, "?", CX + 300, CY - 300, 150, AM, a3 * (1 - aN * 2)); }
+    // plano 4: o antigripal + o paracetamol + o fígado (teaser)
+    const a4 = PT.ss((t - p4) / 0.5);
+    if (a4 > 0.01) { caixaRem(x, 340, 900, 1.0, a4, "ANTIGRIPAL"); rotuloP(x, "+", 560, 900, 80, "255,255,255", a4); capsula(x, 760, 900, 2.2, 0.3, a4); figado(x, 540, 1250, 0.9, a4, PT.ss((t - p4 - 0.8) / 0.4)); rotuloP(x, "!", 540, 1250, 90, "255,140,160", a4 * PT.ss((t - p4 - 0.8) / 0.4)); }
   });
 };
 
-// =============== 2. a viagem: o remédio inunda o corpo ===============
+// =============== 2. ele inunda tudo ===============
 CENAS.viagem = (el, c, B) => {
-  const tE = B("estomago"), tS = B("sangue"), tM = B("minuto"), tD = B("dedao"), tP = B("procura"), tI = B("inunda");
+  const tS = B("sangue"), tM = B("minuto"), tD = B("dedao"), tI = B("inunda"), tMe = B("melhora");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["min", 330, 70, "1 volta ≈ 1 minuto", "pt-ci"], ["inu", 330, 92, "inunda tudo", "pt-am"]]);
-  MD.slam(tl, tx.min, tM - 0.1, { from: 1.25 }); MD.leave(tl, tx.min, tP - 0.4); MD.slam(tl, tx.inu, tI - 0.05, { from: 1.35 });
+  const tx = palcoTexto(el, [["san", 330, 70, "do estômago pro sangue", "pt-ci"], ["min", 330, 80, "1 volta: ~1 minuto", "pt-am"], ["tod", 330, 66, "até no dedão do pé", "pt-ci"], ["inu", 330, 86, "ele inunda tudo", "pt-am"], ["mel", 330, 62, "por que só a cabeça melhora?", "pt-ve", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.san, tS - 0.1, { from: 1.25 }); MD.leave(tl, tx.san, tM - 1.8); MD.slam(tl, tx.min, tM - 0.1, { from: 1.35 }); MD.leave(tl, tx.min, tD - 2.6);
+  MD.slam(tl, tx.tod, tD - 0.1, { from: 1.25 }); MD.leave(tl, tx.tod, tI - 0.3); MD.slam(tl, tx.inu, tI - 0.05, { from: 1.4 }); MD.leave(tl, tx.inu, tMe - 1.5); MD.slam(tl, tx.mel, tMe - 1.2, { from: 1.25 });
   const nv = T.nuvem(16100), est = estF(5), CX = 540, CY = 1000, E = 400;
+  const pB = tM - 1.8, pC = tD - 2.7, pD = tMe - 1.1;
   T.quadro((x, t) => {
     estD(x, est, t);
-    // frente do remédio se espalhando a partir do estômago
-    const R = Math.max(0, (t - tS) * 0.16);
-    corpo(nv, CX, CY, E, 1, null, (p) => { const k = PT.ss((R - p.d) / 0.12); return [mixC([0.6, 0.75, 1.0], [1.0, 0.75, 0.4], k), 1 + 0.8 * k]; });
-    const aE = PT.jan(t, tE - 0.4, tS + 0.6, 0.3, 0.5); capsula(x, CX + 0.08 * E, CY - 0.12 * E, 1, 1.2, aE); if (aE > 0) for (let k = 0; k < 12; k++) { const an = k / 12 * 6.283, u = PT.ss((t - tE) / 1.2); discoP(x, CX + 0.08 * E + Math.cos(an) * 60 * u, CY - 0.12 * E + Math.sin(an) * 60 * u, 6, LA, aE * u); }
-    // coração bombeando
-    const pu = 0.5 + 0.5 * Math.pow(Math.max(0, Math.sin(t * 7)), 6); brilhoP(x, CX - 0.06 * E, CY - 0.42 * E, 50 + 30 * pu, VE, 0.6 * PT.ss((t - tS + 0.3) / 0.4));
-    // relógio de 1 minuto
-    const aM = PT.jan(t, tM - 0.3, tP, 0.4, 0.4); if (aM > 0) { anelP(x, 870, 700, 70, CI, aM, 6); const an = -Math.PI / 2 + (t - tM) * 3; linhaP(x, 870, 700, 870 + Math.cos(an) * 55, 700 + Math.sin(an) * 55, CI, aM, 5); }
-    const aD = PT.ss((t - tD + 0.3) / 0.4); if (aD > 0) { brilhoP(x, CX + 0.14 * E, CY + 0.95 * E, 60, AM, 0.7 * aD); rotuloP(x, "até o dedão", CX + 0.3 * E, CY + 0.95 * E, 32, "255,226,140", aD, "left"); }
+    // plano A: close no estômago — o comprimido se desfaz e entra no sangue
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) { x.beginPath(); x.ellipse(540, 960, 300, 220, -0.3, 0, 6.283); x.fillStyle = `rgba(255,170,150,${0.1 * aA})`; x.fill(); x.strokeStyle = `rgba(255,170,150,${aA})`; x.lineWidth = 6; x.stroke(); const d = PT.ss((t - c.ini - 0.6) / 2.2); capsula(x, 540, 960, 2.4 * (1 - 0.8 * d), 0.4, aA * (1 - d)); x.beginPath(); x.moveTo(60, 1300); x.bezierCurveTo(400, 1220, 700, 1400, 1020, 1280); x.strokeStyle = `rgba(${VE},${aA * 0.8})`; x.lineWidth = 30; x.stroke(); const r = prng(3); for (let k = 0; k < 40; k++) { const u = ((t * 0.35 + r()) % 1), px = 540 + (r() - 0.5) * 300 * (1 - u), py = PT.lerp(960, 1290, u); discoP(x, px, py, 6, LA, aA * d * Math.sin(u * Math.PI)); } rotuloP(x, "sangue", 900, 1360, 34, "255,170,180", aA); }
+    // plano B: o coração dá a volta em ~1 minuto
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { coracao(x, 540, 980, 1.6, aB, t); const R = 340; anelP(x, 540, 980, R, VE, aB * 0.4, 8); for (let k = 0; k < 10; k++) { const an = (t - pB) * 1.1 + k / 10 * 6.283; discoP(x, 540 + Math.cos(an) * R, 980 + Math.sin(an) * R, 10, LA, aB); } const v = PT.cl((t - tM + 0.4) / 0.6); rotuloP(x, `${Math.round(v * 60)} s`, 540, 1400, 56, "255,226,140", aB * PT.ss((t - tM + 0.6) / 0.3)); }
+    // plano C: o remédio chega no corpo inteiro (a mancha laranja se espalha do estômago)
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) { const R = PT.lerp(0, 1.6, PT.ss((t - pC) / 3.6)); corpo(nv, CX, CY, E, aC, null, (p) => { const k = PT.ss((R - p.d) / 0.12); return [mixC([0.6, 0.75, 1.0], [1.0, 0.75, 0.4], k), 1 + 0.8 * k]; }); [["cabeça", 0, -0.8], ["joelho", 0.15, 0.5], ["dedão", 0.15, 0.93]].forEach(([nm, px, py], k) => { const q = PT.ss((t - tD + 1.6 - k * 0.6) / 0.4); rotuloP(x, nm, CX + (px + 0.35) * E, CY + py * E, 34, "255,200,150", aC * q, "left"); }); }
+    // plano D: o corpo inteiro laranja, mas só a cabeça melhora (?)
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) { corpo(nv, CX, CY, E, aD, [1.0, 0.75, 0.4]); brilhoP(x, CX, CY - 0.8 * E, 130, VD, 0.6 * aD); rotuloP(x, "?", CX + 300, CY - 0.8 * E, 140, AM, aD); } else if (aC <= 0.01) nv.total(nv.k);
   });
 };
 
-// =============== 3. o alarme (prostaglandinas) ===============
+// =============== 3. a dor é um alarme ===============
 CENAS.alarme = (el, c, B) => {
-  const tA = B("alarme"), tM = B("machuca"), tP = B("prostaglandinas"), tS = B("sensiveis"), tV = B("volume"), tSM = B("semmachucado");
+  const tA = B("alarme"), tP = B("prosta"), tV = B("volume"), tT = B("tocando");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["al", 330, 86, "dor = alarme", "pt-ve"], ["pg", 330, 70, "prostaglandinas", "pt-la"], ["sm", 330, 60, "sem machucado: silêncio", "pt-ci", "white-space:normal;left:60px;width:960px"]]);
-  MD.slam(tl, tx.al, tA - 0.05, { from: 1.35 }); MD.leave(tl, tx.al, tP - 0.35); MD.slam(tl, tx.pg, tP - 0.05, { from: 1.3 }); MD.leave(tl, tx.pg, tSM - 0.4); MD.slam(tl, tx.sm, tSM - 0.05, { from: 1.25 });
-  const est = estF(7);
-  const CEL = (() => { const o = []; for (let j = 0; j < 9; j++) for (let i = 0; i < 9; i++) o.push({ x: 130 + i * 103 + (j % 2) * 51, y: 600 + j * 72 }); return o; })(), IX = 400, IY = 880;
+  const tx = palcoTexto(el, [["ala", 330, 86, "a dor é um alarme", "pt-ve"], ["pro", 330, 62, "PROSTAGLANDINAS", "pt-am"], ["vol", 330, 66, "volume do alarme: alto", "pt-ve"], ["toc", 330, 62, "sem machucado, sem alarme", "pt-ci", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.ala, tA - 0.1, { from: 1.4 }); MD.leave(tl, tx.ala, tP - 1.3); MD.slam(tl, tx.pro, tP - 0.1, { from: 1.3 }); MD.leave(tl, tx.pro, tV - 0.35); MD.slam(tl, tx.vol, tV - 0.05, { from: 1.3 }); MD.leave(tl, tx.vol, tT - 1.5); MD.slam(tl, tx.toc, tT - 1.2, { from: 1.25 });
+  const nv = T.nuvem(16100), est = estF(7), CX = 540, CY = 1000, E = 400;
+  const pB = tP - 1.2, pC = tT - 1.4;
   T.quadro((x, t) => {
     estD(x, est, t);
-    const aM = PT.ss((t - tM + 0.3) / 0.4), aP = PT.ss((t - tP + 0.3) / 0.5), aSM = PT.ss((t - tSM + 0.3) / 0.5);
-    CEL.forEach((p) => { const d = Math.hypot(p.x - IX, p.y - IY), fer = aM * Math.exp(-d / 160); const cor = fer > 0.3 ? "255,130,140" : p.x > 760 && aSM > 0 ? "120,255,190" : "150,190,255"; anelP(x, p.x, p.y, 30, cor, 0.6 + 0.4 * fer, 3); discoP(x, p.x, p.y, 8, cor, 0.5); });
-    if (aM > 0) { brilhoP(x, IX, IY, 160, VE, 0.5 * aM); for (let k = 0; k < 5; k++) { const an = k * 1.3; linhaP(x, IX, IY, IX + Math.cos(an) * 90, IY + Math.sin(an) * 90, "255,220,220", aM, 4); } }
-    // prostaglandinas saindo do machucado
-    if (aP > 0) for (let k = 0; k < 40; k++) { const an = k * 2.4, u = ((t - tP) * 0.5 + k / 40) % 1; discoP(x, IX + Math.cos(an) * u * 260, IY + Math.sin(an) * u * 200, 7, LA, aP * Math.sin(u * Math.PI)); }
-    // o nervo e o volume do alarme
-    const aS = PT.ss((t - tS + 0.3) / 0.5); if (aS > 0) { x.beginPath(); x.moveTo(IX, IY); x.bezierCurveTo(500, 1050, 700, 1150, 1000, 1180); x.strokeStyle = `rgba(255,226,140,${aS * (0.6 + 0.4 * Math.sin(t * 9))})`; x.lineWidth = 8; x.stroke(); rotuloP(x, "nervo", 960, 1140, 30, "255,226,140", aS, "right"); }
-    const aV = PT.ss((t - tV + 0.3) / 0.4); medidor(x, 540, 1360, PT.lerp(0.3, 1, PT.ss((t - tV) / 0.8)), aV, "VOLUME DO ALARME");
-    if (aSM > 0) rotuloP(x, "sem machucado", 900, 560, 30, "150,255,200", aSM);
+    // plano A: o joelho machucado e o sino tocando
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) { inchaco(x, 420, 1100, 0.8, aA); sino(x, 760, 820, 1.2, aA, t, PT.ss((t - tA + 0.3) / 0.3)); rotuloP(x, "machucado", 420, 1290, 34, "255,170,180", aA); }
+    // plano B: as células fabricam prostaglandinas, o volume sobe
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { for (let k = 0; k < 7; k++) { const cx = 220 + (k % 4) * 210, cy = 820 + Math.floor(k / 4) * 220; anelP(x, cx, cy, 70, "255,170,150", aB, 5); discoP(x, cx, cy, 18, "255,170,150", aB * 0.6); for (let q = 0; q < 3; q++) { const u = ((t * 0.6 + q / 3 + k * 0.17) % 1); discoP(x, cx + Math.cos(k + q * 2) * (70 + u * 60), cy + Math.sin(k + q * 2) * (70 + u * 60), 7, VE, aB * PT.ss((t - tP + 0.4) / 0.4) * (1 - u)); } } medidor(x, 540, 1350, PT.lerp(0.2, 0.95, PT.ss((t - tV + 0.4) / 0.6)), aB, "VOLUME DA DOR"); }
+    // plano C: no corpo, só um ponto com alarme; o resto quieto
+    const aC = PT.ss((t - pC) / 0.5);
+    if (aC > 0.01) { corpo(nv, CX, CY, E, aC, [0.6, 0.75, 1.0]); const px = CX + 0.15 * E, py = CY + 0.5 * E, pu = 0.7 + 0.3 * Math.sin(t * 8); brilhoP(x, px, py, 110 * pu, VE, 0.8 * aC); sino(x, px + 230, py - 120, 0.5, aC, t, 1); } else nv.total(nv.k);
   });
 };
 
-// =============== 4. o ibuprofeno trava a máquina ===============
+// =============== 4. o ibuprofeno ===============
 CENAS.ibuprofeno = (el, c, B) => {
-  const tT = B("trava"), tC = B("cox"), tA = B("abaixa"), tD = B("doia"), tDe = B("desincha");
+  const tM = B("maquina"), tA = B("abaixa"), tD = B("doia"), tP = B("pensa"), tJ = B("jeito");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["ibu", 330, 80, "IBUPROFENO", "pt-am"], ["cox", 330, 80, "a máquina: COX", "pt-la"], ["ant", 330, 66, "anti-inflamatório", "pt-ve"]]);
-  MD.slam(tl, tx.ibu, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.ibu, tC - 0.35); MD.slam(tl, tx.cox, tC - 0.05, { from: 1.3 }); MD.leave(tl, tx.cox, tDe - 0.4); MD.slam(tl, tx.ant, tDe - 0.05, { from: 1.3 });
-  const est = estF(9);
+  const tx = palcoTexto(el, [["ibu", 330, 76, "ibuprofeno", "pt-am"], ["tra", 330, 66, "trava a máquina do alarme", "pt-ci", "white-space:normal;left:60px;width:960px"], ["aba", 330, 80, "o alarme abaixa", "pt-ci"], ["doi", 330, 62, "só sente onde doía", "pt-am"], ["pen", 330, 76, "pensa rápido", "pt-am"], ["jei", 330, 62, "e o paracetamol?", "pt-ve"]]);
+  MD.slam(tl, tx.ibu, c.ini + 0.3, { from: 1.3 }); MD.leave(tl, tx.ibu, tM - 0.3); MD.slam(tl, tx.tra, tM - 0.05, { from: 1.25 }); MD.leave(tl, tx.tra, tA - 0.35); MD.slam(tl, tx.aba, tA - 0.05, { from: 1.3 }); MD.leave(tl, tx.aba, tD - 1.6);
+  MD.slam(tl, tx.doi, tD - 1.3, { from: 1.25 }); MD.leave(tl, tx.doi, tP - 0.35); MD.slam(tl, tx.pen, tP - 0.05, { from: 1.35 }); MD.leave(tl, tx.pen, tJ - 1.4); MD.slam(tl, tx.jei, tJ - 1.1, { from: 1.3 });
+  const nv = T.nuvem(16100), est = estF(9), CX = 540, CY = 1000, E = 400;
+  const pB = tA - 0.4, pC = tD - 1.5, pD = tP - 0.6;
   T.quadro((x, t) => {
     estD(x, est, t);
-    const trava = PT.ss((t - tC + 0.6) / 0.8), ang = (t - c.ini) * 2 * (1 - trava) + trava * 1.5;
-    engrenagem(x, 380, 820, 150, ang, LA, 1);
-    // produção de prostaglandinas (para quando trava)
-    for (let k = 0; k < 18; k++) { const u = ((t - c.ini) * 0.6 + k / 18) % 1; discoP(x, 540 + u * 420, 820 + Math.sin(u * 8 + k) * 40, 8, LA, Math.sin(u * Math.PI) * (1 - trava)); }
-    // moléculas do ibuprofeno chegando e travando
-    const aI = PT.ss((t - tT + 0.6) / 0.5); if (aI > 0) for (let k = 0; k < 5; k++) { const q = PT.out(PT.ss((t - tT - k * 0.5) / (tC - tT - 1.5))), an = k * 1.25; const px = PT.lerp(380 + Math.cos(an) * 450, 380 + Math.cos(an) * 150, q), py = PT.lerp(820 + Math.sin(an) * 450, 820 + Math.sin(an) * 150, q); discoP(x, px, py, 18, "255,255,255", 0.4 * aI); anelP(x, px, py, 18, "255,255,255", aI, 4); }
-    medidor(x, 540, 1140, PT.lerp(1, 0.25, PT.ss((t - tA) / 1)), PT.ss((t - tA + 0.6) / 0.4), "VOLUME DO ALARME");
-    // tornozelo inchado que desincha
-    const aD = PT.ss((t - tD + 0.5) / 0.5); if (aD > 0) { inchaco(x, 540, 1330, 1 - PT.ss((t - tDe) / 1.2), aD); rotuloP(x, "inchaço", 540, 1330, 32, "255,200,210", aD); }
+    // plano A: a máquina (engrenagem) fabricando o alarme; o comprimido trava
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) { const trava = PT.ss((t - tM - 0.4) / 0.6), vel = 1 - trava; engrenagem(x, 540, 980, 220, (t - c.ini) * 1.5 * vel + trava * 0.3, AM, aA); for (let q = 0; q < 8; q++) { const u = ((t * 0.5 + q / 8) % 1); discoP(x, 760 + u * 260, 980 + Math.sin(u * 6 + q) * 40, 8, VE, aA * vel * (1 - u)); } capsula(x, PT.lerp(1100, 700, PT.ss((t - tM + 0.2) / 0.6)), 800, 2.0, -0.6, aA * PT.ss((t - tM + 0.4) / 0.3)); }
+    // plano B: o medidor do alarme cai
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { sino(x, 540, 860, 1.3, aB, t, 1 - PT.ss((t - tA) / 0.8)); medidor(x, 540, 1300, PT.lerp(0.95, 0.15, PT.ss((t - tA) / 1.0)), aB, "VOLUME DA DOR"); }
+    // plano C: o corpo — o remédio em todo lugar, mas só o ponto que doía muda
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) { corpo(nv, CX, CY, E, aC, [1.0, 0.75, 0.4]); const px = CX + 0.15 * E, py = CY + 0.5 * E, q = PT.ss((t - tD + 0.6) / 0.8); brilhoP(x, px, py, 120, q > 0.5 ? VD : VE, 0.7 * aC); } else if (t < pD) nv.total(nv.k);
+    // plano D: o paracetamol com "?"
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) { capsula(x, 500, 980, 3.6, -0.3 + Math.sin(t * 1.5) * 0.08, aD); rotuloP(x, "paracetamol", 500, 1180, 44, "255,200,140", aD); rotuloP(x, "?", 820, 760, 150, AM, aD * PT.ss((t - tJ + 0.4) / 0.4)); nv.total(nv.k); }
   });
 };
 
-// =============== 5. o paracetamol (mistério) ===============
+// =============== 5. o paracetamol ===============
 CENAS.paracetamol = (el, c, B) => {
-  const tM = B("misterioso"), tC = B("cerebro"), tMe = B("medula"), tD = B("detalhes"), tN = B("naodesincha");
+  const tN = B("nao"), tC = B("cerebro"), tD = B("detalhes"), tDe = B("desincha");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["par", 330, 80, "PARACETAMOL", "pt-ci"], ["mis", 420, 54, "um mistério", "pt-fino"], ["nd", 330, 66, "dor e febre: baixa", "pt-am"], ["nd2", 420, 50, "inchaço: quase nada", "pt-fino"]]);
-  MD.slam(tl, tx.par, c.ini + 0.3, { from: 1.35 }); MD.arrive(tl, tx.mis, tM - 0.1, { y: 14 }); MD.leave(tl, [tx.par, tx.mis], tN - 1.9); MD.slam(tl, tx.nd, tN - 1.6, { from: 1.25 }); MD.arrive(tl, tx.nd2, tN - 0.3, { y: 14 });
-  const nv = T.nuvem(9100), est = estF(11);
+  const tx = palcoTexto(el, [["nao", 330, 110, "não", "pt-ve"], ["mis", 330, 66, "mais misterioso", "pt-am"], ["cer", 330, 62, "age no cérebro e na medula", "pt-ci", "white-space:normal;left:60px;width:960px"], ["det", 330, 62, "nem os cientistas sabem tudo", "pt-am", "white-space:normal;left:60px;width:960px"], ["des", 330, 62, "baixa a febre, quase não desincha", "pt-ci", "white-space:normal;left:60px;width:960px"]]);
+  MD.slam(tl, tx.nao, tN - 0.05, { from: 1.6 }); MD.leave(tl, tx.nao, tN + 0.9); MD.slam(tl, tx.mis, tN + 1.1, { from: 1.25 }); MD.leave(tl, tx.mis, tC - 0.35); MD.slam(tl, tx.cer, tC - 0.05, { from: 1.25 }); MD.leave(tl, tx.cer, tD - 1.8);
+  MD.slam(tl, tx.det, tD - 1.5, { from: 1.25 }); MD.leave(tl, tx.det, tDe - 2.8); MD.slam(tl, tx.des, tDe - 2.5, { from: 1.2 });
+  const nv = T.nuvem(16100), est = estF(11);
+  const pB = tC - 1.0, pC = tD - 1.6, pD = tDe - 2.6;
   T.quadro((x, t) => {
     estD(x, est, t);
-    const aC = PT.ss((t - tC + 0.4) / 0.6);
-    fCerebro(nv, 540, 760, 250, 0.4 + 0.6 * aC, { cor: [0.7, 0.8, 1.0], cerebelo: 0.3 * aC });
-    const aMe = PT.ss((t - tMe + 0.2) / 0.5); if (aMe > 0) { for (let k = 0; k < 30; k++) discoP(x, 520 - k * 0.6, 860 + k * 16, 9, CI, aMe * 0.8); brilhoP(x, 510, 1060, 140, CI, 0.3 * aMe); rotuloP(x, "medula", 600, 1100, 30, "150,235,255", aMe, "left"); }
-    // botão de volume girando para baixo dentro do cérebro
-    if (aC > 0) { const an = PT.lerp(0.8, -2.2, PT.ss((t - tC) / 1.5)); anelP(x, 820, 980, 60, AM, aC, 6); linhaP(x, 820, 980, 820 + Math.cos(an) * 48, 980 + Math.sin(an) * 48, AM, aC, 6); rotuloP(x, "volume da dor", 820, 1075, 28, "255,226,140", aC); }
-    // pontos de interrogação
-    const aD = PT.jan(t, tD - 0.5, tN - 0.8, 0.4, 0.4); if (aD > 0) [[300, 640], [780, 600], [260, 900]].forEach(([px, py], k) => rotuloP(x, "?", px, py + Math.sin(t * 2 + k) * 10, 80, AM, aD));
-    const aN = PT.ss((t - tN + 0.8) / 0.5); if (aN > 0) { inchaco(x, 300, 1300, 1, aN); rotuloP(x, "continua", 300, 1300, 30, "255,200,210", aN); }
+    // plano A: o comprimido de paracetamol e o "não"
+    const aA = PT.ss((t - c.ini) / 0.3) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) { capsula(x, 540, 980, 3.6, -0.3, aA); linhaP(x, 360, 800, 720, 1160, VE, aA * PT.ss((t - tN) / 0.3), 12); }
+    // plano B: cérebro e medula baixando o volume da dor
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { fCerebro(nv, 540, 820, 300, aB, { cerebelo: 0.3 }); linhaP(x, 560, 940, 560, 1400, "150,200,255", aB, 18); for (let q = 0; q < 6; q++) { const u = ((t * 0.5 + q / 6) % 1); discoP(x, 560, PT.lerp(1400, 960, u), 9, LA, aB * Math.sin(u * Math.PI)); } } else if (t < pC) nv.total(nv.k);
+    // plano C: o mistério — a lupa e o "?"
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) { fCerebro(nv, 540, 960, 260, aC * 0.7, { cerebelo: 0.2 }); anelP(x, 640, 900, 130, AM, aC, 10); linhaP(x, 730, 990, 860, 1120, AM, aC, 16); rotuloP(x, "?", 640, 905, 120, AM, aC); } else if (t >= pC && t < pD + 0.5 && aC <= 0.01) nv.total(nv.k);
+    // plano D: febre cai (termômetro), inchaço continua
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) { termometroP(x, 330, 1000, 420, 35, 41, PT.lerp(39.5, 36.6, PT.ss((t - pD - 0.4) / 1.4)), aD); rotuloP(x, "febre", 330, 1290, 38, "180,235,255", aD); inchaco(x, 760, 1010, 0.8, aD); rotuloP(x, "inchaço", 760, 1200, 38, "255,170,180", aD); }
   });
 };
 
-// =============== 6. o erro comum ===============
+// =============== 6. a pergunta para os comentários ===============
+CENAS.pergunta = (el, c, B) => {
+  const tC = B("comenta"), tI = B("inteiro"), tD = B("dormente"), tT = B("teoria");
+  const T = telaGPU(el, c);
+  const tx = palcoTexto(el, [["dif", 330, 70, "pergunta difícil", "pt-am"], ["com", 330, 62, "responde nos comentários", "pt-ci"], ["dor", 330, 62, "por que não fica dormente?", "pt-ci", "white-space:normal;left:60px;width:960px"], ["teo", 330, 80, "qual a sua teoria?", "pt-am"]]);
+  MD.slam(tl, tx.dif, c.ini + 0.3, { from: 1.35 }); MD.leave(tl, tx.dif, tC - 0.6); MD.slam(tl, tx.com, tC - 0.35, { from: 1.25 }); MD.leave(tl, tx.com, tI - 0.6);
+  MD.slam(tl, tx.dor, tD - 0.6, { from: 1.25 }); MD.leave(tl, tx.dor, tT - 0.35); MD.slam(tl, tx.teo, tT - 0.05, { from: 1.4 });
+  const nv = T.nuvem(16100), est = estF(21), CX = 540, CY = 1000, E = 400;
+  const pB = tI - 0.7, pC = tT - 0.5;
+  T.quadro((x, t) => {
+    estD(x, est, t);
+    balaoCom(x, 540, 960, 1.2, PT.ss((t - c.ini - 0.1) / 0.4) * (1 - PT.ss((t - pB) / 0.4)), "?", t);
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) { corpo(nv, CX, CY, E, aB, [1.0, 0.75, 0.4]); for (const [px, py] of [[-0.5, -0.3], [0.5, -0.1], [-0.4, 0.6], [0.45, 0.7]]) rotuloP(x, "?", CX + px * E, CY + py * E, 70, AM, aB * PT.ss((t - tD + 0.5) / 0.4)); } else nv.total(nv.k);
+    const aC = PT.ss((t - pC) / 0.4);
+    if (aC > 0.01) { balaoCom(x, 540, 900, 1.1, aC, "?", t); setaComent(x, aC, t); }
+  });
+};
+
+// =============== 7. o erro prometido ===============
 CENAS.erro = (el, c, B) => {
-  const tG = B("gripe"), tD = B("dentro"), tC = B("conta"), tF = B("figado"), tM = B("misture");
+  const tP = B("para2"), tC = B("conta"), tF = B("figado"), tB = B("bula");
   const T = telaGPU(el, c);
-  const tx = palcoTexto(el, [["oc", 330, 62, "paracetamol escondido", "pt-am"], ["fig", 330, 76, "demais: fígado", "pt-ve"], ["bul", 330, 76, "leia a bula", "pt-ci"]]);
-  MD.slam(tl, tx.oc, tD - 0.05, { from: 1.25 }); MD.leave(tl, tx.oc, tF - 0.4); MD.slam(tl, tx.fig, tF - 0.05, { from: 1.3 }); MD.leave(tl, tx.fig, tM - 0.6); MD.slam(tl, tx.bul, tM - 0.4, { from: 1.3 });
+  const tx = palcoTexto(el, [["pro", 330, 66, "o erro prometido", "pt-am"], ["den", 330, 62, "já vem com paracetamol", "pt-ci"], ["dos", 330, 76, "dose dobrada", "pt-ve"], ["fig", 330, 70, "machuca o fígado", "pt-ve"], ["bul", 330, 66, "lê a bula, não mistura", "pt-am"]]);
+  MD.slam(tl, tx.pro, c.ini + 0.3, { from: 1.3 }); MD.leave(tl, tx.pro, tP - 0.6); MD.slam(tl, tx.den, tP - 0.3, { from: 1.25 }); MD.leave(tl, tx.den, tC - 0.35); MD.slam(tl, tx.dos, tC - 0.05, { from: 1.4 }); MD.leave(tl, tx.dos, tF - 0.35); MD.slam(tl, tx.fig, tF - 0.05, { from: 1.35 }); MD.leave(tl, tx.fig, tB - 0.35); MD.slam(tl, tx.bul, tB - 0.05, { from: 1.25 });
   const est = estF(13);
+  const pB = tP - 0.6, pC = tC - 0.8, pD = tF - 0.8;
   T.quadro((x, t) => {
     estD(x, est, t);
-    // caixas: antigripal e paracetamol
-    const aG = PT.ss((t - tG + 0.3) / 0.5); if (aG > 0) { fCaixa(x, 300, 720, 380, 200, 20, CI, aG, 5, 0.06); rotuloP(x, "ANTIGRIPAL", 300, 690, 40, "200,240,255", aG); const aD = PT.ss((t - tD + 0.2) / 0.4); if (aD > 0) rotuloP(x, "contém paracetamol", 300, 760, 28, "255,200,140", aD); }
-    const aC = PT.ss((t - tC + 0.3) / 0.5); if (aC > 0) { fCaixa(x, 780, 720, 340, 200, 20, LA, aC, 5, 0.06); rotuloP(x, "PARACETAMOL", 780, 720, 38, "255,220,170", aC); rotuloP(x, "+", 545, 720, 70, "255,255,255", aC); }
-    // barra da dose somando e passando do limite
-    const v = 0.45 * PT.ss((t - tD) / 0.6) + 0.75 * PT.ss((t - tC) / 0.8); const aB = PT.ss((t - tD + 0.3) / 0.4);
-    if (aB > 0) { fCaixa(x, 540, 980, 820, 60, 30, "200,210,230", aB, 3, 0.04); fRR(x, 130, 950, 820 * Math.min(1.08, v / 1.1), 60, 30); x.fillStyle = `rgba(${v > 1 ? VE : AM},${0.55 * aB})`; x.fill(); linhaP(x, 130 + 820 / 1.1, 930, 130 + 820 / 1.1, 1030, VE, aB, 5); rotuloP(x, "dose máxima", 130 + 820 / 1.1, 900, 28, "255,150,160", aB); }
-    // fígado
-    const aF = PT.ss((t - tF + 0.4) / 0.5); if (aF > 0) { x.beginPath(); x.moveTo(320, 1150); x.quadraticCurveTo(540, 1080, 760, 1150); x.quadraticCurveTo(720, 1300, 520, 1320); x.quadraticCurveTo(360, 1300, 320, 1150); x.fillStyle = `rgba(255,90,110,${0.3 * aF})`; x.fill(); x.strokeStyle = `rgba(255,150,160,${aF})`; x.lineWidth = 6; x.stroke(); brilhoP(x, 540, 1220, 220, VE, 0.35 * aF * (0.7 + 0.3 * Math.sin(t * 5))); rotuloP(x, "fígado", 540, 1220, 34, "255,220,220", aF); }
+    // plano A: a caixa do antigripal
+    const aA = PT.ss((t - c.ini) / 0.4) * (1 - PT.ss((t - pB) / 0.4));
+    if (aA > 0.01) caixaRem(x, 540, 1000, 1.6, aA, "ANTIGRIPAL");
+    // plano B: a caixa abre — tem paracetamol dentro
+    const aB = planoC(t, pB, pC);
+    if (aB > 0.01) caixaRem(x, 540, 1080, 1.5, aB, "ANTIGRIPAL", PT.ss((t - tP + 0.3) / 0.6));
+    // plano C: antigripal + paracetamol = passou da dose
+    const aC = planoC(t, pC, pD);
+    if (aC > 0.01) { caixaRem(x, 300, 860, 0.9, aC, "ANTIGRIPAL", 1); rotuloP(x, "+", 560, 860, 80, "255,255,255", aC); capsula(x, 780, 860, 2.2, 0.3, aC); medidor(x, 540, 1300, PT.lerp(0.5, 1.0, PT.ss((t - tC) / 0.8)), aC, "DOSE DE PARACETAMOL"); const aL = PT.ss((t - tC - 0.6) / 0.3); linhaP(x, 540 + 125, 1250, 540 + 125, 1350, "255,255,255", aC * aL, 4); rotuloP(x, "limite", 540 + 125, 1390, 28, "255,255,255", aC * aL); }
+    // plano D: o fígado em alerta
+    const aD = PT.ss((t - pD) / 0.5);
+    if (aD > 0.01) { figado(x, 540, 1000, 1.6, aD, 1); rotuloP(x, "fígado", 540, 1250, 44, "255,170,180", aD); rotuloP(x, "!", 540, 1000, 120, "255,140,160", aD * (0.8 + 0.2 * Math.sin(t * 6))); }
   });
 };
 
-// =============== 7. resumo + chamada ===============
+// =============== 8. resumo relâmpago + chamada ===============
 CENAS.resumo = (el, c, B) => {
-  const tP = [B("passo1"), B("passo2"), B("passo3"), B("passo4")], tC = B("cta");
+  const tP = [B("passo1"), B("passo2"), B("passo3")], tC = B("cta");
   const T = telaGPU(el, c);
-  const Y = [480, 640, 800, 960], textos = ["o remédio vai pro corpo todo", "a dor é um alarme químico", "ibuprofeno desliga a fábrica", "paracetamol abaixa o volume"];
-  const tx = palcoTexto(el, textos.map((s, k) => [`p${k}`, Y[k] - 32, 52, s, "", "left:230px;width:800px;text-align:left;white-space:normal"]));
+  const Y = [560, 720, 880], textos = ["vai pro corpo inteiro", "a dor é um alarme", "ele abaixa o alarme onde toca"];
+  const tx = palcoTexto(el, textos.map((s, k) => [`p${k}`, Y[k] - 32, 54, s, "", "left:230px;width:800px;text-align:left;white-space:normal"]));
   textos.forEach((_, k) => MD.arrive(tl, tx[`p${k}`], tP[k] - 0.15, { y: 18 }));
   MD.leave(tl, textos.map((_, k) => tx[`p${k}`]), tC + 1.0);
   const est = estF(17);
   T.quadro((x, t) => {
     estD(x, est, t);
     const sai = 1 - PT.ss((t - tC - 1.0) / 0.5);
-    capsula(x, 540, 1250, 2.2, 0.3 + Math.sin(t) * 0.1, 0.7 * sai);
-    tP.forEach((tp, k) => { const a = PT.ss((t - tp + 0.2) / 0.4) * sai; if (a > 0) { discoP(x, 160, Y[k], 14, [LA, VE, AM, CI][k], a); brilhoP(x, 160, Y[k], 50, "255,220,200", 0.4 * a); } });
+    capsula(x, 540, 1240, 2.4, -0.3, 0.7 * sai * PT.ss((t - c.ini) / 0.5));
+    tP.forEach((tp, k) => { const a = PT.ss((t - tp + 0.2) / 0.4) * sai; if (a > 0) { discoP(x, 160, Y[k], 14, [LA, VE, VD][k], a); brilhoP(x, 160, Y[k], 50, "220,230,255", 0.4 * a); } });
   });
   cartaoFinal(el, tC + 1.4);
 };

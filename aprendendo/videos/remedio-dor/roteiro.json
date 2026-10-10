@@ -1,7 +1,7 @@
 {
  "slug": "como-o-remedio-sabe-onde-esta-doendo",
  "titulo": "Como o remédio sabe onde está doendo",
- "descricao": "Você toma o remédio pra dor de cabeça e ele vai pra barriga. Como a dor passa? 💊\nComo funciona o remédio pra dor: o ibuprofeno e o paracetamol não vão direto pra dor. Eles inundam o corpo inteiro.\nO segredo é um \"alarme\" químico que só existe onde dói.\nNo final: o erro com remédio de gripe que muita gente comete sem perceber.\nManda pra quem toma remédio de gripe e paracetamol junto e salva pra lembrar.\nVocê sabia disso? Qual remédio você mais usa? Comenta aí 👇",
+ "descricao": "O remédio pra dor de cabeça não vai pra sua cabeça 💊\nComo funciona o remédio pra dor: o ibuprofeno e o paracetamol não vão direto pra dor. Eles inundam o corpo inteiro.\nO segredo é um alarme químico que só toca onde dói.\nNo final: o erro com remédio de gripe que muita gente comete sem perceber.\nManda pra quem toma antigripal e paracetamol junto e salva pra lembrar.\nSe o remédio vai pro corpo inteiro, por que ele não deixa o corpo inteiro dormente? Qual a sua teoria? 👇",
  "hashtags": [
   "#saude",
   "#remedio",
@@ -15,12 +15,16 @@
  "voz": "Achird",
  "sons": {
   "cabeca": [
+   "thud",
+   0.6
+  ],
+  "barriga": [
    "pop",
    0.45
   ],
-  "barriga": [
-   "whoosh_curto",
-   0.45
+  "passa": [
+   "brilho",
+   0.5
   ],
   "ir": [
    "plim",
@@ -28,19 +32,15 @@
   ],
   "naosabe": [
    "thud",
-   0.7
+   0.65
   ],
-  "erro": [
+  "promessa": [
    "plim",
    0.55
   ],
-  "estomago": [
-   "agua",
-   0.45
-  ],
   "sangue": [
-   "whoosh",
-   0.5
+   "whoosh_curto",
+   0.45
   ],
   "minuto": [
    "clique",
@@ -50,97 +50,97 @@
    "pop",
    0.45
   ],
-  "procura": [
-   "thud",
-   0.6
-  ],
   "inunda": [
    "whoosh",
    0.55
   ],
-  "alarme": [
-   "zap",
+  "melhora": [
+   "plim",
    0.5
   ],
-  "machuca": [
-   "thud",
-   0.6
-  ],
-  "prostaglandinas": [
-   "brilho",
+  "alarme": [
+   "zap",
    0.55
   ],
-  "sensiveis": [
-   "zap",
+  "prosta": [
+   "brilho",
    0.5
   ],
   "volume": [
-   "whoosh_curto",
-   0.45
-  ],
-  "semmachucado": [
-   "pop",
-   0.4
-  ],
-  "trava": [
-   "thud",
-   0.7
-  ],
-  "cox": [
    "clique",
-   0.6
-  ],
-  "abaixa": [
-   "whoosh",
-   0.45
-  ],
-  "doia": [
-   "plim",
    0.5
   ],
-  "desincha": [
+  "tocando": [
+   "pop",
+   0.45
+  ],
+  "maquina": [
+   "clique",
+   0.55
+  ],
+  "abaixa": [
+   "thud",
+   0.5
+  ],
+  "doia": [
    "brilho",
    0.5
   ],
-  "misterioso": [
+  "pensa": [
+   "plim",
+   0.55
+  ],
+  "jeito": [
+   "pop",
+   0.45
+  ],
+  "nao": [
+   "thud",
+   0.6
+  ],
+  "cerebro": [
    "brilho",
    0.55
   ],
-  "cerebro": [
-   "plim",
-   0.5
-  ],
-  "medula": [
-   "zap",
-   0.45
-  ],
   "detalhes": [
    "pop",
-   0.4
+   0.45
   ],
-  "naodesincha": [
-   "pop",
-   0.4
-  ],
-  "gripe": [
+  "desincha": [
    "pop",
    0.45
   ],
-  "dentro": [
-   "clique",
+  "comenta": [
+   "plim",
    0.6
   ],
-  "conta": [
-   "pop",
+  "inteiro": [
+   "whoosh_curto",
    0.45
+  ],
+  "dormente": [
+   "pop",
+   0.5
+  ],
+  "teoria": [
+   "pop",
+   0.5
+  ],
+  "para2": [
+   "pop",
+   0.5
+  ],
+  "conta": [
+   "clique",
+   0.55
   ],
   "figado": [
    "thud",
-   0.7
+   0.65
   ],
-  "misture": [
+  "bula": [
    "plim",
-   0.6
+   0.55
   ],
   "passo1": [
    "pop",
@@ -154,10 +154,6 @@
    "pop",
    0.4
   ],
-  "passo4": [
-   "pop",
-   0.4
-  ],
   "cta": [
    "plim",
    0.6
@@ -167,93 +163,100 @@
   {
    "id": "gancho",
    "tipo": "abertura",
-   "titulo": "O remédio sabe?",
-   "fala": "O remédio pra dor de cabeça não vai pra sua cabeça. Ele cai na barriga. E mesmo assim, a dor de cabeça passa. Como ele sabe pra onde ir? A resposta é estranha: ele não sabe. E no final eu te conto o erro com remédio de gripe que muita gente comete sem perceber.",
+   "titulo": "Ele não vai pra cabeça",
+   "fala": "O remédio pra dor de cabeça não vai pra sua cabeça. Ele cai na barriga, e mesmo assim a dor passa. Como ele sabe pra onde ir? Ele não sabe. E no final eu te conto o erro com remédio de gripe que muita gente comete sem perceber, e que pesa no fígado.",
    "batidas": {
     "cabeça.": "cabeca",
-    "barriga.": "barriga",
+    "barriga,": "barriga",
+    "passa.": "passa",
     "ir?": "ir",
     "sabe.": "naosabe",
-    "perceber.": "erro"
+    "fígado.": "promessa"
    }
   },
   {
    "id": "viagem",
    "tipo": "viagem",
-   "titulo": "A viagem",
-   "fala": "O comprimido se desfaz no estômago, passa pro sangue, e o coração bombeia esse sangue pro corpo inteiro. Em repouso, o seu sangue dá uma volta completa no corpo em mais ou menos um minuto. Então o remédio chega em todo lugar: na cabeça, no joelho, até no dedão do pé. Ele não procura a dor. Ele inunda tudo.",
+   "titulo": "Ele inunda tudo",
+   "fala": "O comprimido se desfaz no estômago e cai no sangue. E o seu coração dá a volta com esse sangue no corpo inteiro em mais ou menos um minuto. Então o remédio chega em todo lugar: na cabeça, no joelho, até no dedão do pé. Ele inunda tudo. Mas então, por que só a cabeça melhora?",
    "batidas": {
-    "estômago,": "estomago",
-    "sangue,": "sangue",
+    "sangue.": "sangue",
     "minuto.": "minuto",
-    "dedão": "dedao",
-    "dor.": "procura",
-    "tudo.": "inunda"
+    "pé.": "dedao",
+    "tudo.": "inunda",
+    "melhora?": "melhora"
    }
   },
   {
    "id": "alarme",
    "tipo": "alarme",
-   "titulo": "O alarme",
-   "fala": "Então por que ele só age onde dói? Pensa na dor como um alarme. Quando você se machuca, as células do lugar fabricam umas substâncias chamadas prostaglandinas. Elas deixam os nervos dali super sensíveis, como se alguém aumentasse o volume do alarme. E onde não tem machucado, não tem prostaglandina sendo fabricada.",
+   "titulo": "A dor é um alarme",
+   "fala": "Porque a dor é um alarme. Quando você se machuca, as células dali fabricam umas substâncias chamadas prostaglandinas, que aumentam o volume do alarme nos nervos. Onde não tem machucado, não tem alarme tocando.",
    "batidas": {
     "alarme.": "alarme",
-    "machuca,": "machuca",
-    "prostaglandinas.": "prostaglandinas",
-    "sensíveis,": "sensiveis",
+    "prostaglandinas,": "prosta",
     "volume": "volume",
-    "machucado,": "semmachucado"
+    "tocando.": "tocando"
    }
   },
   {
    "id": "ibuprofeno",
    "tipo": "ibuprofeno",
    "titulo": "O ibuprofeno",
-   "fala": "O ibuprofeno trava a máquina que fabrica essas substâncias. Ela tem nome: COX. Com a máquina parada, o alarme abaixa. E como no resto do corpo não tinha alarme tocando, você só percebe o efeito onde doía. Por isso ele também desincha: ele é um anti-inflamatório.",
+   "fala": "O ibuprofeno trava a máquina que fabrica essas substâncias. Com a máquina parada, o alarme abaixa. E como no resto do corpo nada estava tocando, você só sente a diferença onde doía. Agora, pensa rápido: e o paracetamol, funciona do mesmo jeito?",
    "batidas": {
-    "trava": "trava",
-    "COX.": "cox",
+    "máquina": "maquina",
     "abaixa.": "abaixa",
     "doía.": "doia",
-    "desincha:": "desincha"
+    "rápido:": "pensa",
+    "jeito?": "jeito"
    }
   },
   {
    "id": "paracetamol",
    "tipo": "paracetamol",
    "titulo": "O paracetamol",
-   "fala": "E o paracetamol? Ele é mais misterioso. Os cientistas sabem que ele age principalmente no cérebro e na medula, abaixando o volume da dor lá dentro, mas até hoje não entendem todos os detalhes. Por isso ele baixa a dor e a febre, mas quase não desincha.",
+   "fala": "Não. Ele é mais misterioso: age principalmente no cérebro e na medula, abaixando o volume da dor lá dentro. E até hoje os cientistas não entendem todos os detalhes. Por isso ele baixa a dor e a febre, mas quase não desincha.",
    "batidas": {
-    "misterioso.": "misterioso",
+    "Não.": "nao",
     "cérebro": "cerebro",
-    "medula,": "medula",
     "detalhes.": "detalhes",
-    "desincha.": "naodesincha"
+    "desincha.": "desincha"
+   }
+  },
+  {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Responde nos comentários",
+   "fala": "Pergunta difícil, responde nos comentários: se o remédio vai pro corpo inteiro, por que ele não deixa o seu corpo inteiro dormente? Qual é a sua teoria?",
+   "batidas": {
+    "comentários:": "comenta",
+    "inteiro,": "inteiro",
+    "dormente?": "dormente",
+    "teoria?": "teoria"
    }
   },
   {
    "id": "erro",
    "tipo": "erro",
-   "titulo": "O erro comum",
-   "fala": "E o erro que eu prometi: muito remédio de gripe já tem paracetamol dentro. Se você toma o antigripal e mais um paracetamol por conta, pode passar da dose sem perceber. E paracetamol demais machuca o fígado. Então lê a bula, e não misture.",
+   "titulo": "O erro com o antigripal",
+   "fala": "E o erro que eu prometi: muito remédio de gripe já vem com paracetamol dentro. Se você toma o antigripal e mais um paracetamol por conta, pode passar da dose sem perceber. E paracetamol demais machuca o fígado. Lê a bula e não mistura.",
    "batidas": {
-    "gripe": "gripe",
-    "dentro.": "dentro",
+    "paracetamol": "para2",
     "conta,": "conta",
     "fígado.": "figado",
-    "misture.": "misture"
+    "mistura.": "bula"
    }
   },
   {
    "id": "resumo",
    "tipo": "resumo",
    "titulo": "Resumindo",
-   "fala": "Resumindo: o remédio vai pro corpo inteiro, a dor é um alarme feito por prostaglandinas, o ibuprofeno desliga a fábrica do alarme, e o paracetamol abaixa o volume no cérebro. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "fala": "Resumindo: o remédio vai pro corpo inteiro, a dor é um alarme, e o remédio abaixa o alarme onde ele está tocando. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
    "batidas": {
     "inteiro,": "passo1",
-    "prostaglandinas,": "passo2",
-    "alarme,": "passo3",
-    "cérebro.": "passo4",
+    "alarme,": "passo2",
+    "tocando.": "passo3",
     "Segue": "cta"
    }
   }
