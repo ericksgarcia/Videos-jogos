@@ -247,7 +247,9 @@ def _distribuir(ws, frases, ajustados, pausas, dur):
         t1 = ajustados[k + 1] if k + 1 < len(frases) else dur
         # o fim da fala da frase é o início da pausa antes da próxima, se houver; uma respiração
         # logo no começo da frase não conta (senão as palavras ficam espremidas no início)
-        fala_fim = max((a for a, _ in pausas if t0 + 0.55 * (t1 - t0) < a < t1), default=t1)
+        # (só vale pausa de verdade, >= 0,25 s, ou a que encosta no começo da próxima frase: uma
+        # micro-pausa de 0,1 s no meio da última frase espremia as palavras dela)
+        fala_fim = max((a for a, b in pausas if t0 + 0.55 * (t1 - t0) < a < t1 and (b - a >= 0.25 or b >= t1 - 0.15)), default=t1)
         peso = [len(ws[i]) + 1 for i in f]
         t = t0
         for i, p in zip(f, peso):
