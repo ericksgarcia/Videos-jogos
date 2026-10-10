@@ -88,8 +88,8 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
   3. a descoberta/o mecanismo central;
   4. como isso é usado na prática (variações);
   5. o caminho até a vida da pessoa;
-  6. resumo em 3–4 passos + chamada: "Segue o Aprendendo Fácil e comenta qual
-     assunto complicado você quer que eu explique no próximo vídeo."
+  6. resumo relâmpago (uma frase com 3–4 passos de poucas palavras, ≤ 8 s) + chamada: "Segue o
+     Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo."
 - Frases curtas e faladas, com "você", "pensa num…", "imagina…".
 
 ### Retenção (o dono pediu: "apele com todas as técnicas")
@@ -104,6 +104,24 @@ descrição para o TikTok seguindo "Descrição e hashtags" abaixo.
 - Algo muda na tela a cada 2–3 s (batidas); nenhuma cena parada. Cuidado com cena cuja 1ª batida
   vem segundos depois do início: faça o cenário entrar em `c.ini + 0.5`, não na batida.
 - Resumo curto e rápido; o cartão final entra durante a chamada.
+
+### Do começo ao fim (pedido do dono: "querer ficar no vídeo o tempo todo até o final")
+
+- **Sempre uma pergunta aberta:** antes de responder uma, abra a próxima. Toda cena termina com
+  uma frase que cria lacuna para a seguinte ("só que isso não explica o robô…", "e aí vem a parte
+  estranha"). Nunca existe um momento em que a pessoa "já entendeu tudo".
+- **O melhor fica para o fim:** o fato mais surpreendente vai na penúltima cena; é anunciado no gancho
+  e relembrado no meio ("e ainda falta o mais estranho, que eu te conto já já").
+- **Faça a pessoa prever:** 1–2 vezes por vídeo, "adivinha o que aconteceu?" / "pensa rápido…" com uma
+  pausa curta antes da resposta (prever antes de saber aumenta a curiosidade e a memória).
+- **Por que importa pra você:** diga o que isso muda na vida da pessoa (acontece com você, te salva,
+  te faz gastar mais, explica uma briga…).
+- **Ritmo:** nenhuma cena com mais de ~20 s; troca de plano (câmera, cenário ou metáfora) a cada
+  5–8 s; algo muda na tela a cada 1,5–2,5 s.
+- **Sem gordura:** cada frase explica ou cria curiosidade; corte datas, nomes e explicações repetidas
+  que não ajudam. Mire **1:30–1:55**.
+- **Final sem queda:** a revelação forte vem logo antes do resumo relâmpago; nada de lista longa no
+  fim. Se der, a última frase conversa com a primeira (loop: quem chega ao fim quer rever).
 
 ### Abertura: dor ou curiosidade, nunca o assunto (dica de ouro do dono)
 

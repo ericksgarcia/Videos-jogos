@@ -1,7 +1,7 @@
 {
  "slug": "por-que-voce-nao-consegue-fazer-cocegas-em-si-mesmo",
  "titulo": "Por que você não consegue fazer cócegas em si mesmo",
- "descricao": "Tenta fazer cócegas no seu próprio pé. Nada, né? 🤔\nPor que a gente não consegue fazer cócegas em si mesmo: o cérebro adivinha o futuro, e o cerebelo abaixa o volume do que já esperava.\nOs cientistas criaram um robô que faz você sentir cócegas de si mesmo.\nE no final: o truque que médicos usam com quem sente cócegas demais.\nManda pra aquela pessoa que não aguenta cócegas e salva pra testar.\nVocê sente muitas cócegas? Onde é o pior lugar? Comenta aí 👇",
+ "descricao": "Seu cérebro abaixa o volume de tudo que você mesmo toca 🤯\nPor que a gente não consegue fazer cócegas em si mesmo: o cerebelo prevê o seu toque e tira a surpresa.\nTem um robô que faz você sentir cócegas de si mesmo.\nE no final: o experimento que explica por que toda briga de irmão só piora.\nManda pra quem não aguenta cócegas e salva pra testar.\nVocê já jurou que o outro bateu mais forte? Comenta aí 👇",
  "hashtags": [
   "#cocegas",
   "#cerebro",
@@ -14,28 +14,32 @@
  "gancho_destaque": "CÓCEGAS",
  "voz": "Achird",
  "sons": {
+  "volume0": [
+   "thud",
+   0.65
+  ],
   "pe": [
    "pop",
    0.45
   ],
-  "contorce": [
-   "whoosh_curto",
-   0.45
-  ],
-  "toque": [
+  "nada": [
    "clique",
+   0.5
+  ],
+  "briga": [
+   "whoosh_curto",
+   0.5
+  ],
+  "piora": [
+   "thud",
    0.6
   ],
-  "futuro": [
-   "brilho",
-   0.55
-  ],
-  "truque": [
+  "promessa": [
    "plim",
    0.55
   ],
-  "ordem": [
-   "zap",
+  "mao": [
+   "pop",
    0.45
   ],
   "copia": [
@@ -46,37 +50,21 @@
    "brilho",
    0.55
   ],
-  "prever": [
-   "plim",
-   0.55
-  ],
-  "previsto": [
+  "agora": [
    "clique",
    0.6
   ],
   "volume": [
    "thud",
-   0.65
+   0.6
   ],
-  "susto": [
-   "thud",
-   0.7
-  ],
-  "bu": [
-   "pop",
+  "spoiler": [
+   "whoosh_curto",
    0.5
   ],
-  "sabia": [
+  "enganar": [
    "plim",
-   0.5
-  ],
-  "surpresa": [
-   "zap",
-   0.5
-  ],
-  "proximo": [
-   "pop",
-   0.45
+   0.55
   ],
   "robo": [
    "whoosh",
@@ -84,7 +72,7 @@
   ],
   "alavanca": [
    "clique",
-   0.6
+   0.55
   ],
   "escova": [
    "whoosh_curto",
@@ -94,41 +82,81 @@
    "pop",
    0.4
   ],
+  "adivinha": [
+   "plim",
+   0.5
+  ],
   "decimos": [
    "clique",
+   0.6
+  ],
+  "voltaram": [
+   "brilho",
    0.6
   ],
   "errava": [
    "zap",
    0.5
   ],
-  "voltavam": [
-   "brilho",
+  "briga2": [
+   "whoosh",
+   0.5
+  ],
+  "frente": [
+   "pop",
+   0.45
+  ],
+  "dedo": [
+   "clique",
    0.55
   ],
   "mesma": [
+   "pop",
+   0.5
+  ],
+  "pensa": [
    "plim",
+   0.55
+  ],
+  "subia": [
+   "whoosh_curto",
+   0.5
+  ],
+  "fraca": [
+   "thud",
+   0.5
+  ],
+  "trinta": [
+   "clique",
    0.6
   ],
-  "barriga": [
+  "juram": [
+   "pop",
+   0.5
+  ],
+  "verdade": [
+   "brilho",
+   0.6
+  ],
+  "favor": [
+   "plim",
+   0.5
+  ],
+  "medico": [
    "pop",
    0.45
   ],
-  "cocegas": [
-   "whoosh_curto",
-   0.45
-  ],
-  "mao": [
-   "pop",
-   0.45
+  "maodica": [
+   "clique",
+   0.5
   ],
   "guia": [
-   "whoosh",
+   "pop",
    0.45
   ],
   "diminuem": [
-   "plim",
-   0.6
+   "brilho",
+   0.55
   ],
   "passo1": [
    "pop",
@@ -142,10 +170,6 @@
    "pop",
    0.4
   ],
-  "passo4": [
-   "pop",
-   0.4
-  ],
   "cta": [
    "plim",
    0.6
@@ -155,71 +179,84 @@
   {
    "id": "gancho",
    "tipo": "abertura",
-   "titulo": "Cócegas",
-   "fala": "Seu cérebro abaixa o volume de tudo que você mesmo toca. Por isso, quase ninguém consegue fazer cócegas em si mesmo. Tenta agora, na sola do pé: nada, né? Mas se outra pessoa fizer, você se contorce inteiro. É o mesmo toque. O que muda? Um pedaço do seu cérebro que vive tentando adivinhar o futuro. E no final eu te conto o truque que os médicos usam com quem sente cócegas demais.",
+   "titulo": "O volume do toque",
+   "fala": "Seu cérebro abaixa o volume de tudo que você mesmo toca. Por isso, quase ninguém consegue fazer cócegas em si mesmo. Tenta agora, na sola do pé. Nada, né? E esse mesmo truque do cérebro explica por que toda briga de irmão só piora. No final eu te mostro o experimento que provou isso.",
    "batidas": {
-    "toca.": "volume",
-    "pé:": "pe",
-    "contorce": "contorce",
-    "toque.": "toque",
-    "futuro.": "futuro",
-    "demais.": "truque"
+    "toca.": "volume0",
+    "pé.": "pe",
+    "Nada,": "nada",
+    "briga": "briga",
+    "piora.": "piora",
+    "isso.": "promessa"
    }
   },
   {
    "id": "previsao",
    "tipo": "previsao",
-   "titulo": "O cérebro adivinha",
-   "fala": "Toda vez que você mexe a mão, o seu cérebro manda a ordem pros músculos. E manda uma cópia dessa ordem pra uma região chamada cerebelo, aqui atrás da cabeça. O cerebelo usa essa cópia pra prever: daqui a pouco, você vai sentir um toque aqui. Quando o toque chega exatamente como previsto, o cérebro abaixa o volume dele.",
+   "titulo": "O spoiler do cérebro",
+   "fala": "Toda vez que você mexe a mão, o cérebro manda uma cópia da ordem pro cerebelo, aqui atrás da cabeça. E o cerebelo prevê: vai encostar aqui, agora. Quando o toque chega exatamente como previsto, ele abaixa o volume. É como filme com spoiler: sem surpresa, não tem graça. Mas, se é só uma previsão, dá pra enganar.",
    "batidas": {
-    "ordem": "ordem",
+    "mão,": "mao",
     "cópia": "copia",
     "cerebelo,": "cerebelo",
-    "prever:": "prever",
-    "previsto,": "previsto",
-    "volume": "volume"
-   }
-  },
-  {
-   "id": "susto",
-   "tipo": "susto",
-   "titulo": "O susto",
-   "fala": "Pensa num susto: você não consegue se assustar gritando bu pra si mesmo. O cérebro já sabia o que vinha. Com as cócegas é igual: elas dependem de surpresa, de não saber onde vai ser o próximo toque. E é exatamente isso que os cientistas resolveram testar, com um robô.",
-   "batidas": {
-    "susto:": "susto",
-    "bu": "bu",
-    "sabia": "sabia",
-    "surpresa,": "surpresa",
-    "próximo": "proximo",
-    "robô.": "robo"
+    "agora.": "agora",
+    "volume.": "volume",
+    "spoiler:": "spoiler",
+    "enganar.": "enganar"
    }
   },
   {
    "id": "robo",
-   "tipo": "robo2",
-   "titulo": "O experimento",
-   "fala": "Em mil novecentos e noventa e oito, a neurocientista Sarah-Jayne Blakemore, em Londres, montou o seguinte: a pessoa mexia uma alavanca, e um robô passava uma escovinha na mão dela. Sem atraso, quase não fazia cócegas. Mas quando o robô atrasava só dois décimos de segundo, o cérebro errava a previsão. E as cócegas voltavam. A pessoa estava fazendo cócegas em si mesma.",
+   "tipo": "robo",
+   "titulo": "Enganando o cérebro",
+   "fala": "Uma neurocientista de Londres fez isso com um robô. A pessoa mexia uma alavanca, e o robô passava uma escovinha na mão dela. Sem atraso, nada de cócegas. Agora, adivinha o que aconteceu quando o robô atrasava só dois décimos de segundo? As cócegas voltaram. A pessoa nem percebia o atraso, mas o cérebro errava a previsão. E é aqui que entra a briga.",
    "batidas": {
+    "robô.": "robo",
     "alavanca,": "alavanca",
     "escovinha": "escova",
-    "Sem": "sematraso",
+    "atraso,": "sematraso",
+    "adivinha": "adivinha",
     "décimos": "decimos",
+    "voltaram.": "voltaram",
     "errava": "errava",
-    "voltavam.": "voltavam",
-    "mesma.": "mesma"
+    "briga.": "briga2"
+   }
+  },
+  {
+   "id": "experimento",
+   "tipo": "experimento",
+   "titulo": "O experimento da briga",
+   "fala": "Pesquisadores colocaram duas pessoas frente a frente. Uma apertava o dedo da outra com uma máquina, e a outra tinha que devolver com a mesma força. Só isso. Pensa rápido: o que aconteceu?",
+   "batidas": {
+    "frente.": "frente",
+    "dedo": "dedo",
+    "força.": "mesma",
+    "Pensa": "pensa"
+   }
+  },
+  {
+   "id": "escalada",
+   "tipo": "escalada",
+   "titulo": "Os dois têm razão",
+   "fala": "A força só subia. Como a força que você mesmo faz parece mais fraca, cada um devolvia mais forte sem perceber: trinta e oito por cento a mais, em média, a cada vez. Por isso, numa briga, os dois juram que o outro bateu mais forte. E os dois estão falando a verdade.",
+   "batidas": {
+    "subia.": "subia",
+    "fraca,": "fraca",
+    "trinta": "trinta",
+    "juram": "juram",
+    "verdade.": "verdade"
    }
   },
   {
    "id": "medico",
    "tipo": "medico",
-   "titulo": "O truque dos médicos",
-   "fala": "E o truque que eu prometi? Quando o médico precisa apertar a barriga de alguém que sente muitas cócegas, ele pede pra pessoa colocar a própria mão por cima da mão dele. Como é ela que guia o movimento, o cérebro consegue prever o toque. E as cócegas diminuem. Dá pra usar até em casa.",
+   "titulo": "O truque do médico",
+   "fala": "E dá pra usar isso a seu favor. Se você sente cócegas demais no médico, coloque a sua mão por cima da mão dele. Como é você que guia, o cérebro prevê o toque, e as cócegas diminuem.",
    "batidas": {
-    "barriga": "barriga",
-    "cócegas,": "cocegas",
-    "mão": "mao",
-    "guia": "guia",
-    "prever": "prever",
+    "favor.": "favor",
+    "médico,": "medico",
+    "mão": "maodica",
+    "guia,": "guia",
     "diminuem.": "diminuem"
    }
   },
@@ -227,12 +264,11 @@
    "id": "resumo",
    "tipo": "resumo",
    "titulo": "Resumindo",
-   "fala": "Resumindo: o cérebro manda uma cópia de cada movimento, o cerebelo prevê o toque, o que é previsto perde força, e cócegas precisam de surpresa. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "fala": "Resumindo: o cérebro prevê o seu toque, abaixa o volume, e sem surpresa não tem cócegas. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
    "batidas": {
-    "cópia": "passo1",
-    "prevê": "passo2",
-    "força,": "passo3",
-    "surpresa.": "passo4",
+    "toque,": "passo1",
+    "volume,": "passo2",
+    "cócegas.": "passo3",
     "Segue": "cta"
    }
   }

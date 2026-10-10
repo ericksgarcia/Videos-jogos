@@ -8,6 +8,21 @@ Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 - Como a chave do carro destranca só o seu carro num estacionamento lotado? → `videos/chave-carro` (renderizando)
 - Como a internet inteira atravessa os oceanos? → `videos/internet-oceanos` (cenas prontas; render depois da chave)
 
+## Refazer do zero (pedido do dono; um de cada vez)
+Roteiro e cenas novos, com as regras de retenção do começo ao fim do CLAUDE.md.
+1. Cócegas → `videos/cocegas`
+2. Celular escuta → `videos/celular-escuta`
+3. Cheiro de chuva → `videos/cheiro-de-chuva`
+4. Remédio sabe onde dói → `videos/remedio-dor`
+5. Porta faz esquecer → `videos/porta-esquece`
+6. Voz gravada → `videos/voz-gravada`
+7. Comida sem fogo → `videos/comida-sem-fogo`
+8. Fone com cancelamento → `videos/fone-cancelamento`
+9. GPS → `videos/gps`
+10. Cartão por aproximação → `videos/cartao-aproximacao`
+11. Chave do carro → `videos/chave-carro`
+12. Internet nos oceanos → `videos/internet-oceanos`
+
 ## Próximos (na ordem)
 1. Por que a água do mar é tão salgada e a do rio não?
 2. Como a tecnologia da linha do gol sabe que a bola entrou em milissegundos?
