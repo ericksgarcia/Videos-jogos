@@ -1,0 +1,266 @@
+{
+  "slug": "como-a-comida-esquenta-sem-fogo",
+  "titulo": "Como a comida esquenta sem fogo",
+  "descricao": "Comida quente em 10 minutos, sem fogo, sem fogão e sem tomada. Como? 🔥\nComo funciona a marmita autoaquecível do soldado: a mesma reação da ferrugem, só que em minutos.\nUm copinho de água esquenta a comida uns 50 graus.\nNo final: o cuidado que quase ninguém sabe na hora de usar.\nManda pra quem curte acampar e salva pra próxima trilha.\nVocê comeria uma comida dessas? Comenta aí 👇",
+  "hashtags": [
+    "#quimica",
+    "#ciencia",
+    "#acampamento",
+    "#curiosidades",
+    "#sobrevivencia",
+    "#aprendendofacil"
+  ],
+  "gancho": "COMIDA QUENTE SEM FOGO?",
+  "gancho_destaque": "FOGO?",
+  "voz": "Achird",
+  "sons": {
+    "fogo": [
+      "whoosh_curto",
+      0.45
+    ],
+    "agua": [
+      "agua",
+      0.55
+    ],
+    "quente": [
+      "vapor",
+      0.55
+    ],
+    "calor": [
+      "brilho",
+      0.55
+    ],
+    "ferrugem": [
+      "thud",
+      0.6
+    ],
+    "cuidado": [
+      "plim",
+      0.55
+    ],
+    "prego": [
+      "clique",
+      0.55
+    ],
+    "oxigenio": [
+      "pop",
+      0.45
+    ],
+    "calor1": [
+      "brilho",
+      0.5
+    ],
+    "meses": [
+      "whoosh",
+      0.45
+    ],
+    "minutos": [
+      "zap",
+      0.5
+    ],
+    "esquenta": [
+      "vapor",
+      0.55
+    ],
+    "magnesio": [
+      "brilho",
+      0.5
+    ],
+    "sal": [
+      "pop",
+      0.45
+    ],
+    "eletricidade": [
+      "zap",
+      0.5
+    ],
+    "pilha": [
+      "clique",
+      0.55
+    ],
+    "curto": [
+      "zap",
+      0.55
+    ],
+    "calor2": [
+      "vapor",
+      0.55
+    ],
+    "copinho": [
+      "agua",
+      0.5
+    ],
+    "trinta": [
+      "pop",
+      0.45
+    ],
+    "cinquenta": [
+      "brilho",
+      0.6
+    ],
+    "chama": [
+      "pop",
+      0.4
+    ],
+    "semeletricidade": [
+      "plim",
+      0.5
+    ],
+    "bolso": [
+      "pop",
+      0.45
+    ],
+    "pacote": [
+      "whoosh_curto",
+      0.45
+    ],
+    "ferro": [
+      "clique",
+      0.5
+    ],
+    "proposito": [
+      "brilho",
+      0.5
+    ],
+    "ar": [
+      "vento",
+      0.45
+    ],
+    "hidrogenio": [
+      "zap",
+      0.5
+    ],
+    "facil": [
+      "thud",
+      0.6
+    ],
+    "aberto": [
+      "vento",
+      0.5
+    ],
+    "longe": [
+      "plim",
+      0.5
+    ],
+    "barraca": [
+      "thud",
+      0.6
+    ],
+    "passo1": [
+      "pop",
+      0.4
+    ],
+    "passo2": [
+      "pop",
+      0.4
+    ],
+    "passo3": [
+      "pop",
+      0.4
+    ],
+    "passo4": [
+      "pop",
+      0.4
+    ],
+    "cta": [
+      "plim",
+      0.6
+    ]
+  },
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "abertura",
+      "titulo": "Comida sem fogo",
+      "fala": "Imagina um soldado no meio do mato, sem fogão, sem fogo, sem tomada. Ele coloca um pouco de água num saquinho, e em uns dez minutos a comida está quente. De onde vem esse calor? De uma reação que você já viu muitas vezes, só que bem devagar: a ferrugem. E no final eu te conto o cuidado que quase ninguém sabe.",
+      "batidas": {
+        "fogo,": "fogo",
+        "água": "agua",
+        "quente.": "quente",
+        "calor?": "calor",
+        "ferrugem.": "ferrugem",
+        "sabe.": "cuidado"
+      }
+    },
+    {
+      "id": "ferrugem",
+      "tipo": "ferrugem",
+      "titulo": "A ferrugem esquenta",
+      "fala": "Pensa num prego enferrujando. O ferro se junta com o oxigênio e com a água, e nessa troca ele solta um pouquinho de calor. Só que demora meses, então o calor escapa sem você perceber. Agora imagina essa mesma reação acontecendo em minutos: aí o calor se acumula, e esquenta de verdade.",
+      "batidas": {
+        "prego": "prego",
+        "oxigênio": "oxigenio",
+        "calor.": "calor1",
+        "meses,": "meses",
+        "minutos:": "minutos",
+        "verdade.": "esquenta"
+      }
+    },
+    {
+      "id": "saquinho",
+      "tipo": "saquinho",
+      "titulo": "O saquinho",
+      "fala": "É isso que tem no saquinho do soldado: pó de magnésio, um metal que reage ainda mais rápido que o ferro, um pouco de ferro e sal. Quando a água entra, o sal faz a água conduzir eletricidade, e o ferro e o magnésio viram uma pilha minúscula, em curto-circuito. O magnésio se corrói em minutos, e solta muito calor.",
+      "batidas": {
+        "magnésio,": "magnesio",
+        "sal.": "sal",
+        "eletricidade,": "eletricidade",
+        "pilha": "pilha",
+        "curto-circuito.": "curto",
+        "calor.": "calor2"
+      }
+    },
+    {
+      "id": "numeros",
+      "tipo": "numeros",
+      "titulo": "Quanto esquenta",
+      "fala": "E é muito calor mesmo. Com só um copinho de água, uns trinta mililitros, o saquinho esquenta a comida uns cinquenta graus em mais ou menos dez minutos. Sem chama, sem fumaça, sem eletricidade.",
+      "batidas": {
+        "copinho": "copinho",
+        "trinta": "trinta",
+        "cinquenta": "cinquenta",
+        "chama,": "chama",
+        "eletricidade.": "semeletricidade"
+      }
+    },
+    {
+      "id": "bolso",
+      "tipo": "bolso",
+      "titulo": "Na sua mão",
+      "fala": "E você talvez já tenha segurado uma prima dessa reação: aquele aquecedor de bolso que esquenta quando você abre o pacote. Ali dentro é pó de ferro enferrujando de propósito, com o ar.",
+      "batidas": {
+        "bolso": "bolso",
+        "pacote.": "pacote",
+        "ferro": "ferro",
+        "propósito,": "proposito",
+        "ar.": "ar"
+      }
+    },
+    {
+      "id": "cuidado",
+      "tipo": "cuidado",
+      "titulo": "O cuidado",
+      "fala": "E o cuidado que eu prometi: a reação do magnésio também solta gás hidrogênio, que pega fogo fácil. Por isso o próprio pacote avisa: use em lugar aberto e ventilado, longe de qualquer chama. Nada de esquentar dentro de carro fechado ou de barraca.",
+      "batidas": {
+        "hidrogênio,": "hidrogenio",
+        "fácil.": "facil",
+        "ventilado,": "aberto",
+        "chama.": "longe",
+        "barraca.": "barraca"
+      }
+    },
+    {
+      "id": "resumo",
+      "tipo": "resumo",
+      "titulo": "Resumindo",
+      "fala": "Resumindo: toda ferrugem solta calor, o magnésio enferruja em minutos, o sal transforma tudo numa pilha em curto, e o hidrogênio pede lugar aberto. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+      "batidas": {
+        "calor,": "passo1",
+        "minutos,": "passo2",
+        "curto,": "passo3",
+        "aberto.": "passo4",
+        "Segue": "cta"
+      }
+    }
+  ]
+}
