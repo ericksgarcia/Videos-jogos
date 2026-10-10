@@ -1,16 +1,15 @@
 {
  "slug": "como-a-chave-abre-so-o-seu-carro",
  "titulo": "Como a chave abre só o seu carro",
- "descricao": "500 carros no estacionamento e só o seu pisca. Como a chave sabe? 🚗\nComo funciona a chave do carro: um rádio no bolso, um código que muda a cada clique e um contador secreto.\nGravar o sinal e apertar depois não funciona, e o vídeo explica por quê.\nNo final: o truque dos ladrões com chave que abre sem apertar nada, e como se proteger.\nManda pra quem tem carro com chave presencial e salva a dica.\nSeu carro abre sem apertar o botão? Comenta aí 👇",
+ "descricao": "Quinhentos carros no estacionamento, um botão, e só o seu pisca. Como a chave sabe? 🚗\nComo funciona a chave do carro: um rádio no bolso, um código que muda a cada clique e uma janela secreta de códigos.\nGravar o sinal e apertar depois não abre, e o vídeo mostra por quê.\nNo final: o truque que os ladrões usam de verdade com a chave presencial, e como se proteger em casa.\nManda pra quem tem carro que abre sem apertar o botão e salva a dica da lata.\nTem gente que encosta a chave no queixo pra ela alcançar mais longe. Funciona ou é mito? 👉",
  "hashtags": [
   "#carro",
   "#tecnologia",
   "#seguranca",
   "#curiosidades",
-  "#dicas",
   "#aprendendofacil"
  ],
- "gancho": "500 CARROS, SÓ O SEU PISCA",
+ "gancho": "500 CARROS, SÓ O SEU",
  "gancho_destaque": "500",
  "voz": "Achird",
  "sons": {
@@ -18,19 +17,15 @@
    "plim",
    0.6
   ],
-  "gravar": [
-   "clique",
-   0.55
-  ],
-  "naoabre": [
+  "minuto": [
    "thud",
    0.65
   ],
-  "promessa": [
-   "plim",
+  "nada": [
+   "clique",
    0.5
   ],
-  "proteger": [
+  "promessa": [
    "plim",
    0.55
   ],
@@ -38,77 +33,93 @@
    "zap",
    0.45
   ],
-  "ar": [
-   "whoosh",
-   0.45
-  ],
   "ouvem": [
-   "pop",
-   0.45
-  ],
-  "id": [
-   "clique",
-   0.6
-  ],
-  "ignoram": [
    "whoosh_curto",
    0.45
   ],
-  "gravar2": [
+  "id": [
+   "pop",
+   0.5
+  ],
+  "ignoram": [
    "clique",
+   0.5
+  ],
+  "adivinha": [
+   "plim",
    0.55
   ],
+  "naoabre": [
+   "thud",
+   0.7
+  ],
   "diferente": [
-   "zap",
-   0.5
+   "whoosh_curto",
+   0.45
   ],
   "segredo": [
    "brilho",
    0.5
   ],
-  "contador": [
-   "clique",
-   0.6
-  ],
   "sobe": [
-   "pop",
-   0.45
+   "clique",
+   0.55
   ],
   "vale": [
-   "thud",
-   0.6
+   "pop",
+   0.5
   ],
   "bolso": [
    "pop",
    0.45
   ],
   "tras": [
-   "whoosh_curto",
-   0.45
+   "thud",
+   0.5
   ],
   "janela": [
-   "brilho",
-   0.55
+   "whoosh",
+   0.45
   ],
   "porteiro": [
    "pop",
    0.45
   ],
   "ontem": [
-   "thud",
-   0.6
-  ],
-  "nada": [
-   "thud",
+   "clique",
    0.55
   ],
-  "dois": [
+  "comenta": [
+   "plim",
+   0.6
+  ],
+  "queixo": [
    "pop",
+   0.5
+  ],
+  "longe": [
+   "whoosh_curto",
    0.45
+  ],
+  "mito": [
+   "pop",
+   0.5
+  ],
+  "prometi": [
+   "plim",
+   0.55
+  ],
+  "perto": [
+   "brilho",
+   0.45
+  ],
+  "dois": [
+   "clique",
+   0.55
   ],
   "capta": [
    "zap",
-   0.5
+   0.45
   ],
   "repete": [
    "zap",
@@ -116,27 +127,23 @@
   ],
   "abre": [
    "thud",
-   0.7
+   0.65
   ],
-  "relay": [
-   "plim",
+  "leva": [
+   "whoosh",
    0.5
   ],
   "porta": [
    "pop",
    0.45
   ],
-  "metal": [
-   "tampa",
-   0.55
-  ],
-  "bloqueia": [
-   "thud",
-   0.55
-  ],
-  "desliga": [
+  "lata": [
    "clique",
    0.6
+  ],
+  "testar": [
+   "clique",
+   0.5
   ],
   "passo1": [
    "pop",
@@ -150,42 +157,35 @@
    "pop",
    0.4
   ],
-  "passo4": [
-   "pop",
-   0.4
-  ],
   "cta": [
    "plim",
    0.6
   ],
-  "minuto": [
-   "thud",
-   0.65
+  "bloq": [
+   "plim",
+   0.55
   ]
  },
  "cenas": [
   {
    "id": "gancho",
    "tipo": "abertura",
-   "titulo": "Só o seu carro",
-   "fala": "Quinhentos carros, um botão, e só o seu pisca. Mas tem carro que ladrão leva sem a chave, em cerca de um minuto. E se ele gravar o sinal e apertar depois? Não abre. No final eu te conto o truque que eles usam de verdade, e como se proteger.",
+   "titulo": "Só o seu pisca",
+   "fala": "Quinhentos carros, um botão, e só o seu pisca. Mas tem carro que ladrão leva sem a chave em menos de um minuto, sem quebrar nada. Fica até o final que eu te mostro o truque, e como se proteger.",
    "batidas": {
     "pisca.": "pisca",
-    "minuto.": "minuto",
-    "gravar": "gravar",
-    "abre.": "naoabre",
-    "verdade,": "promessa",
-    "proteger.": "proteger"
+    "minuto,": "minuto",
+    "nada.": "nada",
+    "proteger.": "promessa"
    }
   },
   {
    "id": "radio",
    "tipo": "radio",
    "titulo": "Um rádio no bolso",
-   "fala": "A chave é um rádio minúsculo. Quando você aperta, ela manda uma mensagem curta pelo ar. Todos os carros ali perto ouvem. Mas a mensagem começa com um número de identificação, como se fosse o nome do dono. Os outros carros leem, veem que não é com eles, e ignoram.",
+   "fala": "A chave é um rádio minúsculo. Quando você aperta, ela manda uma mensagem pelo ar, e todos os carros em volta ouvem. Mas a mensagem começa com um número de identificação, tipo o nome do dono. Os outros veem que não é com eles, e ignoram.",
    "batidas": {
     "rádio": "radio",
-    "ar.": "ar",
     "ouvem.": "ouvem",
     "identificação,": "id",
     "ignoram.": "ignoram"
@@ -195,13 +195,13 @@
    "id": "codigo",
    "tipo": "codigo",
    "titulo": "O código que muda",
-   "fala": "Só que isso não basta: um ladrão poderia gravar a mensagem e tocar de novo. Por isso, a cada apertada, a chave manda um código diferente. Ela e o carro compartilham um segredo e um contador. A cada clique, o contador sobe, e o código é calculado a partir dele. Código usado nunca mais vale.",
+   "fala": "Agora, adivinha: se um ladrão gravar essa mensagem e tocar de novo, o carro abre? Não abre. Cada apertada manda um código diferente. A chave e o carro guardam um segredo e um contador, que sobe a cada clique. O código sai dos dois. Código usado nunca mais vale.",
    "batidas": {
-    "gravar": "gravar2",
+    "adivinha:": "adivinha",
+    "abre.": "naoabre",
     "diferente.": "diferente",
     "segredo": "segredo",
-    "contador.": "contador",
-    "sobe,": "sobe",
+    "clique.": "sobe",
     "vale.": "vale"
    }
   },
@@ -209,7 +209,7 @@
    "id": "janela",
    "tipo": "janela",
    "titulo": "E se apertar longe?",
-   "fala": "E se você apertar a chave no bolso, longe do carro? O contador da chave anda, e o do carro fica pra trás. Pra isso não travar tudo, o carro aceita os próximos códigos de uma janela à frente, e se atualiza na hora. É como um porteiro que aceita a senha de hoje ou dos próximos dias, mas nunca a de ontem.",
+   "fala": "Só que tem uma pegadinha: e se você apertar a chave no bolso, longe do carro? O contador dela anda, e o do carro fica pra trás. Então o carro aceita uma janela de códigos à frente. Tipo um porteiro que aceita a senha de hoje ou dos próximos dias, nunca a de ontem.",
    "batidas": {
     "bolso,": "bolso",
     "trás.": "tras",
@@ -219,41 +219,53 @@
    }
   },
   {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Chuta nos comentários",
+   "fala": "Pergunta difícil, chuta nos comentários: tem gente que encosta a chave no queixo pra ela alcançar mais longe. Funciona ou é mito?",
+   "batidas": {
+    "comentários:": "comenta",
+    "queixo": "queixo",
+    "longe.": "longe",
+    "mito?": "mito"
+   }
+  },
+  {
    "id": "ladrao",
    "tipo": "ladrao",
    "titulo": "O truque dos ladrões",
-   "fala": "Agora o que eu prometi. Muitos carros novos abrem sem apertar nada: basta a chave estar perto. Os ladrões usam dois aparelhos. Um fica perto da sua casa e capta o sinal da chave. O outro fica perto do carro e repete esse sinal. O carro acha que você está ali, e abre. Isso se chama ataque de retransmissão.",
+   "fala": "Agora, o truque que eu prometi. Muitos carros novos abrem sem apertar nada: basta a chave estar perto. Os ladrões usam dois aparelhos: um, perto da sua casa, capta o sinal da chave; o outro, do lado do carro, repete. O carro acha que a chave está ali, e abre. Ninguém quebrou o código: só levaram o sinal mais longe.",
    "batidas": {
-    "nada:": "nada",
-    "dois": "dois",
+    "prometi.": "prometi",
+    "perto.": "perto",
+    "aparelhos:": "dois",
     "capta": "capta",
-    "repete": "repete",
+    "repete.": "repete",
     "abre.": "abre",
-    "retransmissão.": "relay"
+    "levaram": "leva"
    }
   },
   {
    "id": "dica",
    "tipo": "dica",
    "titulo": "A defesa",
-   "fala": "A defesa é simples: em casa, guarda a chave longe da porta, ou numa caixinha de metal ou bolsinha que bloqueia sinal. E se o seu carro deixar, desliga a função de abrir sem apertar.",
+   "fala": "A defesa: em casa, guarda a chave longe da porta, numa lata de metal ou numa bolsinha que bloqueia sinal. Pra testar, chega perto do carro com a chave lá dentro: se não abrir, está bloqueando.",
    "batidas": {
     "porta,": "porta",
-    "metal": "metal",
-    "sinal.": "bloqueia",
-    "desliga": "desliga"
+    "lata": "lata",
+    "testar,": "testar",
+    "bloqueando.": "bloq"
    }
   },
   {
    "id": "resumo",
    "tipo": "resumo",
    "titulo": "Resumindo",
-   "fala": "Resumindo: a chave diz o nome do carro, cada clique gera um código novo, o carro aceita só os da frente, e chave sem botão pede uma caixinha de metal. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "fala": "Resumindo: nome do carro, código novo a cada clique, e chave sem botão na lata. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
    "batidas": {
     "carro,": "passo1",
-    "novo,": "passo2",
-    "frente,": "passo3",
-    "metal.": "passo4",
+    "clique,": "passo2",
+    "lata.": "passo3",
     "Segue": "cta"
    }
   }

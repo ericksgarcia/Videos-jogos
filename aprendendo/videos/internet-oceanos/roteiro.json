@@ -1,37 +1,52 @@
 {
  "slug": "como-a-internet-atravessa-os-oceanos",
  "titulo": "Como a internet atravessa os oceanos",
- "descricao": "Sua mensagem pra Europa não vai pelo satélite. Vai pelo fundo do mar 🌊\nComo a internet atravessa o oceano: cabos submarinos de fibra óptica, da grossura de uma mangueira, levando a sua mensagem em forma de luz.\nNo Brasil, a maioria deles chega numa praia só.\nNo final: o maior inimigo desses cabos (não é tubarão).\nManda pra quem acha que a internet vem do satélite e salva a dica do ping.\nVocê achava que era satélite ou cabo? Comenta aí 👇",
+ "descricao": "O maior inimigo da internet mundial não é hacker nem tubarão: é âncora de navio ⚓\nComo a internet atravessa o oceano: cabos submarinos de fibra óptica, da grossura de uma mangueira, levando a sua mensagem em forma de luz pelo fundo do mar.\nNão é satélite, e a viagem até Portugal leva menos de um piscar de olhos.\nNo final: a praia brasileira por onde passa quase toda a internet que liga o Brasil ao mundo.\nManda pra quem acha que a internet vem do satélite e salva a dica do jogo online.\nSe todos os cabos do Brasil fossem cortados agora, o seu WhatsApp pra alguém da sua cidade ainda chegaria? Sim ou não? 👉",
  "hashtags": [
   "#internet",
   "#tecnologia",
   "#cabosubmarino",
   "#curiosidades",
-  "#ciencia",
   "#aprendendofacil"
  ],
- "gancho": "99% DA INTERNET PASSA AQUI",
- "gancho_destaque": "99%",
+ "gancho": "O INIMIGO É ÂNCORA",
+ "gancho_destaque": "ÂNCORA",
  "voz": "Achird",
  "sons": {
-  "segundo": [
-   "plim",
-   0.55
+  "hacker": [
+   "clique",
+   0.5
   ],
-  "satelite": [
-   "whoosh_curto",
-   0.45
+  "tubarao0": [
+   "pop",
+   0.5
   ],
-  "nao": [
+  "ancora0": [
    "thud",
-   0.65
+   0.7
+  ],
+  "fundo": [
+   "agua",
+   0.5
+  ],
+  "mangueira0": [
+   "pop",
+   0.45
   ],
   "promessa": [
    "plim",
    0.55
   ],
-  "mangueira": [
+  "satelite": [
    "pop",
+   0.45
+  ],
+  "noventa": [
+   "thud",
+   0.6
+  ],
+  "camadas": [
+   "whoosh_curto",
    0.45
   ],
   "vidro": [
@@ -40,99 +55,119 @@
   ],
   "luz": [
    "zap",
-   0.5
+   0.45
   ],
   "bilhoes": [
-   "clique",
-   0.55
+   "brilho",
+   0.5
   ],
   "quica": [
    "whoosh_curto",
    0.4
   ],
+  "adivinha": [
+   "plim",
+   0.55
+  ],
   "seismil": [
    "whoosh",
    0.45
   ],
+  "voltar": [
+   "pop",
+   0.45
+  ],
   "sessenta": [
-   "plim",
+   "thud",
    0.6
   ],
   "enfraquece": [
-   "thud",
-   0.5
+   "pop",
+   0.4
   ],
   "setenta": [
    "clique",
-   0.55
+   0.5
   ],
   "reforco": [
-   "brilho",
-   0.55
-  ],
-  "lugar": [
-   "pop",
+   "zap",
    0.5
   ],
-  "seiscentos": [
-   "pop",
-   0.5
-  ],
-  "milhao": [
-   "brilho",
-   0.55
-  ],
-  "voltas": [
-   "whoosh",
-   0.5
-  ],
-  "praia": [
-   "plim",
-   0.55
-  ],
-  "futuro": [
-   "pop",
-   0.5
-  ],
-  "casa": [
-   "clique",
-   0.5
-  ],
-  "tubarao": [
+  "ancora": [
    "thud",
-   0.6
+   0.65
   ],
   "cento": [
-   "clique",
-   0.5
-  ],
-  "pesca": [
-   "whoosh_curto",
+   "pop",
    0.45
   ],
-  "ancoras": [
+  "pesca": [
+   "agua",
+   0.45
+  ],
+  "vermelho": [
+   "whoosh",
+   0.45
+  ],
+  "tres": [
    "thud",
-   0.6
+   0.65
   ],
   "desvia": [
    "whoosh_curto",
    0.45
   ],
-  "navio": [
-   "vento",
-   0.45
-  ],
   "emenda": [
-   "plim",
+   "clique",
    0.55
   ],
-  "servidor": [
+  "comenta": [
+   "plim",
+   0.6
+  ],
+  "cortados": [
+   "thud",
+   0.55
+  ],
+  "chegaria": [
    "pop",
    0.5
   ],
-  "atraso": [
-   "clique",
+  "simnao": [
+   "pop",
+   0.5
+  ],
+  "futuro": [
+   "plim",
    0.55
+  ],
+  "dezesseis": [
+   "pop",
+   0.45
+  ],
+  "mundo": [
+   "brilho",
+   0.5
+  ],
+  "seiscentos": [
+   "pop",
+   0.45
+  ],
+  "milhao": [
+   "whoosh",
+   0.45
+  ],
+  "voltas": [
+   "brilho",
+   0.6
+  ],
+  "servidor": [
+   "clique",
+   0.5
+  ],
+  "atraso": [
+   "pop",
+   0.45
   ],
   "resolve": [
    "thud",
@@ -150,50 +185,35 @@
    "pop",
    0.4
   ],
-  "passo4": [
-   "pop",
-   0.4
-  ],
   "cta": [
    "plim",
    0.6
-  ],
-  "aqui": [
-   "thud",
-   0.7
-  ],
-  "mangueira0": [
-   "pop",
-   0.5
-  ],
-  "atlantico": [
-   "whoosh",
-   0.5
   ]
  },
  "cenas": [
   {
    "id": "gancho",
    "tipo": "abertura",
-   "titulo": "Satélite?",
-   "fala": "Noventa e nove por cento da internet entre os continentes passa por aqui: um cabo da grossura de uma mangueira, no fundo do oceano. Você achava que era satélite? Não. Quando você manda uma mensagem pra Portugal, ela desce até o fundo do Atlântico e chega do outro lado em menos de um segundo. E no final eu te conto qual é o maior inimigo desses cabos. Não é tubarão.",
+   "titulo": "O inimigo",
+   "fala": "O maior inimigo da internet do mundo não é hacker, nem tubarão. É âncora de navio. Quase toda a internet entre os continentes passa por cabos no fundo do mar, da grossura de uma mangueira. E no final eu te conto em qual praia brasileira ela chega.",
    "batidas": {
-    "aqui:": "aqui",
-    "mangueira,": "mangueira0",
-    "satélite?": "satelite",
-    "Não.": "nao",
-    "Atlântico": "atlantico",
-    "segundo.": "segundo",
-    "tubarão.": "promessa"
+    "hacker,": "hacker",
+    "tubarão.": "tubarao0",
+    "navio.": "ancora0",
+    "mar,": "fundo",
+    "mangueira.": "mangueira0",
+    "chega.": "promessa"
    }
   },
   {
    "id": "cabo",
    "tipo": "cabo",
    "titulo": "Dentro do cabo",
-   "fala": "Por fora, ele é só plástico, aço e cobre. Mas lá dentro tem uns fios de vidro finos como um fio de cabelo. A sua mensagem vira pulsos de luz, piscando bilhões de vezes por segundo, e a luz vai quicando dentro do vidro sem escapar.",
+   "fala": "Você acha que é satélite? Não: noventa e nove por cento vai pelo fundo do mar. Por fora, o cabo é plástico, aço e cobre. Dentro, tem fios de vidro finos como um cabelo. A sua mensagem vira pulsos de luz, bilhões por segundo, quicando dentro do vidro sem escapar.",
    "batidas": {
-    "plástico,": "mangueira",
+    "satélite?": "satelite",
+    "noventa": "noventa",
+    "plástico,": "camadas",
     "vidro": "vidro",
     "luz,": "luz",
     "bilhões": "bilhoes",
@@ -204,53 +224,66 @@
    "id": "viagem",
    "tipo": "viagem",
    "titulo": "A viagem da luz",
-   "fala": "E essa luz é rápida. De Fortaleza até Portugal são uns seis mil quilômetros, e o sinal vai e volta em menos de sessenta milésimos de segundo. Só que, numa distância dessas, a luz enfraquece. Então, a cada setenta quilômetros, mais ou menos, tem um amplificador no meio do cabo, que dá um reforço na luz. Mas onde esses cabos chegam no Brasil? Quase todos no mesmo lugar.",
+   "fala": "Agora, adivinha: de Fortaleza até Portugal são uns seis mil quilômetros. Quanto tempo a luz leva pra ir e voltar? Menos de sessenta milésimos de segundo. Mas no caminho ela enfraquece. Então, a cada uns setenta quilômetros, um amplificador no cabo dá um reforço.",
    "batidas": {
+    "adivinha:": "adivinha",
     "seis": "seismil",
+    "voltar?": "voltar",
     "sessenta": "sessenta",
     "enfraquece.": "enfraquece",
     "setenta": "setenta",
-    "reforço": "reforco",
-    "lugar.": "lugar"
-   }
-  },
-  {
-   "id": "rede",
-   "tipo": "rede",
-   "titulo": "A rede do mundo",
-   "fala": "Hoje existem cerca de seiscentos cabos assim, somando mais de um milhão de quilômetros. Dá pra dar mais de vinte e cinco voltas na Terra. E aqui no Brasil, a maioria chega numa praia só: a Praia do Futuro, em Fortaleza, com mais de quinze cabos. De lá, a internet segue por cabos em terra até a sua casa.",
-   "batidas": {
-    "seiscentos": "seiscentos",
-    "milhão": "milhao",
-    "voltas": "voltas",
-    "praia": "praia",
-    "Futuro,": "futuro",
-    "casa.": "casa"
+    "reforço.": "reforco"
    }
   },
   {
    "id": "inimigo",
    "tipo": "inimigo",
-   "titulo": "O maior inimigo",
-   "fala": "E o maior inimigo deles? Não é tubarão. São uns cento e cinquenta rompimentos por ano, e a maioria é causada por redes de pesca e âncoras de navio arrastando no fundo. Quando um cabo quebra, a internet desvia por outros cabos, e um navio especial vai até lá, puxa o cabo pra superfície e emenda.",
+   "titulo": "O inimigo é a âncora",
+   "fala": "E aí entra a âncora. São uns cento e cinquenta rompimentos por ano, a maioria por redes de pesca e âncoras arrastando no fundo. Em 2024, um navio afundando no Mar Vermelho arrastou a âncora e cortou três cabos de uma vez. Quando quebra, a internet desvia por outros cabos, e um navio especial puxa o cabo e emenda.",
    "batidas": {
-    "tubarão.": "tubarao",
+    "âncora.": "ancora",
     "cento": "cento",
     "pesca": "pesca",
-    "âncoras": "ancoras",
+    "Vermelho": "vermelho",
+    "três": "tres",
     "desvia": "desvia",
-    "navio": "navio",
     "emenda.": "emenda"
+   }
+  },
+  {
+   "id": "pergunta",
+   "tipo": "pergunta",
+   "titulo": "Chuta nos comentários",
+   "fala": "Pergunta difícil, chuta nos comentários: se cortassem todos os cabos do Brasil agora, o seu WhatsApp pra alguém da sua cidade ainda chegaria? Sim ou não?",
+   "batidas": {
+    "comentários:": "comenta",
+    "cabos": "cortados",
+    "chegaria?": "chegaria",
+    "não?": "simnao"
+   }
+  },
+  {
+   "id": "praia",
+   "tipo": "praia",
+   "titulo": "A praia da internet",
+   "fala": "E a praia que eu prometi: a Praia do Futuro, em Fortaleza. Ali chegam uns dezesseis cabos, quase toda a internet que liga o Brasil ao mundo. No planeta, são quase seiscentos cabos, mais de um milhão de quilômetros: mais de vinte e cinco voltas na Terra.",
+   "batidas": {
+    "Futuro,": "futuro",
+    "dezesseis": "dezesseis",
+    "mundo.": "mundo",
+    "seiscentos": "seiscentos",
+    "milhão": "milhao",
+    "voltas": "voltas"
    }
   },
   {
    "id": "dica",
    "tipo": "dica",
    "titulo": "A dica",
-   "fala": "E a dica: em jogo online, escolha um servidor no Brasil. Servidor do outro lado do oceano soma, só pela distância, dezenas de milésimos de segundo de atraso. E nenhuma internet mais rápida resolve isso.",
+   "fala": "E a dica: em jogo online, escolha servidor no Brasil. Do outro lado do oceano, só a distância já soma atraso, e nenhuma internet mais rápida resolve isso.",
    "batidas": {
     "servidor": "servidor",
-    "atraso.": "atraso",
+    "atraso,": "atraso",
     "resolve": "resolve"
    }
   },
@@ -258,12 +291,11 @@
    "id": "resumo",
    "tipo": "resumo",
    "titulo": "Resumindo",
-   "fala": "Resumindo: sua mensagem vira luz, a luz corre num fio de vidro no fundo do mar, amplificadores dão reforço pelo caminho, e ela chega do outro lado em milésimos de segundo. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
+   "fala": "Resumindo: mensagem vira luz, a luz corre no vidro pelo fundo do mar, e o perigo é a âncora. Segue o Aprendendo Fácil e comenta qual assunto complicado você quer que eu explique no próximo vídeo.",
    "batidas": {
     "luz,": "passo1",
     "mar,": "passo2",
-    "caminho,": "passo3",
-    "segundo.": "passo4",
+    "âncora.": "passo3",
     "Segue": "cta"
    }
   }

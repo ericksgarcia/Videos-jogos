@@ -5,8 +5,7 @@ Antes de começar cada um, confira em `aprendendo/videos/` se o tema já foi fei
 Ao terminar, mova o item para "Feitos" (com a pasta) e passe para o próximo.
 
 ## Em produção
-- Como a chave do carro destranca só o seu carro num estacionamento lotado? → `videos/chave-carro` (renderizando)
-- Como a internet inteira atravessa os oceanos? → `videos/internet-oceanos` (cenas prontas; render depois da chave)
+- A fila "Refazer do zero" abaixo (um de cada vez).
 
 ## Refazer do zero (pedido do dono; um de cada vez)
 Roteiro e cenas novos, com as regras de retenção do começo ao fim do CLAUDE.md.
