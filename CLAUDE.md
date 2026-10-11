@@ -398,6 +398,16 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - `voz.realinhar(json)` refaz a divisão das palavras de uma narração em cache sem chamar nada
   (o alinhamento passou a ignorar respirações no começo da frase, que espremiam as palavras).
 
+## Segundo canal: Luz da Palavra (`luz-da-palavra/`)
+
+- Canal cristão no mesmo motor, com identidade, regras e vídeos próprios: **leia
+  `luz-da-palavra/README.md`** antes de mexer nele. As regras de conteúdo acima (Feynman, tendências,
+  1:30 mínimo) são só do Aprendendo Fácil.
+- O `gerar.py` escolhe a identidade pela pasta do vídeo (`<canal>/identidade/`) ou pelo campo `"canal"`
+  do roteiro; sem nenhum dos dois, usa `aprendendo/identidade` (padrão). Saída dos outros canais em
+  `output/<canal>/<tema>/`. Vídeo novo: `novo.py --canal luz-da-palavra <tema> "Título" --formato versiculo`.
+- Mudança no motor tem de deixar o Aprendendo Fácil igual (`--previa` de um vídeo antigo antes e depois).
+
 ## Git
 
 - Trabalhe na branch indicada pela sessão; commit + push ao terminar. Não abra PR sem

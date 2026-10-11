@@ -1,11 +1,14 @@
-"""Gera um vídeo do canal Aprendendo Fácil a partir de um roteiro.
+"""Gera um vídeo a partir de um roteiro (canal Aprendendo Fácil ou outro canal do repositório).
 
-Uso (cada vídeo é uma pasta em aprendendo/videos/<tema>/ com roteiro.json e cenas.js):
+Uso (cada vídeo é uma pasta <canal>/videos/<tema>/ com roteiro.json e cenas.js):
   python aprendendo/motor/gerar.py aprendendo/videos/eletricidade
   python aprendendo/motor/gerar.py aprendendo/videos/eletricidade --previa   # fotos para revisar
   python aprendendo/motor/gerar.py aprendendo/videos/eletricidade --qualidade draft
+  python aprendendo/motor/gerar.py luz-da-palavra/videos/haja-luz            # outro canal
 
-Saída em output/<tema>/: <slug>.mp4, previa/ e build/.
+Canal: a pasta <canal>/identidade/ (marca.json, marca.css, identidade.js, fontes/) do vídeo, ou o
+campo "canal" do roteiro; sem nenhum dos dois, aprendendo/identidade (padrão).
+Saída: output/<tema>/ no Aprendendo Fácil; output/<canal>/<tema>/ nos outros canais.
 
 Cada cena do roteiro tem uma fala e "batidas": palavras da fala que disparam
 uma animação (e um som). A narração é gerada por cena; o tempo de cada
@@ -26,7 +29,8 @@ from scipy import signal
 from scipy.io import wavfile
 
 AQUI = Path(__file__).resolve().parent          # aprendendo/motor
-CANAL = AQUI.parent                              # aprendendo
+CANAL_PADRAO = AQUI.parent                       # aprendendo
+CANAL = CANAL_PADRAO                             # canal do vídeo em produção (usar_canal)
 IDENTIDADE = CANAL / "identidade"
 RAIZ = CANAL.parent
 sys.path.insert(0, str(AQUI))
@@ -37,7 +41,28 @@ NODE = RAIZ / "node_modules"
 SR = 48000
 
 MARCA = json.loads((IDENTIDADE / "marca.json").read_text())
-DIRECAO = MARCA["voz"]["direcao"]  # narrador adulto de divulgação científica
+DIRECAO = MARCA["voz"]["direcao"]  # tom do narrador (vem da identidade do canal)
+
+
+def usar_canal(pasta_video, roteiro, marca=None):
+    """Escolhe a identidade do canal do vídeo: campo "canal" do roteiro, ou a pasta
+    <canal>/identidade acima de <canal>/videos/<tema>; sem nenhum, aprendendo/identidade.
+    `marca`: outro marca.json (só para testar propostas de identidade)."""
+    global CANAL, IDENTIDADE, MARCA, DIRECAO
+    if roteiro.get("canal"):
+        CANAL = RAIZ / roteiro["canal"]
+    else:
+        acima = Path(pasta_video).resolve().parent.parent
+        CANAL = acima if (acima / "identidade" / "marca.json").exists() else CANAL_PADRAO
+    IDENTIDADE = CANAL / "identidade"
+    MARCA = json.loads(Path(marca or IDENTIDADE / "marca.json").read_text())
+    DIRECAO = MARCA["voz"]["direcao"]
+
+
+def pasta_saida(pasta_video):
+    """output/<tema> (Aprendendo Fácil, como sempre foi) ou output/<canal>/<tema>."""
+    base = RAIZ / "output"
+    return base / Path(pasta_video).name if CANAL == CANAL_PADRAO else base / CANAL.name / Path(pasta_video).name
 
 INICIO_VOZ = 0.55     # a voz entra um pouco depois da cena abrir
 FOLGA_FIM = 0.55      # respiro depois da fala antes da próxima cena
@@ -45,6 +70,9 @@ FOLGA_FIM = 0.55      # respiro depois da fala antes da próxima cena
 # final que emenda no começo: nos últimos LOOP_FINAL s o vídeo se funde com o quadro 0, então quando
 # a rede repete o vídeo a volta é contínua (conta como replay). Pedido do dono, out/2026.
 LOOP_FINAL = 0.5
+
+# som da troca de cena (identidade: "trilha": {"transicao": ["efeito", ganho]})
+TRANSICAO = ("transicao", 0.55)
 
 # som padrão de uma batida sem som definido no roteiro ("sons": {"evento": ["efeito", ganho]})
 SOM_PADRAO = ("pop", 0.4)
@@ -109,17 +137,19 @@ def _ler_voz(arq):
 
 
 def mixar(ag, falas, saida, sons_roteiro=None):
+    global TRANSICAO
+    TRANSICAO = tuple(MARCA.get("trilha", {}).get("transicao", ("transicao", 0.55)))
     n = int(ag["total"] * SR)
     voz_buf, efx = np.zeros((n, 2)), np.zeros((n, 2))
     for c, f in zip(ag["cenas"], falas):
         if f.get("wav"):
             _soma(voz_buf, _ler_voz(f["wav"]), c["voz"], 1.0)
         if c["ini"] > 0:
-            _soma(efx, sons.som("transicao"), max(0, c["ini"] - 0.45), 0.55)
+            _soma(efx, sons.som(TRANSICAO[0]), max(0, c["ini"] - 0.45), TRANSICAO[1])
         for ev, t in c["batidas"].items():
             nome, g = (sons_roteiro or {}).get(ev, SOM_PADRAO)
             _soma(efx, sons.som(nome), t, g)
-    musica = sons.trilha(ag["total"], marcos=[c["ini"] for c in ag["cenas"][1:]])[:n]
+    musica = sons.trilha_estilo(MARCA.get("trilha", {}).get("estilo"), ag["total"], marcos=[c["ini"] for c in ag["cenas"][1:]])[:n]
     # ducking suave: música e efeitos abaixam sob a voz (envelope com ataque/soltura)
     nivel = np.convolve(np.abs(voz_buf[:, 0]), np.ones(2400) / 2400, mode="same")
     nivel = np.clip(nivel / 0.035, 0, 1)
@@ -162,7 +192,7 @@ def montar(roteiro, ag, pasta, pasta_video):
     # animações Lottie do vídeo (videos/<tema>/lottie/*.json) embutidas na página
     lot = {f.stem: json.loads(f.read_text()) for f in sorted((Path(pasta_video) / "lottie").glob("*.json")) if f.name != "creditos.json"}
     (pasta / "assets" / "lottie_dados.js").write_text("window.LOTTIE = " + json.dumps(lot, separators=(",", ":")) + ";\n")
-    for arq in (IDENTIDADE / "fontes").glob("*.woff2"):
+    for arq in sorted((IDENTIDADE / "fontes").glob("*.woff2")):
         shutil.copy(arq, pasta / "assets" / arq.name)
     for arq in (IDENTIDADE / "marca.css", IDENTIDADE / "identidade.js", AQUI / "nucleo.js", AQUI / "biblioteca.js", AQUI / "efeitos.js", AQUI / "tres.js", AQUI / "lottie.js", AQUI / "motion-director.js", AQUI / "pontos.js", AQUI / "pontos-gpu.js", AQUI / "icones.js", AQUI / "formas.js", AQUI / "fisica.js", AQUI / "montagem.js"):
         shutil.copy(arq, pasta / "assets" / arq.name)
@@ -246,11 +276,12 @@ await pg.evaluate(async (D) => {
   const c = document.createElement("div"); c.id = "capa";
   c.innerHTML = `<div class="fundo"></div><div class="txt">${D.linhas.map((l) => `<div>${l.map(([w, d]) => `<span class="${d ? "d" : ""}">${w}</span>`).join(" ")}</div>`).join("")}</div>`;
   const st = document.createElement("style");
-  st.textContent = `#capa { position: absolute; inset: 0; z-index: 50; font-family: "Nunito", sans-serif; }
-    #capa .fundo { position: absolute; inset: 0; background: radial-gradient(95% 26% at 50% 61%, rgba(4,8,26,0.8), rgba(4,8,26,0.25) 70%, rgba(4,8,26,0) 100%); }
-    #capa .txt { position: absolute; left: 50px; right: 50px; top: ${D.y}px; transform: translateY(-50%); text-align: center; font-weight: 900; font-size: ${D.tam}px; line-height: 1.02; text-transform: uppercase; color: #fff;
-      text-shadow: 0 10px 40px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6); letter-spacing: -0.01em; }
-    #capa .txt span { display: inline-block; } #capa .txt .d { color: #ffd23f; text-shadow: 0 0 40px rgba(255,190,60,0.75), 0 10px 40px rgba(0,0,0,0.7); }`;
+  const E = D.estilo;
+  st.textContent = `#capa { position: absolute; inset: 0; z-index: 50; font-family: ${E.fonte}; }
+    #capa .fundo { position: absolute; inset: 0; background: radial-gradient(95% 26% at 50% 61%, rgba(${E.sombra},0.8), rgba(${E.sombra},0.25) 70%, rgba(${E.sombra},0) 100%); }
+    #capa .txt { position: absolute; left: 50px; right: 50px; top: ${D.y}px; transform: translateY(-50%); text-align: center; font-weight: ${E.peso}; font-size: ${D.tam}px; line-height: ${E.altura}; text-transform: uppercase; color: ${E.cor};
+      text-shadow: 0 10px 40px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6); letter-spacing: ${E.espaco}; }
+    #capa .txt span { display: inline-block; } #capa .txt .d { color: ${E.destaque}; text-shadow: 0 0 40px ${E.brilho}, 0 10px 40px rgba(0,0,0,0.7); }`;
   document.head.appendChild(st); document.querySelector("#root").appendChild(c);
   await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
 }, D);
@@ -267,14 +298,17 @@ def capa(roteiro, ag, pasta, destino):
     t = cfg.get("t") or (min(c0["batidas"].values()) + 0.5 if c0["batidas"] else c0["ini"] + 2.0)
     texto, dest = cfg.get("texto") or roteiro["gancho"], (cfg.get("destaque") or roteiro.get("gancho_destaque", "")).upper()
     pal = [(w, bool(dest) and dest in w.upper()) for w in texto.split()]
+    # estilo do texto da capa (identidade do canal; o padrão é o do Aprendendo Fácil)
+    est = {"fonte": '"Nunito", sans-serif', "peso": 900, "cor": "#fff", "destaque": "#ffd23f", "brilho": "rgba(255,190,60,0.75)",
+           "sombra": "4,8,26", "altura": 1.02, "espaco": "-0.01em", "caracteres": 12, "tam": [150, 124], **MARCA.get("capa", {})}
     # quebra em linhas de até ~12 caracteres
     linhas, atual = [], []
     for w in pal:
-        if atual and len(" ".join(x for x, _ in atual + [w])) > 12:
+        if atual and len(" ".join(x for x, _ in atual + [w])) > est["caracteres"]:
             linhas.append(atual); atual = []
         atual.append(w)
     linhas.append(atual)
-    tam = 150 if len(linhas) <= 3 else 124
+    tam = est["tam"][0] if len(linhas) <= 3 else est["tam"][1]
     mod = next(iter(sorted(glob.glob("/opt/node*/lib/node_modules/playwright/index.mjs")) + sorted(glob.glob("/usr/lib/node_modules/playwright/index.mjs"))), None)
     if not mod:
         print("   [capa] playwright ausente; capa não gerada")
@@ -284,7 +318,7 @@ def capa(roteiro, ag, pasta, destino):
     script.write_text(CAPA_JS.replace("__MOD__", mod).replace("__OPCOES__", json.dumps({"executablePath": shell}) if shell else ""))
     png = Path(pasta) / "capa.png"
     r = subprocess.run(["node", str(script), (Path(pasta) / "index.html").resolve().as_uri(), str(png),
-                        json.dumps({"t": t, "linhas": linhas, "tam": tam, "y": cfg.get("y", 1170)})], capture_output=True, text=True, timeout=600)
+                        json.dumps({"t": t, "linhas": linhas, "tam": tam, "y": cfg.get("y", 1170), "estilo": est})], capture_output=True, text=True, timeout=600)
     script.unlink(missing_ok=True)
     if not png.exists():
         print("   [capa] falhou:", (r.stderr or r.stdout)[-300:])
@@ -348,7 +382,7 @@ def metadados(roteiro):
     tags = " ".join(roteiro.get("hashtags", []))
     campos = {"title": roteiro["titulo"], "artist": MARCA["nome"], "album_artist": MARCA["nome"],
               "comment": "\n\n".join(x for x in (desc, tags) if x), "description": desc,
-              "keywords": tags, "genre": "Educação", "copyright": MARCA["nome"]}
+              "keywords": tags, "genre": MARCA.get("genero", "Educação"), "copyright": MARCA["nome"]}
     out = []
     for k, v in campos.items():
         if v:
@@ -410,13 +444,15 @@ def main():
     ap.add_argument("--previa", action="store_true", help="só tira fotos de cada cena (output/<tema>/previa)")
     ap.add_argument("--metadados", action="store_true", help="só regrava título/descrição/hashtags no MP4 já pronto")
     ap.add_argument("--capa", action="store_true", help="só gera a capa (output/<tema>/capa.jpg) a partir do projeto montado")
+    ap.add_argument("--marca", help="usa outro marca.json do canal (testar propostas de identidade); saída em <tema>-<nome do arquivo>")
     a = ap.parse_args()
     pasta_video = Path(a.video)
     if pasta_video.is_file():
         pasta_video = pasta_video.parent
     roteiro = json.loads((pasta_video / "roteiro.json").read_text())
+    usar_canal(pasta_video, roteiro, a.marca)
     if a.metadados:
-        mp4 = RAIZ / "output" / pasta_video.name / f"{roteiro['slug']}.mp4"
+        mp4 = pasta_saida(pasta_video) / f"{roteiro['slug']}.mp4"
         gravar_metadados(roteiro, mp4)
         print("metadados gravados:", mp4)
         return
@@ -427,7 +463,9 @@ def main():
         raise SystemExit(f"narração sem a voz da marca nas cenas {faltou}: rode de novo (a falha não fica em cache) ou avise o dono")
     ag = agenda(roteiro, falas)
     print("vídeo:", ag["total"], "s")
-    saida = RAIZ / "output" / pasta_video.name
+    saida = pasta_saida(pasta_video)
+    if a.marca:
+        saida = saida.with_name(f"{saida.name}-{Path(a.marca).stem}")
     saida.mkdir(parents=True, exist_ok=True)
     pasta = saida / "build"
     montar(roteiro, ag, pasta, pasta_video)

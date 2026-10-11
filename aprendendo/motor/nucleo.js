@@ -3,6 +3,8 @@
 gsap.registerPlugin(MotionPathPlugin, DrawSVGPlugin, MorphSVGPlugin);
 const D = window.DADOS;
 const MARCA = window.MARCA;
+// fonte dos textos desenhados no canvas (rotuloP, formaTexto): marca.json -> fontes.canvas (padrão Nunito)
+const FONTE_P = (MARCA.fontes && MARCA.fontes.canvas) || "Nunito";
 const A = D.agenda, T = A.total;
 const tl = gsap.timeline({ paused: true });
 window.__timelines = window.__timelines || {};

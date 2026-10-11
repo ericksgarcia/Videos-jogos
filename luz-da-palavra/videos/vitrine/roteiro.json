@@ -1,0 +1,16 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "vitrine-identidade",
+  "titulo": "Vitrine da identidade do Luz da Palavra",
+  "gancho": "HAJA LUZ",
+  "gancho_destaque": "LUZ",
+  "sons": {"escuro": ["respiro", 0.4], "haja": ["sino", 0.5], "cta": ["brilho", 0.45]},
+  "cenas": [
+    {"id": "abertura", "tipo": "abertura", "titulo": "",
+     "fala": "Antes de existir qualquer coisa, havia só escuridão. E disse Deus: Haja luz. E houve luz.",
+     "batidas": {"escuridão.": "escuro", "Haja": "haja"}},
+    {"id": "fim", "tipo": "fim", "titulo": "A Palavra",
+     "fala": "Segue o Luz da Palavra para receber uma palavra de luz todo dia.",
+     "batidas": {"Segue": "cta"}}
+  ]
+}

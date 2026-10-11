@@ -342,3 +342,80 @@ def trilha(dur, bpm=96, seed=30, marcos=None):
     g = int(2.5 * SR)
     out[-g:] *= np.linspace(1, 0, g)[:, None]
     return out / (np.abs(out).max() + 1e-9) * 0.8
+
+
+def trilha_contemplativa(dur, seed=50, marcos=None):
+    """Trilha "sacra/contemplativa" (canal Luz da Palavra): sem batida. Pad de coro (vogal "ah"
+    com formantes), acordes longos que mudam devagar (Ré maior - Si menor - Sol - Lá), notas de
+    harpa/piano raras com eco longo, um grave que segura o chão e muito reverb (catedral).
+    `marcos`: trocas de cena; nelas entra uma nota de harpa suave."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    acordes = [(146.83, 220.0, 293.66, 369.99), (123.47, 185.0, 246.94, 293.66), (98.0, 196.0, 246.94, 293.66), (110.0, 220.0, 277.18, 329.63)]
+    dur_ac = 8.0
+    coro = np.zeros(n)
+    sub = np.zeros(n)
+    k, t0 = 0, 0.0
+    while t0 < dur:
+        i0, i1 = int(t0 * SR), min(n, int((t0 + dur_ac + 3.0) * SR))
+        tt = t[i0:i1] - t0
+        env = np.minimum(1, tt / 2.5) * np.minimum(1, np.clip(dur_ac + 3.0 - tt, 0, None) / 3.0)
+        ac = acordes[k % 4]
+        som = sum(_saw(f * d, tt + 0.37 * j) for j, f in enumerate(ac[1:]) for d in (0.995, 1.0, 1.005))
+        coro[i0:i1] += som * env * 0.035
+        sub[i0:i1] += np.sin(2 * np.pi * ac[0] / 2 * tt) * env * 0.12
+        t0 += dur_ac
+        k += 1
+    # formantes de "ah" (coro) e um vibrato lento de volume
+    voz = _bp(coro, 650, 1150) * 1.0 + _bp(coro, 2300, 2900) * 0.35 + _lp(coro, 500) * 0.6
+    voz *= 1 + 0.08 * np.sin(2 * np.pi * 0.23 * t)
+    # harpa: notas raras do acorde, uma oitava acima, mais uma em cada troca de cena
+    harpa = np.zeros(n)
+    rr = np.random.default_rng(seed)
+    tempos = list(np.arange(3.0, dur - 1, 2.6)) + [m + 0.1 for m in (marcos or [])]
+    for j, tn in enumerate(sorted(tempos)):
+        ac = acordes[int(tn // dur_ac) % 4]
+        f = ac[1 + j % 3] * 2 * (2 if rr.uniform() < 0.25 else 1)
+        x = _nota(f, 3.0, ataque=0.004, queda=1.4, brilho=0.25)
+        i = int(tn * SR)
+        if i < n:
+            harpa[i:i + len(x)] += x[: n - i] * (0.05 if j % 2 else 0.035)
+    eco = np.zeros(n)
+    a = int(0.62 * SR)
+    eco[a:] += harpa[:-a] * 0.4
+    eco[2 * a:] += harpa[:-2 * a] * 0.16
+    est = np.stack([voz + sub + harpa * 0.9 + eco * 0.35, voz * 0.97 + sub + harpa * 0.6 + eco * 0.8], axis=1)
+    molhado = reverb(est, 5.5, 4200, seed=51)[:n] * 0.55
+    out = est + molhado
+    f = int(1.2 * SR)
+    out[:f] *= np.linspace(0, 1, f)[:, None]
+    g = int(2.5 * SR)
+    out[-g:] *= np.linspace(1, 0, g)[:, None]
+    return out / (np.abs(out).max() + 1e-9) * 0.8
+
+
+def sino():
+    """Sino grave e longo (sagrado, revelação): parciais de sino de igreja, com cauda."""
+    d = 3.2
+    t = _t(d)
+    f0 = 392.0
+    x = sum(a * np.sin(2 * np.pi * f0 * r * t) * np.exp(-t * k) for r, a, k in
+            ((0.5, 0.5, 0.9), (1.0, 1.0, 1.3), (1.19, 0.45, 1.8), (1.5, 0.35, 2.2), (2.0, 0.3, 2.8), (2.51, 0.12, 4.0)))
+    x *= np.minimum(1, t / 0.004)
+    return _com_cauda(_estereo(_norm(x, 0.4)), 0.45, 3.0)
+
+
+def respiro():
+    """Transição suave (canal contemplativo): ar que passa, sem grave."""
+    w = whoosh2(1.2, 52)
+    return _com_cauda(w * 0.6, 0.3, 2.0)
+
+
+EFEITOS.update({"sino": sino, "respiro": respiro})
+
+
+def trilha_estilo(estilo, dur, marcos=None):
+    """Trilha pelo estilo da identidade (marca.json -> "trilha": {"estilo": ...}); padrão: trilha()."""
+    if estilo == "contemplativa":
+        return trilha_contemplativa(dur, marcos=marcos)
+    return trilha(dur, marcos=marcos)

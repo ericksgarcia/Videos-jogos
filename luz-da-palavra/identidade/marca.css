@@ -1,0 +1,79 @@
+/* Identidade visual do Luz da Palavra: fontes, marca, faixas, barra de progresso, capítulos,
+   abertura, versículo na tela, legendas e cartão final. Cores e fontes: marca.json (viram
+   variáveis CSS em identidade.js). Fontes locais (SIL OFL), nunca de CDN. */
+@font-face { font-family: "Cinzel"; font-weight: 600; src: url("cinzel-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cinzel"; font-weight: 700; src: url("cinzel-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; src: url("cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; src: url("cormorant-garamond-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 700; src: url("cormorant-garamond-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; src: url("cormorant-garamond-latin-500-italic.woff2") format("woff2"); }
+/* Source Sans 3 com nome de uma palavra (o canvas aceita sem aspas) */
+@font-face { font-family: "LuzSans"; font-weight: 600; src: url("source-sans-3-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "LuzSans"; font-weight: 700; src: url("source-sans-3-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "LuzSans"; font-weight: 800; src: url("source-sans-3-latin-800-normal.woff2") format("woff2"); }
+
+/* o template do motor usa o fundo e a fonte do Aprendendo Fácil: aqui vale a do canal */
+html body, html body #root { background: var(--fundo); font-family: "LuzSans", sans-serif; color: var(--branco); }
+
+#faixa-topo { position: absolute; left: 0; top: 0; width: 1080px; height: 320px; background: linear-gradient(rgba(var(--fundo-rgb),0.78), rgba(var(--fundo-rgb),0)); }
+#faixa-base { position: absolute; left: 0; bottom: 0; width: 1080px; height: 560px; background: linear-gradient(rgba(var(--fundo-rgb),0), rgba(var(--fundo-rgb),0.72) 50%, rgba(var(--fundo-rgb),0.9)); }
+#vinheta { position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 42%, transparent 55%, rgba(0,0,0,0.55)); }
+#progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 6px; background: linear-gradient(90deg, var(--ambar), var(--ouro) 60%, var(--luz)); box-shadow: 0 0 14px rgba(var(--ouro-rgb),0.7); transform-origin: left center; transform: scaleX(0); }
+
+/* marca no topo esquerdo: logo dourado com brilho + nome em serifa */
+#marca { position: absolute; left: 60px; top: 70px; display: flex; align-items: center; gap: 16px; }
+#marca svg { filter: drop-shadow(0 0 10px rgba(var(--ouro-rgb),0.75)) drop-shadow(0 0 26px rgba(var(--ouro-rgb),0.35)); }
+#marca .nome { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 31px; letter-spacing: 0.16em; color: var(--branco); white-space: nowrap; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+#marca .nome b { color: var(--ouro); font-weight: 700; text-shadow: 0 0 18px rgba(var(--ouro-rgb),0.6); }
+
+/* capítulo: numeral romano entre filetes + título em serifa */
+#capitulo { position: absolute; left: 60px; top: 150px; height: 130px; }
+.lt { position: absolute; left: 0; top: 0; white-space: nowrap; opacity: 0; }
+.lt .num { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 26px; letter-spacing: 0.3em; color: var(--ouro); display: flex; align-items: center; gap: 14px; }
+.lt .num i { display: block; height: 2px; width: 46px; background: linear-gradient(90deg, rgba(var(--ouro-rgb),0), var(--ouro)); }
+.lt .barra { height: 2px; width: 120px; margin: 12px 0 14px; background: linear-gradient(90deg, var(--ouro), rgba(var(--ouro-rgb),0)); transform-origin: left; }
+.lt .t { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 50px; line-height: 1; letter-spacing: 0.04em; color: var(--branco); text-shadow: 0 4px 18px rgba(0,0,0,0.6); }
+
+/* abertura */
+#gancho { position: absolute; left: 50px; right: 50px; top: 250px; text-align: center; opacity: 0; transform-origin: 50% 0; }
+#gancho .sup { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 28px; letter-spacing: 0.42em; color: var(--ouro); margin-bottom: 20px; }
+#gancho .orn { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 0 auto 22px; }
+#gancho .orn i { display: block; height: 2px; width: 150px; background: linear-gradient(90deg, rgba(var(--ouro-rgb),0), var(--ouro)); }
+#gancho .orn i:last-child { transform: scaleX(-1); }
+#gancho .orn b { display: block; width: 12px; height: 12px; background: var(--ouro); transform: rotate(45deg); box-shadow: 0 0 14px rgba(var(--ouro-rgb),0.9); }
+#gancho .linha { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 92px; line-height: 1.04; text-transform: uppercase; letter-spacing: 0.03em; color: var(--branco); text-shadow: 0 8px 30px rgba(0,0,0,0.6); }
+#gancho .linha span { display: inline-block; margin: 0 0.12em; }
+#gancho .linha .dest { color: var(--ouro); text-shadow: 0 0 30px rgba(var(--ouro-rgb),0.85), 0 0 90px rgba(var(--ambar-rgb),0.5), 0 8px 30px rgba(0,0,0,0.5); }
+
+/* versículo na tela: texto em serifa itálica + referência exata */
+#versos { position: absolute; inset: 0; pointer-events: none; }
+.verso { position: absolute; left: 70px; width: 940px; text-align: center; opacity: 0; }
+.verso .fundo { position: absolute; left: -60px; right: -60px; top: -80px; bottom: -70px; background: radial-gradient(closest-side, rgba(var(--fundo-rgb),0.62), rgba(var(--fundo-rgb),0)); }
+.verso .txt { position: relative; font-family: var(--fonte-verso), serif; font-style: italic; font-weight: 500; font-size: 72px; line-height: 1.12; color: var(--branco); text-shadow: 0 0 24px rgba(var(--luz-rgb),0.35), 0 6px 26px rgba(0,0,0,0.7); }
+.verso .txt span { display: inline-block; margin: 0 0.1em; }
+.verso .txt .d { color: var(--luz); text-shadow: 0 0 30px rgba(var(--ouro-rgb),0.9), 0 6px 26px rgba(0,0,0,0.6); }
+.verso .ref { position: relative; margin-top: 26px; display: flex; align-items: center; justify-content: center; gap: 18px; font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 34px; letter-spacing: 0.24em; color: var(--ouro); text-shadow: 0 0 18px rgba(var(--ouro-rgb),0.6); }
+.verso .ref i { display: block; height: 2px; width: 70px; background: linear-gradient(90deg, rgba(var(--ouro-rgb),0), var(--ouro)); }
+.verso .ref i:last-child { transform: scaleX(-1); }
+
+/* legenda: 4 palavras por vez, sem serifa (leitura); a falada fica dourada */
+#leg { position: absolute; left: 70px; width: 940px; top: 1480px; height: 190px; }
+.bloco { position: absolute; inset: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 20px; opacity: 0; }
+.bloco span { display: inline-block; font-family: "LuzSans", sans-serif; font-weight: 700; font-size: 62px; line-height: 1.16; color: rgba(255,248,236,0.92); text-shadow: 0 4px 16px rgba(0,0,0,0.8); }
+.bloco span.k { color: var(--luz); }
+
+/* cartão final (por cima da nuvem de pontos do logo) */
+.cf { position: relative; width: 1080px; height: 1920px; }
+.cf div { position: absolute; left: 0; width: 1080px; text-align: center; opacity: 0; }
+.cf .n { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 80px; letter-spacing: 0.12em; color: var(--branco); text-shadow: 0 6px 30px rgba(0,0,0,0.6); }
+.cf .n b { color: var(--ouro); text-shadow: 0 0 30px rgba(var(--ouro-rgb),0.8); }
+.cf .orn { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.cf .orn i { display: block; height: 2px; width: 120px; background: linear-gradient(90deg, rgba(var(--ouro-rgb),0), var(--ouro)); }
+.cf .orn i:last-child { transform: scaleX(-1); }
+.cf .orn b { display: block; width: 10px; height: 10px; background: var(--ouro); transform: rotate(45deg); }
+.cf .bt { display: flex; justify-content: center; }
+.cf .bt span { display: block; padding: 26px 96px; border-radius: 70px; background: var(--botao); color: var(--botao-texto); font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 52px; letter-spacing: 0.2em; box-shadow: 0 0 0 3px rgba(var(--ouro-rgb),0.9), 0 0 40px rgba(var(--ouro-rgb),0.45); }
+.cf .p { font-family: var(--fonte-verso), serif; font-style: italic; font-weight: 500; font-size: 50px; color: rgba(255,246,230,0.88); }
+.cf .r { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 28px; letter-spacing: 0.24em; color: var(--ouro); }
+.rot { font-family: "LuzSans", sans-serif; font-weight: 800; }
+.rotm { font-family: "LuzSans", sans-serif; font-weight: 700; }

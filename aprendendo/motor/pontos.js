@@ -8,7 +8,7 @@
 //   T.quadro((x, t) => { ... });                 // x = contexto 2D já limpo e em modo "lighter"
 
 document.head.insertAdjacentHTML("beforeend", `<style>
-  .pt-palco { position: relative; width: 1080px; height: 1920px; font-family: "Nunito", sans-serif; }
+  .pt-palco { position: relative; width: 1080px; height: 1920px; font-family: "${FONTE_P}", sans-serif; }
   .pt-l { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 900; color: #f8f9ff; line-height: 1.02;
           letter-spacing: -0.01em; text-transform: uppercase; white-space: nowrap; text-shadow: 0 8px 36px rgba(0,0,0,0.65); }
   .pt-l .md-word, .pt-l .md-word-in, .pt-l .md-key { display: inline-block; }
@@ -85,14 +85,14 @@ function rotuloP(x, txt, px, py, tam, cor, a, alinhar = "center") {
   const y = x._texto;
   if (y) {
     y._usado = true; y.save(); y.setTransform(x.getTransform()); y.globalAlpha = x.globalAlpha;
-    y.font = `800 ${tam}px Nunito`; y.textAlign = alinhar; y.textBaseline = "middle";
+    y.font = `800 ${tam}px ${FONTE_P}`; y.textAlign = alinhar; y.textBaseline = "middle";
     y.shadowColor = `rgba(${cor},${0.55 * a})`; y.shadowBlur = Math.max(6, tam * 0.45);
     y.fillStyle = `rgba(${cor},${a})`; y.fillText(txt, px, py);
     y.shadowBlur = 0; y.fillText(txt, px, py); y.restore();
     return;
   }
   const op = x.globalCompositeOperation; x.globalCompositeOperation = "source-over";
-  x.font = `800 ${tam}px Nunito`; x.textAlign = alinhar; x.textBaseline = "middle";
+  x.font = `800 ${tam}px ${FONTE_P}`; x.textAlign = alinhar; x.textBaseline = "middle";
   x.fillStyle = `rgba(${cor},${a})`; x.fillText(txt, px, py); x.globalCompositeOperation = op;
 }
 
@@ -226,7 +226,7 @@ function fNota(x, cx, cy, w, cor, a, txt = "", ang = 0) {
   if (a <= 0.01) return; const h = w * 0.46; x.save(); x.translate(cx, cy); x.rotate(ang);
   fCaixa(x, 0, 0, w, h, w * 0.05, cor, a, Math.max(2, w / 70), txt ? 0.06 : 0.16); fCaixa(x, 0, 0, w * 0.86, h * 0.72, w * 0.03, cor, 0.45 * a, Math.max(1, w / 140), 0);
   x.beginPath(); x.ellipse(0, 0, w * 0.16, h * 0.26, 0, 0, 6.283); x.strokeStyle = `rgba(${cor},${0.7 * a})`; x.lineWidth = Math.max(1.5, w / 110); x.stroke();
-  if (txt) { const op = x.globalCompositeOperation; x.globalCompositeOperation = "source-over"; x.font = `900 ${w * 0.16}px Nunito`; x.textAlign = "left"; x.textBaseline = "middle"; x.fillStyle = `rgba(230,255,240,${0.9 * a})`; x.fillText(txt, -w * 0.4, -h * 0.2); x.globalCompositeOperation = op; }
+  if (txt) { const op = x.globalCompositeOperation; x.globalCompositeOperation = "source-over"; x.font = `900 ${w * 0.16}px ${FONTE_P}`; x.textAlign = "left"; x.textBaseline = "middle"; x.fillStyle = `rgba(230,255,240,${0.9 * a})`; x.fillText(txt, -w * 0.4, -h * 0.2); x.globalCompositeOperation = op; }
   x.restore();
 }
 // moeda/ficha dourada

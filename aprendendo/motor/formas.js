@@ -23,7 +23,7 @@ const _MEIO_F = (() => { const v = [_LUZ_F[0], _LUZ_F[1], _LUZ_F[2] + 1], m = Ma
 
 function formaPontos(fonte, n = 14000, o = {}) { return { fonte, n, o, pronto: false }; }
 function formaTexto(txt, n = 12000, o = {}) {
-  return formaPontos({ desenho: (g, R) => { const tam = o.tam || 0.5; g.font = `900 ${R * tam}px Nunito`; g.textAlign = "center"; g.textBaseline = "middle"; let w = g.measureText(txt).width; const k = Math.min(1, (R * 0.94) / w); g.save(); g.translate(R / 2, R / 2); g.scale(k, k); g.fillText(txt, 0, R * 0.02); g.restore(); } }, n, o);
+  return formaPontos({ desenho: (g, R) => { const tam = o.tam || 0.5; g.font = `${o.peso || 900} ${R * tam}px ${o.fonte || FONTE_P}`; g.textAlign = "center"; g.textBaseline = "middle"; let w = g.measureText(txt).width; const k = Math.min(1, (R * 0.94) / w); g.save(); g.translate(R / 2, R / 2); g.scale(k, k); g.fillText(txt, 0, R * 0.02); g.restore(); } }, n, o);
 }
 // "poeira": pontos soltos num disco (para um objeto se montar ou se desfazer)
 function poeiraForma(n = 5000, seed = 7, raio = 0.5) {

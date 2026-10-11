@@ -1,0 +1,263 @@
+{
+  "nome": "Luz da Palavra",
+  "nome_tela": [
+    "LUZ",
+    "DA PALAVRA"
+  ],
+  "slogan": "Uma palavra de luz para o seu dia.",
+  "bio": "Versículos, histórias e reflexões da Bíblia em 1 minuto, com luz e calma. Uma palavra de luz para o seu dia. ✨",
+  "publico": "Cristão em geral, adulto. Tom de esperança, assombro e acolhimento; sem polêmica entre denominações, sem política, sem medo nem culpa.",
+  "cta_fala": "Segue o Luz da Palavra para receber uma palavra de luz todo dia.",
+  "cta_tela": {
+    "botao": "SEGUIR",
+    "pergunta": "Lâmpada para os meus pés é tua palavra.",
+    "referencia": "SALMOS 119:105"
+  },
+  "abertura_sobretitulo": "LUZ DA PALAVRA",
+  "capitulo_prefixo": "",
+  "capitulos": "romanos",
+  "genero": "Religião",
+  "hashtags": [
+    "#luzdapalavra",
+    "#biblia",
+    "#fe",
+    "#palavradedeus",
+    "#versiculododia"
+  ],
+  "logo": "lamparina",
+  "voz": {
+    "provedor": "gemini",
+    "modelo": "gemini-3.8-flash-tts",
+    "nome": "Charon",
+    "direcao": "# AUDIO PROFILE: Narrador de um canal cristão brasileiro de reflexões bíblicas para adultos\n## THE SCENE: Vídeo curto e contemplativo, à noite, com luz suave. O narrador lê e comenta a Bíblia para uma pessoa que precisa de esperança.\n### DIRECTOR'S NOTES\nStyle: voz adulta, calma, grave e acolhedora, com reverência e esperança; fala perto do microfone, como numa conversa íntima. Nunca tom de pregador gritando, nunca infantil, nunca teatral.\nPace: sereno, sem pressa, com pausas naturais depois de cada frase e um respiro antes das palavras importantes.\nAccent: português do Brasil.\n#### TRANSCRIPT\n"
+  },
+  "paleta": {
+    "fundo": "#050d18",
+    "texto": "#fff3dc",
+    "ouro": "#f0b85a",
+    "luz": "#ffeec4",
+    "ambar": "#ffb04a",
+    "branco": "#fff3dc",
+    "azul": "#1f4f8f",
+    "vinho": "#6d1a33",
+    "cinza": "#a9aec4",
+    "tinta": "#1a1206",
+    "botao": "#1f4f8f",
+    "botao_texto": "#fff3dc"
+  },
+  "fontes": {
+    "titulo": "Cinzel",
+    "verso": "Cormorant Garamond",
+    "legenda": "LuzSans",
+    "canvas": "LuzSans",
+    "arquivos": "identidade/fontes/ (Cinzel, Cormorant Garamond e Source Sans 3 como LuzSans; licença SIL OFL)"
+  },
+  "trilha": {
+    "estilo": "contemplativa",
+    "transicao": [
+      "respiro",
+      0.5
+    ]
+  },
+  "sons_modelo": {
+    "titulo": [
+      "sino",
+      0.45
+    ],
+    "cta": [
+      "brilho",
+      0.5
+    ]
+  },
+  "capa": {
+    "fonte": "\"Cinzel\", serif",
+    "peso": 700,
+    "cor": "#fff3dc",
+    "destaque": "#f0b85a",
+    "brilho": "rgba(255,190,90,0.8)",
+    "sombra": "3,9,18",
+    "altura": 1.08,
+    "espaco": "0.02em",
+    "caracteres": 11,
+    "tam": [
+      128,
+      108
+    ]
+  },
+  "traducao": {
+    "nome": "Almeida, Edição Revista e Corrigida (1911/1914)",
+    "situacao": "domínio público",
+    "fonte": "Project Gutenberg eBook #62383 — A Biblia Sagrada, Contendo o Velho e o Novo Testamento (João Ferreira de Almeida)",
+    "regra": "Citar só por ela; ortografia atualizada sem trocar palavras. Na dúvida, parafrasear e mostrar a referência."
+  },
+  "modelos": {
+    "versiculo": [
+      [
+        "abertura",
+        "abertura",
+        "",
+        "1ª frase forte + imagem mais bonita; laço aberto (o detalhe que você só vê no fim)"
+      ],
+      [
+        "versiculo",
+        "versiculo",
+        "",
+        "o versículo lido com calma, texto na tela + referência exata (Almeida 1911)"
+      ],
+      [
+        "sentido",
+        "sentido",
+        "",
+        "o que isso significa hoje, em 1–2 frases, com acolhimento; paga o laço aberto"
+      ],
+      [
+        "pergunta",
+        "pergunta",
+        "",
+        "pergunta de escolha fácil, falada e escrita, com seta para os comentários na direita"
+      ],
+      [
+        "fim",
+        "fim",
+        "",
+        "frase final que emenda no começo + Segue o Luz da Palavra para receber uma palavra de luz todo dia."
+      ]
+    ],
+    "historia": [
+      [
+        "abertura",
+        "abertura",
+        "",
+        "a cena mais forte da história na 1ª frase + laço aberto"
+      ],
+      [
+        "contexto",
+        "contexto",
+        "Onde tudo começa",
+        "quem, onde, quando (curto)"
+      ],
+      [
+        "conflito",
+        "conflito",
+        "O problema",
+        "o impasse; re-gancho"
+      ],
+      [
+        "virada",
+        "virada",
+        "A virada",
+        "o momento de Deus agir; versículo com referência"
+      ],
+      [
+        "sentido",
+        "sentido",
+        "Para você",
+        "o que a história diz hoje; paga o laço aberto"
+      ],
+      [
+        "pergunta",
+        "pergunta",
+        "",
+        "pergunta de escolha fácil para os comentários (seta à direita)"
+      ],
+      [
+        "fim",
+        "fim",
+        "",
+        "frase que emenda no começo + chamada"
+      ]
+    ],
+    "significado": [
+      [
+        "abertura",
+        "abertura",
+        "",
+        "a palavra/expressão e a pergunta 'o que significa?'"
+      ],
+      [
+        "origem",
+        "origem",
+        "A origem",
+        "de onde vem (língua original, contexto) sem polêmica"
+      ],
+      [
+        "texto",
+        "texto",
+        "Na Bíblia",
+        "versículo com referência"
+      ],
+      [
+        "hoje",
+        "hoje",
+        "Hoje",
+        "o que muda na vida da pessoa"
+      ],
+      [
+        "pergunta",
+        "pergunta",
+        "",
+        "pergunta de escolha fácil (seta à direita)"
+      ],
+      [
+        "fim",
+        "fim",
+        "",
+        "chamada"
+      ]
+    ],
+    "oracao": [
+      [
+        "abertura",
+        "abertura",
+        "",
+        "convite para respirar e parar"
+      ],
+      [
+        "respirar",
+        "respirar",
+        "Respire",
+        "respiração guiada, pausas longas"
+      ],
+      [
+        "palavra",
+        "palavra",
+        "A Palavra",
+        "versículo com referência, lido devagar"
+      ],
+      [
+        "meditar",
+        "meditar",
+        "Medite",
+        "reflexão em frases curtas"
+      ],
+      [
+        "oracao",
+        "oracao",
+        "Ore",
+        "oração simples e acolhedora"
+      ],
+      [
+        "fim",
+        "fim",
+        "",
+        "bênção curta + chamada"
+      ]
+    ]
+  },
+  "video": {
+    "largura": 1080,
+    "altura": 1920,
+    "fps": 30,
+    "duracao_minima_s": 20,
+    "tamanho_maximo_mb": 30,
+    "desfoque_movimento": true,
+    "tratamento_cor": {
+      "contraste": 1.04,
+      "saturacao": 1.02,
+      "vinheta": 0.3,
+      "aberracao_px": 0,
+      "grao": 5
+    }
+  },
+  "proposta": "C — Lamparina (Salmo 119:105)"
+}
