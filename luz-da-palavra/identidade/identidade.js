@@ -160,44 +160,54 @@ const SILHUETAS = {
   pessoa: "M122 50C122 58 120 62 112 64C98 67 90 72 88 82C84 104 78 130 70 156C67 165 74 168 77 160C84 136 92 110 96 96C98 112 100 124 100 134C99 148 100 158 104 170C108 200 110 226 110 240L124 242C124 222 126 196 127 176L129 176C130 196 132 222 132 242L146 240C146 226 148 200 152 170C156 158 157 148 156 134C156 124 158 112 160 96C164 110 172 136 179 160C182 168 189 165 186 156C178 130 172 104 168 82C166 72 158 67 144 64C136 62 134 58 134 50ZM113 32a15 18 0 1 0 30 0a15 18 0 1 0 -30 0Z",
   manto: "M122 50C122 58 120 62 112 64C98 67 90 72 87 84L78 150C77 158 85 160 87 152L94 112L82 238C102 244 154 244 174 238L162 112L169 152C171 160 179 158 178 150L169 84C166 72 158 67 144 64C136 62 134 58 134 50ZM113 32a15 18 0 1 0 30 0a15 18 0 1 0 -30 0Z",
 };
-const silhuetaForma = (tipo = "pessoa", n = 12000) => formaPontos({ desenho: (g, R) => { g.save(); g.translate(R * 0.04, R * 0.04); g.scale((R * 0.92) / 256, (R * 0.92) / 256); g.fill(new Path2D(SILHUETAS[tipo])); g.restore(); } }, n, { espessura: 0.04 });
+// silhuetas desenhadas com traços (poses): "ajoelhada" = pessoa de joelhos, curvada, olhando para a direita
+const SILHUETAS_POSE = {
+  ajoelhada: (g) => {
+    g.lineCap = "round"; g.lineJoin = "round"; g.strokeStyle = "#fff";
+    const tr = (w, pts) => { g.lineWidth = w; g.beginPath(); g.moveTo(pts[0], pts[1]); for (let k = 2; k < pts.length; k += 6) g.bezierCurveTo(pts[k], pts[k + 1], pts[k + 2], pts[k + 3], pts[k + 4], pts[k + 5]); g.stroke(); };
+    g.beginPath(); g.ellipse(166, 104, 15, 17, 0.5, 0, 6.283); g.fill();
+    tr(34, [150, 126, 130, 140, 108, 160, 100, 190]);      // tronco curvado para a frente
+    tr(30, [100, 196, 120, 204, 140, 210, 160, 214]);      // coxa
+    tr(24, [160, 216, 140, 226, 110, 232, 84, 236]);       // canela até o pé
+    tr(14, [150, 134, 166, 150, 180, 168, 190, 190]);      // braço estendido, mãos no chão
+  },
+};
+const silhuetaForma = (tipo = "pessoa", n = 12000) => formaPontos({ desenho: (g, R) => { g.save(); g.translate(R * 0.04, R * 0.04); g.scale((R * 0.92) / 256, (R * 0.92) / 256); g.fillStyle = "#fff"; if (SILHUETAS_POSE[tipo]) SILHUETAS_POSE[tipo](g); else g.fill(new Path2D(SILHUETAS[tipo])); g.restore(); } }, n, { espessura: 0.04 });
 
-// ---------- cena da pergunta para os comentários: balão em pontos, 2 opções e seta para a direita ----------
-// opcoes: [["1 · Haja luz", "Gênesis 1:3", "sun"], ["2 · Luz dentro de você", "2 Coríntios 4:6", "heart"]]
-//   (o 3º item, opcional, é um ícone Phosphor desenhado em pontos à esquerda da opção)
-// batidas da cena: "um", "dois" (a opção "bate" e acende quando é dita) e "comenta" (a seta aparece)
-// o.de = [forma, { cx, cy, esc, cor }]: a forma do fim da cena anterior vira o balão (continuidade)
-let _BALAO_LP = null;  // criado na 1ª cena (formas.js carrega depois da identidade)
-function cenaPergunta(el, c, B, opcoes, o = {}) {
-  _BALAO_LP = _BALAO_LP || formaPontos("chat-circle-dots", 9000);
-  const t1 = B("um"), t2 = B("dois"), tC = B("comenta");
-  const TP = telaGPU(el, c, { fundo: LUZ.fundo.map((q) => q * 0.85) }), nv = TP.nuvem(50000), FD = fundoProfundo(o.seed || 61, 600);
-  const ICO = opcoes.map((op) => (op[2] ? formaPontos(op[2], 2500) : null));
-  const CAM = cameraProf([[c.ini, { x: 540, y: 960, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 940, zoom: 1.08 }]]);
+// ---------- cena da pergunta para os comentários: UMA pergunta forte, escrita grande ----------
+// o.texto: a pergunta (HTML; <b>palavra</b> fica dourada); o.sub: o pedido ("Marca essa pessoa aqui do lado.")
+// o.icone: forma Phosphor que "leva" a resposta (padrão "heart"); o.de = [forma, { cx, cy, esc, cor }]: a
+// forma do fim da cena anterior vira o ícone (continuidade).
+// batidas da cena: "comenta" (o ícone voa até o botão de comentários na lateral direita e fica pulsando)
+const _ICO_LP = {};
+function cenaPergunta(el, c, B, o = {}) {
+  const ico = _ICO_LP[o.icone || "heart"] = _ICO_LP[o.icone || "heart"] || formaPontos(o.icone || "heart", 9000);
+  const tC = B("comenta"), y0 = o.y || 560;
+  const TP = telaGPU(el, c, { fundo: LUZ.fundo.map((q) => q * 0.85) }), nv = TP.nuvem(40000), FD = fundoProfundo(o.seed || 61, 600);
+  // o texto vem depois do canvas (senão fica por baixo dele)
+  const tx = palcoTexto(el, [["lp-q", y0, o.tam || 74, o.texto, "lp-q", ""], ["lp-s", y0 + (o.alturaTexto || 300), 46, o.sub || "", "lp-s", ""]]);
+  tl.fromTo(tx["lp-q"], { opacity: 0, y: 24, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out", immediateRender: false }, c.ini + 0.15);
+  if (o.sub) tl.fromTo(tx["lp-s"], { opacity: 0, y: 16, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, tC - 0.2);
+  const PO = (() => { const r = prng(o.seed || 61); return Array.from({ length: 500 }, () => ({ x: r() * 1080, v: 30 + 70 * r(), f: r(), s: r() })); })();
+  const CAM = cameraProf([[c.ini, { x: 540, y: 960, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 950, zoom: 1.06 }]]);
+  const IX = 540, IY = 1110, BX = 990, BY = 1250;
   TP.quadro((x, t) => {
-    const cam = CAM(t), k0 = cam.zoom, P = (px, py) => projP(cam, px, py, 1);
+    const cam = CAM(t);
     let i = desenharFundo(nv, FD, t, cam, LUZ.luz, 0.8, 0);
-    brilhoP(x, 540, 1500, 900, LUZS.ambar, 0.08);
-    // balão: nasce da forma da cena anterior e "respira"; balança quando a pergunta termina
-    const [bx, by] = P(540, 560), ub = PT.ss((t - c.ini + 0.1) / 0.9), bal = FIS.balanco(t, tC - 0.2, 0.08, 1.6, 3), escB = 360 * k0 * FIS.respira(t, 0, 0.02);
-    const para = { cx: bx, cy: by, esc: escB, cor: CORF.ciano, rot: bal, brilho: 0.9 };
-    if (o.de && ub < 1) i = morfo(nv, o.de[0], _BALAO_LP, ub, { de: o.de[1], para, t, onda: 0.3, curva: 0.5, i0: i });
-    else i = desenharForma(nv, _BALAO_LP, { ...para, a: o.de ? 1 : ub, t, i0: i });
-    if (ub > 0.6) rotuloP(x, "?", bx, by - 8 * k0, 150 * k0, "255,226,140", PT.ss((ub - 0.6) / 0.4) * (0.85 + 0.15 * Math.sin(t * 4)));
-    opcoes.forEach(([txt, ref], k) => {
-      const te = c.ini + 0.35 + k * 0.2, tf = k ? t2 : t1, ch = FIS.chegar(t, te, 0.6), a = PT.ss((t - te) / 0.4);
-      const on = PT.jan(t, tf - 0.1, (k ? tC : t2) - 0.1, 0.15, 0.4), [sx, sy] = FIS.impacto(t, tf - 0.05, 0.12);
-      const lado = k ? 1 : -1, [cx, cy] = P(540 + lado * 420 * (1 - Math.min(1, ch)), 830 + k * 175);
-      x.save(); x.translate(cx, cy); x.scale(sx * k0, sy * k0);
-      fCaixa(x, 0, 0, 800, 140, 34, on > 0.5 ? LUZS.luz : LUZS.ouro, a * (0.7 + 0.3 * on), 3 + 2 * on, 0.04 + 0.06 * on);
-      if (on > 0) { brilhoP(x, 0, 0, 420, LUZS.ambar, 0.18 * on); const v = PT.cl((t - tf + 0.1) / 0.6); if (v < 1) brilhoP(x, -400 + 800 * v, 0, 90, LUZS.luz, 0.5 * (1 - v)); }
-      const dx = ICO[k] ? 50 : 0;
-      rotuloP(x, txt, dx, -18, o.tam || 48, on > 0.5 ? "255,246,230" : "255,236,200", a);
-      if (ref) rotuloP(x, ref, dx, 36, 30, LUZS.ouro, 0.85 * a);
-      x.restore();
-      if (ICO[k]) i = desenharForma(nv, ICO[k], { cx: cx - 320 * k0 * sx, cy, esc: 80 * k0 * (1 + 0.15 * on), cor: on > 0.5 ? LUZ.luz : LUZ.ouro, a, brilho: 0.9 + 0.5 * on, t, i0: i });
-    });
-    setaComentarios(x, PT.ss((t - tC + 0.3) / 0.4), t);
+    brilhoP(x, 540, 1500, 900, LUZS.ambar, 0.1);
+    for (const p of PO) { const d = ((t - c.ini) * p.v + p.f * 1900) % 1900; nv.ponto(i++, p.x + Math.sin(t * 0.6 + p.f * 9) * 14, 1900 - d, LUZ.ambar[0], LUZ.ambar[1], LUZ.ambar[2], 0.25 * p.s * Math.sin(Math.PI * d / 1900), 2 + 2 * p.s); }
+    // o ícone: nasce da forma da cena anterior, respira; na hora do pedido voa em arco até o botão
+    const ub = PT.ss((t - c.ini + 0.1) / 0.9), voo = PT.inOut((t - tC + 0.1) / 1.0), [vx, vy] = FIS.arco(IX, IY, BX, BY, voo, 260);
+    const esc = PT.lerp(300, 110, voo) * FIS.respira(t, 0, 0.03) * (voo >= 1 ? 1 + 0.12 * Math.max(0, Math.sin((t - tC) * 6)) : 1);
+    const para = { cx: vx, cy: vy, esc, cor: LUZ.ouro, borda: LUZ.luz, brilho: 1.1, giro: 0.15 * Math.sin(t * 0.8) };
+    brilhoP(x, vx, vy, esc * 1.3, LUZS.ambar, 0.3);
+    if (o.de && ub < 1) i = morfo(nv, o.de[0], ico, ub, { de: o.de[1], para, t, onda: 0.3, curva: 0.5, i0: i });
+    else i = desenharForma(nv, ico, { ...para, a: o.de ? 1 : ub, t, i0: i });
+    // rastro do voo e anéis chamando para o botão de comentários
+    if (voo > 0 && voo < 1) for (let k = 1; k <= 26; k++) { const v2 = Math.max(0, voo - k * 0.018), [qx, qy] = FIS.arco(IX, IY, BX, BY, v2, 260); discoP(x, qx, qy, 7 * (1 - k / 27), LUZS.luz, 0.5 * (1 - k / 27)); }
+    if (voo >= 1) for (let k = 0; k < 3; k++) { const u = ((t - tC) * 0.8 + k / 3) % 1; anelP(x, BX, BY, 60 + u * 130, LUZS.ouro, 0.5 * (1 - u), 3); }
+    const aS = PT.ss((t - tC - 0.5) / 0.4);
+    if (aS > 0.01) { const b = Math.sin(t * 6) * 14; fSeta(x, 640 + b, BY, 840 + b, BY, LUZS.ouro, aS, 10); rotuloP(x, "comentários", 740, BY - 66, 40, "255,236,200", aS); }
     nv.total(i);
   });
 }

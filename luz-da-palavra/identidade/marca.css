@@ -77,3 +77,8 @@ html body, html body #root { background: var(--fundo); font-family: "LuzSans", s
 .cf .r { font-family: var(--fonte-titulo), serif; font-weight: 700; font-size: 28px; letter-spacing: 0.24em; color: var(--ouro); }
 .rot { font-family: "LuzSans", sans-serif; font-weight: 800; }
 .rotm { font-family: "LuzSans", sans-serif; font-weight: 700; }
+
+/* pergunta para os comentários (cenaPergunta): serifa itálica grande, palavra-chave dourada */
+#root .pt-l.lp-q { font-family: var(--fonte-verso), serif; font-style: italic; font-weight: 500; text-transform: none; white-space: normal; left: 80px; width: 920px; letter-spacing: 0; line-height: 1.12; color: var(--branco); text-shadow: 0 0 26px rgba(var(--luz-rgb),0.35), 0 6px 26px rgba(0,0,0,0.7); }
+#root .pt-l.lp-q b { font-weight: 600; color: var(--luz); text-shadow: 0 0 30px rgba(var(--ouro-rgb),0.9), 0 6px 26px rgba(0,0,0,0.6); }
+#root .pt-l.lp-s { font-family: var(--fonte-titulo), serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ouro); text-shadow: 0 0 18px rgba(var(--ouro-rgb),0.6); white-space: normal; left: 80px; width: 920px; }

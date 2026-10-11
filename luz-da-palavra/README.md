@@ -71,6 +71,14 @@ do Google, duração mínima de 1:30).
 - **Nada parado na pergunta e no cartão final:** `cenaPergunta` recebe a forma do fim da cena anterior
   (`de`) e a transforma no balão; as opções entram em cascata, com ícone, e "batem" quando ditas.
   O cartão final tem brasas subindo e a chama tremulando.
+- **Duração:** versículo do dia com **~45–55 s** (o dono pediu "um pouquinho mais longo" que 40 s);
+  use o tempo extra para contexto e para uma cena "para você", nunca para enrolar.
+- **Pergunta para os comentários: UMA só, forte**, que a pessoa queira responder (nada de "1 ou 2").
+  Pessoal, emocional e fácil: responder numa palavra, marcar alguém, contar um pedido. Ex.: "Quem você
+  conhece que anda chorando escondido? Marca essa pessoa aqui do lado." / "Qual medo você quer
+  entregar hoje? Escreve numa palavra só." Use `cenaPergunta(el, c, B, { texto, sub, icone, de })`
+  (batida "comenta": o ícone voa até o botão de comentários). Não prometa resposta.
+- **Fila sem parar:** ao entregar um vídeo, comece o próximo da `FILA.md` sem esperar confirmação.
 - **Selo de série** ("Versículo do dia #N") só quando o vídeo fizer parte de uma série.
 - **3D** (`motor/tres.js`) é permitido neste canal **só quando melhorar muito a qualidade** do vídeo
   (o render fica bem mais lento).
@@ -82,8 +90,8 @@ do Google, duração mínima de 1:30).
 - Vídeo acima de 1 min: **re-gancho a cada 20–30 s**; algo muda na tela a cada 2–3 s.
 - **Pergunta para os comentários em todo vídeo:** curta, falada e escrita, com balão e seta para o
   botão de comentários na **lateral direita** (`balaoPergunta` + `setaComentarios`; nunca "aí embaixo");
-  escolha fácil ("qual desses versículos você precisava ouvir hoje: 1 ou 2?"); "escreve 'amém' se…"
-  no máximo de vez em quando; não prometa resposta.
+  uma pergunta só, forte (ver decisões acima); "escreve 'amém' se…" no máximo de vez em quando;
+  não prometa resposta.
 - Final em loop (automático) e chamada para seguir (`cta_fala` do `marca.json`).
 
 ## Visual do canal

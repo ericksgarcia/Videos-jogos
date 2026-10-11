@@ -2,7 +2,7 @@
   "canal": "luz-da-palavra",
   "slug": "jesus-chorou",
   "titulo": "Jesus chorou",
-  "descricao": "Se hoje você chorou escondido, esse versículo é pra você.\nJoão 11:35, \"Jesus chorou\": um dos menores versículos da Bíblia, o que aconteceu com Lázaro e o detalhe que quase ninguém percebe.\nQual você precisava hoje: 1 ou 2? Comenta aqui.\nSalva pra ouvir de novo e manda pra alguém que está atravessando um dia difícil.",
+  "descricao": "Se hoje você chorou escondido, esse versículo é pra você.\nJoão 11:35, \"Jesus chorou\": a história de Lázaro, o versículo que vem logo depois e o detalhe que quase ninguém percebe.\nQuem você conhece que anda chorando escondido? Marca essa pessoa nos comentários. Ela precisa saber que não está sozinha.\nSalva pra ouvir de novo quando precisar.",
   "hashtags": [
     "#biblia",
     "#fe",
@@ -18,6 +18,10 @@
   },
   "voz": "Achird",
   "sons": {
+    "escondido": [
+      "respiro",
+      0.35
+    ],
     "duas": [
       "sino",
       0.45
@@ -30,6 +34,14 @@
       "respiro",
       0.35
     ],
+    "quatro": [
+      "clique",
+      0.25
+    ],
+    "maria": [
+      "respiro",
+      0.3
+    ],
     "chorando": [
       "respiro",
       0.3
@@ -37,6 +49,10 @@
     "chorou": [
       "sino",
       0.55
+    ],
+    "vejam": [
+      "brilho",
+      0.35
     ],
     "sabia": [
       "brilho",
@@ -50,33 +66,37 @@
       "sino",
       0.45
     ],
-    "pergunta": [
-      "pop",
-      0.35
-    ],
-    "um": [
-      "clique",
+    "pressa": [
+      "respiro",
       0.3
     ],
-    "dois": [
-      "clique",
+    "lado": [
+      "brilho",
+      0.35
+    ],
+    "junto": [
+      "sino",
+      0.45
+    ],
+    "pergunta": [
+      "pop",
       0.3
     ],
     "comenta": [
       "plim",
-      0.4
-    ],
-    "cta": [
-      "brilho",
       0.45
     ],
-    "escondido": [
-      "respiro",
-      0.35
+    "sozinha": [
+      "brilho",
+      0.3
     ],
     "salva": [
       "pop",
       0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
     ],
     "lembra": [
       "respiro",
@@ -96,21 +116,32 @@
       }
     },
     {
+      "id": "contexto",
+      "tipo": "contexto",
+      "titulo": "",
+      "fala": "Lázaro, amigo de Jesus, estava morto havia quatro dias. Maria, a irmã dele, caiu aos pés de Jesus chorando.",
+      "batidas": {
+        "Lázaro,": "lazaro",
+        "quatro": "quatro",
+        "Maria,": "maria",
+        "chorando.": "chorando"
+      }
+    },
+    {
       "id": "versiculo",
       "tipo": "versiculo",
       "titulo": "",
-      "fala": "Lázaro, amigo de Jesus, tinha morrido. Ao ver Maria, irmã dele, e os amigos chorando, Jesus chorou.",
+      "fala": "E Jesus chorou. Quem estava ali disse: vejam como ele o amava.",
       "batidas": {
-        "Lázaro,": "lazaro",
-        "chorando,": "chorando",
-        "chorou.": "chorou"
+        "chorou.": "chorou",
+        "vejam": "vejam"
       }
     },
     {
       "id": "detalhe",
       "tipo": "detalhe",
       "titulo": "",
-      "fala": "O detalhe: ele sabia que, logo depois, ia chamar Lázaro para fora do túmulo. E mesmo assim chorou com eles.",
+      "fala": "O detalhe: ele sabia que ia chamar Lázaro para fora do túmulo. E mesmo assim, chorou com eles.",
       "batidas": {
         "sabia": "sabia",
         "fora": "fora",
@@ -118,15 +149,25 @@
       }
     },
     {
+      "id": "sentido",
+      "tipo": "sentido",
+      "titulo": "",
+      "fala": "Ele não tem pressa com a sua dor. Ele fica do seu lado, e chora junto.",
+      "batidas": {
+        "pressa": "pressa",
+        "lado,": "lado",
+        "junto.": "junto"
+      }
+    },
+    {
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Qual você precisava hoje: um ou dois? Comenta aqui do lado.",
+      "fala": "Quem você conhece que anda chorando escondido? Marca essa pessoa aqui do lado. Ela precisa saber que não está sozinha.",
       "batidas": {
-        "Qual": "pergunta",
-        "um": "um",
-        "dois?": "dois",
-        "Comenta": "comenta"
+        "Quem": "pergunta",
+        "Marca": "comenta",
+        "sozinha.": "sozinha"
       }
     },
     {
