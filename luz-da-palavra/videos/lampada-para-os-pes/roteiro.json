@@ -7,6 +7,7 @@
   "gancho": "PRA QUEM NÃO VÊ O CAMINHO",
   "gancho_destaque": "CAMINHO",
   "voz": "Achird",
+  "capa": {"t": 17.2, "y": 1600},
   "sons": {
     "ideia": ["respiro", 0.35], "versiculo": ["sino", 0.4], "laco": ["brilho", 0.3],
     "lampada": ["plim", 0.35], "palavra": ["sino", 0.45], "caminho": ["brilho", 0.35],
