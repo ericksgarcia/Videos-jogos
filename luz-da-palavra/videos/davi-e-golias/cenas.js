@@ -165,7 +165,7 @@ CENAS.pedras = (el, c, B) => {
     // a margem de terra à esquerda, onde ele se ajoelha
     for (const [u, v, s] of AG) { if (u > 0.4) continue; const xx = u * 1000 - 20, yy = 1150 - 6 + v * 18 - 0.2 * xx * 0.05; nv.ponto(i++, xx, yy, 0.8, 0.66, 0.5, 0.12 + 0.2 * s, 2 + 2 * v); }
     // Davi ajoelhado na margem pegando as pedras; levanta com o cajado e a funda
-    const pega = { ...POSES.ajoelhado, tronco: 0.35, cabeca: 0.45, braco: [[0.2, 0.4], [0.55 + 0.15 * Math.sin(t * 2.2), 0.25]] };
+    const pega = { ...POSES.ajoelhado, tronco: 0.62, cabeca: 0.55, braco: [[0.15, 0.5], [0.05 + 0.18 * Math.sin(t * 2.2), 0.1]] };
     const inf = DG_davi(x, t, poseMix(pega, { ...POSES.de_pe, cabeca: -0.1 }, levanta), { x: 250, chao: 1160, H: 540, z: 1, cam, cajado: cj, funda: levanta > 0.3 ? null : undefined, aFunda: levanta });
     const bolsa = [inf.quadril[0] + inf.d * 0.06 * 560, inf.quadril[1] + 0.06 * 560];
     // pedras no leito; cinco sobem em cascata, ficam brilhando em arco e vão para a bolsa

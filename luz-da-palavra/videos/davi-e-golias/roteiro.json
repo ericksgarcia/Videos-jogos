@@ -8,6 +8,7 @@
   "gancho": "PRA QUEM TEM UM GIGANTE",
   "gancho_destaque": "GIGANTE",
   "voz": "Achird",
+  "capa": {"t": 5.0, "y": 1680},
   "sons": {
     "gigante": ["thud", 0.5], "historia": ["sino", 0.4], "laco": ["brilho", 0.3],
     "ela": ["vento", 0.3], "golias": ["thud", 0.55], "metros": ["thud", 0.35], "quarenta": ["respiro", 0.3],
