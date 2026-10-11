@@ -16,7 +16,7 @@ Nunca prepare o próximo vídeo enquanto o atual renderiza: termina, entrega, e 
       vinho guardado para o final.
 - [x] 4. **"Lâmpada para os meus pés"** (Salmos 119:105) — versículo do dia. Caminho escuro que se
       ilumina um passo por vez (a lamparina antiga só iluminava um passo).
-- [ ] 5. **Davi e Golias** (1 Samuel 17) — história. Cinco pedras lisas, sem armadura; o gigante
+- [x] 5. **Davi e Golias** (1 Samuel 17) — história. Cinco pedras lisas, sem armadura; o gigante
       desfocado ao fundo. Pergunta: qual é o seu gigante hoje?
 - [ ] 6. **O que significa "Amém"?** — significado (hebraico: firme, verdadeiro).
 - [ ] 7. **Os pães e os peixes** (João 6:1–14) — história. Morph 1 pão → muitos; o lanche de um
