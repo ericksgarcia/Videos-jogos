@@ -156,7 +156,7 @@ CENAS.einstein = (el, c, B) => {
   const tPm = B("prometi"), tR = B("rapido"), tM = B("micro"), tG = B("gravidade"), tE = B("einstein2"), tEr = B("erro");
   const pB = tM + 0.3, pC = tEr - 2.4;
   const T = telaGPU(el, c), nv = T.nuvem(80000);
-  const tx = palcoTexto(el, [["pro", 330, 66, "a parte prometida", "pt-am"], ["rap", 330, 60, "lá em cima o relógio adianta", "pt-ci", "white-space:normal;left:60px;width:960px"], ["mic", 420, 44, "38 milionésimos de segundo por dia", "pt-fino"], ["gra", 330, 62, "a gravidade é mais fraca lá", "pt-ci"], ["ein", 330, 64, "a relatividade do Einstein", "pt-am"], ["err", 330, 64, "sem a correção: +10 km por dia", "pt-ve", "white-space:normal;left:60px;width:960px"]]);
+  const tx = palcoTexto(el, [["pro", 330, 66, "a parte prometida", "pt-am"], ["rap", 330, 50, "lá em cima o relógio adianta", "pt-ci"], ["mic", 412, 34, "38 milionésimos de segundo por dia", "pt-fino"], ["gra", 330, 54, "a gravidade é mais fraca lá", "pt-ci"], ["ein", 330, 64, "a relatividade do Einstein", "pt-am"], ["err", 330, 64, "sem a correção: +10 km por dia", "pt-ve", "white-space:normal;left:60px;width:960px"]]);
   MD.slam(tl, tx.pro, tPm - 0.5, { from: 1.3 }); MD.leave(tl, tx.pro, tR - 0.9); MD.slam(tl, tx.rap, tR - 0.6, { from: 1.2 }); MD.arrive(tl, tx.mic, tM - 0.8, { y: 14 }); MD.leave(tl, [tx.rap, tx.mic], tG - 1.2);
   MD.slam(tl, tx.gra, tG - 0.9, { from: 1.25 }); MD.leave(tl, tx.gra, tE - 0.6); MD.slam(tl, tx.ein, tE - 0.4, { from: 1.25 }); MD.leave(tl, tx.ein, pC - 0.1); MD.slam(tl, tx.err, pC + 0.2, { from: 1.2 });
   T.quadro((x, t) => {
