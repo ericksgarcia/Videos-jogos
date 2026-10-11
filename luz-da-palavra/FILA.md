@@ -3,6 +3,7 @@
 Feitos **um de cada vez** (roteiro → narração → cenas → prévia → render → entrega → commit), na ordem
 abaixo (combinada com o dono, out/2026). Antes de cada roteiro: conferir o texto na Almeida 1911/1914
 (ou parafrasear com "cf." e a referência). Marque `[x]` ao entregar.
+Nunca prepare o próximo vídeo enquanto o atual renderiza: termina, entrega, e só então começa o próximo.
 
 - [x] 0. **Haja luz** (Gênesis 1:3) — vídeo-teste, entregue. `videos/haja-luz/`
 - [x] 1. **"Jesus chorou"** (João 11:35) — versículo do dia. Gancho: um dos menores versículos da

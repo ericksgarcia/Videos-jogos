@@ -91,6 +91,9 @@ do Google, duração mínima de 1:30).
   cima dos pontos: objeto em pontos que deve aparecer na mão vai um pouco acima dela (ou use `objetoLinha`).
   Cenário e objetos grandes continuam em pontos de luz. 3D só quando melhorar muito a qualidade.
 - **Fila sem parar:** ao entregar um vídeo, comece o próximo da `FILA.md` sem esperar confirmação.
+- **Um vídeo por vez, do começo ao fim (pedido do dono):** roteiro → narração → personagens/cenas →
+  prévia → render → entrega (MP4 + capa + legenda + comentário fixado) → commit, e **só então** o
+  próximo. Não adiante roteiro, narração nem cenas do próximo vídeo enquanto o atual renderiza.
 - **Selo de série** ("Versículo do dia #N") só quando o vídeo fizer parte de uma série.
 - **3D** (`motor/tres.js`) é permitido neste canal **só quando melhorar muito a qualidade** do vídeo
   (o render fica bem mais lento).
