@@ -1,0 +1,17 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "amostra-bonecos",
+  "titulo": "Amostra: bonecos de linha",
+  "gancho": "",
+  "gancho_destaque": "",
+  "voz": "Achird",
+  "sons": {"gira": ["whoosh_curto", 0.35], "solta": ["whoosh", 0.5], "acerta": ["thud", 0.6], "chega": ["respiro", 0.3], "ajoelha": ["pop", 0.3], "orar": ["sino", 0.45]},
+  "cenas": [
+    {"id": "funda", "tipo": "funda", "titulo": "",
+     "fala": "Davi gira a funda, mira no gigante, e solta a pedra.",
+     "batidas": {"gira": "gira", "solta": "solta", "pedra.": "acerta"}},
+    {"id": "oracao", "tipo": "oracao", "titulo": "",
+     "fala": "E alguém chega, para, e se ajoelha para orar.",
+     "batidas": {"chega,": "chega", "ajoelha": "ajoelha", "orar.": "orar"}}
+  ]
+}

@@ -212,3 +212,83 @@ function cenaPergunta(el, c, B, o = {}) {
     nv.total(i);
   });
 }
+
+// ================= bonecos de linha (esqueleto animado, traços de luz, sem rosto) =================
+// Pose (ângulos em radianos; 0 = pendurado para baixo, positivo = para a frente; dir = 1 olha para a direita):
+//   { tronco, cabeca, braco: [[ombro, cotovelo] (trás), [ombro, cotovelo] (frente)], perna: [[quadril, joelho] x2] }
+// A raiz (bacia) é posta sozinha para o ponto mais baixo (pé ou joelho) encostar no chão (o.chao).
+//   boneco(nv, x, i, t, pose, { x: 540, chao: 1500, H: 600, dir: 1, cor, tipo: "pessoa" | "manto" | "gigante", cam, z, a })
+//   POSES.de_pe / andar(fase) / ajoelhado / orando / bracos_abertos / funda(giro) / lanca / caido ...
+//   poseMix(A, B, u) mistura duas poses (u 0–1). Ver luz-da-palavra/README.md.
+const POSES = {
+  de_pe: { tronco: 0, cabeca: 0, braco: [[-0.22, 0.25], [0.2, 0.3]], perna: [[-0.08, 0], [0.08, 0]] },
+  ajoelhado: { tronco: 0.05, cabeca: 0.25, braco: [[0.25, 1.3], [0.35, 1.4]], perna: [[1.55, -1.6], [0.1, -1.55]] },
+  orando: { tronco: 0.12, cabeca: 0.45, braco: [[0.55, 1.75], [0.6, 1.8]], perna: [[1.55, -1.6], [0.1, -1.55]] },
+  bracos_abertos: { tronco: -0.05, cabeca: -0.25, braco: [[-2.2, 0.2], [2.2, -0.2]], perna: [[-0.12, 0], [0.12, 0]] },
+  carregando: { tronco: 0.05, cabeca: 0.05, braco: [[0.6, 1.2], [0.7, 1.1]], perna: [[-0.05, 0], [0.05, 0]] },
+  caido: { tronco: 1.5, cabeca: 1.6, braco: [[1.2, 0.2], [1.9, 0.3]], perna: [[1.45, -0.1], [1.6, -0.3]] },
+};
+const _ang = (a, b, u) => a + (b - a) * u;
+function poseMix(A, B, u) {
+  u = Math.max(0, Math.min(1, u));
+  return { tronco: _ang(A.tronco, B.tronco, u), cabeca: _ang(A.cabeca, B.cabeca, u),
+    braco: A.braco.map((p, k) => [_ang(p[0], B.braco[k][0], u), _ang(p[1], B.braco[k][1], u)]),
+    perna: A.perna.map((p, k) => [_ang(p[0], B.perna[k][0], u), _ang(p[1], B.perna[k][1], u)]) };
+}
+// caminhada: fase em radianos (cresce com o tempo); passo = amplitude
+POSES.andar = (fase, passo = 1) => {
+  const s = Math.sin(fase), c2 = Math.cos(fase);
+  return { tronco: 0.06 * passo, cabeca: 0, braco: [[-0.45 * s * passo, 0.35 + 0.2 * Math.max(0, s)], [0.45 * s * passo, 0.35 + 0.2 * Math.max(0, -s)]],
+    perna: [[0.42 * s * passo, -0.9 * Math.max(0, -c2) * passo - 0.05], [-0.42 * s * passo, -0.9 * Math.max(0, c2) * passo - 0.05]] };
+};
+// funda: o braço da frente gira acima da cabeça (giro em radianos); o de trás aponta para o alvo
+POSES.funda = (giro) => ({ tronco: -0.05, cabeca: -0.1, braco: [[1.3, 0.1], [Math.PI - 0.15 + 0.3 * Math.sin(giro), 0.2]], perna: [[-0.25, 0], [0.22, -0.1]] });
+POSES.lanca = { tronco: 0.25, cabeca: 0.1, braco: [[-0.5, 0.2], [1.5, 0.05]], perna: [[-0.45, 0], [0.5, -0.25]] };
+
+const _BON_RND = (() => { const r = prng(4242); return Array.from({ length: 6000 }, () => [r(), r(), r()]); })();
+function boneco(nv, x, i, t, pose, o = {}) {
+  const H = o.H || 600, d = o.dir ?? 1, cor = o.cor || LUZ.luz, a = o.a ?? 1, tipo = o.tipo || "pessoa";
+  const Lt = 0.28 * H, Ln = 0.045 * H, Rh = 0.078 * H, La = 0.16 * H, Lf = 0.15 * H, Lc = 0.235 * H, Ls = 0.225 * H;
+  const v = (ang, L) => [Math.sin(ang) * d * L, Math.cos(ang) * L];        // 0 = para baixo
+  const up = (ang, L) => [Math.sin(ang) * d * L, -Math.cos(ang) * L];      // 0 = para cima
+  // posições relativas à bacia (0, 0)
+  const C = up(pose.tronco, Lt), N = [C[0] + up(pose.tronco + pose.cabeca * 0.4, Ln)[0], C[1] + up(pose.tronco + pose.cabeca * 0.4, Ln)[1]];
+  const Hd = [N[0] + up(pose.tronco + pose.cabeca, Rh * 1.05)[0], N[1] + up(pose.tronco + pose.cabeca, Rh * 1.05)[1]];
+  const S = [C[0] + up(pose.tronco, -0.03 * H)[0], C[1] + up(pose.tronco, -0.03 * H)[1]];
+  const bracos = pose.braco.map(([om, co]) => { const E = [S[0] + v(pose.tronco + om, La)[0], S[1] + v(pose.tronco + om, La)[1]]; return [S, E, [E[0] + v(pose.tronco + om + co, Lf)[0], E[1] + v(pose.tronco + om + co, Lf)[1]]]; });
+  const pernas = pose.perna.map(([qu, jo]) => { const K = v(qu, Lc); return [[0, 0], K, [K[0] + v(qu + jo, Ls)[0], K[1] + v(qu + jo, Ls)[1]]]; });
+  // apoio: o ponto mais baixo (pé, joelho ou, se caído, o tronco) encosta no chão
+  let baixo = 0; for (const [, K, F] of pernas) baixo = Math.max(baixo, K[1], F[1]); baixo = Math.max(baixo, C[1] - Rh * 0.2, Hd[1] + Rh);
+  const ox = o.x ?? 540, oy = (o.chao ?? 1500) - baixo - (o.sobe || 0) - Math.max(0, (o.passoY || 0));
+  const proj = (p) => (o.cam ? projP(o.cam, ox + p[0], oy + p[1], o.z ?? 1) : [ox + p[0], oy + p[1], 1]);
+  const kk = o.cam ? o.cam.zoom / (o.z ?? 1) : 1;
+  let r = 0;
+  // traço de luz entre dois pontos: pontos espalhados numa faixa de largura w (px do mundo)
+  const traco = (p0, p1, w0, w1, al = 1, c = cor) => {
+    const [x0, y0] = proj(p0), [x1, y1] = proj(p1), L = Math.hypot(x1 - x0, y1 - y0), n = Math.max(6, Math.round(L * (w0 + w1) * 0.5 * kk / 9));
+    const nx = -(y1 - y0) / (L || 1), ny = (x1 - x0) / (L || 1);
+    for (let k = 0; k < n && i < nv.n; k++) { const [u, s, q] = _BON_RND[r++ % _BON_RND.length], w = (w0 + (w1 - w0) * u) * kk, off = (s - 0.5) * w, borda = Math.abs(s - 0.5) * 2;
+      nv.ponto(i++, x0 + (x1 - x0) * u + nx * off, y0 + (y1 - y0) * u + ny * off, c[0], c[1], c[2], a * al * (0.35 + 0.45 * borda + 0.2 * q) * (0.85 + 0.15 * Math.sin(t * 3 + q * 40)), (2.2 + 1.4 * q) * Math.min(1.8, Math.sqrt(kk))); }
+    linhaP(x, x0, y0, x1, y1, `${Math.round(c[0] * 255)},${Math.round(c[1] * 255)},${Math.round(c[2] * 255)}`, 0.12 * a * al, Math.max(2, (w0 + w1) * 0.5 * kk));
+  };
+  const wl = 0.034 * H, wt = 0.058 * H;
+  // trás primeiro (perna/braço de trás mais fracos = profundidade)
+  traco(pernas[0][0], pernas[0][1], wl, wl * 0.9, 0.6); traco(pernas[0][1], pernas[0][2], wl * 0.9, wl * 0.8, 0.6);
+  traco(bracos[0][0], bracos[0][1], wl * 0.85, wl * 0.8, 0.6); traco(bracos[0][1], bracos[0][2], wl * 0.8, wl * 0.7, 0.6);
+  if (tipo === "manto") {
+    // túnica: faixa larga do peito até perto dos pés (cobre as pernas)
+    const pes = [(pernas[0][2][0] + pernas[1][2][0]) / 2, Math.max(pernas[0][2][1], pernas[1][2][1]) - 0.02 * H];
+    traco([S[0] * 0.9, S[1] * 0.9], [pes[0], pes[1]], wt * 1.1, 0.24 * H, 0.75);
+  } else { traco(pernas[1][0], pernas[1][1], wl, wl * 0.9); traco(pernas[1][1], pernas[1][2], wl * 0.9, wl * 0.8); }
+  traco([0, 0], C, wt, wt * 1.15); traco(C, N, wl * 0.8, wl * 0.8);
+  traco(bracos[1][0], bracos[1][1], wl * 0.85, wl * 0.8); traco(bracos[1][1], bracos[1][2], wl * 0.8, wl * 0.7);
+  // cabeça: um oval de luz, sem rosto
+  const [hx, hy] = proj(Hd); const rr = Rh * kk;
+  for (let k = 0; k < Math.round(rr * 4) && i < nv.n; k++) { const [u, s, q] = _BON_RND[r++ % _BON_RND.length], an = u * 6.283, dd = rr * (0.55 + 0.45 * Math.sqrt(s)); nv.ponto(i++, hx + Math.cos(an) * dd * 0.9, hy + Math.sin(an) * dd, cor[0], cor[1], cor[2], a * (0.3 + 0.5 * s + 0.2 * q), 2.4 + 1.2 * q); }
+  brilhoP(x, hx, hy, rr * 2.2, `${Math.round(cor[0] * 255)},${Math.round(cor[1] * 255)},${Math.round(cor[2] * 255)}`, 0.18 * a);
+  if (tipo === "gigante") { // elmo
+    const [h0x, h0y] = proj([Hd[0] - Rh, Hd[1] - Rh * 0.2]), [h1x, h1y] = proj([Hd[0] + Rh, Hd[1] - Rh * 0.2]); x.beginPath(); x.moveTo(h0x, h0y); x.quadraticCurveTo(hx, hy - rr * 2.1, h1x, h1y); x.strokeStyle = `rgba(${Math.round(cor[0] * 255)},${Math.round(cor[1] * 255)},${Math.round(cor[2] * 255)},${0.8 * a})`; x.lineWidth = 0.025 * H * kk; x.stroke();
+  }
+  // devolve as mãos (trás, frente), a cabeça e o próximo índice, para prender objetos (funda, lança, pão)
+  return { i, maos: bracos.map((b) => proj(b[2])), cabeca: [hx, hy], escala: kk };
+}
