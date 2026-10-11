@@ -272,7 +272,7 @@ const nav = await chromium.launch(__OPCOES__), pg = await nav.newPage({ viewport
 await pg.goto(pagina); await new Promise((r) => setTimeout(r, 1500));
 await pg.evaluate(async (D) => {
   await document.fonts.ready; window.__timelines.main.seek(D.t);
-  for (const s of ["#leg", "#capitulo", "#gancho", "#progresso", ".pt-palco", ".fim"]) document.querySelectorAll(s).forEach((e) => { e.style.visibility = "hidden"; });
+  for (const s of ["#leg", "#capitulo", "#gancho", "#versos", "#progresso", ".pt-palco", ".fim"]) document.querySelectorAll(s).forEach((e) => { e.style.visibility = "hidden"; });
   const c = document.createElement("div"); c.id = "capa";
   c.innerHTML = `<div class="fundo"></div><div class="txt">${D.linhas.map((l) => `<div>${l.map(([w, d]) => `<span class="${d ? "d" : ""}">${w}</span>`).join(" ")}</div>`).join("")}</div>`;
   const st = document.createElement("style");

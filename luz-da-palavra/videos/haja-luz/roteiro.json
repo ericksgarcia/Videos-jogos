@@ -1,0 +1,157 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "haja-luz",
+  "titulo": "Haja luz",
+  "descricao": "Antes de tudo existir, havia só escuridão. E então, uma frase.\nGênesis 1:3, \"Haja luz\": o versículo da criação, a primeira coisa que Deus diz na Bíblia, e o detalhe dessa história que quase ninguém percebe.\nQual das duas você precisava ouvir hoje: 1 ou 2? Comenta aqui.\nSalva pra ouvir de novo e manda pra alguém que está precisando de luz.",
+  "hashtags": [
+    "#biblia",
+    "#fe",
+    "#genesis",
+    "#versiculododia",
+    "#luzdapalavra"
+  ],
+  "gancho": "HAJA LUZ",
+  "gancho_destaque": "LUZ",
+  "capa": {
+    "t": 11.3
+  },
+  "voz": "Achird",
+  "sons": {
+    "escuro": [
+      "respiro",
+      0.35
+    ],
+    "laco": [
+      "brilho",
+      0.3
+    ],
+    "haja": [
+      "sino",
+      0.6
+    ],
+    "houve": [
+      "brilho",
+      0.45
+    ],
+    "ceu": [
+      "brilho",
+      0.25
+    ],
+    "terra": [
+      "pop",
+      0.3
+    ],
+    "mar": [
+      "agua",
+      0.3
+    ],
+    "sol": [
+      "plim",
+      0.35
+    ],
+    "estrelas": [
+      "brilho",
+      0.3
+    ],
+    "humano": [
+      "sino",
+      0.45
+    ],
+    "detalhe": [
+      "respiro",
+      0.3
+    ],
+    "dentro": [
+      "sino",
+      0.45
+    ],
+    "pergunta": [
+      "pop",
+      0.35
+    ],
+    "um": [
+      "clique",
+      0.3
+    ],
+    "dois": [
+      "clique",
+      0.3
+    ],
+    "comenta": [
+      "plim",
+      0.4
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Antes de tudo, havia só escuridão. E tem um detalhe que quase ninguém percebe.",
+      "batidas": {
+        "escuridão.": "escuro",
+        "detalhe": "laco"
+      }
+    },
+    {
+      "id": "luz",
+      "tipo": "luz",
+      "titulo": "",
+      "fala": "E disse Deus: Haja luz; e houve luz.",
+      "batidas": {
+        "Haja": "haja",
+        "houve": "houve"
+      }
+    },
+    {
+      "id": "criacao",
+      "tipo": "criacao",
+      "titulo": "",
+      "fala": "Depois, o céu, a terra, o mar, o sol e as estrelas. E, por fim, o ser humano.",
+      "batidas": {
+        "céu,": "ceu",
+        "terra,": "terra",
+        "mar,": "mar",
+        "sol": "sol",
+        "estrelas.": "estrelas",
+        "humano.": "humano"
+      }
+    },
+    {
+      "id": "detalhe",
+      "tipo": "detalhe",
+      "titulo": "",
+      "fala": "O detalhe: o Deus que disse haja luz na escuridão quer brilhar dentro de você.",
+      "batidas": {
+        "detalhe:": "detalhe",
+        "escuridão": "escuro2",
+        "dentro": "dentro"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Qual você precisava hoje: um ou dois? Comenta aqui do lado.",
+      "batidas": {
+        "Qual": "pergunta",
+        "um": "um",
+        "dois?": "dois",
+        "Comenta": "comenta"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Segue o Luz da Palavra para receber uma palavra de luz todo dia.",
+      "batidas": {
+        "Segue": "cta"
+      }
+    }
+  ]
+}

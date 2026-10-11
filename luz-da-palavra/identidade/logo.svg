@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 256 256">
+  <!-- Logo do Luz da Palavra: chama dourada (proposta A) -->
+  <defs><linearGradient id="ouro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3a3"/><stop offset="1" stop-color="#e9b44c"/></linearGradient></defs>
+  <path d="M128 14C150 66 208 98 208 166C208 214 172 244 128 244C84 244 48 214 48 166C48 126 72 102 88 74C94 106 106 120 118 126C110 90 114 52 128 14ZM128 122C142 150 170 166 170 196C170 220 151 234 128 234C105 234 86 220 86 196C86 176 106 160 128 122ZM128 166C137 182 151 190 151 206C151 218 141 226 128 226C115 226 105 218 105 206C105 192 119 184 128 166Z" fill="url(#ouro)" fill-rule="evenodd"/>
+</svg>

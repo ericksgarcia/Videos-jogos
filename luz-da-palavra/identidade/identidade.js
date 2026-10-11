@@ -42,6 +42,12 @@ const ROMANOS = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"
   const m = h("div", null, `<svg width="46" height="46" viewBox="0 0 256 256"><defs><linearGradient id="ouroMarca" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.luz}"/><stop offset="1" stop-color="${C.ouro}"/></linearGradient></defs><path d="${LOGO_D}" fill="url(#ouroMarca)" fill-rule="evenodd"/></svg><div class="nome"><b>${NOME1}</b> ${NOME2}</div>`, root);
   m.id = "marca";
   ["capitulo", "gancho", "versos", "leg", "progresso"].forEach((id) => { h("div", null, null, root).id = id; });
+  // carrega já no início todas as fontes do canal (o canvas não espera a fonte: sem isto, um rótulo
+  // em pontos pode sair com a fonte de reserva em alguns quadros)
+  h("div", null, [["LuzSans", 600, ""], ["LuzSans", 700, ""], ["LuzSans", 800, ""], ["Cinzel", 600, ""], ["Cinzel", 700, ""],
+    ["Cormorant Garamond", 500, ""], ["Cormorant Garamond", 600, ""], ["Cormorant Garamond", 700, ""], ["Cormorant Garamond", 500, "italic"]]
+    .map(([f, w, st]) => `<span style="font-family:'${f}';font-weight:${w};font-style:${st || "normal"}">Aá Çã 1·2</span>`).join(""), root)
+    .style.cssText = "position:absolute;left:0;top:0;opacity:0;pointer-events:none;";
 })();
 
 // ---------- barra de progresso ----------
@@ -100,8 +106,8 @@ function mostrarGancho(sai) {
 // o.y: centro vertical (padrão 900); o.destaque: palavras em cor de luz; o.tam: tamanho da letra;
 // o.tempos: instante de cada palavra (ex.: das legendas), senão entra palavra a palavra em 0,12 s
 function mostrarVersiculo(texto, ref, t0, t1, o = {}) {
-  const dest = (o.destaque || []).map((w) => w.toLowerCase());
   const lim = (w) => w.toLowerCase().replace(/[^\wà-ÿ]/g, "");
+  const dest = (o.destaque || []).map(lim);
   const v = h("div", "verso", `<div class="fundo"></div><div class="txt" style="${o.tam ? `font-size:${o.tam}px` : ""}">${texto.split(" ").map((w) => `<span class="${dest.includes(lim(w)) ? "d" : ""}">${w}</span>`).join(" ")}</div><div class="ref"><i></i>${ref.toUpperCase()}<i></i></div>`, $("#versos"));
   const y = o.y ?? 900;
   tl.set(v, { opacity: 1, top: y, yPercent: -50 }, t0);

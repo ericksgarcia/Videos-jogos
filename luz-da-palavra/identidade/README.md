@@ -3,16 +3,16 @@
 Tudo o que é marca do canal e vale igual para todos os vídeos dele. Os vídeos **usam** estes
 arquivos; não os alteram. Mudança aqui muda todos os vídeos do canal — só com pedido do dono.
 
-> **Situação (out/2026):** identidade em escolha. `marca.json` está com a proposta A (provisória);
-> as três opções estão em `propostas/` (a, b, c). Depois da escolha do dono, a escolhida vira o
-> `marca.json` e a voz escolhida entra em `voz.nome`.
+> **Escolhido pelo dono (out/2026):** proposta **A — Chama** (ouro e noite, títulos em Cinzel, botão
+> SEGUIR dourado) e voz **Achird**. As outras opções ficam em `propostas/` só como registro.
 
 | Arquivo | O que é |
 |---|---|
 | `marca.json` | Fonte única: nome, slogan, bio, público, chamada final (falada e na tela), hashtags, logo, voz e direção do narrador, paleta, fontes, trilha, estilo da capa, modelos de roteiro por formato, tradução da Bíblia e formato do vídeo |
 | `marca.css` | Marca no topo, faixas, barra de progresso, capítulos, abertura, versículo, legenda e cartão final |
 | `identidade.js` | Comportamento: legendas, capítulos em numerais romanos, `mostrarGancho()`, `mostrarVersiculo()`, `cartaoFinal()` (logo em pontos de luz), `logoForma()`, cores `LUZ`/`LUZS` |
-| `propostas/` | As propostas de identidade (A chama, B livro aberto, C lamparina) |
+| `propostas/` | As propostas mostradas ao dono (A chama — escolhida, B livro aberto, C lamparina) |
+| `logo.svg`, `foto-perfil.png` | Logo (chama dourada) em vetor e foto de perfil 1080×1080 |
 | `fontes/` | Cinzel 600/700, Cormorant Garamond 500/600/700 + itálico 500, Source Sans 3 600/700/800 (com o nome `LuzSans`). Todas SIL Open Font License (`OFL-*.txt`), arquivos locais, nunca de CDN |
 
 ## Nome e textos
@@ -26,8 +26,8 @@ arquivos; não os alteram. Mudança aqui muda todos os vídeos do canal — só 
 ## Voz
 
 Gemini TTS (`gemini-3.8-flash-tts`). Direção em `marca.json` → `voz.direcao`: narrador adulto, calmo,
-grave, acolhedor, com pausas; nunca pregador gritando, nunca infantil, nunca teatral. A voz
-(`voz.nome`) é escolhida pelo dono entre Charon, Iapetus, Sulafat e Achird (amostras com a mesma frase).
+grave, acolhedor, com pausas; nunca pregador gritando, nunca infantil, nunca teatral. Voz **Achird**,
+escolhida pelo dono entre Charon, Iapetus, Sulafat e Achird (amostras com a mesma frase e a mesma direção).
 
 ## Tradução da Bíblia (domínio público) — use só esta
 
