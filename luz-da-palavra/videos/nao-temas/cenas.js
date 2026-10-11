@@ -24,8 +24,8 @@ const NT_F = {
 };
 const NT_MEDOS_TXT = ["O FUTURO", "AS CONTAS", "O EXAME", "A SOLIDÃO"];
 // nuvens: blocos de pontos em 3 camadas; chuva: riscos; relâmpago: linha em zigue-zague
-const NT_NUV = (() => { const r = prng(85), L = []; for (let b = 0; b < 9; b++) { const bx = -200 + b * 190 + r() * 80, by = 330 + r() * 340, bz = 2.2 + r() * 1.4, rw = 220 + r() * 160, rh = 70 + r() * 50; for (let k = 0; k < 420; k++) { const a = r() * 6.283, d = Math.sqrt(r()); L.push([bx + Math.cos(a) * rw * d, by + Math.sin(a) * rh * d, bz, r()]); } } return L; })();
-const NT_CHUVA = (() => { const r = prng(87); return Array.from({ length: 420 }, () => [r(), r(), 0.6 + 0.8 * r()]); })();
+const NT_NUV = (() => { const r = prng(85), L = []; for (let b = 0; b < 9; b++) { const bx = -200 + b * 190 + r() * 80, by = 330 + r() * 340, bz = 2.2 + r() * 1.4, rw = 220 + r() * 160, rh = 70 + r() * 50; for (let k = 0; k < 300; k++) { const a = r() * 6.283, d = Math.sqrt(r()); L.push([bx + Math.cos(a) * rw * d, by + Math.sin(a) * rh * d, bz, r()]); } } return L; })();
+const NT_CHUVA = (() => { const r = prng(87); return Array.from({ length: 260 }, () => [r(), r(), 0.6 + 0.8 * r()]); })();
 const NT_RAIO = (() => { const r = prng(89), P = [[300, 330]]; for (let k = 0; k < 14; k++) { const [x, y] = P[P.length - 1]; P.push([x + (r() - 0.55) * 90, y + 55 + r() * 30]); } return P; })();
 // mar: linhas em profundidade (horizonte ~1020 na tela); agit 0–1 = tamanho das ondas
 function NT_mar(nv, i, t, cam, agit, luz = 0, a = 1) {
