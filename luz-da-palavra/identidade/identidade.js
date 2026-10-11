@@ -150,3 +150,37 @@ function cartaoFinal(pai, t) {
   const bt = $(".cf .bt span", g);
   tl.fromTo(bt, { scale: 1 }, { scale: 1.05, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.floor((T - t - 2) / 0.6)), ease: "sine.inOut", immediateRender: false }, t + 1.8);
 }
+
+// ---------- silhuetas de luz (pessoas e figuras sagradas: sempre sem rosto nem feições) ----------
+// caixa 256 x 256; "pessoa" = figura comum; "manto" = figura de túnica longa (ex.: Jesus, profetas)
+const SILHUETAS = {
+  pessoa: "M122 50C122 58 120 62 112 64C98 67 90 72 88 82C84 104 78 130 70 156C67 165 74 168 77 160C84 136 92 110 96 96C98 112 100 124 100 134C99 148 100 158 104 170C108 200 110 226 110 240L124 242C124 222 126 196 127 176L129 176C130 196 132 222 132 242L146 240C146 226 148 200 152 170C156 158 157 148 156 134C156 124 158 112 160 96C164 110 172 136 179 160C182 168 189 165 186 156C178 130 172 104 168 82C166 72 158 67 144 64C136 62 134 58 134 50ZM113 32a15 18 0 1 0 30 0a15 18 0 1 0 -30 0Z",
+  manto: "M122 50C122 58 120 62 112 64C98 67 90 72 87 84L78 150C77 158 85 160 87 152L94 112L82 238C102 244 154 244 174 238L162 112L169 152C171 160 179 158 178 150L169 84C166 72 158 67 144 64C136 62 134 58 134 50ZM113 32a15 18 0 1 0 30 0a15 18 0 1 0 -30 0Z",
+};
+const silhuetaForma = (tipo = "pessoa", n = 12000) => formaPontos({ desenho: (g, R) => { g.save(); g.translate(R * 0.04, R * 0.04); g.scale((R * 0.92) / 256, (R * 0.92) / 256); g.fill(new Path2D(SILHUETAS[tipo])); g.restore(); } }, n, { espessura: 0.04 });
+
+// ---------- cena da pergunta para os comentários: balão em pontos, 2 opções e seta para a direita ----------
+// opcoes: [["1 · Haja luz", "Gênesis 1:3"], ["2 · Luz dentro de você", "2 Coríntios 4:6"]]
+// batidas da cena: "um", "dois" (a opção acende quando é dita) e "comenta" (a seta aparece)
+function cenaPergunta(el, c, B, opcoes, o = {}) {
+  const t1 = B("um"), t2 = B("dois"), tC = B("comenta");
+  const TP = telaGPU(el, c, { fundo: LUZ.fundo.map((q) => q * 0.85) }), nv = TP.nuvem(40000), FD = fundoProfundo(o.seed || 61, 600);
+  const CAM = cameraProf([[c.ini, { x: 540, y: 960, zoom: 1.04 }], [c.fim + 0.5, { x: 540, y: 960, zoom: 1.0 }]]);
+  TP.quadro((x, t) => {
+    const cam = CAM(t);
+    let i = desenharFundo(nv, FD, t, cam, LUZ.luz, 0.8, 0);
+    brilhoP(x, 540, 1500, 900, LUZS.ambar, 0.08);
+    const ab = FIS.chegar(t, c.ini + 0.2, 0.7);
+    i = balaoPergunta(nv, x, t, PT.ss((t - c.ini - 0.1) / 0.5), 540, 560, 360 * Math.max(0.01, ab), i);
+    opcoes.forEach(([txt, ref], k) => {
+      const y = 860 + k * 190, te = c.ini + 0.4 + k * 0.15, tf = k ? t2 : t1, a = PT.ss((t - te) / 0.5);
+      const on = PT.jan(t, tf - 0.1, (k ? tC : t2) - 0.1, 0.15, 0.4), ch = FIS.chegar(t, te, 0.6), yy = y + 30 * (1 - Math.min(1, ch));
+      fCaixa(x, 540, yy, 800, 140, 34, on > 0.5 ? LUZS.luz : LUZS.ouro, a * (0.7 + 0.3 * on), 3 + 2 * on, 0.04 + 0.06 * on);
+      if (on > 0) brilhoP(x, 540, yy, 420, LUZS.ambar, 0.18 * on);
+      rotuloP(x, txt, 540, yy - 18, o.tam || 48, on > 0.5 ? "255,246,230" : "255,236,200", a);
+      if (ref) rotuloP(x, ref, 540, yy + 36, 30, LUZS.ouro, 0.85 * a);
+    });
+    setaComentarios(x, PT.ss((t - tC + 0.3) / 0.4), t);
+    nv.total(i);
+  });
+}

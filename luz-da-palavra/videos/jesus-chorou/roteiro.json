@@ -1,0 +1,125 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "jesus-chorou",
+  "titulo": "Jesus chorou",
+  "descricao": "Um dos menores versículos da Bíblia tem só duas palavras.\nJoão 11:35, \"Jesus chorou\": o que aconteceu antes desse versículo, por que Jesus chorou diante de Lázaro e o detalhe que quase ninguém percebe.\nQual você precisava ouvir hoje: 1 ou 2? Comenta aqui.\nSalva pra lembrar e manda pra alguém que está atravessando um dia difícil.",
+  "hashtags": [
+    "#biblia",
+    "#fe",
+    "#jesus",
+    "#versiculododia",
+    "#luzdapalavra"
+  ],
+  "gancho": "SÓ DUAS PALAVRAS",
+  "gancho_destaque": "DUAS",
+  "voz": "Achird",
+  "sons": {
+    "duas": [
+      "sino",
+      0.45
+    ],
+    "laco": [
+      "brilho",
+      0.3
+    ],
+    "lazaro": [
+      "respiro",
+      0.35
+    ],
+    "chorando": [
+      "respiro",
+      0.3
+    ],
+    "chorou": [
+      "sino",
+      0.55
+    ],
+    "sabia": [
+      "brilho",
+      0.3
+    ],
+    "fora": [
+      "plim",
+      0.35
+    ],
+    "com": [
+      "sino",
+      0.45
+    ],
+    "pergunta": [
+      "pop",
+      0.35
+    ],
+    "um": [
+      "clique",
+      0.3
+    ],
+    "dois": [
+      "clique",
+      0.3
+    ],
+    "comenta": [
+      "plim",
+      0.4
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Um dos menores versículos da Bíblia tem só duas palavras. E tem um detalhe nele que quase ninguém percebe.",
+      "batidas": {
+        "duas": "duas",
+        "detalhe": "laco"
+      }
+    },
+    {
+      "id": "versiculo",
+      "tipo": "versiculo",
+      "titulo": "",
+      "fala": "Lázaro, amigo de Jesus, tinha morrido. Ao ver Maria, irmã dele, e os amigos chorando, Jesus chorou.",
+      "batidas": {
+        "Lázaro,": "lazaro",
+        "chorando,": "chorando",
+        "chorou.": "chorou"
+      }
+    },
+    {
+      "id": "detalhe",
+      "tipo": "detalhe",
+      "titulo": "",
+      "fala": "O detalhe: ele sabia que, logo depois, ia chamar Lázaro para fora do túmulo. E mesmo assim chorou com eles.",
+      "batidas": {
+        "sabia": "sabia",
+        "fora": "fora",
+        "com": "com"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Qual você precisava hoje: um ou dois? Comenta aqui do lado.",
+      "batidas": {
+        "Qual": "pergunta",
+        "um": "um",
+        "dois?": "dois",
+        "Comenta": "comenta"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Segue o Luz da Palavra para receber uma palavra de luz todo dia.",
+      "batidas": {
+        "Segue": "cta"
+      }
+    }
+  ]
+}
