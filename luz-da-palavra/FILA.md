@@ -5,7 +5,7 @@ abaixo (combinada com o dono, out/2026). Antes de cada roteiro: conferir o texto
 (ou parafrasear com "cf." e a referência). Marque `[x]` ao entregar.
 
 - [x] 0. **Haja luz** (Gênesis 1:3) — vídeo-teste, entregue. `videos/haja-luz/`
-- [ ] 1. **"Jesus chorou"** (João 11:35) — versículo do dia. Gancho: um dos menores versículos da
+- [x] 1. **"Jesus chorou"** (João 11:35) — versículo do dia. Gancho: um dos menores versículos da
       Bíblia tem duas palavras. Laço: ele chorou mesmo sabendo que ia chamar Lázaro para fora.
       Visual: lágrima de luz → coração.
 - [ ] 2. **"Não temas"** (Isaías 41:10) — versículo do dia. Tempestade de pontos que se acalma e vira

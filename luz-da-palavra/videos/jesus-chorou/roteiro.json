@@ -12,6 +12,10 @@
   ],
   "gancho": "PRA QUEM CHOROU HOJE",
   "gancho_destaque": "CHOROU",
+  "capa": {
+    "t": 1.6,
+    "y": 1360
+  },
   "voz": "Achird",
   "sons": {
     "duas": [
