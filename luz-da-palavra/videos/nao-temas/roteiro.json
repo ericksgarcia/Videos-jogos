@@ -1,0 +1,180 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "nao-temas",
+  "titulo": "Não temas",
+  "descricao": "Se o medo apertou o seu peito hoje, esse versículo é pra você.\nIsaías 41:10, \"Não temas, porque eu sou contigo\": o versículo para quem está com medo do futuro, das contas, de um exame ou de ficar sozinho, e a última frase dele, que muda tudo.\nQual medo você quer entregar hoje? Escreve numa palavra só aqui nos comentários.\nSalva pra ouvir de novo quando o medo voltar.",
+  "hashtags": [
+    "#biblia",
+    "#fe",
+    "#naotemas",
+    "#versiculododia",
+    "#luzdapalavra"
+  ],
+  "gancho": "PRA QUEM ESTÁ COM MEDO",
+  "gancho_destaque": "MEDO",
+  "capa": {
+    "t": 43.58,
+    "y": 1560
+  },
+  "voz": "Achird",
+  "sons": {
+    "medo": [
+      "thud",
+      0.55
+    ],
+    "versiculo": [
+      "vento",
+      0.3
+    ],
+    "laco": [
+      "brilho",
+      0.3
+    ],
+    "m1": [
+      "respiro",
+      0.3
+    ],
+    "m2": [
+      "respiro",
+      0.3
+    ],
+    "m3": [
+      "respiro",
+      0.3
+    ],
+    "m4": [
+      "thud",
+      0.35
+    ],
+    "temas": [
+      "sino",
+      0.5
+    ],
+    "contigo": [
+      "brilho",
+      0.35
+    ],
+    "deus": [
+      "plim",
+      0.3
+    ],
+    "sustento": [
+      "sino",
+      0.55
+    ],
+    "destra": [
+      "brilho",
+      0.3
+    ],
+    "forca": [
+      "thud",
+      0.3
+    ],
+    "tempestade": [
+      "vento",
+      0.3
+    ],
+    "segurar": [
+      "sino",
+      0.4
+    ],
+    "pergunta": [
+      "pop",
+      0.3
+    ],
+    "comenta": [
+      "plim",
+      0.45
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ],
+    "lembra": [
+      "respiro",
+      0.3
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Se o medo apertou o seu peito hoje, esse versículo é pra você. E repara na última frase: ela muda tudo.",
+      "batidas": {
+        "medo": "medo",
+        "versículo": "versiculo",
+        "última": "laco"
+      }
+    },
+    {
+      "id": "medos",
+      "tipo": "medos",
+      "titulo": "",
+      "fala": "Medo do futuro. Da conta que não fecha. Do resultado de um exame. De ficar sozinho.",
+      "batidas": {
+        "futuro.": "m1",
+        "conta": "m2",
+        "exame.": "m3",
+        "sozinho.": "m4"
+      }
+    },
+    {
+      "id": "versiculo",
+      "tipo": "versiculo",
+      "titulo": "",
+      "fala": "Deus disse, pelo profeta Isaías: Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus.",
+      "batidas": {
+        "temas,": "temas",
+        "contigo;": "contigo",
+        "Deus.": "deus"
+      }
+    },
+    {
+      "id": "detalhe",
+      "tipo": "detalhe",
+      "titulo": "",
+      "fala": "E no fim, ele diz: eu te sustento com a destra da minha justiça. Destra é a mão direita. A mão da força.",
+      "batidas": {
+        "sustento": "sustento",
+        "destra": "destra",
+        "força.": "forca"
+      }
+    },
+    {
+      "id": "sentido",
+      "tipo": "sentido",
+      "titulo": "",
+      "fala": "Repara: ele não promete que a tempestade some. Ele promete segurar você no meio dela.",
+      "batidas": {
+        "tempestade": "tempestade",
+        "segurar": "segurar"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Qual medo você quer entregar hoje? Escreve aqui do lado, numa palavra só.",
+      "batidas": {
+        "Qual": "pergunta",
+        "Escreve": "comenta"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva esse vídeo, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
+  ]
+}

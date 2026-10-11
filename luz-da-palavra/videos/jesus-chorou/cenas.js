@@ -117,6 +117,7 @@ CENAS.detalhe = (el, c, B) => {
   const tS = B("sabia"), tF = B("fora"), tCo = B("com");
   const TV = telaGPU(el, c, JC_FUNDO), nv = TV.nuvem(80000);
   const tx = palcoTexto(el, [["jc-d", 360, 66, "Ele sabia o fim.<br>E chorou com eles.", "", "font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;text-transform:none;white-space:normal;letter-spacing:0;line-height:1.15;color:#fff6e6;text-shadow:0 0 26px rgba(255,227,163,0.45),0 6px 26px rgba(0,0,0,0.7);"]]);
+  tl.set(tx["jc-d"], { opacity: 0 }, 0);
   tl.fromTo(tx["jc-d"], { opacity: 0, y: 20, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out", immediateRender: false }, tCo - 0.5);
   const CAM = cameraProf([[c.ini, { x: 470, y: 985, zoom: 1.45, foco: 1.0 }], [tS + 0.3, { x: 200, y: 1000, zoom: 1.55, foco: JC_TUM.z }], [tF + 0.6, { x: 190, y: 1000, zoom: 1.6, foco: JC_TUM.z }], [tCo + 0.4, { x: 560, y: 990, zoom: 1.0, foco: 1.1 }], [c.fim + 0.5, { x: 560, y: 980, zoom: 0.97, foco: 1.1 }]]);
   TV.quadro((x, t) => {
@@ -138,6 +139,7 @@ CENAS.sentido = (el, c, B) => {
   const tP = B("pressa"), tL = B("lado"), tJ = B("junto");
   const TV = telaGPU(el, c, JC_FUNDO), nv = TV.nuvem(60000);
   const tx = palcoTexto(el, [["jc-s", 360, 70, "Ele não tem pressa<br>com a sua dor.", "lp-q", ""]]);
+  tl.set(tx["jc-s"], { opacity: 0 }, 0);
   tl.fromTo(tx["jc-s"], { opacity: 0, y: 20, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out", immediateRender: false }, tP - 0.3);
   const CAM = cameraProf([[c.ini, { x: 560, y: 1000, zoom: 1.25 }], [tL, { x: 540, y: 990, zoom: 1.1 }], [c.fim + 0.5, { x: 520, y: 960, zoom: 1.18 }]]);
   const VX = 640, VY = 1080, HX = 520, HY = 800;

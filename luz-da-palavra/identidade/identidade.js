@@ -186,6 +186,7 @@ function cenaPergunta(el, c, B, o = {}) {
   const TP = telaGPU(el, c, { fundo: LUZ.fundo.map((q) => q * 0.85) }), nv = TP.nuvem(40000), FD = fundoProfundo(o.seed || 61, 600);
   // o texto vem depois do canvas (senão fica por baixo dele)
   const tx = palcoTexto(el, [["lp-q", y0, o.tam || 74, o.texto, "lp-q", ""], ["lp-s", y0 + (o.alturaTexto || 300), 46, o.sub || "", "lp-s", ""]]);
+  tl.set([tx["lp-q"], tx["lp-s"]], { opacity: 0 }, 0);  // invisíveis até a hora (palco começa visível)
   tl.fromTo(tx["lp-q"], { opacity: 0, y: 24, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out", immediateRender: false }, c.ini + 0.15);
   if (o.sub) tl.fromTo(tx["lp-s"], { opacity: 0, y: 16, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: false }, tC - 0.2);
   const PO = (() => { const r = prng(o.seed || 61); return Array.from({ length: 500 }, () => ({ x: r() * 1080, v: 30 + 70 * r(), f: r(), s: r() })); })();
@@ -197,14 +198,14 @@ function cenaPergunta(el, c, B, o = {}) {
     brilhoP(x, 540, 1500, 900, LUZS.ambar, 0.1);
     for (const p of PO) { const d = ((t - c.ini) * p.v + p.f * 1900) % 1900; nv.ponto(i++, p.x + Math.sin(t * 0.6 + p.f * 9) * 14, 1900 - d, LUZ.ambar[0], LUZ.ambar[1], LUZ.ambar[2], 0.25 * p.s * Math.sin(Math.PI * d / 1900), 2 + 2 * p.s); }
     // o ícone: nasce da forma da cena anterior, respira; na hora do pedido voa em arco até o botão
-    const ub = PT.ss((t - c.ini + 0.1) / 0.9), voo = PT.inOut((t - tC + 0.1) / 1.0), [vx, vy] = FIS.arco(IX, IY, BX, BY, voo, 260);
+    const ub = PT.ss((t - c.ini + 0.1) / 0.9), voo = PT.inOut((t - tC + 0.1) / 1.0), [vx, vy] = FIS.arco(IX, IY, BX, BY, voo, 110);
     const esc = PT.lerp(300, 110, voo) * FIS.respira(t, 0, 0.03) * (voo >= 1 ? 1 + 0.12 * Math.max(0, Math.sin((t - tC) * 6)) : 1);
     const para = { cx: vx, cy: vy, esc, cor: LUZ.ouro, borda: LUZ.luz, brilho: 1.1, giro: 0.15 * Math.sin(t * 0.8) };
     brilhoP(x, vx, vy, esc * 1.3, LUZS.ambar, 0.3);
     if (o.de && ub < 1) i = morfo(nv, o.de[0], ico, ub, { de: o.de[1], para, t, onda: 0.3, curva: 0.5, i0: i });
     else i = desenharForma(nv, ico, { ...para, a: o.de ? 1 : ub, t, i0: i });
     // rastro do voo e anéis chamando para o botão de comentários
-    if (voo > 0 && voo < 1) for (let k = 1; k <= 26; k++) { const v2 = Math.max(0, voo - k * 0.018), [qx, qy] = FIS.arco(IX, IY, BX, BY, v2, 260); discoP(x, qx, qy, 7 * (1 - k / 27), LUZS.luz, 0.5 * (1 - k / 27)); }
+    if (voo > 0 && voo < 1) for (let k = 1; k <= 26; k++) { const v2 = Math.max(0, voo - k * 0.018), [qx, qy] = FIS.arco(IX, IY, BX, BY, v2, 110); discoP(x, qx, qy, 7 * (1 - k / 27), LUZS.luz, 0.5 * (1 - k / 27)); }
     if (voo >= 1) for (let k = 0; k < 3; k++) { const u = ((t - tC) * 0.8 + k / 3) % 1; anelP(x, BX, BY, 60 + u * 130, LUZS.ouro, 0.5 * (1 - u), 3); }
     const aS = PT.ss((t - tC - 0.5) / 0.4);
     if (aS > 0.01) { const b = Math.sin(t * 6) * 14; fSeta(x, 640 + b, BY, 840 + b, BY, LUZS.ouro, aS, 10); rotuloP(x, "comentários", 740, BY - 66, 40, "255,236,200", aS); }
