@@ -143,8 +143,8 @@ do Google, duração mínima de 1:30).
 3. **Legenda junto com o vídeo (pedido do dono):** no roteiro, `descricao` (gancho na 1ª linha, palavras
    de busca, pergunta para comentar, pedido de salvar/compartilhar), `hashtags` (4–6: 1–2 amplas como
    #biblia #fe, 2–3 do tema e #luzdapalavra) e `comentario_fixado`. Rode
-   `python luz-da-palavra/legenda.py luz-da-palavra/videos/<tema>` (grava `legenda.txt` na saída) e envie
-   **num único `SendUserFile`** o MP4 + `capa.jpg` + `legenda.txt`, com o texto da legenda e o comentário
-   para fixar no próprio `caption` do envio (não só na conversa).
+   `python luz-da-palavra/legenda.py luz-da-palavra/videos/<tema>` e envie **num único `SendUserFile`** o
+   MP4 + `capa.jpg`, com a legenda e o comentário para fixar **escritos no `caption`** do envio. Sem
+   arquivo de legenda.
 4. Commit + push na branch de trabalho. Sem PR sem pedido. Repositório público: nunca commite chaves
    nem o `.env`.
