@@ -14,7 +14,7 @@ Nunca prepare o próximo vídeo enquanto o atual renderiza: termina, entrega, e 
       uma mão de luz. Pergunta: qual medo você quer entregar hoje? (numa palavra só)
 - [x] 3. **Água em vinho** (João 2:1–11) — história. Morph água → vinho; detalhe do fim: o melhor
       vinho guardado para o final.
-- [ ] 4. **"Lâmpada para os meus pés"** (Salmos 119:105) — versículo do dia. Caminho escuro que se
+- [x] 4. **"Lâmpada para os meus pés"** (Salmos 119:105) — versículo do dia. Caminho escuro que se
       ilumina um passo por vez (a lamparina antiga só iluminava um passo).
 - [ ] 5. **Davi e Golias** (1 Samuel 17) — história. Cinco pedras lisas, sem armadura; o gigante
       desfocado ao fundo. Pergunta: qual é o seu gigante hoje?
