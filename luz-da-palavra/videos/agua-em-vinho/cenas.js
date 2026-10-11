@@ -43,13 +43,13 @@ function AV_desenhaTalhas(nv, x, i, t, cam, nivel, vinho, a = 1) {
 // pátio da festa: luzes penduradas (varais em curva), chão em perspectiva, convidados ao fundo
 const AV_VARAIS = [[-120, 1200, 330, 90, 1.7], [-80, 1180, 450, 70, 2.3], [-200, 1300, 260, 110, 1.3]];
 const AV_CHAO = (() => { const r = prng(95), L = []; for (let k = 0; k < 2200; k++) L.push([-400 + r() * 1900, 1250 + Math.pow(r(), 1.4) * 520, r()]); return L; })();
-const AV_CONV = [[90, 1130, 2.0, 1], [230, 1120, 2.1, -1], [860, 1125, 2.0, -1], [990, 1135, 2.2, 1], [400, 1110, 2.4, 1], [700, 1105, 2.5, -1]];
+const AV_CONV = [[90, 1130, 2.0, 1, "homem", 1], [230, 1120, 2.1, -1, "mulher", 1], [860, 1125, 2.0, -1, "pessoa", 1], [990, 1135, 2.2, 1, "mulher", 1], [400, 1110, 2.4, 1, "homem", 0], [700, 1105, 2.5, -1, "pessoa", 0]];
 function AV_patio(nv, x, i, t, cam, o = {}) {
   const a = o.a ?? 1;
   i = desenharFundo(nv, AV_EST, t, cam, LUZ.luz, 0.7 * a, i);
   AV_VARAIS.forEach(([x0, x1, y0, sag, z], v) => { for (let k = 0; k <= 22; k++) { const u = k / 22, X = x0 + (x1 - x0) * u, Y = y0 + sag * 4 * u * (1 - u), [sx, sy, kk] = projP(cam, X, Y, z), pis = 0.75 + 0.25 * Math.sin(t * 2 + k * 1.7 + v), fo = o.desfoca ?? 0; if (sx < -60 || sx > 1140) continue; brilhoP(x, sx, sy, (28 + 70 * fo) * kk, LUZS.ambar, (0.45 - 0.25 * fo) * pis * a); if (fo < 0.5) discoP(x, sx, sy, 4 * kk, "255,236,190", 0.9 * pis * a * (1 - fo * 2)); } });
   for (const [cx, cy, v] of AV_CHAO) { if (i >= nv.n) break; const z = 1 + (1500 - cy) / 700, [sx, sy, kk] = projP(cam, cx, cy, Math.max(0.7, z)); if (sx < -20 || sx > 1100) continue; nv.ponto(i++, sx, sy, 0.85, 0.7, 0.5, a * (0.06 + 0.1 * v), 2 + 2 * kk); }
-  if (o.convidados ?? 1) AV_CONV.forEach(([cx, cy, cz, d], k) => { i = desenharForma(nv, AV_F.pessoa, { cx, cy: cy + FIS.flutua(t, k, 3), esc: 300, cam, z: cz, sx: d, cor: AV_QUENTE, rot: 0.03 * Math.sin(t * 0.8 + k), a: 0.5 * a * (o.convidados ?? 1), brilho: 0.6, t, i0: i }); });
+  if (o.convidados ?? 1) AV_CONV.forEach(([cx, cy, cz, d, tipo, lateral], k) => { if (o.soLaterais && !lateral) return; personagem(x, t, k % 3 === 1 ? POSES.segurando : POSES.de_pe, { tipo, x: cx, chao: cy + 170, H: 420, dir: d, cam, z: cz, a: 0.55 * a * (o.convidados ?? 1), cor: mixCor(AV_QUENTE, [0.8, 0.82, 1], k % 2 * 0.4), fase: k }); });
   return i;
 }
 
@@ -62,7 +62,7 @@ CENAS.abertura = (el, c, B) => {
   const GOT = (() => { const r = prng(97); return Array.from({ length: 160 }, () => [r() * 2 - 1, r(), r()]); })();
   TV.quadro((x, t) => {
     const cam = CAM(t), esv = PT.ss((t - tA + 0.3) / 2.2), nivel = 0.98 - 0.85 * esv;
-    let i = AV_patio(nv, x, 0, t, cam, { desfoca: 1, convidados: 0.6 });
+    let i = AV_patio(nv, x, 0, t, cam, { desfoca: 1, convidados: 0 });
     const [gx, gy, gk] = projP(cam, 540, 930, 1), esc = 560 * gk;
     brilhoP(x, gx, gy, 380 * gk, "255,110,130", 0.22 * (1 - esv) + 0.06);
     // taça: contorno fraco inteiro + o vinho (parte de baixo, até o nível)
@@ -83,9 +83,10 @@ CENAS.contexto = (el, c, B) => {
   TV.quadro((x, t) => {
     const cam = CAM(t);
     let i = AV_patio(nv, x, 0, t, cam, { desfoca: 1 - PT.ss((t - c.ini) / 1.5) });
-    const aJ = FIS.chegar(t, tJ - 0.3, 0.8), aM = FIS.chegar(t, tM - 0.3, 0.8);
-    if (aJ > 0.01) { const [jx, jy, jk] = projP(cam, AV_JES[0], AV_JES[1], AV_JES[2]); brilhoP(x, jx, jy - 60 * jk, 260 * jk, LUZS.ambar, 0.18 * Math.min(1, aJ)); i = desenharForma(nv, AV_F.manto, { cx: AV_JES[0], cy: AV_JES[1] + 30 * (1 - Math.min(1, aJ)), esc: AV_JES[3], cam, z: AV_JES[2], cor: mixCor(LUZ.luz, LUZ.ouro, 0.4), borda: [1, 0.97, 0.9], a: Math.min(1, aJ), brilho: 0.8, t, i0: i }); }
-    if (aM > 0.01) i = desenharForma(nv, AV_F.pessoaG, { cx: AV_MAE[0], cy: AV_MAE[1] + 30 * (1 - Math.min(1, aM)), esc: AV_MAE[3], cam, z: AV_MAE[2], cor: mixCor(LUZ.luz, [0.75, 0.82, 1], 0.4), borda: [0.95, 0.95, 1], a: Math.min(1, aM), brilho: 0.75, t, i0: i });
+    const cJ = PT.ss((t - tJ + 0.6) / 1.8), cM = PT.ss((t - tM + 0.8) / 1.8), aJ = PT.ss((t - tJ + 0.6) / 0.5), aM = PT.ss((t - tM + 0.8) / 0.5);
+    const [jx, jy, jk] = projP(cam, PT.lerp(820, AV_JES[0], cJ), AV_JES[1], AV_JES[2]); if (aJ > 0.01) brilhoP(x, jx, jy - 120 * jk, 320 * jk, LUZS.ambar, 0.2 * aJ);
+    if (aJ > 0.01) personagem(x, t, poseMix(POSES.andar(t * 6.5, 1), POSES.de_pe, cJ), { tipo: "jesus", x: PT.lerp(820, AV_JES[0], cJ), chao: AV_JES[1] + 150, H: 440, dir: -1, cam, z: AV_JES[2], a: aJ, fase: 3 });
+    if (aM > 0.01) personagem(x, t, poseMix(POSES.andar(t * 6.5 + 1, 1), POSES.de_pe, cM), { tipo: "mulher", x: PT.lerp(220, AV_MAE[0], cM), chao: AV_MAE[1] + 150, H: 410, dir: 1, cam, z: AV_MAE[2], a: aM, fase: 1 });
     nv.total(i);
   });
 };
@@ -105,11 +106,12 @@ CENAS.conflito = (el, c, B) => {
     const [gx, gy, gk] = projP(cam, 540, 830, 1.6);
     i = desenharForma(nv, AV_F.taca, { cx: gx, cy: gy, esc: 260 * gk, rot: -Math.PI / 2, cor: [0.85, 0.85, 0.95], brilho: 0.45, a: 0.7 * (1 - PT.ss((t - tCh) / 0.6)), t, i0: i });
     i = desenharForma(nv, AV_F.taca, { cx: gx, cy: gy, esc: 260 * gk, rot: -Math.PI / 2, cor: AV_VINHO, brilho: 1, revela: 0.9 * (1 - vazio), a: 1 - PT.ss((t - tCh) / 0.6), t, i0: i });
-    // a mãe de Jesus anda até ele
-    const anda = PT.inOut((t - tCh + 0.2) / 1.4), mx = PT.lerp(AV_MAE[0] - 120, 545, anda);
-    const [jx, jy, jk] = projP(cam, AV_JES[0], AV_JES[1], AV_JES[2]); brilhoP(x, jx, jy - 60 * jk, 260 * jk, LUZS.ambar, 0.18);
-    i = desenharForma(nv, AV_F.manto, { cx: AV_JES[0], cy: AV_JES[1], esc: AV_JES[3], cam, z: AV_JES[2], cor: mixCor(LUZ.luz, LUZ.ouro, 0.4), borda: [1, 0.97, 0.9], brilho: 0.8, t, i0: i });
-    i = desenharForma(nv, AV_F.pessoaG, { cx: mx, cy: AV_MAE[1] - 6 * Math.abs(Math.sin(anda * Math.PI * 3)), esc: AV_MAE[3], cam, z: AV_MAE[2], cor: mixCor(LUZ.luz, [0.75, 0.82, 1], 0.4), borda: [0.95, 0.95, 1], rot: 0.04 * Math.sin(anda * Math.PI * 3), brilho: 0.75, t, i0: i });
+    // a mãe de Jesus anda até ele e fala, com a mão estendida
+    const anda = PT.inOut((t - tCh + 0.2) / 1.4), mx = PT.lerp(AV_MAE[0] - 150, AV_MAE[0] - 30, anda), fala = PT.ss((t - tP + 0.4) / 0.5);
+    const [jx, jy, jk] = projP(cam, AV_JES[0], AV_JES[1], AV_JES[2]); brilhoP(x, jx, jy - 120 * jk, 320 * jk, LUZS.ambar, 0.2);
+    personagem(x, t, poseMix(POSES.de_pe, { ...POSES.de_pe, cabeca: 0.2 }, fala), { tipo: "jesus", x: AV_JES[0], chao: AV_JES[1] + 150, H: 440, dir: -1, cam, z: AV_JES[2], fase: 3 });
+    let pm = poseMix(POSES.de_pe, POSES.andar(t * 6.5, 1), PT.jan(t, tCh - 0.2, tCh + 1.1, 0.2, 0.3)); pm = poseMix(pm, POSES.entregando, 0.55 * fala);
+    personagem(x, t, pm, { tipo: "mulher", x: mx, chao: AV_MAE[1] + 150, H: 410, dir: 1, cam, z: AV_MAE[2], fase: 1 });
     nv.total(i);
   });
 };
@@ -123,10 +125,14 @@ CENAS.virada = (el, c, B) => {
   const CAM = cameraProf([[c.ini, { x: 560, y: 1020, zoom: 1.3 }], [tS - 0.2, { x: 540, y: 1000, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 1060, zoom: 1.12 }]]);
   TV.quadro((x, t) => {
     const cam = CAM(t), aT = (k) => FIS.cascata(t, tS - 0.3, k, 0.12, 0.6);
-    let i = AV_patio(nv, x, 0, t, cam, { convidados: 0.4 });
+    let i = AV_patio(nv, x, 0, t, cam, { convidados: 0 });
     const nivel = (k) => Math.min(1, aT(k)) * PT.ss((t - tE + 0.2 - k * 0.25) / 1.6) * 0.98;
     // as talhas chegam em cascata (com mola) e enchem uma depois da outra
     i = AV_desenhaTalhas(nv, x, i, t, { ...cam }, nivel, () => 0, 1);
+    // dois serventes despejam água (cântaro inclinado + fio de água) enquanto as talhas enchem
+    const desp = PT.jan(t, tE - 0.4, c.fim - 0.2, 0.4, 0.4);
+    [[150, 1, 0], [930, -1, 1]].forEach(([sx0, dd, k]) => { const pz = poseMix(POSES.segurando, POSES.entregando, desp), p = personagem(x, t, pz, { tipo: "homem", x: sx0, chao: 1390, H: 430, dir: dd, cam, z: 1.05, fase: 5 + k, a: Math.min(1, FIS.chegar(t, tS + 0.2 + k * 0.2, 0.6)) });
+      const [hx, hy] = p.maos[1]; brilhoP(x, hx, hy, 50, "150,200,255", 0.4 * desp); for (let q = 0; q < 40; q++) { const u2 = ((t * 1.6 + q / 40) % 1), [ex, ey] = [hx + dd * (20 + 60 * u2), hy + 12 + 140 * u2 * u2]; nv.ponto(i++, ex, ey, 0.55, 0.78, 1, 0.6 * desp * (1 - u2 * 0.5), 3); } });
     nv.total(i);
   });
 };
@@ -139,8 +145,11 @@ CENAS.milagre = (el, c, B) => {
   const FA = (() => { const r = prng(99); return Array.from({ length: 300 }, () => [r() * 2 - 1, r(), r()]); })();
   TV.quadro((x, t) => {
     const cam = CAM(t), vir = (k) => PT.ss((t - tP + 0.4 - k * 0.18) / 1.4);
-    let i = AV_patio(nv, x, 0, t, cam, { convidados: 0.4 });
+    let i = AV_patio(nv, x, 0, t, cam, { convidados: 0 });
     i = AV_desenhaTalhas(nv, x, i, t, cam, () => 0.98, vir, 1);
+    // um servente tira um copo da talha e leva ao mestre-sala
+    const tira = PT.ss((t - tT + 0.2) / 1.6), ps = personagem(x, t, poseMix(poseMix(POSES.segurando, POSES.andar(t * 6, 0.8), PT.jan(t, tT - 0.2, tT + 1.4, 0.3, 0.4)), POSES.entregando, PT.ss((t - tP + 0.3) / 0.6)), { tipo: "homem", x: PT.lerp(150, 250, tira), chao: 1390, H: 430, dir: 1, cam, z: 1.05, fase: 6 });
+    { const [hx, hy] = ps.maos[1]; i = desenharForma(nv, AV_F.tacaP, { cx: hx + 6, cy: hy - 22, esc: 60, cor: mixCor(AV_AGUA, AV_VINHO, PT.ss((t - tP) / 1.0)), brilho: 1.1, t, i0: i }); }
     // faíscas subindo das talhas quando viram vinho
     const g = PT.jan(t, tP, c.fim, 0.4, 0.6);
     if (g > 0) for (const [u, f, s] of FA) { const k = Math.floor(f * 6), [tx, ty, tz] = AV_TALHAS[k], [sx, sy, kk] = projP(cam, tx + u * 60, ty - 120, tz), d = ((t - tP) * (60 + 80 * s) + f * 400) % 400; nv.ponto(i++, sx, sy - d * kk, 1, 0.55, 0.65, g * (1 - d / 400) * 0.8, 2 + 2 * s); }
@@ -160,12 +169,12 @@ CENAS.detalhe = (el, c, B) => {
   TV.quadro((x, t) => {
     const cam = CAM(t), melhor = PT.ss((t - tU + 0.3) / 1.0);
     let i = AV_patio(nv, x, 0, t, cam, { convidados: 0.8 });
-    // mestre-sala (esq.) com a taça erguida e o noivo (dir.)
-    i = desenharForma(nv, AV_F.pessoaG, { cx: 400, cy: 1130, esc: 330, cam, z: 1.1, cor: AV_QUENTE, borda: [1, 0.95, 0.85], brilho: 0.75, t, i0: i });
-    i = desenharForma(nv, AV_F.pessoaG, { cx: 690, cy: 1135, esc: 330, cam, z: 1.1, sx: -1, cor: AV_QUENTE, borda: [1, 0.95, 0.85], brilho: 0.75, t, i0: i });
-    const ergue = FIS.chegar(t, tD + 0.2, 0.7), [cx, cy, ck] = projP(cam, 470, 1000 - 60 * ergue, 1.1);
-    brilhoP(x, cx, cy, (90 + 160 * melhor) * ck, "255,110,140", 0.5 + 0.3 * melhor);
-    i = desenharForma(nv, AV_F.tacaP, { cx, cy, esc: 90 * ck * (1 + 0.25 * melhor), cor: mixCor(AV_VINHO, LUZ.ouro, 0.3 * melhor), borda: [1, 0.8, 0.85], brilho: 1.2, t, i0: i });
+    // mestre-sala (esq.) ergue a taça diante do noivo (dir.)
+    const ergue = FIS.chegar(t, tD + 0.2, 0.7), poseMS = poseMix(POSES.segurando, { ...POSES.de_pe, tronco: -0.05, cabeca: -0.15, braco: [[-0.2, 0.3], [2.4, 0.5]] }, Math.min(1, ergue));
+    personagem(x, t, POSES.de_pe, { tipo: "pessoa", x: 700, chao: 1290, H: 470, dir: -1, cam, z: 1.1, fase: 2, cor: [0.95, 0.9, 1] });
+    const ms = personagem(x, t, poseMS, { tipo: "homem", x: 400, chao: 1290, H: 480, dir: 1, cam, z: 1.1, fase: 4 }), [cx, cy] = ms.maos[1], ck = ms.escala;
+    brilhoP(x, cx, cy - 30 * ck, (90 + 160 * melhor) * ck, "255,110,140", 0.5 + 0.3 * melhor);
+    i = desenharForma(nv, AV_F.tacaP, { cx: cx + 4 * ck, cy: cy - 40 * ck, esc: 90 * ck * (1 + 0.25 * melhor), cor: mixCor(AV_VINHO, LUZ.ouro, 0.3 * melhor), borda: [1, 0.8, 0.85], brilho: 1.2, t, i0: i });
     nv.total(i);
   });
 };
@@ -181,15 +190,16 @@ CENAS.sentido = (el, c, B) => {
   TV.quadro((x, t) => {
     const cam = CAM(t), enche = PT.ss((t - tM + 0.3) / 2.0), acende = PT.ss((t - tF + 0.5) / 1.2);
     let i = AV_patio(nv, x, 0, t, cam, { desfoca: 1, convidados: 0, a: 0.4 + 0.6 * acende });
-    const [gx, gy, gk] = projP(cam, 540, 960, 1), esc = 520 * gk;
-    brilhoP(x, gx, gy, (300 + 200 * enche) * gk, LUZS.ambar, 0.1 + 0.3 * enche);
-    i = desenharForma(nv, AV_F.taca, { cx: gx, cy: gy, esc, rot: -Math.PI / 2, cor: [0.85, 0.85, 0.95], borda: [1, 1, 1], brilho: 0.45, a: 0.75, t, i0: i });
-    i = desenharForma(nv, AV_F.taca, { cx: gx, cy: gy, esc: esc * 1.002, rot: -Math.PI / 2, cor: LUZ.ouro, borda: LUZ.luz, brilho: 1.15, revela: 0.05 + 0.93 * enche, t, i0: i });
+    const pz = poseMix(POSES.segurando, { ...POSES.segurando, cabeca: 0.35, braco: [[0.95, 1.0], [1.05, 0.95]] }, 1), pp = personagem(x, t, pz, { tipo: "pessoa", x: 480, chao: 1400, H: 600, dir: 1, cam, z: 1, fase: 2, cor: mixCor([0.85, 0.9, 1], [1, 0.86, 0.55], enche) });
+    const [hx, hy] = pp.maos[1], gx = hx + 30, gy = hy - 95, esc = 230;
+    brilhoP(x, gx, gy, (220 + 200 * enche), LUZS.ambar, 0.1 + 0.35 * enche);
+    i = desenharForma(nv, AV_F.taca, { cx: gx, cy: gy, esc, rot: -Math.PI / 2, cor: [0.85, 0.85, 0.95], borda: [1, 1, 1], brilho: 0.5, a: 0.8, t, i0: i });
+    i = desenharForma(nv, AV_F.taca, { cx: gx, cy: gy, esc: esc * 1.002, rot: -Math.PI / 2, cor: LUZ.ouro, borda: LUZ.luz, brilho: 1.2, revela: 0.05 + 0.93 * enche, t, i0: i });
     nv.total(i);
   });
 };
 
 // =============== 8. pergunta (uma só) e 9. fim (emenda no começo) ===============
 CENAS.pergunta = (el, c, B) => cenaPergunta(el, c, B, { texto: "Se Jesus transformasse <b>uma coisa</b> na sua vida hoje, o que seria?", sub: "Escreve nos comentários", icone: "wine",
-  de: [AV_F.tacaP, { cx: 540, cy: 960, esc: 600, cor: LUZ.ouro, borda: LUZ.luz }], seed: 97, tam: 70, alturaTexto: 300 });
+  de: [AV_F.tacaP, { cx: 640, cy: 1040, esc: 250, cor: LUZ.ouro, borda: LUZ.luz }], seed: 97, tam: 70, alturaTexto: 300 });
 CENAS.fim = (el, c, B) => cartaoFinal(el, c.ini + 0.05);

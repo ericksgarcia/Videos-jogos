@@ -9,7 +9,7 @@ abaixo (combinada com o dono, out/2026). Antes de cada roteiro: conferir o texto
       Bíblia tem duas palavras. Laço: ele chorou mesmo sabendo que ia chamar Lázaro para fora.
       Visual: lágrima de luz → coração. Entregue a versão de 39,6 s; a pasta tem o roteiro estendido
       (~55 s, pergunta única), não renderizado (o dono preferiu seguir para o próximo).
-- [ ] 2. **"Não temas"** (Isaías 41:10) — versículo do dia. Tempestade de pontos que se acalma e vira
+- [x] 2. **"Não temas"** (Isaías 41:10) — versículo do dia. Tempestade de pontos que se acalma e vira
       uma mão de luz. Pergunta: qual medo você quer entregar hoje? (numa palavra só)
 - [ ] 3. **Água em vinho** (João 2:1–11) — história. Morph água → vinho; detalhe do fim: o melhor
       vinho guardado para o final.

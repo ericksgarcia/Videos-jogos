@@ -2,25 +2,42 @@
 // Retenção: quadro 0 = o gigante enorme contra o céu do entardecer e Davi pequeno na frente; gancho
 // emocional; laço aberto ("presta atenção no que o Davi recusou") pago no detalhe (venceu com o que já
 // sabia usar, dos dias com as ovelhas); capítulos I–III; armadura que cai, cinco pedras que sobem,
-// a pedra em arco, o gigante que cai; pergunta única. Figuras: silhuetas de luz sem rosto.
+// a pedra em arco, o gigante que cai; pergunta única. Figuras: personagens em line art sem rosto (davi, golias).
 // Fatos: 1 Sm 17:4 (seis côvados e um palmo ≈ 2,9 m), 17:16 (40 dias), 17:12–14 (o mais novo de oito),
 // 17:17–18 (levar comida), 17:38–39 (armadura recusada), 17:40 (cinco seixos lisos), 17:45 (cf.), 17:49.
 
 const DG_FUNDO = { fundo: LUZ.fundo.map((q) => q * 0.85) };
 const DG_EST = fundoProfundo(111, 460);
-const DG_SIL = new Path2D(SILHUETAS.pessoa);
 const DG_D = (fn) => ({ desenho: (g, R) => { g.save(); g.translate(R * 0.04, R * 0.04); g.scale((R * 0.92) / 256, (R * 0.92) / 256); g.fillStyle = "#fff"; g.strokeStyle = "#fff"; g.lineCap = "round"; fn(g); g.restore(); } });
 const DG_F = {
-  golias: formaPontos(DG_D((g) => { g.fill(DG_SIL); g.beginPath(); g.moveTo(108, 30); g.quadraticCurveTo(128, 4, 148, 30); g.lineTo(150, 38); g.lineTo(106, 38); g.closePath(); g.fill(); g.lineWidth = 5; g.beginPath(); g.moveTo(196, 8); g.lineTo(186, 250); g.stroke(); g.beginPath(); g.moveTo(196, 0); g.lineTo(203, 22); g.lineTo(190, 21); g.closePath(); g.fill(); g.lineWidth = 7; g.beginPath(); g.ellipse(62, 150, 26, 36, 0, 0, 6.283); g.stroke(); g.beginPath(); g.arc(62, 150, 6, 0, 6.283); g.fill(); }), 14000, { espessura: 0.05 }),
-  davi: formaPontos(DG_D((g) => { g.fill(DG_SIL); g.lineWidth = 6; g.beginPath(); g.moveTo(190, 60); g.quadraticCurveTo(200, 40, 188, 30); g.moveTo(190, 60); g.lineTo(184, 248); g.stroke(); g.lineWidth = 3; g.beginPath(); g.moveTo(72, 158); g.quadraticCurveTo(66, 190, 74, 212); g.stroke(); g.beginPath(); g.ellipse(74, 214, 7, 5, 0, 0, 6.283); g.fill(); }), 9000, { espessura: 0.04 }),
   ovelha: formaPontos({ desenho: (g, R) => { g.save(); g.scale(R / 256, R / 256); g.fillStyle = "#fff"; g.strokeStyle = "#fff"; for (const [x, y, r] of [[100, 120, 34], [134, 108, 36], [168, 120, 32], [120, 146, 32], [156, 148, 30], [84, 140, 24], [186, 140, 22]]) { g.beginPath(); g.arc(x, y, r, 0, 6.283); g.fill(); } g.beginPath(); g.ellipse(212, 118, 20, 15, -0.3, 0, 6.283); g.fill(); g.beginPath(); g.ellipse(206, 104, 7, 11, -0.9, 0, 6.283); g.fill(); g.lineWidth = 9; g.lineCap = "round"; for (const x of [100, 124, 152, 174]) { g.beginPath(); g.moveTo(x, 160); g.lineTo(x, 196); g.stroke(); } g.restore(); } }, 3500),
-  escudo: formaPontos("shield", 3000), espada: formaPontos("sword", 3000), elmo: formaPontos({ desenho: (g, R) => { g.beginPath(); g.moveTo(R * 0.2, R * 0.7); g.quadraticCurveTo(R * 0.5, R * 0.05, R * 0.8, R * 0.7); g.lineTo(R * 0.86, R * 0.82); g.lineTo(R * 0.14, R * 0.82); g.closePath(); g.fill(); } }, 2500),
-  pao: formaPontos("bread", 1800), pedra: formaPontos({ desenho: (g, R) => { g.beginPath(); g.ellipse(R / 2, R / 2, R * 0.42, R * 0.3, 0.2, 0, 6.283); g.fill(); } }, 900, { espessura: 0.15 }),
+  pedra: formaPontos({ desenho: (g, R) => { g.beginPath(); g.ellipse(R / 2, R / 2, R * 0.42, R * 0.3, 0.2, 0, 6.283); g.fill(); } }, 900, { espessura: 0.15 }),
   texto40: formaTexto("40 DIAS", 6000, { fonte: "Cinzel", peso: 700, tam: 0.22 }),
 };
-const DG_GOL = [0.95, 0.45, 0.45], DG_DAV = LUZ.ouro;
-// figura com os pés em (X, Ychão): a silhueta ocupa ~0,41·esc abaixo do centro
-const DG_fig = (nv, F, X, Y, esc, z, cam, o, i) => desenharForma(nv, F, { cx: X, cy: Y - 0.41 * esc, esc, cam, z, ...o, i0: i });
+const DG_GOL = [1, 0.55, 0.5], DG_DAV = [1, 0.86, 0.55];
+// Golias em line art: escudo na mão de trás, espada na cintura, lança na mão da frente (ang: 0 = em pé)
+const DG_PG = { tronco: 0.02, cabeca: 0.05, braco: [[-0.3, 0.75], [0.3, 1.15]], perna: [[-0.12, 0], [0.12, 0]] };
+const DG_DESAFIO = { tronco: -0.08, cabeca: -0.25, braco: [[-0.3, 0.75], [2.1, 0.3]], perna: [[-0.2, 0], [0.22, 0]] };
+// ameaça: a lança apontada para a frente e para cima (ang ≈ 1,15)
+const DG_AMEACA = { tronco: 0.05, cabeca: 0.1, braco: [[-0.3, 0.75], [1.3, 0.15]], perna: [[-0.2, 0], [0.2, 0]] };
+function DG_golias(x, t, pose, o) {
+  const H = o.H, cor = o.cor || DG_GOL, a = o.a ?? 1;
+  const inf = personagem(x, t, pose, { tipo: "golias", x: o.x, chao: o.chao, H, dir: o.dir ?? -1, cam: o.cam, z: o.z, a, rot: o.rot, fase: 7, cor,
+    atras: (y, f) => objetoLinha(x, "escudo", { mao: f.maos[0], H, k: f.escala, d: f.d, cor, a: a * 0.85, r: 0.2 }) });
+  objetoLinha(x, "espada", { mao: [inf.quadril[0] - inf.d * 0.03 * H * inf.escala, inf.quadril[1] - 0.02 * H * inf.escala], H, k: inf.escala, d: inf.d, cor, a, ang: 2.7 + (o.rot || 0) * inf.d });
+  if (o.lanca !== false) objetoLinha(x, "lanca", { mao: inf.maos[1], H, k: inf.escala, d: inf.d, cor, a, ang: (o.ang ?? 0.05) + (o.rot || 0) * inf.d });
+  return inf;
+}
+// Davi em line art: cajado na mão de trás (o.cajado), funda na mão da frente (o.funda: null = pendurada, número = girando)
+function DG_davi(x, t, pose, o) {
+  const H = o.H, a = o.a ?? 1, cor = o.cor || DG_DAV;
+  const inf = personagem(x, t, pose, { tipo: "davi", x: o.x, chao: o.chao, H, dir: o.dir ?? 1, cam: o.cam, z: o.z, a, fase: 3, cor,
+    atras: o.cajado ? (y, f) => objetoLinha(x, "cajado", { mao: f.maos[0], H, k: f.escala, d: f.d, cor, a: a * o.cajado }) : null });
+  if (o.funda !== undefined && o.funda !== false) objetoLinha(x, "funda", { mao: inf.maos[1], H, k: inf.escala, d: inf.d, cor, a: a * (o.aFunda ?? 1), giro: o.funda });
+  return inf;
+}
+// ponta da lança (para o brilho)
+const DG_ponta = (inf, ang) => [inf.maos[1][0] + Math.sin(ang) * inf.d * 0.8 * 0.95 * inf.H * inf.escala, inf.maos[1][1] - Math.cos(ang) * 0.8 * 0.95 * inf.H * inf.escala];
 // vale de Elá: céu do entardecer, dois montes com acampamentos e fogueiras, chão do vale
 const DG_MONTES = (() => { const r = prng(113), L = []; for (let k = 0; k < 4200; k++) { const lado = k % 2 ? 1 : -1, X = lado < 0 ? -700 + r() * 1150 : 630 + r() * 1150, cx = lado < 0 ? -60 : 1140, top = 900 + Math.pow((X - cx) / 520, 2) * 220, Y = top + Math.pow(r(), 1.8) * 420; L.push([X, Y, 2.5, r(), Y - top < 8]); } return L; })();
 const DG_FOGOS = [[-260, 905, 2.5], [10, 902, 2.5], [230, 950, 2.5], [860, 955, 2.5], [1100, 902, 2.5], [1360, 940, 2.5]];
@@ -41,31 +58,37 @@ function DG_ar(nv, i, t, a = 1) { for (const [u, v, s] of DG_poeira) { const xx 
 CENAS.abertura = (el, c, B) => {
   const tG = B("gigante"), tH = B("historia"), tL = B("laco");
   mostrarGancho(tH + 0.3);
-  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(70000);
-  const CAM = cameraProf([[0, { x: 560, y: 1050, zoom: 1.12 }], [c.fim + 0.5, { x: 540, y: 1000, zoom: 0.98 }]]);
+  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(60000);
+  const CAM = cameraProf([[0, { x: 560, y: 1000, zoom: 1.12 }], [c.fim + 0.5, { x: 540, y: 980, zoom: 0.98 }]]);
   TV.quadro((x, t) => {
     const cam = CAM(t), brilha = PT.ss((t - tL + 0.3) / 0.8);
     let i = DG_vale(nv, x, 0, t, cam);
     i = DG_ar(nv, i, t);
-    i = DG_fig(nv, DG_F.golias, 680, 1500, 1250 * FIS.respira(t, 0, 0.01), 1.1, cam, { cor: DG_GOL, borda: [1, 0.7, 0.7], brilho: 0.6, rot: 0.01 * Math.sin(t * 0.6), t }, i);
-    const [dx, dy, dk] = projP(cam, 330, 1380, 0.95); brilhoP(x, dx, dy, (120 + 160 * brilha) * dk, LUZS.ambar, 0.3 + 0.3 * brilha);
-    i = DG_fig(nv, DG_F.davi, 330, 1560, 300, 0.95, cam, { cor: DG_DAV, borda: LUZ.luz, brilho: 0.9 + 0.3 * brilha, t }, i);
+    const [gx, gy, gk] = projP(cam, 720, 1100, 1.1); brilhoP(x, gx, gy, 700 * gk, "255,110,100", 0.12);
+    DG_golias(x, t, DG_AMEACA, { x: 720, chao: 1500, H: 900, z: 1.1, cam, ang: 1.15 + 0.03 * Math.sin(t * 0.7) });
+    const [dx, dy, dk] = projP(cam, 300, 1300, 1); brilhoP(x, dx, dy, (140 + 160 * brilha) * dk, LUZS.ambar, 0.3 + 0.3 * brilha);
+    DG_davi(x, t, { ...POSES.de_pe, cabeca: -0.3 }, { x: 300, chao: 1440, H: 320, z: 1, cam, funda: null, cor: mixCor(DG_DAV, LUZ.luz, brilha) });
     nv.total(i);
   });
 };
 
 // =============== 2. o gigante: o vale de Elá, os dois exércitos, Golias (quase 3 m), 40 dias ===============
+const DG_TROPA = [[-120, -1], [0, -1], [120, -1], [240, -1], [860, 1], [980, 1], [1100, 1], [1220, 1]].map(([X, lado]) => { const cx = lado < 0 ? -60 : 1140; return [X, 900 + Math.pow((X - cx) / 520, 2) * 220, lado]; });
 CENAS.gigante = (el, c, B) => {
-  const tE = B("ela"), tG = B("golias"), tM = B("metros"), tQ = B("quarenta");
+  const tE = B("ela"), tG = B("golias"), tM = B("metros"), tQ = B("quarenta"), tp = tempoPalavras(c), tIs = tp("israel"), tFi = tp("filisteus");
   const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(80000);
   const CAM = cameraProf([[c.ini, { x: 540, y: 880, zoom: 0.8 }], [tG - 0.3, { x: 560, y: 960, zoom: 0.9 }], [tG + 1.0, { x: 620, y: 1080, zoom: 1.35 }], [tQ - 0.3, { x: 620, y: 1080, zoom: 1.4 }], [c.fim + 0.5, { x: 600, y: 1000, zoom: 1.0 }]]);
   TV.quadro((x, t) => {
-    const cam = CAM(t), aG = FIS.chegar(t, tG - 0.4, 0.8), med = PT.jan(t, tM - 0.2, tQ - 0.4, 0.4, 0.4), q = PT.jan(t, tQ - 0.2, c.fim, 0.4, 0.5);
+    const cam = CAM(t), aG = FIS.chegar(t, tG - 0.4, 0.8), med = PT.jan(t, tM - 0.2, tQ - 0.4, 0.4, 0.4), q = PT.jan(t, tQ - 0.2, c.fim, 0.4, 0.5), des = PT.ss((t - tQ + 0.2) / 0.7);
     let i = DG_vale(nv, x, 0, t, cam);
-    i = DG_fig(nv, DG_F.golias, 640, 1420, 520 * Math.max(0.01, Math.min(1.05, aG)), 1.25, cam, { cor: DG_GOL, borda: [1, 0.7, 0.7], brilho: 0.65, a: Math.min(1, aG), t }, i);
+    // os dois exércitos nos montes (Israel à esquerda, filisteus à direita)
+    DG_TROPA.forEach(([X, Y, lado], k) => { const ap = PT.ss((t - (lado < 0 ? tIs : tFi) + 0.3) / 0.6); if (ap < 0.01) return; const inf = personagem(x, t, POSES.de_pe, { tipo: lado < 0 ? "pessoa" : "homem", x: X, chao: Y + 4, H: 230, dir: -lado, cam, z: 2.5, a: 0.75 * ap, fase: k, vida: true });
+      objetoLinha(x, "lanca", { mao: inf.maos[1], H: 230, k: inf.escala, d: inf.d, a: 0.75 * ap, cor: lado < 0 ? [0.86, 0.9, 1] : [0.95, 0.8, 0.7] }); });
+    const H = 460 * Math.max(0.01, Math.min(1.05, aG));
+    if (aG > 0.01) DG_golias(x, t, poseMix(DG_PG, DG_DESAFIO, des), { x: 640, chao: 1420, H, z: 1.25, cam, a: Math.min(1, aG), ang: 0.05 + 0.25 * des });
     // régua de altura ao lado dele
-    if (med > 0.01) { const [x0, y0] = projP(cam, 760, 1420, 1.25), [, y1] = projP(cam, 760, 1420 - 0.86 * 520, 1.25), yy = y0 + (y1 - y0) * PT.ss((t - tM + 0.2) / 0.8); linhaP(x, x0, y0, x0, yy, LUZS.luz, med, 3); linhaP(x, x0 - 14, yy, x0 + 14, yy, LUZS.luz, med, 3); linhaP(x, x0 - 14, y0, x0 + 14, y0, LUZS.luz, med, 3); rotuloP(x, "≈ 2,9 m", x0 + 24, (y0 + y1) / 2, 44, "255,236,200", med, "left"); }
-    if (q > 0.01) i = desenharForma(nv, DG_F.texto40, { cx: 540, cy: 520, esc: 620, cor: LUZ.ouro, borda: LUZ.luz, a: q, brilho: 0.8, t, i0: i });
+    if (med > 0.01) { const [x0, y0] = projP(cam, 800, 1420, 1.25), [, y1] = projP(cam, 800, 1420 - 460, 1.25), yy = y0 + (y1 - y0) * PT.ss((t - tM + 0.2) / 0.8); linhaP(x, x0, y0, x0, yy, LUZS.luz, med, 3); linhaP(x, x0 - 14, yy, x0 + 14, yy, LUZS.luz, med, 3); linhaP(x, x0 - 14, y0, x0 + 14, y0, LUZS.luz, med, 3); rotuloP(x, "≈ 2,9 m", x0 + 24, (y0 + y1) / 2, 44, "255,236,200", med, "left"); }
+    if (q > 0.01) i = desenharForma(nv, DG_F.texto40, { cx: 540, cy: 430, esc: 560, cor: LUZ.ouro, borda: LUZ.luz, a: q, brilho: 0.8, t, i0: i });
     nv.total(i);
   });
 };
@@ -76,65 +99,83 @@ CENAS.pastor = (el, c, B) => {
   const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(70000);
   const CAM = cameraProf([[c.ini, { x: 420, y: 1060, zoom: 1.1 }], [tD, { x: 470, y: 1120, zoom: 1.35 }], [c.fim + 0.5, { x: 560, y: 1080, zoom: 1.2 }]]);
   TV.quadro((x, t) => {
-    const cam = CAM(t), anda = PT.ss((t - c.ini) / Math.max(1, tV - c.ini)), X = PT.lerp(150, 470, anda), passo = Math.sin(t * 6.5) * (1 - PT.ss((t - tV + 0.3) / 0.4)), vira = PT.ss((t - tV + 0.2) / 0.4);
+    const cam = CAM(t), anda = PT.ss((t - c.ini) / Math.max(1, tV - c.ini - 0.3)), X = PT.lerp(150, 470, anda), para = PT.ss((t - tV + 0.5) / 0.4), vira = PT.ss((t - tV + 0.2) / 0.4);
     let i = DG_vale(nv, x, 0, t, cam);
     i = DG_ar(nv, i, t);
-    // o gigante ao fundo, fora de foco
-    i = DG_fig(nv, DG_F.golias, 900, 1360, 520, 2.2, { ...cam, foco: 1 }, { cor: DG_GOL, a: 0.55, brilho: 0.5, t }, i);
-    const [dx, dy, dk] = projP(cam, X, 1450, 1); brilhoP(x, dx, dy - 120 * dk, 200 * dk, LUZS.ambar, 0.25 + 0.2 * PT.ss((t - tD) / 0.6));
-    i = DG_fig(nv, DG_F.davi, X, 1450 - Math.abs(passo) * 5, 320, 1, cam, { cor: DG_DAV, borda: LUZ.luz, brilho: 0.9, rot: 0.03 * passo, sx: 1, t }, i);
-    // o pão que ele levava, na mão, some quando ele decide ir
-    const aP = 1 - vira; if (aP > 0.01) { const [px, py, pk] = projP(cam, X - 70, 1450 - 150, 1); i = desenharForma(nv, DG_F.pao, { cx: px, cy: py, esc: 70 * pk, cor: DG_PAO_COR, a: aP, brilho: 0.9, t, i0: i }); }
-    if (vira > 0) brilhoP(x, dx, dy - 140 * dk, 320 * dk * vira, LUZS.luz, 0.25 * vira);
+    // o gigante ao fundo, apagado
+    DG_golias(x, t, DG_PG, { x: 960, chao: 1360, H: 460, z: 2.2, cam, a: 0.4 });
+    const [dx, dy, dk] = projP(cam, X, 1300, 1); brilhoP(x, dx, dy, 220 * dk, LUZS.ambar, 0.22 + 0.2 * PT.ss((t - tD) / 0.6));
+    // andando com o pão na mão; em "vou" para, ergue o queixo e o pão some
+    const pz = poseMix(poseMix(POSES.andar(t * 6.5, 0.9), POSES.de_pe, para), { ...POSES.de_pe, tronco: -0.05, cabeca: -0.2, braco: [[-0.25, 0.3], [0.25, 0.35]] }, vira);
+    const carrega = { ...pz, braco: [pz.braco[0], [PT.lerp(0.55, pz.braco[1][0], vira), PT.lerp(1.1, pz.braco[1][1], vira)]] };
+    const inf = DG_davi(x, t, carrega, { x: X, chao: 1450, H: 330, z: 1, cam, cor: mixCor(DG_DAV, LUZ.luz, vira) });
+    if (vira < 0.99) objetoLinha(x, "pao", { mao: [inf.maos[1][0] + inf.d * 6, inf.maos[1][1] - 4], H: 330, k: inf.escala, d: inf.d, a: 1 - vira, cor: [1, 0.85, 0.6], r: 0.09 });
+    if (vira > 0) brilhoP(x, dx, dy - 20 * dk, 340 * dk * vira, LUZS.luz, 0.22 * vira);
     nv.total(i);
   });
 };
-const DG_PAO_COR = [0.95, 0.75, 0.45];
 
-// =============== 4. a armadura: Saul veste Davi, ele afunda; tira tudo e volta a brilhar ===============
+// =============== 4. a armadura: Saul veste Davi (capacete, couraça, espada), ele afunda; tira tudo ===============
 CENAS.armadura = (el, c, B) => {
-  const tA = B("armadura"), tT = B("tira"), tU = B("usei");
-  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(70000);
+  const tA = B("armadura"), tT = B("tira"), tU = B("usei"), tp = tempoPalavras(c), tCap = tp("capacete"), tCou = tp("couraça"), tEs = tp("espada"), tPa = tp("passos");
+  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(50000);
   const CAM = cameraProf([[c.ini, { x: 540, y: 1020, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 1000, zoom: 1.12 }]]);
-  const DX = 540, DY = 1480, DE = 760, pecas = [[DG_F.elmo, 0, -0.38, 0.2], [DG_F.escudo, -0.17, -0.02, 0.3], [DG_F.espada, 0.2, 0.06, 0.32]];
+  const PESO = { tronco: 0.16, cabeca: 0.35, braco: [[0.05, 0.12], [0.12, 0.12]], perna: [[-0.22, -0.32], [0.3, -0.45]] }, LIVRE = { tronco: -0.05, cabeca: -0.18, braco: [[-0.32, 0.3], [0.38, 0.4]], perna: [[-0.13, 0], [0.13, 0]] };
+  const chegada = [tCap, tCou, tEs].map((tt) => tt - 0.35);
   TV.quadro((x, t) => {
-    const cam = CAM(t), peso = PT.ss((t - tA - 0.2) / 0.8) * (1 - PT.ss((t - tT) / 0.6)), livre = PT.ss((t - tT) / 0.9);
+    const cam = CAM(t), peso = PT.ss((t - tCou) / 0.8) * (1 - PT.ss((t - tT) / 0.5)), livre = PT.ss((t - tT) / 0.9), passos = PT.jan(t, tPa - 0.2, tT - 0.1, 0.3, 0.2), joga = PT.jan(t, tT - 0.1, tT + 0.7, 0.15, 0.4);
     let i = DG_vale(nv, x, 0, t, cam, { a: 0.6 });
-    const [sx, sy] = FIS.impacto(t, tA + 0.6, 0.12);
-    brilhoP(x, DX, DY - 0.5 * DE, 0.6 * DE, LUZS.ambar, 0.12 + 0.25 * livre);
-    i = DG_fig(nv, DG_F.davi, DX, DY + 20 * peso, DE, 1, cam, { cor: mixCor(DG_DAV, [0.55, 0.5, 0.5], 0.6 * peso), borda: LUZ.luz, brilho: 0.9 - 0.35 * peso + 0.2 * livre, sx: sx * (1 + 0.04 * peso), sy: sy * (1 - 0.06 * peso), t }, i);
-    // as peças voam até ele (cascata) e, quando ele tira, caem em arco para os lados
-    pecas.forEach(([F, px, py, e], k) => {
-      const ch = FIS.cascata(t, tA - 0.1, k, 0.18, 0.7), [x0, y0] = [DX + px * DE, DY - 0.41 * DE + py * DE], cai = PT.ss((t - tT - k * 0.12) / 0.9);
-      if (ch <= 0.01) return;
-      const [ax, ay] = cai > 0 ? FIS.arco(x0, y0, x0 + (k - 1 || 1) * 340, 1700, cai, 160) : [x0 + (1 - Math.min(1, ch)) * (k - 1) * 300, y0 - (1 - Math.min(1, ch)) * 300];
-      i = desenharForma(nv, F, { cx: ax, cy: ay, esc: e * DE, cor: [0.7, 0.72, 0.8], borda: [0.95, 0.95, 1], brilho: 0.8, rot: cai * (k - 1) * 2, a: Math.min(1, ch) * (1 - PT.ss((cai - 0.7) / 0.3)), t, i0: i });
+    i = DG_ar(nv, i, t, 0.6);
+    brilhoP(x, 540, 1060, 520, LUZS.ambar, 0.1 + 0.25 * livre);
+    let pz = poseMix(POSES.de_pe, PESO, peso); pz = poseMix(pz, poseMix(POSES.andar(t * 3.2, 0.45), PESO, 0.6), passos); pz = poseMix(pz, LIVRE, livre); pz = poseMix(pz, POSES.bracos_abertos, 0.55 * joga);
+    const inf = DG_davi(x, t, pz, { x: 540, chao: 1480, H: 720, z: 1, cam, cor: mixCor(mixCor(DG_DAV, [0.62, 0.58, 0.6], 0.55 * peso), LUZ.luz, 0.4 * livre) });
+    const U = 720 * inf.escala, [cx, cy] = inf.cabeca, [ox, oy] = inf.ombro, [qx, qy] = inf.quadril, d = inf.d, AR = [0.78, 0.8, 0.88];
+    // as peças voam até ele e, quando ele tira, caem em arco para os lados
+    const alvo = [[cx, cy - 0.02 * U], [(ox + qx) / 2 + d * 0.005 * U, (oy + qy) / 2], [qx - d * 0.03 * U, qy - 0.02 * U]];
+    alvo.forEach(([x0, y0], k) => {
+      const ch = Math.min(1, FIS.chegar(t, chegada[k], 0.6)), cai = PT.ss((t - tT - k * 0.12) / 0.9); if (t < chegada[k]) return;
+      const de = [x0 + (k - 1 || 1) * 380, y0 - 420], u2 = PT.ss((t - chegada[k]) / 0.6), [px, py] = cai > 0 ? FIS.arco(x0, y0, x0 + (k - 1 || 1) * 330, 1560, cai, 160) : [PT.lerp(de[0], x0, u2), PT.lerp(de[1], y0, u2)];
+      const al = Math.min(1, ch * 1.5) * (1 - PT.ss((cai - 0.7) / 0.3)), rot = cai * (k - 1 || 1) * 2.2; if (al < 0.01) return;
+      const y = x._texto; y.save(); y.translate(px, py); y.rotate(rot); y.translate(-px, -py);
+      if (k === 0) { const R = 0.066 * U * 1.18, pts = []; for (let j = 0; j <= 16; j++) { const th = Math.PI + (j / 16) * Math.PI; pts.push([px + Math.cos(th) * R, py - 0.15 * R + Math.sin(th) * R * 1.05]); } pts.push([px + R * 1.12, py + 0.1 * R], [px - R * 1.12, py + 0.1 * R]);
+        y.beginPath(); _curva(y, pts, true); y.fillStyle = `rgba(9,12,29,${0.94 * al})`; y.fill(); y.strokeStyle = `rgba(220,225,240,${al})`; y.lineWidth = Math.max(1.5, 0.0062 * U); y.shadowColor = "rgba(220,225,240,0.6)"; y.shadowBlur = 9; y.stroke(); y.shadowBlur = 0; y.stroke();
+        y.beginPath(); y.moveTo(px - R * 1.1, py - 0.02 * R); y.lineTo(px + R * 1.1, py - 0.02 * R); y.lineWidth *= 0.6; y.stroke(); }
+      if (k === 1) { const w = 0.085 * U, h = 0.19 * U, pts = [[px - w, py - h * 0.5], [px - w * 0.55, py - h * 0.62], [px + w * 0.55, py - h * 0.62], [px + w, py - h * 0.5], [px + w * 0.95, py + h * 0.2], [px + w * 0.7, py + h * 0.48], [px - w * 0.7, py + h * 0.48], [px - w * 0.95, py + h * 0.2]];
+        y.beginPath(); _curva(y, pts, true); y.fillStyle = `rgba(9,12,29,${0.94 * al})`; y.fill(); y.strokeStyle = `rgba(220,225,240,${al})`; y.lineWidth = Math.max(1.5, 0.0062 * U); y.shadowColor = "rgba(220,225,240,0.6)"; y.shadowBlur = 9; y.stroke(); y.shadowBlur = 0; y.stroke();
+        y.lineWidth *= 0.55; for (const v of [-0.15, 0.05, 0.25]) { y.beginPath(); y.moveTo(px - w * 0.85, py + v * h); y.quadraticCurveTo(px, py + (v + 0.06) * h, px + w * 0.85, py + v * h); y.stroke(); } }
+      y.restore();
+      if (k === 2) objetoLinha(x, "espada", { mao: [px, py], H: 720, k: inf.escala, d, a: al, cor: AR, ang: 2.7 + rot });
     });
     nv.total(i);
   });
 };
 
-// =============== 5. as pedras: o ribeiro corre; cinco pedras lisas sobem e brilham ===============
+// =============== 5. as pedras: o ribeiro corre; Davi escolhe cinco pedras lisas ===============
 CENAS.pedras = (el, c, B) => {
-  const tC = B("cinco"), tF = B("funda");
+  const tC = B("cinco"), tF = B("funda"), tp = tempoPalavras(c), tCj = tp("cajado");
   const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(70000);
   const AG = (() => { const r = prng(119); return Array.from({ length: 2600 }, () => [r(), r(), r()]); })();
-  const PED = (() => { const r = prng(121); return Array.from({ length: 22 }, (_, k) => [80 + r() * 920, 1180 + r() * 260, 0.6 + 0.6 * r(), r() * 3]); })();
+  const PED = (() => { const r = prng(121); return Array.from({ length: 22 }, (_, k) => [300 + r() * 720, 1220 + r() * 230, 0.6 + 0.6 * r(), r() * 3]); })();
   TV.quadro((x, t) => {
-    const cam = { x: 540, y: 960, zoom: 1, foco: 1 };
+    const cam = { x: 540, y: 960, zoom: 1, foco: 1 }, levanta = PT.ss((t - tF + 0.8) / 0.7), cj = levanta;
     let i = desenharFundo(nv, DG_EST, t, cam, LUZ.luz, 0.5, 0);
     brilhoP(x, 540, 1300, 900, "70,110,200", 0.15);
     // a água corre da esquerda para a direita
     for (const [u, v, s] of AG) { const xx = ((u * 1300 + t * (60 + 60 * s)) % 1300) - 110, yy = 1150 + v * 330 + Math.sin(xx * 0.02 + t * 2 + v * 9) * 6; nv.ponto(i++, xx, yy, 0.5, 0.72, 1, 0.12 + 0.25 * s * v, 2 + 2 * v); }
-    // pedras no leito; cinco delas sobem em cascata e ficam brilhando em arco
+    // a margem de terra à esquerda, onde ele se ajoelha
+    for (const [u, v, s] of AG) { if (u > 0.4) continue; const xx = u * 1000 - 20, yy = 1150 - 6 + v * 18 - 0.2 * xx * 0.05; nv.ponto(i++, xx, yy, 0.8, 0.66, 0.5, 0.12 + 0.2 * s, 2 + 2 * v); }
+    // Davi ajoelhado na margem pegando as pedras; levanta com o cajado e a funda
+    const pega = { ...POSES.ajoelhado, tronco: 0.35, cabeca: 0.45, braco: [[0.2, 0.4], [0.55 + 0.15 * Math.sin(t * 2.2), 0.25]] };
+    const inf = DG_davi(x, t, poseMix(pega, { ...POSES.de_pe, cabeca: -0.1 }, levanta), { x: 250, chao: 1160, H: 540, z: 1, cam, cajado: cj, funda: levanta > 0.3 ? null : undefined, aFunda: levanta });
+    const bolsa = [inf.quadril[0] + inf.d * 0.06 * 560, inf.quadril[1] + 0.06 * 560];
+    // pedras no leito; cinco sobem em cascata, ficam brilhando em arco e vão para a bolsa
     PED.forEach(([px, py, e, rot], k) => {
-      const esc = 70 * e, escolhida = k < 5, sobe = escolhida ? FIS.cascata(t, tC - 0.2, k, 0.15, 0.7) : 0, [ax, ay] = [PT.lerp(px, 300 + k * 120, Math.min(1, sobe)), PT.lerp(py, 760 - 40 * Math.sin(k / 4 * Math.PI), sobe)];
-      const fu = PT.ss((t - tF + 0.1) / 0.9), [fx, fy] = escolhida ? [PT.lerp(ax, 500 + k * 20, fu), PT.lerp(ay, 1020, fu)] : [ax, ay];
+      const esc = 70 * e, escolhida = k < 5, sobe = escolhida ? FIS.cascata(t, tC - 0.2, k, 0.15, 0.7) : 0, [ax, ay] = [PT.lerp(px, 440 + k * 110, Math.min(1, sobe)), PT.lerp(py, 760 - 40 * Math.sin(k / 4 * Math.PI), sobe)];
+      const fu = escolhida ? PT.ss((t - tF + 0.1 - k * 0.08) / 0.8) : 0, [fx, fy] = escolhida ? FIS.arco(ax, ay, bolsa[0], bolsa[1], fu, 120) : [ax, ay];
+      if (escolhida && fu > 0.97) return;
       if (escolhida && sobe > 0.05) brilhoP(x, fx, fy, 70 * (1 - 0.5 * fu), LUZS.luz, 0.4 * Math.min(1, sobe));
-      i = desenharForma(nv, DG_F.pedra, { cx: fx, cy: fy, esc: escolhida ? esc * (1 + 0.3 * Math.min(1, sobe)) * (1 - 0.4 * fu) : esc, rot, cor: escolhida && sobe > 0.05 ? mixCor([0.7, 0.72, 0.78], LUZ.luz, Math.min(1, sobe)) : [0.55, 0.58, 0.65], brilho: escolhida ? 0.7 + 0.5 * Math.min(1, sobe) : 0.5, t, i0: i });
+      i = desenharForma(nv, DG_F.pedra, { cx: fx, cy: fy, esc: escolhida ? esc * (1 + 0.3 * Math.min(1, sobe)) * (1 - 0.6 * fu) : esc, rot, cor: escolhida && sobe > 0.05 ? mixCor([0.7, 0.72, 0.78], LUZ.luz, Math.min(1, sobe)) : [0.55, 0.58, 0.65], brilho: escolhida ? 0.7 + 0.5 * Math.min(1, sobe) : 0.5, t, i0: i });
     });
-    // a funda: a correia aparece e as pedras vão para a bolsa
-    const fu = PT.ss((t - tF + 0.3) / 0.8); if (fu > 0.01) { x.beginPath(); x.moveTo(380, 880); x.quadraticCurveTo(540, 1100, 700, 880); x.strokeStyle = `rgba(${LUZS.ouro},${0.8 * fu})`; x.lineWidth = 6; x.stroke(); brilhoP(x, 540, 1000, 180, LUZS.ambar, 0.3 * fu); }
     nv.total(i);
   });
 };
@@ -143,19 +184,18 @@ CENAS.pedras = (el, c, B) => {
 CENAS.nome = (el, c, B) => {
   const tE = B("espada"), tN = B("nome");
   mostrarVersiculo("Eu vou a ti em nome do Senhor dos Exércitos.", "cf. 1 Samuel 17:45", tN - 1.4, c.fim + 0.3, { y: 400, tam: 66, destaque: ["nome", "senhor"] });
-  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(80000);
-  const CAM = cameraProf([[c.ini, { x: 620, y: 1000, zoom: 1.05 }], [tE + 0.8, { x: 700, y: 980, zoom: 1.15, foco: 1.25 }], [tN - 0.3, { x: 420, y: 1080, zoom: 1.2, foco: 1 }], [c.fim + 0.5, { x: 440, y: 1060, zoom: 1.3, foco: 1 }]]);
+  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(70000);
+  const CAM = cameraProf([[c.ini, { x: 620, y: 1000, zoom: 1.05 }], [tE + 0.8, { x: 700, y: 980, zoom: 1.15 }], [tN - 0.3, { x: 460, y: 1060, zoom: 1.15 }], [c.fim + 0.5, { x: 470, y: 1050, zoom: 1.22 }]]);
   TV.quadro((x, t) => {
-    const cam = CAM(t), nome = PT.ss((t - tN + 0.2) / 0.9);
+    const cam = CAM(t), nome = PT.ss((t - tN + 0.2) / 0.9), bri = PT.jan(t, tE - 0.1, tE + 0.8, 0.1, 0.5);
     let i = DG_vale(nv, x, 0, t, cam);
     i = DG_ar(nv, i, t);
-    i = DG_fig(nv, DG_F.golias, 760, 1450, 860, 1.25, cam, { cor: DG_GOL, borda: [1, 0.7, 0.7], brilho: 0.65, t }, i);
-    const [lx, ly, lk] = projP(cam, 760 + (196 / 256 - 0.5) * 0.92 * 860, 1450 - 0.41 * 860 + (0 / 256 - 0.46) * 0.92 * 860 + 30, 1.25), bri = PT.jan(t, tE - 0.1, tE + 0.8, 0.1, 0.5);
-    if (bri > 0.01) { brilhoP(x, lx, ly, 120 * lk, "255,240,230", 0.8 * bri); flareP(x, lx, ly, bri); }
-    const [dx, dy, dk] = projP(cam, 330, 1460, 1);
-    brilhoP(x, dx, dy - 150 * dk, (200 + 400 * nome) * dk, LUZS.ambar, 0.25 + 0.3 * nome);
-    if (nome > 0.01) for (let r = 0; r < 16; r++) { const an = -Math.PI / 2 + (r - 7.5) * 0.2, L = (200 + 500 * nome) * dk; linhaP(x, dx, dy - 160 * dk, dx + Math.cos(an) * L, dy - 160 * dk + Math.sin(an) * L, LUZS.ouro, 0.07 * nome, 3); }
-    i = DG_fig(nv, DG_F.davi, 330, 1460, 340, 1, cam, { cor: DG_DAV, borda: LUZ.luz, brilho: 0.9 + 0.3 * nome, t }, i);
+    const g = DG_golias(x, t, DG_AMEACA, { x: 800, chao: 1450, H: 760, z: 1.25, cam, ang: 1.12 + 0.03 * Math.sin(t * 0.8) });
+    if (bri > 0.01) { const [lx, ly] = DG_ponta(g, 1.12); brilhoP(x, lx, ly, 120 * g.escala, "255,240,230", 0.8 * bri); flareP(x, lx, ly, bri); }
+    const [dx, dy, dk] = projP(cam, 330, 1300, 1);
+    brilhoP(x, dx, dy, (200 + 400 * nome) * dk, LUZS.ambar, 0.25 + 0.3 * nome);
+    if (nome > 0.01) for (let r = 0; r < 16; r++) { const an = -Math.PI / 2 + (r - 7.5) * 0.2, L = (200 + 500 * nome) * dk; linhaP(x, dx, dy, dx + Math.cos(an) * L, dy + Math.sin(an) * L, LUZS.ouro, 0.07 * nome, 3); }
+    DG_davi(x, t, { ...POSES.de_pe, tronco: -0.04, cabeca: -0.3 }, { x: 330, chao: 1460, H: 340, z: 1, cam, cajado: 1, funda: null, cor: mixCor(DG_DAV, LUZ.luz, 0.5 * nome) });
     nv.total(i);
   });
 };
@@ -164,23 +204,25 @@ function flareP(x, px, py, a) { linhaP(x, px - 80, py, px + 80, py, "255,245,235
 // =============== 7. a queda: a funda gira, a pedra voa em arco, acerta, o gigante cai ===============
 CENAS.queda = (el, c, B) => {
   const tP = B("pedra"), tT = B("testa"), tC = B("cai");
-  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(80000);
-  const GX = 760, GY = 1450, GE = 860, [hx, hy] = [GX + (128 / 256 - 0.5) * 0.92 * GE, GY - 0.41 * GE + (34 / 256 - 0.5) * 0.92 * GE];
+  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(70000);
+  const GX = 880, GY = 1450, GH = 650;
   TV.quadro((x, t) => {
     const voo = PT.cl((t - tP + 0.1) / Math.max(0.5, tT - tP + 0.1)), cai = PT.ss((t - tC + 0.2) / 1.2), [tx, ty] = FIS.tremor(t, tT, 18), [tx2, ty2] = FIS.tremor(t, tC + 0.9, 26);
     const cam = { x: 560 + tx + tx2, y: 1020 + ty + ty2, zoom: 1.05 + 0.1 * PT.ss((t - tT) / 0.4), foco: 1 };
     let i = DG_vale(nv, x, 0, t, cam);
     i = DG_ar(nv, i, t);
-    // o gigante tomba para a frente (gira em torno dos pés) e levanta poeira
-    const rot = -1.45 * PT.inExp(cai) * 0.9 - 0.25 * cai, [fx, fy] = [GX, GY];
-    i = desenharForma(nv, DG_F.golias, { cx: fx - Math.sin(rot) * 0.41 * GE, cy: fy - Math.cos(rot) * 0.41 * GE, esc: GE, cam, z: 1.25, rot, cor: DG_GOL, borda: [1, 0.7, 0.7], brilho: 0.65 * (1 - 0.4 * cai), t, i0: i });
-    if (cai > 0.85) { const p = PT.ss((t - tC - 0.9) / 1.0); for (let k = 0; k < 400; k++) { const an = Math.PI + (k / 400) * Math.PI, d = 40 + 380 * p * (0.5 + 0.5 * ((k * 37) % 10) / 10), [sx, sy] = projP(cam, 420 + Math.cos(an) * d, GY - 20 + Math.sin(an) * d * 0.3, 1.25); nv.ponto(i++, sx, sy, 0.9, 0.75, 0.6, 0.35 * (1 - p), 4); } }
+    // o gigante tomba para a frente (gira em torno dos pés), a lança vai junto, e levanta poeira
+    const rot = -(1.45 * PT.inExp(cai) * 0.9 + 0.25 * cai), recua = PT.jan(t, tT - 0.05, tC + 0.2, 0.1, 0.3);
+    const g = DG_golias(x, t, poseMix(poseMix(DG_PG, { ...DG_PG, tronco: -0.2, cabeca: -0.5 }, recua), { ...DG_PG, braco: [[0.9, 0.3], [1.3, 0.2]] }, cai), { x: GX, chao: GY, H: GH, z: 1.25, cam, rot });
+    if (cai > 0.85) { const p = PT.ss((t - tC - 0.9) / 1.0); for (let k = 0; k < 400; k++) { const an = Math.PI + (k / 400) * Math.PI, d = 40 + 380 * p * (0.5 + 0.5 * ((k * 37) % 10) / 10), [sx, sy] = projP(cam, GX - 0.75 * GH + Math.cos(an) * d, GY - 20 + Math.sin(an) * d * 0.3, 1.25); nv.ponto(i++, sx, sy, 0.9, 0.75, 0.6, 0.35 * (1 - p), 4); } }
     // Davi gira a funda; a pedra sai em arco até a testa
-    const [dx, dy, dk] = projP(cam, 300, 1470, 1), gira = PT.jan(t, c.ini, tP + 0.05, 0.3, 0.1), an = t * 14;
-    i = DG_fig(nv, DG_F.davi, 300, 1470, 340, 1, cam, { cor: DG_DAV, borda: LUZ.luz, brilho: 1, t }, i);
-    if (gira > 0.01) { const mx = dx + 0.18 * 340 * dk, my = dy - 0.62 * 340 * dk; for (let k = 0; k < 18; k++) { const a2 = an - k * 0.12; discoP(x, mx + Math.cos(a2) * 50 * dk, my + Math.sin(a2) * 50 * dk * 0.6, 4 * (1 - k / 18), LUZS.luz, gira * (1 - k / 18)); } }
-    if (voo > 0 && voo < 1) { const [s0x, s0y] = [dx + 0.18 * 340 * dk, dy - 0.62 * 340 * dk], [h1x, h1y] = projP(cam, hx, hy, 1.25), [px, py] = FIS.arco(s0x, s0y, h1x, h1y, PT.inOut(voo), 120); for (let k = 0; k < 14; k++) { const [qx, qy] = FIS.arco(s0x, s0y, h1x, h1y, PT.inOut(Math.max(0, voo - k * 0.02)), 120); discoP(x, qx, qy, 9 * (1 - k / 14), LUZS.luz, 0.8 * (1 - k / 14)); } brilhoP(x, px, py, 60, LUZS.luz, 0.8); }
-    const hit = PT.jan(t, tT - 0.05, tT + 0.25, 0.05, 0.6); if (hit > 0.01) { const [h1x, h1y] = projP(cam, hx, hy, 1.25); brilhoP(x, h1x, h1y, 300 * hit, "255,250,240", 0.9 * hit); anelP(x, h1x, h1y, 40 + 300 * (1 - hit), LUZS.luz, hit, 4); }
+    const gira = PT.jan(t, c.ini, tP + 0.05, 0.3, 0.1), solta = PT.ss((t - tP + 0.05) / 0.35), an = t * 14;
+    const pz = poseMix(POSES.funda(an), { ...POSES.de_pe, tronco: 0.1, braco: [[-0.4, 0.3], [1.45, 0.05]], perna: [[-0.25, 0], [0.3, -0.1]] }, solta);
+    const dv = DG_davi(x, t, pz, { x: 230, chao: 1470, H: 340, z: 1, cam, funda: solta < 0.5 ? an : null });
+    const [s0x, s0y] = dv.maos[1], alvo = [g.cabeca[0] - 0.02 * GH * g.escala * g.d, g.cabeca[1] - 0.02 * GH * g.escala];
+    if (voo > 0 && voo < 1) { const [px, py] = FIS.arco(s0x, s0y, alvo[0], alvo[1], PT.inOut(voo), 120); for (let k = 0; k < 14; k++) { const [qx, qy] = FIS.arco(s0x, s0y, alvo[0], alvo[1], PT.inOut(Math.max(0, voo - k * 0.02)), 120); discoP(x, qx, qy, 9 * (1 - k / 14), LUZS.luz, 0.8 * (1 - k / 14)); } brilhoP(x, px, py, 60, LUZS.luz, 0.8); }
+    const hit = PT.jan(t, tT - 0.05, tT + 0.25, 0.05, 0.6); if (hit > 0.01) { brilhoP(x, alvo[0], alvo[1], 300 * hit, "255,250,240", 0.9 * hit); anelP(x, alvo[0], alvo[1], 40 + 300 * (1 - hit), LUZS.luz, hit, 4); }
+    void gira;
     nv.total(i);
   });
 };
@@ -188,11 +230,11 @@ CENAS.queda = (el, c, B) => {
 // =============== 8. o detalhe: os dias comuns com as ovelhas prepararam o dia do gigante ===============
 CENAS.detalhe = (el, c, B) => {
   const tD = B("detalhe"), tO = B("ovelhas"), tC = B("comuns");
-  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(80000);
+  const TV = telaGPU(el, c, DG_FUNDO), nv = TV.nuvem(70000);
   const tx = palcoTexto(el, [["dg-d", 360, 70, "Deus usou os <b>dias comuns</b><br>pra preparar o dia do gigante.", "lp-q", ""]]);
   tl.set(tx["dg-d"], { opacity: 0 }, 0);
   tl.fromTo(tx["dg-d"], { opacity: 0, y: 20, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out", immediateRender: false }, tC - 1.0);
-  const OV = [[200, 1400, 1.1, 1], [380, 1460, 1.0, -1], [760, 1420, 1.15, -1], [880, 1480, 1.0, 1], [620, 1340, 1.5, 1], [120, 1320, 1.6, -1]];
+  const OV = [[160, 1400, 1.1, 1], [330, 1470, 1.0, -1], [790, 1430, 1.15, -1], [900, 1490, 1.0, 1], [660, 1340, 1.5, 1], [120, 1320, 1.6, -1]];
   const CAM = cameraProf([[c.ini, { x: 540, y: 1040, zoom: 1.1 }], [tO, { x: 540, y: 1100, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 1080, zoom: 1.12 }]]);
   TV.quadro((x, t) => {
     const cam = CAM(t), ov = PT.ss((t - tO + 0.8) / 1.0), quente = PT.ss((t - tC + 0.3) / 1.0);
@@ -200,10 +242,9 @@ CENAS.detalhe = (el, c, B) => {
     // campo à noite (colinas suaves) e as ovelhas pastando
     for (const [X, Y, v] of DG_CHAO) { if (i >= nv.n) break; const z = Math.max(0.6, 1 + (1500 - Y) / 600), [sx, sy, k] = projP(cam, X, Y - 40, z); nv.ponto(i++, sx, sy, 0.55 + 0.3 * quente, 0.65, 0.5, 0.08 + 0.1 * v, 2 + 2 * k); }
     OV.forEach(([X, Y, z, d], k) => { i = desenharForma(nv, DG_F.ovelha, { cx: X, cy: Y - 60 + Math.abs(Math.sin(t * 1.3 + k)) * -3, esc: 190, cam, z, sx: d, cor: mixCor([0.85, 0.88, 1], LUZ.luz, quente), borda: [1, 1, 1], brilho: 0.7, a: 0.45 + 0.55 * ov, t, i0: i }); });
-    // o pastor com a funda, treinando: a correia gira devagar
-    const [dx, dy, dk] = projP(cam, 540, 1420, 1); brilhoP(x, dx, dy - 150 * dk, (260 + 200 * quente) * dk, LUZS.ambar, 0.2 + 0.25 * quente);
-    i = DG_fig(nv, DG_F.davi, 540, 1420, 360, 1, cam, { cor: DG_DAV, borda: LUZ.luz, brilho: 0.9 + 0.2 * quente, t }, i);
-    const mx = dx + 0.18 * 360 * dk, my = dy - 0.62 * 360 * dk, an = t * 6; for (let k = 0; k < 16; k++) { const a2 = an - k * 0.14; discoP(x, mx + Math.cos(a2) * 46 * dk, my + Math.sin(a2) * 46 * dk * 0.6, 4 * (1 - k / 16), LUZS.luz, 0.8 * (1 - k / 16)); }
+    // o pastor treinando com a funda (gira devagar), o cajado na outra mão
+    const [dx, dy, dk] = projP(cam, 540, 1250, 1); brilhoP(x, dx, dy, (260 + 200 * quente) * dk, LUZS.ambar, 0.2 + 0.25 * quente);
+    DG_davi(x, t, POSES.funda(t * 6), { x: 540, chao: 1420, H: 420, z: 1, cam, cajado: 1, funda: t * 6, cor: mixCor(DG_DAV, LUZ.luz, 0.4 * quente) });
     nv.total(i);
   });
 };

@@ -82,8 +82,14 @@ do Google, duração mínima de 1:30).
   com roupa e acessórios do personagem e **sem rosto**, sobre o mundo em pontos de luz. Use
   `personagem(x, t, pose, { tipo, x, chao, H, dir, cam, z })` (tipos: davi, pessoa, homem, mulher, jesus,
   golias, crianca) com as poses de `POSES` (de_pe, andar(fase), ajoelhado, orando, sentado, segurando,
-  entregando, abracando, bracos_abertos, funda(giro), lanca, caido) e `poseMix`. Objetos e cenário
-  continuam em pontos de luz. 3D só quando melhorar muito a qualidade.
+  entregando, abracando, bracos_abertos, funda(giro), lanca, caido, encolhido, olhando_cima) e `poseMix`.
+  Opções úteis: `rot` (gira o corpo em volta dos pés, ex.: o gigante caindo), `medir: true` (só devolve
+  mãos/cabeça/ombro/quadril, sem desenhar) e `atras(ctx, info)` (desenha o que a mão de trás segura,
+  atrás do corpo). O retorno traz `maos`, `cabeca`, `ombro`, `quadril`, `escala`, `d`.
+  Objetos que o personagem segura, no mesmo traço: `objetoLinha(x, tipo, { mao, H, k, d, cor, a, ang, giro })`
+  (lanca, espada, escudo, cajado, funda, pao, peixe, cesto, pedra). O personagem fica na camada nítida, por
+  cima dos pontos: objeto em pontos que deve aparecer na mão vai um pouco acima dela (ou use `objetoLinha`).
+  Cenário e objetos grandes continuam em pontos de luz. 3D só quando melhorar muito a qualidade.
 - **Fila sem parar:** ao entregar um vídeo, comece o próximo da `FILA.md` sem esperar confirmação.
 - **Selo de série** ("Versículo do dia #N") só quando o vídeo fizer parte de uma série.
 - **3D** (`motor/tres.js`) é permitido neste canal **só quando melhorar muito a qualidade** do vídeo

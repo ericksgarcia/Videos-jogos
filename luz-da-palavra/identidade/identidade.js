@@ -333,8 +333,13 @@ function personagem(x, t, pose0, o = {}) {
   const pernas = pose.perna.map(([qu, jo]) => { const K = v(qu, Lc); return [[0, 0], K, ad(K, v(qu + jo, Ls)), qu + jo, qu]; });
   let baixo = 0; for (const [, K, F] of pernas) baixo = Math.max(baixo, K[1] + 0.03 * H, F[1] + 0.03 * H); baixo = Math.max(baixo, C[1], Hd[1] + Rh);
   const ox = o.x ?? 540, oy = (o.chao ?? 1500) - baixo;
-  const pr = (p) => (o.cam ? projP(o.cam, ox + p[0], oy + p[1], o.z ?? 1) : [ox + p[0], oy + p[1], 1]);
+  // o.rot: gira o corpo inteiro em volta dos pés (ex.: cair); positivo = horário na tela
+  const rx0 = (pernas[0][2][0] + pernas[1][2][0]) / 2, cR = Math.cos(o.rot || 0), sR = Math.sin(o.rot || 0);
+  const gira = (p) => (o.rot ? [rx0 + (p[0] - rx0) * cR - (p[1] - baixo) * sR, baixo + (p[0] - rx0) * sR + (p[1] - baixo) * cR] : p);
+  const pr = (p0) => { const p = gira(p0); return o.cam ? projP(o.cam, ox + p[0], oy + p[1], o.z ?? 1) : [ox + p[0], oy + p[1], 1]; };
   const kk = o.cam ? o.cam.zoom / (o.z ?? 1) : 1;
+  const info = () => ({ maos: bracos.map((b) => pr(b[2])), cotovelos: bracos.map((b) => pr(b[1])), ombro: pr(S), quadril: pr([0, 0]), cabeca: pr(Hd), escala: kk, pr, H, oy, ox, d });
+  if (o.medir) return info();
   const y = x._texto || x; if (x._texto) y._usado = true;
   y.save(); y.setTransform(1, 0, 0, 1, 0, 0); y.lineJoin = "round"; y.lineCap = "round"; y.globalAlpha = a;
   const LW = Math.max(1.5, 0.0062 * H * kk);
@@ -378,7 +383,10 @@ function personagem(x, t, pose0, o = {}) {
   // referencial do tronco: T(a, b) = a ao longo do tronco (H), b para a frente (H)
   const u = [C[0] / Lt, C[1] / Lt], f = [-u[1] * d, u[0] * d], T = (aa, bb) => [u[0] * aa * H + f[0] * bb * H * L, u[1] * aa * H + f[1] * bb * H * L];
   // ---- ordem: braço e perna de trás, perna da frente, roupa, manto, cabeça, braço da frente ----
-  braco(bracos[0], true); perna(pernas[0], true); perna(pernas[1], false);
+  braco(bracos[0], true);
+  // o.atras(ctx, info): objetos seguros pela mão de trás (escudo, cajado), atrás do corpo
+  if (o.atras) { y.save(); o.atras(y, info()); y.restore(); y.globalAlpha = a; }
+  perna(pernas[0], true); perna(pernas[1], false);
   // túnica: a barra acompanha a coxa que vai para a frente (ou para trás) e balança um pouco
   const h = P.tunica, bal = 0.006 * Math.sin(t * 2.3 + fase);
   const coxa = (pp, k) => { const [, K] = pp, l = Math.min(1, Math.abs(h) * H / Lc * 0.95); return ad([K[0] * l, K[1] * l], nrm([0, 0], K)[1], k * 0.05 * H * L); };
@@ -422,7 +430,42 @@ function personagem(x, t, pose0, o = {}) {
     desenha(pena); for (let k = 2; k < 13; k += 2) { const th = 0.35 - 2.4 * k / 14; det([Hp(Math.cos(th), Math.sin(th), Rh * 1.16), Hp(Math.cos(th - 0.06), Math.sin(th - 0.06), Rh * (1.12 + 0.7 * Math.pow(Math.sin(Math.PI * k / 14), 0.8)))]); } }
   braco(bracos[1], false);
   y.restore();
-  return { maos: bracos.map((b) => pr(b[2])), cabeca: pr(Hd), escala: kk, pr, H, oy, ox };
+  return info();
+}
+// ---- objetos em line art seguros pelos personagens (mesmo traço e brilho do personagem) ----
+// objetoLinha(x, tipo, { mao: [sx, sy], H, k (escala da tela), d (direção), cor, a, ang, giro, r })
+//   tipos: lanca (ang: 0 = em pé), escudo, espada, cajado, funda (giro: null = pendurada; número = girando),
+//   pao, peixe, cesto, pedra. Desenha na camada nítida (x._texto) por cima do que já foi desenhado.
+function objetoLinha(x, tipo, o = {}) {
+  const y = x._texto || x, H = o.H || 500, k = o.k ?? 1, d = o.d ?? 1, a = o.a ?? 1, U = H * k, [mx, my] = o.mao || [540, 960];
+  if (a <= 0.005) return;
+  const rgb = (o.cor || LUZ.luz).map((q) => Math.round(q * 255)).join(","), LW = Math.max(1.5, 0.0062 * U);
+  const tr = (pts, fechado = true, o2 = {}) => { y.beginPath(); _curva(y, pts, fechado);
+    if (fechado && o2.fill !== false) { y.fillStyle = `rgba(9,12,29,${0.94 * a})`; y.fill(); }
+    y.strokeStyle = `rgba(${o2.rgb || rgb},${a * (o2.al ?? 1)})`; y.lineWidth = LW * (o2.lw || 1); y.shadowColor = `rgba(${o2.rgb || rgb},0.65)`; y.shadowBlur = 9 * k; y.stroke(); y.shadowBlur = 0; y.stroke(); };
+  const circ = (cx, cy, rx, ry, n = 18, rot = 0) => Array.from({ length: n }, (_, j) => { const th = (j / n) * 6.283; return [cx + Math.cos(th) * rx * Math.cos(rot) - Math.sin(th) * ry * Math.sin(rot), cy + Math.cos(th) * rx * Math.sin(rot) + Math.sin(th) * ry * Math.cos(rot)]; });
+  const ax = (ang) => [Math.sin(ang) * d, -Math.cos(ang)];   // direção (0 = para cima), espelhada por d
+  y.save(); y.setTransform(1, 0, 0, 1, 0, 0); y.lineJoin = "round"; y.lineCap = "round";
+  if (tipo === "lanca") { const [ux, uy] = ax(o.ang || 0), [nx, ny] = [-uy, ux], L = 0.95 * U, w = 0.008 * U, p = (s2, q) => [mx + ux * s2 * L + nx * q, my + uy * s2 * L + ny * q];
+    tr([p(-0.32, w), p(0.66, w), p(0.66, -w), p(-0.32, -w)]);
+    tr([p(0.66, 0), p(0.7, 2.4 * w), p(0.78, 1.6 * w), p(0.84, 0), p(0.78, -1.6 * w), p(0.7, -2.4 * w)]); tr([p(0.71, 0), p(0.82, 0)], false, { lw: 0.5, al: 0.7 }); }
+  if (tipo === "espada") { const [ux, uy] = ax(o.ang ?? 2.6), [nx, ny] = [-uy, ux], L = 0.36 * U, w = 0.012 * U, p = (s2, q) => [mx + ux * s2 * L + nx * q, my + uy * s2 * L + ny * q];
+    tr([p(0.12, w), p(0.92, w * 0.8), p(1, 0), p(0.92, -w * 0.8), p(0.12, -w)]); tr([p(0.1, 2.6 * w), p(0.13, 2.6 * w), p(0.13, -2.6 * w), p(0.1, -2.6 * w)]); tr([p(-0.08, w * 0.7), p(0.1, w * 0.7), p(0.1, -w * 0.7), p(-0.08, -w * 0.7)]); }
+  if (tipo === "escudo") { const r = (o.r || 0.17) * U; tr(circ(mx, my, r, r, 22)); tr(circ(mx, my, r * 0.8, r * 0.8, 20), true, { fill: false, lw: 0.55, al: 0.7 }); tr(circ(mx, my, r * 0.16, r * 0.16, 10)); }
+  if (tipo === "cajado") { const w = 0.008 * U, bx = mx + d * 0.01 * U, top = my - 0.62 * U, bot = my + 0.44 * U;
+    const pts = [[bx, bot], [bx, my], [bx - d * 0.004 * U, top + 0.08 * U], [bx + d * 0.02 * U, top - 0.03 * U], [bx + d * 0.075 * U, top - 0.045 * U], [bx + d * 0.11 * U, top - 0.01 * U], [bx + d * 0.1 * U, top + 0.035 * U]];
+    tr(pts, false, { lw: 2.2 }); tr(pts, false, { lw: 1.1, rgb: "9,12,29", al: 1 }); void w; }
+  if (tipo === "funda") { const g = o.giro, R = 0.16 * U, [px, py] = g == null ? [mx + d * 0.01 * U, my + R] : [mx + Math.cos(g) * R, my - 0.03 * U + Math.sin(g) * R * 0.45];
+    const dx = px - mx, dy = py - my, l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l, cw = 0.012 * U;
+    tr([[mx, my], [mx + dx * 0.5 + nx * cw, my + dy * 0.5 + ny * cw], [px + nx * cw, py + ny * cw]], false, { lw: 0.6 }); tr([[mx, my], [mx + dx * 0.5 - nx * cw, my + dy * 0.5 - ny * cw], [px - nx * cw, py - ny * cw]], false, { lw: 0.6 });
+    tr(circ(px, py, 0.026 * U, 0.017 * U, 12, Math.atan2(dy, dx) + Math.PI / 2)); if (o.pedra !== false) tr(circ(px, py, 0.01 * U, 0.008 * U, 8), true, { rgb: "255,236,200" }); }
+  if (tipo === "pedra") { const r = (o.r || 0.02) * U; tr(circ(mx, my, r, r * 0.75, 12, 0.3)); }
+  if (tipo === "pao") { const r = (o.r || 0.07) * U; tr(circ(mx, my - r * 0.3, r, r * 0.6, 18)); for (const q of [-0.4, 0, 0.4]) tr([[mx + q * r - 0.12 * r, my - r * 0.62], [mx + q * r + 0.12 * r, my - r * 0.2]], false, { lw: 0.55, al: 0.8 }); }
+  if (tipo === "peixe") { const r = (o.r || 0.08) * U, q = (u2, v) => [mx + d * u2 * r, my + v * r];
+    tr([q(-1, 0), q(-0.6, -0.42), q(0.1, -0.5), q(0.62, -0.18), q(0.78, -0.46), q(0.86, 0), q(0.78, 0.46), q(0.62, 0.18), q(0.1, 0.5), q(-0.6, 0.42)]); tr([q(-0.35, -0.32), q(-0.28, 0), q(-0.35, 0.32)], false, { lw: 0.55, al: 0.7 }); }
+  if (tipo === "cesto") { const r = (o.r || 0.16) * U; tr([[mx - r, my - 0.35 * r], [mx - 0.82 * r, my + 0.45 * r], [mx - 0.5 * r, my + 0.62 * r], [mx + 0.5 * r, my + 0.62 * r], [mx + 0.82 * r, my + 0.45 * r], [mx + r, my - 0.35 * r]]);
+    tr(circ(mx, my - 0.35 * r, r, 0.22 * r, 20), true, { fill: false }); for (const v of [0.05, 0.3]) tr([[mx - 0.93 * r, my + v * r], [mx, my + (v + 0.12) * r], [mx + 0.93 * r, my + v * r]], false, { lw: 0.55, al: 0.7 }); }
+  y.restore();
 }
 // poses extras para os personagens
 POSES.andar = (fase, passo = 1) => {
