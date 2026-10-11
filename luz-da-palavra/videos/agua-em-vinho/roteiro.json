@@ -7,6 +7,7 @@
   "gancho": "QUANDO A ALEGRIA ACABA",
   "gancho_destaque": "ALEGRIA",
   "voz": "Achird",
+  "capa": {"t": 75.2, "y": 1560},
   "sons": {
     "acabou": ["respiro", 0.35], "historia": ["sino", 0.4], "laco": ["brilho", 0.3],
     "cana": ["respiro", 0.3], "casamento": ["brilho", 0.3], "jesus": ["plim", 0.3], "mae": ["brilho", 0.25],
