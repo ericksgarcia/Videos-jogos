@@ -13,7 +13,8 @@
   "gancho": "HAJA LUZ",
   "gancho_destaque": "LUZ",
   "capa": {
-    "t": 11.3
+    "t": 27.6,
+    "y": 1500
   },
   "voz": "Achird",
   "sons": {

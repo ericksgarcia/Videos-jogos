@@ -278,7 +278,7 @@ await pg.evaluate(async (D) => {
   const st = document.createElement("style");
   const E = D.estilo;
   st.textContent = `#capa { position: absolute; inset: 0; z-index: 50; font-family: ${E.fonte}; }
-    #capa .fundo { position: absolute; inset: 0; background: radial-gradient(95% 26% at 50% 61%, rgba(${E.sombra},0.8), rgba(${E.sombra},0.25) 70%, rgba(${E.sombra},0) 100%); }
+    #capa .fundo { position: absolute; inset: 0; background: radial-gradient(95% 26% at 50% ${D.yFundo}%, rgba(${E.sombra},0.8), rgba(${E.sombra},0.25) 70%, rgba(${E.sombra},0) 100%); }
     #capa .txt { position: absolute; left: 50px; right: 50px; top: ${D.y}px; transform: translateY(-50%); text-align: center; font-weight: ${E.peso}; font-size: ${D.tam}px; line-height: ${E.altura}; text-transform: uppercase; color: ${E.cor};
       text-shadow: 0 10px 40px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6); letter-spacing: ${E.espaco}; }
     #capa .txt span { display: inline-block; } #capa .txt .d { color: ${E.destaque}; text-shadow: 0 0 40px ${E.brilho}, 0 10px 40px rgba(0,0,0,0.7); }`;
@@ -318,7 +318,7 @@ def capa(roteiro, ag, pasta, destino):
     script.write_text(CAPA_JS.replace("__MOD__", mod).replace("__OPCOES__", json.dumps({"executablePath": shell}) if shell else ""))
     png = Path(pasta) / "capa.png"
     r = subprocess.run(["node", str(script), (Path(pasta) / "index.html").resolve().as_uri(), str(png),
-                        json.dumps({"t": t, "linhas": linhas, "tam": tam, "y": cfg.get("y", 1170), "estilo": est})], capture_output=True, text=True, timeout=600)
+                        json.dumps({"t": t, "linhas": linhas, "tam": tam, "y": cfg.get("y", 1170), "yFundo": round(cfg["y"] / 19.2, 2) if "y" in cfg else 61, "estilo": est})], capture_output=True, text=True, timeout=600)
     script.unlink(missing_ok=True)
     if not png.exists():
         print("   [capa] falhou:", (r.stderr or r.stdout)[-300:])
