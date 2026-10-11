@@ -32,7 +32,7 @@ Ganchos escolhidos pelo dono (caixas de seleção):
 6. Voz gravada → `videos/voz-gravada` ✅ refeito (padrão novo) e entregue
 7. Comida sem fogo → `videos/comida-sem-fogo` ✅ refeito (padrão novo) e entregue
 8. Fone com cancelamento → `videos/fone-cancelamento` ✅ refeito (padrão novo) e entregue
-9. GPS → `videos/gps`
+9. GPS → `videos/gps` ✅ refeito (padrão novo) e entregue
 10. Cartão por aproximação → `videos/cartao-aproximacao`
 11. Chave do carro → `videos/chave-carro`
 12. Internet nos oceanos → `videos/internet-oceanos`
