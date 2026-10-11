@@ -30,7 +30,7 @@ Ganchos escolhidos pelo dono (caixas de seleção):
 4. Remédio sabe onde dói → `videos/remedio-dor` ✅ refeito e entregue
 5. Porta faz esquecer → `videos/porta-esquece` ✅ refeito e entregue (cenas no padrão antigo; com capa e final em loop)
 6. Voz gravada → `videos/voz-gravada` ✅ refeito (padrão novo) e entregue
-7. Comida sem fogo → `videos/comida-sem-fogo`
+7. Comida sem fogo → `videos/comida-sem-fogo` ✅ refeito (padrão novo) e entregue
 8. Fone com cancelamento → `videos/fone-cancelamento`
 9. GPS → `videos/gps`
 10. Cartão por aproximação → `videos/cartao-aproximacao`
