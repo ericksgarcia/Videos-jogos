@@ -47,7 +47,7 @@ function JC_pessoas(nv, x, i, t, cam, a, o = {}) {
 // =============== 1. abertura: a lágrima de luz -> "JESUS CHOROU" em pontos -> "?" ===============
 CENAS.abertura = (el, c, B) => {
   const tD = B("duas"), tL = B("laco");
-  mostrarGancho(tD + 0.9);
+  mostrarGancho(tD + 0.4);
   const TV = telaGPU(el, c, JC_FUNDO), nv = TV.nuvem(50000);
   const CAM = cameraProf([[0, { x: 540, y: 900, zoom: 1.15 }], [c.fim + 0.5, { x: 540, y: 920, zoom: 1.0 }]]);
   TV.quadro((x, t) => {
@@ -108,5 +108,8 @@ CENAS.detalhe = (el, c, B) => {
 };
 
 // =============== 4. pergunta (1 ou 2) e 5. fim ===============
-CENAS.pergunta = (el, c, B) => cenaPergunta(el, c, B, [["1 · Ele sabe o fim", "João 11:43"], ["2 · Ele chora com você", "João 11:35"]], { seed: 73 });
+// o coração do fim da cena anterior vira o balão da pergunta
+CENAS.pergunta = (el, c, B) => cenaPergunta(el, c, B, [["1 · Ele sabe o fim", "João 11:43", "sun-horizon"], ["2 · Ele chora com você", "João 11:35", "heart"]],
+  { seed: 73, de: [JC_F.coracao, { cx: 640, cy: 730, esc: 300, cor: LUZ.ouro, borda: LUZ.luz }] });
+// fim: "Salva esse vídeo, segue o Luz da Palavra, e lembra:" -> o vídeo recomeça em "Se hoje você chorou escondido..."
 CENAS.fim = (el, c, B) => cartaoFinal(el, c.ini + 0.05);

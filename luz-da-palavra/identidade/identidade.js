@@ -128,14 +128,17 @@ function cartaoFinal(pai, t) {
   const TF = telaGPU(g, { ini: t - 0.5, fim: T + 1 }, { fundo: LUZ.fundo.map((q) => q * 0.9) }), nv = TF.nuvem(42000);
   const LG = logoForma(13000), PO = poeiraForma(13000, 77, 0.95), FD = fundoProfundo(33, 420);
   const LX = 540, LY = 700, LE = 400;
+  // brasas que sobem em volta da chama (o cartão nunca fica parado)
+  const BR = (() => { const r = prng(91); return Array.from({ length: 700 }, () => ({ x: LX + (r() - 0.5) * 760, v: 60 + 140 * r(), f: r(), s: r(), w: r() * 6.283 })); })();
   TF.quadro((x, tt) => {
-    const u = PT.ss((tt - t - 0.15) / 1.5), res = FIS.respira(tt, 0, 0.012);
+    const u = PT.ss((tt - t - 0.1) / 1.0), res = FIS.respira(tt, 0, 0.015) * (1 + 0.05 * PT.ss((tt - t) / 6));
     let i = desenharFundo(nv, FD, tt, null, LUZ.luz, 0.75, 0);
+    for (const b of BR) { const d = ((tt - t) * b.v + b.f * 1300) % 1300, yy = 1420 - d, xx = b.x + Math.sin(tt * 1.3 + b.w) * 22, al = u * Math.sin(Math.PI * d / 1300) * (0.25 + 0.5 * b.s); nv.ponto(i++, xx, yy, LUZ.ambar[0], LUZ.ambar[1], LUZ.ambar[2], al * 0.6, 2 + 3 * b.s); }
     brilhoP(x, LX, LY + 20, 520, LUZS.ambar, 0.18 * u);
     brilhoP(x, LX, LY + 20, 230, LUZS.luz, 0.22 * u * (0.85 + 0.15 * Math.sin(tt * 2)));
     // raios suaves atrás do logo
     for (let k = 0; k < 14; k++) { const an = (k / 14) * 6.283 + tt * 0.05, L = 330 + 60 * Math.sin(k * 2.3 + tt); linhaP(x, LX + Math.cos(an) * 170, LY + 20 + Math.sin(an) * 170, LX + Math.cos(an) * L, LY + 20 + Math.sin(an) * L, LUZS.ouro, 0.07 * u, 3); }
-    i = morfo(nv, PO, LG, u, { de: { cx: LX, cy: LY + 60, esc: 1000, cor: LUZ.ambar, a: 0.55 }, para: { cx: LX, cy: LY, esc: LE * res, cor: LUZ.ouro, borda: LUZ.luz, giro: 0.18 * Math.sin(tt * 0.6) }, t: tt, onda: 0.35, curva: 0.55, sobe: 40, i0: i });
+    i = morfo(nv, PO, LG, u, { de: { cx: LX, cy: LY + 60, esc: 1000, cor: LUZ.ambar, a: 0.55 }, para: { cx: LX, cy: LY, esc: LE * res, cor: LUZ.ouro, borda: LUZ.luz, giro: 0.18 * Math.sin(tt * 0.6), desloca: (k, sx, sy) => { const alto = Math.max(0, (LY - sy) / LE + 0.3); return [sx + Math.sin(tt * 6.5 + sy * 0.03) * 5 * alto, sy - Math.abs(Math.sin(tt * 4.3 + sx * 0.02)) * 4 * alto]; } }, t: tt, onda: 0.35, curva: 0.55, sobe: 40, i0: i });
     nv.total(i);
   });
   const ref = MARCA.cta_tela.referencia;
@@ -146,9 +149,9 @@ function cartaoFinal(pai, t) {
     <div class="p" style="top:${ref ? 1325 : 1335}px">${MARCA.cta_tela.pergunta}</div>
     ${ref ? `<div class="r" style="top:1400px">${ref}</div>` : ""}</div></foreignObject>`);
   tl.fromTo(g, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "power1.inOut", immediateRender: false }, t);
-  $$(".cf > div", g).forEach((d, k) => tl.fromTo(d, { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out", immediateRender: false }, t + 0.9 + k * 0.18));
+  $$(".cf > div", g).forEach((d, k) => tl.fromTo(d, { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out", immediateRender: false }, t + 0.6 + k * 0.15));
   const bt = $(".cf .bt span", g);
-  tl.fromTo(bt, { scale: 1 }, { scale: 1.05, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.floor((T - t - 2) / 0.6)), ease: "sine.inOut", immediateRender: false }, t + 1.8);
+  tl.fromTo(bt, { scale: 1 }, { scale: 1.06, duration: 0.5, yoyo: true, repeat: Math.max(1, Math.floor((T - t - 1.6) / 0.5)), ease: "sine.inOut", immediateRender: false }, t + 1.4);
 }
 
 // ---------- silhuetas de luz (pessoas e figuras sagradas: sempre sem rosto nem feições) ----------
@@ -160,25 +163,39 @@ const SILHUETAS = {
 const silhuetaForma = (tipo = "pessoa", n = 12000) => formaPontos({ desenho: (g, R) => { g.save(); g.translate(R * 0.04, R * 0.04); g.scale((R * 0.92) / 256, (R * 0.92) / 256); g.fill(new Path2D(SILHUETAS[tipo])); g.restore(); } }, n, { espessura: 0.04 });
 
 // ---------- cena da pergunta para os comentários: balão em pontos, 2 opções e seta para a direita ----------
-// opcoes: [["1 · Haja luz", "Gênesis 1:3"], ["2 · Luz dentro de você", "2 Coríntios 4:6"]]
-// batidas da cena: "um", "dois" (a opção acende quando é dita) e "comenta" (a seta aparece)
+// opcoes: [["1 · Haja luz", "Gênesis 1:3", "sun"], ["2 · Luz dentro de você", "2 Coríntios 4:6", "heart"]]
+//   (o 3º item, opcional, é um ícone Phosphor desenhado em pontos à esquerda da opção)
+// batidas da cena: "um", "dois" (a opção "bate" e acende quando é dita) e "comenta" (a seta aparece)
+// o.de = [forma, { cx, cy, esc, cor }]: a forma do fim da cena anterior vira o balão (continuidade)
+let _BALAO_LP = null;  // criado na 1ª cena (formas.js carrega depois da identidade)
 function cenaPergunta(el, c, B, opcoes, o = {}) {
+  _BALAO_LP = _BALAO_LP || formaPontos("chat-circle-dots", 9000);
   const t1 = B("um"), t2 = B("dois"), tC = B("comenta");
-  const TP = telaGPU(el, c, { fundo: LUZ.fundo.map((q) => q * 0.85) }), nv = TP.nuvem(40000), FD = fundoProfundo(o.seed || 61, 600);
-  const CAM = cameraProf([[c.ini, { x: 540, y: 960, zoom: 1.04 }], [c.fim + 0.5, { x: 540, y: 960, zoom: 1.0 }]]);
+  const TP = telaGPU(el, c, { fundo: LUZ.fundo.map((q) => q * 0.85) }), nv = TP.nuvem(50000), FD = fundoProfundo(o.seed || 61, 600);
+  const ICO = opcoes.map((op) => (op[2] ? formaPontos(op[2], 2500) : null));
+  const CAM = cameraProf([[c.ini, { x: 540, y: 960, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 940, zoom: 1.08 }]]);
   TP.quadro((x, t) => {
-    const cam = CAM(t);
+    const cam = CAM(t), k0 = cam.zoom, P = (px, py) => projP(cam, px, py, 1);
     let i = desenharFundo(nv, FD, t, cam, LUZ.luz, 0.8, 0);
     brilhoP(x, 540, 1500, 900, LUZS.ambar, 0.08);
-    const ab = FIS.chegar(t, c.ini + 0.2, 0.7);
-    i = balaoPergunta(nv, x, t, PT.ss((t - c.ini - 0.1) / 0.5), 540, 560, 360 * Math.max(0.01, ab), i);
+    // balão: nasce da forma da cena anterior e "respira"; balança quando a pergunta termina
+    const [bx, by] = P(540, 560), ub = PT.ss((t - c.ini + 0.1) / 0.9), bal = FIS.balanco(t, tC - 0.2, 0.08, 1.6, 3), escB = 360 * k0 * FIS.respira(t, 0, 0.02);
+    const para = { cx: bx, cy: by, esc: escB, cor: CORF.ciano, rot: bal, brilho: 0.9 };
+    if (o.de && ub < 1) i = morfo(nv, o.de[0], _BALAO_LP, ub, { de: o.de[1], para, t, onda: 0.3, curva: 0.5, i0: i });
+    else i = desenharForma(nv, _BALAO_LP, { ...para, a: o.de ? 1 : ub, t, i0: i });
+    if (ub > 0.6) rotuloP(x, "?", bx, by - 8 * k0, 150 * k0, "255,226,140", PT.ss((ub - 0.6) / 0.4) * (0.85 + 0.15 * Math.sin(t * 4)));
     opcoes.forEach(([txt, ref], k) => {
-      const y = 860 + k * 190, te = c.ini + 0.4 + k * 0.15, tf = k ? t2 : t1, a = PT.ss((t - te) / 0.5);
-      const on = PT.jan(t, tf - 0.1, (k ? tC : t2) - 0.1, 0.15, 0.4), ch = FIS.chegar(t, te, 0.6), yy = y + 30 * (1 - Math.min(1, ch));
-      fCaixa(x, 540, yy, 800, 140, 34, on > 0.5 ? LUZS.luz : LUZS.ouro, a * (0.7 + 0.3 * on), 3 + 2 * on, 0.04 + 0.06 * on);
-      if (on > 0) brilhoP(x, 540, yy, 420, LUZS.ambar, 0.18 * on);
-      rotuloP(x, txt, 540, yy - 18, o.tam || 48, on > 0.5 ? "255,246,230" : "255,236,200", a);
-      if (ref) rotuloP(x, ref, 540, yy + 36, 30, LUZS.ouro, 0.85 * a);
+      const te = c.ini + 0.35 + k * 0.2, tf = k ? t2 : t1, ch = FIS.chegar(t, te, 0.6), a = PT.ss((t - te) / 0.4);
+      const on = PT.jan(t, tf - 0.1, (k ? tC : t2) - 0.1, 0.15, 0.4), [sx, sy] = FIS.impacto(t, tf - 0.05, 0.12);
+      const lado = k ? 1 : -1, [cx, cy] = P(540 + lado * 420 * (1 - Math.min(1, ch)), 830 + k * 175);
+      x.save(); x.translate(cx, cy); x.scale(sx * k0, sy * k0);
+      fCaixa(x, 0, 0, 800, 140, 34, on > 0.5 ? LUZS.luz : LUZS.ouro, a * (0.7 + 0.3 * on), 3 + 2 * on, 0.04 + 0.06 * on);
+      if (on > 0) { brilhoP(x, 0, 0, 420, LUZS.ambar, 0.18 * on); const v = PT.cl((t - tf + 0.1) / 0.6); if (v < 1) brilhoP(x, -400 + 800 * v, 0, 90, LUZS.luz, 0.5 * (1 - v)); }
+      const dx = ICO[k] ? 50 : 0;
+      rotuloP(x, txt, dx, -18, o.tam || 48, on > 0.5 ? "255,246,230" : "255,236,200", a);
+      if (ref) rotuloP(x, ref, dx, 36, 30, LUZS.ouro, 0.85 * a);
+      x.restore();
+      if (ICO[k]) i = desenharForma(nv, ICO[k], { cx: cx - 320 * k0 * sx, cy, esc: 80 * k0 * (1 + 0.15 * on), cor: on > 0.5 ? LUZ.luz : LUZ.ouro, a, brilho: 0.9 + 0.5 * on, t, i0: i });
     });
     setaComentarios(x, PT.ss((t - tC + 0.3) / 0.4), t);
     nv.total(i);

@@ -2,7 +2,7 @@
   "canal": "luz-da-palavra",
   "slug": "jesus-chorou",
   "titulo": "Jesus chorou",
-  "descricao": "Um dos menores versículos da Bíblia tem só duas palavras.\nJoão 11:35, \"Jesus chorou\": o que aconteceu antes desse versículo, por que Jesus chorou diante de Lázaro e o detalhe que quase ninguém percebe.\nQual você precisava ouvir hoje: 1 ou 2? Comenta aqui.\nSalva pra lembrar e manda pra alguém que está atravessando um dia difícil.",
+  "descricao": "Se hoje você chorou escondido, esse versículo é pra você.\nJoão 11:35, \"Jesus chorou\": um dos menores versículos da Bíblia, o que aconteceu com Lázaro e o detalhe que quase ninguém percebe.\nQual você precisava hoje: 1 ou 2? Comenta aqui.\nSalva pra ouvir de novo e manda pra alguém que está atravessando um dia difícil.",
   "hashtags": [
     "#biblia",
     "#fe",
@@ -10,8 +10,8 @@
     "#versiculododia",
     "#luzdapalavra"
   ],
-  "gancho": "SÓ DUAS PALAVRAS",
-  "gancho_destaque": "DUAS",
+  "gancho": "PRA QUEM CHOROU HOJE",
+  "gancho_destaque": "CHOROU",
   "voz": "Achird",
   "sons": {
     "duas": [
@@ -65,6 +65,18 @@
     "cta": [
       "brilho",
       0.45
+    ],
+    "escondido": [
+      "respiro",
+      0.35
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "lembra": [
+      "respiro",
+      0.3
     ]
   },
   "cenas": [
@@ -72,9 +84,10 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Um dos menores versículos da Bíblia tem só duas palavras. E tem um detalhe nele que quase ninguém percebe.",
+      "fala": "Se hoje você chorou escondido, esse versículo é pra você. E tem um detalhe nele que quase ninguém percebe.",
       "batidas": {
-        "duas": "duas",
+        "escondido,": "escondido",
+        "versículo": "duas",
         "detalhe": "laco"
       }
     },
@@ -116,9 +129,11 @@
       "id": "fim",
       "tipo": "fim",
       "titulo": "",
-      "fala": "Segue o Luz da Palavra para receber uma palavra de luz todo dia.",
+      "fala": "Salva esse vídeo, segue o Luz da Palavra, e lembra:",
       "batidas": {
-        "Segue": "cta"
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
       }
     }
   ]

@@ -61,6 +61,20 @@ do Google, duração mínima de 1:30).
 
 ## Retenção (adaptada ao canal)
 
+**Decisões do dono (out/2026), valem para todo vídeo:**
+
+- **Gancho = emoção direta com "você"**, não curiosidade: "Se hoje você chorou escondido, esse
+  versículo é pra você." O `gancho` na tela é a mesma ideia em até ~5 palavras ("PRA QUEM CHOROU HOJE").
+- **Final em loop verdadeiro:** a última frase fica em aberto e se completa com a primeira quando o
+  vídeo recomeça ("Salva esse vídeo, segue o Luz da Palavra, e lembra:" → "Se hoje você chorou
+  escondido…"). O **pedido de salvar** vai falado nessa última frase (sem quebrar o loop).
+- **Nada parado na pergunta e no cartão final:** `cenaPergunta` recebe a forma do fim da cena anterior
+  (`de`) e a transforma no balão; as opções entram em cascata, com ícone, e "batem" quando ditas.
+  O cartão final tem brasas subindo e a chama tremulando.
+- **Selo de série** ("Versículo do dia #N") só quando o vídeo fizer parte de uma série.
+- **3D** (`motor/tres.js`) é permitido neste canal **só quando melhorar muito a qualidade** do vídeo
+  (o render fica bem mais lento).
+
 - **1º segundo:** a imagem mais bonita já no quadro 0, em movimento, e a frase mais forte na primeira
   palavra ("Antes de existir qualquer coisa… havia só escuridão").
 - **Laço aberto:** anuncie algo que só se resolve no fim ("e o detalhe que quase ninguém percebe nessa
