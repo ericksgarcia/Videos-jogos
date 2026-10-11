@@ -1,0 +1,38 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "lampada-para-os-pes",
+  "titulo": "Lâmpada para os meus pés",
+  "descricao": "Se você não faz ideia do que vai acontecer na sua vida, esse versículo é pra você.\nSalmos 119:105, \"Lâmpada para os meus pés é tua palavra\": como era a lâmpada daquela época e por que esse detalhe muda o sentido do versículo.\nQual é o próximo passo que você precisa de coragem pra dar? Escreve aqui nos comentários.\nSalva pra lembrar no dia em que o caminho parecer escuro.",
+  "hashtags": ["#biblia", "#fe", "#salmos", "#versiculododia", "#luzdapalavra"],
+  "gancho": "PRA QUEM NÃO VÊ O CAMINHO",
+  "gancho_destaque": "CAMINHO",
+  "voz": "Achird",
+  "sons": {
+    "ideia": ["respiro", 0.35], "versiculo": ["sino", 0.4], "laco": ["brilho", 0.3],
+    "lampada": ["plim", 0.35], "palavra": ["sino", 0.45], "caminho": ["brilho", 0.35],
+    "barro": ["pop", 0.3], "estrada": ["respiro", 0.3], "passo": ["sino", 0.5],
+    "inteiro": ["respiro", 0.3], "proximo": ["plim", 0.35], "junto": ["sino", 0.45],
+    "pergunta": ["pop", 0.3], "comenta": ["plim", 0.45],
+    "salva": ["pop", 0.35], "cta": ["brilho", 0.45], "lembra": ["respiro", 0.3]
+  },
+  "cenas": [
+    {"id": "abertura", "tipo": "abertura", "titulo": "",
+     "fala": "Se você não faz ideia do que vai acontecer na sua vida, esse versículo é pra você. E tem um detalhe sobre as lâmpadas daquela época que muda o sentido dele.",
+     "batidas": {"ideia": "ideia", "versículo": "versiculo", "detalhe": "laco"}},
+    {"id": "versiculo", "tipo": "versiculo", "titulo": "",
+     "fala": "O salmista escreveu: Lâmpada para os meus pés é tua palavra, e luz para o meu caminho.",
+     "batidas": {"Lâmpada": "lampada", "palavra,": "palavra", "caminho.": "caminho"}},
+    {"id": "detalhe", "tipo": "detalhe", "titulo": "",
+     "fala": "O detalhe: naquele tempo, a lâmpada era uma vasilha pequena de barro, com azeite. Ela não iluminava a estrada inteira. Só o próximo passo.",
+     "batidas": {"barro,": "barro", "estrada": "estrada", "passo.": "passo"}},
+    {"id": "sentido", "tipo": "sentido", "titulo": "",
+     "fala": "Deus nem sempre mostra o caminho inteiro. Ele mostra o próximo passo. E, a cada passo, a luz vai junto.",
+     "batidas": {"inteiro.": "inteiro", "próximo": "proximo", "junto.": "junto"}},
+    {"id": "pergunta", "tipo": "pergunta", "titulo": "",
+     "fala": "Qual é o próximo passo que você precisa de coragem pra dar? Escreve aqui do lado.",
+     "batidas": {"Qual": "pergunta", "Escreve": "comenta"}},
+    {"id": "fim", "tipo": "fim", "titulo": "",
+     "fala": "Salva esse vídeo, segue o Luz da Palavra, e lembra:",
+     "batidas": {"Salva": "salva", "segue": "cta", "lembra:": "lembra"}}
+  ]
+}

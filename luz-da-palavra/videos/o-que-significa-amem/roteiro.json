@@ -1,0 +1,42 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "o-que-significa-amem",
+  "titulo": "O que significa Amém",
+  "descricao": "Se você já terminou uma oração sem saber se ela chegou, presta atenção na última palavra que você diz.\nO que significa \"amém\": a palavra hebraica que quer dizer firme, seguro, fiel, por que Jesus começava frases com ela e o lugar da Bíblia onde ela vira um nome (Apocalipse 3:14).\nQual oração você quer terminar hoje com um amém bem firme? Escreve aqui nos comentários.\nSalva pra lembrar disso na próxima oração.",
+  "hashtags": ["#biblia", "#fe", "#oracao", "#amem", "#luzdapalavra"],
+  "gancho": "A PALAVRA QUE VOCÊ MAIS DIZ",
+  "gancho_destaque": "PALAVRA",
+  "voz": "Achird",
+  "sons": {
+    "oracao": ["respiro", 0.35], "ultima": ["sino", 0.4], "nome": ["brilho", 0.3],
+    "hebraico": ["respiro", 0.3], "firme": ["thud", 0.4], "balanca": ["sino", 0.4],
+    "povo": ["respiro", 0.3], "apoio": ["thud", 0.35], "jesus": ["sino", 0.4],
+    "detalhe": ["respiro", 0.3], "amem": ["sino", 0.55], "fiel": ["brilho", 0.4],
+    "porta": ["respiro", 0.3], "alguem": ["sino", 0.45],
+    "pergunta": ["pop", 0.3], "comenta": ["plim", 0.45],
+    "salva": ["pop", 0.35], "cta": ["brilho", 0.45], "lembra": ["respiro", 0.3]
+  },
+  "cenas": [
+    {"id": "abertura", "tipo": "abertura", "titulo": "",
+     "fala": "Se você já terminou uma oração sem saber se ela chegou, presta atenção na última palavra que você diz. E no lugar da Bíblia onde ela vira um nome.",
+     "batidas": {"oração": "oracao", "última": "ultima", "nome.": "nome"}},
+    {"id": "origem", "tipo": "origem", "titulo": "",
+     "fala": "Amém vem do hebraico. É da mesma raiz de palavras como firme, seguro, fiel. É algo que não balança.",
+     "batidas": {"hebraico.": "hebraico", "firme,": "firme", "balança.": "balanca"}},
+    {"id": "uso", "tipo": "uso", "titulo": "",
+     "fala": "Quando o povo dizia amém, estava dizendo: isso é firme, eu me apoio nisso. E Jesus começava frases importantes assim: na verdade, na verdade vos digo. No original, é amém, amém.",
+     "batidas": {"povo": "povo", "apoio": "apoio", "Jesus": "jesus"}},
+    {"id": "detalhe", "tipo": "detalhe", "titulo": "",
+     "fala": "E o detalhe: no Apocalipse, Jesus é chamado de o Amém, a testemunha fiel e verdadeira.",
+     "batidas": {"detalhe:": "detalhe", "Amém,": "amem", "fiel": "fiel"}},
+    {"id": "sentido", "tipo": "sentido", "titulo": "",
+     "fala": "Então, quando você termina uma oração com amém, você não está fechando uma porta. Está se apoiando em alguém firme.",
+     "batidas": {"porta.": "porta", "alguém": "alguem"}},
+    {"id": "pergunta", "tipo": "pergunta", "titulo": "",
+     "fala": "Qual oração você quer terminar hoje com um amém bem firme? Escreve aqui do lado.",
+     "batidas": {"Qual": "pergunta", "Escreve": "comenta"}},
+    {"id": "fim", "tipo": "fim", "titulo": "",
+     "fala": "Salva esse vídeo, segue o Luz da Palavra, e lembra:",
+     "batidas": {"Salva": "salva", "segue": "cta", "lembra:": "lembra"}}
+  ]
+}
