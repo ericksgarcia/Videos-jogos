@@ -54,3 +54,18 @@ CENAS.oracao = (el, c, B) => {
     nv.total(i);
   });
 };
+
+// 3. galeria: todos os tipos (Jesus, mulher, homem, criança) — os dois da frente caminham
+CENAS.galeria = (el, c, B) => {
+  const TV = telaGPU(el, c, AL_FUNDO), nv = TV.nuvem(40000);
+  TV.quadro((x, t) => {
+    const cam = { x: 540, y: 1000, zoom: 1, foco: 1 };
+    let i = AL_cenario(nv, x, 0, t, cam, 0.5);
+    const anda = t - c.ini;
+    personagem(x, t, POSES.de_pe, { tipo: "mulher", x: 170, chao: 1420, H: 470, dir: 1, cam, z: 1, fase: 1 });
+    personagem(x, t, POSES.segurando, { tipo: "homem", x: 880, chao: 1420, H: 500, dir: -1, cam, z: 1, fase: 2 });
+    personagem(x, t, POSES.andar(anda * 6.5, 1), { tipo: "jesus", x: 420 + anda * 30, chao: 1560, H: 600, dir: 1, cam, z: 1, fase: 3 });
+    personagem(x, t, POSES.andar(anda * 7.5 + 1.5, 1), { tipo: "crianca", x: 640 + anda * 30, chao: 1580, H: 330, dir: 1, cam, z: 1, fase: 4 });
+    nv.total(i);
+  });
+};

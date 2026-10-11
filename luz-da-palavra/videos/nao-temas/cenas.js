@@ -53,10 +53,19 @@ function NT_ceu(nv, x, i, t, cam, st) {
 const NT_flash = (t, ts) => ts.reduce((m, tf) => Math.max(m, t >= tf ? Math.exp(-(t - tf) * 9) * (0.6 + 0.4 * Math.abs(Math.sin((t - tf) * 60))) : 0), 0);
 // o veleiro balança com as ondas (agit) e fica firme quando está na mão (firme 0–1)
 function NT_barco(nv, x, i, t, cam, agit, firme = 0, o = {}) {
-  const bal = (1 - firme) * agit, cx = o.cx ?? 540, cy = (o.cy ?? 1120) + Math.sin(t * 1.9) * 26 * bal, rot = Math.sin(t * 1.5) * 0.22 * bal + 0.06 * Math.sin(t * 0.7) * (1 - firme);
+  const bal = (1 - firme) * agit, cx = o.cx ?? 540, cy = (o.cy ?? 1130) + Math.sin(t * 1.9) * 26 * bal, rot = Math.sin(t * 1.5) * 0.22 * bal + 0.06 * Math.sin(t * 0.7) * (1 - firme);
   const [sx, sy, k] = projP(cam, cx, cy, 1);
-  brilhoP(x, sx, sy, 160 * k, firme > 0 ? LUZS.ambar : "180,200,255", 0.18 + 0.3 * firme);
-  return desenharForma(nv, NT_F.barco, { cx: sx, cy: sy, esc: (o.esc ?? 230) * k, rot, cor: mixCor([0.8, 0.86, 1], LUZ.luz, firme), borda: [1, 1, 1], brilho: 0.9 + 0.3 * firme, a: o.a ?? 1, t, i0: i });
+  brilhoP(x, sx, sy, 250 * k, firme > 0 ? LUZS.ambar : "180,200,255", 0.18 + 0.3 * firme);
+  NT_B = { sx, sy, esc: (o.esc ?? 380) * k, rot };
+  return desenharForma(nv, NT_F.barco, { cx: sx, cy: sy, esc: (o.esc ?? 380) * k, rot, cor: mixCor([0.8, 0.86, 1], LUZ.luz, firme), borda: [1, 1, 1], brilho: 0.9 + 0.3 * firme, a: o.a ?? 1, t, i0: i });
+}
+// a pessoa (você) dentro do barco: em line art, sem rosto; a parte de baixo fica escondida pelo casco
+let NT_B = { sx: 540, sy: 1120, esc: 230, rot: 0 };
+function NT_pessoa(x, t, pose, calor = 0) {
+  const { sx, sy, esc, rot } = NT_B, ox = 0.2 * esc, oy = 0.17 * esc, px = sx + ox * Math.cos(rot) - oy * Math.sin(rot), py = sy + ox * Math.sin(rot) + oy * Math.cos(rot);
+  const y = x._texto || x; y.save(); y.beginPath(); y.rect(0, 0, W, py + 2); y.clip();
+  personagem(x, t, pose, { tipo: "pessoa", x: px, chao: py + 0.14 * esc, H: 0.92 * esc, dir: -1, cor: mixCor([0.82, 0.88, 1], [1, 0.86, 0.55], calor), fase: 2 });
+  y.restore();
 }
 
 // =============== 1. abertura: tempestade, o veleiro, relâmpago no "medo" ===============
@@ -70,6 +79,7 @@ CENAS.abertura = (el, c, B) => {
     let i = NT_ceu(nv, x, 0, t, cm, { flash: NT_flash(t, raios), chuva: 1, nuvem: 1 });
     i = NT_mar(nv, i, t, cm, 1, 0.08);
     i = NT_barco(nv, x, i, t, cm, 1, 0);
+    NT_pessoa(x, t, POSES.encolhido);
     nv.total(i);
   });
 };
@@ -84,6 +94,7 @@ CENAS.medos = (el, c, B) => {
     let i = NT_ceu(nv, x, 0, t, cam, { flash: NT_flash(t, raios), chuva: 0.9, nuvem: 1 });
     i = NT_mar(nv, i, t, cam, 0.9, 0.05);
     i = NT_barco(nv, x, i, t, cam, 0.9, 0);
+    NT_pessoa(x, t, POSES.encolhido);
     // o medo da vez, no céu (troca com transformação na palavra); o último fica pequeno e sozinho
     let k = 0; while (k + 1 < ts.length && t >= ts[k + 1] - 0.45) k++;
     const cfg = (j) => ({ cx: 540, cy: 640, esc: j === 3 ? 240 : 330, cor: [0.8, 0.86, 1], borda: [1, 1, 1], brilho: 0.85, giro: 0.15 * Math.sin(t * 0.8) });
@@ -109,6 +120,7 @@ CENAS.versiculo = (el, c, B) => {
     let i = NT_ceu(nv, x, 0, t, cam, { chuva: 0.9 * (1 - calma), nuvem: 1 - 0.6 * abre, abre, lua });
     i = NT_mar(nv, i, t, cam, 0.9 * (1 - 0.8 * calma), 0.05 + 0.6 * lua);
     i = NT_barco(nv, x, i, t, cam, 0.9 * (1 - 0.8 * calma), 0.2 * lua);
+    NT_pessoa(x, t, poseMix(poseMix(POSES.encolhido, POSES.sentado, PT.ss((t - tT) / 1.0)), { ...POSES.sentado, tronco: -0.05, cabeca: -0.45 }, PT.ss((t - tC) / 1.0)), 0.3 * lua);
     nv.total(i);
   });
 };
@@ -132,7 +144,8 @@ CENAS.detalhe = (el, c, B) => {
     if (u > 0) { brilhoP(x, hx, hy - 40, (380 + 160 * forca) * hk, LUZS.ambar, (0.25 + 0.15 * forca) * u); i = morfo(nv, NT_F.po, NT_F.mao, u, { de: { cx: hx, cy: hy + 260 * hk, esc: 1100 * hk, cor: [0.45, 0.6, 1], a: 0.35 }, para: { cx: hx, cy: hy, esc: NT_MAOC.esc * hk * FIS.respira(t, 0, 0.01), cor: LUZ.ouro, borda: LUZ.luz, brilho: 0.9 + 0.3 * forca }, t, onda: 0.35, curva: 0.4, sobe: 120, i0: i }); }
     // o barco sobe junto e fica firme na palma
     const sobe = PT.ss((t - tS) / 1.6);
-    i = NT_barco(nv, x, i, t, cam, 0.3, sobe, { cy: PT.lerp(1120, 1050, sobe) });
+    i = NT_barco(nv, x, i, t, cam, 0.3, sobe, { cy: PT.lerp(1130, 1100, sobe) });
+    NT_pessoa(x, t, poseMix({ ...POSES.sentado, tronco: -0.05, cabeca: -0.45 }, POSES.olhando_cima, FIS.chegar(t, tDe - 0.2, 0.9)), 0.3 + 0.7 * sobe);
     nv.total(i);
   });
 };
@@ -152,7 +165,8 @@ CENAS.sentido = (el, c, B) => {
     const [hx, hy, hk] = projP(cam, NT_MAOC.cx, NT_MAOC.cy, 1);
     brilhoP(x, hx, hy - 40, (520 + 200 * seg) * hk, LUZS.ambar, 0.35 + 0.2 * seg);
     i = desenharForma(nv, NT_F.mao, { cx: hx, cy: hy, esc: NT_MAOC.esc * hk * FIS.respira(t, 0, 0.01), cor: LUZ.ouro, borda: LUZ.luz, brilho: 1.1 + 0.3 * seg, t, i0: i });
-    i = NT_barco(nv, x, i, t, cam, 0.9, 1, { cy: 1050 });
+    i = NT_barco(nv, x, i, t, cam, 0.9, 1, { cy: 1100 });
+    NT_pessoa(x, t, poseMix(POSES.olhando_cima, POSES.bracos_abertos, 0.35 * PT.ss((t - tS + 0.3) / 1.0)), 1);
     nv.total(i);
   });
 };

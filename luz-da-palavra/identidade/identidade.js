@@ -293,79 +293,146 @@ function boneco(nv, x, i, t, pose, o = {}) {
   return { i, maos: bracos.map((b) => proj(b[2])), cabeca: [hx, hy], escala: kk };
 }
 
-// ================= personagens em traço (linha nítida, roupa e acessórios, SEM rosto) =================
-// Mesmo esqueleto e poses dos bonecos (POSES, poseMix). Desenhados na camada nítida (sem bloom) da
-// telaGPU: cada parte tem preenchimento escuro e contorno de luz, então a parte da frente cobre as linhas
-// de trás, como numa ilustração. tipo: "davi" | "golias" | "jesus" | "pessoa".
-//   const p = personagem(x, t, pose, { tipo: "davi", x: 330, chao: 1500, H: 560, dir: 1, cam, z, a });
-//   p.maos[0|1], p.cabeca, p.escala  (para prender a funda, a lança, um pão...)
+// ================= personagens em traço (ilustração em linha, roupa e acessórios, SEM rosto) =================
+// Mesmo esqueleto e poses dos bonecos (POSES, poseMix). Desenhados na camada nítida (sem bloom) da telaGPU:
+// cada parte tem preenchimento escuro e contorno de luz (2 espessuras: contorno e detalhe), então a parte da
+// frente cobre as linhas de trás, como numa ilustração. Contornos em curva suave (Catmull-Rom), membros com
+// anatomia (ombro, tríceps, panturrilha), mãos com polegar, pés com sandália, túnica com dobras que seguem as
+// pernas, cinto com nó, manto, véu, elmo. Respira sozinho quando parado (o.vida = false desliga).
+//   const p = personagem(x, t, pose, { tipo: "davi", x: 330, chao: 1500, H: 560, dir: 1, cam, z, a, cor });
+//   tipos: davi, pessoa, homem (turbante), mulher (véu), jesus (túnica longa + manto), golias, crianca
+//   p.maos[0|1], p.cabeca, p.escala, p.pr (projeta pontos do esqueleto)
 const _PERS = {
-  davi: { cor: [1, 0.85, 0.5], larg: 1, tunica: -0.17, cabelo: "cachos", bolsa: true },
-  pessoa: { cor: [0.85, 0.9, 1], larg: 1, tunica: -0.3, cabelo: "curto" },
-  jesus: { cor: [1, 0.93, 0.78], larg: 1.05, tunica: -0.43, cabelo: "longo", manto: true },
-  golias: { cor: [1, 0.55, 0.5], larg: 1.35, tunica: -0.24, cabelo: "elmo", armadura: true },
+  davi: { cor: [1, 0.86, 0.55], larg: 0.95, tunica: -0.16, cabelo: "cachos", bolsa: true, manga: 0.32 },
+  pessoa: { cor: [0.86, 0.9, 1], larg: 1, tunica: -0.3, cabelo: "curto", manga: 0.4 },
+  homem: { cor: [0.95, 0.85, 0.7], larg: 1.05, tunica: -0.33, cabelo: "turbante", manga: 0.45, faixa: true },
+  mulher: { cor: [0.92, 0.88, 1], larg: 0.95, tunica: -0.43, cabelo: "veu", manga: 0.8 },
+  jesus: { cor: [1, 0.94, 0.8], larg: 1.02, tunica: -0.43, cabelo: "longo", manto: true, manga: 0.85 },
+  golias: { cor: [1, 0.55, 0.5], larg: 1.32, tunica: -0.22, cabelo: "elmo", armadura: true, manga: 0.25 },
+  crianca: { cor: [1, 0.9, 0.7], larg: 1.1, tunica: -0.2, cabelo: "curto", manga: 0.35, cabecaGrande: 1.25 },
 };
-function personagem(x, t, pose, o = {}) {
-  const P = _PERS[o.tipo || "pessoa"], H = o.H || 560, d = o.dir ?? 1, a = o.a ?? 1, L = P.larg;
-  const cor = o.cor || P.cor, rgb = cor.map((q) => Math.round(q * 255)).join(","), fundo = o.preench || "8,11,28";
-  const Lt = 0.28 * H, Ln = 0.045 * H, Rh = 0.072 * H, La = 0.16 * H, Lf = 0.15 * H, Lc = 0.235 * H, Ls = 0.225 * H;
-  const v = (ang, Lg) => [Math.sin(ang) * d * Lg, Math.cos(ang) * Lg], up = (ang, Lg) => [Math.sin(ang) * d * Lg, -Math.cos(ang) * Lg], som = (p, q) => [p[0] + q[0], p[1] + q[1]];
-  const C = up(pose.tronco, Lt), N = som(C, up(pose.tronco + pose.cabeca * 0.4, Ln)), Hd = som(N, up(pose.tronco + pose.cabeca, Rh * 1.05)), S = som(C, up(pose.tronco, -0.035 * H));
-  const bracos = pose.braco.map(([om, co]) => { const E = som(S, v(pose.tronco + om, La)); return [S, E, som(E, v(pose.tronco + om + co, Lf)), pose.tronco + om + co]; });
-  const pernas = pose.perna.map(([qu, jo]) => { const K = v(qu, Lc); return [[0, 0], K, som(K, v(qu + jo, Ls)), qu + jo]; });
-  let baixo = 0; for (const [, K, F] of pernas) baixo = Math.max(baixo, K[1], F[1] + 0.012 * H); baixo = Math.max(baixo, C[1] - Rh * 0.2, Hd[1] + Rh);
+// Catmull-Rom → Bézier (pontos já na tela)
+function _curva(y, pts, fechado) {
+  const n = pts.length; if (n < 2) return;
+  y.moveTo(pts[0][0], pts[0][1]);
+  const g = (k) => pts[fechado ? (k + n) % n : Math.max(0, Math.min(n - 1, k))];
+  for (let k = 0; k < (fechado ? n : n - 1); k++) { const p0 = g(k - 1), p1 = g(k), p2 = g(k + 1), p3 = g(k + 2);
+    y.bezierCurveTo(p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6, p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6, p2[0], p2[1]); }
+  if (fechado) y.closePath();
+}
+function personagem(x, t, pose0, o = {}) {
+  const P = _PERS[o.tipo || "pessoa"], H = o.H || 560, d = o.dir ?? 1, a = o.a ?? 1, L = P.larg, fase = o.fase ?? 0;
+  // vida: respiração e leve balanço quando parado
+  const pose = o.vida === false ? pose0 : { ...pose0, tronco: pose0.tronco + 0.012 * Math.sin(t * 1.7 + fase), cabeca: pose0.cabeca + 0.02 * Math.sin(t * 1.1 + fase * 2) };
+  const cor = o.cor || P.cor, rgb = cor.map((q) => Math.round(q * 255)).join(","), rgbD = cor.map((q) => Math.round(q * 255 * 0.78)).join(",");
+  const fundo = o.preench || "9,12,29", hk = P.cabecaGrande || 1;
+  const Lt = 0.28 * H, Ln = 0.04 * H, Rh = 0.066 * H * hk, La = 0.165 * H, Lf = 0.15 * H, Lc = 0.235 * H, Ls = 0.225 * H;
+  const v = (ang, l) => [Math.sin(ang) * d * l, Math.cos(ang) * l], up = (ang, l) => [Math.sin(ang) * d * l, -Math.cos(ang) * l], ad = (p, q, k = 1) => [p[0] + q[0] * k, p[1] + q[1] * k];
+  const C = up(pose.tronco, Lt), N = ad(C, up(pose.tronco + pose.cabeca * 0.4, Ln)), Hd = ad(N, up(pose.tronco + pose.cabeca, Rh * 0.95)), S = ad(C, up(pose.tronco, -0.035 * H));
+  const bracos = pose.braco.map(([om, co]) => { const E = ad(S, v(pose.tronco + om, La)); return [S, E, ad(E, v(pose.tronco + om + co, Lf)), pose.tronco + om + co]; });
+  const pernas = pose.perna.map(([qu, jo]) => { const K = v(qu, Lc); return [[0, 0], K, ad(K, v(qu + jo, Ls)), qu + jo, qu]; });
+  let baixo = 0; for (const [, K, F] of pernas) baixo = Math.max(baixo, K[1] + 0.03 * H, F[1] + 0.03 * H); baixo = Math.max(baixo, C[1], Hd[1] + Rh);
   const ox = o.x ?? 540, oy = (o.chao ?? 1500) - baixo;
   const pr = (p) => (o.cam ? projP(o.cam, ox + p[0], oy + p[1], o.z ?? 1) : [ox + p[0], oy + p[1], 1]);
   const kk = o.cam ? o.cam.zoom / (o.z ?? 1) : 1;
   const y = x._texto || x; if (x._texto) y._usado = true;
   y.save(); y.setTransform(1, 0, 0, 1, 0, 0); y.lineJoin = "round"; y.lineCap = "round"; y.globalAlpha = a;
-  const lw = Math.max(1.6, 0.0075 * H * kk);
-  // desenha um contorno fechado (pontos no mundo): preenchimento escuro + linha de luz com brilho
-  const forma = (pts, o2 = {}) => {
-    y.beginPath(); pts.forEach((p, k) => { const [sx, sy] = pr(p); k ? y.lineTo(sx, sy) : y.moveTo(sx, sy); }); if (!o2.aberto) y.closePath();
-    if (!o2.aberto) { y.fillStyle = `rgba(${o2.fundo || fundo},${o2.fa ?? 0.92})`; y.fill(); }
-    y.strokeStyle = `rgba(${o2.rgb || rgb},${o2.al ?? 1})`; y.lineWidth = lw * (o2.lw || 1); y.shadowColor = `rgba(${o2.rgb || rgb},0.7)`; y.shadowBlur = 10 * kk; y.stroke(); y.shadowBlur = 0; y.stroke();
+  const LW = Math.max(1.5, 0.0062 * H * kk);
+  const desenha = (pts, o2 = {}) => {
+    const sp = pts.map(pr); y.beginPath(); _curva(y, sp, !o2.aberto);
+    if (!o2.aberto) { y.fillStyle = `rgba(${o2.fundo || fundo},${o2.fa ?? 0.94})`; y.fill(); }
+    const c2 = o2.det ? rgbD : o2.rgb || rgb; y.strokeStyle = `rgba(${c2},${o2.al ?? 1})`; y.lineWidth = LW * (o2.lw || (o2.det ? 0.55 : 1));
+    y.shadowColor = `rgba(${c2},0.65)`; y.shadowBlur = (o2.det ? 5 : 9) * kk; y.stroke(); y.shadowBlur = 0; y.stroke();
   };
-  const linha = (pts, o2 = {}) => forma(pts, { ...o2, aberto: true });
-  // cápsula (membro) de p0 a p1, larguras w0/w1
-  const capsula = (p0, p1, w0, w1, o2) => {
-    const dx = p1[0] - p0[0], dy = p1[1] - p0[1], l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l, an = Math.atan2(dy, dx), pts = [];
-    for (let k = 0; k <= 6; k++) { const b = an - Math.PI / 2 + (k / 6) * Math.PI; pts.push([p1[0] + Math.cos(b) * w1, p1[1] + Math.sin(b) * w1]); }
-    for (let k = 0; k <= 6; k++) { const b = an + Math.PI / 2 + (k / 6) * Math.PI; pts.push([p0[0] + Math.cos(b) * w0, p0[1] + Math.sin(b) * w0]); }
-    forma(pts, o2);
+  const det = (pts, o2 = {}) => desenha(pts, { ...o2, aberto: true, det: true });
+  const nrm = (p, q) => { const dx = q[0] - p[0], dy = q[1] - p[1], l = Math.hypot(dx, dy) || 1; return [[dx / l, dy / l], [dy / l * d, -dx / l * d]]; };
+  // membro com anatomia: cadeia p0-p1-p2, perfis de meia largura na frente (wf) e atrás (wb) em função de s (0–1)
+  const membro = (p0, p1, p2, wf, wb, o2 = {}) => {
+    const [dA, nA] = nrm(p0, p1), [dB, nB] = nrm(p1, p2), nJ = [(nA[0] + nB[0]) / 2, (nA[1] + nB[1]) / 2], fr = [], tr = [];
+    for (const s of [0, 0.12, 0.3, 0.42, 0.5, 0.58, 0.72, 0.88, 1]) {
+      const q = s <= 0.5 ? ad(p0, [p1[0] - p0[0], p1[1] - p0[1]], s * 2) : ad(p1, [p2[0] - p1[0], p2[1] - p1[1]], (s - 0.5) * 2), n = s === 0.5 ? nJ : s < 0.5 ? nA : nB;
+      fr.push(ad(q, n, wf(s) * H * L)); tr.push(ad(q, n, -wb(s) * H * L));
+    }
+    const fim = ad(p2, dB, 0.012 * H * L), ini = ad(p0, dA, -0.02 * H * L);
+    desenha([ini, ...fr, fim, ...tr.reverse()], o2);
   };
-  // referencial do tronco: u = para cima ao longo do tronco, f = para a frente
+  const lerpW = (pts) => (s) => { for (let k = 1; k < pts.length; k++) if (s <= pts[k][0]) { const [s0, w0] = pts[k - 1], [s1, w1] = pts[k]; return w0 + (w1 - w0) * (s - s0) / (s1 - s0); } return pts[pts.length - 1][1]; };
+  const BR_F = lerpW([[0, 0.03], [0.3, 0.026], [0.5, 0.021], [0.62, 0.024], [1, 0.015]]), BR_T = lerpW([[0, 0.034], [0.18, 0.033], [0.5, 0.022], [0.6, 0.022], [1, 0.015]]);
+  const PE_F = lerpW([[0, 0.046], [0.15, 0.044], [0.5, 0.03], [0.62, 0.027], [1, 0.017]]), PE_T = lerpW([[0, 0.05], [0.1, 0.05], [0.5, 0.032], [0.66, 0.04], [1, 0.017]]);
+  const mao = (b, al = 1) => { const [, E, W] = b, [u, n] = nrm(E, W), h2 = 0.0105 * H * L, m = (aa, bb) => ad(ad(W, u, aa * H * L), n, bb * H * L);
+    desenha([m(-0.004, -0.016), m(0.03, -0.021), m(0.07, -0.014), m(0.088, -0.002), m(0.08, 0.013), m(0.05, 0.017), m(0.045, 0.034), m(0.03, 0.033), m(0.012, 0.019), m(-0.004, 0.016)], { al }); void h2; };
+  const pe = (pp, al = 1) => { const [, K, F] = pp, [s] = nrm(K, F), f = [s[1] * d, -s[0] * d], m = (aa, bb) => ad(ad(F, f, aa * H), s, bb * H);
+    desenha([m(-0.028, 0.0), m(-0.03, 0.022), m(0.02, 0.03), m(0.1, 0.03), m(0.112, 0.018), m(0.09, 0.005), m(0.045, -0.006), m(0.012, -0.02)], { al });
+    if (o.tipo !== "golias") { det([m(0.035, -0.004), m(0.045, 0.028)], { al }); det([m(-0.02, -0.012), m(0.012, -0.016)], { al }); if (o.tipo === "davi") det([m(-0.01, -0.03), m(0.01, -0.07)], { al }); } };
+  const manga = (b, al = 1) => { if (!P.manga) return; const [Sb, E, W] = b, ate = P.manga, [dA, nA] = nrm(Sb, E), fim = ate <= 0.5 ? ad(Sb, [E[0] - Sb[0], E[1] - Sb[1]], ate * 2) : ad(E, [W[0] - E[0], W[1] - E[1]], (ate - 0.5) * 2), [, nF] = ate <= 0.5 ? [dA, nA] : nrm(E, W);
+    const larga = P.manto || P.cabelo === "veu" ? 1.45 : 1.3, wE = 0.028 * H * L * larga;
+    desenha([ad(Sb, nA, 0.038 * H * L), ad(ad(Sb, dA, 0.06 * H), nA, 0.036 * H * L), ad(fim, nF, wE), ad(fim, nF, -wE * 0.9), ad(ad(Sb, dA, 0.06 * H), nA, -0.036 * H * L), ad(Sb, dA, -0.03 * H)], { al });
+    det([ad(ad(Sb, dA, 0.08 * H), nA, 0.02 * H), ad(fim, nF, wE * 0.3)], { al: 0.7 * al }); };
+  const braco = (b, atras) => { const al = atras ? 0.72 : 1; membro(b[0], b[1], b[2], BR_F, BR_T, { al }); manga(b, al); mao(b, al); };
+  const perna = (pp, atras) => { const al = atras ? 0.72 : 1; membro(pp[0], pp[1], pp[2], PE_F, PE_T, { al });
+    if (P.armadura) { const [, K, F] = pp, [s, n] = nrm(K, F), g = (u2, w) => [ad(ad(K, s, u2 * Ls), n, w * H * L), ad(ad(K, s, u2 * Ls), n, -w * H * L * 1.1)];
+      const [a0, b0] = g(0.12, 0.034), [a1, b1] = g(0.55, 0.036), [a2, b2] = g(0.92, 0.024); desenha([a0, a1, a2, b2, b1, b0], { al }); det([ad(a0, n, -0.004 * H), ad(b0, n, 0.004 * H)], { al }); }
+    pe(pp, al); };
+  // sombra no chão
+  { const fx = (pernas[0][2][0] + pernas[1][2][0]) / 2, [sx, sy, sk] = pr([fx, baixo]); y.save(); y.translate(sx, sy); y.scale(1, 0.16); const gr = y.createRadialGradient(0, 0, 0, 0, 0, 0.2 * H * sk); gr.addColorStop(0, `rgba(0,0,0,${0.45 * a})`); gr.addColorStop(1, "rgba(0,0,0,0)"); y.fillStyle = gr; y.beginPath(); y.arc(0, 0, 0.2 * H * sk, 0, 6.283); y.fill(); y.restore(); }
+  // referencial do tronco: T(a, b) = a ao longo do tronco (H), b para a frente (H)
   const u = [C[0] / Lt, C[1] / Lt], f = [-u[1] * d, u[0] * d], T = (aa, bb) => [u[0] * aa * H + f[0] * bb * H * L, u[1] * aa * H + f[1] * bb * H * L];
-  const mao = (b, w) => { const [, , Hm] = b; forma(Array.from({ length: 10 }, (_, k) => [Hm[0] + Math.cos(k / 10 * 6.283) * w, Hm[1] + Math.sin(k / 10 * 6.283) * w * 1.15])); };
-  const pe = (pp) => { const [, , F, ang] = pp, fd = [Math.cos(ang) * d, -Math.sin(ang)], dn = [Math.sin(ang) * d, Math.cos(ang)], w = 0.016 * H, c = 0.07 * H;
-    forma([[F[0] - fd[0] * w, F[1] - fd[1] * w], [F[0] + fd[0] * c, F[1] + fd[1] * c], [F[0] + fd[0] * c + dn[0] * w, F[1] + fd[1] * c + dn[1] * w], [F[0] - fd[0] * w * 1.5 + dn[0] * w, F[1] - fd[1] * w * 1.5 + dn[1] * w]]);
-    if (o.tipo !== "golias") linha([[F[0] + fd[0] * c * 0.45 - dn[0] * w * 0.2, F[1] + fd[1] * c * 0.45 - dn[1] * w * 0.2], [F[0] + fd[0] * c * 0.45 + dn[0] * w, F[1] + fd[1] * c * 0.45 + dn[1] * w]], { lw: 0.7 }); };
-  const braco = (b, atras) => { const [Sb, E, Hm] = b, w = 0.03 * H * L; capsula(Sb, E, w, w * 0.9, { al: atras ? 0.7 : 1 }); capsula(E, Hm, w * 0.85, w * 0.7, { al: atras ? 0.7 : 1 });
-    if (P.manto || o.tipo === "davi" || o.tipo === "pessoa") { const m = [Sb[0] + (E[0] - Sb[0]) * 0.55, Sb[1] + (E[1] - Sb[1]) * 0.55], dx = E[0] - Sb[0], dy = E[1] - Sb[1], l = Math.hypot(dx, dy) || 1, wm = w * (P.manto ? 1.9 : 1.35); linha([[m[0] - dy / l * wm, m[1] + dx / l * wm], [m[0] + dy / l * wm, m[1] - dx / l * wm]], { lw: 0.8, al: atras ? 0.6 : 0.9 }); }
-    mao(b, 0.026 * H * L); };
-  const perna = (pp, atras) => { const [Q, K, F] = pp, w = 0.043 * H * L; capsula(Q, K, w, w * 0.85, { al: atras ? 0.7 : 1 }); capsula(K, F, w * 0.8, w * 0.6, { al: atras ? 0.7 : 1 });
-    if (P.armadura) { const g0 = [K[0] + (F[0] - K[0]) * 0.15, K[1] + (F[1] - K[1]) * 0.15], g1 = [K[0] + (F[0] - K[0]) * 0.85, K[1] + (F[1] - K[1]) * 0.85]; capsula(g0, g1, w * 0.95, w * 0.75, { al: atras ? 0.7 : 1 }); }
-    pe(pp); };
-  // ---- ordem: braço e perna de trás, perna da frente, roupa, cabeça, braço da frente ----
+  // ---- ordem: braço e perna de trás, perna da frente, roupa, manto, cabeça, braço da frente ----
   braco(bracos[0], true); perna(pernas[0], true); perna(pernas[1], false);
-  const h = P.tunica, pts = [[0.26, -0.06], [0.285, -0.025], [0.285, 0.035], [0.26, 0.065], [0.17, 0.08], [0.06, 0.065], [-0.03, 0.08], [h, P.manto ? 0.13 : 0.095], [h - 0.012, 0.0], [h, P.manto ? -0.11 : -0.085], [-0.03, -0.075], [0.06, -0.06], [0.19, -0.075]];
-  forma(pts.map(([aa, bb]) => T(aa, bb)));
-  if (P.manto) { linha([T(0.26, 0.05), T(0.1, -0.02), T(-0.05, -0.08)], { lw: 0.9 }); linha([T(0.0, 0.04), T(h + 0.04, 0.07)], { lw: 0.6, al: 0.7 }); linha([T(-0.05, -0.02), T(h + 0.03, -0.03)], { lw: 0.6, al: 0.7 }); }
-  linha([T(0.055, -0.062), T(0.055, 0.068)], { lw: 1.2 });                                   // cinto
-  if (P.armadura) for (let r = 0; r < 5; r++) for (let c2 = 0; c2 < 4; c2++) { const aa = 0.22 - r * 0.045, bb = -0.05 + c2 * 0.032 + (r % 2) * 0.016; linha([T(aa, bb - 0.014), T(aa - 0.016, bb), T(aa, bb + 0.014)], { lw: 0.6, al: 0.75 }); }
-  if (P.bolsa) { forma([T(0.04, 0.07), T(0.04, 0.12), T(-0.06, 0.125), T(-0.065, 0.075)]); linha([T(0.04, 0.09), T(0.27, -0.04)], { lw: 0.8 }); }
-  // pescoço e cabeça (só o contorno: sem olhos, nariz ou boca)
-  capsula(C, N, 0.022 * H, 0.02 * H);
-  const ang = pose.tronco + pose.cabeca, cabeca = Array.from({ length: 16 }, (_, k) => { const b = (k / 16) * 6.283; return [Hd[0] + Math.cos(b) * Rh * 0.85, Hd[1] + Math.sin(b) * Rh]; });
-  forma(cabeca);
-  const HU = up(ang, 1), HF = [-HU[1] * d, HU[0] * d], Hp = (aa, bb, r) => [Hd[0] + HU[0] * aa * r + HF[0] * bb * r, Hd[1] + HU[1] * aa * r + HF[1] * bb * r];
-  // cabelo como uma calota sobre a cabeça (ângulo a partir do alto: + para a frente): contorno de fora com cachos, volta por dentro
-  const calota = (de, ate, rFora, cacho, n = 22) => { const pts = []; for (let k = 0; k <= n; k++) { const th = de + (ate - de) * k / n, rr = Rh * (rFora + cacho * Math.abs(Math.sin(th * 6))); pts.push(Hp(Math.cos(th), Math.sin(th), rr)); } for (let k = n; k >= 0; k--) { const th = de + (ate - de) * k / n; pts.push(Hp(Math.cos(th), Math.sin(th), Rh * 0.9)); } return pts; };
-  if (P.cabelo === "cachos") forma(calota(-2.5, 1.05, 1.16, 0.09));
-  if (P.cabelo === "curto") forma([Hp(0.2, 0.75, Rh), Hp(0.75, 0.55, Rh * 1.05), Hp(1.05, 0, Rh * 1.02), Hp(0.75, -0.7, Rh * 1.05), Hp(0.1, -0.95, Rh), Hp(0.15, -0.5, Rh), Hp(0.55, 0.1, Rh)]);
-  if (P.cabelo === "longo") forma([Hp(0.3, 0.7, Rh), Hp(0.85, 0.5, Rh * 1.05), Hp(1.08, -0.05, Rh), Hp(0.7, -0.85, Rh * 1.08), Hp(-0.2, -1.05, Rh * 1.1), Hp(-1.6, -0.95, Rh), Hp(-1.7, -0.35, Rh), Hp(-0.6, -0.25, Rh), Hp(0.2, -0.45, Rh), Hp(0.55, 0.1, Rh)]);
-  if (P.cabelo === "elmo") { forma([Hp(-0.25, -1.08, Rh), Hp(0.6, -1.0, Rh * 1.08), Hp(1.12, 0, Rh * 1.06), Hp(0.6, 1.0, Rh * 1.08), Hp(-0.25, 1.08, Rh), Hp(-0.1, 0.55, Rh), Hp(0.25, 0.3, Rh), Hp(0.25, -0.3, Rh)]); const pena = Array.from({ length: 12 }, (_, k) => { const u2 = k / 11, th = 0.5 - 2.3 * u2; return Hp(Math.cos(th) * (1.1 + 0.45 * Math.sin(Math.PI * u2)), Math.sin(th) * (1.1 + 0.45 * Math.sin(Math.PI * u2)), Rh); }); linha(pena, { lw: 2.2 }); }
+  // túnica: a barra acompanha a coxa que vai para a frente (ou para trás) e balança um pouco
+  const h = P.tunica, bal = 0.006 * Math.sin(t * 2.3 + fase);
+  const coxa = (pp, k) => { const [, K] = pp, l = Math.min(1, Math.abs(h) * H / Lc * 0.95); return ad([K[0] * l, K[1] * l], nrm([0, 0], K)[1], k * 0.05 * H * L); };
+  const qF = Math.max(pernas[0][4], pernas[1][4]), qB = Math.min(pernas[0][4], pernas[1][4]), ppF = pernas[0][4] > pernas[1][4] ? pernas[0] : pernas[1], ppB = ppF === pernas[0] ? pernas[1] : pernas[0];
+  const flare = P.manto || P.cabelo === "veu" ? 0.035 : 0.012, hF0 = T(h, 0.085 + flare + bal), hB0 = T(h - 0.005, -0.08 - flare + bal);
+  const mF = PT.ss((qF - 0.25) / 1.0), mB = PT.ss((-qB - 0.25) / 0.8), hF = [PT.lerp(hF0[0], coxa(ppF, 1)[0], mF * 0.85), PT.lerp(hF0[1], coxa(ppF, 1)[1], mF * 0.85)], hB = [PT.lerp(hB0[0], coxa(ppB, -1)[0], mB * 0.7), PT.lerp(hB0[1], coxa(ppB, -1)[1], mB * 0.7)];
+  const meio = [(hF[0] + hB[0]) / 2 + u[0] * 0.01 * H, (hF[1] + hB[1]) / 2 + u[1] * 0.01 * H];
+  desenha([T(0.3, -0.02), T(0.26, -0.062), T(0.16, -0.06), T(0.06, -0.05), T(-0.03, -0.064), hB, meio, hF, T(-0.04, 0.07), T(0.03, 0.062), T(0.08, 0.058), T(0.17, 0.072), T(0.24, 0.066), T(0.3, 0.026)]);
+  // dobras (seguem para as barras), decote e cinto com nó
+  det([T(0.05, 0.03), [PT.lerp(T(0.05, 0.03)[0], hF[0], 0.55) + u[0] * 0.01 * H, PT.lerp(T(0.05, 0.03)[1], hF[1], 0.55) + u[1] * 0.01 * H], [PT.lerp(meio[0], hF[0], 0.6), PT.lerp(meio[1], hF[1], 0.6)]]);
+  det([T(0.04, -0.02), [PT.lerp(T(0.04, -0.02)[0], meio[0], 0.6), PT.lerp(T(0.04, -0.02)[1], meio[1], 0.6)], [PT.lerp(meio[0], hB[0], 0.35), PT.lerp(meio[1], hB[1], 0.35)]]);
+  det([T(0.3, 0.026), T(0.255, 0.035), T(0.27, 0.01)]);
+  if (!P.armadura) { det([T(0.068, -0.052), T(0.07, 0.0), T(0.066, 0.06)], { lw: 0.9 }); det([T(0.048, -0.054), T(0.05, 0.0), T(0.046, 0.064)], { lw: 0.9 });
+    const no = T(0.058, 0.062), cai = 0.02 * Math.sin(t * 2 + fase); det([no, T(0.0, 0.075 + cai), T(-0.05, 0.07 + cai * 1.5)], { lw: 0.8 }); det([no, T(0.01, 0.06 + cai), T(-0.035, 0.055 + cai)], { lw: 0.8 }); }
+  if (P.bolsa) { desenha([T(0.035, 0.075), T(0.04, 0.125), T(-0.05, 0.13), T(-0.065, 0.1), T(-0.055, 0.075)]); det([T(-0.005, 0.078), T(0.0, 0.122)]); det([T(0.045, 0.1), T(0.29, -0.045)], { lw: 0.9 }); }
+  if (P.armadura) { for (let r = 0; r < 6; r++) for (let c2 = 0; c2 < 4; c2++) { const aa = 0.25 - r * 0.036, bb = -0.048 + c2 * 0.032 + (r % 2) * 0.016; det([T(aa, bb - 0.015), T(aa - 0.018, bb), T(aa, bb + 0.015)]); }
+    desenha([T(0.07, -0.058), T(0.075, 0.07), T(0.045, 0.072), T(0.04, -0.06)]); for (let k = 0; k < 6; k++) { const bb = -0.06 + k * 0.027; det([T(0.04, bb), [PT.lerp(T(0.04, bb)[0], PT.lerp(hB[0], hF[0], k / 5), 1), PT.lerp(T(0.04, bb)[1], PT.lerp(hB[1], hF[1], k / 5), 1)]]); } }
+  if (P.faixa) det([T(0.08, -0.05), T(0.03, 0.0), T(-0.02, 0.06)], { lw: 0.8 });
+  // manto (himátion) de Jesus: cai do ombro de trás, cruza o peito e desce pela frente
+  if (P.manto) { const M = "255,214,140";
+    desenha([T(0.27, -0.072), T(0.305, -0.01), T(0.29, 0.05), T(0.2, 0.082), T(0.06, 0.09), T(-0.08, 0.098 + bal), T(-0.24, 0.1 + bal), T(-0.3, 0.085 + bal), T(-0.29, 0.035), T(-0.14, 0.035), T(-0.02, 0.03), T(0.1, 0.01), T(0.2, -0.04)], { rgb: M });
+    det([T(0.26, 0.03), T(0.14, 0.06), T(0.0, 0.07)], { rgb: M }); det([T(-0.04, 0.06), T(-0.18, 0.075), T(-0.27, 0.07)], { rgb: M }); }
+  // pescoço e cabeça (só o contorno: sem olhos, nariz nem boca)
+  { const [du, dn] = nrm(C, N); desenha([ad(C, dn, 0.026 * H), ad(ad(C, du, Ln * 1.4), dn, 0.02 * H), ad(ad(C, du, Ln * 1.4), dn, -0.022 * H), ad(C, dn, -0.03 * H)]); }
+  const ang = pose.tronco + pose.cabeca, HU = up(ang, 1), HF = [-HU[1] * d, HU[0] * d], Hp = (aa, bb, r) => [Hd[0] + HU[0] * aa * r + HF[0] * bb * r, Hd[1] + HU[1] * aa * r + HF[1] * bb * r];
+  const cab = Array.from({ length: 14 }, (_, k) => { const th = (k / 14) * 6.283, rr = 1 + 0.06 * Math.cos(th - 0.6) - 0.08 * Math.max(0, -Math.cos(th)); return Hp(Math.cos(th) * rr, Math.sin(th) * 0.84 * rr, Rh); });
+  if (P.cabelo === "veu" || P.cabelo === "longo") { const veu = P.cabelo === "veu"; desenha([Hp(0.2, -1.12, Rh), Hp(-0.6, -1.15, Rh), ad(T(0.27, -0.075), [0, 0], 0), T(veu ? 0.12 : 0.22, -0.085), T(veu ? 0.1 : 0.2, -0.05), Hp(-0.9, -0.2, Rh), Hp(0.4, -0.95, Rh)], { rgb: veu ? "220,215,255" : rgb }); }
+  desenha(cab);
+  const calota = (de, ate, rFora, cacho, n = 20) => { const pts = []; for (let k = 0; k <= n; k++) { const th = de + (ate - de) * k / n; pts.push(Hp(Math.cos(th), Math.sin(th), Rh * (rFora + cacho * Math.abs(Math.sin(th * 6))))); } for (let k = n; k >= 0; k--) { const th = de + (ate - de) * k / n; pts.push(Hp(Math.cos(th), Math.sin(th), Rh * 0.92)); } return pts; };
+  if (P.cabelo === "cachos") { desenha(calota(-2.6, 1.1, 1.16, 0.09)); for (const th of [-1.6, -0.6, 0.4]) det([Hp(Math.cos(th), Math.sin(th), Rh * 0.98), Hp(Math.cos(th + 0.25), Math.sin(th + 0.25), Rh * 1.08)]); }
+  if (P.cabelo === "curto") { desenha(calota(-2.3, 1.15, 1.08, 0.015)); det([Hp(0.55, 0.85, Rh), Hp(0.85, 0.35, Rh * 1.04)]); }
+  if (P.cabelo === "longo") { desenha(calota(-2.7, 1.2, 1.09, 0.02)); det([Hp(0.9, 0.3, Rh), Hp(0.6, -0.5, Rh * 1.05), Hp(-0.3, -1.0, Rh * 1.05)]); }
+  if (P.cabelo === "turbante") { desenha(calota(-2.4, 1.3, 1.3, 0.03)); for (const r2 of [1.0, 1.1]) det([Hp(Math.cos(1.1), Math.sin(1.1), Rh * r2), Hp(1.1, 0, Rh * r2 * 0.95), Hp(Math.cos(-2.1), Math.sin(-2.1), Rh * r2)]); }
+  if (P.cabelo === "veu") { desenha(calota(-2.5, 1.3, 1.14, 0.0), { rgb: "220,215,255" }); det([Hp(1.0, 0.6, Rh * 1.1), Hp(0.2, 1.0, Rh * 1.12)], { rgb: "220,215,255" }); }
+  if (P.cabelo === "elmo") {
+    desenha([...calota(-2.0, 1.25, 1.1, 0.0).slice(0, 21), Hp(Math.cos(1.25), Math.sin(1.25), Rh * 0.92), Hp(Math.cos(-2.0), Math.sin(-2.0), Rh * 0.92)]);
+    det([Hp(Math.cos(1.3), Math.sin(1.3), Rh * 1.14), Hp(Math.cos(-2.05), Math.sin(-2.05), Rh * 1.14)], { lw: 1.1 });
+    desenha([Hp(0.15, -0.95, Rh), Hp(-0.55, -0.8, Rh), Hp(-0.75, -0.3, Rh), Hp(-0.35, -0.15, Rh), Hp(0.1, -0.4, Rh)]);
+    const pena = []; for (let k = 0; k <= 14; k++) { const u2 = k / 14, th = 0.35 - 2.4 * u2, rr = 1.12 + 0.75 * Math.pow(Math.sin(Math.PI * u2), 0.8) + 0.03 * Math.sin(t * 6 + k); pena.push(Hp(Math.cos(th), Math.sin(th), Rh * rr)); }
+    for (let k = 14; k >= 0; k--) { const u2 = k / 14, th = 0.35 - 2.4 * u2; pena.push(Hp(Math.cos(th), Math.sin(th), Rh * 1.12)); }
+    desenha(pena); for (let k = 2; k < 13; k += 2) { const th = 0.35 - 2.4 * k / 14; det([Hp(Math.cos(th), Math.sin(th), Rh * 1.16), Hp(Math.cos(th - 0.06), Math.sin(th - 0.06), Rh * (1.12 + 0.7 * Math.pow(Math.sin(Math.PI * k / 14), 0.8)))]); } }
   braco(bracos[1], false);
   y.restore();
-  return { maos: bracos.map((b) => pr(b[2])), cabeca: pr(Hd), escala: kk, pr, H };
+  return { maos: bracos.map((b) => pr(b[2])), cabeca: pr(Hd), escala: kk, pr, H, oy, ox };
 }
+// poses extras para os personagens
+POSES.andar = (fase, passo = 1) => {
+  const s = Math.sin(fase), c2 = Math.cos(fase), dob = (q) => -(0.08 + 1.0 * Math.max(0, q)) * passo;
+  return { tronco: 0.05 * passo, cabeca: -0.02, braco: [[-0.4 * s * passo - 0.05, 0.3 + 0.25 * Math.max(0, s)], [0.4 * s * passo - 0.05, 0.3 + 0.25 * Math.max(0, -s)]],
+    perna: [[0.38 * s * passo, dob(c2)], [-0.38 * s * passo, dob(-c2)]] };
+};
+POSES.encolhido = { tronco: 0.55, cabeca: 0.65, braco: [[0.95, 1.55], [1.05, 1.6]], perna: [[1.75, -2.25], [1.65, -2.15]] };
+POSES.olhando_cima = { tronco: -0.08, cabeca: -0.45, braco: [[-0.15, 0.3], [0.2, 0.35]], perna: [[-0.08, 0], [0.08, 0]] };
+POSES.sentado = { tronco: 0.08, cabeca: 0.1, braco: [[0.5, 0.9], [0.55, 0.85]], perna: [[1.45, -1.4], [1.35, -1.35]] };
+POSES.segurando = { tronco: 0.04, cabeca: 0.15, braco: [[0.75, 0.9], [0.85, 0.8]], perna: [[-0.05, 0], [0.06, 0]] };
+POSES.entregando = { tronco: 0.12, cabeca: 0.2, braco: [[0.9, 0.3], [1.15, 0.2]], perna: [[-0.12, 0], [0.18, -0.05]] };
+POSES.abracando = { tronco: 0.1, cabeca: 0.25, braco: [[1.1, 1.2], [1.25, 1.3]], perna: [[-0.05, 0], [0.1, -0.05]] };

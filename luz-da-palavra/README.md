@@ -78,6 +78,12 @@ do Google, duração mínima de 1:30).
   conhece que anda chorando escondido? Marca essa pessoa aqui do lado." / "Qual medo você quer
   entregar hoje? Escreve numa palavra só." Use `cenaPergunta(el, c, B, { texto, sub, icone, de })`
   (batida "comenta": o ícone voa até o botão de comentários). Não prometa resposta.
+- **Personagens em line art em TODO vídeo (símbolo do canal):** pessoas desenhadas em traço de luz,
+  com roupa e acessórios do personagem e **sem rosto**, sobre o mundo em pontos de luz. Use
+  `personagem(x, t, pose, { tipo, x, chao, H, dir, cam, z })` (tipos: davi, pessoa, homem, mulher, jesus,
+  golias, crianca) com as poses de `POSES` (de_pe, andar(fase), ajoelhado, orando, sentado, segurando,
+  entregando, abracando, bracos_abertos, funda(giro), lanca, caido) e `poseMix`. Objetos e cenário
+  continuam em pontos de luz. 3D só quando melhorar muito a qualidade.
 - **Fila sem parar:** ao entregar um vídeo, comece o próximo da `FILA.md` sem esperar confirmação.
 - **Selo de série** ("Versículo do dia #N") só quando o vídeo fizer parte de uma série.
 - **3D** (`motor/tres.js`) é permitido neste canal **só quando melhorar muito a qualidade** do vídeo
