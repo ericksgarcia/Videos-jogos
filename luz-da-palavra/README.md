@@ -135,6 +135,14 @@ do Google, duração mínima de 1:30).
 - Trilha `contemplativa` (sem batida: coro, harpa, grave, reverb de catedral); efeitos novos `sino` e
   `respiro` (transição suave).
 
+## Narração: um pedido por vídeo
+
+A cota do Gemini TTS é por pedido (100 por dia no projeto da chave). O canal tem `"um_pedido": true` em
+`identidade/marca.json` → `voz`: o `gerar.py` narra o vídeo inteiro numa única leitura
+(`voz.narrar_video`) e corta o áudio por cena nas pausas entre elas. Um vídeo gasta 1 pedido (antes, 1 por
+cena), e a voz sai contínua. Vídeos antigos, com todas as cenas no cache por cena, continuam usando esse
+cache. Se a leitura inteira falhar, volta a narrar cena a cena.
+
 ## Entrega (cada vídeo)
 
 1. Roteiro, cenas, `--previa`; olhe todas as folhas e corrija até ficar limpo.

@@ -400,8 +400,7 @@ def narrar(texto, tts=None, direcao=None, voz_nome=None):
     for nome in _ordem():
         fn, padrao = PROVEDORES[nome]
         voz = voz_nome if (voz_nome and nome == "gemini") else os.environ.get("VOZ_NOME", padrao)
-        extra = f"{GEMINI_MODELO}|{direcao or DIRECAO}|{tts}" if nome == "gemini" else VELOCIDADE
-        h = hashlib.sha1(f"{nome}|{voz}|{extra}|{texto}".encode()).hexdigest()[:16]
+        h = _chave(nome, voz, texto, tts, direcao)
         wav, meta = CACHE / f"{h}.wav", CACHE / f"{h}.json"
         if wav.exists() and meta.exists():
             return json.loads(meta.read_text())
@@ -419,6 +418,70 @@ def narrar(texto, tts=None, direcao=None, voz_nome=None):
         return res
     palavras, dur = _palavras_estimadas(texto)
     return {"wav": None, "dur": round(dur, 3), "palavras": palavras, "provedor": "nenhum"}
+
+
+def _chave(nome, voz, texto, tts=None, direcao=None):
+    extra = f"{GEMINI_MODELO}|{direcao or DIRECAO}|{tts}" if nome == "gemini" else VELOCIDADE
+    return hashlib.sha1(f"{nome}|{voz}|{extra}|{texto}".encode()).hexdigest()[:16]
+
+
+def _cortar_cenas(inteiro, falas, palavras, dur, h):
+    """Corta a narração do vídeo inteiro em uma faixa por cena, nas pausas entre as cenas.
+    Devolve, por cena, {"wav", "dur", "palavras"} (tempos relativos ao começo da faixa)."""
+    pausas, _ = _pausas(inteiro, 0.08)
+    cont = [len(f.split()) for f in falas]
+    limites, n0 = [], 0
+    for n in cont:
+        limites.append((n0, n0 + n)); n0 += n
+    inicios, fins = [0.0], []
+    for k in range(len(falas) - 1):
+        _, n1 = limites[k]
+        ult, prox = palavras[n1 - 1], palavras[n1]
+        # a pausa mais longa perto da virada (o alinhamento pode errar uns décimos para qualquer lado)
+        cand = [(b - a, a, b) for a, b in pausas if b > ult[1] - 0.6 and a < prox[1] + 0.4]
+        if cand:
+            _, a, b = max(cand)
+            fins.append(a + 0.08); inicios.append(max(a + 0.08, b - 0.03))
+        else:
+            meio = (ult[2] + prox[1]) / 2
+            fins.append(meio); inicios.append(meio)
+    fins.append(dur)
+    out = []
+    for k, ((i0, i1), a, b) in enumerate(zip(limites, inicios, fins)):
+        wav = CACHE / f"{h}-c{k:02d}.wav"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(inteiro), "-af", f"atrim=start={a:.3f}:end={b:.3f},asetpts=PTS-STARTPTS",
+                        "-ar", "48000", "-ac", "1", str(wav)], check=True)
+        ws = [[w, round(max(0.0, ini - a), 3), round(max(0.0, min(fim, b) - a), 3)] for w, ini, fim in palavras[i0:i1]]
+        out.append({"wav": str(wav), "dur": round(b - a, 3), "palavras": ws, "provedor": "gemini"})
+    return out
+
+
+def narrar_video(falas, tts=None, direcao=None, voz_nome=None):
+    """Narra o vídeo inteiro num único pedido ao Gemini (1 pedido por vídeo em vez de 1 por cena: a
+    cota diária do TTS rende ~10 vezes mais, e a leitura sai contínua) e corta o áudio por cena.
+    Devolve a lista no formato de narrar(), ou None se não deu (quem chama narra cena a cena).
+    Vídeos que já têm todas as cenas no cache antigo (uma por cena) continuam usando esse cache."""
+    CACHE.mkdir(parents=True, exist_ok=True)
+    tts = tts or falas
+    voz = voz_nome or os.environ.get("VOZ_NOME", PROVEDORES["gemini"][1])
+    antigos = [CACHE / f"{_chave('gemini', voz, f, t, direcao)}.json" for f, t in zip(falas, tts)]
+    if all(m.exists() for m in antigos):
+        return [json.loads(m.read_text()) for m in antigos]
+    h = "v" + hashlib.sha1(f"video|{voz}|{GEMINI_MODELO}|{direcao or DIRECAO}|{json.dumps([falas, tts], ensure_ascii=False)}".encode()).hexdigest()[:15]
+    meta = CACHE / f"{h}.json"
+    if meta.exists():
+        return json.loads(meta.read_text())
+    inteiro = CACHE / f"{h}.wav"
+    try:
+        palavras, dur = _gemini("\n\n".join(falas), voz, inteiro, tts="\n\n".join(tts), direcao=direcao)
+        if len(palavras) != sum(len(f.split()) for f in falas):
+            raise ValueError("alinhamento com número de palavras diferente")
+        res = _cortar_cenas(inteiro, falas, palavras, dur, h)
+    except Exception as e:
+        print(f"   [voz] narração do vídeo inteiro indisponível ({type(e).__name__}: {str(e)[:90]})")
+        return None
+    meta.write_text(json.dumps(res, ensure_ascii=False))
+    return res
 
 
 def _norm(w):

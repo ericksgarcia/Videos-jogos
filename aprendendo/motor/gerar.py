@@ -83,10 +83,15 @@ def _r(x):
 
 
 def narrar(roteiro):
+    nome = roteiro.get("voz", MARCA["voz"]["nome"])
+    if MARCA["voz"].get("um_pedido"):  # canal que narra o vídeo inteiro num pedido só (economiza a cota)
+        r = voz.narrar_video([c["fala"] for c in roteiro["cenas"]], [c.get("tts") or c["fala"] for c in roteiro["cenas"]], direcao=DIRECAO, voz_nome=nome)
+        if r:
+            return r
     out = []
     for c in roteiro["cenas"]:
         tts = c.get("tts") or c["fala"]
-        out.append(voz.narrar(c["fala"], tts, direcao=DIRECAO, voz_nome=roteiro.get("voz", MARCA["voz"]["nome"])))
+        out.append(voz.narrar(c["fala"], tts, direcao=DIRECAO, voz_nome=nome))
     return out
 
 

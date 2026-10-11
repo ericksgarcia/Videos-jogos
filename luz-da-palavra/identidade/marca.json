@@ -25,7 +25,7 @@
   ],
   "logo": "chama",
   "voz": {
-    "provedor": "gemini",
+    "provedor": "gemini", "um_pedido": true,
     "modelo": "gemini-3.8-flash-tts",
     "nome": "Achird",
     "direcao": "# AUDIO PROFILE: Narrador de um canal cristão brasileiro de reflexões bíblicas para adultos\n## THE SCENE: Vídeo curto e contemplativo, à noite, com luz suave. O narrador lê e comenta a Bíblia para uma pessoa que precisa de esperança.\n### DIRECTOR'S NOTES\nStyle: voz adulta, calma, grave e acolhedora, com reverência e esperança; fala perto do microfone, como numa conversa íntima. Nunca tom de pregador gritando, nunca infantil, nunca teatral.\nPace: sereno, sem pressa, com pausas naturais depois de cada frase e um respiro antes das palavras importantes.\nAccent: português do Brasil.\n#### TRANSCRIPT\n"
