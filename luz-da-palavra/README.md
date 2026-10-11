@@ -140,9 +140,11 @@ do Google, duração mínima de 1:30).
 1. Roteiro, cenas, `--previa`; olhe todas as folhas e corrija até ficar limpo.
 2. Render; confira quadros do MP4 final; menos de 30 MB. A narração tem de sair `{'gemini'}`; se não,
    pare e avise o dono.
-3. `SendUserFile` com MP4 + `capa.jpg` e, na mesma mensagem, a **legenda do post** pronta para colar:
-   gancho na 1ª linha, palavras de busca, pergunta para comentar, pedido de salvar/compartilhar e
-   4–6 hashtags (1–2 amplas como #biblia #fe, 2–3 do tema e #luzdapalavra; no Shorts, #shorts), mais
-   uma sugestão de comentário para fixar.
+3. **Legenda junto com o vídeo (pedido do dono):** no roteiro, `descricao` (gancho na 1ª linha, palavras
+   de busca, pergunta para comentar, pedido de salvar/compartilhar), `hashtags` (4–6: 1–2 amplas como
+   #biblia #fe, 2–3 do tema e #luzdapalavra) e `comentario_fixado`. Rode
+   `python luz-da-palavra/legenda.py luz-da-palavra/videos/<tema>` (grava `legenda.txt` na saída) e envie
+   **num único `SendUserFile`** o MP4 + `capa.jpg` + `legenda.txt`, com o texto da legenda e o comentário
+   para fixar no próprio `caption` do envio (não só na conversa).
 4. Commit + push na branch de trabalho. Sem PR sem pedido. Repositório público: nunca commite chaves
    nem o `.env`.
