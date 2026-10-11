@@ -59,7 +59,7 @@ def main():
     roteiro = {
         "slug": _slug(titulo), "titulo": titulo, "gancho": titulo.upper() + "?", "gancho_destaque": "",
         "voz": marca["voz"]["nome"], "sons": marca.get("sons_modelo", {"titulo": ["pop", 0.5], "cta": ["plim", 0.6]}),
-        "cenas": [{"id": i, "tipo": t, "titulo": tit or titulo, "fala": f"[{dica}]", "batidas": {}} for i, t, tit, dica in cenas],
+        "cenas": [{"id": i, "tipo": t, "titulo": tit if modelos else (tit or titulo), "fala": f"[{dica}]", "batidas": {}} for i, t, tit, dica in cenas],
     }
     if a.canal:
         roteiro = {"canal": a.canal, **roteiro}
