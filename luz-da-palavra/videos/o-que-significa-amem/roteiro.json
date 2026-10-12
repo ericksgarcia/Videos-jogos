@@ -8,6 +8,7 @@
   "gancho": "A PALAVRA QUE VOCÊ MAIS DIZ",
   "gancho_destaque": "PALAVRA",
   "voz": "Achird",
+  "capa": {"t": 8.3, "y": 1660},
   "sons": {
     "oracao": ["respiro", 0.35], "ultima": ["sino", 0.4], "nome": ["brilho", 0.3],
     "hebraico": ["respiro", 0.3], "firme": ["thud", 0.4], "balanca": ["sino", 0.4],

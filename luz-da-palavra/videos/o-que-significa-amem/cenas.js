@@ -38,8 +38,8 @@ CENAS.abertura = (el, c, B) => {
     let i = AM_ceu(nv, x, 0, t, cam);
     // a pessoa ajoelhada em oração; das mãos sobem partículas de luz
     const ora = { ...POSES.orando, cabeca: 0.45 - 0.5 * w, tronco: 0.12 - 0.08 * w };
-    const [gx, gy, gk] = projP(cam, 560, 1180, 1); brilhoP(x, gx, gy, 520 * gk, LUZS.ambar, 0.2);
-    const pz = personagem(x, t, ora, { tipo: "pessoa", x: 500, chao: 1420, H: 640, dir: 1, cam, z: 1, cor: mixCor([0.9, 0.92, 1], LUZ.luz, 0.5 * w), fase: 2 });
+    const [gx, gy, gk] = projP(cam, 560, 1080, 1); brilhoP(x, gx, gy, 520 * gk, LUZS.ambar, 0.2);
+    const pz = personagem(x, t, ora, { tipo: "pessoa", x: 500, chao: 1320, H: 640, dir: 1, cam, z: 1, cor: mixCor([0.9, 0.92, 1], LUZ.luz, 0.5 * w), fase: 2 });
     const [hx, hy] = pz.maos[1]; brilhoP(x, hx, hy, 90 * pz.escala, LUZS.luz, 0.6);
     i = AM_sobe(nv, i, t, hx, hy - 20, 1, 60);
     if (w > 0.01) { const [ax, ay, ak] = projP(cam, 540, 640, 1); brilhoP(x, ax, ay, 300 * ak, LUZS.luz, 0.15 * w + 0.2 * bri); i = desenharForma(nv, AM_F.amem, { cx: ax, cy: ay, esc: 760 * ak, cor: LUZ.luz, borda: [1, 1, 1], brilho: 0.8 + 0.4 * bri, revela: w, t, i0: i }); }
@@ -99,7 +99,7 @@ CENAS.detalhe = (el, c, B) => {
     const [cx, cy, ck] = projP(cam, 540, 1080, 1);
     brilhoP(x, cx, cy, (360 + 200 * u) * ck, LUZS.ambar, 0.2 + 0.2 * u);
     if (fiel > 0) for (let r = 0; r < 18; r++) { const an = -Math.PI / 2 + (r - 8.5) * 0.19, L = (240 + 420 * fiel) * ck; linhaP(x, cx, cy - 200 * ck, cx + Math.cos(an) * L, cy - 200 * ck + Math.sin(an) * L, LUZS.ouro, 0.07 * fiel, 3); }
-    i = morfo(nv, AM_F.amem, AM_F.halo, u, { de: { cx, cy: cy - 40 * ck, esc: 720 * ck, cor: LUZ.luz, borda: [1, 1, 1], brilho: 0.85 }, para: { cx, cy: cy - 210 * ck, esc: 700 * ck, cor: mixCor(LUZ.luz, LUZ.ouro, 0.5), borda: LUZ.luz, brilho: 0.6 + 0.2 * fiel, a: 0.55 }, t, onda: 0.35, curva: 0.5, sobe: 60, i0: i });
+    i = morfo(nv, AM_F.amem, AM_F.halo, u, { de: { cx, cy: cy - 40 * ck, esc: 720 * ck, cor: LUZ.luz, borda: [1, 1, 1], brilho: 0.85 }, para: { cx, cy: cy - 170 * ck, esc: 600 * ck, cor: mixCor(LUZ.luz, LUZ.ouro, 0.5), borda: LUZ.luz, brilho: 0.6 + 0.2 * fiel, a: 0.55 }, t, onda: 0.35, curva: 0.5, sobe: 60, i0: i });
     const aJ = PT.ss((t - tA + 0.1) / 1.0);
     if (aJ > 0.01) personagem(x, t, poseMix(POSES.de_pe, { ...POSES.bracos_abertos, braco: [[-1.0, 0.35], [1.0, 0.35]] }, 0.6 * fiel), { tipo: "jesus", x: 540, chao: 1450, H: 620, dir: 1, cam, z: 1, a: aJ, fase: 3 });
     nv.total(i);
