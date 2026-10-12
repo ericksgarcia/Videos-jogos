@@ -213,6 +213,46 @@ function cenaPergunta(el, c, B, o = {}) {
   });
 }
 
+// ---------- cena do apoio (meio do vídeo, ~5 s): "a família cristã é unida" → seguir + comentar ----------
+// Rápida para ninguém sair: luzes soltas (pessoas) se juntam em mãos que oram ("unida"); na batida "segue" o
+// botão SEGUIR aparece e uma seta aponta o perfil na lateral direita; na batida "comenta", a seta desce para
+// os comentários com "amém". o.texto / o.sub trocam os textos; o.forma troca o símbolo (padrão hands-praying).
+const _APOIO_F = {};
+function cenaApoio(el, c, B, o = {}) {
+  const nome = o.forma || "hands-praying", F2 = _APOIO_F[nome] = _APOIO_F[nome] || formaPontos(nome, 9000), PO2 = _APOIO_F._p = _APOIO_F._p || poeiraForma(9000, 77, 0.5);
+  const tU = B("unido"), tS = B("segue"), tC = B("comenta"), y0 = o.y || 420;
+  const TP = telaGPU(el, c, { fundo: LUZ.fundo.map((q) => q * 0.85) }), nv = TP.nuvem(30000), FD = fundoProfundo(o.seed || 83, 600);
+  const tx = palcoTexto(el, [["lp-q", y0, o.tam || 78, o.texto || "A família cristã<br><b>é unida.</b>", "lp-q", ""], ["lp-s", 1380, 50, o.sub || "Segue e comenta <b>amém</b>", "lp-s", ""]]);
+  tl.set([tx["lp-q"], tx["lp-s"]], { opacity: 0 }, 0);
+  tl.fromTo(tx["lp-q"], { opacity: 0, y: 24, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out", immediateRender: false }, c.ini + 0.05);
+  tl.fromTo(tx["lp-s"], { opacity: 0, y: 16, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: false }, tS - 0.15);
+  const CAM = cameraProf([[c.ini, { x: 540, y: 960, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 955, zoom: 1.07 }]]);
+  const IX = 520, IY = 800, SX = 990, SY = 1075, CX2 = 990, CY2 = 1250;
+  TP.quadro((x, t) => {
+    const cam = CAM(t);
+    let i = desenharFundo(nv, FD, t, cam, LUZ.luz, 0.8, 0);
+    brilhoP(x, IX, IY, 620, LUZS.ambar, 0.12 + 0.12 * PT.ss((t - tU) / 0.8));
+    // luzes espalhadas pela tela se juntam nas mãos que oram, na palavra "unida"
+    const u = PT.ss((t - tU + 0.5) / 1.1), esc = 360 * FIS.respira(t, 0, 0.02);
+    const para = { cx: IX, cy: IY, esc, cor: LUZ.ouro, borda: LUZ.luz, brilho: 1.1, giro: 0.1 * Math.sin(t * 0.7) };
+    i = morfo(nv, PO2, F2, u, { de: { cx: IX, cy: IY, esc: 1500, cor: LUZ.luz, brilho: 1.2, giro: t * 0.05 }, para, t, onda: 0.35, curva: 0.6, i0: i });
+    if (u >= 1) for (let k = 0; k < 2; k++) { const v = ((t - tU) * 0.5 + k / 2) % 1; anelP(x, IX, IY, 200 + v * 300, LUZS.ouro, 0.25 * (1 - v), 3); }
+    // botão SEGUIR + seta para o perfil (lateral direita) e depois para os comentários
+    const aS = PT.ss((t - tS) / 0.35), aC = PT.ss((t - tC) / 0.35), b = Math.sin(t * 7) * 12;
+    if (aS > 0.01) {
+      const pul = 1 + 0.08 * Math.max(0, Math.sin((t - tS) * 7)), w = 300 * pul, h = 92 * pul, bx = 700, by = SY;
+      x.save(); x.globalAlpha = aS; x.fillStyle = `rgba(${LUZS.ouro},0.95)`; x.shadowColor = `rgba(${LUZS.ouro},0.8)`; x.shadowBlur = 30;
+      x.beginPath(); x.roundRect(bx - w / 2, by - h / 2, w, h, h / 2); x.fill(); x.restore();
+      rotuloP(x, "+ SEGUIR", bx, by + 2, 48, "30,20,10", aS);
+      fSeta(x, 870 + b, SY, 950 + b, SY, LUZS.ouro, aS * (1 - aC), 9);
+      for (let k = 0; k < 2; k++) { const v = ((t - tS) * 0.9 + k / 2) % 1; anelP(x, SX, SY, 50 + v * 90, LUZS.ouro, 0.5 * (1 - v) * aS * (1 - aC * 0.7), 3); }
+    }
+    if (aC > 0.01) { fSeta(x, 760 + b, CY2, 930 + b, CY2, LUZS.ouro, aC, 10); rotuloP(x, "amém", 840, CY2 - 62, 46, "255,236,200", aC);
+      for (let k = 0; k < 3; k++) { const v = ((t - tC) * 0.8 + k / 3) % 1; anelP(x, CX2, CY2, 50 + v * 110, LUZS.ouro, 0.5 * (1 - v) * aC, 3); } }
+    nv.total(i);
+  });
+}
+
 // ================= bonecos de linha (esqueleto animado, traços de luz, sem rosto) =================
 // Pose (ângulos em radianos; 0 = pendurado para baixo, positivo = para a frente; dir = 1 olha para a direita):
 //   { tronco, cabeca, braco: [[ombro, cotovelo] (trás), [ombro, cotovelo] (frente)], perna: [[quadril, joelho] x2] }
@@ -479,3 +519,5 @@ POSES.sentado = { tronco: 0.08, cabeca: 0.1, braco: [[0.5, 0.9], [0.55, 0.85]], 
 POSES.segurando = { tronco: 0.04, cabeca: 0.15, braco: [[0.75, 0.9], [0.85, 0.8]], perna: [[-0.05, 0], [0.06, 0]] };
 POSES.entregando = { tronco: 0.12, cabeca: 0.2, braco: [[0.9, 0.3], [1.15, 0.2]], perna: [[-0.12, 0], [0.18, -0.05]] };
 POSES.abracando = { tronco: 0.1, cabeca: 0.25, braco: [[1.1, 1.2], [1.25, 1.3]], perna: [[-0.05, 0], [0.1, -0.05]] };
+// qualquer vídeo do canal usa a cena de apoio só pondo no roteiro {"tipo": "apoio", ...} (opções em "apoio": {texto, sub, forma})
+if (typeof CENAS !== "undefined" && !CENAS.apoio) CENAS.apoio = (el, c, B) => cenaApoio(el, c, B, c.apoio || {});

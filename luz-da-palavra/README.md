@@ -46,8 +46,8 @@ do Google, duração mínima de 1:30).
 ## Regras de conteúdo (sempre)
 
 - **Público:** cristão em geral, adulto. Tom de **esperança, assombro e acolhimento**.
-- **Respeito acima de tudo.** Jesus, Maria, anjos e profetas aparecem só como **silhuetas de luz**,
-  sem rosto nem feições. Nada de caricatura.
+- **Respeito acima de tudo.** Personagens (inclusive Jesus e Maria) em traço de luz com rosto de perfil
+  (pedido do dono, out/2026), sempre com dignidade. Nada de caricatura.
 - **Fidelidade ao texto:** todo versículo citado tem a **referência exata na tela** (ex.: "João 8:12"),
   com `mostrarVersiculo(texto, "João 8:12", t0, t1)`. Confira cada referência e citação antes de pôr
   no roteiro.
@@ -90,6 +90,28 @@ do Google, duração mínima de 1:30).
   (lanca, espada, escudo, cajado, funda, pao, peixe, cesto, pedra). O personagem fica na camada nítida, por
   cima dos pontos: objeto em pontos que deve aparecer na mão vai um pouco acima dela (ou use `objetoLinha`).
   Cenário e objetos grandes continuam em pontos de luz. 3D só quando melhorar muito a qualidade.
+- **Pedido de apoio no MEIO do vídeo (pedido do dono, out/2026): em todo vídeo.** Uma cena curta
+  (`{"tipo": "apoio"}` no roteiro, ~5 s, `cenaApoio` na identidade: luzes soltas se juntam em mãos que oram,
+  botão "+ SEGUIR" com seta para o perfil e seta para os comentários com "amém"). Linha do dono: **"sei que
+  nosso público cristão é unido e vai apoiar seguindo o canal"**. Técnicas: identidade ("você que é de
+  Cristo", "a família cristã é unida"), custo baixo ("leva um segundo"), propósito ("pra essa palavra chegar
+  em quem precisa") e o pedido logo **depois de um laço aberto** (a pessoa fica para ver a resposta).
+  Onde: entre 35% e 50% do vídeo (versículo do dia: ~15–20 s; história: ~40–60 s), nunca nos primeiros 12 s.
+  Fala rápida, 15–20 palavras; batidas `"unida."`→`unido`, `segue`→`segue`, `comenta`→`comenta` (ajuste à frase).
+  Alterne as frases entre vídeos:
+  1. "Rapidinho: eu sei que a família cristã é unida. Então segue o Luz da Palavra e comenta amém, pra essa palavra chegar em quem precisa."
+  2. "Antes de continuar: eu sei que o povo de Deus é unido e apoia quem leva a Palavra. Segue o canal e comenta amém, leva um segundo."
+  3. "Eu sei que quem é de Cristo é unido e não deixa a Palavra parar. Segue o Luz da Palavra e comenta amém pra ela ir mais longe."
+  4. "Rapidinho: cristão é unido, cristão apoia cristão. Se essa palavra está falando com você, segue o canal e comenta amém."
+  Limite: sem culpa nem medo ("se não seguir…", "quem não comentar não é cristão"), regra do canal.
+- **Personagens bíblicos específicos: pesquise antes de desenhar (pedido do dono).** Para cada personagem
+  conhecido da história (Moisés, Noé, João Batista, Pedro, Golias, anjo Gabriel…), pesquise (WebSearch) o que
+  a Bíblia descreve (ex.: Davi ruivo, 1 Sm 16:12; Golias com elmo de bronze e couraça de escamas, 1 Sm 17:5–7;
+  João Batista com roupa de pelo de camelo e cinto de couro, Mt 3:4) e a iconografia tradicional em arte de
+  domínio público (Rembrandt, Doré, Tissot, ícones antigos): roupa, cores, objetos, cabelo/barba, idade.
+  Monte uma ficha no `kit/2-elenco.js` (com a fonte num comentário) e desenhe as peças que faltarem no
+  estilo do kit. Arte moderna (filmes, séries, ilustrações com direito autoral) não se copia: no máximo
+  serve para conferir atributos.
 - **Fila sem parar:** ao entregar um vídeo, comece o próximo da `FILA.md` sem esperar confirmação.
 - **Um vídeo por vez, do começo ao fim (pedido do dono):** roteiro → narração → personagens/cenas →
   prévia → render → entrega (MP4 + capa + legenda + comentário fixado) → commit, e **só então** o
