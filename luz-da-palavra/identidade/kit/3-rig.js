@@ -95,6 +95,14 @@ function figura(x, t, pose0, o = {}) {
     traca(membro([Q, K, Fp], PERF_PERNA, sx * 1.3, 0).map(pr), true, { al, rgb: PELE }); peca("pe", Fp, uP, { al, rgb: PELE });
   };
   // ---- ordem: braço de trás, (objeto de trás), pernas, túnica, tronco, cinto, manto, pescoço, cabeça, cabelo/barba/cobertura, braço da frente ----
+  // asas (anjos): nascem atrás das omoplatas; o.asas (0–1) abre/fecha, respiram sozinhas
+  if (F.asas) { const uW = un(C, [0, 0]), abre = (o.asas ?? 0.85) + 0.04 * Math.sin(t * 1.6 + fase), raiz = [-34, -240];
+    const gira2 = (pts, k) => pts.map(([px, py]) => { const an = (1 - abre) * 0.9 * k, dx = px - raiz[0], dy = py - raiz[1]; return [raiz[0] + dx * Math.cos(an) + dy * Math.sin(an) * -1, raiz[1] + dx * Math.sin(an) + dy * Math.cos(an)]; });
+    const ASA = [[-30, -250], [-42, -312], [-76, -392], [-126, -452], [-178, -476], [-216, -466], [-234, -432], [-240, -380], [-248, -318], [-260, -248], [-272, -176], [-284, -104], [-294, -40], [-272, -30], [-256, -74], [-240, -52], [-222, -108], [-204, -88], [-186, -150], [-166, -130], [-146, -194], [-124, -178], [-104, -220], [-80, -208], [-56, -232]];
+    const PENAS = [[[-206, -440], [-244, -260], [-276, -56]], [[-176, -436], [-212, -280], [-244, -86]], [[-146, -420], [-180, -290], [-210, -116]], [[-116, -392], [-146, -300], [-174, -158]], [[-86, -352], [-110, -290], [-132, -204]],
+      [[-52, -300], [-110, -372], [-176, -420], [-226, -424]], [[-48, -276], [-100, -330], [-160, -366], [-232, -366]]];
+    for (const [k, al2, dx] of [[1.3, 0.55, -22], [1, 1, 0]]) { const tr = (pts) => poe(gira2(pts.map(([px, py]) => [px + dx, py - dx * 0.4]), k), [0, 0], uW, 1, 1);
+      traca(tr(ASA), true, { rgb: ROUPA2, al: al2 }); for (const pn of PENAS) kitPincel(y, tr(pn), LW * 0.8, ROUPA2, a * al2 * 0.75, { brilho: 4 * kk }); } }
   braco(bracos[0], 0, true);
   if (o.atras) { y.save(); o.atras(y, info()); y.restore(); y.globalAlpha = a; }
   perna(pernas[0], true); perna(pernas[1], false);

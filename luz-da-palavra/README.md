@@ -97,9 +97,9 @@ do Google, duração mínima de 1:30).
   Cristo", "a família cristã é unida"), custo baixo ("leva um segundo"), propósito ("pra essa palavra chegar
   em quem precisa") e o pedido logo **depois de um laço aberto** (a pessoa fica para ver a resposta).
   Onde: entre 35% e 50% do vídeo (versículo do dia: ~15–20 s; história: ~40–60 s), nunca nos primeiros 12 s.
-  Fala rápida, 15–20 palavras; batidas `"unida."`→`unido`, `segue`→`segue`, `comenta`→`comenta` (ajuste à frase).
+  Fala rápida: 12–18 palavras, no máximo ~6 s; batidas `"unida."`→`unido`, `segue`→`segue`, `comenta`→`comenta` (ajuste à frase).
   Alterne as frases entre vídeos:
-  1. "Rapidinho: eu sei que a família cristã é unida. Então segue o Luz da Palavra e comenta amém, pra essa palavra chegar em quem precisa."
+  1. "Rapidinho: eu sei que a família cristã é unida. Segue o Luz da Palavra e comenta amém pra essa palavra ir longe."
   2. "Antes de continuar: eu sei que o povo de Deus é unido e apoia quem leva a Palavra. Segue o canal e comenta amém, leva um segundo."
   3. "Eu sei que quem é de Cristo é unido e não deixa a Palavra parar. Segue o Luz da Palavra e comenta amém pra ela ir mais longe."
   4. "Rapidinho: cristão é unido, cristão apoia cristão. Se essa palavra está falando com você, segue o canal e comenta amém."

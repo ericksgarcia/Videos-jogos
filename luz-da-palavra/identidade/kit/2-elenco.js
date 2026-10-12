@@ -26,6 +26,13 @@ const KIT_ELENCO = {
     pele: [0.92, 0.74, 0.58], roupa: [1, 0.72, 0.74], roupa2: [1, 0.88, 0.72] },
   crianca: { corpo: "tronco", larg: 1.05, alt: 1.0, cab: [1.04, 0.98], cabecaGrande: 1.25, cabeca: "cabeca_curto", cabelo: "cabelo_cacheado", manga: "manga_curta", barra: 240, cinto: true, barraEstilo: "linha",
     pele: [0.98, 0.82, 0.64], roupa: [0.7, 0.92, 0.76], roupa2: [1, 0.8, 0.5], corCabelo: [0.7, 0.55, 0.45] },
+  // José (Mt 1): iconografia tradicional (pintura sevilhana do séc. XVII, ícones): túnica ocre/marrom de
+  // carpinteiro, manto escuro esverdeado, barba, adulto maduro
+  jose: { corpo: "tronco", larg: 1.08, alt: 1.0, cab: [1.02, 1.0], cabeca: "cabeca_aquilino", cabelo: "cabelo_ondulado", barba: "barba_curta", manga: "manga_longa", barra: 400, cinto: true, manto: true, barraEstilo: "linha",
+    pele: [0.9, 0.72, 0.56], roupa: [0.92, 0.74, 0.48], roupa2: [0.72, 0.52, 0.34], corManto: [0.58, 0.72, 0.52], corCabelo: [0.58, 0.44, 0.34] },
+  // anjo: "veste branca como a neve" (Mt 28:3); asas da arte tradicional; sem barba, cabelo claro ondulado
+  anjo: { corpo: "tronco", larg: 0.98, alt: 1.06, cab: [0.98, 1.0], cabeca: "cabeca_curto", cabelo: "cabelo_ondulado", manga: "manga_longa", barra: 470, cinto: true, asas: true, barraEstilo: "dupla",
+    pele: [1, 0.9, 0.78], roupa: [0.97, 0.97, 1], roupa2: [1, 0.86, 0.55], corCabelo: [0.98, 0.88, 0.64] },
   idoso: { corpo: "tronco_barriga", larg: 1.12, alt: 0.95, cab: [1.03, 1.0], cabeca: "cabeca_queixo", cobertura: "pano_cabeca", barba: "barba_longa", manga: "manga_longa", barra: 420, cinto: true, colete: true, barraEstilo: "dupla", idade: 0.6,
     pele: [0.9, 0.74, 0.6], roupa: [0.8, 0.78, 0.92], roupa2: [0.72, 0.62, 0.95], corCabelo: [0.9, 0.9, 0.92] },
 };
