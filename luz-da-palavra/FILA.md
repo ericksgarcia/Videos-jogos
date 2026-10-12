@@ -18,7 +18,7 @@ Nunca prepare o próximo vídeo enquanto o atual renderiza: termina, entrega, e 
       ilumina um passo por vez (a lamparina antiga só iluminava um passo).
 - [x] 5. **Davi e Golias** (1 Samuel 17) — história. Cinco pedras lisas, sem armadura; o gigante
       desfocado ao fundo. Pergunta: qual é o seu gigante hoje?
-- [ ] 6. **O que significa "Amém"?** — significado (hebraico: firme, verdadeiro).
+- [x] 6. **O que significa "Amém"?** — significado (hebraico: firme, verdadeiro).
 - [ ] 7. **Os pães e os peixes** (João 6:1–14) — história. Morph 1 pão → muitos; o lanche de um
       menino; sobram 12 cestos.
 - [ ] 8. **Jesus acalma a tempestade** (Marcos 4:35–41) — história. Barco e ondas de pontos; a
