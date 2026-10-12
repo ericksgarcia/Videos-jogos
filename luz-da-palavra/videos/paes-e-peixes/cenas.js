@@ -97,7 +97,7 @@ CENAS.conta = (el, c, B) => {
 // =============== 4. o lanche: André traz o menino; cinco pães e dois peixinhos para tantos ===============
 CENAS.rapaz = (el, c, B) => {
   const tR = B("rapaz"), t5 = B("cinco"), t2 = B("dois"), tT = B("tantos"), tp = tempoPalavras(c), tE = tp("está"), tCe = tp("cevada", 1);
-  mostrarVersiculo("Está aqui um rapaz que tem cinco pães de cevada e dois peixinhos; mas que é isto para tantos?", "João 6:9", tE - 0.3, tCe - 0.4, { y: 360, tam: 56, destaque: ["cinco", "dois", "tantos?"] });
+  mostrarVersiculo("Está aqui um rapaz que tem cinco pães de cevada e dois peixinhos; mas que é isto para tantos?", "João 6:9", tE - 0.3, tCe - 0.4, { y: 470, tam: 56, destaque: ["cinco", "dois", "tantos?"] });
   const TV = telaGPU(el, c, PP_FUNDO), nv = TV.nuvem(80000);
   const CAM = cameraProf([[c.ini, { x: 520, y: 1150, zoom: 1.05 }], [tT - 0.4, { x: 560, y: 1130, zoom: 1.08 }], [tT + 1.2, { x: 600, y: 1060, zoom: 0.72 }], [c.fim + 0.5, { x: 600, y: 1060, zoom: 0.7 }]]);
   TV.quadro((x, t) => {
@@ -146,19 +146,20 @@ CENAS.detalhe = (el, c, B) => {
   mostrarVersiculo("Recolhei os pedaços que sobejaram, para que nada se perca.", "João 6:12", tR - 0.3, c.fim + 0.3, { y: 400, tam: 64, destaque: ["recolhei", "nada"] });
   const TV = telaGPU(el, c, PP_FUNDO), nv = TV.nuvem(90000);
   const CAM = cameraProf([[c.ini, { x: 540, y: 1100, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 1080, zoom: 1.08 }]]);
-  const CES = Array.from({ length: 12 }, (_, k) => [180 + (k % 4) * 240 + (Math.floor(k / 4) % 2) * 60, 1000 + Math.floor(k / 4) * 150]);
+  const CES = Array.from({ length: 12 }, (_, k) => [270 + (k % 4) * 195 + (Math.floor(k / 4) % 2) * 40, 1010 + Math.floor(k / 4) * 140]);
   const PED = (() => { const r = prng(153); return Array.from({ length: 160 }, () => [r() * 1080, 1360 + r() * 120, r()]); })();
   TV.quadro((x, t) => {
     const cam = CAM(t), junta = PT.ss((t - tR + 0.2) / 1.6), todos = PT.ss((t - tC + 0.4) / 0.8);
     let i = PP_cenario(nv, x, 0, t, cam, { povo: 0.6, sentado: 1, a: 0.7 });
-    // os pedaços no chão voam para os cestos
-    PED.forEach(([px, py, v], k) => { const alvo = CES[k % 12], u = PT.ss((junta * 1.3 - v * 0.3)); if (u > 0.98) return; const [qx, qy] = FIS.arco(px, py, alvo[0], alvo[1] - 30, u, 120); nv.ponto(i++, qx, qy, 1, 0.85, 0.6, 0.6 * (1 - u * 0.5), 5); });
-    CES.forEach(([X, Y], k) => { const ap = FIS.cascata(t, t12 - 0.3, k, 0.1, 0.5); if (ap <= 0.01) return; const m = Math.min(1, ap), enche = PT.ss((t - t12 - k * 0.1) / 1.0);
-      brilhoP(x, X, Y - 20, 150, LUZS.ambar, (0.15 + 0.25 * todos) * m);
-      objetoLinha(x, "cesto", { mao: [X, Y + 40 * (1 - m)], H: 560, k: 1, d: 1, cor: mixCor(PP_QUENTE, LUZ.ouro, todos), a: m, r: 0.16 });
-      for (let j = 0; j < 3; j++) if (enche > j / 3) i = desenharForma(nv, PP_F.pao, { cx: X + (j - 1) * 34, cy: Y - 52 - (j === 1 ? 14 : 0), esc: 60, cor: [1, 0.84, 0.58], borda: [1, 0.97, 0.9], brilho: 0.8 + 0.3 * todos, a: m, t, i0: i }); });
-    // um discípulo leva o primeiro cesto
-    personagem(x, t, { ...POSES.carregando, cabeca: 0.2 }, { tipo: "homem", x: 70, chao: 1500, H: 520, dir: 1, fase: 5, a: 0.9 * (1 - todos) });
+    // os pedaços espalhados no chão brilham e, em "Recolhei", voam para os cestos (que surgem vazios)
+    PED.forEach(([px, py, v], k) => { const alvo = CES[k % 12], u = PT.ss(junta * 1.3 - v * 0.3); if (u > 0.98) return; const [qx, qy] = FIS.arco(px, py, alvo[0], alvo[1] - 30, u, 120); brilhoP(x, qx, qy, 14, LUZS.ambar, 0.25 * (1 - u)); nv.ponto(i++, qx, qy, 1, 0.85, 0.6, 0.85 * (1 - u * 0.4), 9 + 4 * v); });
+    CES.forEach(([X, Y], k) => { const ap = FIS.cascata(t, tR - 0.3, k, 0.08, 0.5); if (ap <= 0.01) return; const m = Math.min(1, ap), enche = PT.ss((t - t12 - k * 0.08) / 0.8);
+      brilhoP(x, X, Y - 20, 130, LUZS.ambar, (0.1 + 0.2 * enche + 0.2 * todos) * m);
+      objetoLinha(x, "cesto", { mao: [X, Y + 40 * (1 - m)], H: 560, k: 1, d: 1, cor: mixCor(PP_QUENTE, LUZ.ouro, todos), a: m, r: 0.14 });
+      for (let j = 0; j < 3; j++) if (enche > j / 3) i = desenharForma(nv, PP_F.pao, { cx: X + (j - 1) * 30, cy: Y - 46 - (j === 1 ? 12 : 0), esc: 54, cor: [1, 0.84, 0.58], borda: [1, 0.97, 0.9], brilho: 0.8 + 0.3 * todos, a: m, t, i0: i }); });
+    // um discípulo recolhe os pedaços com um cesto nas mãos
+    const dsc = personagem(x, t, { ...POSES.carregando, cabeca: 0.3, tronco: 0.12 }, { tipo: "homem", x: 115, chao: 1500, H: 500, dir: 1, fase: 5, a: 0.9 * (1 - todos) });
+    objetoLinha(x, "cesto", { mao: [(dsc.maos[0][0] + dsc.maos[1][0]) / 2 + 10, Math.min(dsc.maos[0][1], dsc.maos[1][1]) + 4], H: 500, k: 1, d: 1, cor: PP_QUENTE, a: 0.9 * (1 - todos), r: 0.12 });
     nv.total(i);
   });
 };

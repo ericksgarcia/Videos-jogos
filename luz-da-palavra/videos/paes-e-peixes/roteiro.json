@@ -19,7 +19,7 @@
     "pergunta": ["pop", 0.3], "comenta": ["plim", 0.45],
     "salva": ["pop", 0.35], "cta": ["brilho", 0.45], "lembra": ["respiro", 0.3]
   },
-  "capa": {"y": 1560},
+  "capa": {"t": 9.0, "y": 1640},
   "cenas": [
     {"id": "abertura", "tipo": "abertura", "titulo": "",
      "fala": "Se você acha que o que você tem é pouco demais, essa história é pra você. E no final tem um detalhe que quase ninguém repara: o que sobrou.",
