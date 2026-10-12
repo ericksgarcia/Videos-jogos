@@ -21,7 +21,7 @@ Nunca prepare o próximo vídeo enquanto o atual renderiza: termina, entrega, e 
 - [x] 6. **O que significa "Amém"?** — significado (hebraico: firme, verdadeiro).
 - [x] 7. **Os pães e os peixes** (João 6:1–14) — história. Morph 1 pão → muitos; o lanche de um
       menino; sobram 12 cestos.
-- [ ] 8. **Jesus acalma a tempestade** (Marcos 4:35–41) — história. Barco e ondas de pontos; a
+- [x] 8. **Jesus acalma a tempestade** (Marcos 4:35–41) — história. Barco e ondas de pontos; a
       pergunta que ele faz no fim.
 - [ ] 9. **O que significa "Emanuel"?** (Mateus 1:23) — significado ("Deus conosco"); bom perto do Natal.
 - [ ] 10. **Oração para acalmar a mente antes de dormir** (Filipenses 4:6–7) — oração/meditação
