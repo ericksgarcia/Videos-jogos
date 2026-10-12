@@ -461,6 +461,8 @@ def narrar_video(falas, tts=None, direcao=None, voz_nome=None):
     cota diária do TTS rende ~10 vezes mais, e a leitura sai contínua) e corta o áudio por cena.
     Devolve a lista no formato de narrar(), ou None se não deu (quem chama narra cena a cena).
     Vídeos que já têm todas as cenas no cache antigo (uma por cena) continuam usando esse cache."""
+    if "gemini" not in _ordem():
+        return None
     CACHE.mkdir(parents=True, exist_ok=True)
     tts = tts or falas
     voz = voz_nome or os.environ.get("VOZ_NOME", PROVEDORES["gemini"][1])
