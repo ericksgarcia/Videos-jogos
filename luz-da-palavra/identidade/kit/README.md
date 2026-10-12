@@ -1,6 +1,6 @@
 # Kit de personagens do Luz da Palavra
 
-Personagens em traço de luz, **sem rosto**, montados a partir de **peças desenhadas à mão uma vez** e
+Personagens em traço de luz, **com rosto de perfil** (olho, sobrancelha, nariz, boca, orelha; pedido do dono, out/2026), montados a partir de **peças desenhadas à mão uma vez** e
 reaproveitadas em todo vídeo (nada de acervo pronto: pedido do dono). O motor carrega sozinho os
 arquivos desta pasta (`*.js`, em ordem) antes do `cenas.js` de cada vídeo.
 
@@ -19,16 +19,18 @@ figura(x, t, POSES.segurando, { tipo: "davi", maos: ["segura", "segura"], ... })
 ```
 
 Mesmas opções e mesmo retorno do `personagem()` antigo (`rot`, `medir`, `atras`, `a`, `cor`, `vida`,
-`fase`; devolve `maos`, `cabeca`, `ombro`, `quadril`, `escala`...). Mãos: `aberta`, `segura`, `aponta`, `palma`.
+`fase`, `expr`; devolve `maos`, `cabeca`, `ombro`, `quadril`, `escala`...). Mãos: `aberta`, `segura`, `aponta`, `palma`.
+Expressões (`expr`): `neutro`, `sorri`, `triste`, `medo`, `espanto`, `dorme` (olhos fechados), `fala` (boca mexe); piscam sozinhos.
 
 ## Base desenhada (out/2026)
 
 - Corpo: `tronco`, `tronco_barriga`, `cinto`; túnica com faixa bordada na barra (comprimento pela ficha).
 - Braços: `braco`, `antebraco`, `manga_curta`, `manga_longa_braco` + `manga_longa` (abre em sino).
 - Mãos: `mao_aberta`, `mao_segura`, `mao_aponta`, `mao_palma`. Pernas: `coxa`, `canela`, `pe` (sandália).
-- Cabeça: `cabeca` (3 formatos pela ficha: `cab: [largura, altura]`; criança com `cabecaGrande`).
-- Cabelos: `cabelo_curto`, `cabelo_cacheado`, `cabelo_longo`. Barbas: `barba_curta`, `barba_longa`.
-- Coberturas: `veu`, `pano_cabeca`. Roupa extra: `manto` (himátion).
+- Cabeça de perfil: `cabeca`, `cabeca_aquilino`, `cabeca_curto`, `cabeca_queixo` (+ `cab: [largura, altura]`; criança com `cabecaGrande`); rosto em `kitRosto()` (3-rig.js).
+- Cabelos: `cabelo_curto`, `cabelo_cacheado`, `cabelo_longo`, `cabelo_ondulado`, `cabelo_coque`, `calvo`. Barbas: `barba_curta`, `barba_longa`, `cavanhaque`.
+- Coberturas: `veu`, `pano_cabeca`, `faixa_cabeca`. Roupa extra: `manto` (himátion), `xale`, `colete`, `clavi` (listras), barra `linha`/`dupla`/`zigue`/`pontos`.
+- Cores por parte (o que mais diferencia): `pele`, `roupa`, `roupa2` (detalhes, cinto, coberturas), `corCabelo`, `corManto`; paletas em `2-elenco.js`.
 
 ## Quando faltar alguma coisa
 
@@ -46,5 +48,5 @@ na mão, rede de pesca, roupa de soldado romano), com o mesmo cuidado:
 - Personagens principais têm **ficha fixa** (Jesus sempre com cabelo longo, barba, manto dourado;
   Maria com véu...), para serem reconhecidos em toda a série.
 - Figurantes usam `elencoVariado(seed, papel)` com **seeds diferentes**: muda cabelo, barba, cobertura,
-  mangas, túnica, corpo, altura, formato da cabeça e o tom da linha. Numa mesma cena, nunca repita a seed;
+  mangas, túnica, corpo, altura, perfil do rosto, expressão e as cores de pele, roupa e cabelo. Numa mesma cena, nunca repita a seed;
   entre vídeos, comece de seeds diferentes (ex.: 100+, 200+...).

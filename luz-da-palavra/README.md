@@ -79,7 +79,7 @@ do Google, duração mínima de 1:30).
   entregar hoje? Escreve numa palavra só." Use `cenaPergunta(el, c, B, { texto, sub, icone, de })`
   (batida "comenta": o ícone voa até o botão de comentários). Não prometa resposta.
 - **Personagens em line art em TODO vídeo (símbolo do canal):** pessoas desenhadas em traço de luz,
-  com roupa e acessórios do personagem e **sem rosto**, sobre o mundo em pontos de luz. Use
+  com roupa e acessórios do personagem e **rosto de perfil** (pedido do dono, out/2026; kit em `identidade/kit/`), sobre o mundo em pontos de luz. Use
   `personagem(x, t, pose, { tipo, x, chao, H, dir, cam, z })` (tipos: davi, pessoa, homem, mulher, jesus,
   golias, crianca) com as poses de `POSES` (de_pe, andar(fase), ajoelhado, orando, sentado, segurando,
   entregando, abracando, bracos_abertos, funda(giro), lanca, caido, encolhido, olhando_cima) e `poseMix`.
