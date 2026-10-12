@@ -202,8 +202,8 @@ function kitCobertura(y, nome, poe, o, oc) {
     for (const pt of C2.pontas) kitPincel(y, poe(pt), o.LW * 3.2, o.rgb, o.a * 0.9, { brilho: 5 * o.kk, ini: 0.6, fim: 0.1 });
     kitMassa(y, poe, [...cima, ...baixo.reverse()], o, 1.6); kitBorda(y, poe, cima, o, { w: 0.9 }); kitBorda(y, poe, cima.map(([px, py]) => [px - 1, py + w]), o, { w: 0.9 }); return true; }
   const forma = [...C2.fora, ...C2.dentro.slice(1, -1).reverse()];
-  kitMassa(y, poe, forma, o, 0.75);
-  kitFios(y, poe, C2.guias, o, { n: C2.n, inteiro: true, w: 1.1, al: 0.55, seed: 3 });
+  kitMassa(y, poe, forma, o, 1.5);
+  kitFios(y, poe, C2.guias, o, { n: 1, inteiro: true, w: 1.0, al: 0.4, seed: 3 });
   kitBorda(y, poe, C2.fora, o, { w: 1.2 });
   kitBorda(y, poe, C2.dentro, o, { w: 1.1 }); kitBorda(y, poe, C2.dentro.map(([px, py]) => [px - 4, py - 1]), o, { w: 0.6, al: 0.75 });
   if (C2.cordao) for (const dy of [0, 6]) kitPincel(y, poe(C2.cordao.map(([px, py]) => [px - dy * 0.2, py + dy])), o.LW * 2.4, oc.rgbEsc, o.a, { brilho: 4 * o.kk, ini: 0.6, fim: 0.3 });

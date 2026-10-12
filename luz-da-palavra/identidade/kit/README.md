@@ -26,7 +26,8 @@ Expressões (`expr`): `neutro`, `sorri`, `triste`, `medo`, `espanto`, `dorme` (o
 ## Base desenhada (out/2026)
 
 - Corpo: `tronco`, `tronco_barriga`, `cinto`; túnica com faixa bordada na barra (comprimento pela ficha).
-- Braços: `braco`, `antebraco`, `manga_curta`, `manga_longa_braco` + `manga_longa` (abre em sino).
+- Braços e pernas: forma contínua do ombro ao punho / do quadril ao tornozelo (`membro()` + `PERF_BRACO`/`PERF_PERNA` no rig: larguras por trecho, sem emenda no cotovelo/joelho). Mangas também contínuas, saindo do ombro sem costura; a longa abre em sino. (As peças `braco`, `antebraco`, `manga_*` antigas ficam só como referência.)
+- Túnica: tronco e saia sem emenda; faixa de pano na cintura com nó e pontas; decote e dobras de pincel; vestido longo abre na barra; abaixo do joelho o pano cai na vertical (ajoelhado, fica no chão). Manto com barra ondulada.
 - Mãos: `mao_aberta`, `mao_segura`, `mao_aponta`, `mao_palma`. Pernas: `coxa`, `canela`, `pe` (sandália).
 - Cabeça de perfil: `cabeca`, `cabeca_aquilino`, `cabeca_curto`, `cabeca_queixo` (+ `cab: [largura, altura]`; criança com `cabecaGrande`); rosto em `kitRosto()` (3-rig.js).
 - Cabelo/barba/coberturas (out/2026, refeitos): cada forma tem `fora` (borda com traço), `dentro` (borda do rosto, sem traço) e `guias` (o kit gera os fios entre elas). Para um estilo novo, desenhe essas três coisas em `4-rosto.js` olhando a grade da bancada.

@@ -49,23 +49,50 @@ function figura(x, t, pose0, o = {}) {
     let cont = pc.contorno;
     if (pc.cachos) { const cx = cont.reduce((m, p) => m + p[0], 0) / cont.length, cy = cont.reduce((m, p) => m + p[1], 0) / cont.length; const out = []; for (let k = 0; k < cont.length; k++) { const p = cont[k], q = cont[(k + 1) % cont.length]; out.push(p); if (k < cont.length - 5) { const m = [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2], dd = Math.hypot(m[0] - cx, m[1] - cy) || 1; out.push([m[0] + (m[0] - cx) / dd * 9, m[1] + (m[1] - cy) / dd * 9]); } } cont = out; }
     traca(poe(cont, P, u, sx, sy), true, o2);
-    for (const ln of pc.linhas || []) traca(poe(ln, P, u, sx, sy), false, { ...o2, lw: 0.55, det: true, al: (o2.al ?? 1) * 0.8, fill: false });
+    for (const ln of pc.linhas || []) kitPincel(y, poe(ln, P, u, sx, sy), LW * 0.8, o2.rgb || RGB, a * (o2.al ?? 1) * 0.8, { brilho: 4 * kk });
     if (pc.extra) { traca(poe(pc.extra.contorno, P, u, sx, sy), true, o2); for (const ln of pc.extra.linhas || []) traca(poe(ln, P, u, sx, sy), false, { ...o2, lw: 0.55, det: true, al: 0.8, fill: false }); }
   };
   // sombra no chão
   { const fx = (pernas[0][2][0] + pernas[1][2][0]) / 2, [sx, sy, sk] = pr([fx, baixo]); y.save(); y.translate(sx, sy); y.scale(1, 0.16); const gr = y.createRadialGradient(0, 0, 0, 0, 0, 0.2 * H * sk); gr.addColorStop(0, `rgba(0,0,0,${0.45 * a})`); gr.addColorStop(1, "rgba(0,0,0,0)"); y.fillStyle = gr; y.beginPath(); y.arc(0, 0, 0.2 * H * sk, 0, 6.283); y.fill(); y.restore(); }
   const maos = o.maos || ["aberta", "aberta"];
+  // membro inteiro numa forma só (sem a emenda de boneco no cotovelo/joelho): cadeia de articulações + perfil
+  // de larguras [segmento, u, largura de trás, largura da frente] em milésimos de H
+  const membro = (J, perfil, k2 = 1, fim = 0.5, ini = 0.5) => {
+    const E2 = [], D2 = [];
+    perfil.forEach(([sg, u, wb, wf], i) => {
+      const A = J[sg], B = J[sg + 1], p = [A[0] + (B[0] - A[0]) * u, A[1] + (B[1] - A[1]) * u];
+      let dv = un(A, B); if (u === 0 && sg > 0) { const d0 = un(J[sg - 1], A); dv = un([0, 0], [d0[0] + dv[0], d0[1] + dv[1]]); }
+      const n = fr(dv), ff = wf * s * k2, bb = wb * s * k2;
+      if (i === 0 && ini) { E2.push([p[0] - dv[0] * ff * ini + n[0] * ff * 0.6, p[1] - dv[1] * ff * ini + n[1] * ff * 0.6]); }
+      E2.push([p[0] + n[0] * ff, p[1] + n[1] * ff]); D2.push([p[0] - n[0] * bb, p[1] - n[1] * bb]);
+      if (i === perfil.length - 1 && fim) { E2.push([p[0] + dv[0] * ff * fim + n[0] * ff * 0.45, p[1] + dv[1] * ff * fim + n[1] * ff * 0.45]); D2.push([p[0] + dv[0] * bb * fim - n[0] * bb * 0.45, p[1] + dv[1] * bb * fim - n[1] * bb * 0.45]); }
+    });
+    return [...E2, ...D2.reverse()];
+  };
+  const PERF_BRACO = [[0, 0, 23, 21], [0, 0.3, 21, 22], [0, 0.7, 17, 18], [1, 0, 14, 15], [1, 0.22, 16, 15], [1, 0.65, 12, 11.5], [1, 1, 9, 9.5]];
+  const PERF_PERNA = [[0, 0, 34, 35], [0, 0.3, 32, 32], [0, 0.75, 25, 24], [1, 0, 19, 20], [1, 0.26, 24, 18], [1, 0.62, 16, 14], [1, 1, 11, 11]];
   const braco = ([Sb, E, W], k, atras) => {
     const al = atras ? 0.75 : 1, uA = un(Sb, E), uF = un(E, W), sx = 1.02 + 0.14 * L;
-    peca("braco", Sb, uA, { al, sx, rgb: PELE });
-    peca("antebraco", E, uF, { al, sx, rgb: PELE });
+    traca(membro([Sb, E, W], PERF_BRACO, sx * 1.2).map(pr), true, { al, rgb: PELE });
     peca("mao_" + (maos[k] || "aberta"), W, uF, { al, sx: hk > 1 ? 1.0 : 0.94, sy: hk > 1 ? 1.0 : 0.94, rgb: PELE });
-    if (F.manga === "manga_curta") peca("manga_curta", Sb, uA, { al, sx: sx * 1.02 });
-    if (F.manga === "manga_longa") { peca("manga_longa_braco", Sb, uA, { al, sx }); peca("manga_longa", E, uF, { al, sx }); }
+    // mangas de tecido: forma contínua com dobras de pincel; a longa abre em sino no punho
+    const manga = (m) => { const sp = m.map(pr); traca(sp, true, { al, semTraco: true }); traca(sp, false, { al, fill: false }); }; // ombro sem emenda
+    const dobra = (pts, w = 0.7, al2 = 0.75) => kitPincel(y, pts.map(pr), LW * w, RGB, a * al * al2, { brilho: 4 * kk });
+    const ponto = (sg, u, lado) => { const J = [Sb, E, W], A = J[sg], B = J[sg + 1], n = fr(un(A, B)); return [A[0] + (B[0] - A[0]) * u + n[0] * lado * s * sx * 1.2, A[1] + (B[1] - A[1]) * u + n[1] * lado * s * sx * 1.2]; };
+    if (F.manga === "manga_curta") {
+      manga(membro([Sb, E, W], [[0, -0.14, 22, 20], [0, 0.04, 27, 25], [0, 0.3, 28, 28], [0, 0.58, 31, 32]], sx * 1.28, 0, 0));
+      dobra([ponto(0, 0.5, -24), ponto(0, 0.53, 0), ponto(0, 0.5, 25)], 0.6, 0.6); dobra([ponto(0, 0.12, 6), ponto(0, 0.3, 10), ponto(0, 0.44, 6)], 0.6, 0.55);
+    }
+    if (F.manga === "manga_longa") {
+      manga(membro([Sb, E, W], [[0, -0.14, 22, 20], [0, 0.04, 27, 25], [0, 0.45, 27, 27], [1, 0, 24, 26], [1, 0.45, 25, 27], [1, 0.82, 33, 34]], sx * 1.28, 0, 0));
+      dobra([ponto(1, 0.76, -30), ponto(1, 0.8, 0), ponto(1, 0.76, 31)], 0.6, 0.6);
+      dobra([ponto(0, 0.82, 14), ponto(0, 0.92, 4), ponto(1, 0.06, 12)], 0.7, 0.7); dobra([ponto(1, 0.1, -16), ponto(1, 0.35, -6), ponto(1, 0.6, -10)], 0.6, 0.55);
+      dobra([ponto(0, 0.15, 4), ponto(0, 0.45, 8), ponto(0, 0.7, 2)], 0.6, 0.5);
+    }
   };
   const perna = ([Q, K, Fp], atras) => {
     const al = atras ? 0.75 : 1, uC = un(Q, K), uS = un(K, Fp), sx = 0.9 + 0.12 * L, uP = un([0, 0], [uS[0] * 0.35, 0.65 + uS[1] * 0.35]);
-    peca("coxa", Q, uC, { al, sx, rgb: PELE }); peca("canela", K, uS, { al, sx, rgb: PELE }); peca("pe", Fp, uP, { al, rgb: PELE });
+    traca(membro([Q, K, Fp], PERF_PERNA, sx * 1.3, 0).map(pr), true, { al, rgb: PELE }); peca("pe", Fp, uP, { al, rgb: PELE });
   };
   // ---- ordem: braço de trás, (objeto de trás), pernas, túnica, tronco, cinto, manto, pescoço, cabeça, cabelo/barba/cobertura, braço da frente ----
   braco(bracos[0], 0, true);
@@ -73,12 +100,12 @@ function figura(x, t, pose0, o = {}) {
   perna(pernas[0], true); perna(pernas[1], false);
   // túnica (saia): cai da cintura até a barra; a barra acompanha as coxas (passo, sentado) — mesmo traço das peças
   const uT = un(C, [0, 0]), fT = fr(uT), T = (px, py) => [fT[0] * px * s * L + uT[0] * py * s, fT[1] * px * s * L + uT[1] * py * s];
-  const h = (F.barra || 320) * s, naPerna = (pp, dist) => { const [Q, K, Fp] = pp, lc = Math.hypot(K[0] - Q[0], K[1] - Q[1]); if (dist <= lc) return ad(Q, un(Q, K), dist); return ad(K, un(K, Fp), Math.min(dist - lc, Math.hypot(Fp[0] - K[0], Fp[1] - K[1]))); };
+  const h = (F.barra || 320) * s, naPerna = (pp, dist) => { const [Q, K, Fp] = pp, lc = Math.hypot(K[0] - Q[0], K[1] - Q[1]); if (dist <= lc) return ad(Q, un(Q, K), dist); return [K[0], K[1] + Math.max(0, Math.min(dist - lc, baixo - 0.012 * H - K[1]))]; }; // abaixo do joelho o pano cai na vertical (ajoelhado: fica no chão)
   const ppF = pernas[0][3] * d >= pernas[1][3] * d ? pernas[0] : pernas[1], ppB = ppF === pernas[0] ? pernas[1] : pernas[0];
   const pF = naPerna(ppF, h), pB = naPerna(ppB, h), nF = fr(un(ppF[0], ppF[1])), nB = fr(un(ppB[0], ppB[1]));
-  const hemF = ad(pF, nF, 0.06 * H * L), hemB = ad(pB, nB, -0.064 * H * L), bal = 0.005 * H * Math.sin(t * 2.3 + fase);
+  const roda = Math.max(0, ((F.barra || 320) - 300) / 140) * 0.045 * H, hemF = ad(pF, nF, 0.06 * H * L + roda), hemB = ad(pB, nB, -0.064 * H * L - roda * 1.1), bal = 0.005 * H * Math.sin(t * 2.3 + fase);
   const meio = [(hemF[0] + hemB[0]) / 2 + bal, (hemF[1] + hemB[1]) / 2 + 0.01 * H];
-  const hB = T(-62, 34), hF = T(62, 34), wB = T(-58, -22), wF = T(58, -22);
+  const hB = T(-62, 34), hF = T(62, 34), wB = T(-56, -42), wF = T(56, -42);
   { const sp = [wB, hB, hemB, meio, hemF, hF, wF].map(pr); y.beginPath(); y.moveTo(sp[0][0], sp[0][1]); y.quadraticCurveTo(sp[1][0], sp[1][1], (sp[1][0] + sp[2][0]) / 2, (sp[1][1] + sp[2][1]) / 2);
     y.lineTo(sp[2][0], sp[2][1]); y.quadraticCurveTo(sp[3][0], sp[3][1], sp[4][0], sp[4][1]); y.lineTo((sp[5][0] + sp[4][0]) / 2, (sp[5][1] + sp[4][1]) / 2); y.quadraticCurveTo(sp[5][0], sp[5][1], sp[6][0], sp[6][1]); y.closePath();
     y.fillStyle = `rgba(${fundo},0.95)`; y.fill(); let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
@@ -94,12 +121,21 @@ function figura(x, t, pose0, o = {}) {
       if (est === "zigue") { const c1 = curva(0.7), c3 = curva(1.5); y.beginPath(); for (let j = 0; j <= 14; j++) { const [px, py] = (j % 2 ? c3 : c1)(j / 14); j ? y.lineTo(px, py) : y.moveTo(px, py); } y.stroke(); linha(1.8); }
       if (est === "pontos") { const c2 = curva(1.1); for (let j = 1; j < 12; j++) { const [px, py] = c2(j / 12); y.beginPath(); y.arc(px, py, Math.max(1, LW * 0.6), 0, 6.283); y.fill(); } linha(1.7); } }
   }
-  for (const [k, w] of [[0.3, 0.2], [0.65, -0.15]]) { const top = T(-40 + 80 * k, -10), bot = [PT.lerp(hemB[0], hemF[0], k), PT.lerp(hemB[1], hemF[1], k) - 0.01 * H]; traca([top, [(top[0] + bot[0]) / 2 + w * 0.02 * H * d, (top[1] + bot[1]) / 2], bot].map(pr), false, { lw: 0.55, det: true, al: 0.7, fill: false }); }
+  for (const [k, w, al3] of [[0.22, 0.5, 0.45], [0.5, -0.4, 0.6], [0.78, 0.6, 0.4]]) { const top = T(-50 + 100 * k, -14), bot = [PT.lerp(hemB[0], hemF[0], k), PT.lerp(hemB[1], hemF[1], k) - 0.012 * H]; kitPincel(y, [top, [(top[0] + bot[0]) / 2 + w * 0.02 * H * d, (top[1] + bot[1]) / 2], bot].map(pr), LW * 0.75, RGB, a * al3, { brilho: 4 * kk, ini: 0.05, fim: 0.3 }); }
   // tronco, cinto, manto
-  peca(F.corpo || "tronco", [0, 0], uT, { sx: 1.12 * L });
+  { const pc = KIT_PECAS[F.corpo || "tronco"], sp = poe(pc.contorno, [0, 0], uT, 1.12 * L, 1); traca(sp, true, { semTraco: true }); traca(sp.slice(0, 15), false, { fill: false });
+    const pt2 = (pts) => poe(pts, [0, 0], uT, 1.12 * L, 1);
+    kitPincel(y, pt2([[-8, -282], [6, -262], [22, -246], [30, -258], [34, -272]]), LW * 0.85, RGB, a * 0.9, { brilho: 4 * kk }); // decote
+    kitPincel(y, pt2([[30, -244], [38, -200], [42, -150], [38, -100]]), LW * 0.7, RGB, a * 0.55, { brilho: 3 * kk });
+    kitPincel(y, pt2([[-44, -236], [-46, -170], [-42, -110]]), LW * 0.7, RGB, a * 0.5, { brilho: 3 * kk });
+    kitPincel(y, pt2([[8, -150], [18, -100], [14, -60]]), LW * 0.6, RGB, a * 0.45, { brilho: 3 * kk }); }
   if (F.clavi) for (const cx of [18, 30]) traca(poe([[cx, -270], [cx + 2, -150], [cx, -40]], [0, 0], uT, 1.12 * L, 1), false, { lw: 0.6, det: true, rgb: ROUPA2, fill: false });
   if (F.colete) peca("colete", [0, 0], uT, { sx: 1.12 * L, rgb: ROUPA2 });
-  if (F.cinto) peca("cinto", [0, 0], uT, { sx: 1.12 * L, rgb: ROUPA2 });
+  if (F.cinto) { const pt2 = (pts) => poe(pts, [0, 0], uT, 1.12 * L, 1); // faixa de pano amarrada na frente, pontas caindo
+    for (const pp of [[[46, -36], [54, -12], [52, 16]], [[44, -34], [48, -6], [56, 22]]]) kitPincel(y, pt2(pp), LW * 2.6, ROUPA2, a * 0.9, { brilho: 5 * kk, ini: 0.5, fim: 0.15 });
+    traca(pt2([[-55, -48], [0, -52], [55, -48], [56, -40], [55, -31], [0, -33], [-55, -31], [-56, -40]]), true, { rgb: ROUPA2, lw: 0.9 });
+    kitPincel(y, pt2([[-50, -41], [0, -43], [48, -41]]), LW * 0.6, ROUPA2, a * 0.6, { brilho: 3 * kk });
+    traca(pt2([[40, -46], [50, -48], [54, -40], [50, -32], [40, -34], [38, -40]]), true, { rgb: ROUPA2, lw: 0.9 }); }
   if (F.xale) peca("xale", [0, 0], uT, { sx: 1.12 * L, rgb: ROUPA2 });
   if (F.manto) peca("manto", [0, 0], uT, { sx: 1.12 * L, sy: Math.max(0.7, (F.barra || 400) / 430), rgb: rgbOf(F.corManto || cor) });
   // pescoço e cabeça (cabeça no osso do pescoço → centro), cabelo, barba, cobertura
