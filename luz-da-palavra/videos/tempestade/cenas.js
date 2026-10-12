@@ -154,7 +154,7 @@ CENAS.tempestade = (el, c, B) => {
     JT_barco(x, g);
     JT_agua(x, g, t, agit);
     i = JT_respingo(nv, i, t, g, PT.ss((t - tA + 0.9) / 0.6));
-    const pe = PT.jan(t, tP - 0.3, tM - 0.2, 0.3, 0.4); if (pe > 0.01) rotuloP(x, "ERAM PESCADORES", 540, 560, 50, "255,236,200", pe, "center");
+    const pe = PT.jan(t, tP - 0.3, tM - 0.2, 0.3, 0.4); if (pe > 0.01) rotuloP(x, "ERAM PESCADORES", 540, 420, 50, "255,236,200", pe, "center");
     nv.total(i);
   });
 };
@@ -178,7 +178,7 @@ CENAS.dormindo = (el, c, B) => {
     JT_dentro(x, t, g, 0.02, "homem", poseMix(JT_MEDO, { tronco: 0.35, cabeca: 0.3, braco: [[0.9, 0.3], [1.25, 0.2]], perna: [[-0.2, 0], [0.25, -0.1]] }, acorda), { fase: 6, dir: -1 });
     // Jesus deitado na popa, dormindo sobre a almofada (sem rosto)
     const [fx, fy] = g.P(-0.08, -0.07), H = 0.36 * g.L;
-    personagem(x, t, { ...JT_DORME, cabeca: JT_DORME.cabeca + 0.15 * acorda }, { tipo: "jesus", x: fx, chao: fy, H, dir: 1, rot: g.rot - Math.PI / 2 + 0.08, fase: 3, vida: false,
+    personagem(x, t, { ...JT_DORME, cabeca: JT_DORME.cabeca + 0.15 * acorda }, { tipo: "jesus", x: fx, chao: fy, H, dir: 1, rot: g.rot - Math.PI / 2 + 0.08, fase: 3, vida: false, a: 0.06 + 0.94 * luz,
       atras: (y, f) => { const [hx, hy] = f.cabeca, r = 0.07 * H; JT_traco(y, [[hx - r * 1.2, hy + r * 0.2], [hx - r * 0.2, hy + r * 0.05], [hx + r * 1.1, hy + r * 0.3], [hx + r * 1.2, hy + r * 0.85], [hx, hy + r * 1.0], [hx - r * 1.25, hy + r * 0.8]], true, "255,214,140", Math.max(1.5, 0.006 * H), 1); } });
     JT_barco(x, g, { mastro: false });
     JT_agua(x, g, t, 0.8);
