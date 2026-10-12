@@ -1,0 +1,16 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "amostra-kit",
+  "titulo": "Amostra do kit de personagens",
+  "descricao": "Vitrine interna do kit de personagens (não é vídeo do canal).",
+  "hashtags": ["#luzdapalavra"],
+  "gancho": "KIT DE PERSONAGENS",
+  "gancho_destaque": "PERSONAGENS",
+  "voz": "Achird",
+  "cenas": [
+    {"id": "elenco", "tipo": "elenco", "titulo": "", "fala": "Elenco fixo do canal em linha, sem rosto, cada um com a sua ficha.", "batidas": {}},
+    {"id": "variados", "tipo": "variados", "titulo": "", "fala": "Figurantes variados pela semente, para ninguém ficar igual ao vizinho.", "batidas": {}},
+    {"id": "poses", "tipo": "poses", "titulo": "", "fala": "Poses: andar, ajoelhar, sentar, abrir os braços, segurar e apontar.", "batidas": {}},
+    {"id": "antes", "tipo": "antes", "titulo": "", "fala": "Antes e depois: o boneco antigo e o novo, lado a lado.", "batidas": {}}
+  ]
+}

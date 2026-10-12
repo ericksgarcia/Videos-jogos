@@ -203,7 +203,8 @@ def montar(roteiro, ag, pasta, pasta_video):
         shutil.copy(arq, pasta / "assets" / arq.name)
     shutil.copy(Path(pasta_video) / "cenas.js", pasta / "assets" / "cenas.js")
     # bibliotecas só deste vídeo (videos/<tema>/libs/*.js, ex.: p5.brush), carregadas antes do cenas.js
-    libs = sorted((Path(pasta_video) / "libs").glob("*.js"))
+    # kit da identidade (ex.: personagens desenhados do canal em <canal>/identidade/kit/*.js) + libs do vídeo
+    libs = sorted((IDENTIDADE / "kit").glob("*.js")) + sorted((Path(pasta_video) / "libs").glob("*.js"))
     for arq in libs:
         shutil.copy(arq, pasta / "assets" / arq.name)
     dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "agenda": ag}
