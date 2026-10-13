@@ -5,6 +5,7 @@ import { FaixaLegibilidade, Fumaca, GranuladoFilme, Poeira, Vinheta } from "./Ov
 import { ParallaxScene } from "./ParallaxScene";
 import { StockScene } from "./StockScene";
 import { CenaProcedural, type Cenario, type Clima } from "./CenaProcedural";
+import { GanchoTela, SeloComentario } from "./Engajamento";
 
 const DISSOLVER = 8; // quadros de fusão entre tomadas
 
@@ -33,8 +34,9 @@ export const Video = (plano: Plano) => {
   const emLeitura = plano.segmentos.some((s) => s.id === "ato2" && t >= s.ini && t < s.fim);
   const pulsar = 1 + (emLeitura ? 0.012 : 0.005) * Math.exp(-fase * 6);
 
-  const abrir = interpolate(frame, [0, q(0.7)], [0, 1], { extrapolateRight: "clamp" });
-  const fechar = interpolate(frame, [durationInFrames - q(1.4), durationInFrames - 1], [1, 0], { extrapolateLeft: "clamp" });
+  // em loop não há fade: o último quadro emenda no primeiro
+  const abrir = plano.loop ? 1 : interpolate(frame, [0, q(0.7)], [0, 1], { extrapolateRight: "clamp" });
+  const fechar = plano.loop ? 1 : interpolate(frame, [durationInFrames - q(1.4), durationInFrames - 1], [1, 0], { extrapolateLeft: "clamp" });
 
   return (
     <AbsoluteFill style={{ background: "#000", opacity: Math.min(abrir, fechar) }}>
@@ -68,6 +70,8 @@ export const Video = (plano: Plano) => {
       <Vinheta forca={proc ? 0.62 : 0.88} />
       <KineticText segmentos={plano.segmentos} />
       <RotuloReferencia {...plano.rotulo} />
+      {plano.gancho_tela && <GanchoTela linhas={plano.gancho_tela} fim={2.6} />}
+      {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
       <GranuladoFilme />
     </AbsoluteFill>
   );

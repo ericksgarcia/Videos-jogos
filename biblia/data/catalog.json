@@ -1235,6 +1235,22 @@
   ]
  },
  {
+  "id": "dn-6-22",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 6:22",
+  "text": "O meu Deus enviou o seu anjo e fechou a boca dos leões, para que não me fizessem dano, porque foi achada em mim inocência diante dele; e também contra ti, ó rei, não tenho cometido delito algum.",
+  "words": 38,
+  "historical_context": "De manhã, o rei Dario corre à cova dos leões e ouve a voz de Daniel lá de dentro, vivo depois de uma noite inteira com as feras.",
+  "emotional_hook": "proteção",
+  "tone": "epic",
+  "audio_cues": [
+   "caverna",
+   "noite"
+  ]
+ },
+ {
   "id": "dn-7-9",
   "book": "dn",
   "bookName": "Daniel",

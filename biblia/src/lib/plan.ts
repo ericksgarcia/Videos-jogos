@@ -17,10 +17,12 @@ export interface SegmentoPlano {
 
 export interface PlanoTomada {
   ini: number; fim: number;           // s
-  tipo: "parallax" | "video" | "procedural";
+  tipo: "parallax" | "video" | "procedural" | "cenografia";
   src: string;                        // relativo a public/ (staticFile); vazio em "procedural"
   cenario?: string;                   // procedural: deserto | montanha | mar | noite | fogueira | caverna | cidade
   clima?: string[];                   // procedural: tempestade | chuva | vento | fogo | estrelas | raios | brasas
+  cena?: string;                      // cenografia: id da cena desenhada (ex.: "cova_leoes")
+  variante?: string;                  // cenografia: variação de enquadramento/luz
   depth?: string;                     // mapa de profundidade (parallax)
   seed: number;
   creditos?: string;
@@ -39,6 +41,9 @@ export type Plano = {
   tomadas: PlanoTomada[];
   climax: { t: number; palavra: string };
   rotulo: { texto: string; ini: number; fim: number };
+  gancho_tela?: string[];             // texto grande nos primeiros ~2,5 s
+  cta_tela?: { texto: string; ini: number; fim: number };
+  loop?: boolean;                     // sem fade no fim/começo: o vídeo emenda em si mesmo
 };
 
 export const planoPadrao: Plano = {

@@ -21,17 +21,18 @@ export interface Linha {
   avisos: string[];
 }
 
-export function montarLinha(f: Record<"ato1" | "cta" | "ato2" | "ato3", Fala>, bpm: number): Linha {
+export function montarLinha(f: Record<"ato1" | "cta" | "ato2" | "ato3", Fala>, bpm: number, loop = false): Linha {
   const avisos: string[] = [];
   const ato1 = 0.5;
   const cta = sobeBatida(Math.max(12, ato1 + f.ato1.dur + 0.35), bpm);
   const ato2 = sobeBatida(Math.max(16, cta + f.cta.dur + 0.5), bpm);
   const ato3 = sobeBatida(Math.max(35, ato2 + f.ato2.dur + 0.9), bpm);
   const fala3 = ato3 + f.ato3.dur;
-  let total = fala3 + Math.min(1.6, Math.max(0.8, DUR_MAX - fala3));   // cauda de 0,8-1,6 s; encolhe para fechar em 58 s
+  // cauda de 0,8-1,6 s (encolhe para fechar em 58 s); em loop, quase nada: a última palavra emenda na primeira
+  let total = fala3 + (loop ? 0.3 : Math.min(1.6, Math.max(0.8, DUR_MAX - fala3)));
   if (cta + f.cta.dur > ato2) avisos.push("CTA invadiu o ato 2");
   if (cta - 12 > 1.5 || ato2 - 16 > 1.5) avisos.push(`atos atrasados: CTA ${cta.toFixed(1)}s, ato 2 ${ato2.toFixed(1)}s`);
-  if (total < DUR_MIN) total = DUR_MIN;
+  if (total < DUR_MIN) { if (loop) avisos.push(`duração ${total.toFixed(1)}s abaixo de ${DUR_MIN}s (loop não estica)`); else total = DUR_MIN; }
   if (total > DUR_MAX) avisos.push(`duração ${total.toFixed(1)}s passa de ${DUR_MAX}s — encurte o roteiro`);
   return { ini: { ato1, cta, ato2, ato3 }, total, avisos };
 }

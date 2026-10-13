@@ -83,6 +83,7 @@ dn 3:24-25 | superação | epic | fogo,multidão | Nabucodonosor vê quatro home
 dn 5:5-6 | juízo | epic | trovão,noite | Durante um banquete de Belsazar, uma mão misteriosa escreve na parede, e o rei treme de pavor.
 dn 6:10 | coragem | comfort | silêncio,deserto | Daniel, sabendo do decreto que proibia orar a qualquer outro que não o rei, abre a janela e ora como sempre.
 dn 6:19-22 | medo | epic | caverna,noite | De manhã, o rei Dario corre à cova dos leões e encontra Daniel vivo.
+dn 6:22 | proteção | epic | caverna,noite | De manhã, o rei Dario corre à cova dos leões e ouve a voz de Daniel lá de dentro, vivo depois de uma noite inteira com as feras.
 dn 7:9-10 | juízo | epic | fogo,trovão | Daniel vê tronos, um ancião de vestes brancas e um rio de fogo diante do tribunal.
 dn 9:18-19 | perdão | comfort | silêncio,noite | Daniel ora pelo povo, confessando o pecado e pedindo ao Senhor que ouça, perdoe e aja.
 dn 10:12-13 | medo | epic | noite,trovão | Depois de jejum de três semanas, um anjo diz a Daniel: não temas, desde o primeiro dia as tuas palavras foram ouvidas.

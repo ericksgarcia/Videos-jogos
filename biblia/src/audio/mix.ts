@@ -23,6 +23,10 @@ export interface PedidoMix {
   tom: Tone;
   bpm: number;
   climaxEm: number;                                // s — início da palavra de clímax
+  /** batida grave no primeiro quadro (gancho) */
+  abertura?: boolean;
+  /** sem fade no começo/fim (vídeo em loop) */
+  loop?: boolean;
   /** modo teste: grava só o WAV (sem ffmpeg) */
   sem_ffmpeg?: boolean;
 }
@@ -79,7 +83,10 @@ export function mixar(p: PedidoMix): { esq: Float32Array; dir: Float32Array; voz
   planos.forEach(([ato, c, g], k) => {
     const [a, b] = p.atos[ato]; const dur = b - a + 2.4;
     const base = amostraSfx(c) ?? (AMBIENTES[c] ?? AMBIENTES.silêncio)(dur, 100 + k * 17);
-    const fade = (i: number) => { const t = i / SR - (a - 1.2); return Math.min(1, Math.max(0, t / 1.2), Math.max(0, (b + 1.2 - (i / SR)) / 1.2)); };
+    const fade = (i: number) => {
+      const t = i / SR, entra = p.loop && k === 0 ? 1 : Math.max(0, (t - (a - 1.2)) / 1.2), sai = p.loop && k === planos.length - 1 ? 1 : Math.max(0, (b + 1.2 - t) / 1.2);
+      return Math.min(1, entra, sai);
+    };
     for (let i = 0; i < base.length; i++) {
       const kk = Math.floor((a - 1.2) * SR) + i; if (kk < 0 || kk >= n) continue;
       cama[kk] += base[i] * g * Math.min(1, Math.max(0, fade(kk)));
@@ -90,7 +97,7 @@ export function mixar(p: PedidoMix): { esq: Float32Array; dir: Float32Array; voz
   const cm = new Float32Array(n), pl = new Float32Array(n);
   for (let i = 0; i < n; i++) {
     const t = i / SR, a2 = p.atos.ato2;
-    const intens = t < 2 ? t / 2 : t > p.total - 2.5 ? Math.max(0, (p.total - t) / 2.5) : 1;
+    const intens = p.loop ? 1 : t < 2 ? t / 2 : t > p.total - 2.5 ? Math.max(0, (p.total - t) / 2.5) : 1;
     cm[i] = dr[i] * intens * (t >= a2[0] && t <= a2[1] ? 1.25 : 1);
     pl[i] = pu[i] * (t >= a2[0] - 0.5 && t <= a2[1] + 0.5 ? 1 : 0.25) * intens;
   }
@@ -99,6 +106,7 @@ export function mixar(p: PedidoMix): { esq: Float32Array; dir: Float32Array; voz
   const fx = new Float32Array(n), fxForte = new Float32Array(n);
   const sw = amostraSfx("swoosh") ?? swoosh(1.2, 3), bo = amostraSfx("batida") ?? batida(2.6);
   const impacto = p.cues.some((c) => c === "trovão" || c === "tempestade") ? (amostraSfx("trovao") ?? trovao(4.6, 5)) : bo;
+  if (p.abertura) somar(fxForte, bo, 0.02, 0.9);   // o gancho entra com impacto
   somar(fx, sw, p.atos.cta[0] - 0.9, 0.6);
   somar(fx, sw, p.atos.ato2[0] - 1.0, 0.8);
   somar(fx, bo, p.atos.ato2[0], 0.85);

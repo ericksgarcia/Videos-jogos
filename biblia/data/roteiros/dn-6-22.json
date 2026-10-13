@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["UMA NOITE INTEIRA", "COM OS LEÕES"],
+  "ato1": "Um decreto proíbe orar. Daniel ora assim mesmo. Jogado na cova dos leões, passa a noite lá dentro. De manhã, o rei grita o nome dele.",
+  "cta": "Se Deus já te guardou numa noite assim, escreve: Amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Talvez a sua cova hoje tenha outro nome: diagnóstico, dívida, solidão. A pedra parece fechada e ninguém vê você lá dentro. Mas o mesmo Deus fecha a boca dos leões. E tudo começou numa noite em que",
+  "loop": true,
+  "climax": "leões,",
+  "cta_style": "amem"
+}

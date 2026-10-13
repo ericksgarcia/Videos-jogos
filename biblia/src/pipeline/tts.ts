@@ -16,6 +16,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import { join } from "node:path";
 import { RAIZ } from "../lib/catalog.ts";
 import { comTentativas } from "../lib/env.ts";
+import { alinhar } from "../audio/alinhador.ts";
 import { SR, escreverWavMono, lerWav, lerWavArquivo, reamostrar } from "../audio/wav.ts";
 import { prng } from "./engine.ts";
 
@@ -305,9 +306,11 @@ async function sintetizarGemini(texto: string, perfil: keyof typeof PERFIS, maxD
     audio = acelerar(audio, taxa);
   }
   const palavras = texto.split(/\s+/).filter(Boolean);
+  // Alinhamento GRATUITO (referência Edge TTS + DTW). ALINHADOR=gemini usa o Gemini (pago) como antes.
   let alinhadas: Palavra[];
-  try { alinhadas = await alinharComGemini(palavras, audio); }
-  catch (e) { console.warn(`⚠ alinhamento pelo Gemini falhou (${(e as Error).message}); usando as pausas`); alinhadas = alinharPorPausas(palavras, audio); }
+  try {
+    alinhadas = process.env.ALINHADOR === "gemini" ? await alinharComGemini(palavras, audio) : alinhar(texto, audio, SR);
+  } catch (e) { console.warn(`⚠ alinhamento falhou (${(e as Error).message}); usando as pausas`); alinhadas = alinharPorPausas(palavras, audio); }
   return { audio, dur: audio.length / SR, palavras: alinhadas, taxa };
 }
 
