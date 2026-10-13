@@ -81,6 +81,8 @@ function figura(x, t, pose0, o = {}) {
     const manga = (m) => { const sp = m.map(pr); traca(sp, true, { al, semTraco: true }); traca(sp, false, { al, fill: false }); }; // ombro sem emenda
     const dobra = (pts, w = 0.7, al2 = 0.75) => kitPincel(y, pts.map(pr), LW * w, RGB, a * al * al2, { brilho: 4 * kk });
     const ponto = (sg, u, lado) => { const J = [Sb, E, W], A = J[sg], B = J[sg + 1], n = fr(un(A, B)); return [A[0] + (B[0] - A[0]) * u + n[0] * lado * s * sx * 1.2, A[1] + (B[1] - A[1]) * u + n[1] * lado * s * sx * 1.2]; };
+    { const crz = uA[0] * uF[1] - uA[1] * uF[0], dobrado = Math.min(1, Math.abs(crz) * 2.2); // dobras de compressão no lado de dentro do cotovelo
+      if (dobrado > 0.3 && F.manga === "manga_longa") { const lado = crz > 0 ? 1 : -1; for (let q = 0; q < 3; q++) dobra([ponto(0, 0.93 - 0.05 * q, lado * 6), ponto(1, 0.06 + 0.07 * q, lado * 24), ponto(1, 0.1 + 0.07 * q, lado * 8)], 0.6, 0.35 + 0.4 * dobrado); } }
     if (F.manga === "manga_curta") {
       manga(membro([Sb, E, W], [[0, -0.14, 22, 20], [0, 0.04, 27, 25], [0, 0.3, 28, 28], [0, 0.58, 31, 32]], sx * 1.28, 0, 0));
       dobra([ponto(0, 0.5, -24), ponto(0, 0.53, 0), ponto(0, 0.5, 25)], 0.6, 0.6); dobra([ponto(0, 0.12, 6), ponto(0, 0.3, 10), ponto(0, 0.44, 6)], 0.6, 0.55);
@@ -116,7 +118,9 @@ function figura(x, t, pose0, o = {}) {
   const ppF = pernas[0][3] * d >= pernas[1][3] * d ? pernas[0] : pernas[1], ppB = ppF === pernas[0] ? pernas[1] : pernas[0];
   const pF = naPerna(ppF, h), pB = naPerna(ppB, h), nF = fr(un(ppF[0], ppF[1])), nB = fr(un(ppB[0], ppB[1]));
   const roda = Math.max(0, ((F.barra || 320) - 300) / 140) * 0.045 * H, hemF = ad(pF, nF, 0.06 * H * L + roda), hemB = ad(pB, nB, -0.064 * H * L - roda * 1.1), bal = 0.005 * H * Math.sin(t * 2.3 + fase);
-  const meio = [(hemF[0] + hemB[0]) / 2 + bal, (hemF[1] + hemB[1]) / 2 + 0.01 * H];
+  // ajoelhado/sentado: o pano cai pela gravidade (o ponto médio da barra desce até o nível do chão/da perna mais baixa)
+  const abre2 = Math.max(0, Math.min(1, (Math.abs(pernas[0][3] - pernas[1][3]) - 0.6) / 0.8)), baixoHem = Math.max(hemF[1], hemB[1]) + 0.015 * H;
+  const meio = [(hemF[0] + hemB[0]) / 2 + bal - 0.05 * H * d * abre2, PT.lerp((hemF[1] + hemB[1]) / 2 + 0.01 * H, baixoHem, abre2)];
   const hB = T(-62, 34), hF = T(62, 34), wB = T(-56, -42), wF = T(56, -42);
   { const sp = [wB, hB, hemB, meio, hemF, hF, wF].map(pr); y.beginPath(); y.moveTo(sp[0][0], sp[0][1]); y.quadraticCurveTo(sp[1][0], sp[1][1], (sp[1][0] + sp[2][0]) / 2, (sp[1][1] + sp[2][1]) / 2);
     y.lineTo(sp[2][0], sp[2][1]); y.quadraticCurveTo(sp[3][0], sp[3][1], sp[4][0], sp[4][1]); y.lineTo((sp[5][0] + sp[4][0]) / 2, (sp[5][1] + sp[4][1]) / 2); y.quadraticCurveTo(sp[5][0], sp[5][1], sp[6][0], sp[6][1]); y.closePath();
@@ -133,7 +137,13 @@ function figura(x, t, pose0, o = {}) {
       if (est === "zigue") { const c1 = curva(0.7), c3 = curva(1.5); y.beginPath(); for (let j = 0; j <= 14; j++) { const [px, py] = (j % 2 ? c3 : c1)(j / 14); j ? y.lineTo(px, py) : y.moveTo(px, py); } y.stroke(); linha(1.8); }
       if (est === "pontos") { const c2 = curva(1.1); for (let j = 1; j < 12; j++) { const [px, py] = c2(j / 12); y.beginPath(); y.arc(px, py, Math.max(1, LW * 0.6), 0, 6.283); y.fill(); } linha(1.7); } }
   }
-  for (const [k, w, al3] of [[0.22, 0.5, 0.45], [0.5, -0.4, 0.6], [0.78, 0.6, 0.4]]) { const top = T(-50 + 100 * k, -14), bot = [PT.lerp(hemB[0], hemF[0], k), PT.lerp(hemB[1], hemF[1], k) - 0.012 * H]; kitPincel(y, [top, [(top[0] + bot[0]) / 2 + w * 0.02 * H * d, (top[1] + bot[1]) / 2], bot].map(pr), LW * 0.75, RGB, a * al3, { brilho: 4 * kk, ini: 0.05, fim: 0.3 }); }
+  // dobras da saia com lógica de tecido: "de queda" (cones que nascem na cintura/quadril e abrem até a barra, em S), uma dobra em U
+  // entre as pernas (o pano que pende de um quadril ao outro) e a barra que ondula
+  { const nF2 = 6, hemPt = (u) => { const q = [PT.lerp(hemB[0], hemF[0], u), PT.lerp(hemB[1], hemF[1], u)], dentro = u < 0.5 ? u : 1 - u; return [q[0], q[1] - 0.012 * H + (0.006 * H) * Math.sin(u * 17 + fase) - 0.012 * H * (1 - dentro * 2) * 0.4]; };
+    for (let n = 0; n < nF2; n++) { const u = (n + 0.5) / nF2, top = T(-46 + 92 * u, -18), bot = hemPt(u), cur = Math.sin(u * 9.4 + fase) * 0.016 * H * d, m1 = [PT.lerp(top[0], bot[0], 0.45) + cur, PT.lerp(top[1], bot[1], 0.45)], m2 = [PT.lerp(top[0], bot[0], 0.78) - cur * 0.8, PT.lerp(top[1], bot[1], 0.78)];
+      kitPincel(y, [top, m1, m2, bot].map(pr), LW * (0.55 + 0.45 * Math.abs(Math.sin(n * 2.3 + 1))), RGB, a * (0.3 + 0.35 * Math.abs(Math.cos(n * 1.7 + 0.4))), { brilho: 4 * kk, ini: 0.05, fim: 0.45 }); }
+    const aperto = Math.abs(pernas[0][3] - pernas[1][3]);
+    if (aperto > 0.3) { const ap = [PT.lerp(T(0, 30)[0], meio[0], 0.42), PT.lerp(T(0, 30)[1], meio[1], 0.42)]; kitPincel(y, [T(-44, 26), [ap[0] - 0.03 * H * d, ap[1] - 0.01 * H], [ap[0] + 0.03 * H * d, ap[1] - 0.01 * H], T(44, 26)].map(pr), LW * 0.8, RGB, a * Math.min(0.7, 0.15 + aperto * 0.3), { brilho: 4 * kk }); } }
   // tronco, cinto, manto
   { const pc = KIT_PECAS[F.corpo || "tronco"], sp = poe(pc.contorno, [0, 0], uT, 1.12 * L, 1); traca(sp, true, { semTraco: true }); traca(sp.slice(0, 15), false, { fill: false });
     const pt2 = (pts) => poe(pts, [0, 0], uT, 1.12 * L, 1);
@@ -157,9 +167,10 @@ function figura(x, t, pose0, o = {}) {
     traca([tf, bf, bb, tb], true, { rgb: PELE, semTraco: true }); traca([tf, bf], false, { rgb: PELE, fill: false }); traca([tb, bb], false, { rgb: PELE, fill: false }); }
   // rosto por medidas (ficha.rosto) ou pelo perfil antigo da ficha (cabeca_aquilino, cabeca_curto, cabeca_queixo)
   const R = { ...({ cabeca_aquilino: { nariz: 1.1, curva: 0.8 }, cabeca_curto: { nariz: 0.78, curva: -0.5, ponta: 0.5 }, cabeca_queixo: { queixo: 1, mandibula: 1 } }[F.cabeca] || {}), feminino: !!F.cilios, crianca: hk > 1, idade: id, ...(F.rosto || {}) };
-  { const sp = poe(kitPerfil(R), N, uH, hs.sx, hs.sy); traca(sp, true, { rgb: PELE, semTraco: true }); traca(sp.slice(1), false, { rgb: PELE, fill: false }); }
-  kitRosto(y, (pts) => poe(pts, N, uH, hs.sx, hs.sy), traca, { expr: o.expr || F.expr || "neutro", t, fase, idade: id, PELE, LW, kk, a, rosto: R });
-  const poeH = (pts) => poe(pts, N, uH, hs.sx, hs.sy), oH = { rgb: CABELO, LW, kk, a, d, fundo, PELE };
+  const poeF = kitFace((pts) => poe(pts, N, uH, hs.sx, hs.sy));
+  { const sp = poeF(kitPerfil(R)); traca(sp, true, { rgb: PELE, semTraco: true }); traca(sp.slice(1), false, { rgb: PELE, fill: false }); }
+  kitRosto(y, poeF, traca, { expr: o.expr || F.expr || "neutro", t, fase, idade: id, PELE, LW, kk, a, rosto: R });
+  const poeH = poeF, oH = { rgb: CABELO, LW, kk, a, d, fundo, PELE };
   if (F.barba && !kitBarba(y, F.barba, poeH, oH)) peca(F.barba, N, uH, { ...hs, rgb: CABELO });
   const cobre = F.cobertura === "veu" || F.cobertura === "pano_cabeca";
   let orelha = !cobre;

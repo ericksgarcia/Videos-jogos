@@ -6,6 +6,17 @@
 //   mandibula: -1..1, olho: 0.8–1.3, sobrancelha: 0.6–1.6 (espessura), feminino, crianca, idade }
 // Coordenadas: milésimos de H, origem no topo do pescoço; coroa em y≈-162, frente do rosto em x≈60.
 
+// Proporções de Loomis: a cabeça (coroa −162 até o queixo −2) em terços do rosto. Olhos no meio da altura da cabeça,
+// sobrancelha logo acima, base do nariz a 1/3 do queixo, boca a 1/3 entre o nariz e o queixo, orelha entre a sobrancelha e
+// a base do nariz. Os pontos desenhados à mão (de antes) ficam como estão; esta função remapeia a altura (y) de tudo
+// que é do rosto para essas posições: [antes → depois].
+const KIT_LOOMIS = [[-170, -170], [-120, -120], [-98, -93], [-86, -84], [-58, -46], [-41, -31], [-2, -2], [8, 8]];
+function kitRemap(y) {
+  const A = KIT_LOOMIS; if (y <= A[0][0]) return y; if (y >= A[A.length - 1][0]) return y;
+  for (let k = 1; k < A.length; k++) if (y <= A[k][0]) { const [a0, b0] = A[k - 1], [a1, b1] = A[k]; return b0 + (b1 - b0) * (y - a0) / (a1 - a0); }
+  return y;
+}
+const kitFace = (poe) => (pts) => poe(pts.map(([px, py]) => [px, kitRemap(py)]));
 function kitPerfil(r = {}) {
   const nz = r.nariz ?? 1, cv = r.curva ?? 0, pt = r.ponta ?? 0, lb = r.labios ?? 1, qx = r.queixo ?? 0, ts = r.testa ?? 0, md = r.mandibula ?? 0;
   const N0 = [57, -90]; // raiz do nariz
@@ -35,11 +46,11 @@ function kitRosto(y, poe, traca, o) {
   const ex = o.expr, pisca = ex !== "dorme" && ((o.t + o.fase * 0.37) % 4.3) < 0.12, fechado = ex === "dorme" || pisca;
   const nz = r.nariz ?? 1, N0 = [57, -90], nar = (dx, dy) => [N0[0] + dx * nz, N0[1] + dy * nz];
   // planos de luz (volume): testa, ponte do nariz, maçã do rosto e queixo recebem luz; borrados, só um brilho suave
-  { const luz = (pts, al) => { y.save(); y.filter = `blur(${Math.max(1.5, 3.2 * o.kk * (o.LW / 3))}px)`; y.beginPath(); _curva(y, poe(pts), true); y.fillStyle = `rgba(${P},${al * o.a})`; y.fill(); y.restore(); };
-    luz([[38, -138], [52, -122], [56, -104], [50, -100], [38, -108], [30, -124]], 0.2);                         // testa
-    luz([[55, -98], [58, -88], [60, -76], [56, -70], [52, -84]], 0.16);                                          // ponte do nariz
-    luz([[30, -78], [42, -80], [52, -70], [48, -60], [36, -62], [28, -68]], cri ? 0.12 : 0.18);                  // maçã do rosto
-    luz([[48, -30], [57, -26], [56, -14], [46, -8], [38, -14]], 0.14);                                           // queixo
+  { const luz = (pts, al) => { y.save(); y.filter = `blur(${Math.max(2.5, 6 * o.kk * (o.LW / 3))}px)`; y.beginPath(); _curva(y, poe(pts), true); y.fillStyle = `rgba(${P},${al * o.a})`; y.fill(); y.restore(); };
+    luz([[38, -138], [52, -122], [56, -104], [50, -100], [38, -108], [30, -124]], 0.11);                        // testa
+    luz([[55, -98], [58, -88], [60, -76], [56, -70], [52, -84]], 0.09);                                          // ponte do nariz
+    luz([[30, -78], [42, -80], [52, -70], [48, -60], [36, -62], [28, -68]], cri ? 0.07 : 0.1);                  // maçã do rosto
+    luz([[48, -30], [57, -26], [56, -14], [46, -8], [38, -14]], 0.08);                                           // queixo
     y.save(); y.filter = `blur(${Math.max(2, 4 * o.kk * (o.LW / 3))}px)`; y.beginPath(); _curva(y, poe([[4, -58], [20, -50], [28, -34], [24, -14], [8, -10], [-6, -30]]), true); y.fillStyle = `rgba(2,4,14,${0.3 * o.a})`; y.fill(); y.restore(); } // sombra sob a bochecha/mandíbula
   // mandíbula (do queixo até embaixo da orelha) e orelha
   pin([[50 + 3 * (r.queixo ?? 0), -8], [28, -14], [6, -26], [-6, -44], [-9, -58]], 1.0, 0.85);
