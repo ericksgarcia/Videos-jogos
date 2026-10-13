@@ -1,6 +1,6 @@
 // Kit de personagens — OBJETOS em traço de luz (mesmo pincel dos personagens), para pôr na cena.
 // manjedoura(x, { x, chao, esc, cor, a, cam, z, bebe, t }): cocho de madeira em X com palha e, se bebe, o menino
-// enrolado em panos (Lc 2:7) com rostinho de perfil dormindo. esc = largura em px (padrão 260).
+// enrolado em panos (Lc 2:7) com rostinho de perfil dormindo. esc = largura em px (padrão 260); fundo = "r,g,b" do preenchimento.
 function manjedoura(x, o = {}) {
   const y = x._texto || x; if (x._texto) y._usado = true;
   const W = o.esc || 260, s = W / 260, a = o.a ?? 1, t = o.t || 0, cor = o.cor || [0.92, 0.74, 0.5];
@@ -8,7 +8,7 @@ function manjedoura(x, o = {}) {
   const kk = o.cam ? o.cam.zoom / (o.z ?? 1) : 1, LW = Math.max(1.4, Math.min(3.2, 2.2 * s * kk)), rgb = (c) => c.map((q) => Math.round(q * 255)).join(",");
   const R = rgb(cor), PELE = rgb([1, 0.86, 0.72]), PANO = rgb([0.96, 0.95, 0.9]), PALHA = rgb([1, 0.86, 0.5]);
   const P = (pts) => pts.map(([px, py]) => pr(px, py));
-  const forma = (pts, c, fa = 0.95) => { const sp = P(pts); y.beginPath(); _curva(y, sp, true); y.fillStyle = `rgba(9,12,29,${fa})`; y.fill(); y.strokeStyle = `rgba(${c},1)`; y.lineWidth = LW; y.shadowColor = `rgba(${c},0.6)`; y.shadowBlur = 8 * kk; y.stroke(); y.shadowBlur = 0; y.stroke(); };
+  const FUNDO = o.fundo || "9,12,29", forma = (pts, c, fa = 0.95) => { const sp = P(pts); y.beginPath(); _curva(y, sp, true); y.fillStyle = `rgba(${FUNDO},${fa})`; y.fill(); y.strokeStyle = `rgba(${c},1)`; y.lineWidth = LW; y.shadowColor = `rgba(${c},0.6)`; y.shadowBlur = 8 * kk; y.stroke(); y.shadowBlur = 0; y.stroke(); };
   const pin = (pts, c, w = 0.8, al = 0.8) => kitPincel(y, P(pts), LW * w, c, a * al, { brilho: 4 * kk });
   y.save(); y.setTransform(1, 0, 0, 1, 0, 0); y.globalAlpha = a; y.lineJoin = y.lineCap = "round";
   // pernas em X e o cocho (tábuas)

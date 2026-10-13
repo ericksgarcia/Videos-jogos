@@ -2,19 +2,7 @@
 // câmera entrando até a manjedoura; os personagens continuam em line art do kit, desenhados a cada quadro
 // num canvas e postos no cenário como "recortes" (planos) — ganham profundidade e paralaxe com a câmera.
 
-// recorte de line art: canvas → textura num plano de altura h (m), base no chão em (x, y, z)
-function T25_recorte(k, larg, alt, h, pos, desenho) {
-  const cv = document.createElement("canvas"); cv.width = larg; cv.height = alt; const g = cv.getContext("2d");
-  const tex = new THREE.CanvasTexture(cv); tex.encoding = THREE.sRGBEncoding; tex.anisotropy = 4;
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(h * larg / alt, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, toneMapped: false }));
-  m.position.set(pos[0], pos[1] + h / 2, pos[2]); k.cena.add(m);
-  return { m, desenhar: (t) => { g.clearRect(0, 0, larg, alt); desenho(g, t, larg, alt); tex.needsUpdate = true; } };
-}
-// arestas acesas (o "traço de luz" no cenário 3D)
-function T25_arestas(malha, cor = 0xffc98a, op = 0.55) {
-  const l = new THREE.LineSegments(new THREE.EdgesGeometry(malha.geometry, 25), new THREE.LineBasicMaterial({ color: cor, transparent: true, opacity: op, blending: THREE.AdditiveBlending, depthWrite: false }));
-  l.position.copy(malha.position); l.rotation.copy(malha.rotation); l.scale.copy(malha.scale); return l;
-}
+// (recorte25d, pessoa25d e T25_arestas vêm do kit: identidade/kit/6-cenario25d.js)
 
 CENAS.estabulo = (el, c, B) => {
   const k = camada3D({ ini: c.ini, fim: c.fim + 1, fov: 40, exposicao: 0.85 });
@@ -55,11 +43,12 @@ CENAS.estabulo = (el, c, B) => {
   const nP = 260, pp = new Float32Array(nP * 3), base = []; for (let i = 0; i < nP; i++) base.push([(r() - 0.5) * 5, r() * 3, (r() - 0.5) * 3, r() * 6.28]);
   const gP = new THREE.BufferGeometry(); gP.setAttribute("position", new THREE.BufferAttribute(pp, 3)); const matP = new THREE.PointsMaterial({ color: 0xffd9a0, size: 2.4, sizeAttenuation: false, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false }); cena.add(new THREE.Points(gP, matP));
   // personagens em line art (recortes no cenário)
-  const maria = T25_recorte(k, 520, 760, 1.25, [-1.15, 0.02, 0.75], (g, t, W2, H2) => figura(g, t, { ...POSES.ajoelhado, braco: [[0.5, 1.0], [0.75, 0.9]], cabeca: 0.3 }, { tipo: "maria", x: W2 * 0.42, chao: H2 - 8, H: 700, dir: 1, fase: 3, expr: "sorri" }));
-  const jose = T25_recorte(k, 460, 900, 1.8, [1.45, 0.02, 0.35], (g, t, W2, H2) => figura(g, t, { ...POSES.de_pe, cabeca: 0.3, braco: [[-0.1, 0.3], [0.6, 1.3]] }, { tipo: "jose", x: W2 * 0.55, chao: H2 - 8, H: 830, dir: -1, fase: 2, expr: "sorri" }));
-  const berco = T25_recorte(k, 520, 340, 0.75, [0.2, 0.02, 0.6], (g, t, W2, H2) => manjedoura(g, { x: W2 / 2, chao: H2 - 6, esc: 470, t }));
+  const luz = { lado: -1, cor: [255, 176, 100], rimCor: "255,226,170", calor: 0.28 };
+  const maria = pessoa25d(k, { tipo: "maria", pose: (tt) => ({ ...POSES.de_pe, tronco: 0.16, cabeca: 0.35, braco: [[0.5, 1.0], [0.8, 0.85]], perna: [[-0.1, 0], [0.12, -0.05]] }), pos: [-0.8, 0.02, 0.7], alt: 1.62, dir: 1, expr: "sorri", fase: 3, luz });
+  const jose = pessoa25d(k, { tipo: "jose", pose: () => ({ ...POSES.de_pe, cabeca: 0.3, braco: [[-0.1, 0.3], [0.6, 1.3]] }), pos: [0.95, 0.02, 0.35], alt: 1.75, dir: -1, expr: "sorri", fase: 2, luz: { ...luz, lado: -1 } });
+  const berco = recorte25d(k, { larg: 680, alt: 340, h: 0.75, pos: [-0.15, 0.02, 0.6], luz: { ...luz, calor: 0.55, rim: 0.7 }, desenho: (g, t, W2, H2) => manjedoura(g, { x: W2 / 2, chao: H2 - 6, esc: 470, t, fundo: "58,40,26" }) });
   // câmera: de fora (o estábulo pequeno sob a estrela) até perto da manjedoura, num arco leve
-  const CAMK = [[c.ini, [-7, 4.5, 36]], [c.ini + (c.fim - c.ini) * 0.5, [-2.2, 2.4, 14]], [c.fim + 1, [0.7, 1.55, 5.4]]], ALVO = [[c.ini, [0, 5, -4]], [c.ini + (c.fim - c.ini) * 0.5, [0.2, 1.8, 0]], [c.fim + 1, [0.15, 0.95, 0.4]]];
+  const CAMK = [[c.ini, [-7, 4.5, 36]], [c.ini + (c.fim - c.ini) * 0.5, [-0.4, 1.8, 8.5]], [c.fim + 1, [-0.3, 1.05, 3.9]]], ALVO = [[c.ini, [0, 5, -4]], [c.ini + (c.fim - c.ini) * 0.5, [0.1, 1.0, 0.4]], [c.fim + 1, [-0.25, 0.95, 0.6]]];
   k.animar((t) => {
     const cp = chaves(t, CAMK), al = chaves(t, ALVO); camera.position.set(...cp); camera.lookAt(...al);
     matE.opacity = 0.75 + 0.1 * Math.sin(t * 1.3); nucleo.scale.setScalar(2.4 * (1 + 0.06 * Math.sin(t * 2.1))); lamp.intensity = 2.2 + 0.25 * Math.sin(t * 3.1) + 0.2 * Math.sin(t * 7.3);

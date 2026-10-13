@@ -34,6 +34,13 @@ function kitRosto(y, poe, traca, o) {
   const W = o.LW, P = o.PELE, pin = (pts, w, al = 1, oo) => kitPincel(y, poe(pts), W * w, P, o.a * al, { brilho: 5 * o.kk, ...oo });
   const ex = o.expr, pisca = ex !== "dorme" && ((o.t + o.fase * 0.37) % 4.3) < 0.12, fechado = ex === "dorme" || pisca;
   const nz = r.nariz ?? 1, N0 = [57, -90], nar = (dx, dy) => [N0[0] + dx * nz, N0[1] + dy * nz];
+  // planos de luz (volume): testa, ponte do nariz, maçã do rosto e queixo recebem luz; borrados, só um brilho suave
+  { const luz = (pts, al) => { y.save(); y.filter = `blur(${Math.max(1.5, 3.2 * o.kk * (o.LW / 3))}px)`; y.beginPath(); _curva(y, poe(pts), true); y.fillStyle = `rgba(${P},${al * o.a})`; y.fill(); y.restore(); };
+    luz([[38, -138], [52, -122], [56, -104], [50, -100], [38, -108], [30, -124]], 0.2);                         // testa
+    luz([[55, -98], [58, -88], [60, -76], [56, -70], [52, -84]], 0.16);                                          // ponte do nariz
+    luz([[30, -78], [42, -80], [52, -70], [48, -60], [36, -62], [28, -68]], cri ? 0.12 : 0.18);                  // maçã do rosto
+    luz([[48, -30], [57, -26], [56, -14], [46, -8], [38, -14]], 0.14);                                           // queixo
+    y.save(); y.filter = `blur(${Math.max(2, 4 * o.kk * (o.LW / 3))}px)`; y.beginPath(); _curva(y, poe([[4, -58], [20, -50], [28, -34], [24, -14], [8, -10], [-6, -30]]), true); y.fillStyle = `rgba(2,4,14,${0.3 * o.a})`; y.fill(); y.restore(); } // sombra sob a bochecha/mandíbula
   // mandíbula (do queixo até embaixo da orelha) e orelha
   pin([[50 + 3 * (r.queixo ?? 0), -8], [28, -14], [6, -26], [-6, -44], [-9, -58]], 1.0, 0.85);
   // olho (perfil): pálpebras em V aberto para a frente, íris, dobra da pálpebra

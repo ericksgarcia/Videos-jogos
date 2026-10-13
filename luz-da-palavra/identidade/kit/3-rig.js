@@ -28,6 +28,8 @@ function figura(x, t, pose0, o = {}) {
   const RGB = rgbOf(cor), PELE = rgbOf(tinge(F.pele || [1, 0.86, 0.7])), ROUPA2 = rgbOf(tinge(F.roupa2 || F.cor || [1, 0.84, 0.55])), CABELO = rgbOf(tinge(F.corCabelo || F.cabeloCor || [0.9, 0.78, 0.6]));
   const LW = Math.max(1.4, Math.min(3.2, 0.0058 * H * kk)); // traço fino e elegante em qualquer tamanho
   y.save(); y.setTransform(1, 0, 0, 1, 0, 0); y.lineJoin = "round"; y.lineCap = "round"; y.globalAlpha = a;
+  // camada (2.5D): o.camada = "tras" | "corpo" | "frente" desenha só essa parte (braço de trás + asas / tudo no meio / braço da frente), para pôr cada uma numa profundidade
+  const vis = (n) => { y.globalAlpha = (!o.camada || o.camada === n) ? a : 0; };
   // referencial de um osso: origem P, eixo u (ao longo do osso) e f (para a frente)
   const un = (p, q) => { const dx = q[0] - p[0], dy = q[1] - p[1], l = Math.hypot(dx, dy) || 1; return [dx / l, dy / l]; };
   const fr = (u) => [u[1] * d, -u[0] * d];
@@ -53,7 +55,7 @@ function figura(x, t, pose0, o = {}) {
     if (pc.extra) { traca(poe(pc.extra.contorno, P, u, sx, sy), true, o2); for (const ln of pc.extra.linhas || []) traca(poe(ln, P, u, sx, sy), false, { ...o2, lw: 0.55, det: true, al: 0.8, fill: false }); }
   };
   // sombra no chão
-  { const fx = (pernas[0][2][0] + pernas[1][2][0]) / 2, [sx, sy, sk] = pr([fx, baixo]); y.save(); y.translate(sx, sy); y.scale(1, 0.16); const gr = y.createRadialGradient(0, 0, 0, 0, 0, 0.2 * H * sk); gr.addColorStop(0, `rgba(0,0,0,${0.45 * a})`); gr.addColorStop(1, "rgba(0,0,0,0)"); y.fillStyle = gr; y.beginPath(); y.arc(0, 0, 0.2 * H * sk, 0, 6.283); y.fill(); y.restore(); }
+  if (!o.camada && !o.semSombra) { const fx = (pernas[0][2][0] + pernas[1][2][0]) / 2, [sx, sy, sk] = pr([fx, baixo]); y.save(); y.translate(sx, sy); y.scale(1, 0.16); const gr = y.createRadialGradient(0, 0, 0, 0, 0, 0.2 * H * sk); gr.addColorStop(0, `rgba(0,0,0,${0.45 * a})`); gr.addColorStop(1, "rgba(0,0,0,0)"); y.fillStyle = gr; y.beginPath(); y.arc(0, 0, 0.2 * H * sk, 0, 6.283); y.fill(); y.restore(); }
   const maos = o.maos || ["aberta", "aberta"];
   // membro inteiro numa forma só (sem a emenda de boneco no cotovelo/joelho): cadeia de articulações + perfil
   // de larguras [segmento, u, largura de trás, largura da frente] em milésimos de H
@@ -96,6 +98,7 @@ function figura(x, t, pose0, o = {}) {
   };
   // ---- ordem: braço de trás, (objeto de trás), pernas, túnica, tronco, cinto, manto, pescoço, cabeça, cabelo/barba/cobertura, braço da frente ----
   // asas (anjos): nascem atrás das omoplatas; o.asas (0–1) abre/fecha, respiram sozinhas
+  vis("tras");
   if (F.asas) { const uW = un(C, [0, 0]), abre = (o.asas ?? 0.85) + 0.04 * Math.sin(t * 1.6 + fase), raiz = [-34, -240];
     const gira2 = (pts, k) => pts.map(([px, py]) => { const an = (1 - abre) * 0.9 * k, dx = px - raiz[0], dy = py - raiz[1]; return [raiz[0] + dx * Math.cos(an) + dy * Math.sin(an) * -1, raiz[1] + dx * Math.sin(an) + dy * Math.cos(an)]; });
     const ASA = [[-30, -250], [-42, -312], [-76, -392], [-126, -452], [-178, -476], [-216, -466], [-234, -432], [-240, -380], [-248, -318], [-260, -248], [-272, -176], [-284, -104], [-294, -40], [-272, -30], [-256, -74], [-240, -52], [-222, -108], [-204, -88], [-186, -150], [-166, -130], [-146, -194], [-124, -178], [-104, -220], [-80, -208], [-56, -232]];
@@ -104,7 +107,8 @@ function figura(x, t, pose0, o = {}) {
     for (const [k, al2, dx] of [[1.3, 0.55, -22], [1, 1, 0]]) { const tr = (pts) => poe(gira2(pts.map(([px, py]) => [px + dx, py - dx * 0.4]), k), [0, 0], uW, 1, 1);
       traca(tr(ASA), true, { rgb: ROUPA2, al: al2 }); for (const pn of PENAS) kitPincel(y, tr(pn), LW * 0.8, ROUPA2, a * al2 * 0.75, { brilho: 4 * kk }); } }
   braco(bracos[0], 0, true);
-  if (o.atras) { y.save(); o.atras(y, info()); y.restore(); y.globalAlpha = a; }
+  if (o.atras && (!o.camada || o.camada === "tras")) { y.save(); o.atras(y, info()); y.restore(); }
+  vis("corpo");
   perna(pernas[0], true); perna(pernas[1], false);
   // túnica (saia): cai da cintura até a barra; a barra acompanha as coxas (passo, sentado) — mesmo traço das peças
   const uT = un(C, [0, 0]), fT = fr(uT), T = (px, py) => [fT[0] * px * s * L + uT[0] * py * s, fT[1] * px * s * L + uT[1] * py * s];
@@ -163,6 +167,7 @@ function figura(x, t, pose0, o = {}) {
   if (orelha) kitOrelha(y, poeH, oH);
   if (F.cobertura && !kitCobertura(y, F.cobertura, poeH, { ...oH, rgb: ROUPA2 }, { rgbEsc: rgbOf(mixCor(tinge(F.roupa2 || [1, 0.84, 0.55]), [0.2, 0.15, 0.1], 0.45)), cabelo: F.cabelo ? CABELO : null }))
     peca(F.cobertura, N, uH, { ...hs, rgb: ROUPA2 });
+  vis("frente");
   braco(bracos[1], 1, false);
   y.restore();
   return info();
