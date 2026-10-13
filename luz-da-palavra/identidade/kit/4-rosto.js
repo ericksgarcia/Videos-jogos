@@ -14,6 +14,7 @@ let KIT_LUZ = [-0.7, -0.7]; // direção da luz (da figura para a fonte): padrã
 const kitSombra = (rgb, k = 1) => String(rgb).split(",").map((v, i) => Math.round(Math.min(255, +v * 0.56 * k + [12, 14, 38][i] * 0.5))).join(",");
 // pele: a sombra fica mais quente e saturada (laranja-avermelhada), nunca cinza; a luz, um pouco mais clara e amarelada
 const kitSombraPele = (rgb, k = 1) => { const [r, g, b] = String(rgb).split(",").map(Number); return [Math.round(Math.min(255, r * 0.8 * k + 8)), Math.round(g * 0.6 * k), Math.round(b * 0.52 * k + 6)].join(","); };
+const kitMix = (a, b, t) => { const A = String(a).split(",").map(Number), B = String(b).split(",").map(Number); return A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(","); };
 const kitClaraPele = (rgb, k = 1) => { const [r, g, b] = String(rgb).split(",").map(Number); return [Math.round(Math.min(255, r * k + 10)), Math.round(Math.min(255, g * k + 14)), Math.round(Math.min(255, b * k + 8))].join(","); };
 const kitClara = (rgb, k = 1) => String(rgb).split(",").map((v, i) => Math.round(Math.min(255, +v * 1.0 * k + [26, 16, 0][i]))).join(",");
 // sombra e luz como FORMAS (não só degradê): a forma menos ela mesma deslocada para a luz = meia-lua do lado oposto (sombra);
@@ -22,7 +23,7 @@ function kitSombreia(y, sp, c2, vk = 1, kk = 1, fa = 1, tracer = null, pele = fa
   const sombraC = pele ? kitSombraPele : kitSombra, claraC = pele ? kitClaraPele : kitClara;
   const tr = tracer || ((ox, oy) => _curva(y, sp.map(([px, py]) => [px + ox, py + oy]), true)); // tracer(ox, oy): acrescenta ao caminho a forma deslocada
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
-  const w = x1 - x0, h = y1 - y0, m = Math.min(w, h); if (m < 9) return;
+  const w = x1 - x0, h = y1 - y0, m = Math.min(w, h); if (m < 9 || fa <= 0) return;
   const off = Math.max(2.5, Math.min(0.16 * m, 50 * kk)), [lx, ly] = KIT_LUZ, big = [x0 - 60, y0 - 60, w + 120, h + 120];
   y.save(); y.beginPath(); tr(0, 0); y.clip();
   y.beginPath(); y.rect(...big); tr(lx * off, ly * off); y.fillStyle = `rgba(${sombraC(c2, vk)},${0.72 * fa})`; y.fill("evenodd");
@@ -53,7 +54,8 @@ function kitPerfil(r = {}) {
 function kitPincel(y, pts, w, rgb, a = 1, o = {}) {
   if (pts.length < 2) return;
   if (KIT_ESTILO === "silhueta") return;
-  if (KIT_ESTILO === "cheio") { rgb = o.claro ? kitClara(rgb, 0.9) : kitEsc(rgb, 0.34); o = { ...o, brilho: 0 }; a = Math.min(1, a * (o.claro ? 0.6 : 1.15)); w *= o.claro ? 1 : 1.25; }
+  if (KIT_ESTILO === "cheio" && o.suave) { rgb = kitSombra(rgb, 1.15); o = { ...o, brilho: 0 }; a = Math.min(1, a * 0.85); }
+  else if (KIT_ESTILO === "cheio") { rgb = o.claro ? kitClara(rgb, 0.9) : kitEsc(rgb, 0.34); o = { ...o, brilho: 0 }; a = Math.min(1, a * (o.claro ? 0.6 : 1.15)); w *= o.claro ? 1 : o.contorno ? 0.7 : 1.25; }
   const n = pts.length, g = (k) => pts[Math.max(0, Math.min(n - 1, k))], S = [];
   for (let k = 0; k < n - 1; k++) { const p0 = g(k - 1), p1 = g(k), p2 = g(k + 1), p3 = g(k + 2), c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
     for (let j = 0; j < 8; j++) { const u = j / 8, v = 1 - u; S.push([v * v * v * p1[0] + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * p2[0], v * v * v * p1[1] + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * p2[1]]); } }
@@ -78,24 +80,29 @@ function kitRosto(y, poe, traca, o) {
     luz([[30, -78], [42, -80], [52, -70], [48, -60], [36, -62], [28, -68]], cri ? 0.07 : 0.1);                  // maçã do rosto
     luz([[48, -30], [57, -26], [56, -14], [46, -8], [38, -14]], 0.08);                                           // queixo
     if (KIT_ESTILO === "linha") { y.save(); y.filter = `blur(${Math.max(2, 4 * o.kk * (o.LW / 3))}px)`; y.beginPath(); _curva(y, poe([[4, -58], [20, -50], [28, -34], [24, -14], [8, -10], [-6, -30]]), true); y.fillStyle = `rgba(2,4,14,${0.3 * o.a})`; y.fill(); y.restore(); } } // sombra sob a bochecha/mandíbula
-  if (KIT_ESTILO === "cheio") { // olho com o branco, lábios coloridos
-    const [[ex2, ey2], [ex3, ey3], [lx0, ly0], [lx1, ly1]] = poe([[41.5, -85], [47.5, -85], [56.5, -35.5], [56.5, -26]]), u1 = Math.hypot(ex3 - ex2, ey3 - ey2) / 6;
-    if (!fechado) { y.beginPath(); y.ellipse(ex2, ey2, 5.4 * u1, 3.7 * u1, 0, 0, 6.283); y.fillStyle = "rgba(250,244,236,1)"; y.fill(); }
-    if (ex !== "dorme") { const rose = fem || cri ? "206,98,104" : kitEsc(P, 0.62); y.beginPath(); y.ellipse(lx0, ly0 + 1.5 * u1, 3.2 * u1, 2.1 * u1, 0, 0, 6.283); y.fillStyle = `rgba(${rose},0.95)`; y.fill(); y.beginPath(); y.ellipse(lx1 - 1.5 * u1, ly1 + 1 * u1, 3 * u1, 1.9 * u1, 0, 0, 6.283); y.fillStyle = `rgba(${rose},0.95)`; y.fill(); } }
+  if (KIT_ESTILO === "cheio" && ex !== "dorme") { // lábios: dois volumes que seguem o perfil (em cima, fino; embaixo, mais cheio)
+    const lb = r.labios ?? 1, rose = fem || cri ? "196,108,104" : kitMix(kitSombraPele(P, 0.95), "150,70,62", 0.45), lbo = (pts) => { y.beginPath(); _curva(y, poe(pts), true); y.fillStyle = `rgba(${rose},0.96)`; y.fill(); };
+    lbo([[57.6, -48.2], [58.8 + 1.6 * lb, -45.6], [57.8, -41.3], [54.2, -41.6], [53.6, -45.8]]);
+    lbo([[57.8, -40.7], [58 + 2 * lb, -36.8], [55.4, -33.2], [52, -35], [53.4, -39.6]]); }
   if (KIT_ESTILO === "cheio") { // bochecha rosada e um brilho no olho (rosto de ilustração, não de desenho técnico)
     const [[bx, by], [cx2, cy2]] = poe([[40, -62], [50, -62]]), u0 = Math.hypot(cx2 - bx, cy2 - by) / 10;
     y.save(); y.filter = `blur(${Math.max(1, 2 * u0)}px)`; y.beginPath(); y.ellipse(bx, by, 9 * u0, 6 * u0, 0, 0, 6.283); y.fillStyle = `rgba(232,104,96,${cri ? 0.3 : fem ? 0.3 : 0.22})`; y.fill(); y.restore(); }
   // mandíbula (do queixo até embaixo da orelha) e orelha
-  pin([[50 + 3 * (r.queixo ?? 0), -8], [28, -14], [6, -26], [-6, -44], [-9, -58]], 1.0, KIT_ESTILO === "cheio" ? 0.4 : 0.85);
+  if (KIT_ESTILO !== "cheio") pin([[50 + 3 * (r.queixo ?? 0), -8], [28, -14], [6, -26], [-6, -44], [-9, -58]], 1.0, 0.85);
   // olho (perfil): pálpebras em V aberto para a frente, íris, dobra da pálpebra
   const ey = -86, ex0 = 34, ex1 = 47 + 2 * ol;
   if (fechado) { pin([[ex0, ey], [40, ey + 2.5], [ex1, ey - 0.5]], 1.0); pin([[ex1 - 1, ey - 1], [ex1 + 3, ey + 1]], 0.6, 0.7); }
   else {
     const ab = (ex === "espanto" || ex === "medo" ? 1.5 : ex === "sorri" ? 0.8 : 1) * ol;
+    if (KIT_ESTILO === "cheio") { // amêndoa branca, íris escura recortada pelas pálpebras e um ponto de brilho
+      const am = poe([[ex0, ey], [39, ey - 4.5 * ab], [45, ey - 4.2 * ab], [ex1, ey - 0.8], [ex1 - 1, ey + 0.6], [41, ey + 2.4 * ab]]), [[cx3, cy3], [cx4, cy4]] = poe([[43.6, ey - 1.1], [44.6, ey - 1.1]]), un0 = Math.hypot(cx4 - cx3, cy4 - cy3);
+      y.save(); y.beginPath(); _curva(y, am, true); y.fillStyle = "rgba(248,243,236,1)"; y.fill(); y.clip();
+      y.beginPath(); y.ellipse(cx3, cy3, 3.5 * un0 * ab * 0.95, 3.7 * un0 * ab, 0, 0, 6.283); y.fillStyle = fem || cri ? "rgba(60,38,28,1)" : "rgba(46,28,20,1)"; y.fill();
+      y.beginPath(); y.arc(cx3 + 1.1 * un0, cy3 - 1.2 * un0, 0.9 * un0, 0, 6.283); y.fillStyle = "rgba(255,255,255,0.95)"; y.fill(); y.restore(); }
     pin([[ex0, ey], [39, ey - 4.5 * ab], [45, ey - 4.2 * ab], [ex1, ey - 0.8]], 1.15);
     pin([[ex0 + 1, ey + 0.5], [41, ey + 2.4 * ab], [ex1 - 1, ey + 0.6]], 0.6, 0.8);
     const [ix, iy] = poe([[43.5, ey - 1.4]])[0], ir = Math.max(1.2, 3.1 * ab * o.kk * W / 3.3);
-    y.beginPath(); y.ellipse(ix, iy, ir * 0.62, ir, 0, 0, 6.283); y.fillStyle = `rgba(${KIT_ESTILO === "cheio" ? kitEsc(P, 0.35) : P},${o.a})`; y.fill();
+    if (KIT_ESTILO !== "cheio") { y.beginPath(); y.ellipse(ix, iy, ir * 0.62, ir, 0, 0, 6.283); y.fillStyle = `rgba(${P},${o.a})`; y.fill(); }
     pin([[ex0 + 2, ey - 6.5 * ab], [41, ey - 8.5 * ab], [ex1 - 2, ey - 6.5 * ab]], 0.55, 0.6);
     if (fem || r.cilios) { pin([[ex1 - 2, ey - 3.5], [ex1 + 4, ey - 6.5]], 0.6, 0.9); pin([[ex1 - 5, ey - 4.2], [ex1, ey - 8.5]], 0.5, 0.8); }
   }
@@ -108,13 +115,13 @@ function kitRosto(y, poe, traca, o) {
   // boca: linha entre os lábios e o canto
   const bc = { sorri: [[58, -41], [54, -41.5], [49, -44.5]], triste: [[58, -41], [54, -40], [50, -37.5]], espanto: null, medo: null, fala: null }[ex];
   if (bc) pin(bc, 1.0);
-  else if (ex === "espanto" || ex === "medo") traca(poe([[58, -43], [55, -45], [53, -40], [55, -35], [58, -36]]), true, { rgb: P, lw: 0.6, det: true });
-  else if (ex === "fala") { const k = Math.max(0, Math.sin(o.t * 11 + o.fase)); traca(poe([[58.5, -42], [53, -42.5], [52, -40], [55, -38 + 3 * k], [58.5, -39 + 3 * k]]), true, { rgb: P, lw: 0.6, det: true }); }
+  else if (ex === "espanto" || ex === "medo") traca(poe([[58, -43], [55, -45], [53, -40], [55, -35], [58, -36]]), true, { rgb: KIT_ESTILO === "cheio" ? "96,42,42" : P, lw: 0.6, det: true });
+  else if (ex === "fala") { const k = Math.max(0, Math.sin(o.t * 11 + o.fase)); traca(poe([[58.5, -42], [53, -42.5], [52, -40], [55, -38 + 3 * k], [58.5, -39 + 3 * k]]), true, { rgb: KIT_ESTILO === "cheio" ? "96,42,42" : P, lw: 0.6, det: true }); }
   else pin([[58.5, -41], [54, -41], [50.5, -40.2]], 0.95);
   if (!fem && !cri) pin([[58, -34], [55, -31.5]], 0.5, 0.6); // sombra do lábio de baixo
   // maçã do rosto, sulco do nariz até a boca (sorriso e idade), rugas
-  pin([[36, -72], [44, -68]], 0.5, 0.45);
-  if (ex === "sorri" || idade > 0.2) pin([[54, -63], [49, -54], [49, -45]], 0.7, ex === "sorri" ? 0.8 : 0.6);
+  if (KIT_ESTILO !== "cheio") pin([[36, -72], [44, -68]], 0.5, 0.45);
+  if (ex === "sorri" || idade > 0.2) pin([[54, -63], [49, -54], [49, -45]], 0.7, (ex === "sorri" ? 0.8 : 0.6) * (KIT_ESTILO === "cheio" ? 0.4 : 1));
   if (idade > 0.2) { pin([[30, -88], [27, -82]], 0.5, 0.6); pin([[33, -84], [29, -78]], 0.45, 0.5); pin([[50, -112], [38, -114]], 0.45, 0.5); pin([[48, -107], [38, -108]], 0.4, 0.45); pin([[44, -36], [41, -28]], 0.5, 0.55); }
   if (cri) pin([[42, -60], [46, -57]], 0.5, 0.4);
 }
@@ -135,10 +142,10 @@ function kitReamostra(pts, m) {
 function kitDentro(p, poly) { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < (b[0] - a[0]) * (p[1] - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; }
 // massa: preenche (esconde o que está atrás) e tinge com luz vinda de cima/frente
 function kitMassa(y, poe, pts, o, al = 1) {
-  const sp = poe(pts); y.beginPath(); _curva(y, sp, true); y.fillStyle = KIT_ESTILO === "cheio" ? `rgba(${kitEsc(o.rgb, 0.78)},1)` : KIT_ESTILO === "silhueta" ? "rgba(8,10,24,1)" : `rgba(${o.fundo},0.97)`; y.fill();
+  const sp = poe(pts); y.beginPath(); _curva(y, sp, true); y.fillStyle = KIT_ESTILO === "cheio" ? `rgba(${o.pele ? kitMix(o.rgb, kitSombraPele(o.rgb, 1), 0.3) : kitEsc(o.rgb, 0.78)},1)` : KIT_ESTILO === "silhueta" ? "rgba(8,10,24,1)" : `rgba(${o.fundo},0.97)`; y.fill();
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
   const fx = o.d > 0 ? x1 : x0, g = y.createLinearGradient(fx, y0, o.d > 0 ? x0 : x1, y1);
-  if (KIT_ESTILO === "cheio") { kitSombreia(y, sp, o.rgb, 0.8, o.kk, 1); return; }
+  if (KIT_ESTILO === "cheio") { kitSombreia(y, sp, o.rgb, o.pele ? 1 : 0.8, o.kk, o.pele ? 0.6 : 1, null, !!o.pele); return; }
   g.addColorStop(0, `rgba(${o.rgb},${0.3 * al})`); g.addColorStop(0.5, `rgba(${o.rgb},${0.12 * al})`); g.addColorStop(1, `rgba(${o.rgb},${0.05 * al})`); y.fillStyle = g; y.fill();
 }
 // fios entre guias consecutivas; ond = ondulação (amplitude em unidades da cabeça)
@@ -160,7 +167,7 @@ function kitBorda(y, poe, pts, o, f = {}) {
     for (let k = 0; k < R.length - 1; k++) { const a = R[k], b = R[k + 1], tx = b[0] - a[0], ty = b[1] - a[1], l = Math.hypot(tx, ty) || 1, s = f.lado || 1;
       out.push(a); out.push([(a[0] + b[0]) / 2 + ty / l * (f.cachos || f.pontas) * s * -1, (a[1] + b[1]) / 2 - tx / l * (f.cachos || f.pontas) * s * -1]); }
     out.push(R[R.length - 1]); q = out; }
-  kitPincel(y, poe(q), o.LW * (f.w || 1.15), o.rgb, o.a * (f.al ?? 1), { brilho: 7 * o.kk, ini: 0.25, fim: 0.25 });
+  kitPincel(y, poe(q), o.LW * (f.w || 1.15), o.rgb, o.a * (f.al ?? 1), { brilho: 7 * o.kk, ini: 0.25, fim: 0.25, contorno: true });
 }
 const KIT_CABELOS_V2 = {
   cabelo_curto: { orelha: true,
@@ -265,7 +272,7 @@ function kitCobertura(y, nome, poe, o, oc) {
 // orelha (desenhada depois do cabelo curto, para ficar por cima da massa)
 function kitOrelha(y, poe, o) {
   const pin = (pts, w, al = 1) => kitPincel(y, poe(pts), o.LW * w, o.PELE, o.a * al, { brilho: 5 * o.kk });
-  kitMassa(y, poe, [[-3, -101], [-15, -100], [-23, -90], [-24, -76], [-19, -64], [-12, -57], [-5, -60], [-2, -80]], { ...o, rgb: o.PELE }, 0.6);
+  kitMassa(y, poe, [[-3, -101], [-15, -100], [-23, -90], [-24, -76], [-19, -64], [-12, -57], [-5, -60], [-2, -80]], { ...o, rgb: o.PELE, pele: true }, 0.6);
   pin([[-3, -101], [-15, -100], [-23, -90], [-24, -76], [-19, -64], [-12, -57], [-5, -60]], 1.15, 0.95);
   pin([[-8, -92], [-16, -88], [-17, -77], [-12, -70]], 0.7, 0.75); pin([[-4, -80], [-1, -74]], 0.6, 0.7);
 }

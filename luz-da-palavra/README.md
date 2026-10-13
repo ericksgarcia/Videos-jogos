@@ -90,6 +90,12 @@ do Google, duração mínima de 1:30).
   (lanca, espada, escudo, cajado, funda, pao, peixe, cesto, pedra). O personagem fica na camada nítida, por
   cima dos pontos: objeto em pontos que deve aparecer na mão vai um pouco acima dela (ou use `objetoLinha`).
   Cenário e objetos grandes continuam em pontos de luz. 3D só quando melhorar muito a qualidade.
+- **Personagens: só paro quando estiverem perfeitos (regra do dono, out/2026).** Ao alterar o desenho dos personagens, nunca
+  me dou por satisfeito com a primeira versão que "melhorou": olho a imagem com olho crítico (rosto, pescoço, mãos, roupa, cor
+  da pele, proporção), aponto o que ainda está feio, corrijo e renderizo de novo, quantas vezes for preciso. O dono já apontou
+  defeitos que eu deixei passar (barba na mulher e na criança, metade do rosto de cada cor, pescoço de cilindro): se eu vejo a
+  imagem e não acho nenhum defeito, estou olhando mal. Só entrego o personagem quando um ilustrador profissional não
+  apontaria o que consertar; antes disso, a entrega diz com franqueza o que ainda está fraco.
 - **Pedido de apoio no MEIO do vídeo (pedido do dono, out/2026): em todo vídeo.** Uma cena curta
   (`{"tipo": "apoio"}` no roteiro, ~5 s, `cenaApoio` na identidade: luzes soltas se juntam em mãos que oram,
   botão "+ SEGUIR" com seta para o perfil e seta para os comentários com "amém"). Linha do dono: **"sei que

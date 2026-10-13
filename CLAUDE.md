@@ -403,6 +403,12 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 - Canal cristão no mesmo motor, com identidade, regras e vídeos próprios: **leia
   `luz-da-palavra/README.md`** antes de mexer nele. As regras de conteúdo acima (Feynman, tendências,
   1:30 mínimo) são só do Aprendendo Fácil.
+- **Personagens: só paro quando estiverem perfeitos (regra do dono, out/2026).** Ao alterar o desenho dos personagens, nunca
+  me dou por satisfeito com a primeira versão que "melhorou": olho a imagem com olho crítico (rosto, pescoço, mãos, roupa, cor
+  da pele, proporção), aponto o que ainda está feio, corrijo e renderizo de novo, quantas vezes for preciso. O dono já apontou
+  defeitos que eu deixei passar (barba na mulher e na criança, metade do rosto de cada cor, pescoço de cilindro): se eu vejo a
+  imagem e não acho nenhum defeito, estou olhando mal. Só entrego o personagem quando um ilustrador profissional não
+  apontaria o que consertar; antes disso, a entrega diz com franqueza o que ainda está fraco.
 - O `gerar.py` escolhe a identidade pela pasta do vídeo (`<canal>/identidade/`) ou pelo campo `"canal"`
   do roteiro; sem nenhum dos dois, usa `aprendendo/identidade` (padrão). Saída dos outros canais em
   `output/<canal>/<tema>/`. Vídeo novo: `novo.py --canal luz-da-palavra <tema> "Título" --formato versiculo`.
