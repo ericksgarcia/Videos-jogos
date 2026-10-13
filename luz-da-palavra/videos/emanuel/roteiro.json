@@ -3,49 +3,232 @@
   "slug": "o-que-significa-emanuel",
   "titulo": "O que significa Emanuel",
   "descricao": "Se hoje você se sentiu sozinho, esse nome foi escolhido pra você.\nO que significa Emanuel: em hebraico, \"Deus conosco\" (Mateus 1:23; Isaías 7:14). O sonho de José, o anjo que diz \"não temas\" e o detalhe que quase ninguém percebe no fim do evangelho de Mateus.\nEm que momento do seu dia você mais precisa lembrar que Deus está com você? Escreve numa palavra aqui nos comentários.\nSalva pra lembrar disso numa noite difícil.",
-  "hashtags": ["#biblia", "#fe", "#natal", "#emanuel", "#luzdapalavra"],
+  "hashtags": [
+    "#biblia",
+    "#fe",
+    "#natal",
+    "#emanuel",
+    "#luzdapalavra"
+  ],
   "comentario_fixado": "Escreve numa palavra o momento do dia em que você mais precisa lembrar que Deus está com você 👇",
   "gancho": "PRA QUEM SE SENTIU SOZINHO",
   "gancho_destaque": "SOZINHO",
   "voz": "Achird",
   "sons": {
-    "sozinho": ["respiro", 0.35], "nome": ["sino", 0.4], "fim": ["respiro", 0.3],
-    "jose": ["respiro", 0.3], "gravida": ["thud", 0.3], "segredo": ["respiro", 0.3],
-    "sonho": ["respiro", 0.35], "anjo": ["brilho", 0.45], "temas": ["sino", 0.45], "nome2": ["sino", 0.4],
-    "unido": ["sino", 0.4], "segue": ["plim", 0.45], "comenta": ["plim", 0.45],
-    "emanuel": ["sino", 0.55], "imanu": ["brilho", 0.35], "el": ["brilho", 0.35], "junta": ["sino", 0.5],
-    "longe": ["respiro", 0.3], "aqui": ["sino", 0.45], "jose2": ["brilho", 0.3],
-    "detalhe": ["respiro", 0.3], "comeca": ["brilho", 0.35], "termina": ["brilho", 0.35], "promessa": ["sino", 0.55],
-    "pergunta": ["pop", 0.3],
-    "salva": ["pop", 0.35], "cta": ["brilho", 0.45], "lembra": ["respiro", 0.3]
+    "sozinho": [
+      "respiro",
+      0.35
+    ],
+    "nome": [
+      "sino",
+      0.4
+    ],
+    "fim": [
+      "respiro",
+      0.3
+    ],
+    "jose": [
+      "respiro",
+      0.3
+    ],
+    "gravida": [
+      "thud",
+      0.3
+    ],
+    "segredo": [
+      "respiro",
+      0.3
+    ],
+    "sonho": [
+      "respiro",
+      0.35
+    ],
+    "anjo": [
+      "brilho",
+      0.45
+    ],
+    "temas": [
+      "sino",
+      0.45
+    ],
+    "nome2": [
+      "sino",
+      0.4
+    ],
+    "comenta": [
+      "plim",
+      0.45
+    ],
+    "emanuel": [
+      "sino",
+      0.55
+    ],
+    "imanu": [
+      "brilho",
+      0.35
+    ],
+    "el": [
+      "brilho",
+      0.35
+    ],
+    "junta": [
+      "sino",
+      0.5
+    ],
+    "longe": [
+      "respiro",
+      0.3
+    ],
+    "aqui": [
+      "sino",
+      0.45
+    ],
+    "jose2": [
+      "brilho",
+      0.3
+    ],
+    "detalhe": [
+      "respiro",
+      0.3
+    ],
+    "comeca": [
+      "brilho",
+      0.35
+    ],
+    "termina": [
+      "brilho",
+      0.35
+    ],
+    "promessa": [
+      "sino",
+      0.55
+    ],
+    "pergunta": [
+      "pop",
+      0.3
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ],
+    "lembra": [
+      "respiro",
+      0.3
+    ],
+    "fe": [
+      "sino",
+      0.4
+    ],
+    "curte": [
+      "plim",
+      0.45
+    ]
   },
   "cenas": [
-    {"id": "abertura", "tipo": "abertura", "titulo": "",
-     "fala": "Se hoje você se sentiu sozinho, existe um nome na Bíblia que foi escolhido pra responder isso. E no fim do mesmo livro ele aparece de novo, de um jeito que quase ninguém percebe.",
-     "batidas": {"sozinho,": "sozinho", "nome": "nome", "fim": "fim"}},
-    {"id": "jose", "tipo": "jose", "titulo": "",
-     "fala": "Pensa no José. A noiva dele estava grávida, e o filho não era dele. Ele já tinha decidido deixar Maria em segredo, sem expor ninguém.",
-     "batidas": {"José.": "jose", "grávida,": "gravida", "segredo,": "segredo"}},
-    {"id": "sonho", "tipo": "sonho", "titulo": "",
-     "fala": "Só que naquela noite, num sonho, um anjo aparece e diz: não temas. E dá ao menino um nome que muda tudo.",
-     "batidas": {"sonho,": "sonho", "anjo": "anjo", "temas.": "temas", "nome": "nome2"}},
-    {"id": "apoio", "tipo": "apoio", "titulo": "",
-     "fala": "Rapidinho: eu sei que a família cristã é unida. Segue o Luz da Palavra e comenta amém pra essa palavra ir longe.",
-     "batidas": {"unida.": "unido", "segue": "segue", "comenta": "comenta"}},
-    {"id": "significado", "tipo": "significado", "titulo": "",
-     "fala": "O nome é Emanuel. Em hebraico, imanu quer dizer conosco. El quer dizer Deus. Deus conosco.",
-     "batidas": {"Emanuel.": "emanuel", "imanu": "imanu", "El": "el", "Deus": "junta"}},
-    {"id": "sentido", "tipo": "sentido", "titulo": "",
-     "fala": "Não é Deus lá longe, olhando de cima. É Deus aqui, na noite sem dormir, no medo, na decisão difícil. Foi isso que o José entendeu.",
-     "batidas": {"longe,": "longe", "aqui,": "aqui", "José": "jose2"}},
-    {"id": "detalhe", "tipo": "detalhe", "titulo": "",
-     "fala": "E o detalhe: Mateus começa com esse nome. E termina com Jesus dizendo: eu estou convosco todos os dias. O livro abre e fecha com a mesma promessa.",
-     "batidas": {"detalhe:": "detalhe", "começa": "comeca", "termina": "termina", "promessa.": "promessa"}},
-    {"id": "pergunta", "tipo": "pergunta", "titulo": "",
-     "fala": "Em que momento do seu dia você mais precisa lembrar que Deus está com você? Escreve numa palavra.",
-     "batidas": {"Em": "pergunta", "Escreve": "comenta"}},
-    {"id": "fim", "tipo": "fim", "titulo": "",
-     "fala": "Salva esse vídeo, segue o Luz da Palavra, e lembra:",
-     "batidas": {"Salva": "salva", "segue": "cta", "lembra:": "lembra"}}
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Se hoje você se sentiu sozinho, existe um nome na Bíblia que foi escolhido pra responder isso. E no fim do mesmo livro ele aparece de novo, de um jeito que quase ninguém percebe.",
+      "batidas": {
+        "sozinho,": "sozinho",
+        "nome": "nome",
+        "fim": "fim"
+      }
+    },
+    {
+      "id": "apoio",
+      "tipo": "apoio",
+      "titulo": "",
+      "fala": "Antes de seguirmos: se você realmente tem fé, curte e comenta esse vídeo, pra Palavra de Deus chegar a mais pessoas.",
+      "batidas": {
+        "fé,": "fe",
+        "curte": "curte",
+        "comenta": "comenta"
+      }
+    },
+    {
+      "id": "jose",
+      "tipo": "jose",
+      "titulo": "",
+      "fala": "Pensa no José. A noiva dele estava grávida, e o filho não era dele. Ele já tinha decidido deixar Maria em segredo, sem expor ninguém.",
+      "batidas": {
+        "José.": "jose",
+        "grávida,": "gravida",
+        "segredo,": "segredo"
+      }
+    },
+    {
+      "id": "sonho",
+      "tipo": "sonho",
+      "titulo": "",
+      "fala": "Só que naquela noite, num sonho, um anjo aparece e diz: não temas. E dá ao menino um nome que muda tudo.",
+      "batidas": {
+        "sonho,": "sonho",
+        "anjo": "anjo",
+        "temas.": "temas",
+        "nome": "nome2"
+      }
+    },
+    {
+      "id": "significado",
+      "tipo": "significado",
+      "titulo": "",
+      "fala": "O nome é Emanuel. Em hebraico, imanu quer dizer conosco. El quer dizer Deus. Deus conosco.",
+      "batidas": {
+        "Emanuel.": "emanuel",
+        "imanu": "imanu",
+        "El": "el",
+        "Deus": "junta"
+      }
+    },
+    {
+      "id": "sentido",
+      "tipo": "sentido",
+      "titulo": "",
+      "fala": "Não é Deus lá longe, olhando de cima. É Deus aqui, na noite sem dormir, no medo, na decisão difícil. Foi isso que o José entendeu.",
+      "batidas": {
+        "longe,": "longe",
+        "aqui,": "aqui",
+        "José": "jose2"
+      }
+    },
+    {
+      "id": "detalhe",
+      "tipo": "detalhe",
+      "titulo": "",
+      "fala": "E o detalhe: Mateus começa com esse nome. E termina com Jesus dizendo: eu estou convosco todos os dias. O livro abre e fecha com a mesma promessa.",
+      "batidas": {
+        "detalhe:": "detalhe",
+        "começa": "comeca",
+        "termina": "termina",
+        "promessa.": "promessa"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Em que momento do seu dia você mais precisa lembrar que Deus está com você? Escreve numa palavra.",
+      "batidas": {
+        "Em": "pergunta",
+        "Escreve": "comenta"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva esse vídeo, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
   ]
 }

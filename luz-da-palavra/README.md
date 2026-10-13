@@ -96,20 +96,22 @@ do Google, duração mínima de 1:30).
   defeitos que eu deixei passar (barba na mulher e na criança, metade do rosto de cada cor, pescoço de cilindro): se eu vejo a
   imagem e não acho nenhum defeito, estou olhando mal. Só entrego o personagem quando um ilustrador profissional não
   apontaria o que consertar; antes disso, a entrega diz com franqueza o que ainda está fraco.
-- **Pedido de apoio no MEIO do vídeo (pedido do dono, out/2026): em todo vídeo.** Uma cena curta
-  (`{"tipo": "apoio"}` no roteiro, ~5 s, `cenaApoio` na identidade: luzes soltas se juntam em mãos que oram,
-  botão "+ SEGUIR" com seta para o perfil e seta para os comentários com "amém"). Linha do dono: **"sei que
-  nosso público cristão é unido e vai apoiar seguindo o canal"**. Técnicas: identidade ("você que é de
-  Cristo", "a família cristã é unida"), custo baixo ("leva um segundo"), propósito ("pra essa palavra chegar
-  em quem precisa") e o pedido logo **depois de um laço aberto** (a pessoa fica para ver a resposta).
-  Onde: entre 35% e 50% do vídeo (versículo do dia: ~15–20 s; história: ~40–60 s), nunca nos primeiros 12 s.
-  Fala rápida: 12–18 palavras, no máximo ~6 s; batidas `"unida."`→`unido`, `segue`→`segue`, `comenta`→`comenta` (ajuste à frase).
-  Alterne as frases entre vídeos:
-  1. "Rapidinho: eu sei que a família cristã é unida. Segue o Luz da Palavra e comenta amém pra essa palavra ir longe."
-  2. "Antes de continuar: eu sei que o povo de Deus é unido e apoia quem leva a Palavra. Segue o canal e comenta amém, leva um segundo."
-  3. "Eu sei que quem é de Cristo é unido e não deixa a Palavra parar. Segue o Luz da Palavra e comenta amém pra ela ir mais longe."
-  4. "Rapidinho: cristão é unido, cristão apoia cristão. Se essa palavra está falando com você, segue o canal e comenta amém."
-  Limite: sem culpa nem medo ("se não seguir…", "quem não comentar não é cristão"), regra do canal.
+- **Apelo à fé LOGO DEPOIS DA ABERTURA (regra do dono, out/2026): em todo vídeo.** A abertura faz o trabalho dela (gancho,
+  emoção, laço aberto, ~8–14 s); logo em seguida vem uma cena curta (`{"tipo": "apoio"}`, ~5–7 s, `cenaApoio` na
+  identidade: luzes se juntam em mãos que oram na palavra de fé, um coração de luz voa até o botão de curtir e a seta
+  aponta os comentários com "amém") em que a narração **apela à fé** de quem assiste para **curtir e comentar**, para
+  a Palavra de Deus chegar a mais pessoas. Modelo do dono: *"Antes de seguirmos: se você realmente tem fé, curte e
+  comenta esse vídeo, pra Palavra de Deus chegar a mais pessoas."* (Substitui o antigo pedido no meio do vídeo: um
+  pedido só, além da chamada do fim.)
+  - **A frase muda em cada vídeo.** Antes de escrever, leia a fala da cena `apoio` dos últimos vídeos (`videos/*/roteiro.json`)
+    e não repita. Ideias de ângulo: fé que age ("fé sem obras…", cf. Tg 2:17), a Palavra que não volta vazia (cf. Is 55:11),
+    ser luz (cf. Mt 5:14–16), alguém que precisa ouvir isso hoje, o amém como resposta de fé, o pedido "antes de continuar".
+    Exemplos: "Antes de continuar: se você crê que essa palavra pode tocar alguém, curte e comenta amém pra ela chegar mais
+    longe." / "Espera um segundo: quem tem fé sabe que a Palavra não volta vazia. Curte e comenta pra ela alcançar mais
+    gente." / "Antes de seguir: se Deus já falou com você hoje, curte e deixa seu amém, pra essa mensagem chegar em quem precisa."
+  - Fala rápida: 15–22 palavras, ~5–7 s. Batidas: a palavra de fé → `fe`, "curte" → `curte`, "comenta" → `comenta`.
+  - Limite: nada de ameaça, condenação ou promessa ("quem não curtir não tem fé", "Deus vai cobrar", "curte que você vai
+    receber uma bênção") — regra do canal (sem medo, sem culpa, sem promessa de prosperidade).
 - **Personagens bíblicos específicos: pesquise antes de desenhar (pedido do dono).** Para cada personagem
   conhecido da história (Moisés, Noé, João Batista, Pedro, Golias, anjo Gabriel…), pesquise (WebSearch) o que
   a Bíblia descreve (ex.: Davi ruivo, 1 Sm 16:12; Golias com elmo de bronze e couraça de escamas, 1 Sm 17:5–7;
