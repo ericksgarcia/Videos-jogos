@@ -9,6 +9,22 @@
 // Estilo de desenho (o.estilo em figura): "linha" (traço de luz, o padrão), "cheio" (cores chapadas com sombra, sem brilho: ilustração
 // vetorial) ou "silhueta" (corpo escuro, sem feições; só a luz de contorno do cenário o desenha).
 let KIT_ESTILO = "linha";
+let KIT_LUZ = [-0.7, -0.7]; // direção da luz (da figura para a fonte): padrão = vem de cima e da esquerda da tela
+// cor da sombra com mudança de matiz (mais escura e fria, como nos ilustradores) e da luz (mais clara e quente)
+const kitSombra = (rgb, k = 1) => String(rgb).split(",").map((v, i) => Math.round(Math.min(255, +v * 0.5 * k + [16, 20, 58][i] * 0.62))).join(",");
+const kitClara = (rgb, k = 1) => String(rgb).split(",").map((v, i) => Math.round(Math.min(255, +v * 1.0 * k + [26, 16, 0][i]))).join(",");
+// sombra e luz como FORMAS (não só degradê): a forma menos ela mesma deslocada para a luz = meia-lua do lado oposto (sombra);
+// o contrário, bem fina, = meia-lua de luz no lado da luz. Recortadas na própria forma.
+function kitSombreia(y, sp, c2, vk = 1, kk = 1, fa = 1, tracer = null) {
+  const tr = tracer || ((ox, oy) => _curva(y, sp.map(([px, py]) => [px + ox, py + oy]), true)); // tracer(ox, oy): acrescenta ao caminho a forma deslocada
+  let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
+  const w = x1 - x0, h = y1 - y0, m = Math.min(w, h); if (m < 9) return;
+  const off = Math.max(2.5, Math.min(0.16 * m, 50 * kk)), [lx, ly] = KIT_LUZ, big = [x0 - 60, y0 - 60, w + 120, h + 120];
+  y.save(); y.beginPath(); tr(0, 0); y.clip();
+  y.beginPath(); y.rect(...big); tr(lx * off, ly * off); y.fillStyle = `rgba(${kitSombra(c2, vk)},${0.72 * fa})`; y.fill("evenodd");
+  y.beginPath(); y.rect(...big); tr(-lx * off * 0.3, -ly * off * 0.3); y.fillStyle = `rgba(${kitClara(c2, vk)},0.38)`; y.fill("evenodd");
+  y.restore(); y.beginPath(); tr(0, 0); // devolve o caminho original (o traço vem depois)
+}
 const kitEsc = (rgb, k) => String(rgb).split(",").map((v) => Math.round(+v * k)).join(",");
 // Proporções de Loomis: a cabeça (coroa −162 até o queixo −2) em terços do rosto. Olhos no meio da altura da cabeça,
 // sobrancelha logo acima, base do nariz a 1/3 do queixo, boca a 1/3 entre o nariz e o queixo, orelha entre a sobrancelha e
@@ -33,7 +49,7 @@ function kitPerfil(r = {}) {
 function kitPincel(y, pts, w, rgb, a = 1, o = {}) {
   if (pts.length < 2) return;
   if (KIT_ESTILO === "silhueta") return;
-  if (KIT_ESTILO === "cheio") { rgb = kitEsc(rgb, 0.45); o = { ...o, brilho: 0 }; a = Math.min(1, a * 1.1); }
+  if (KIT_ESTILO === "cheio") { rgb = o.claro ? kitClara(rgb, 0.9) : kitEsc(rgb, 0.45); o = { ...o, brilho: 0 }; a = Math.min(1, a * (o.claro ? 0.6 : 1.1)); }
   const n = pts.length, g = (k) => pts[Math.max(0, Math.min(n - 1, k))], S = [];
   for (let k = 0; k < n - 1; k++) { const p0 = g(k - 1), p1 = g(k), p2 = g(k + 1), p3 = g(k + 2), c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
     for (let j = 0; j < 8; j++) { const u = j / 8, v = 1 - u; S.push([v * v * v * p1[0] + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * p2[0], v * v * v * p1[1] + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * p2[1]]); } }
@@ -58,6 +74,9 @@ function kitRosto(y, poe, traca, o) {
     luz([[30, -78], [42, -80], [52, -70], [48, -60], [36, -62], [28, -68]], cri ? 0.07 : 0.1);                  // maçã do rosto
     luz([[48, -30], [57, -26], [56, -14], [46, -8], [38, -14]], 0.08);                                           // queixo
     y.save(); y.filter = `blur(${Math.max(2, 4 * o.kk * (o.LW / 3))}px)`; y.beginPath(); _curva(y, poe([[4, -58], [20, -50], [28, -34], [24, -14], [8, -10], [-6, -30]]), true); y.fillStyle = `rgba(2,4,14,${0.3 * o.a})`; y.fill(); y.restore(); } // sombra sob a bochecha/mandíbula
+  if (KIT_ESTILO === "cheio") { // bochecha rosada e um brilho no olho (rosto de ilustração, não de desenho técnico)
+    const [[bx, by], [cx2, cy2]] = poe([[40, -62], [50, -62]]), u0 = Math.hypot(cx2 - bx, cy2 - by) / 10;
+    y.save(); y.filter = `blur(${Math.max(1, 2 * u0)}px)`; y.beginPath(); y.ellipse(bx, by, 9 * u0, 6 * u0, 0, 0, 6.283); y.fillStyle = `rgba(232,104,96,${cri ? 0.3 : fem ? 0.3 : 0.22})`; y.fill(); y.restore(); }
   // mandíbula (do queixo até embaixo da orelha) e orelha
   pin([[50 + 3 * (r.queixo ?? 0), -8], [28, -14], [6, -26], [-6, -44], [-9, -58]], 1.0, 0.85);
   // olho (perfil): pálpebras em V aberto para a frente, íris, dobra da pálpebra
@@ -111,6 +130,7 @@ function kitMassa(y, poe, pts, o, al = 1) {
   const sp = poe(pts); y.beginPath(); _curva(y, sp, true); y.fillStyle = KIT_ESTILO === "cheio" ? `rgba(${kitEsc(o.rgb, 0.78)},1)` : KIT_ESTILO === "silhueta" ? "rgba(8,10,24,1)" : `rgba(${o.fundo},0.97)`; y.fill();
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
   const fx = o.d > 0 ? x1 : x0, g = y.createLinearGradient(fx, y0, o.d > 0 ? x0 : x1, y1);
+  if (KIT_ESTILO === "cheio") { kitSombreia(y, sp, o.rgb, 0.8, o.kk, 1); return; }
   g.addColorStop(0, `rgba(${o.rgb},${0.3 * al})`); g.addColorStop(0.5, `rgba(${o.rgb},${0.12 * al})`); g.addColorStop(1, `rgba(${o.rgb},${0.05 * al})`); y.fillStyle = g; y.fill();
 }
 // fios entre guias consecutivas; ond = ondulação (amplitude em unidades da cabeça)
@@ -122,7 +142,7 @@ function kitFios(y, poe, guias, o, f = {}) {
       let px = a[0] + (b[0] - a[0]) * v, py = a[1] + (b[1] - a[1]) * v;
       if (f.ond) { const kk2 = Math.min(M - 1, k + 1), k0 = Math.max(0, k - 1), tx = G[gi][kk2][0] - G[gi][k0][0], ty = G[gi][kk2][1] - G[gi][k0][1], l = Math.hypot(tx, ty) || 1, w = f.ond * Math.sin(u * (f.ciclos || 3) * 6.28 + fase * 0.3); px += -ty / l * w; py += tx / l * w; }
       pts.push([px, py]); }
-    if (pts.length > 2) kitPincel(y, poe(pts), o.LW * (f.w || 0.75) * (0.55 + 0.6 * r()), o.rgb, o.a * (f.al ?? 1) * (0.45 + 0.45 * r()), { brilho: 3 * o.kk });
+    if (pts.length > 2) kitPincel(y, poe(pts), o.LW * (f.w || 0.75) * (0.55 + 0.6 * r()), o.rgb, o.a * (f.al ?? 1) * (0.45 + 0.45 * r()), { brilho: 3 * o.kk, claro: KIT_ESTILO === "cheio" && (gi * 5 + j) % 3 === 0 });
   }
 }
 // borda com traço afinando nas pontas; recortada: pequenas ondas (cacho) ou pontas (barba)

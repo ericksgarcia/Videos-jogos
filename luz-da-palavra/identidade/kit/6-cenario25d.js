@@ -15,12 +15,16 @@ function T25_arestas(malha, cor = 0xffc98a, op = 0.55) {
   l.position.copy(malha.position); l.rotation.copy(malha.rotation); l.scale.copy(malha.scale); return l;
 }
 // ilumina um canvas já desenhado (só onde há desenho): sombra do lado oposto à luz, calor vindo de baixo e luz de contorno
+let T25_grao = null;
 function T25_luz(g, W2, H2, o = {}, tmp) {
   const lado = o.lado ?? -1, cor = o.cor || [255, 190, 120], rim = o.rim ?? 1;
   g.save(); g.globalCompositeOperation = "source-atop";
   let gr = g.createLinearGradient(lado < 0 ? W2 : 0, 0, lado < 0 ? 0 : W2, 0); gr.addColorStop(0, "rgba(2,4,16,0.28)"); gr.addColorStop(0.55, "rgba(2,4,16,0.06)"); gr.addColorStop(1, "rgba(2,4,16,0)"); g.fillStyle = gr; g.fillRect(0, 0, W2, H2);
   gr = g.createLinearGradient(0, H2, 0, H2 * 0.35); gr.addColorStop(0, `rgba(${cor},${o.calor ?? 0.34})`); gr.addColorStop(1, `rgba(${cor},0)`); g.fillStyle = gr; g.fillRect(0, 0, W2, H2);
   g.restore();
+  if (o.grao) { // grão de papel/ilustração: só onde há desenho
+    if (!T25_grao) { const c = document.createElement("canvas"); c.width = c.height = 128; const gc = c.getContext("2d"), im = gc.createImageData(128, 128), r = prng(77); for (let i = 0; i < 128 * 128; i++) { const v = r() < 0.5 ? 0 : 255; im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255 * 0.07 * r(); } gc.putImageData(im, 0, 0); T25_grao = c; }
+    g.save(); g.globalCompositeOperation = "source-atop"; g.fillStyle = g.createPattern(T25_grao, "repeat"); g.fillRect(0, 0, W2, H2); g.restore(); }
   if (rim > 0 && tmp) { // contorno de luz: a silhueta menos ela mesma deslocada para o lado oposto à luz = faixa fina no lado da luz
     const t2 = tmp.getContext("2d"); t2.clearRect(0, 0, W2, H2); t2.globalCompositeOperation = "source-over"; t2.drawImage(g.canvas, 0, 0);
     t2.globalCompositeOperation = "destination-out"; const dx = (o.rimLarg ?? 5) * -lado; t2.drawImage(g.canvas, dx, 0);
@@ -38,7 +42,7 @@ function recorte25d(k, o) {
 // personagem do kit em 3 planos. o: { tipo | ficha, pose: (t) => pose, pos: [x, y, z] (pés), alt (m, altura do personagem), dir, expr, maos, luz, larg (px), asas, dz (m entre planos) }
 function pessoa25d(k, o) {
   const alt = o.alt ?? 1.7, Hpx = 880, W2 = o.larg ?? 880, H2 = Math.round(Hpx * 1.1), hm = alt * H2 / Hpx * 1.0 / (o.fichaAlt ?? 1), dz = o.dz ?? 0.09, camadas = ["tras", "corpo", "frente"];
-  const planos = camadas.map((nome, i) => recorte25d(k, { larg: W2, alt: H2, h: alt * 1.1 * 1.0, pos: [o.pos[0], o.pos[1], o.pos[2] + (i - 1) * dz], luz: o.luz, giro: o.giro,
-    desenho: (g, t) => figura(g, t, o.pose(t), { tipo: o.tipo, ficha: o.ficha, x: W2 * 0.5, chao: H2 - 10, H: Hpx, dir: o.dir ?? 1, expr: o.expr, maos: o.maos, asas: o.asas, fase: o.fase ?? 0, camada: nome, atras: o.atras }) }));
+  const planos = camadas.map((nome, i) => recorte25d(k, { larg: W2, alt: H2, h: alt * 1.1 * 1.0, pos: [o.pos[0], o.pos[1], o.pos[2] + (i - 1) * dz], luz: o.estilo === "cheio" ? { ...(o.luz || {}), grao: true, calor: (o.luz?.calor ?? 0.3) * 0.7 } : o.luz, giro: o.giro,
+    desenho: (g, t) => figura(g, t, o.pose(t), { estilo: o.estilo, luzDir: o.luzDir, tipo: o.tipo, ficha: o.ficha, x: W2 * 0.5, chao: H2 - 10, H: Hpx, dir: o.dir ?? 1, expr: o.expr, maos: o.maos, asas: o.asas, fase: o.fase ?? 0, camada: nome, atras: o.atras }) }));
   return { planos, desenhar: (t) => planos.forEach((p) => p.desenhar(t)), mover: (x, y, z) => planos.forEach((p, i) => p.m.position.set(x, y + p.m.geometry.parameters.height / 2, z + (i - 1) * dz)) };
 }

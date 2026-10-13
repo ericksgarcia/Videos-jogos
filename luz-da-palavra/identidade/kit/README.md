@@ -46,10 +46,16 @@ na mão, rede de pesca, roupa de soldado romano), com o mesmo cuidado:
 3. se for de um personagem fixo, ponha na ficha dele em `2-elenco.js`;
 4. confira na vitrine (`luz-da-palavra/videos/amostra-kit`, prévia com `VOZ_PROVEDOR=nenhum --so-montar`).
 
-## Ninguém igual
+## Estilo de desenho (decisão do dono, out/2026): "cheio" é o padrão
 
-- Personagens principais têm **ficha fixa** (Jesus sempre com cabelo longo, barba, manto dourado;
-  Maria com véu...), para serem reconhecidos em toda a série.
-- Figurantes usam `elencoVariado(seed, papel)` com **seeds diferentes**: muda cabelo, barba, cobertura,
-  mangas, túnica, corpo, altura, perfil do rosto, expressão e as cores de pele, roupa e cabelo. Numa mesma cena, nunca repita a seed;
-  entre vídeos, comece de seeds diferentes (ex.: 100+, 200+...).
+`figura(..., { estilo: "cheio" | "linha" | "silhueta", luzDir: [-0.7, -0.7] })`. **"cheio"** = ilustração vetorial com cores
+chapadas (o dono aprovou; o line art ficou como opção `"linha"`, e a silhueta só para momentos solenes). Técnicas aplicadas
+(pesquisa com ilustradores): sombra e luz como **formas** recortadas na própria peça (`kitSombreia`: a forma menos ela mesma
+deslocada para a luz), **sombras mais escuras e frias, luz mais clara e quente** (`kitSombra`/`kitClara`), peças de trás mais escuras
+(separação de valor), mechas de cabelo mais claras, bochecha rosada, faixa bordada preenchida, grão sobre o desenho no 2.5D
+(`grao`) e luz de contorno do cenário. O brilho (glow) do line art não existe nesse estilo.
+
+## Variação dos personagens (regra do dono mudou, out/2026)
+
+A exigência de "ninguém igual" **foi retirada**: o foco é a qualidade do desenho. Os principais têm ficha fixa (para serem
+reconhecidos em toda a série); figurantes podem repetir a base. `elencoVariado(seed, papel)` continua disponível, mas é opcional.
