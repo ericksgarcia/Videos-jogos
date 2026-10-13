@@ -61,7 +61,7 @@ function camada3D(o) {
   canvas.width = W; canvas.height = H;
   canvas.style.opacity = 0;
   $("#root").insertBefore(canvas, $("#frente"));
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: o.antialias ?? true, alpha: true, preserveDrawingBuffer: true }); // antialias: false = render bem mais leve
   renderer.setPixelRatio(1);
   renderer.setSize(W, H, false);
   renderer.outputEncoding = THREE.sRGBEncoding;

@@ -1,7 +1,8 @@
-// Cenas do vídeo "O que significa Emanuel" — Luz da Palavra, pontos de luz na GPU + personagens do kit.
+// Cenas do vídeo "O que significa Emanuel" — Luz da Palavra. Cenas com personagens em 2.5D (cenário Three.js + personagens
+// do kit no estilo cheio, em 3 planos); tipografia, pergunta e cartão final em pontos de luz.
 // Retenção: quadro 0 = alguém sozinho numa pedra sob um céu enorme e UMA estrela forte; gancho emocional
 // ("pra quem se sentiu sozinho"); laço aberto (o nome aparece de novo no fim do mesmo livro) pago em
-// Mateus 28:20; José decide ir embora → sonho, o anjo ("não temas") → apoio (seguir + amém) → EMANUEL →
+// Mateus 28:20; José decide ir embora → sonho, o anjo ("não temas") → (o apelo à fé vem logo depois da abertura) → EMANUEL →
 // hebraico (imanu = conosco, El = Deus) → a estrela desce até a manjedoura → o livro que abre e fecha com
 // a mesma promessa → pergunta única.
 // Fontes: Mateus 1:18–23 (José, o sonho, Emanuel); Isaías 7:14; Mateus 28:20. Personagens pesquisados:
@@ -58,71 +59,127 @@ function EM_estrela(nv, x, i, t, sx, sy, esc, a, bri = 1) {
 const EM_PEDRA = (cx, cy, w, h, seed) => { const r = prng(seed), P = []; for (let k = 0; k < 900; k++) { const an = r() * Math.PI, d = Math.sqrt(r()); P.push([cx + Math.cos(an) * w * d, cy - Math.sin(an) * h * d, r()]); } return P; };
 function EM_pedra(nv, i, cam, P, a = 1) { for (const [X, Y, s] of P) { const [px, py, k] = projP(cam, X, Y, 1); nv.ponto(i++, px, py, 0.72, 0.64, 0.58, a * (0.12 + 0.2 * s), (2 + 2 * s) * k); } return i; }
 
-// =============== 1. abertura: alguém sozinho sob o céu enorme; UMA estrela forte ===============
+// ======================= mundo 3D comum: deserto da Judeia à noite =======================
+// céu em degradê (cúpula), estrelas e Via Láctea, morros ao longe, chão plano perto dos personagens e dunas mais longe.
+function EM3_mundo(k, o = {}) {
+  const { cena } = k, r = prng(o.seed || 251), anima = [];
+  cena.environment = null; cena.background = null; cena.fog = new THREE.FogExp2(0x101634, o.nevoa ?? 0.018);
+  cena.children.forEach((q) => { if (q.isHemisphereLight) { q.intensity = 0.55; q.color.set(0x9aa8ff); q.groundColor.set(0x2a2030); } });
+  k.luzes.chave.intensity = 0.7; k.luzes.chave.color.set(0xa9b8ff); k.luzes.chave.position.set(-6, 10, 5); k.luzes.contra.intensity = 0.35; k.luzes.contra.color.set(0x7d8fff);
+  // cúpula do céu: azul profundo no alto, violeta e um fio quente no horizonte
+  const gS = new THREE.SphereGeometry(150, 32, 16), cs = [], ps = gS.attributes.position;
+  for (let i = 0; i < ps.count; i++) { const h = Math.max(-0.1, ps.getY(i) / 150), c = new THREE.Color(), a = new THREE.Color(0x0a1030), b = new THREE.Color(0x2c2350), q = new THREE.Color(0x5a3a52);
+    c.copy(b).lerp(a, Math.min(1, Math.max(0, h * 2.2))); if (h < 0.06) c.lerp(q, 1 - Math.max(0, h) / 0.06); cs.push(c.r, c.g, c.b); }
+  gS.setAttribute("color", new THREE.Float32BufferAttribute(cs, 3)); cena.add(new THREE.Mesh(gS, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide, fog: false, depthWrite: false })));
+  // estrelas (algumas grandes) e a faixa da Via Láctea
+  const pts = (n, f, tam, op, cor) => { const pos = new Float32Array(n * 3); for (let i = 0; i < n; i++) { const [x, y, z] = f(); pos[i * 3] = x; pos[i * 3 + 1] = y; pos[i * 3 + 2] = z; }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); const m = new THREE.PointsMaterial({ color: cor, size: tam, sizeAttenuation: false, transparent: true, opacity: op, fog: false, depthWrite: false }); cena.add(new THREE.Points(g, m)); return m; };
+  const naCupula = () => { const az = r() * 6.283, el = 0.03 + Math.acos(1 - r()) * 0.95, R = 140; return [Math.cos(az) * Math.cos(el) * R, Math.sin(el) * R, Math.sin(az) * Math.cos(el) * R]; };
+  const mE = pts(2600, naCupula, 2, 0.75, 0xfff1d6), mE2 = pts(160, naCupula, 3.6, 0.9, 0xffffff);
+  pts(2400, () => { const u = r() * 6.283, w = (r() - 0.5) * 0.28 * (0.5 + r()); const v = [Math.cos(u), Math.sin(u) * 0.55 + 0.35 + w, Math.sin(u) * 0.8 + w]; const l = Math.hypot(...v); return v.map((q) => q / l * 140); }, 1.6, 0.35, 0xc9d2ff);
+  anima.push((t) => { mE.opacity = 0.7 + 0.12 * Math.sin(t * 1.3); mE2.opacity = 0.8 + 0.15 * Math.sin(t * 0.9 + 1); });
+  // chão: plano em volta dos personagens (o.centro, raio o.plano), dunas mais longe
+  const gC = new THREE.PlaneGeometry(260, 260, 96, 96); gC.rotateX(-Math.PI / 2);
+  const pc = gC.attributes.position, [cx, cz] = o.centro || [0, 0], rp = o.plano ?? 5;
+  for (let i = 0; i < pc.count; i++) { const x = pc.getX(i), z = pc.getZ(i), d = Math.hypot(x - cx, z - cz), f = Math.min(1, Math.max(0, (d - rp) / 12)); pc.setY(i, f * f * (1.1 * Math.sin(x * 0.11 + z * 0.05) + 1.5 * Math.sin(z * 0.06 - x * 0.03) + 0.45 * Math.sin(x * 0.4 + z * 0.3))); }
+  gC.computeVertexNormals(); cena.add(new THREE.Mesh(gC, new THREE.MeshLambertMaterial({ color: o.corChao ?? 0x4a3f5c })));
+  // morros ao longe (silhuetas na névoa)
+  const morro = new THREE.MeshLambertMaterial({ color: 0x2a2440 });
+  for (let k2 = 0; k2 < 8; k2++) { const m = new THREE.Mesh(new THREE.SphereGeometry(1, 18, 8), morro); m.scale.set(16 + r() * 18, 5 + r() * 7, 9); m.position.set(-80 + k2 * 22 + r() * 8, -2, -75 - r() * 25); cena.add(m); }
+  return { anim: (t) => anima.forEach((f) => f(t)) };
+}
+// a estrela de Belém: núcleo, halos e raios em cruz (sprites aditivos; não sofrem névoa)
+function EM3_estrela(cena, x, y, z, tam = 2) {
+  const g = new THREE.Group(); g.position.set(x, y, z); cena.add(g);
+  const sp = (cor, s, op) => { const q = halo3D(cor, s, op); q.material.fog = false; g.add(q); return q; };
+  const h1 = sp(0xffd9a0, tam * 5, 0.45), h2 = sp(0xffe8c0, tam * 2, 0.85), nu = sp(0xffffff, tam * 0.8, 1);
+  const raio = (rot, L) => { const q = sp(0xfff0d0, 1, 0.9); q.material.rotation = rot; q.scale.set(tam * L, tam * 0.16, 1); return q; };
+  const R1 = raio(0, 9), R2 = raio(Math.PI / 2, 9), R3 = raio(Math.PI / 4, 4.5), R4 = raio(-Math.PI / 4, 4.5);
+  return { g, anim: (t, bri = 1) => { const p = 1 + 0.06 * Math.sin(t * 2.1); nu.scale.setScalar(tam * 0.8 * p * Math.max(0.01, bri)); h2.material.opacity = 0.85 * Math.min(1.3, bri); h1.scale.setScalar(tam * 5 * (0.9 + 0.2 * bri));
+    for (const [q, L] of [[R1, 9], [R2, 9], [R3, 4.5], [R4, 4.5]]) q.scale.set(Math.max(0.01, tam * L * bri * (0.95 + 0.08 * Math.sin(t * 1.7 + L))), tam * 0.16, 1); } };
+}
+// pedra (rocha baixa, facetada) com as quinas levemente acesas
+function EM3_pedra(cena, x, y, z, sx, sy, sz, seed) {
+  const r = prng(seed), g = new THREE.DodecahedronGeometry(1, 1), p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) { const f = 0.85 + 0.25 * Math.sin(p.getX(i) * 3.1 + seed) * Math.cos(p.getZ(i) * 2.7 + seed * 0.3); p.setXYZ(i, p.getX(i) * f, p.getY(i) * f, p.getZ(i) * f); }
+  g.computeVertexNormals(); const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ color: 0x6a5d70, flatShading: true })); m.position.set(x, y, z); m.scale.set(sx, sy, sz); m.rotation.y = r() * 3; cena.add(m);
+  cena.add(T25_arestas(m, 0xffd4a0, 0.18)); return m;
+}
+// vila: casas de barro de teto plano (quinas acesas, janelas quentes); lista de [x, z, largura, altura, fundo, porta (deslocamento x)]
+function EM3_vila(cena, seed, casas) {
+  const r = prng(seed), barro = new THREE.MeshLambertMaterial({ color: 0x6b5866 }), teto = new THREE.MeshLambertMaterial({ color: 0x55465a }), out = [];
+  for (const [x, z, w, h, d, porta] of casas) {
+    const c = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), barro); c.position.set(x, h / 2, z); cena.add(c); cena.add(T25_arestas(c, 0xffc98a, 0.22));
+    const tt = new THREE.Mesh(new THREE.BoxGeometry(w + 0.3, 0.18, d + 0.3), teto); tt.position.set(x, h + 0.09, z); cena.add(tt); cena.add(T25_arestas(tt, 0xffc98a, 0.2));
+    const jx = x + (r() - 0.5) * w * 0.4, jan = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.55), new THREE.MeshBasicMaterial({ color: 0xffb466 })); jan.position.set(jx, h * 0.6, z + d / 2 + 0.01); cena.add(jan);
+    const hj = halo3D(0xffa040, 1.6, 0.55); hj.position.set(jx, h * 0.6, z + d / 2 + 0.1); cena.add(hj);
+    if (porta != null) { const dx = x + porta, pt = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 1.75), new THREE.MeshBasicMaterial({ color: 0xffa95a })); pt.position.set(dx, 0.875, z + d / 2 + 0.012); cena.add(pt);
+      const l = new THREE.PointLight(0xffa050, 3.2, 7, 2); l.position.set(dx, 1.2, z + d / 2 + 0.7); cena.add(l); const hp = halo3D(0xffb060, 3.4, 0.5); hp.position.set(dx, 1.0, z + d / 2 + 0.2); cena.add(hp); out.push({ porta: [dx, z + d / 2], luz: l }); }
+  }
+  return out;
+}
+// "?" de luz como recorte no cenário
+function EM3_interrogacao(k, pos, h, a) {
+  return recorte25d(k, { larg: 260, alt: 320, h, pos, a, luz: false, desenho: (g, t, W2, H2) => { g.save(); g.font = `700 ${H2 * 0.9}px Cinzel, serif`; g.textAlign = "center"; g.textBaseline = "middle"; g.shadowColor = "rgba(255,200,120,0.9)"; g.shadowBlur = 30; g.fillStyle = "rgba(255,226,170,1)"; g.fillText("?", W2 / 2, H2 * 0.52 + Math.sin(t * 2) * 4); g.restore(); } });
+}
+
+// =============== 1. abertura: alguém sozinho numa pedra sob o céu enorme; UMA estrela forte ===============
 CENAS.abertura = (el, c, B) => {
-  const tS = B("sozinho"), tN = B("nome"), tF = B("fim");
+  const tN = B("nome"), tF = B("fim");
   mostrarGancho(tN - 0.3);
-  const TV = telaGPU(el, c, EM_FUNDO), nv = TV.nuvem(80000);
-  const CAM = cameraProf([[0, { x: 540, y: 880, zoom: 1.18 }], [tN, { x: 540, y: 960, zoom: 1.0 }], [c.fim + 0.5, { x: 540, y: 990, zoom: 1.06 }]]);
-  TV.quadro((x, t) => {
-    const cam = CAM(t), bri = 1 + 0.5 * PT.jan(t, tN - 0.2, tN + 1.6, 0.3, 0.8), dois = PT.ss((t - tF + 0.2) / 1.2);
-    let i = EM_ceu(nv, x, 0, t, cam);
-    // a estrela: no "fim" uma segunda luz se acende longe (o começo e o fim do livro)
-    const [sx, sy, sk] = projP(cam, 540 - 140 * dois, 520, 1.6);
-    i = EM_estrela(nv, x, i, t, sx, sy, 150 * sk, 1, bri);
-    if (dois > 0.01) { const [s2x, s2y, s2k] = projP(cam, 760, 470, 1.6); i = EM_estrela(nv, x, i, t, s2x, s2y, 100 * s2k * dois, dois, 0.8); linhaP(x, sx, sy, s2x, s2y, LUZS.ouro, 0.12 * dois, 2); }
-    // alguém sentado sozinho na pedra, cabeça baixa; levanta o rosto quando a estrela brilha
-    const olha = PT.ss((t - tN + 0.4) / 1.2);
-    i = EM_sentado(nv, x, i, t, { ...POSES.sentado, tronco: 0.22 - 0.2 * olha, cabeca: 0.5 - 0.85 * olha, braco: [[0.15, 1.15], [0.25, 1.2]] }, { ficha: elencoVariado(141, "homem"), x: 600, chao: 1470, H: 540, dir: -1, cam, z: 1, fase: 1, expr: olha > 0.5 ? "neutro" : "triste" }, 237);
-    nv.total(i);
-  });
+  const k = camada3D({ ini: 0, fim: c.fim + 0.6, fov: 42, exposicao: 1.0, antialias: false });
+  tl.set(k.canvas, { opacity: 1 }, 0); tl.to(k.canvas, { opacity: 0, duration: 0.45, ease: "power1.inOut" }, c.fim - 0.05);
+  const M = EM3_mundo(k, { centro: [0, 0], plano: 5, seed: 261 }), est = EM3_estrela(k.cena, 7, 20, -40, 2.4), est2 = EM3_estrela(k.cena, -16, 26, -60, 1.3);
+  EM3_pedra(k.cena, -0.08, 0.02, -0.62, 0.62, 0.42, 0.48, 263); EM3_pedra(k.cena, 2.6, 0, -2.4, 0.5, 0.3, 0.45, 265); EM3_pedra(k.cena, -2.4, 0, -1.6, 0.35, 0.22, 0.3, 267);
+  const pz = pessoa25d(k, { ficha: elencoVariado(141, "homem"), pos: [0, 0, 0], alt: 1.7, dir: 1, fase: 1, res: 820,
+    pose: (t) => { const olha = PT.ss((t - tN + 0.4) / 1.2); return { ...POSES.sentado, tronco: 0.22 - 0.2 * olha, cabeca: 0.5 - 0.85 * olha, braco: [[0.15, 1.15], [0.25, 1.2]] }; },
+    expr: (t) => (t > tN ? "neutro" : "triste"), luz: { lado: -1, cor: [170, 185, 255], calor: 0.16, rimCor: "225,232,255" } });
+  const CAM = [[0, [-1.4, 0.95, 3.0]], [tN, [-2.0, 1.25, 5.0]], [c.fim + 0.6, [-3.0, 1.8, 8.6]]], ALVO = [[0, [0.7, 1.7, -4]], [tN, [1.3, 3.4, -10]], [c.fim + 0.6, [1.8, 5.2, -16]]];
+  k.animar((t) => { k.camera.position.set(...chaves(t, CAM)); k.camera.lookAt(...chaves(t, ALVO)); M.anim(t);
+    est.anim(t, 1 + 0.5 * PT.jan(t, tN - 0.2, tN + 1.6, 0.3, 0.8)); const d2 = PT.ss((t - tF + 0.2) / 1.0); est2.g.visible = d2 > 0.01; est2.anim(t, d2); pz.desenhar(t); });
 };
 
 // =============== 2. José: a noite na vila; ele decide ir embora em segredo ===============
 CENAS.jose = (el, c, B) => {
-  const tJ = B("jose"), tG = B("gravida"), tS = B("segredo");
-  const TV = telaGPU(el, c, EM_FUNDO), nv = TV.nuvem(80000);
-  const CASAS = [[230, 1250, 1.25, 330], [470, 1225, 1.5, 260], [820, 1240, 1.3, 300], [980, 1215, 1.7, 240]];
-  const CAM = cameraProf([[c.ini, { x: 500, y: 980, zoom: 1.1 }], [tS - 0.5, { x: 540, y: 990, zoom: 1.0 }], [c.fim + 0.5, { x: 640, y: 990, zoom: 1.08 }]]);
-  TV.quadro((x, t) => {
-    const cam = CAM(t);
-    let i = EM_ceu(nv, x, 0, t, cam, 1, 1330);
-    CASAS.forEach(([X, Y, z, w], k) => { const [px, py, pk] = projP(cam, X, Y, z); i = desenharForma(nv, EM_F.casa, { cx: px, cy: py, esc: w * pk, cor: [0.85, 0.75, 0.62], brilho: 0.6, a: 0.75, t, i0: i }); });
-    // janela acesa da casa de Maria (a da esquerda), com Maria na porta quando ele lembra que ela está grávida
-    const [wx, wy, wk] = projP(cam, 230 + 0.16 * 330, 1250 + 0.06 * 330 - 0.5 * 330 + 0.06 * 330, 1.25);
-    brilhoP(x, wx, wy, 70 * wk, LUZS.ambar, 0.55);
-    const aM = PT.ss((t - tG + 0.3) / 0.8);
-    if (aM > 0.01) figura(x, t, { ...POSES.de_pe, braco: [[-0.1, 0.4], [0.3, 1.3]] }, { tipo: "maria", x: 196, chao: 1418, H: 300, dir: 1, cam, z: 1.25, a: aM, fase: 3, expr: "triste" });
-    // José: parado olhando a casa; no "segredo" vira e vai embora devagar, cabeça baixa
-    const vai = PT.ss((t - tS + 0.6) / 0.8), passo = Math.max(0, t - tS + 0.2);
-    const pose = vai > 0.5 ? { ...POSES.andar(passo * 4.2, 0.8), cabeca: 0.35, tronco: 0.06 } : { ...POSES.de_pe, cabeca: 0.25 - 0.1 * PT.ss((t - tG) / 0.8), braco: [[-0.1, 0.3], [0.15, 0.4]] };
-    figura(x, t, pose, { tipo: "jose", x: 640 + passo * 55, chao: 1450, H: 560, dir: vai > 0.5 ? 1 : -1, cam, z: 1, fase: 2, expr: "triste" });
-    nv.total(i);
-  });
+  const tG = B("gravida"), tS = B("segredo");
+  const k = camada3D({ ini: c.ini, fim: c.fim + 0.6, fov: 40, exposicao: 1.0, antialias: false }); mostrar3D(k, c.ini - 0.45, c.fim + 0.5, 0.45);
+  const M = EM3_mundo(k, { centro: [0, -3], plano: 12, seed: 271 }); EM3_estrela(k.cena, 9, 22, -50, 2);
+  EM3_vila(k.cena, 273, [[-3.4, -3.6, 3.6, 2.6, 3.0, 0.7], [1.8, -7.2, 3.2, 2.4, 3.0], [-8.5, -8, 4, 3.0, 3.5], [6, -10, 3.4, 2.6, 3.0], [-13, -15, 4, 3, 4], [11, -16, 4.5, 3.2, 3.5], [-2, -14, 3.6, 2.8, 3]]);
+  const maria = pessoa25d(k, { tipo: "maria", pose: () => ({ ...POSES.de_pe, braco: [[-0.1, 0.4], [0.3, 1.3]], cabeca: 0.18 }), pos: [-2.7, 0, -1.95], alt: 1.58, dir: 1, expr: "triste", fase: 3, res: 600,
+    a: (t) => PT.ss((t - tG + 0.3) / 0.8), luz: { lado: 1, cor: [255, 165, 85], calor: 0.5, rimCor: "255,210,150" } });
+  const anda = (t) => Math.max(0, t - tS + 0.2);
+  const jose = pessoa25d(k, { tipo: "jose", alt: 1.75, fase: 2, res: 820, expr: "triste", posFn: (t) => [1.1 + anda(t) * 0.62, 0, 0.9], dir: (t) => (t > tS - 0.3 ? 1 : -1),
+    pose: (t) => (t > tS - 0.3 ? { ...POSES.andar(anda(t) * 4.2, 0.8), cabeca: 0.35, tronco: 0.06 } : { ...POSES.de_pe, cabeca: 0.25 - 0.12 * PT.ss((t - tG) / 0.8), braco: [[-0.1, 0.3], [0.15, 0.4]] }),
+    luz: { lado: -1, cor: [255, 175, 100], calor: 0.22, rimCor: "235,236,255" } });
+  const CAM = [[c.ini, [3.4, 1.55, 5.6]], [tS, [2.9, 1.5, 5.2]], [c.fim + 0.6, [4.0, 1.45, 5.4]]], ALVO = [[c.ini, [-2.4, 1.25, -2.8]], [tS, [-0.8, 1.2, -1.2]], [c.fim + 0.6, [2.6, 1.1, 0.2]]];
+  k.animar((t) => { k.camera.position.set(...chaves(t, CAM)); k.camera.lookAt(...chaves(t, ALVO)); M.anim(t); maria.desenhar(t); jose.desenhar(t); });
 };
 
 // =============== 3. o sonho: José dorme encostado na pedra; o anjo aparece ("não temas") ===============
 CENAS.sonho = (el, c, B) => {
   const tS = B("sonho"), tA = B("anjo"), tT = B("temas"), tN = B("nome2");
-  const TV = telaGPU(el, c, EM_FUNDO), nv = TV.nuvem(80000);
-  const CAM = cameraProf([[c.ini, { x: 400, y: 1080, zoom: 1.25 }], [tA - 0.3, { x: 470, y: 1030, zoom: 1.1 }], [c.fim + 0.5, { x: 540, y: 980, zoom: 1.0 }]]);
-  TV.quadro((x, t) => {
-    const cam = CAM(t), so = PT.ss((t - tS + 0.4) / 1.0), aA = PT.ss((t - tA + 0.3) / 1.0), abre = PT.ss((t - tA) / 1.4), fala = PT.ss((t - tT + 0.5) / 0.6), nm = PT.ss((t - tN + 0.2) / 0.9);
-    let i = EM_ceu(nv, x, 0, t, cam, 1 - 0.3 * so);
-    // sonho: halo azulado e bokeh em volta
-    if (so > 0.01) { const [hx, hy, hk] = projP(cam, 560, 1100, 1); brilhoP(x, hx, hy, 700 * hk, "120,140,255", 0.12 * so); }
-    i = EM_sentado(nv, x, i, t, { ...POSES.sentado, tronco: 0.2, cabeca: 0.55, braco: [[0.1, 1.15], [0.2, 1.2]] }, { tipo: "jose", x: 300, chao: 1450, H: 520, dir: 1, cam, z: 1, fase: 2, expr: "dorme" }, 239);
-    // o anjo de luz: aparece, abre as asas; no "não temas" estende a mão
-    if (aA > 0.01) { const [ax, ay, ak] = projP(cam, 680, 1050, 1); brilhoP(x, ax, ay, 420 * ak * aA, LUZS.luz, 0.3 * aA); brilhoP(x, ax, ay - 200 * ak, 300 * ak, LUZS.ambar, 0.2 * aA);
-      for (let r = 0; r < 14; r++) { const an = -Math.PI / 2 + (r - 6.5) * 0.22, L = (300 + 260 * abre) * ak; linhaP(x, ax, ay - 260 * ak, ax + Math.cos(an) * L, ay - 260 * ak + Math.sin(an) * L, LUZS.ouro, 0.05 * aA, 3); }
-      figura(x, t, poseMix({ ...POSES.de_pe, cabeca: 0.1 }, { ...POSES.entregando, braco: [[-0.2, 0.3], [1.35, 0.15]], cabeca: 0.15 }, fala), { tipo: "anjo", x: 700, chao: 1450 - 30 * Math.sin(t * 1.2) - 40 * (1 - aA), H: 600, dir: -1, cam, z: 1, a: aA, fase: 4, asas: 0.3 + 0.7 * abre, expr: "sorri" }); }
-    // o nome que muda tudo: um "?" de luz entre os dois
-    if (nm > 0.01) { const [qx, qy, qk] = projP(cam, 590, 760, 1); brilhoP(x, qx, qy, 160 * qk, LUZS.ambar, 0.3 * nm); rotuloP(x, "?", qx, qy, 150 * qk, "255,226,160", nm * FIS.respira(t, 0, 0.05)); }
-    nv.total(i);
-  });
+  const k = camada3D({ ini: c.ini, fim: c.fim + 0.6, fov: 40, exposicao: 1.0, antialias: false }); mostrar3D(k, c.ini - 0.45, c.fim + 0.5, 0.45);
+  const M = EM3_mundo(k, { centro: [0, 0], plano: 6, seed: 281, nevoa: 0.026 }); EM3_estrela(k.cena, 8, 20, -45, 1.8);
+  EM3_pedra(k.cena, -1.15, 0.05, -0.7, 0.75, 0.62, 0.55, 283); EM3_pedra(k.cena, 3.2, 0, -3, 0.6, 0.35, 0.5, 285);
+  const so = (t) => PT.ss((t - tS + 0.4) / 1.0), aA = (t) => PT.ss((t - tA + 0.3) / 1.0);
+  const jose = pessoa25d(k, { tipo: "jose", alt: 1.75, fase: 2, res: 760, pos: [-1.0, 0, 0], dir: 1, expr: "dorme",
+    pose: () => ({ ...POSES.sentado, tronco: 0.2, cabeca: 0.6, braco: [[0.1, 1.15], [0.2, 1.2]] }), luz: { lado: -1, cor: [150, 170, 255], calor: 0.2, rimCor: "200,215,255" } });
+  // a luz do anjo: um ponto de luz quente-branco que acende o chão e o José
+  const luzA = new THREE.PointLight(0xfff0d8, 0, 9, 1.6); luzA.position.set(1.0, 1.6, 0.6); k.cena.add(luzA);
+  const hA = halo3D(0xfff2dc, 7, 0), hB = halo3D(0xffd9a0, 3.2, 0); hA.position.set(1.05, 1.5, -0.4); hB.position.set(1.05, 1.6, -0.3); k.cena.add(hA); k.cena.add(hB);
+  const sonhoL = new THREE.PointLight(0x7f95ff, 0, 6, 1.8); sonhoL.position.set(-1.0, 1.4, 1.2); k.cena.add(sonhoL);
+  const anjo = pessoa25d(k, { tipo: "anjo", alt: 1.85, fase: 4, res: 820, dir: -1, expr: "sorri", a: aA, sombra: false,
+    posFn: (t) => [1.15, 0.28 + 0.06 * Math.sin(t * 1.2) + 0.3 * (1 - aA(t)), 0], asas: (t) => 0.3 + 0.7 * PT.ss((t - tA) / 1.4),
+    pose: (t) => poseMix({ ...POSES.de_pe, cabeca: 0.1 }, { ...POSES.entregando, braco: [[-0.2, 0.3], [1.35, 0.15]], cabeca: 0.15 }, PT.ss((t - tT + 0.5) / 0.6)),
+    luz: { lado: 1, cor: [255, 230, 190], calor: 0.3, rimCor: "255,250,235" } });
+  const q = EM3_interrogacao(k, [0.05, 1.95, 0.4], 0.55, (t) => PT.ss((t - tN + 0.2) / 0.9));
+  const CAM = [[c.ini, [-0.5, 1.05, 3.1]], [tA - 0.3, [-0.1, 1.15, 3.7]], [c.fim + 0.6, [0.15, 1.3, 4.9]]], ALVO = [[c.ini, [-0.9, 0.75, 0]], [tA - 0.3, [-0.1, 0.95, 0]], [c.fim + 0.6, [0.15, 1.2, 0]]];
+  k.animar((t) => { k.camera.position.set(...chaves(t, CAM)); k.camera.lookAt(...chaves(t, ALVO)); M.anim(t);
+    const a = aA(t); luzA.intensity = 3.4 * a; hA.material.opacity = 0.5 * a; hB.material.opacity = 0.8 * a * (0.9 + 0.1 * Math.sin(t * 3)); sonhoL.intensity = 1.6 * so(t) * (1 - 0.5 * a);
+    jose.desenhar(t); anjo.desenhar(t); q.desenhar(t); });
 };
 
-// =============== 4. apoio (meio do vídeo): identidade → seguir + amém ===============
+// =============== apoio (logo depois da abertura): apelo à fé → curtir + comentar ===============
 // (cena pronta da identidade: CENAS.apoio)
 
 // =============== 5. o significado: EMANUEL → hebraico → imanu = conosco, El = Deus → DEUS CONOSCO ===============
@@ -147,25 +204,39 @@ CENAS.significado = (el, c, B) => {
   });
 };
 
-// =============== 6. para você: a estrela sai de longe e desce até a manjedoura; Maria e José ===============
+// =============== 6. para você: a estrela sai de longe e desce até o estábulo; Maria, José e o menino (2.5D) ===============
 CENAS.sentido = (el, c, B) => {
-  const tL = B("longe"), tA = B("aqui"), tJ = B("jose2");
-  const TV = telaGPU(el, c, EM_FUNDO), nv = TV.nuvem(80000);
-  const CAM = cameraProf([[c.ini, { x: 540, y: 820, zoom: 1.0 }], [tA - 0.2, { x: 540, y: 880, zoom: 1.0 }], [tA + 1.6, { x: 560, y: 1000, zoom: 1.08 }], [c.fim + 0.5, { x: 560, y: 1010, zoom: 1.12 }]]);
-  TV.quadro((x, t) => {
-    const cam = CAM(t), desce = PT.inOut((t - tA + 0.8) / 1.8), aqui = PT.ss((t - tA - 0.6) / 0.8), jj = PT.ss((t - tJ + 0.2) / 0.8);
-    let i = EM_ceu(nv, x, 0, t, cam);
-    // a estrela: bem longe e alta ("lá longe") → desce em arco até em cima da manjedoura
-    const [ex, ey] = FIS.arco(820, 300, 600, 1080, desce, 160), [sx, sy, sk] = projP(cam, ex, ey, 1.2 - 0.2 * desce);
-    i = EM_estrela(nv, x, i, t, sx, sy, (60 + 50 * desce) * sk, 1, 0.8 + 0.4 * aqui);
-    if (desce > 0 && desce < 1) for (let k = 1; k < 24; k++) { const [qx, qy] = FIS.arco(820, 300, 600, 1080, Math.max(0, desce - k * 0.02), 160), [px, py] = projP(cam, qx, qy, 1.2); discoP(x, px, py, 6 * (1 - k / 24), LUZS.luz, 0.5 * (1 - k / 24)); }
-    // estábulo, manjedoura com o menino, Maria ajoelhada e José de pé
-    const [bx, by, bk] = projP(cam, 600, 1130, 1.05); i = desenharForma(nv, EM_F.estabulo, { cx: bx, cy: by, esc: 900 * bk, cor: [0.9, 0.78, 0.6], brilho: 0.55 + 0.3 * aqui, a: 0.75, t, i0: i });
-    brilhoP(x, ...projP(cam, 600, 1330, 1).slice(0, 2), 360 * aqui * bk, LUZS.ambar, 0.35 * aqui);
-    manjedoura(x, { x: 600, chao: 1420, esc: 230, cam, z: 1, t, a: 0.3 + 0.7 * aqui });
-    figura(x, t, { ...POSES.ajoelhado, braco: [[0.5, 1.0], [0.75, 0.9]], cabeca: 0.3 }, { tipo: "maria", x: 390, chao: 1420, H: 480, dir: 1, cam, z: 1, fase: 3, expr: aqui > 0.5 ? "sorri" : "neutro" });
-    figura(x, t, poseMix({ ...POSES.de_pe, cabeca: 0.15 }, { ...POSES.de_pe, cabeca: 0.3, braco: [[-0.1, 0.3], [0.6, 1.3]] }, jj), { tipo: "jose", x: 850, chao: 1420, H: 520, dir: -1, cam, z: 1, fase: 2, expr: jj > 0.5 ? "sorri" : "neutro" });
-    nv.total(i);
+  const tA = B("aqui"), tJ = B("jose2");
+  const k = camada3D({ ini: c.ini, fim: c.fim + 0.6, fov: 40, exposicao: 0.95, antialias: false }); mostrar3D(k, c.ini - 0.45, c.fim + 0.5, 0.45);
+  const M = EM3_mundo(k, { centro: [0, 0], plano: 7, seed: 251, nevoa: 0.022 }), r = prng(253);
+  const madeira = new THREE.MeshLambertMaterial({ color: 0x4a3222 }), palha = new THREE.MeshLambertMaterial({ color: 0x6e5430 }), grupo = new THREE.Group(); k.cena.add(grupo);
+  const add = (geo, mat, x, y, z, rx = 0, ry = 0, rz = 0, ar = true) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.rotation.set(rx, ry, rz); grupo.add(m); if (ar) grupo.add(T25_arestas(m, 0xffc98a, 0.4)); return m; };
+  for (const [x, z, h] of [[-3, 1.6, 2.6], [3, 1.6, 2.6], [-3, -1.8, 3.4], [3, -1.8, 3.4]]) add(new THREE.CylinderGeometry(0.12, 0.14, h, 8), madeira, x, h / 2, z);
+  for (let k2 = 0; k2 < 12; k2++) add(new THREE.BoxGeometry(0.42, 3.3, 0.08), madeira, -2.75 + k2 * 0.5, 1.65, -1.9, 0, 0, (r() - 0.5) * 0.03);
+  add(new THREE.BoxGeometry(6.6, 0.16, 0.16), madeira, 0, 2.6, 1.6); add(new THREE.BoxGeometry(6.6, 0.16, 0.16), madeira, 0, 3.4, -1.8);
+  add(new THREE.BoxGeometry(7.2, 0.1, 4.3), palha, 0, 3.08, -0.1, Math.atan2(0.8, 3.4));
+  for (let k2 = 0; k2 < 9; k2++) add(new THREE.BoxGeometry(7.2, 0.05, 0.12), palha, 0, 3.4 - k2 * 0.1, -1.7 + k2 * 0.42, Math.atan2(0.8, 3.4), 0, 0, false);
+  for (const [x, z] of [[-2.4, -1.3], [2.3, -1.2], [2.5, 0.2]]) add(new THREE.BoxGeometry(0.9, 0.55, 0.6), palha, x, 0.28, z, 0, r() * 0.6);
+  EM3_vila(k.cena, 255, [[-14, -26, 4, 3, 4], [-7, -30, 3.6, 2.6, 3], [6, -28, 4, 3, 3.5], [14, -24, 3.4, 2.6, 3]]);
+  const lamp = new THREE.PointLight(0xffa955, 0, 6.5, 2); lamp.position.set(0.0, 1.3, 0.6); k.cena.add(lamp);
+  const brilho = halo3D(0xffc477, 2.6, 0); brilho.position.set(-0.1, 0.9, 0.6); k.cena.add(brilho);
+  // a estrela: lá longe e alta → desce em arco até em cima do estábulo; o facho acende quando ela chega
+  const est = EM3_estrela(k.cena, 10, 26, -48, 2.4);
+  const facho = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 2.4, 1, 32, 1, true), new THREE.MeshBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, fog: false })); k.cena.add(facho);
+  const luz = { lado: -1, cor: [255, 176, 100], rimCor: "255,226,170", calor: 0.3 };
+  const maria = pessoa25d(k, { tipo: "maria", pose: () => ({ ...POSES.de_pe, tronco: 0.16, cabeca: 0.35, braco: [[0.5, 1.0], [0.8, 0.85]], perna: [[-0.1, 0], [0.12, -0.05]] }), pos: [-0.85, 0.02, 0.7], alt: 1.62, dir: 1, expr: (t) => (t > tA ? "sorri" : "neutro"), fase: 3, luz });
+  const jose = pessoa25d(k, { tipo: "jose", pose: (t) => poseMix({ ...POSES.de_pe, cabeca: 0.15 }, { ...POSES.de_pe, cabeca: 0.3, braco: [[-0.1, 0.3], [0.6, 1.3]] }, PT.ss((t - tJ + 0.2) / 0.8)), pos: [0.95, 0.02, 0.35], alt: 1.75, dir: -1, expr: (t) => (t > tJ - 0.2 ? "sorri" : "neutro"), fase: 2, luz });
+  const berco = recorte25d(k, { larg: 680, alt: 340, h: 0.75, pos: [-0.15, 0.02, 0.6], luz: { ...luz, calor: 0.5, rim: 0.7, grao: true }, desenho: (g, t, W2, H2) => manjedoura(g, { x: W2 / 2, chao: H2 - 6, esc: 470, t }) });
+  sombra25d(k, -0.15, 0.02, 0.6, 1.2, 0.5, 0.45);
+  const CAM = [[c.ini, [-1.4, 0.7, 9.5]], [tA - 0.3, [-1.5, 0.8, 9.8]], [tA + 1.8, [-0.5, 1.5, 6.6]], [tJ - 0.4, [0.0, 1.3, 4.6]], [c.fim + 0.6, [0.35, 1.25, 3.9]]];
+  const ALVO = [[c.ini, [3, 9, -20]], [tA - 0.3, [3.5, 11, -22]], [tA + 1.8, [0, 1.6, 0]], [tJ - 0.4, [0.1, 1.0, 0.5]], [c.fim + 0.6, [0.45, 1.05, 0.5]]];
+  k.animar((t) => {
+    k.camera.position.set(...chaves(t, CAM)); k.camera.lookAt(...chaves(t, ALVO)); M.anim(t);
+    const desce = PT.inOut((t - tA + 0.6) / 1.8), p = [PT.lerp(10, 0.4, desce), PT.lerp(26, 7.2, desce) + 6 * Math.sin(Math.PI * desce), PT.lerp(-48, -3, desce)];
+    est.g.position.set(...p); est.anim(t, 1 + 0.3 * desce);
+    const aq = PT.ss((t - tA - 0.4) / 0.8), L = Math.max(0.1, p[1] - 0.8); facho.material.opacity = 0.03 * aq; facho.scale.set(1, L, 1); facho.position.set(p[0] * 0.5, 0.8 + L / 2, p[2] * 0.5 + 0.3);
+    lamp.intensity = (0.6 + 1.8 * aq) * (1 + 0.1 * Math.sin(t * 3.1)); brilho.material.opacity = 0.15 + 0.3 * aq;
+    maria.desenhar(t); jose.desenhar(t); berco.desenhar(t);
   });
 };
 

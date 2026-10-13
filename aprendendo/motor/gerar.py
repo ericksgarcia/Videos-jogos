@@ -457,6 +457,8 @@ def main():
         pasta_video = pasta_video.parent
     roteiro = json.loads((pasta_video / "roteiro.json").read_text())
     usar_canal(pasta_video, roteiro, a.marca)
+    if isinstance(roteiro.get("video"), dict):  # ajustes de vídeo só deste roteiro (ex.: {"desfoque_movimento": false} = render a 30 fps)
+        MARCA["video"] = {**MARCA["video"], **roteiro["video"]}
     if a.metadados:
         mp4 = pasta_saida(pasta_video) / f"{roteiro['slug']}.mp4"
         gravar_metadados(roteiro, mp4)

@@ -230,5 +230,8 @@
         "lembra:": "lembra"
       }
     }
-  ]
+  ],
+  "video": {
+    "desfoque_movimento": false
+  }
 }
