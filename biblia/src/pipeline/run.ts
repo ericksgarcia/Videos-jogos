@@ -23,19 +23,30 @@ import { imagemFalsa, videoFalso } from "./offline.ts";
 import { buscarClipe } from "./pexels.ts";
 import { dataUri, gerarImagem, gerarProfundidade } from "./replicate.ts";
 import { DUR_MAX, ENQUADRAMENTOS, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
-import { gerarRoteiro } from "./script.ts";
+import { cenaDaTomada } from "./cenarios.ts";
+import { gerarRoteiro, palavraClimax, validar, type Roteiro } from "./script.ts";
+import { readFileSync } from "node:fs";
 import { narrar } from "./tts.ts";
 
-type ModoVisual = "hybrid" | "replicate" | "pexels";
+type ModoVisual = "auto" | "hybrid" | "replicate" | "pexels" | "procedural";
 
 function args() {
   const a = process.argv.slice(2);
   const v = (k: string) => { const i = a.indexOf(`--${k}`); return i >= 0 ? a[i + 1] : undefined; };
   return {
     offline: a.includes("--offline"), semRender: a.includes("--no-render"), semHistorico: a.includes("--no-history"),
-    visual: (v("visual") ?? "hybrid") as ModoVisual, ref: v("ref"), seed: v("seed") ? Number(v("seed")) : undefined,
+    visual: (v("visual") ?? "auto") as ModoVisual, roteiro: v("roteiro"), ref: v("ref"), seed: v("seed") ? Number(v("seed")) : undefined,
     tom: v("tone") as "epic" | "comfort" | undefined, frames: v("frames"),
   };
+}
+
+/** Roteiro escrito à mão/por Claude: JSON { ato1, cta, ato3, climax?, cta_style } (o versículo vem sempre do catálogo). */
+function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
+  const j = JSON.parse(readFileSync(arq, "utf8"));
+  const erros = validar(j);
+  if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
+  return { ato1: j.ato1, cta: j.cta, ato3: j.ato3, versiculo: e.text, climax: palavraClimax(e.text, j.climax), cta_style: j.cta_style ?? "manual",
+    cenas: j.cenas ?? { ato1: { flux: "", pexels: [] }, ato2: { flux: "", pexels: [] }, ato3: { flux: "", pexels: [] } }, origem: "banco-local" };
 }
 
 async function main() {
@@ -58,7 +69,7 @@ async function main() {
   console.log(`▶ ${entrada.reference} | gancho: ${entrada.emotional_hook} | ritmo: ${entrada.tone} | sinais: ${entrada.audio_cues.join(", ")}`);
 
   // 2) roteiro
-  const rot = await gerarRoteiro(entrada, historico, { rand, offline: o.offline });
+  const rot = o.roteiro ? roteiroDeArquivo(o.roteiro, entrada) : await gerarRoteiro(entrada, historico, { rand, offline: o.offline });
   console.log(`  roteiro (${rot.origem}); CTA [${rot.cta_style}]: "${rot.cta}"`);
 
   // 3) narração
@@ -100,8 +111,15 @@ async function main() {
     for (let k = 0; k < limites.length - 1; k++, n++) {
       const [ini, fim] = [limites[k], limites[k + 1]];
       const cena = rot.cenas[bloco.ato];
+      const modo: ModoVisual = o.offline && o.visual === "auto" ? "hybrid"
+        : o.visual !== "auto" ? o.visual : temRep && temPex ? "hybrid" : temRep ? "replicate" : temPex ? "pexels" : "procedural";
+      if (modo === "procedural") {
+        const c = cenaDaTomada(bloco.ato, k, entrada.audio_cues, entrada.tone);
+        tomadas.push({ ini, fim, tipo: "procedural", src: "", cenario: c.cenario, clima: c.clima, seed: 3 + n * 2 + (entrada.id.length % 7) });
+        continue;
+      }
       const usarPexels = o.offline ? bloco.ato !== "ato1"
-        : o.visual === "pexels" ? true : o.visual === "replicate" ? false
+        : modo === "pexels" ? true : modo === "replicate" ? false
         : bloco.ato !== "ato1" ? temPex || !temRep : !temRep && temPex;   // hybrid: ato1=Flux, resto=Pexels
       const ext = (f: string) => extname(f) || ".png";
       if (usarPexels) {

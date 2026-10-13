@@ -17,8 +17,10 @@ export interface SegmentoPlano {
 
 export interface PlanoTomada {
   ini: number; fim: number;           // s
-  tipo: "parallax" | "video";
-  src: string;                        // relativo a public/ (staticFile)
+  tipo: "parallax" | "video" | "procedural";
+  src: string;                        // relativo a public/ (staticFile); vazio em "procedural"
+  cenario?: string;                   // procedural: deserto | montanha | mar | noite | fogueira | caverna | cidade
+  clima?: string[];                   // procedural: tempestade | chuva | vento | fogo | estrelas | raios | brasas
   depth?: string;                     // mapa de profundidade (parallax)
   seed: number;
   creditos?: string;

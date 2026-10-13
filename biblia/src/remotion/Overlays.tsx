@@ -73,9 +73,9 @@ export const GranuladoFilme = ({ opacidade = 0.3 }: { opacidade?: number }) => {
 };
 
 /** Escurece o miolo e as faixas de cima/baixo para a legenda dourada sempre ler bem. */
-export const FaixaLegibilidade = () => (
+export const FaixaLegibilidade = ({ forca = 1 }: { forca?: number }) => (
   <AbsoluteFill style={{
-    pointerEvents: "none",
+    pointerEvents: "none", opacity: forca,
     background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0.28) 48%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.7) 100%)",
   }} />
 );
