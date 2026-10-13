@@ -1,0 +1,151 @@
+# livro cap:vers | gancho | tom (epic|comfort) | sinais de áudio | contexto histórico
+# --- Provérbios: sabedoria reunida nas cortes de Israel (Salomão, Ezequias e outros sábios)
+pv 3:5-8 | ansiedade | comfort | vento,silêncio | Conselho de um pai a um filho jovem que começava a tomar decisões sozinho num mundo cheio de atalhos.
+pv 4:23-27 | sabedoria | comfort | silêncio | Pai ensina ao filho que tudo que ele viver nasce do que ele guardar no coração.
+pv 10:12 | perdão | comfort | silêncio | Provérbio de um mundo de clãs e vinganças: o ódio levanta brigas, mas o amor cobre as faltas.
+pv 11:2 | orgulho | comfort | silêncio | Observação de um sábio da corte que viu muitos reis e conselheiros caírem por causa da soberba.
+pv 12:25 | ansiedade | comfort | silêncio,chuva | Sábios de Israel já sabiam que a ansiedade pesa no coração, e que uma palavra boa o alegra.
+pv 13:12 | esperança | comfort | silêncio | Esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida.
+pv 14:12 | dúvida | epic | deserto,vento | Aviso de um sábio que viu muita gente se perder por seguir caminhos que pareciam certos.
+pv 14:30 | ansiedade | comfort | silêncio | Um coração tranquilo é vida para o corpo, mas a inveja é podridão nos ossos.
+pv 15:1 | perdão | comfort | silêncio | Numa época em que desavenças podiam virar guerras de famílias, a sabedoria dizia que resposta branda acalma a ira.
+pv 16:3 | chamado | comfort | silêncio | Entrega teus planos ao Senhor, e teus pensamentos serão estabelecidos.
+pv 16:9 | dúvida | comfort | vento | O coração do homem planeja o seu caminho, mas o Senhor lhe dirige os passos.
+pv 16:18 | orgulho | epic | trovão,multidão | Provérbio de um mundo em que reis poderosos caíam de um dia para o outro.
+pv 16:32 | sabedoria | epic | batalha | Melhor é o que tarda em irar-se do que o valente, e quem domina o seu espírito do que quem toma uma cidade.
+pv 17:17 | solidão | comfort | silêncio | Em todo tempo ama o amigo, e na angústia nasce o irmão.
+pv 18:10 | proteção | epic | batalha,montanha | A torre forte era a maior proteção de uma cidade antiga; o provérbio compara o nome do Senhor a ela.
+pv 18:21 | sabedoria | epic | trovão | A morte e a vida estão no poder da língua.
+pv 19:21 | dúvida | comfort | vento | Muitos propósitos há no coração do homem, mas o conselho do Senhor permanecerá.
+pv 21:31 | coragem | epic | batalha | O cavalo prepara-se para o dia da batalha, mas do Senhor vem a vitória.
+pv 22:6 | sabedoria | comfort | silêncio | Instrui a criança no caminho em que deve andar, e mesmo quando envelhecer não se desviará dele.
+pv 24:10 | cansaço | epic | deserto,vento | Se te mostrares frouxo no dia da angústia, a tua força será pequena.
+pv 24:16 | superação | epic | tempestade,noite | Sete vezes cairá o justo, e tornará a levantar-se.
+pv 27:1 | ansiedade | comfort | vento | Não te glories do dia de amanhã, pois não sabes o que o dia trará.
+pv 27:17 | solidão | comfort | fogo,silêncio | Como o ferro com o ferro se afia, assim o homem afia o rosto do seu amigo.
+pv 28:1 | medo | epic | deserto,batalha | O ímpio foge sem que ninguém o persiga, mas o justo é ousado como o leão.
+pv 29:25 | medo | comfort | silêncio,multidão | O temor do homem arma ciladas, mas o que confia no Senhor está seguro.
+pv 31:25 | coragem | comfort | silêncio,vento | Último capítulo do livro, em que a mãe de um rei descreve uma mulher forte, sem medo do futuro.
+# --- Isaías: profeta em Jerusalém no século VIII a.C., durante a ameaça assíria e depois do exílio
+is 6:1-4 | chamado | epic | trovão,fogo | No ano em que morreu o rei Uzias, Isaías vê o Senhor no templo e o chão treme.
+is 6:5-8 | culpa | epic | fogo,silêncio | Isaías, tomado de culpa, tem os lábios tocados por uma brasa do altar e ouve: quem enviarei?
+is 9:2-3 | esperança | comfort | noite,silêncio | Palavra dada a uma região invadida pelos assírios e mergulhada na escuridão.
+is 25:8-9 | luto | comfort | silêncio,chuva | Promessa de um dia em que Deus enxugará as lágrimas de todos os rostos.
+is 26:3-4 | paz | comfort | silêncio | Tu conservarás em paz aquele cujo propósito está firme, porque confia em ti.
+is 30:15 | ansiedade | comfort | silêncio,vento | Na calma e na confiança está a vossa força — mas o povo preferiu correr para o Egito atrás de cavalos.
+is 35:3-6 | coragem | epic | deserto,chuva | Palavra a um povo cansado: fortalecei as mãos frouxas, e o deserto florescerá.
+is 40:1-2 | luto | comfort | silêncio | Consolo anunciado a um povo exilado na Babilônia: consolai, consolai o meu povo.
+is 40:28-31 | cansaço | comfort | vento,deserto | Palavra aos exilados exaustos na Babilônia, que achavam que Deus os havia esquecido.
+is 41:10 | medo | comfort | vento,noite | Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus.
+is 41:13 | medo | comfort | silêncio | Palavra a um povo frágil, que Deus promete segurar pela mão.
+is 43:1-3 | medo | epic | mar,fogo | Quando passares pelas águas, estarei contigo; quando andares pelo fogo, não te queimarás.
+is 43:18-19 | superação | comfort | deserto,chuva | Não vos lembreis das coisas passadas; eis que faço uma coisa nova no deserto.
+is 46:3-4 | cansaço | comfort | silêncio | Até a velhice, eu serei o mesmo; eu vos carregarei, eu vos sustentarei.
+is 49:14-16 | solidão | comfort | silêncio,noite | Sião disse que Deus a esquecera; a resposta é que ele a gravou nas palmas das suas mãos.
+is 53:3-5 | traição | comfort | silêncio,noite | Canto do servo sofredor: desprezado, rejeitado, conhecedor das dores.
+is 54:10 | medo | epic | montanha,trovão | Ainda que os montes se movam e os outeiros tremam, a minha benignidade não se apartará de ti.
+is 54:17 | injustiça | epic | batalha | Nenhuma arma forjada contra ti prosperará.
+is 55:8-9 | dúvida | comfort | vento,silêncio | Os meus pensamentos não são os vossos pensamentos, nem os vossos caminhos os meus caminhos.
+is 55:10-11 | esperança | comfort | chuva | Como a chuva e a neve descem do céu e fazem a terra produzir, assim é a palavra de Deus.
+is 58:8-10 | esperança | comfort | noite,silêncio | Promessa de que, para quem se importa com os famintos, a luz romperá como a alva.
+is 60:1-2 | esperança | epic | noite,trovão | Levanta-te, resplandece, porque vem a tua luz, mesmo com as trevas cobrindo a terra.
+is 61:1-3 | luto | comfort | silêncio | Anúncio de boas novas aos pobres, de cura aos quebrantados e de liberdade aos cativos.
+# --- Jeremias e Lamentações: profeta nos últimos anos de Judá, antes e depois da queda de Jerusalém em 586 a.C.
+jr 1:4-8 | chamado | epic | noite,silêncio | Jeremias, ainda muito jovem, é chamado a profetizar e responde que não sabe falar.
+jr 9:23-24 | orgulho | epic | trovão | Não se glorie o sábio na sua sabedoria, nem o rico nas suas riquezas.
+jr 17:5-8 | sabedoria | comfort | deserto,chuva | O contraste entre um arbusto no deserto e uma árvore plantada junto à água.
+jr 18:1-6 | superação | comfort | silêncio,fogo | Deus manda Jeremias à casa do oleiro, que refaz o vaso estragado.
+jr 20:7-9 | cansaço | epic | fogo,noite | Jeremias, ridicularizado e preso por anunciar a verdade, diz que a palavra lhe queima como fogo nos ossos.
+jr 23:28-29 | juízo | epic | fogo,trovão | Palavra de Deus é fogo e martelo que despedaça a rocha.
+jr 29:4-7 | esperança | comfort | silêncio | Carta aos exilados na Babilônia: construam casas, plantem pomares, procurem a paz da cidade.
+jr 29:11-13 | esperança | comfort | silêncio,vento | Carta enviada aos exilados na Babilônia, que estavam em terra estrangeira e achavam que tudo estava perdido.
+jr 31:3 | solidão | comfort | silêncio | Com amor eterno te amei; por isso te atraí com benignidade.
+jr 31:25 | cansaço | comfort | silêncio,chuva | Porque tenho saciado a alma cansada e enchido toda a alma desfalecida.
+jr 32:17 | dúvida | epic | trovão,silêncio | Jeremias, com Jerusalém sitiada, compra um campo e ora: nada é demasiado difícil para ti.
+jr 33:3 | dúvida | comfort | silêncio | Clama a mim, e responder-te-ei, e anunciar-te-ei coisas grandes e ocultas que não sabes.
+lm 3:22-26 | esperança | comfort | fogo,silêncio | Escrito entre as ruínas de Jerusalém, depois de a cidade ter sido destruída pelos babilônios.
+lm 3:55-58 | medo | epic | caverna,mar | Do fundo da cova, o poeta invocou o nome de Deus e foi ouvido.
+# --- Ezequiel: profeta e sacerdote exilado na Babilônia
+ez 1:26-28 | chamado | epic | trovão,fogo | Ezequiel, exilado às margens do rio Quebar, vê uma visão de glória que o derruba com o rosto em terra.
+ez 3:17-19 | chamado | epic | vento,silêncio | Deus nomeia Ezequiel sentinela da casa de Israel.
+ez 11:19-20 | superação | comfort | silêncio | Promessa feita a exilados de dar um coração novo no lugar do coração de pedra.
+ez 18:23 | perdão | comfort | silêncio | Porventura tenho eu algum prazer na morte do ímpio? — diz o Senhor.
+ez 33:11 | perdão | epic | trovão,silêncio | Convite divino aos exilados: voltem, por que morreríeis?
+ez 34:11-16 | solidão | comfort | silêncio,vento | Promessa de Deus aos exilados dispersos: eu mesmo procurarei as minhas ovelhas.
+ez 36:26-27 | superação | comfort | silêncio | Dar-vos-ei um coração novo, e porei dentro de vós um espírito novo.
+ez 37:1-5 | esperança | epic | deserto,vento | Ezequiel é levado por Deus ao meio de um vale cheio de ossos secos e ouve: podem estes ossos viver?
+ez 37:11-14 | esperança | epic | vento,trovão | Palavra a um povo que dizia: os nossos ossos se secaram, e pereceu a nossa esperança.
+ez 47:1-5 | esperança | comfort | chuva,silêncio | Visão de um rio que sai do templo e vai aumentando, onde chega ele dá vida.
+# --- Daniel: jovem judeu levado cativo à Babilônia e à Pérsia, séculos VI a.C.
+dn 2:20-22 | sabedoria | epic | trovão,noite | Daniel louva a Deus depois de receber em visão o sonho que nenhum sábio da Babilônia conseguiu contar ao rei.
+dn 3:16-18 | coragem | epic | fogo,multidão | Três jovens judeus são ameaçados de morte na fornalha de Nabucodonosor se não adorarem a estátua de ouro.
+dn 3:24-25 | superação | epic | fogo,multidão | Nabucodonosor vê quatro homens andando livres dentro da fornalha, e o quarto é semelhante a um filho dos deuses.
+dn 5:5-6 | juízo | epic | trovão,noite | Durante um banquete de Belsazar, uma mão misteriosa escreve na parede, e o rei treme de pavor.
+dn 6:10 | coragem | comfort | silêncio,deserto | Daniel, sabendo do decreto que proibia orar a qualquer outro que não o rei, abre a janela e ora como sempre.
+dn 6:19-22 | medo | epic | caverna,noite | De manhã, o rei Dario corre à cova dos leões e encontra Daniel vivo.
+dn 7:9-10 | juízo | epic | fogo,trovão | Daniel vê tronos, um ancião de vestes brancas e um rio de fogo diante do tribunal.
+dn 9:18-19 | perdão | comfort | silêncio,noite | Daniel ora pelo povo, confessando o pecado e pedindo ao Senhor que ouça, perdoe e aja.
+dn 10:12-13 | medo | epic | noite,trovão | Depois de jejum de três semanas, um anjo diz a Daniel: não temas, desde o primeiro dia as tuas palavras foram ouvidas.
+dn 12:2-3 | esperança | epic | noite,trovão | Visão do fim dos tempos: os que forem sábios resplandecerão como o brilho do firmamento.
+# --- Evangelhos: Mateus, Marcos, Lucas e João
+mt 5:14-16 | chamado | comfort | noite,fogueira | Jesus fala a um grupo de camponeses e pescadores numa colina da Galileia, sem eletricidade, onde uma lamparina fazia toda a diferença.
+mt 6:25-27 | ansiedade | comfort | vento,silêncio | Sermão do Monte, dito a um povo pobre que vivia sob impostos romanos e se preocupava com o pão do dia seguinte.
+mt 6:33-34 | ansiedade | comfort | silêncio | Buscai primeiro o reino de Deus, e não vos preocupeis com o amanhã.
+mt 7:7-8 | dúvida | comfort | silêncio | Pedi, e dar-se-vos-á; buscai, e achareis; batei, e abrir-se-vos-á.
+mt 7:24-27 | sabedoria | epic | tempestade,chuva | Jesus encerra o Sermão do Monte com uma história sobre duas casas, uma na rocha e outra na areia.
+mt 8:23-27 | medo | epic | tempestade,mar | Os discípulos, pescadores experientes, entram em pânico quando uma tempestade cobre o lago da Galileia, com Jesus dormindo no barco.
+mt 11:28-30 | cansaço | comfort | silêncio,vento | Jesus fala a um povo cansado de impostos, de regras religiosas e de trabalho pesado.
+mt 14:25-31 | dúvida | epic | tempestade,mar | De madrugada, Pedro vê Jesus caminhando sobre o lago e pede para ir até ele, mas começa a afundar.
+mt 17:20 | dúvida | comfort | montanha,vento | Se tiverdes fé como um grão de mostarda, nada vos será impossível.
+mt 18:21-22 | perdão | comfort | silêncio | Pedro pergunta quantas vezes deve perdoar o irmão; Jesus responde setenta vezes sete.
+mt 19:26 | dúvida | comfort | silêncio | Para os homens é impossível, mas para Deus tudo é possível.
+mt 26:36-39 | medo | epic | noite,silêncio | Na noite antes de ser preso, Jesus vai ao jardim do Getsêmani e diz estar triste até à morte.
+mt 26:69-75 | culpa | epic | noite,fogueira | Pedro, que jurara nunca abandoná-lo, nega Jesus três vezes antes do canto do galo.
+mt 28:19-20 | chamado | epic | trovão,montanha | Antes de subir ao céu, Jesus promete aos discípulos amedrontados estar com eles todos os dias.
+mc 4:37-41 | medo | epic | tempestade,mar | Uma tempestade violenta sobe de repente no lago, as ondas enchem o barco, e Jesus manda o vento calar.
+mc 5:35-36 | medo | comfort | silêncio,multidão | Jairo recebe a notícia de que sua filha morreu, e Jesus lhe diz: não temas, crê somente.
+mc 9:23-24 | dúvida | comfort | silêncio,multidão | Um pai desesperado diz a Jesus: eu creio, ajuda a minha incredulidade.
+mc 10:27 | dúvida | comfort | silêncio | Para os homens é impossível, mas não para Deus.
+mc 14:32-36 | medo | epic | noite,silêncio | No jardim, Jesus pede aos discípulos que vigiem, mas eles dormem.
+lc 1:35-37 | dúvida | comfort | silêncio | O anjo diz a Maria, jovem e assustada, que para Deus nada é impossível.
+lc 2:8-11 | medo | comfort | noite,vento | Pastores em campo aberto, de madrugada, são visitados por um anjo e ouvem: não temais.
+lc 10:41-42 | ansiedade | comfort | silêncio | Marta, sobrecarregada de tarefas, é gentilmente confrontada por Jesus.
+lc 12:6-7 | medo | comfort | vento,silêncio | Não se vendem cinco passarinhos por dois centavos? E nenhum deles está esquecido diante de Deus.
+lc 12:22-26 | ansiedade | comfort | vento,silêncio | Jesus fala aos discípulos que se preocupavam com comida e roupa, e aponta para os corvos e os lírios.
+lc 15:20-24 | perdão | comfort | silêncio,vento | O filho pródigo volta para casa e encontra o pai correndo ao seu encontro.
+lc 22:31-32 | traição | epic | noite,silêncio | Jesus avisa Pedro de que Satanás pediu para peneirá-lo, mas que orou por ele.
+lc 23:34 | perdão | comfort | trovão,multidão | Na cruz, entre dois criminosos, Jesus diz: Pai, perdoa-lhes, porque não sabem o que fazem.
+jo 1:1-5 | esperança | epic | trovão,noite | Prólogo do Evangelho, com o eco do Gênesis: a luz brilha nas trevas, e as trevas não prevaleceram.
+jo 3:16-17 | esperança | comfort | silêncio,noite | Jesus fala de madrugada com Nicodemos, um fariseu que o procurou às escondidas.
+jo 8:7-11 | culpa | epic | silêncio,multidão | Uma mulher flagrada em adultério é arrastada ao templo para ser apedrejada, e Jesus escreve no chão.
+jo 10:10-11 | proteção | comfort | vento,silêncio | Jesus se apresenta como o bom pastor, que dá a vida pelas ovelhas.
+jo 11:32-36 | luto | comfort | silêncio,chuva | Jesus chega a Betânia quatro dias depois da morte de Lázaro e chora diante do túmulo.
+jo 11:43-44 | esperança | epic | caverna,trovão | Diante do túmulo de Lázaro, Jesus grita: Lázaro, sai para fora!
+jo 14:1-3 | ansiedade | comfort | noite,silêncio | Na última ceia, Jesus acalma discípulos assustados com sua partida.
+jo 14:27 | paz | comfort | silêncio | Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá.
+jo 16:33 | superação | epic | trovão,tempestade | No mundo tereis aflições, mas tende bom ânimo: eu venci o mundo.
+jo 20:19-21 | medo | comfort | noite,silêncio | Discípulos escondidos atrás de portas trancadas por medo recebem a visita do ressuscitado: paz seja convosco.
+# --- Apocalipse: João, exilado na ilha de Patmos, escreve a igrejas perseguidas pelo Império Romano
+ap 1:12-18 | medo | epic | trovão,fogo | João, exilado na ilha de Patmos, vê o Cristo glorificado e cai como morto, até ouvir: não temas.
+ap 2:10 | medo | epic | fogo,noite | Carta à igreja de Esmirna, perseguida por Roma: sê fiel até à morte, e dar-te-ei a coroa da vida.
+ap 3:8 | chamado | comfort | silêncio | Carta à igreja de Filadélfia, pequena e sem forças: pus diante de ti uma porta aberta.
+ap 3:20 | solidão | comfort | silêncio,chuva | Eis que estou à porta, e bato; se alguém ouvir a minha voz, entrarei.
+ap 5:11-13 | gratidão | epic | trovão,multidão | João vê milhares de milhares de anjos ao redor do trono, cantando em voz alta.
+ap 6:12-14 | juízo | epic | trovão,tempestade | Abertura do sexto selo: terremoto, o sol escurece e a lua se torna como sangue.
+ap 7:16-17 | luto | comfort | silêncio,chuva | Visão da multidão vinda da grande tribulação: Deus enxugará dos seus olhos toda lágrima.
+ap 12:7-9 | coragem | epic | trovão,batalha | Visão de guerra no céu, em que o dragão é lançado fora.
+ap 19:11-13 | juízo | epic | trovão,batalha | João vê o céu aberto e um cavaleiro num cavalo branco, chamado Fiel e Verdadeiro.
+ap 21:1-4 | luto | comfort | silêncio,mar | João, preso em Patmos, vê um novo céu e uma nova terra, onde Deus habitará com os homens.
+ap 21:5-7 | esperança | epic | trovão,silêncio | Aquele que está assentado no trono diz: eis que faço novas todas as coisas.
+ap 22:1-5 | esperança | comfort | silêncio,chuva | Última visão da Bíblia: um rio de água viva e uma árvore da vida, onde não haverá mais noite.
+# --- Cartas: respostas de apóstolos a comunidades sob pressão
+rm 8:35-39 | medo | epic | tempestade,trovão | Paulo escreve aos cristãos de Roma, uma comunidade pequena sob a sombra do imperador, afirmando que nada os separa do amor de Deus.
+rm 12:12 | cansaço | comfort | silêncio | Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração.
+2co 12:9-10 | cansaço | comfort | deserto,vento | Paulo, com um espinho na carne que não foi removido, ouve: a minha graça te basta.
+fp 4:6-7 | ansiedade | comfort | silêncio,noite | Paulo escreve da prisão aos filipenses: em nada estejais ansiosos, e a paz de Deus guardará os vossos corações.
+2tm 1:7 | medo | comfort | noite,silêncio | Paulo, na prisão em Roma e perto do fim da vida, lembra a Timóteo que Deus não deu espírito de covardia.
+hb 12:1-2 | cansaço | epic | multidão,silêncio | Carta a cristãos cansados e perseguidos: corramos com perseverança a carreira que nos está proposta.
+hb 13:5-6 | medo | comfort | silêncio | Nunca te deixarei, nunca te abandonarei — de modo que podemos dizer confiadamente: o Senhor é o meu ajudador.
+tg 1:2-4 | superação | comfort | silêncio | Tiago escreve a cristãos dispersos pela perseguição: considerem motivo de alegria passar por várias provações.
+1pe 5:7 | ansiedade | comfort | silêncio,chuva | Pedro escreve a cristãos espalhados e perseguidos: lançai sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.
+1jo 4:18 | medo | comfort | silêncio | No amor não há medo; o perfeito amor lança fora o medo.

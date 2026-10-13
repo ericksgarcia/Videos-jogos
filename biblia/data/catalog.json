@@ -1,0 +1,4640 @@
+[
+ {
+  "id": "pv-3-5-7",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 3:5-7",
+  "text": "Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento. Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas. Não sejas sábio a teus próprios olhos; teme ao Senhor e aparta-te do mal.",
+  "words": 42,
+  "historical_context": "Conselho de um pai a um filho jovem que começava a tomar decisões sozinho num mundo cheio de atalhos.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-4-23-24",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 4:23-24",
+  "text": "Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as saídas da vida. Desvia de ti a tortuosidade da boca e alonga de ti a perversidade dos lábios.",
+  "words": 33,
+  "historical_context": "Pai ensina ao filho que tudo que ele viver nasce do que ele guardar no coração.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-10-12",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 10:12",
+  "text": "O ódio excita contendas, mas o amor cobre todas as transgressões.",
+  "words": 11,
+  "historical_context": "Provérbio de um mundo de clãs e vinganças: o ódio levanta brigas, mas o amor cobre as faltas.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-11-2",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 11:2",
+  "text": "Vindo a soberba, virá também a afronta; mas com os humildes está a sabedoria.",
+  "words": 14,
+  "historical_context": "Observação de um sábio da corte que viu muitos reis e conselheiros caírem por causa da soberba.",
+  "emotional_hook": "orgulho",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-12-25",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 12:25",
+  "text": "A solicitude no coração do homem o abate, mas uma boa palavra o alegra.",
+  "words": 14,
+  "historical_context": "Sábios de Israel já sabiam que a ansiedade pesa no coração, e que uma palavra boa o alegra.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "pv-13-12",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 13:12",
+  "text": "A esperança demorada enfraquece o coração, mas o desejo chegado é árvore de vida.",
+  "words": 14,
+  "historical_context": "Esperança adiada faz adoecer o coração, mas o desejo cumprido é árvore de vida.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-14-12",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 14:12",
+  "text": "Há caminho que ao homem parece direito, mas o fim dele são os caminhos da morte.",
+  "words": 16,
+  "historical_context": "Aviso de um sábio que viu muita gente se perder por seguir caminhos que pareciam certos.",
+  "emotional_hook": "dúvida",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "vento"
+  ]
+ },
+ {
+  "id": "pv-14-30",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 14:30",
+  "text": "O coração com saúde é a vida da carne, mas a inveja é a podridão dos ossos.",
+  "words": 17,
+  "historical_context": "Um coração tranquilo é vida para o corpo, mas a inveja é podridão nos ossos.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-15-1",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 15:1",
+  "text": "A resposta branda desvia o furor, mas a palavra dura suscita a ira.",
+  "words": 13,
+  "historical_context": "Numa época em que desavenças podiam virar guerras de famílias, a sabedoria dizia que resposta branda acalma a ira.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-16-3",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 16:3",
+  "text": "Confia ao Senhor as tuas obras, e teus pensamentos serão estabelecidos.",
+  "words": 11,
+  "historical_context": "Entrega teus planos ao Senhor, e teus pensamentos serão estabelecidos.",
+  "emotional_hook": "chamado",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-16-9",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 16:9",
+  "text": "O coração do homem considera o seu caminho, mas o Senhor lhe dirige os passos.",
+  "words": 15,
+  "historical_context": "O coração do homem planeja o seu caminho, mas o Senhor lhe dirige os passos.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento"
+  ]
+ },
+ {
+  "id": "pv-16-18",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 16:18",
+  "text": "A soberba precede a ruína, e a altivez do espírito precede a queda.",
+  "words": 13,
+  "historical_context": "Provérbio de um mundo em que reis poderosos caíam de um dia para o outro.",
+  "emotional_hook": "orgulho",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "pv-16-32",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 16:32",
+  "text": "Melhor é o longânimo do que o valente, e o que governa o seu espírito do que o que toma uma cidade.",
+  "words": 22,
+  "historical_context": "Melhor é o que tarda em irar-se do que o valente, e quem domina o seu espírito do que quem toma uma cidade.",
+  "emotional_hook": "sabedoria",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha"
+  ]
+ },
+ {
+  "id": "pv-17-17",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 17:17",
+  "text": "Em todo o tempo ama o amigo; e na angústia nasce o irmão.",
+  "words": 13,
+  "historical_context": "Em todo tempo ama o amigo, e na angústia nasce o irmão.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-18-10",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 18:10",
+  "text": "Torre forte é o nome do Senhor ; para ela correrá o justo e estará em alto retiro.",
+  "words": 18,
+  "historical_context": "A torre forte era a maior proteção de uma cidade antiga; o provérbio compara o nome do Senhor a ela.",
+  "emotional_hook": "proteção",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "montanha"
+  ]
+ },
+ {
+  "id": "pv-18-21",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 18:21",
+  "text": "A morte e a vida estão no poder da língua; e aquele que a ama comerá do seu fruto.",
+  "words": 19,
+  "historical_context": "A morte e a vida estão no poder da língua.",
+  "emotional_hook": "sabedoria",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão"
+  ]
+ },
+ {
+  "id": "pv-19-21",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 19:21",
+  "text": "Muitos propósitos há no coração do homem, mas o conselho do Senhor permanecerá.",
+  "words": 13,
+  "historical_context": "Muitos propósitos há no coração do homem, mas o conselho do Senhor permanecerá.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento"
+  ]
+ },
+ {
+  "id": "pv-21-31",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 21:31",
+  "text": "O cavalo prepara-se para o dia da batalha, mas do Senhor vem a vitória.",
+  "words": 14,
+  "historical_context": "O cavalo prepara-se para o dia da batalha, mas do Senhor vem a vitória.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha"
+  ]
+ },
+ {
+  "id": "pv-22-6",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 22:6",
+  "text": "Instrui o menino no caminho em que deve andar, e, até quando envelhecer, não se desviará dele.",
+  "words": 17,
+  "historical_context": "Instrui a criança no caminho em que deve andar, e mesmo quando envelhecer não se desviará dele.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-24-10",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 24:10",
+  "text": "Se te mostrares frouxo no dia da angústia, a tua força será pequena.",
+  "words": 13,
+  "historical_context": "Se te mostrares frouxo no dia da angústia, a tua força será pequena.",
+  "emotional_hook": "cansaço",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "vento"
+  ]
+ },
+ {
+  "id": "pv-24-16",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 24:16",
+  "text": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
+  "words": 15,
+  "historical_context": "Sete vezes cairá o justo, e tornará a levantar-se.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "tempestade",
+   "noite"
+  ]
+ },
+ {
+  "id": "pv-27-1",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 27:1",
+  "text": "Não presumas do dia de amanhã, porque não sabes o que produzirá o dia.",
+  "words": 14,
+  "historical_context": "Não te glories do dia de amanhã, pois não sabes o que o dia trará.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento"
+  ]
+ },
+ {
+  "id": "pv-27-17",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 27:17",
+  "text": "Como o ferro com o ferro se aguça, assim o homem afia o rosto do seu amigo.",
+  "words": 17,
+  "historical_context": "Como o ferro com o ferro se afia, assim o homem afia o rosto do seu amigo.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "fogo",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "pv-28-1",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 28:1",
+  "text": "Fogem os ímpios, sem que ninguém os persiga; mas qualquer justo está confiado como o filho do leão.",
+  "words": 18,
+  "historical_context": "O ímpio foge sem que ninguém o persiga, mas o justo é ousado como o leão.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "batalha"
+  ]
+ },
+ {
+  "id": "pv-29-25",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 29:25",
+  "text": "O receio do homem armará laços, mas o que confia no Senhor será posto em alto retiro.",
+  "words": 17,
+  "historical_context": "O temor do homem arma ciladas, mas o que confia no Senhor está seguro.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "multidão"
+  ]
+ },
+ {
+  "id": "pv-31-25",
+  "book": "pv",
+  "bookName": "Provérbios",
+  "testament": "AT",
+  "reference": "Provérbios 31:25",
+  "text": "A força e a glória são as suas vestes, e ri-se do dia futuro. Pê.",
+  "words": 15,
+  "historical_context": "Último capítulo do livro, em que a mãe de um rei descreve uma mulher forte, sem medo do futuro.",
+  "emotional_hook": "coragem",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "is-6-1",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 6:1",
+  "text": "No ano em que morreu o rei Uzias, eu vi ao Senhor assentado sobre um alto e sublime trono; e o seu séquito enchia o templo.",
+  "words": 26,
+  "historical_context": "No ano em que morreu o rei Uzias, Isaías vê o Senhor no templo e o chão treme.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "fogo"
+  ]
+ },
+ {
+  "id": "is-6-5",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 6:5",
+  "text": "Então, disse eu: ai de mim, que vou perecendo! Porque eu sou um homem de lábios impuros e habito no meio de um povo de impuros lábios; e os meus olhos viram o rei, o Senhor dos Exércitos!",
+  "words": 38,
+  "historical_context": "Isaías, tomado de culpa, tem os lábios tocados por uma brasa do altar e ouve: quem enviarei?",
+  "emotional_hook": "culpa",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-9-2",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 9:2",
+  "text": "O povo que andava em trevas viu uma grande luz, e sobre os que habitavam na região da sombra de morte resplandeceu a luz.",
+  "words": 24,
+  "historical_context": "Palavra dada a uma região invadida pelos assírios e mergulhada na escuridão.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-25-8",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 25:8",
+  "text": "Aniquilará a morte para sempre, e assim enxugará o Senhor Jeová as lágrimas de todos os rostos, e tirará o opróbrio do seu povo de toda a terra; porque o Senhor o disse.",
+  "words": 33,
+  "historical_context": "Promessa de um dia em que Deus enxugará as lágrimas de todos os rostos.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "is-26-3-4",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 26:3-4",
+  "text": "Tu conservarás em paz aquele cuja mente está firme em ti; porque ele confia em ti. Confiai no Senhor perpetuamente; porque o Senhor Deus é uma rocha eterna.",
+  "words": 28,
+  "historical_context": "Tu conservarás em paz aquele cujo propósito está firme, porque confia em ti.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-30-15",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 30:15",
+  "text": "Porque assim diz o Senhor Jeová , o Santo de Israel: Em vos converterdes e em repousardes, estaria a vossa salvação; no sossego e na confiança, estaria a vossa força, mas não a quisestes.",
+  "words": 34,
+  "historical_context": "Na calma e na confiança está a vossa força — mas o povo preferiu correr para o Egito atrás de cavalos.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "is-35-3-4",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 35:3-4",
+  "text": "Confortai as mãos fracas e fortalecei os joelhos trementes. Dizei aos turbados de coração: Esforçai-vos e não temais; eis que o vosso Deus virá com vingança, com recompensa de Deus; ele virá, e vos salvará.",
+  "words": 35,
+  "historical_context": "Palavra a um povo cansado: fortalecei as mãos frouxas, e o deserto florescerá.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "chuva"
+  ]
+ },
+ {
+  "id": "is-40-1-2",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 40:1-2",
+  "text": "Consolai, consolai o meu povo, diz o vosso Deus. Falai benignamente a Jerusalém e bradai-lhe que já a sua servidão é acabada, que a sua iniquidade está expiada e que já recebeu em dobro da mão do Senhor , por todos os seus pecados.",
+  "words": 44,
+  "historical_context": "Consolo anunciado a um povo exilado na Babilônia: consolai, consolai o meu povo.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-40-28-29",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 40:28-29",
+  "text": "Não sabes, não ouviste que o eterno Deus, o Senhor , o Criador dos confins da terra, nem se cansa, nem se fatiga? Não há esquadrinhação do seu entendimento. Dá vigor ao cansado e multiplica as forças ao que não tem nenhum vigor.",
+  "words": 43,
+  "historical_context": "Palavra aos exilados exaustos na Babilônia, que achavam que Deus os havia esquecido.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "deserto"
+  ]
+ },
+ {
+  "id": "is-41-10",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 41:10",
+  "text": "não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus; eu te esforço, e te ajudo, e te sustento com a destra da minha justiça.",
+  "words": 30,
+  "historical_context": "Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "noite"
+  ]
+ },
+ {
+  "id": "is-41-13",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 41:13",
+  "text": "Porque eu, o Senhor , teu Deus, te tomo pela tua mão direita e te digo: não temas, que eu te ajudo.",
+  "words": 22,
+  "historical_context": "Palavra a um povo frágil, que Deus promete segurar pela mão.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-43-1",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 43:1",
+  "text": "Mas, agora, assim diz o Senhor que te criou, ó Jacó, e que te formou, ó Israel: Não temas, porque eu te remi; chamei-te pelo teu nome; tu és meu.",
+  "words": 30,
+  "historical_context": "Quando passares pelas águas, estarei contigo; quando andares pelo fogo, não te queimarás.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "fogo"
+  ]
+ },
+ {
+  "id": "is-43-18-19",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 43:18-19",
+  "text": "Não vos lembreis das coisas passadas, nem considereis as antigas. Eis que farei uma coisa nova, e, agora, sairá à luz; porventura, não a sabereis? Eis que porei um caminho no deserto e rios, no ermo.",
+  "words": 36,
+  "historical_context": "Não vos lembreis das coisas passadas; eis que faço uma coisa nova no deserto.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "chuva"
+  ]
+ },
+ {
+  "id": "is-46-3",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 46:3",
+  "text": "Ouvi-me, ó casa de Jacó e todo o resíduo da casa de Israel; vós, a quem trouxe nos braços desde o ventre e levei desde a madre.",
+  "words": 27,
+  "historical_context": "Até a velhice, eu serei o mesmo; eu vos carregarei, eu vos sustentarei.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-49-14",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 49:14",
+  "text": "Mas Sião diz: Já me desamparou o Senhor ; o Senhor se esqueceu de mim.",
+  "words": 15,
+  "historical_context": "Sião disse que Deus a esquecera; a resposta é que ele a gravou nas palmas das suas mãos.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "is-53-3",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 53:3",
+  "text": "Era desprezado e o mais indigno entre os homens, homem de dores, experimentado nos trabalhos e, como um de quem os homens escondiam o rosto, era desprezado, e não fizemos dele caso algum.",
+  "words": 33,
+  "historical_context": "Canto do servo sofredor: desprezado, rejeitado, conhecedor das dores.",
+  "emotional_hook": "traição",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "is-54-10",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 54:10",
+  "text": "Porque as montanhas se desviarão e os outeiros tremerão; mas a minha benignidade não se desviará de ti, e o concerto da minha paz não mudará, diz o Senhor , que se compadece de ti.",
+  "words": 35,
+  "historical_context": "Ainda que os montes se movam e os outeiros tremam, a minha benignidade não se apartará de ti.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "montanha",
+   "trovão"
+  ]
+ },
+ {
+  "id": "is-54-17",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 54:17",
+  "text": "Toda ferramenta preparada contra ti não prosperará; e toda língua que se levantar contra ti em juízo, tu a condenarás; esta é a herança dos servos do Senhor e a sua justiça que vem de mim, diz o Senhor .",
+  "words": 40,
+  "historical_context": "Nenhuma arma forjada contra ti prosperará.",
+  "emotional_hook": "injustiça",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha"
+  ]
+ },
+ {
+  "id": "is-55-8",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 55:8",
+  "text": "Porque os meus pensamentos não são os vossos pensamentos, nem os vossos caminhos, os meus caminhos, diz o Senhor .",
+  "words": 20,
+  "historical_context": "Os meus pensamentos não são os vossos pensamentos, nem os vossos caminhos os meus caminhos.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-55-10",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 55:10",
+  "text": "Porque, assim como descem a chuva e a neve dos céus e para lá não tornam, mas regam a terra e a fazem produzir, e brotar, e dar semente ao semeador, e pão ao que come,",
+  "words": 36,
+  "historical_context": "Como a chuva e a neve descem do céu e fazem a terra produzir, assim é a palavra de Deus.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "chuva"
+  ]
+ },
+ {
+  "id": "is-58-8",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 58:8",
+  "text": "Então, romperá a tua luz como a alva, e a tua cura apressadamente brotará, e a tua justiça irá adiante da tua face, e a glória do Senhor será a tua retaguarda.",
+  "words": 32,
+  "historical_context": "Promessa de que, para quem se importa com os famintos, a luz romperá como a alva.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "is-60-1",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 60:1",
+  "text": "Levanta-te, resplandece, porque já vem a tua luz, e a glória do Senhor vai nascendo sobre ti.",
+  "words": 17,
+  "historical_context": "Levanta-te, resplandece, porque vem a tua luz, mesmo com as trevas cobrindo a terra.",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "trovão"
+  ]
+ },
+ {
+  "id": "is-61-1",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 61:1",
+  "text": "O Espírito do Senhor Jeová está sobre mim, porque o Senhor me ungiu para pregar boas-novas aos mansos; enviou-me a restaurar os contritos de coração, a proclamar liberdade aos cativos e a abertura de prisão aos presos;",
+  "words": 37,
+  "historical_context": "Anúncio de boas novas aos pobres, de cura aos quebrantados e de liberdade aos cativos.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jr-1-4-5",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 1:4-5",
+  "text": "Assim veio a mim a palavra do Senhor , dizendo: Antes que eu te formasse no ventre, eu te conheci; e, antes que saísses da madre, te santifiquei e às nações te dei por profeta.",
+  "words": 35,
+  "historical_context": "Jeremias, ainda muito jovem, é chamado a profetizar e responde que não sabe falar.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jr-9-23",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 9:23",
+  "text": "Assim diz o Senhor : Não se glorie o sábio na sua sabedoria, nem se glorie o forte na sua força; não se glorie o rico nas suas riquezas.",
+  "words": 29,
+  "historical_context": "Não se glorie o sábio na sua sabedoria, nem o rico nas suas riquezas.",
+  "emotional_hook": "orgulho",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão"
+  ]
+ },
+ {
+  "id": "jr-17-5",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 17:5",
+  "text": "Assim diz o Senhor : Maldito o homem que confia no homem, e faz da carne o seu braço, e aparta o seu coração do Senhor !",
+  "words": 27,
+  "historical_context": "O contraste entre um arbusto no deserto e uma árvore plantada junto à água.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "chuva"
+  ]
+ },
+ {
+  "id": "jr-18-1-3",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 18:1-3",
+  "text": "A palavra do Senhor , que veio a Jeremias, dizendo: Levanta-te e desce à casa do oleiro, e lá te farei ouvir as minhas palavras. E desci à casa do oleiro, e eis que ele estava fazendo a sua obra sobre as rodas.",
+  "words": 43,
+  "historical_context": "Deus manda Jeremias à casa do oleiro, que refaz o vaso estragado.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "fogo"
+  ]
+ },
+ {
+  "id": "jr-20-7",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 20:7",
+  "text": "Iludiste-me, ó Senhor , e iludido fiquei; mais forte foste do que eu e prevaleceste; sirvo de escárnio todo o dia; cada um deles zomba de mim.",
+  "words": 27,
+  "historical_context": "Jeremias, ridicularizado e preso por anunciar a verdade, diz que a palavra lhe queima como fogo nos ossos.",
+  "emotional_hook": "cansaço",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "noite"
+  ]
+ },
+ {
+  "id": "jr-23-28",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 23:28",
+  "text": "O profeta que teve um sonho, que conte o sonho; e aquele em quem está a minha palavra, que fale a minha palavra, com verdade. Que tem a palha com o trigo? — diz o Senhor .",
+  "words": 37,
+  "historical_context": "Palavra de Deus é fogo e martelo que despedaça a rocha.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "trovão"
+  ]
+ },
+ {
+  "id": "jr-29-4-5",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 29:4-5",
+  "text": "Assim diz o Senhor dos Exércitos, o Deus de Israel, a todos os que foram transportados, que eu fiz transportar de Jerusalém para a Babilônia: Edificai casas e habitai-as; plantai jardins e comei o seu fruto.",
+  "words": 36,
+  "historical_context": "Carta aos exilados na Babilônia: construam casas, plantem pomares, procurem a paz da cidade.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jr-29-11-12",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 29:11-12",
+  "text": "Porque eu bem sei os pensamentos que penso de vós, diz o Senhor ; pensamentos de paz e não de mal, para vos dar o fim que esperais. Então, me invocareis, e ireis, e orareis a mim, e eu vos ouvirei.",
+  "words": 41,
+  "historical_context": "Carta enviada aos exilados na Babilônia, que estavam em terra estrangeira e achavam que tudo estava perdido.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "jr-31-3",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 31:3",
+  "text": "Há muito que o Senhor me apareceu, dizendo: Com amor eterno te amei; também com amável benignidade te atraí.",
+  "words": 19,
+  "historical_context": "Com amor eterno te amei; por isso te atraí com benignidade.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jr-31-25",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 31:25",
+  "text": "Porque satisfiz a alma cansada, e toda a alma entristecida saciei.",
+  "words": 11,
+  "historical_context": "Porque tenho saciado a alma cansada e enchido toda a alma desfalecida.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "jr-32-17",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 32:17",
+  "text": "Ah! Senhor Jeová ! Eis que tu fizeste os céus e a terra com o teu grande poder e com o teu braço estendido; não te é maravilhosa demais coisa alguma.",
+  "words": 31,
+  "historical_context": "Jeremias, com Jerusalém sitiada, compra um campo e ora: nada é demasiado difícil para ti.",
+  "emotional_hook": "dúvida",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jr-33-3",
+  "book": "jr",
+  "bookName": "Jeremias",
+  "testament": "AT",
+  "reference": "Jeremias 33:3",
+  "text": "Clama a mim, e responder-te-ei e anunciar-te-ei coisas grandes e firmes, que não sabes.",
+  "words": 14,
+  "historical_context": "Clama a mim, e responder-te-ei, e anunciar-te-ei coisas grandes e ocultas que não sabes.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lm-3-22-24",
+  "book": "lm",
+  "bookName": "Lamentações",
+  "testament": "AT",
+  "reference": "Lamentações 3:22-24",
+  "text": "As misericórdias do Senhor são a causa de não sermos consumidos; porque as suas misericórdias não têm fim. Novas são cada manhã; grande é a tua fidelidade. A minha porção é o Senhor , diz a minha alma; portanto, esperarei nele. Tete.",
+  "words": 42,
+  "historical_context": "Escrito entre as ruínas de Jerusalém, depois de a cidade ter sido destruída pelos babilônios.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "fogo",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lm-3-55-57",
+  "book": "lm",
+  "bookName": "Lamentações",
+  "testament": "AT",
+  "reference": "Lamentações 3:55-57",
+  "text": "Invoquei o teu nome, Senhor , desde a mais profunda cova. Ouviste a minha voz; não escondas o teu ouvido ao meu suspiro, ao meu clamor. Tu te aproximaste no dia em que te invoquei; disseste: Não temas. Rexe.",
+  "words": 39,
+  "historical_context": "Do fundo da cova, o poeta invocou o nome de Deus e foi ouvido.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "caverna",
+   "mar"
+  ]
+ },
+ {
+  "id": "ez-1-26",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 1:26",
+  "text": "E, por cima do firmamento, que estava por cima da sua cabeça, havia uma semelhança de trono como de uma safira; e, sobre a semelhança do trono, havia como que a semelhança de um homem, no alto, sobre ele.",
+  "words": 39,
+  "historical_context": "Ezequiel, exilado às margens do rio Quebar, vê uma visão de glória que o derruba com o rosto em terra.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "fogo"
+  ]
+ },
+ {
+  "id": "ez-3-17",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 3:17",
+  "text": "Filho do homem, eu te dei por atalaia sobre a casa de Israel; e tu da minha boca ouvirás a palavra e os avisarás da minha parte.",
+  "words": 27,
+  "historical_context": "Deus nomeia Ezequiel sentinela da casa de Israel.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ez-11-19",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 11:19",
+  "text": "E lhe darei um mesmo coração, e um espírito novo porei dentro deles; e tirarei da sua carne o coração de pedra e lhes darei um coração de carne;",
+  "words": 29,
+  "historical_context": "Promessa feita a exilados de dar um coração novo no lugar do coração de pedra.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ez-18-23",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 18:23",
+  "text": "Desejaria eu, de qualquer maneira, a morte do ímpio? Diz o Senhor Jeová ; não desejo, antes, que se converta dos seus caminhos e viva?",
+  "words": 25,
+  "historical_context": "Porventura tenho eu algum prazer na morte do ímpio? — diz o Senhor.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ez-33-11",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 33:11",
+  "text": "Dize-lhes: Vivo eu, diz o Senhor Jeová , que não tenho prazer na morte do ímpio, mas em que o ímpio se converta do seu caminho e viva; convertei-vos, convertei-vos dos vossos maus caminhos; pois por que razão morrereis, ó casa de Israel?",
+  "words": 43,
+  "historical_context": "Convite divino aos exilados: voltem, por que morreríeis?",
+  "emotional_hook": "perdão",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ez-34-11",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 34:11",
+  "text": "Porque assim diz o Senhor Jeová : Eis que eu, eu mesmo, procurarei as minhas ovelhas e as buscarei.",
+  "words": 19,
+  "historical_context": "Promessa de Deus aos exilados dispersos: eu mesmo procurarei as minhas ovelhas.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "ez-36-26",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 36:26",
+  "text": "E vos darei um coração novo e porei dentro de vós um espírito novo; e tirarei o coração de pedra da vossa carne e vos darei um coração de carne.",
+  "words": 30,
+  "historical_context": "Dar-vos-ei um coração novo, e porei dentro de vós um espírito novo.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ez-37-1",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 37:1",
+  "text": "Veio sobre mim a mão do Senhor ; e o Senhor me levou em espírito, e me pôs no meio de um vale que estava cheio de ossos,",
+  "words": 28,
+  "historical_context": "Ezequiel é levado por Deus ao meio de um vale cheio de ossos secos e ouve: podem estes ossos viver?",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "vento"
+  ]
+ },
+ {
+  "id": "ez-37-11",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 37:11",
+  "text": "Então, me disse: Filho do homem, estes ossos são toda a casa de Israel; eis que dizem: Os nossos ossos se secaram, e pereceu a nossa esperança; nós estamos cortados.",
+  "words": 30,
+  "historical_context": "Palavra a um povo que dizia: os nossos ossos se secaram, e pereceu a nossa esperança.",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "vento",
+   "trovão"
+  ]
+ },
+ {
+  "id": "ez-47-1",
+  "book": "ez",
+  "bookName": "Ezequiel",
+  "testament": "AT",
+  "reference": "Ezequiel 47:1",
+  "text": "Depois disso, me fez voltar à entrada da casa, e eis que saíam umas águas de debaixo do umbral da casa, para o oriente; porque a face da casa olhava para o oriente, e as águas vinham de baixo, desde a banda direita da casa, da banda do sul do altar.",
+  "words": 51,
+  "historical_context": "Visão de um rio que sai do templo e vai aumentando, onde chega ele dá vida.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "chuva",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "dn-2-20",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 2:20",
+  "text": "Falou Daniel e disse: Seja bendito o nome de Deus para todo o sempre, porque dele é a sabedoria e a força;",
+  "words": 22,
+  "historical_context": "Daniel louva a Deus depois de receber em visão o sonho que nenhum sábio da Babilônia conseguiu contar ao rei.",
+  "emotional_hook": "sabedoria",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "noite"
+  ]
+ },
+ {
+  "id": "dn-3-16",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 3:16",
+  "text": "Responderam Sadraque, Mesaque e Abede-Nego e disseram ao rei Nabucodonosor: Não necessitamos de te responder sobre este negócio.",
+  "words": 18,
+  "historical_context": "Três jovens judeus são ameaçados de morte na fornalha de Nabucodonosor se não adorarem a estátua de ouro.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "multidão"
+  ]
+ },
+ {
+  "id": "dn-3-24",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 3:24",
+  "text": "Então, o rei Nabucodonosor se espantou e se levantou depressa; falou e disse aos seus capitães: Não lançamos nós três homens atados dentro do fogo? Responderam e disseram ao rei: É verdade, ó rei.",
+  "words": 34,
+  "historical_context": "Nabucodonosor vê quatro homens andando livres dentro da fornalha, e o quarto é semelhante a um filho dos deuses.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "multidão"
+  ]
+ },
+ {
+  "id": "dn-5-5",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 5:5",
+  "text": "Na mesma hora, apareceram uns dedos de mão de homem e escreviam, defronte do castiçal, na estucada parede do palácio real; e o rei via a parte da mão que estava escrevendo.",
+  "words": 32,
+  "historical_context": "Durante um banquete de Belsazar, uma mão misteriosa escreve na parede, e o rei treme de pavor.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "noite"
+  ]
+ },
+ {
+  "id": "dn-6-10",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 6:10",
+  "text": "Daniel, pois, quando soube que a escritura estava assinada, entrou em sua casa (ora, havia no seu quarto janelas abertas da banda de Jerusalém), e três vezes no dia se punha de joelhos, e orava, e dava graças, diante do seu Deus, como também antes costumava fazer.",
+  "words": 47,
+  "historical_context": "Daniel, sabendo do decreto que proibia orar a qualquer outro que não o rei, abre a janela e ora como sempre.",
+  "emotional_hook": "coragem",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "deserto"
+  ]
+ },
+ {
+  "id": "dn-6-19",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 6:19",
+  "text": "E, pela manhã cedo, se levantou e foi com pressa à cova dos leões.",
+  "words": 14,
+  "historical_context": "De manhã, o rei Dario corre à cova dos leões e encontra Daniel vivo.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "caverna",
+   "noite"
+  ]
+ },
+ {
+  "id": "dn-7-9",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 7:9",
+  "text": "Eu continuei olhando, até que foram postos uns tronos, e um ancião de dias se assentou; a sua veste era branca como a neve, e o cabelo da sua cabeça, como a limpa lã; o seu trono, chamas de fogo, e as rodas dele, fogo ardente.",
+  "words": 46,
+  "historical_context": "Daniel vê tronos, um ancião de vestes brancas e um rio de fogo diante do tribunal.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "trovão"
+  ]
+ },
+ {
+  "id": "dn-9-18",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 9:18",
+  "text": "Inclina, ó Deus meu, os teus ouvidos e ouve; abre os teus olhos e olha para a nossa desolação e para a cidade que é chamada pelo teu nome, porque não lançamos as nossas súplicas perante a tua face fiados em nossas justiças, mas em tuas muitas misericórdias.",
+  "words": 48,
+  "historical_context": "Daniel ora pelo povo, confessando o pecado e pedindo ao Senhor que ouça, perdoe e aja.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "dn-10-12",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 10:12",
+  "text": "Então, me disse: Não temas, Daniel, porque, desde o primeiro dia, em que aplicaste o teu coração a compreender e a humilhar-te perante o teu Deus, são ouvidas as tuas palavras; e eu vim por causa das tuas palavras.",
+  "words": 39,
+  "historical_context": "Depois de jejum de três semanas, um anjo diz a Daniel: não temas, desde o primeiro dia as tuas palavras foram ouvidas.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "trovão"
+  ]
+ },
+ {
+  "id": "dn-12-2",
+  "book": "dn",
+  "bookName": "Daniel",
+  "testament": "AT",
+  "reference": "Daniel 12:2",
+  "text": "E muitos dos que dormem no pó da terra ressuscitarão, uns para a vida eterna e outros para vergonha e desprezo eterno.",
+  "words": 22,
+  "historical_context": "Visão do fim dos tempos: os que forem sábios resplandecerão como o brilho do firmamento.",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "trovão"
+  ]
+ },
+ {
+  "id": "mt-5-14-15",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 5:14-15",
+  "text": "Vós sois a luz do mundo; não se pode esconder uma cidade edificada sobre um monte; nem se acende a candeia e se coloca debaixo do alqueire, mas, no velador, e dá luz a todos que estão na casa.",
+  "words": 39,
+  "historical_context": "Jesus fala a um grupo de camponeses e pescadores numa colina da Galileia, sem eletricidade, onde uma lamparina fazia toda a diferença.",
+  "emotional_hook": "chamado",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "fogueira"
+  ]
+ },
+ {
+  "id": "mt-6-25",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 6:25",
+  "text": "Por isso, vos digo: não andeis cuidadosos quanto à vossa vida, pelo que haveis de comer ou pelo que haveis de beber; nem quanto ao vosso corpo, pelo que haveis de vestir. Não é a vida mais do que o mantimento, e o corpo, mais do que a vestimenta?",
+  "words": 49,
+  "historical_context": "Sermão do Monte, dito a um povo pobre que vivia sob impostos romanos e se preocupava com o pão do dia seguinte.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "mt-6-33-34",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 6:33-34",
+  "text": "Mas buscai primeiro o Reino de Deus, e a sua justiça, e todas essas coisas vos serão acrescentadas. Não vos inquieteis, pois, pelo dia de amanhã, porque o dia de amanhã cuidará de si mesmo. Basta a cada dia o seu mal.",
+  "words": 42,
+  "historical_context": "Buscai primeiro o reino de Deus, e não vos preocupeis com o amanhã.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "mt-7-7-8",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 7:7-8",
+  "text": "Pedi, e dar-se-vos-á; buscai e encontrareis; batei, e abrir-se-vos-á. Porque aquele que pede recebe; e o que busca encontra; e, ao que bate, se abre.",
+  "words": 25,
+  "historical_context": "Pedi, e dar-se-vos-á; buscai, e achareis; batei, e abrir-se-vos-á.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "mt-7-24",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 7:24",
+  "text": "Todo aquele, pois, que escuta estas minhas palavras e as pratica, assemelhá-lo-ei ao homem prudente, que edificou a sua casa sobre a rocha.",
+  "words": 23,
+  "historical_context": "Jesus encerra o Sermão do Monte com uma história sobre duas casas, uma na rocha e outra na areia.",
+  "emotional_hook": "sabedoria",
+  "tone": "epic",
+  "audio_cues": [
+   "tempestade",
+   "chuva"
+  ]
+ },
+ {
+  "id": "mt-8-23-25",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 8:23-25",
+  "text": "E, entrando ele no barco, seus discípulos o seguiram. E eis que, no mar, se levantou uma tempestade tão grande, que o barco era coberto pelas ondas; ele, porém, estava dormindo. E os seus discípulos, aproximando-se, o despertaram, dizendo: Senhor, salva-nos, que perecemos.",
+  "words": 43,
+  "historical_context": "Os discípulos, pescadores experientes, entram em pânico quando uma tempestade cobre o lago da Galileia, com Jesus dormindo no barco.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "tempestade",
+   "mar"
+  ]
+ },
+ {
+  "id": "mt-11-28-29",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 11:28-29",
+  "text": "Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei. Tomai sobre vós o meu jugo, e aprendei de mim, que sou manso e humilde de coração, e encontrareis descanso para a vossa alma.",
+  "words": 38,
+  "historical_context": "Jesus fala a um povo cansado de impostos, de regras religiosas e de trabalho pesado.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "mt-14-25-26",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 14:25-26",
+  "text": "Mas, à quarta vigília da noite, dirigiu-se Jesus para eles, caminhando por cima do mar. E os discípulos, vendo-o caminhar sobre o mar, assustaram-se, dizendo: É um fantasma. E gritaram, com medo.",
+  "words": 32,
+  "historical_context": "De madrugada, Pedro vê Jesus caminhando sobre o lago e pede para ir até ele, mas começa a afundar.",
+  "emotional_hook": "dúvida",
+  "tone": "epic",
+  "audio_cues": [
+   "tempestade",
+   "mar"
+  ]
+ },
+ {
+  "id": "mt-17-20",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 17:20",
+  "text": "E Jesus lhes disse: Por causa da vossa pequena fé; porque em verdade vos digo que, se tiverdes fé como um grão de mostarda, direis a este monte: Passa daqui para acolá — e há de passar; e nada vos será impossível.",
+  "words": 42,
+  "historical_context": "Se tiverdes fé como um grão de mostarda, nada vos será impossível.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "montanha",
+   "vento"
+  ]
+ },
+ {
+  "id": "mt-18-21-22",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 18:21-22",
+  "text": "Então, Pedro, aproximando-se dele, disse: Senhor, até quantas vezes pecará meu irmão contra mim, e eu lhe perdoarei? Até sete? Jesus lhe disse: Não te digo que até sete, mas até setenta vezes sete.",
+  "words": 34,
+  "historical_context": "Pedro pergunta quantas vezes deve perdoar o irmão; Jesus responde setenta vezes sete.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "mt-19-26",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 19:26",
+  "text": "E Jesus, olhando para eles, disse-lhes: Aos homens é isso impossível, mas a Deus tudo é possível.",
+  "words": 17,
+  "historical_context": "Para os homens é impossível, mas para Deus tudo é possível.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "mt-26-36-37",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 26:36-37",
+  "text": "Então, chegou Jesus com eles a um lugar chamado Getsêmani e disse a seus discípulos: Assentai-vos aqui, enquanto vou além orar. E, levando consigo Pedro e os dois filhos de Zebedeu, começou a entristecer-se e a angustiar-se muito.",
+  "words": 38,
+  "historical_context": "Na noite antes de ser preso, Jesus vai ao jardim do Getsêmani e diz estar triste até à morte.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "mt-26-69-70",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 26:69-70",
+  "text": "Ora, Pedro estava assentado fora, no pátio; e, aproximando-se dele uma criada, disse: Tu também estavas com Jesus, o galileu. Mas ele negou diante de todos, dizendo: Não sei o que dizes.",
+  "words": 32,
+  "historical_context": "Pedro, que jurara nunca abandoná-lo, nega Jesus três vezes antes do canto do galo.",
+  "emotional_hook": "culpa",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "fogueira"
+  ]
+ },
+ {
+  "id": "mt-28-19-20",
+  "book": "mt",
+  "bookName": "Mateus",
+  "testament": "NT",
+  "reference": "Mateus 28:19-20",
+  "text": "Portanto, ide, ensinai todas as nações, batizando-as em nome do Pai, e do Filho, e do Espírito Santo; ensinando-as a guardar todas as coisas que eu vos tenho mandado; e eis que eu estou convosco todos os dias, até à consumação dos séculos. Amém!",
+  "words": 44,
+  "historical_context": "Antes de subir ao céu, Jesus promete aos discípulos amedrontados estar com eles todos os dias.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "montanha"
+  ]
+ },
+ {
+  "id": "mc-4-37-38",
+  "book": "mc",
+  "bookName": "Marcos",
+  "testament": "NT",
+  "reference": "Marcos 4:37-38",
+  "text": "E levantou-se grande temporal de vento, e subiam as ondas por cima do barco, de maneira que já se enchia de água. E ele estava na popa dormindo sobre uma almofada; e despertaram-no, dizendo-lhe: Mestre, não te importa que pereçamos?",
+  "words": 40,
+  "historical_context": "Uma tempestade violenta sobe de repente no lago, as ondas enchem o barco, e Jesus manda o vento calar.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "tempestade",
+   "mar"
+  ]
+ },
+ {
+  "id": "mc-5-35-36",
+  "book": "mc",
+  "bookName": "Marcos",
+  "testament": "NT",
+  "reference": "Marcos 5:35-36",
+  "text": "Estando ele ainda falando, chegaram alguns do principal da sinagoga, a quem disseram: A tua filha está morta; para que enfadas mais o Mestre? E Jesus, tendo ouvido essas palavras, disse ao principal da sinagoga: Não temas, crê somente.",
+  "words": 39,
+  "historical_context": "Jairo recebe a notícia de que sua filha morreu, e Jesus lhe diz: não temas, crê somente.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "multidão"
+  ]
+ },
+ {
+  "id": "mc-9-23-24",
+  "book": "mc",
+  "bookName": "Marcos",
+  "testament": "NT",
+  "reference": "Marcos 9:23-24",
+  "text": "E Jesus disse-lhe: Se tu podes crer; tudo é possível ao que crê. E logo o pai do menino, clamando, com lágrimas, disse: Eu creio, Senhor! Ajuda a minha incredulidade.",
+  "words": 30,
+  "historical_context": "Um pai desesperado diz a Jesus: eu creio, ajuda a minha incredulidade.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "multidão"
+  ]
+ },
+ {
+  "id": "mc-10-27",
+  "book": "mc",
+  "bookName": "Marcos",
+  "testament": "NT",
+  "reference": "Marcos 10:27",
+  "text": "Jesus, porém, olhando para eles, disse: Para os homens é impossível, mas não para Deus, porque para Deus todas as coisas são possíveis.",
+  "words": 23,
+  "historical_context": "Para os homens é impossível, mas não para Deus.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "mc-14-32-33",
+  "book": "mc",
+  "bookName": "Marcos",
+  "testament": "NT",
+  "reference": "Marcos 14:32-33",
+  "text": "E foram a um lugar chamado Getsêmani, e disse aos seus discípulos: Assentai-vos aqui, enquanto eu oro. E tomou consigo a Pedro, e a Tiago, e a João e começou a ter pavor e a angustiar-se.",
+  "words": 36,
+  "historical_context": "No jardim, Jesus pede aos discípulos que vigiem, mas eles dormem.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lc-1-35",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 1:35",
+  "text": "E, respondendo o anjo, disse-lhe: Descerá sobre ti o Espírito Santo, e a virtude do Altíssimo te cobrirá com a sua sombra; pelo que também o Santo, que de ti há de nascer, será chamado Filho de Deus.",
+  "words": 38,
+  "historical_context": "O anjo diz a Maria, jovem e assustada, que para Deus nada é impossível.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lc-2-8-9",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 2:8-9",
+  "text": "Ora, havia, naquela mesma comarca, pastores que estavam no campo e guardavam durante as vigílias da noite o seu rebanho. E eis que um anjo do Senhor veio sobre eles, e a glória do Senhor os cercou de resplendor, e tiveram grande temor.",
+  "words": 43,
+  "historical_context": "Pastores em campo aberto, de madrugada, são visitados por um anjo e ouvem: não temais.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "vento"
+  ]
+ },
+ {
+  "id": "lc-10-41-42",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 10:41-42",
+  "text": "E, respondendo Jesus, disse-lhe: Marta, Marta, estás ansiosa e afadigada com muitas coisas, mas uma só é necessária; e Maria escolheu a boa parte, a qual não lhe será tirada.",
+  "words": 30,
+  "historical_context": "Marta, sobrecarregada de tarefas, é gentilmente confrontada por Jesus.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lc-12-6-7",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 12:6-7",
+  "text": "Não se vendem cinco passarinhos por dois ceitis? E nenhum deles está esquecido diante de Deus. E até os cabelos da vossa cabeça estão todos contados. Não temais, pois; mais valeis vós do que muitos passarinhos.",
+  "words": 36,
+  "historical_context": "Não se vendem cinco passarinhos por dois centavos? E nenhum deles está esquecido diante de Deus.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lc-12-22-23",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 12:22-23",
+  "text": "E disse aos seus discípulos: Portanto, vos digo: não estejais apreensivos pela vossa vida, sobre o que comereis, nem pelo corpo, sobre o que vestireis. Mais é a vida do que o sustento, e o corpo, mais do que as vestes.",
+  "words": 41,
+  "historical_context": "Jesus fala aos discípulos que se preocupavam com comida e roupa, e aponta para os corvos e os lírios.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lc-15-20",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 15:20",
+  "text": "E, levantando-se, foi para seu pai; e, quando ainda estava longe, viu-o seu pai, e se moveu de íntima compaixão, e, correndo, lançou-se-lhe ao pescoço, e o beijou.",
+  "words": 28,
+  "historical_context": "O filho pródigo volta para casa e encontra o pai correndo ao seu encontro.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "lc-22-31-32",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 22:31-32",
+  "text": "Disse também o Senhor: Simão, Simão, eis que Satanás vos pediu para vos cirandar como trigo. Mas eu roguei por ti, para que a tua fé não desfaleça; e tu, quando te converteres, confirma teus irmãos.",
+  "words": 36,
+  "historical_context": "Jesus avisa Pedro de que Satanás pediu para peneirá-lo, mas que orou por ele.",
+  "emotional_hook": "traição",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "lc-23-34",
+  "book": "lc",
+  "bookName": "Lucas",
+  "testament": "NT",
+  "reference": "Lucas 23:34",
+  "text": "E dizia Jesus: Pai, perdoa-lhes, porque não sabem o que fazem. E, repartindo as suas vestes, lançaram sortes.",
+  "words": 18,
+  "historical_context": "Na cruz, entre dois criminosos, Jesus diz: Pai, perdoa-lhes, porque não sabem o que fazem.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "jo-1-1-3",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 1:1-3",
+  "text": "No princípio, era o Verbo, e o Verbo estava com Deus, e o Verbo era Deus. Ele estava no princípio com Deus. Todas as coisas foram feitas por ele, e sem ele nada do que foi feito se fez.",
+  "words": 39,
+  "historical_context": "Prólogo do Evangelho, com o eco do Gênesis: a luz brilha nas trevas, e as trevas não prevaleceram.",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "noite"
+  ]
+ },
+ {
+  "id": "jo-3-16",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 3:16",
+  "text": "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna.",
+  "words": 28,
+  "historical_context": "Jesus fala de madrugada com Nicodemos, um fariseu que o procurou às escondidas.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "jo-8-7-8",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 8:7-8",
+  "text": "E, como insistissem, perguntando-lhe, endireitou-se e disse-lhes: Aquele que dentre vós está sem pecado seja o primeiro que atire pedra contra ela. E, tornando a inclinar-se, escrevia na terra.",
+  "words": 29,
+  "historical_context": "Uma mulher flagrada em adultério é arrastada ao templo para ser apedrejada, e Jesus escreve no chão.",
+  "emotional_hook": "culpa",
+  "tone": "epic",
+  "audio_cues": [
+   "silêncio",
+   "multidão"
+  ]
+ },
+ {
+  "id": "jo-10-10-11",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 10:10-11",
+  "text": "O ladrão não vem senão a roubar, a matar e a destruir; eu vim para que tenham vida e a tenham com abundância. Eu sou o bom Pastor; o bom Pastor dá a sua vida pelas ovelhas.",
+  "words": 37,
+  "historical_context": "Jesus se apresenta como o bom pastor, que dá a vida pelas ovelhas.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jo-11-32",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 11:32",
+  "text": "Tendo, pois, Maria chegado aonde Jesus estava e vendo-o, lançou-se aos seus pés, dizendo-lhe: Senhor, se tu estivesses aqui, meu irmão não teria morrido.",
+  "words": 24,
+  "historical_context": "Jesus chega a Betânia quatro dias depois da morte de Lázaro e chora diante do túmulo.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "jo-11-43-44",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 11:43-44",
+  "text": "E, tendo dito isso, clamou com grande voz: Lázaro, vem para fora. E o defunto saiu, tendo as mãos e os pés ligados com faixas, e o seu rosto, envolto num lenço. Disse-lhes Jesus: Desligai-o e deixai-o ir.",
+  "words": 38,
+  "historical_context": "Diante do túmulo de Lázaro, Jesus grita: Lázaro, sai para fora!",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "caverna",
+   "trovão"
+  ]
+ },
+ {
+  "id": "jo-14-1-2",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 14:1-2",
+  "text": "Não se turbe o vosso coração; credes em Deus, crede também em mim. Na casa de meu Pai há muitas moradas; se não fosse assim, eu vo-lo teria dito, pois vou preparar-vos lugar.",
+  "words": 33,
+  "historical_context": "Na última ceia, Jesus acalma discípulos assustados com sua partida.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jo-14-27",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 14:27",
+  "text": "Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá. Não se turbe o vosso coração, nem se atemorize.",
+  "words": 25,
+  "historical_context": "Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "jo-16-33",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 16:33",
+  "text": "Tenho-vos dito isso, para que em mim tenhais paz; no mundo tereis aflições, mas tende bom ânimo; eu venci o mundo.",
+  "words": 21,
+  "historical_context": "No mundo tereis aflições, mas tende bom ânimo: eu venci o mundo.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "jo-20-19",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 20:19",
+  "text": "Chegada, pois, a tarde daquele dia, o primeiro da semana, e cerradas as portas onde os discípulos, com medo dos judeus, se tinham ajuntado, chegou Jesus, e pôs-se no meio, e disse-lhes: Paz seja convosco!",
+  "words": 35,
+  "historical_context": "Discípulos escondidos atrás de portas trancadas por medo recebem a visita do ressuscitado: paz seja convosco.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ap-1-12-13",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 1:12-13",
+  "text": "E virei-me para ver quem falava comigo. E, virando-me, vi sete castiçais de ouro; e, no meio dos sete castiçais, um semelhante ao Filho do Homem, vestido até aos pés de uma veste comprida e cingido pelo peito com um cinto de ouro.",
+  "words": 43,
+  "historical_context": "João, exilado na ilha de Patmos, vê o Cristo glorificado e cai como morto, até ouvir: não temas.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "fogo"
+  ]
+ },
+ {
+  "id": "ap-2-10",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 2:10",
+  "text": "Nada temas das coisas que hás de padecer. Eis que o diabo lançará alguns de vós na prisão, para que sejais tentados; e tereis uma tribulação de dez dias. Sê fiel até à morte, e dar-te-ei a coroa da vida.",
+  "words": 40,
+  "historical_context": "Carta à igreja de Esmirna, perseguida por Roma: sê fiel até à morte, e dar-te-ei a coroa da vida.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "noite"
+  ]
+ },
+ {
+  "id": "ap-3-8",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 3:8",
+  "text": "Eu sei as tuas obras; eis que diante de ti pus uma porta aberta, e ninguém a pode fechar; tendo pouca força, guardaste a minha palavra e não negaste o meu nome.",
+  "words": 32,
+  "historical_context": "Carta à igreja de Filadélfia, pequena e sem forças: pus diante de ti uma porta aberta.",
+  "emotional_hook": "chamado",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ap-3-20",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 3:20",
+  "text": "Eis que estou à porta e bato; se alguém ouvir a minha voz e abrir a porta, entrarei em sua casa e com ele cearei, e ele, comigo.",
+  "words": 28,
+  "historical_context": "Eis que estou à porta, e bato; se alguém ouvir a minha voz, entrarei.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "ap-5-11",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 5:11",
+  "text": "E olhei e ouvi a voz de muitos anjos ao redor do trono, e dos animais, e dos anciãos; e era o número deles milhões de milhões e milhares de milhares,",
+  "words": 31,
+  "historical_context": "João vê milhares de milhares de anjos ao redor do trono, cantando em voz alta.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "ap-6-12",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 6:12",
+  "text": "E, havendo aberto o sexto selo, olhei, e eis que houve um grande tremor de terra; e o sol tornou-se negro como saco de cilício, e a lua tornou-se como sangue.",
+  "words": 31,
+  "historical_context": "Abertura do sexto selo: terremoto, o sol escurece e a lua se torna como sangue.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "ap-7-16",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 7:16",
+  "text": "Nunca mais terão fome, nunca mais terão sede; nem sol nem calma alguma cairá sobre eles,",
+  "words": 16,
+  "historical_context": "Visão da multidão vinda da grande tribulação: Deus enxugará dos seus olhos toda lágrima.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "ap-12-7-8",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 12:7-8",
+  "text": "E houve batalha no céu: Miguel e os seus anjos batalhavam contra o dragão; e batalhavam o dragão e os seus anjos, mas não prevaleceram; nem mais o seu lugar se achou nos céus.",
+  "words": 34,
+  "historical_context": "Visão de guerra no céu, em que o dragão é lançado fora.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "batalha"
+  ]
+ },
+ {
+  "id": "ap-19-11",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 19:11",
+  "text": "E vi o céu aberto, e eis um cavalo branco. O que estava assentado sobre ele chama-se Fiel e Verdadeiro e julga e peleja com justiça.",
+  "words": 26,
+  "historical_context": "João vê o céu aberto e um cavaleiro num cavalo branco, chamado Fiel e Verdadeiro.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "batalha"
+  ]
+ },
+ {
+  "id": "ap-21-1",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 21:1",
+  "text": "E vi um novo céu e uma nova terra. Porque já o primeiro céu e a primeira terra passaram, e o mar já não existe.",
+  "words": 25,
+  "historical_context": "João, preso em Patmos, vê um novo céu e uma nova terra, onde Deus habitará com os homens.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "mar"
+  ]
+ },
+ {
+  "id": "ap-21-5",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 21:5",
+  "text": "E o que estava assentado sobre o trono disse: Eis que faço novas todas as coisas. E disse-me: Escreve, porque estas palavras são verdadeiras e fiéis.",
+  "words": 26,
+  "historical_context": "Aquele que está assentado no trono diz: eis que faço novas todas as coisas.",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "ap-22-1",
+  "book": "ap",
+  "bookName": "Apocalipse",
+  "testament": "NT",
+  "reference": "Apocalipse 22:1",
+  "text": "E mostrou-me o rio puro da água da vida, claro como cristal, que procedia do trono de Deus e do Cordeiro.",
+  "words": 21,
+  "historical_context": "Última visão da Bíblia: um rio de água viva e uma árvore da vida, onde não haverá mais noite.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "rm-8-35",
+  "book": "rm",
+  "bookName": "Romanos",
+  "testament": "NT",
+  "reference": "Romanos 8:35",
+  "text": "Quem nos separará do amor de Cristo? A tribulação, ou a angústia, ou a perseguição, ou a fome, ou a nudez, ou o perigo, ou a espada?",
+  "words": 27,
+  "historical_context": "Paulo escreve aos cristãos de Roma, uma comunidade pequena sob a sombra do imperador, afirmando que nada os separa do amor de Deus.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "tempestade",
+   "trovão"
+  ]
+ },
+ {
+  "id": "rm-12-12",
+  "book": "rm",
+  "bookName": "Romanos",
+  "testament": "NT",
+  "reference": "Romanos 12:12",
+  "text": "alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração;",
+  "words": 10,
+  "historical_context": "Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "2co-12-9",
+  "book": "2co",
+  "bookName": "2 Coríntios",
+  "testament": "NT",
+  "reference": "2 Coríntios 12:9",
+  "text": "E disse-me: A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. De boa vontade, pois, me gloriarei nas minhas fraquezas, para que em mim habite o poder de Cristo.",
+  "words": 33,
+  "historical_context": "Paulo, com um espinho na carne que não foi removido, ouve: a minha graça te basta.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "vento"
+  ]
+ },
+ {
+  "id": "fp-4-6",
+  "book": "fp",
+  "bookName": "Filipenses",
+  "testament": "NT",
+  "reference": "Filipenses 4:6",
+  "text": "Não estejais inquietos por coisa alguma; antes, as vossas petições sejam em tudo conhecidas diante de Deus, pela oração e súplicas, com ação de graças.",
+  "words": 25,
+  "historical_context": "Paulo escreve da prisão aos filipenses: em nada estejais ansiosos, e a paz de Deus guardará os vossos corações.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "2tm-1-7",
+  "book": "2tm",
+  "bookName": "2 Timóteo",
+  "testament": "NT",
+  "reference": "2 Timóteo 1:7",
+  "text": "Porque Deus não nos deu o espírito de temor, mas de fortaleza, e de amor, e de moderação.",
+  "words": 18,
+  "historical_context": "Paulo, na prisão em Roma e perto do fim da vida, lembra a Timóteo que Deus não deu espírito de covardia.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "hb-12-1",
+  "book": "hb",
+  "bookName": "Hebreus",
+  "testament": "NT",
+  "reference": "Hebreus 12:1",
+  "text": "Portanto, nós também, pois, que estamos rodeados de uma tão grande nuvem de testemunhas, deixemos todo embaraço e o pecado que tão de perto nos rodeia e corramos, com paciência, a carreira que nos está proposta,",
+  "words": 36,
+  "historical_context": "Carta a cristãos cansados e perseguidos: corramos com perseverança a carreira que nos está proposta.",
+  "emotional_hook": "cansaço",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "hb-13-5-6",
+  "book": "hb",
+  "bookName": "Hebreus",
+  "testament": "NT",
+  "reference": "Hebreus 13:5-6",
+  "text": "Sejam vossos costumes sem avareza, contentando-vos com o que tendes; porque ele disse: Não te deixarei, nem te desampararei. E, assim, com confiança, ousemos dizer: O Senhor é o meu ajudador, e não temerei o que me possa fazer o homem.",
+  "words": 41,
+  "historical_context": "Nunca te deixarei, nunca te abandonarei — de modo que podemos dizer confiadamente: o Senhor é o meu ajudador.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "tg-1-2-4",
+  "book": "tg",
+  "bookName": "Tiago",
+  "testament": "NT",
+  "reference": "Tiago 1:2-4",
+  "text": "Meus irmãos, tende grande gozo quando cairdes em várias tentações, sabendo que a prova da vossa fé produz a paciência. Tenha, porém, a paciência a sua obra perfeita, para que sejais perfeitos e completos, sem faltar em coisa alguma.",
+  "words": 39,
+  "historical_context": "Tiago escreve a cristãos dispersos pela perseguição: considerem motivo de alegria passar por várias provações.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "1pe-5-7",
+  "book": "1pe",
+  "bookName": "1 Pedro",
+  "testament": "NT",
+  "reference": "1 Pedro 5:7",
+  "text": "lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.",
+  "words": 13,
+  "historical_context": "Pedro escreve a cristãos espalhados e perseguidos: lançai sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "1jo-4-18",
+  "book": "1jo",
+  "bookName": "1 João",
+  "testament": "NT",
+  "reference": "1 João 4:18",
+  "text": "No amor, não há temor; antes, o perfeito amor lança fora o temor; porque o temor tem consigo a pena, e o que teme não é perfeito em amor.",
+  "words": 29,
+  "historical_context": "No amor não há medo; o perfeito amor lança fora o medo.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-1-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 1:1",
+  "text": "Bem-aventurado o varão que não anda segundo o conselho dos ímpios, nem se detém no caminho dos pecadores, nem se assenta na roda dos escarnecedores.",
+  "words": 25,
+  "historical_context": "Abertura do Saltério: compara quem medita na Lei a uma árvore plantada junto à água, numa terra em que a seca decidia quem vivia e quem morria.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-2-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 2:1-3",
+  "text": "Por que se amotinam as nações, e os povos imaginam coisas vãs? Os reis da terra se levantam, e os príncipes juntos se mancomunam contra o Senhor e contra o seu ungido, dizendo: Rompamos as suas ataduras e sacudamos de nós as suas cordas.",
+  "words": 44,
+  "historical_context": "Canto de coroação de um rei de Israel, cercado de nações vizinhas que conspiravam para derrubá-lo.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-3-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 3:3-4",
+  "text": "Mas tu, Senhor , és um escudo para mim, a minha glória e o que exalta a minha cabeça. Com a minha voz clamei ao Senhor ; ele ouviu-me desde o seu santo monte. (Selá)",
+  "words": 35,
+  "historical_context": "Davi foge de Jerusalém quando o próprio filho, Absalão, toma o trono e reúne um exército contra ele.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "batalha"
+  ]
+ },
+ {
+  "id": "sl-4-6-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 4:6-7",
+  "text": "Muitos dizem: Quem nos mostrará o bem? Senhor , exalta sobre nós a luz do teu rosto. Puseste alegria no meu coração, mais do que no tempo em que se multiplicaram o seu trigo e o seu vinho.",
+  "words": 38,
+  "historical_context": "Davi, pressionado por inimigos e rodeado de gente sem esperança, ainda consegue se deitar e dormir.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-5-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 5:1-3",
+  "text": "Dá ouvidos às minhas palavras, ó Senhor ; atende à minha meditação. Atende à voz do meu clamor, Rei meu e Deus meu, pois a ti orarei. Pela manhã, ouvirás a minha voz, ó Senhor ; pela manhã, me apresentarei a ti, e vigiarei.",
+  "words": 44,
+  "historical_context": "Oração da manhã de alguém cercado de mentirosos, que escolhe falar com Deus antes de falar com qualquer pessoa.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-6-6-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 6:6-7",
+  "text": "Já estou cansado do meu gemido; toda noite faço nadar a minha cama; molho o meu leito com as minhas lágrimas. Já os meus olhos estão consumidos pela mágoa e têm envelhecido por causa de todos os meus inimigos.",
+  "words": 39,
+  "historical_context": "Um homem doente e exausto de tanto chorar, atribuído a Davi, atravessa noites inteiras sem dormir.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-7-9-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 7:9-10",
+  "text": "Tenha já fim a malícia dos ímpios, mas estabeleça-se o justo; pois tu, ó justo Deus, provas o coração e a mente. O meu escudo está com Deus, que salva os retos de coração.",
+  "words": 34,
+  "historical_context": "Davi é acusado falsamente por um homem da corte de Saul e apela ao juiz de toda a terra.",
+  "emotional_hook": "injustiça",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "batalha"
+  ]
+ },
+ {
+  "id": "sl-8-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 8:3-4",
+  "text": "Quando vejo os teus céus, obra dos teus dedos, a lua e as estrelas que preparaste; que é o homem mortal para que te lembres dele? E o filho do homem, para que o visites?",
+  "words": 35,
+  "historical_context": "Escrito por alguém que passou noites sob o céu aberto cuidando de ovelhas e se sentiu pequeno diante das estrelas.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-9-9-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 9:9-10",
+  "text": "O Senhor será também um alto refúgio para o oprimido; um alto refúgio em tempos de angústia. E em ti confiarão os que conhecem o teu nome; porque tu, Senhor , nunca desamparaste os que te buscam.",
+  "words": 37,
+  "historical_context": "Canto de gratidão depois de uma vitória, afirmando que Deus é abrigo para os oprimidos.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-10-17-18",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 10:17-18",
+  "text": "Senhor , tu ouviste os desejos dos mansos; confortarás o seu coração; os teus ouvidos estarão abertos para eles; para fazeres justiça ao órfão e ao oprimido, a fim de que o homem, que é da terra, não prossiga mais em usar da violência.",
+  "words": 44,
+  "historical_context": "Lamento de um oprimido numa sociedade em que os poderosos esmagavam órfãos e pobres sem consequência.",
+  "emotional_hook": "injustiça",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-11-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 11:1-2",
+  "text": "No Senhor confio; como dizeis, pois, à minha alma: Foge para a tua montanha como pássaro? Porque eis que os ímpios armam o arco, põem as flechas na corda, para com elas atirarem, às ocultas, aos retos de coração.",
+  "words": 39,
+  "historical_context": "Aconselhado a fugir como um pássaro para as montanhas, Davi recusa e declara que sua confiança está em Deus.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-12-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 12:5-6",
+  "text": "Por causa da opressão dos pobres e do gemido dos necessitados, me levantarei agora, diz o Senhor ; porei em salvo aquele para quem eles assopram. As palavras do Senhor são palavras puras como prata refinada em forno de barro e purificada sete vezes.",
+  "words": 44,
+  "historical_context": "Num tempo em que a mentira corria solta, o salmista lembra que as palavras de Deus são como prata purificada no fogo.",
+  "emotional_hook": "injustiça",
+  "tone": "comfort",
+  "audio_cues": [
+   "fogo",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-13-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 13:1-2",
+  "text": "Até quando te esquecerás de mim, Senhor ? Para sempre? Até quando esconderás de mim o teu rosto? Até quando consultarei com a minha alma, tendo tristeza no meu coração cada dia? Até quando se exaltará sobre mim o meu inimigo?",
+  "words": 41,
+  "historical_context": "Davi, esquecido e perseguido por anos, pergunta a Deus até quando precisará esperar.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-14-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 14:1",
+  "text": "Disseram os néscios no seu coração: Não há Deus. Têm-se corrompido, fazem-se abomináveis em suas obras, não há ninguém que faça o bem.",
+  "words": 23,
+  "historical_context": "Retrato de uma sociedade em que muitos viviam como se ninguém fosse pedir contas de nada.",
+  "emotional_hook": "orgulho",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-15-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 15:1-2",
+  "text": "Senhor , quem habitará no teu tabernáculo? Quem morará no teu santo monte? Aquele que anda em sinceridade, e pratica a justiça, e fala verazmente segundo o seu coração;",
+  "words": 29,
+  "historical_context": "Pergunta feita na entrada do santuário: quem pode estar na presença de Deus? A resposta é sobre caráter, não sobre ritual.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-16-8-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 16:8-9",
+  "text": "Tenho posto o Senhor continuamente diante de mim; por isso que ele está à minha mão direita, nunca vacilarei. Portanto, está alegre o meu coração e se regozija a minha glória; também a minha carne repousará segura.",
+  "words": 37,
+  "historical_context": "Davi declara que, com Deus à sua direita, nada o abalará — nem mesmo a morte.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-17-6-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 17:6-7",
+  "text": "Eu te invoquei, ó Deus, pois me queres ouvir; inclina para mim os teus ouvidos e escuta as minhas palavras. Faze maravilhosas as tuas beneficências, tu que livras aqueles que em ti confiam dos que se levantam contra a tua destra.",
+  "words": 41,
+  "historical_context": "Perseguido por inimigos, Davi pede para ser guardado como a menina dos olhos, sob a sombra das asas de Deus.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-18-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 18:6",
+  "text": "Na angústia, invoquei ao Senhor e clamei ao meu Deus; desde o seu templo ouviu a minha voz e aos seus ouvidos chegou o meu clamor perante a sua face.",
+  "words": 30,
+  "historical_context": "Davi, já rei, descreve como Deus o tirou das mãos de Saul e de todos os seus inimigos, em linguagem de terremoto e tempestade.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "sl-19-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 19:1-3",
+  "text": "Os céus manifestam a glória de Deus e o firmamento anuncia a obra das suas mãos. Um dia faz declaração a outro dia, e uma noite mostra sabedoria a outra noite. Sem linguagem, sem fala, ouvem-se as suas vozes",
+  "words": 39,
+  "historical_context": "Cantado por quem olhava o céu limpo do deserto e via nas estrelas uma voz sem palavras.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "deserto"
+  ]
+ },
+ {
+  "id": "sl-20-6-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 20:6-7",
+  "text": "Agora sei que o Senhor salva o seu ungido; ele o ouvirá desde o seu santo céu com a força salvadora da sua destra. Uns confiam em carros, e outros, em cavalos, mas nós faremos menção do nome do Senhor , nosso Deus.",
+  "words": 43,
+  "historical_context": "Oração do povo na véspera de uma batalha, quando carros e cavalos pareciam decidir a guerra.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-21-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 21:1-2",
+  "text": "O rei se alegra em tua força, Senhor ; e na tua salvação grandemente se regozija. Cumpriste-lhe o desejo do seu coração e não desatendeste as súplicas dos seus lábios. (Selá)",
+  "words": 31,
+  "historical_context": "Canto de agradecimento do povo pela vitória e pela vida longa do rei.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão",
+   "fogo"
+  ]
+ },
+ {
+  "id": "sl-22-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 22:1-2",
+  "text": "Deus meu, Deus meu, por que me desamparaste? Por que te alongas das palavras do meu bramido e não me auxilias? Deus meu, eu clamo de dia, e tu não me ouves; de noite, e não tenho sossego.",
+  "words": 38,
+  "historical_context": "Davi escreve de um lugar de abandono total; séculos depois, estas palavras seriam repetidas na cruz.",
+  "emotional_hook": "solidão",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-23-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 23:3-4",
+  "text": "Refrigera a minha alma; guia-me pelas veredas da justiça por amor do seu nome. Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam.",
+  "words": 41,
+  "historical_context": "Escrito por um ex-pastor que sabia o que era conduzir ovelhas por vales escuros cheios de ladrões e lobos.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-24-7-8",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 24:7-8",
+  "text": "Levantai, ó portas, as vossas cabeças; levantai-vos, ó entradas eternas, e entrará o Rei da Glória. Quem é este Rei da Glória? O Senhor forte e poderoso, o Senhor poderoso na guerra.",
+  "words": 32,
+  "historical_context": "Cantado em procissão, quando a arca da aliança foi levada a Jerusalém e as portas da cidade se abriram.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-25-16-18",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 25:16-18",
+  "text": "Olha para mim e tem piedade de mim, porque estou solitário e aflito. As ânsias do meu coração se têm multiplicado; tira-me dos meus apertos. Olha para a minha aflição e para a minha dor e perdoa todos os meus pecados.",
+  "words": 41,
+  "historical_context": "Davi se descreve solitário e aflito, pedindo que alguém olhe para a sua dor.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-26-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 26:1-2",
+  "text": "Julga-me, Senhor , pois tenho andado em minha sinceridade; tenho confiado também no Senhor ; não vacilarei. Examina-me, Senhor , e prova-me; esquadrinha a minha mente e o meu coração.",
+  "words": 30,
+  "historical_context": "Davi, acusado injustamente, pede que Deus examine seu coração e seus passos.",
+  "emotional_hook": "injustiça",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-27-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 27:1-2",
+  "text": "O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me recearei? Quando os malvados, meus adversários e meus inimigos, investiram contra mim, para comerem as minhas carnes, tropeçaram e caíram.",
+  "words": 44,
+  "historical_context": "Davi, cercado por exércitos e por traidores, declara que não tem medo porque Deus é a sua luz.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-28-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 28:6",
+  "text": "Bendito seja o Senhor , porque ouviu a voz das minhas súplicas.",
+  "words": 12,
+  "historical_context": "Depois de clamar em desespero, Davi reconhece que foi ouvido e que o seu coração agora salta de alegria.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-29-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 29:3-4",
+  "text": "A voz do Senhor ouve-se sobre as águas; o Deus da glória troveja; o Senhor está sobre as muitas águas. A voz do Senhor é poderosa; a voz do Senhor é cheia de majestade.",
+  "words": 34,
+  "historical_context": "Hino à voz de Deus como uma tempestade que desce do mar e racha os cedros do Líbano.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "sl-30-4-5",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 30:4-5",
+  "text": "Cantai ao Senhor , vós que sois seus santos, e celebrai a memória da sua santidade. Porque a sua ira dura só um momento; no seu favor está a vida; o choro pode durar uma noite, mas a alegria vem pela manhã.",
+  "words": 42,
+  "historical_context": "Davi agradece por ter saído de uma doença grave que quase o levou à sepultura.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-31-22",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 31:22",
+  "text": "Pois eu dizia na minha pressa: Estou cortado de diante dos teus olhos; não obstante, tu ouviste a voz das minhas súplicas, quando eu a ti clamei.",
+  "words": 27,
+  "historical_context": "Davi lembra do momento em que, em pânico, achou que tinha sido abandonado — e foi ouvido.",
+  "emotional_hook": "coragem",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-32-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 32:1-3",
+  "text": "Bem-aventurado aquele cuja transgressão é perdoada, e cujo pecado é coberto. Bem-aventurado o homem a quem o Senhor não imputa maldade, e em cujo espírito não há engano. Enquanto eu me calei, envelheceram os meus ossos pelo meu bramido em todo o dia.",
+  "words": 43,
+  "historical_context": "Davi descreve o peso de esconder o próprio erro, provavelmente depois do episódio com Bate-Seba, até confessá-lo.",
+  "emotional_hook": "culpa",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-33-16-17",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 33:16-17",
+  "text": "Não há rei que se salve com a grandeza de um exército, nem o homem valente se livra pela muita força. O cavalo é vão para a segurança; não livra ninguém com a sua grande força.",
+  "words": 36,
+  "historical_context": "O rei não se salva pelo grande exército, nem o guerreiro pela sua enorme força — uma lição repetida a um povo menor que seus vizinhos.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-34-4-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 34:4-6",
+  "text": "Busquei ao Senhor , e ele me respondeu; livrou-me de todos os meus temores. Olharam para ele, e foram iluminados; e os seus rostos não ficarão confundidos. Clamou este pobre, e o Senhor o ouviu; e o salvou de todas as suas angústias.",
+  "words": 43,
+  "historical_context": "Davi escreve depois de fingir loucura diante do rei Aquis para escapar com vida.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "caverna"
+  ]
+ },
+ {
+  "id": "sl-35-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 35:1-2",
+  "text": "Pleiteia, Senhor , com aqueles que pleiteiam comigo; peleja contra os que pelejam contra mim. Pega do escudo e da rodela e levanta-te em minha ajuda.",
+  "words": 26,
+  "historical_context": "Davi pede a Deus que lute por ele contra quem o acusa sem motivo.",
+  "emotional_hook": "injustiça",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-36-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 36:5-6",
+  "text": "A tua misericórdia, Senhor , está nos céus, e a tua fidelidade chega até às mais excelsas nuvens. A tua justiça é como as grandes montanhas; os teus juízos são um grande abismo; Senhor , tu conservas os homens e os animais.",
+  "words": 42,
+  "historical_context": "Contraste entre a maldade dos homens e a fidelidade de Deus, vasta como os céus e profunda como o mar.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "mar",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-37-3-5",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 37:3-5",
+  "text": "Confia no Senhor e faze o bem; habitarás na terra e, verdadeiramente, serás alimentado. Deleita-te também no Senhor , e ele te concederá o que deseja o teu coração. Entrega o teu caminho ao Senhor ; confia nele, e ele tudo fará.",
+  "words": 42,
+  "historical_context": "Conselho de um homem idoso que viu muitos injustos prosperarem e depois desaparecerem: não se aflija por isso.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-38-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 38:1-2",
+  "text": "Ó Senhor , não me repreendas na tua ira, nem me castigues no teu furor. Porque as tuas flechas se cravaram em mim, e a tua mão sobre mim desceu.",
+  "words": 30,
+  "historical_context": "Um homem fisicamente doente e esmagado pela consciência pesada, que sente os próprios erros como uma carga grande demais.",
+  "emotional_hook": "culpa",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-39-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 39:4",
+  "text": "Faze-me conhecer, Senhor , o meu fim, e a medida dos meus dias qual é, para que eu sinta quanto sou frágil.",
+  "words": 22,
+  "historical_context": "Davi, abatido, pede que Deus o ensine a medir os seus dias — a vida é um sopro.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-40-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 40:1-2",
+  "text": "Esperei com paciência no Senhor , e ele se inclinou para mim, e ouviu o meu clamor. Tirou-me de um lago horrível, de um charco de lodo; pôs os meus pés sobre uma rocha, firmou os meus passos;",
+  "words": 38,
+  "historical_context": "Davi agradece por ter sido tirado de um poço de lama e posto sobre uma rocha firme.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "chuva",
+   "caverna"
+  ]
+ },
+ {
+  "id": "sl-41-9-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 41:9-10",
+  "text": "Até o meu próprio amigo íntimo, em quem eu tanto confiava, que comia do meu pão, levantou contra mim o seu calcanhar. Mas tu, Senhor , tem piedade de mim, e levanta-me, para que eu lhes dê o pago.",
+  "words": 39,
+  "historical_context": "Davi, doente, descobre que até um amigo íntimo, que comia à sua mesa, o traiu.",
+  "emotional_hook": "traição",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-42-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 42:1-2",
+  "text": "Como o cervo brama pelas correntes das águas, assim suspira a minha alma por ti, ó Deus! A minha alma tem sede de Deus, do Deus vivo; quando entrarei e me apresentarei ante a face de Deus?",
+  "words": 37,
+  "historical_context": "Escrito por um levita longe do templo, com sede de Deus como um cervo que procura água.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-43-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 43:3",
+  "text": "Envia a tua luz e a tua verdade, para que me guiem e me levem ao teu santo monte e aos teus tabernáculos.",
+  "words": 23,
+  "historical_context": "Longe de casa, o salmista pede luz e verdade para voltar ao lugar a que pertence.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-44-23-25",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 44:23-25",
+  "text": "Desperta! Por que dormes, Senhor? Acorda! Não nos rejeites para sempre! Por que escondes a face e te esqueces da nossa miséria e da nossa opressão? Pois a nossa alma está abatida até ao pó; o nosso corpo, curvado até ao chão.",
+  "words": 42,
+  "historical_context": "Lamento nacional depois de uma derrota, quando o povo se sentiu abandonado por Deus.",
+  "emotional_hook": "dúvida",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-45-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 45:6",
+  "text": "O teu trono, ó Deus, é eterno e perpétuo; o cetro do teu reino é um cetro de equidade.",
+  "words": 19,
+  "historical_context": "Canto composto para um casamento real, exaltando um trono baseado em justiça.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão",
+   "fogo"
+  ]
+ },
+ {
+  "id": "sl-46-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 46:1-2",
+  "text": "Deus é o nosso refúgio e fortaleza, socorro bem-presente na angústia. Pelo que não temeremos, ainda que a terra se mude, e ainda que os montes se transportem para o meio dos mares.",
+  "words": 33,
+  "historical_context": "Canto de um povo ameaçado por exércitos, que afirma não temer nem mesmo se a terra tremer e os montes caírem no mar.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "mar"
+  ]
+ },
+ {
+  "id": "sl-47-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 47:1-2",
+  "text": "Aplaudi com as mãos, todos os povos; cantai a Deus com voz de triunfo. Porque o Senhor Altíssimo é tremendo e Rei grande sobre toda a terra.",
+  "words": 27,
+  "historical_context": "Convite a todos os povos para aplaudirem o Deus que governa toda a terra.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão",
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-48-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 48:1-2",
+  "text": "Grande é o Senhor e mui digno de louvor na cidade do nosso Deus, no seu monte santo. Formoso de sítio e alegria de toda a terra é o monte Sião sobre os lados do Norte, a cidade do grande Rei.",
+  "words": 41,
+  "historical_context": "Canto sobre Jerusalém, cidade fortificada que se tornou símbolo de proteção.",
+  "emotional_hook": "proteção",
+  "tone": "epic",
+  "audio_cues": [
+   "montanha",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-49-15-17",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 49:15-17",
+  "text": "Mas Deus remirá a minha alma do poder da sepultura, pois me receberá. (Selá) Não temas quando alguém se enriquece, quando a glória da sua casa se engrandece. Porque, quando morrer, nada levará consigo, nem a sua glória o acompanhará.",
+  "words": 40,
+  "historical_context": "Meditação sobre a ilusão de que a riqueza compra segurança diante da morte.",
+  "emotional_hook": "orgulho",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-50-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 50:1-2",
+  "text": "O Deus poderoso, o Senhor , falou e chamou a terra desde o nascimento do sol até ao seu ocaso. Desde Sião, a perfeição da formosura, resplandeceu Deus.",
+  "words": 28,
+  "historical_context": "Cena de julgamento em que Deus vem como fogo devorador e tempestade ao redor.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "sl-51-10-11",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 51:10-11",
+  "text": "Cria em mim, ó Deus, um coração puro e renova em mim um espírito reto. Não me lances fora da tua presença e não retires de mim o teu Espírito Santo.",
+  "words": 31,
+  "historical_context": "Davi, confrontado pelo profeta Natã por causa de Bate-Seba e do assassinato de Urias, pede um coração limpo.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-52-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 52:1-2",
+  "text": "Por que te glorias na malícia, ó homem poderoso? Pois a bondade de Deus permanece continuamente. A tua língua intenta o mal, como uma navalha afiada, traçando enganos.",
+  "words": 28,
+  "historical_context": "Davi escreve depois que Doegue, um oficial de Saul, denunciou o sacerdote que o havia ajudado.",
+  "emotional_hook": "traição",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-53-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 53:1",
+  "text": "Disse o néscio no seu coração: Não há Deus. Têm-se corrompido e têm cometido abominável iniquidade; não há ninguém que faça o bem.",
+  "words": 23,
+  "historical_context": "Versão paralela do salmo 14, sobre quem vive como se Deus não existisse.",
+  "emotional_hook": "orgulho",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-54-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 54:1-2",
+  "text": "Salva-me, ó Deus, pelo teu nome, e faze-me justiça pelo teu poder. Ó Deus, ouve a minha oração; inclina os teus ouvidos às palavras da minha boca.",
+  "words": 27,
+  "historical_context": "Davi, escondido no deserto, é denunciado a Saul pelos zifeus, gente da sua própria terra.",
+  "emotional_hook": "traição",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-55-4-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 55:4-6",
+  "text": "O meu coração está dorido dentro de mim, e terrores de morte sobre mim caíram. Temor e tremor me sobrevêm; e o horror me cobriu. Pelo que disse: Ah! Quem me dera asas como de pomba! Voaria e estaria em descanso.",
+  "words": 41,
+  "historical_context": "Davi, traído por um amigo próximo, deseja ter asas de pomba para fugir e descansar.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-56-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 56:3-4",
+  "text": "No dia em que eu temer, hei de confiar em ti. Em Deus louvarei a sua palavra; em Deus pus a minha confiança e não temerei; que me pode fazer a carne?",
+  "words": 32,
+  "historical_context": "Davi, capturado pelos filisteus em Gate, admite que sente medo e escolhe confiar.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-57-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 57:1-2",
+  "text": "Tem misericórdia de mim, ó Deus, tem misericórdia de mim, porque a minha alma confia em ti; e à sombra das tuas asas me abrigo, até que passem as calamidades. Clamarei ao Deus Altíssimo, ao Deus que por mim tudo executa.",
+  "words": 41,
+  "historical_context": "Escrito, segundo o título, quando Davi fugia de Saul e se escondeu numa caverna.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "caverna",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-58-10-11",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 58:10-11",
+  "text": "O justo se alegrará quando vir a vingança; lavará os seus pés no sangue do ímpio. Então, dirá o homem: Deveras há uma recompensa para o justo; deveras há um Deus que julga na terra.",
+  "words": 35,
+  "historical_context": "Davi denuncia juízes corruptos e afirma que haverá justiça um dia.",
+  "emotional_hook": "injustiça",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "fogo"
+  ]
+ },
+ {
+  "id": "sl-59-16",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 59:16",
+  "text": "Eu, porém, cantarei a tua força; pela manhã, louvarei com alegria a tua misericórdia, porquanto tu foste o meu alto refúgio e proteção no dia da minha angústia.",
+  "words": 28,
+  "historical_context": "Saul mandou vigiar a casa de Davi para matá-lo; ao amanhecer, Davi canta pelo livramento.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-60-11-12",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 60:11-12",
+  "text": "Dá-nos auxílio na angústia, porque vão é o socorro do homem. Em Deus faremos proezas; porque ele é que pisará os nossos inimigos.",
+  "words": 23,
+  "historical_context": "Pedido de ajuda de um exército em apuros no meio de uma guerra difícil.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "deserto"
+  ]
+ },
+ {
+  "id": "sl-61-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 61:1-2",
+  "text": "Ouve, ó Deus, o meu clamor; atende à minha oração. Desde o fim da terra clamo a ti, por estar abatido o meu coração. Leva-me para a rocha que é mais alta do que eu,",
+  "words": 35,
+  "historical_context": "Do fim da terra, Davi clama a Deus pedindo uma rocha mais alta do que ele.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-62-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 62:5-6",
+  "text": "Ó minha alma, espera somente em Deus, porque dele vem a minha esperança. Só ele é a minha rocha e a minha salvação; é a minha defesa; não serei abalado.",
+  "words": 30,
+  "historical_context": "Davi, rodeado de gente que o queria derrubar, encontra descanso apenas em Deus.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-63-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 63:1",
+  "text": "Ó Deus, tu és o meu Deus; de madrugada te buscarei; a minha alma tem sede de ti; a minha carne te deseja muito em uma terra seca e cansada, onde não há água,",
+  "words": 34,
+  "historical_context": "Escrito, segundo o título, no deserto de Judá, quando Davi estava longe do santuário e com sede.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-64-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 64:1-2",
+  "text": "Ouve, ó Deus, a minha voz na minha oração; livra a minha vida do horror do inimigo. Esconde-me do secreto conselho dos maus e do tumulto dos que praticam a iniquidade,",
+  "words": 31,
+  "historical_context": "Davi pede proteção contra o terror de um inimigo, e contra as conspirações feitas em segredo.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-65-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 65:9",
+  "text": "Tu visitas a terra e a refrescas; tu a enriqueces grandemente com o rio de Deus, que está cheio de água; tu lhe dás o trigo, quando assim a tens preparada;",
+  "words": 31,
+  "historical_context": "Canto de agradecimento pela chuva e pela colheita, tão importantes para um povo de agricultores.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "chuva",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-66-10-11",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 66:10-11",
+  "text": "Pois tu, ó Deus, nos provaste; tu nos afinaste como se afina a prata. Tu nos meteste na rede; afligiste os nossos lombos.",
+  "words": 23,
+  "historical_context": "O povo lembra que foi provado como prata no fogo, passou pelo fogo e pela água, e saiu para um lugar de abundância.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "mar"
+  ]
+ },
+ {
+  "id": "sl-67-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 67:1-2",
+  "text": "Deus tenha misericórdia de nós e nos abençoe; e faça resplandecer o seu rosto sobre nós. (Selá) Para que se conheça na terra o teu caminho, e em todas as nações a tua salvação.",
+  "words": 34,
+  "historical_context": "Oração para que a bênção de Deus sobre Israel alcance todos os povos.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-68-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 68:5-6",
+  "text": "Pai de órfãos e juiz de viúvas é Deus no seu lugar santo. Deus faz que o solitário viva em família; liberta aqueles que estão presos em grilhões; mas os rebeldes habitam em terra seca.",
+  "words": 35,
+  "historical_context": "Deus é descrito como pai dos órfãos e defensor das viúvas, e como quem dá lar aos solitários.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-69-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 69:1-2",
+  "text": "Livra-me, ó Deus, pois as águas entraram até à minha alma. Atolei-me em profundo lamaçal, onde se não pode estar em pé; entrei na profundeza das águas, onde a corrente me leva.",
+  "words": 32,
+  "historical_context": "Davi, no limite, sente as águas subindo até a alma e já cansou de clamar.",
+  "emotional_hook": "ansiedade",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-70-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 70:4",
+  "text": "Folguem e alegrem-se em ti todos os que te buscam; e aqueles que amam a tua salvação digam continuamente: Engrandecido seja Deus.",
+  "words": 22,
+  "historical_context": "Oração curta e urgente de Davi, sentindo-se pobre e necessitado, pedindo pressa a Deus.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-71-9-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 71:9-10",
+  "text": "Não me rejeites no tempo da velhice; não me desampares, quando se for acabando a minha força. Porque os meus inimigos falam contra mim, e os que espiam a minha alma consultam juntos,",
+  "words": 33,
+  "historical_context": "Oração de um idoso que teme ser abandonado quando as forças começarem a faltar.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-72-12-13",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 72:12-13",
+  "text": "Porque ele livrará ao necessitado quando clamar, como também ao aflito e ao que não tem quem o ajude. Compadecer-se-á do pobre e do aflito e salvará a alma dos necessitados.",
+  "words": 31,
+  "historical_context": "Salmo sobre o rei ideal, cuja grandeza se mede por defender o pobre e o oprimido.",
+  "emotional_hook": "injustiça",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-73-23-25",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 73:23-25",
+  "text": "Todavia, estou de contínuo contigo; tu me seguraste pela mão direita. Guiar-me-ás com o teu conselho e, depois, me receberás em glória. A quem tenho eu no céu senão a ti? E na terra não há quem eu deseje além de ti.",
+  "words": 42,
+  "historical_context": "Asafe confessa que quase perdeu a fé ao ver os ímpios prosperando, até entrar no santuário e ver tudo de outro ângulo.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-74-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 74:1-2",
+  "text": "Ó Deus, por que nos rejeitaste para sempre? Por que se acende a tua ira contra as ovelhas do teu pasto? Lembra-te da tua congregação, que compraste desde a antiguidade; da tua herança que remiste, deste monte Sião, em que habitaste.",
+  "words": 41,
+  "historical_context": "Lamento de um povo vendo o templo em ruínas após a invasão babilônica.",
+  "emotional_hook": "luto",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-75-4-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 75:4-6",
+  "text": "Disse eu aos loucos: não enlouqueçais; e aos ímpios: não levanteis a fronte; não levanteis a fronte altiva, nem faleis com cerviz dura. Porque nem do Oriente, nem do Ocidente, nem do deserto vem a exaltação.",
+  "words": 36,
+  "historical_context": "Aviso aos arrogantes: promoção não vem do leste, nem do oeste, nem do deserto, mas de Deus.",
+  "emotional_hook": "orgulho",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-76-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 76:3-4",
+  "text": "Ali quebrou as flechas do arco; o escudo, e a espada, e a guerra. (Selá) Tu és mais ilustre e glorioso do que os montes de presa.",
+  "words": 27,
+  "historical_context": "Celebração de uma vitória em que o inimigo foi desfeito sem que o povo precisasse lutar.",
+  "emotional_hook": "proteção",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-77-16-17",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 77:16-17",
+  "text": "As águas te viram, ó Deus, as águas te viram, e tremeram; os abismos também se abalaram. Grossas nuvens se desfizeram em água; os céus retumbaram; as tuas flechas correram de uma para outra parte.",
+  "words": 35,
+  "historical_context": "Asafe, insone e angustiado, lembra como Deus abriu o mar e fez as águas tremerem.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "sl-78-12-13",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 78:12-13",
+  "text": "maravilhas que ele fez à vista de seus pais na terra do Egito, no campo de Zoã. Dividiu o mar, e os fez passar por ele; fez com que as águas parassem como num montão.",
+  "words": 35,
+  "historical_context": "Relembra os feitos de Deus no Egito e no deserto, quando o mar se abriu e a rocha deu água.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "mar"
+  ]
+ },
+ {
+  "id": "sl-79-8-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 79:8-9",
+  "text": "Não te lembres das nossas iniquidades passadas; apressa-te e antecipem-se-nos as tuas misericórdias, pois estamos muito abatidos. Ajuda-nos, ó Deus da nossa salvação, pela glória do teu nome; e livra-nos e perdoa os nossos pecados, por amor do teu nome.",
+  "words": 40,
+  "historical_context": "Pedido de perdão e socorro de um povo humilhado diante de Jerusalém destruída.",
+  "emotional_hook": "perdão",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-80-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 80:1-2",
+  "text": "Ó pastor de Israel, dá ouvidos; tu, que guias a José como a um rebanho, que te assentas entre os querubins, resplandece. Perante Efraim, Benjamim e Manassés, desperta o teu poder e vem salvar-nos.",
+  "words": 34,
+  "historical_context": "Oração de um povo ferido, pedindo que Deus faça brilhar o seu rosto sobre eles.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-81-6-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 81:6-7",
+  "text": "Tirei de seus ombros a carga; as suas mãos ficaram livres dos cestos. Clamaste na angústia, e te livrei; respondi-te do lugar oculto dos trovões; provei-te nas águas de Meribá. (Selá)",
+  "words": 31,
+  "historical_context": "Deus lembra ao povo que o ouviu no lugar secreto do trovão, quando clamaram na aflição.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-82-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 82:3-4",
+  "text": "Defendei o pobre e o órfão; fazei justiça ao aflito e necessitado. Livrai o pobre e o necessitado; tirai-os das mãos dos ímpios.",
+  "words": 23,
+  "historical_context": "Cena de tribunal em que Deus repreende juízes que deixam o pobre e o órfão sem defesa.",
+  "emotional_hook": "injustiça",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-83-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 83:1-3",
+  "text": "Ó Deus, não estejas em silêncio! Não cerres os ouvidos nem fiques impassível, ó Deus! Porque eis que teus inimigos se alvoroçam, e os que te aborrecem levantaram a cabeça. Astutamente formam conselho contra o teu povo e conspiram contra os teus protegidos.",
+  "words": 43,
+  "historical_context": "Oração do povo cercado por uma coalizão de nações que queria apagar o nome de Israel.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-84-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 84:5-6",
+  "text": "Bem-aventurado o homem cuja força está em ti, em cujo coração estão os caminhos aplanados, o qual, passando pelo vale de Baca, faz dele uma fonte; a chuva também enche os tanques.",
+  "words": 32,
+  "historical_context": "Peregrinos que atravessavam o vale árido a caminho do templo, transformando-o em fonte.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-85-8-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 85:8-9",
+  "text": "Escutarei o que Deus, o Senhor , disser; porque falará de paz ao seu povo e aos seus santos, contanto que não voltem à loucura. Certamente que a salvação está perto daqueles que o temem, para que a glória habite em nossa terra.",
+  "words": 43,
+  "historical_context": "Oração de um povo que voltou do exílio e espera por restauração.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-86-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 86:5-6",
+  "text": "Pois tu, Senhor, és bom, e pronto a perdoar, e abundante em benignidade para com todos os que te invocam. Dá ouvidos, Senhor , à minha oração e atende à voz das minhas súplicas.",
+  "words": 34,
+  "historical_context": "Davi, em dia de angústia, lembra que Deus é bom e perdoador para quem o invoca.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-87-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 87:1-3",
+  "text": "O seu fundamento está nos montes santos. O Senhor ama as portas de Sião mais do que todas as habitações de Jacó. Coisas gloriosas se dizem de ti, ó cidade de Deus. (Selá)",
+  "words": 33,
+  "historical_context": "Canto sobre Sião, a cidade em que povos de várias nações seriam registrados como filhos.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "montanha",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-88-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 88:1-2",
+  "text": "Senhor , Deus da minha salvação, diante de ti tenho clamado de dia e de noite. Chegue a minha oração perante a tua face, inclina os teus ouvidos ao meu clamor.",
+  "words": 31,
+  "historical_context": "O salmo mais sombrio do Saltério: um homem em sofrimento prolongado, quase sem esperança, que continua orando.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "caverna"
+  ]
+ },
+ {
+  "id": "sl-89-8-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 89:8-9",
+  "text": "Ó Senhor , Deus dos Exércitos, quem é forte como tu, Senhor , com a tua fidelidade ao redor de ti?! Tu dominas o ímpeto do mar; quando as suas ondas se levantam, tu as fazes aquietar.",
+  "words": 37,
+  "historical_context": "Hino que lembra que Deus governa o mar enfurecido e acalma suas ondas.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "sl-90-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 90:10",
+  "text": "A duração da nossa vida é de setenta anos, e se alguns, pela sua robustez, chegam a oitenta anos, o melhor deles é canseira e enfado, pois passa rapidamente, e nós voamos.",
+  "words": 32,
+  "historical_context": "Oração atribuída a Moisés, diante da brevidade da vida, depois de quarenta anos no deserto.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-91-5-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 91:5-7",
+  "text": "Não temerás espanto noturno, nem seta que voe de dia, nem peste que ande na escuridão, nem mortandade que assole ao meio-dia. Mil cairão ao teu lado, e dez mil, à tua direita, mas tu não serás atingido.",
+  "words": 38,
+  "historical_context": "Promessa de proteção para quem habita no abrigo do Altíssimo, ainda que mil caiam ao lado.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "batalha"
+  ]
+ },
+ {
+  "id": "sl-92-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 92:1-3",
+  "text": "Bom é louvar ao Senhor e cantar louvores ao teu nome, ó Altíssimo, para de manhã anunciar a tua benignidade e, todas as noites, a tua fidelidade, sobre um instrumento de dez cordas e sobre o saltério; sobre a harpa com som solene.",
+  "words": 43,
+  "historical_context": "Canto de louvor para o dia de descanso.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-93-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 93:3-4",
+  "text": "Os rios levantam, ó Senhor , os rios levantam o seu ruído, os rios levantam as suas ondas. Mas o Senhor nas alturas é mais poderoso do que o ruído das grandes águas e do que as grandes ondas do mar.",
+  "words": 41,
+  "historical_context": "As ondas do mar rugem, mas o Senhor nas alturas é mais poderoso.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "sl-94-16-17",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 94:16-17",
+  "text": "Quem será por mim contra os malfeitores? Quem se porá ao meu lado contra os que praticam a iniquidade? Se o Senhor não fora em meu auxílio, já a minha alma habitaria no lugar do silêncio.",
+  "words": 36,
+  "historical_context": "Quando os pensamentos do salmista se multiplicavam, o consolo de Deus alegrava a sua alma.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-95-6-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 95:6-7",
+  "text": "Ó, vinde, adoremos e prostremo-nos! Ajoelhemos diante do Senhor que nos criou. Porque ele é o nosso Deus, e nós, povo do seu pasto e ovelhas da sua mão. Se hoje ouvirdes a sua voz,",
+  "words": 35,
+  "historical_context": "Lembra a geração do deserto que endureceu o coração em Meribá e Massá.",
+  "emotional_hook": "dúvida",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto"
+  ]
+ },
+ {
+  "id": "sl-96-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 96:1-2",
+  "text": "Cantai ao Senhor um cântico novo, cantai ao Senhor , todos os moradores da terra. Cantai ao Senhor , bendizei o seu nome; anunciai a sua salvação de dia em dia.",
+  "words": 31,
+  "historical_context": "Canto composto para a chegada da arca a Jerusalém, convidando todas as nações a cantarem.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão",
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-97-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 97:1-3",
+  "text": "O Senhor reina. Regozije-se a terra, alegrem-se as muitas ilhas. Nuvens e obscuridade estão ao redor dele; justiça e juízo são a base do seu trono. Adiante dele vai um fogo que abrasa os seus inimigos em redor.",
+  "words": 38,
+  "historical_context": "Imagem do Deus que reina cercado de nuvem e escuridão, com fogo adiante e relâmpagos iluminando o mundo.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "fogo",
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-98-7-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 98:7-9",
+  "text": "Brame o mar e a sua plenitude; o mundo e os que nele habitam. Os rios batam palmas; regozijem-se também as montanhas, perante a face do Senhor , porque vem a julgar a terra; com justiça julgará o mundo e o povo, com equidade.",
+  "words": 44,
+  "historical_context": "Convite para o mar, os rios e os montes aplaudirem a chegada do juiz da terra.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-99-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 99:1-3",
+  "text": "O Senhor reina; tremam as nações. Ele está entronizado entre os querubins; comova-se a terra. O Senhor é grande em Sião e mais elevado que todas as nações. Louvem o teu nome, grande e tremendo, pois é santo.",
+  "words": 38,
+  "historical_context": "Cena de Deus entronizado entre os querubins, e a terra estremecendo.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-100-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 100:1-3",
+  "text": "Celebrai com júbilo ao Senhor , todos os moradores da terra. Servi ao Senhor com alegria e apresentai-vos a ele com canto. Sabei que o Senhor é Deus; foi ele, e não nós, que nos fez povo seu e ovelhas do seu pasto.",
+  "words": 43,
+  "historical_context": "Canto de ação de graças entoado pelos peregrinos ao entrarem no templo.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-101-2-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 101:2-3",
+  "text": "Portar-me-ei com inteligência no caminho reto. Quando virás a mim? Andarei em minha casa com um coração sincero. Não porei coisa má diante dos meus olhos; aborreço as ações daqueles que se desviam; nada se me pegará.",
+  "words": 37,
+  "historical_context": "Promessa de um rei de governar com integridade dentro da sua própria casa.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-102-6-8",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 102:6-8",
+  "text": "Sou semelhante ao pelicano no deserto; sou como um mocho nas solidões. Velo e sou como o pardal solitário no telhado. Os meus inimigos me afrontam todo o dia; os que contra mim se enfurecem me amaldiçoam.",
+  "words": 37,
+  "historical_context": "Um homem aflito se compara a um pássaro solitário no telhado, sem dormir.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-103-8-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 103:8-10",
+  "text": "Misericordioso e piedoso é o Senhor ; longânimo e grande em benignidade. Não repreenderá perpetuamente, nem para sempre conservará a sua ira. Não nos tratou segundo os nossos pecados, nem nos retribuiu segundo as nossas iniquidades.",
+  "words": 36,
+  "historical_context": "Davi canta que Deus é lento em irar-se e afasta os pecados como o oriente está longe do ocidente.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-104-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 104:1-2",
+  "text": "Bendize, ó minha alma, ao Senhor ! Senhor , Deus meu, tu és magnificentíssimo; estás vestido de glória e de majestade. Ele cobre-se de luz como de uma veste, estende os céus como uma cortina.",
+  "words": 35,
+  "historical_context": "Hino à criação, descrevendo Deus que faz das nuvens o seu carro e anda sobre as asas do vento.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-105-39-41",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 105:39-41",
+  "text": "Estendeu uma nuvem por coberta e um fogo, para os alumiar de noite. Oraram, e ele fez vir codornizes e saciou-os com pão do céu. Abriu a penha, e dela brotaram águas, que correram pelos lugares secos, como um rio.",
+  "words": 40,
+  "historical_context": "Recorda o deserto, com a nuvem que cobria o povo de dia e o fogo que o iluminava à noite.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "deserto",
+   "fogueira"
+  ]
+ },
+ {
+  "id": "sl-106-6-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 106:6-7",
+  "text": "Nós pecamos como os nossos pais; cometemos iniquidade, andamos perversamente. Nossos pais não atentaram para as tuas maravilhas no Egito; não se lembraram da multidão das tuas misericórdias; antes, foram rebeldes junto ao mar, sim, o mar Vermelho.",
+  "words": 38,
+  "historical_context": "Confissão coletiva do povo, que lembra que seus antepassados esqueceram os milagres do Egito.",
+  "emotional_hook": "culpa",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "deserto"
+  ]
+ },
+ {
+  "id": "sl-107-28-30",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 107:28-30",
+  "text": "Então, clamam ao Senhor na sua tribulação, e ele os livra das suas angústias. Faz cessar a tormenta, e acalmam-se as ondas. Então, se alegram com a bonança; e ele, assim, os leva ao porto desejado.",
+  "words": 36,
+  "historical_context": "Marinheiros no meio de uma tempestade clamam a Deus, e o mar se acalma.",
+  "emotional_hook": "medo",
+  "tone": "epic",
+  "audio_cues": [
+   "tempestade",
+   "mar"
+  ]
+ },
+ {
+  "id": "sl-108-12-13",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 108:12-13",
+  "text": "Dá-nos auxílio para sairmos da angústia, porque vão é o socorro da parte do homem. Em Deus faremos proezas, pois ele calcará aos pés os nossos inimigos.",
+  "words": 27,
+  "historical_context": "Pedido de ajuda de Davi diante do inimigo: o socorro dos homens é vão.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha"
+  ]
+ },
+ {
+  "id": "sl-109-21-22",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 109:21-22",
+  "text": "Mas tu, ó Jeová Senhor, sê comigo por amor do teu nome; porque a tua misericórdia é boa, livra-me. Porque estou aflito e necessitado, e, dentro de mim, está aflito o meu coração.",
+  "words": 33,
+  "historical_context": "Davi, acusado por pessoas a quem fez bem, pede ajuda a Deus.",
+  "emotional_hook": "injustiça",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-110-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 110:1-2",
+  "text": "Disse o Senhor ao meu Senhor: Assenta-te à minha mão direita, até que ponha os teus inimigos por escabelo dos teus pés. O Senhor enviará o cetro da tua fortaleza desde Sião, dizendo: Domina no meio dos teus inimigos.",
+  "words": 39,
+  "historical_context": "Oráculo real sobre o rei que se senta à direita de Deus e governa até que os inimigos sejam derrotados.",
+  "emotional_hook": "chamado",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-111-9-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 111:9-10",
+  "text": "Redenção enviou ao seu povo; ordenou o seu concerto para sempre; santo e tremendo é o seu nome. O temor do Senhor é o princípio da sabedoria; bom entendimento têm todos os que lhe obedecem; o seu louvor permanece para sempre.",
+  "words": 41,
+  "historical_context": "Louvor às obras de Deus e declaração de que o princípio da sabedoria é o temor do Senhor.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-112-6-8",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 112:6-8",
+  "text": "Na verdade, nunca será abalado; o justo ficará em memória eterna. Não temerá maus rumores; o seu coração está firme, confiando no Senhor . O seu coração, bem firmado, não temerá, até que ele veja cumprido o seu desejo sobre os seus inimigos.",
+  "words": 43,
+  "historical_context": "O justo não temerá más notícias, pois o seu coração está firme.",
+  "emotional_hook": "medo",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-113-5-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 113:5-7",
+  "text": "Quem é como o Senhor , nosso Deus, que habita nas alturas; que se curva para ver o que está nos céus e na terra; que do pó levanta o pequeno e, do monturo, ergue o necessitado,",
+  "words": 37,
+  "historical_context": "Louvor ao Deus que se inclina para ver o céu e a terra e levanta o pobre do pó.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-114-3-5",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 114:3-5",
+  "text": "O mar viu isto e fugiu; o Jordão tornou atrás. Os montes saltaram como carneiros; e os outeiros, como cordeiros. Que tiveste, ó mar, que fugiste, e tu, ó Jordão, que tornaste atrás?",
+  "words": 33,
+  "historical_context": "Poesia sobre o êxodo: o mar viu e fugiu, o Jordão voltou atrás e os montes saltaram como carneiros.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-115-9-10",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 115:9-10",
+  "text": "Confia, ó Israel, no Senhor ; ele é teu auxílio e teu escudo. Casa de Arão, confia no Senhor ; ele é teu auxílio e teu escudo.",
+  "words": 27,
+  "historical_context": "Convite ao povo a confiar em Deus, que é socorro e escudo.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-116-7-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 116:7-9",
+  "text": "Volta, minha alma, a teu repouso, pois o Senhor te fez bem. Porque tu, Senhor, livraste a minha alma da morte, os meus olhos das lágrimas e os meus pés da queda. Andarei perante a face do Senhor , na terra dos viventes.",
+  "words": 43,
+  "historical_context": "Quem escapou da morte volta à calma e caminha na presença de Deus.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-117-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 117:1-2",
+  "text": "Louvai ao Senhor , todas as nações; louvai-o, todos os povos. Porque a sua benignidade é grande para conosco, e a verdade do Senhor é para sempre. Louvai ao Senhor !",
+  "words": 31,
+  "historical_context": "O menor salmo: convida todas as nações a louvar a bondade de Deus.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-118-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 118:5-6",
+  "text": "Invoquei o Senhor na angústia; o Senhor me ouviu e me pôs em um lugar largo. O Senhor está comigo; não temerei o que me pode fazer o homem.",
+  "words": 29,
+  "historical_context": "Cantado por peregrinos que entravam em Jerusalém lembrando livramentos passados.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "multidão",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-119-105-106",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 119:105-106",
+  "text": "Lâmpada para os meus pés é tua palavra e luz, para o meu caminho. Jurei e cumprirei que hei de guardar os teus justos juízos.",
+  "words": 25,
+  "historical_context": "O maior salmo do Saltério, um poema em acróstico que compara a palavra de Deus a uma lamparina para quem anda no escuro.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-119-71-72",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 119:71-72",
+  "text": "Foi- me bom ter sido afligido, para que aprendesse os teus estatutos. Melhor é para mim a lei da tua boca do que inúmeras riquezas em ouro ou prata. Iode.",
+  "words": 30,
+  "historical_context": "O salmista reconhece que o sofrimento o ensinou mais do que a prosperidade.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-119-114-116",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 119:114-116",
+  "text": "Tu és o meu refúgio e o meu escudo; espero na tua palavra. Apartai-vos de mim, malfeitores, para que guarde os mandamentos do meu Deus. Sustenta-me conforme a tua palavra, para que viva, e não me deixes envergonhado da minha esperança.",
+  "words": 41,
+  "historical_context": "O salmista chama Deus de seu esconderijo e escudo em tempos de perseguição.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-120-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 120:1-2",
+  "text": "Na minha angústia clamei ao Senhor , e ele me ouviu. Senhor , livra a minha alma dos lábios mentirosos e da língua enganadora.",
+  "words": 24,
+  "historical_context": "Primeiro dos cantos de peregrinação: alguém que vive entre mentirosos e ansiaria por paz.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "deserto"
+  ]
+ },
+ {
+  "id": "sl-121-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 121:1-3",
+  "text": "Elevo os olhos para os montes: de onde me virá o socorro? O meu socorro vem do Senhor , que fez o céu e a terra. Não deixará vacilar o teu pé; aquele que te guarda não tosquenejará.",
+  "words": 38,
+  "historical_context": "Canto de peregrinos que olhavam para as montanhas ao redor de Jerusalém e lembravam que seu verdadeiro guarda nunca dorme.",
+  "emotional_hook": "proteção",
+  "tone": "comfort",
+  "audio_cues": [
+   "montanha",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-122-6-8",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 122:6-8",
+  "text": "Orai pela paz de Jerusalém! Prosperarão aqueles que te amam. Haja paz dentro de teus muros e prosperidade dentro dos teus palácios. Por causa dos meus irmãos e amigos, direi: haja paz em ti!",
+  "words": 34,
+  "historical_context": "Alegria dos peregrinos ao chegarem a Jerusalém, pedindo paz para a cidade.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-123-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 123:1",
+  "text": "Para ti, que habitas nos céus, levanto os meus olhos.",
+  "words": 10,
+  "historical_context": "O salmista levanta os olhos a Deus como um servo olha para o seu senhor.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-124-2-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 124:2-3",
+  "text": "Se não fora o Senhor , que esteve ao nosso lado, quando os homens se levantaram contra nós, eles, então, nos teriam engolido vivos, quando a sua ira se acendeu contra nós;",
+  "words": 32,
+  "historical_context": "Se o Senhor não estivesse do nosso lado, as águas teriam nos arrastado.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "mar",
+   "tempestade"
+  ]
+ },
+ {
+  "id": "sl-125-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 125:1-2",
+  "text": "Os que confiam no Senhor serão como o monte Sião, que não se abala, mas permanece para sempre. Como estão os montes à roda de Jerusalém, assim o Senhor está em volta do seu povo, desde agora e para sempre.",
+  "words": 40,
+  "historical_context": "Quem confia em Deus é como o monte Sião, que não se abala; os montes cercam Jerusalém.",
+  "emotional_hook": "proteção",
+  "tone": "epic",
+  "audio_cues": [
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-126-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 126:5-6",
+  "text": "Os que semeiam em lágrimas segarão com alegria. Aquele que leva a preciosa semente, andando e chorando, voltará, sem dúvida, com alegria, trazendo consigo os seus molhos.",
+  "words": 27,
+  "historical_context": "Poema sobre a volta do cativeiro babilônico: os que semeiam com lágrimas colherão com alegria.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "chuva",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-127-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 127:1",
+  "text": "Se o Senhor não edificar a casa, em vão trabalham os que edificam; se o Senhor não guardar a cidade, em vão vigia a sentinela.",
+  "words": 25,
+  "historical_context": "Se o Senhor não edificar a casa, em vão trabalham os que a edificam.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-128-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 128:1-2",
+  "text": "Bem-aventurado aquele que teme ao Senhor e anda nos seus caminhos! Pois comerás do trabalho das tuas mãos, feliz serás, e te irá bem.",
+  "words": 24,
+  "historical_context": "Bênção para quem teme a Deus: trabalho recompensado e uma casa em paz.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-129-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 129:1-3",
+  "text": "Muitas vezes me angustiaram desde a minha mocidade, diga agora Israel. Muitas vezes me angustiaram desde a minha mocidade; todavia, não prevaleceram contra mim. Os lavradores araram sobre as minhas costas; compridos fizeram os seus sulcos.",
+  "words": 36,
+  "historical_context": "Muitas vezes me angustiaram desde a minha mocidade, mas não prevaleceram contra mim.",
+  "emotional_hook": "superação",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-130-1-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 130:1-4",
+  "text": "Das profundezas a ti clamo, ó Senhor ! Senhor, escuta a minha voz! Sejam os teus ouvidos atentos à voz das minhas súplicas. Se tu, Senhor , observares as iniquidades, Senhor, quem subsistirá? Mas contigo está o perdão, para que sejas temido.",
+  "words": 42,
+  "historical_context": "Do mais fundo, o salmista clama por perdão e espera por Deus como o vigia espera pela manhã.",
+  "emotional_hook": "perdão",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-131-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 131:1",
+  "text": "Senhor , o meu coração não se elevou, nem os meus olhos se levantaram; não me exercito em grandes assuntos, nem em coisas muito elevadas para mim.",
+  "words": 27,
+  "historical_context": "Salmo curto de Davi: acalmou a alma como uma criança no colo da mãe.",
+  "emotional_hook": "ansiedade",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-132-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 132:1-3",
+  "text": "Lembra-te, Senhor , de Davi e de todas as suas aflições. Como jurou ao Senhor e fez votos ao Poderoso de Jacó, dizendo: Certamente, que não entrarei na tenda em que habito, nem subirei ao leito em que durmo;",
+  "words": 39,
+  "historical_context": "Davi jura não descansar até achar um lugar para Deus habitar.",
+  "emotional_hook": "esperança",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-133-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 133:1-2",
+  "text": "Oh! Quão bom e quão suave é que os irmãos vivam em união! É como o óleo precioso sobre a cabeça, que desce sobre a barba, a barba de Arão, e que desce à orla das suas vestes.",
+  "words": 38,
+  "historical_context": "Como é bom e agradável os irmãos viverem em união, como o orvalho do Hermom.",
+  "emotional_hook": "paz",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "montanha"
+  ]
+ },
+ {
+  "id": "sl-134-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 134:1-3",
+  "text": "Eis aqui, bendizei ao Senhor todos vós, servos do Senhor , que assistis na Casa do Senhor todas as noites. Levantai as mãos no santuário e bendizei ao Senhor . O Senhor , que fez o céu e a terra, te abençoe desde Sião!",
+  "words": 44,
+  "historical_context": "Último canto de peregrinação, dirigido aos que vigiavam o templo à noite.",
+  "emotional_hook": "gratidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-135-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 135:5-6",
+  "text": "Porque eu conheço que o Senhor é grande e que o nosso Deus está acima de todos os deuses. Tudo o que o Senhor quis, ele o fez, nos céus e na terra, nos mares e em todos os abismos.",
+  "words": 40,
+  "historical_context": "Hino que celebra o Deus que faz subir as nuvens e produz os relâmpagos para a chuva.",
+  "emotional_hook": "juízo",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "chuva"
+  ]
+ },
+ {
+  "id": "sl-136-23-25",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 136:23-25",
+  "text": "Que se lembrou da nossa humilhação; porque a sua benignidade é para sempre. E nos remiu dos nossos inimigos; porque a sua benignidade é para sempre. Que dá mantimento a toda a carne; porque a sua benignidade é para sempre.",
+  "words": 40,
+  "historical_context": "Refrão repetido pelo povo e pelos sacerdotes: porque a sua benignidade dura para sempre.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-137-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 137:1-2",
+  "text": "Junto aos rios da Babilônia nos assentamos e choramos, lembrando-nos de Sião. Nos salgueiros, que há no meio dela, penduramos as nossas harpas.",
+  "words": 23,
+  "historical_context": "Exilados às margens dos rios da Babilônia, incapazes de cantar canções de alegria.",
+  "emotional_hook": "luto",
+  "tone": "epic",
+  "audio_cues": [
+   "silêncio",
+   "mar"
+  ]
+ },
+ {
+  "id": "sl-138-7",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 138:7",
+  "text": "Andando eu no meio da angústia, tu me revivificarás; estenderás a mão contra a ira dos meus inimigos, e a tua destra me salvará.",
+  "words": 24,
+  "historical_context": "Mesmo andando no meio da angústia, Davi diz que Deus o reanima e completa o que começou.",
+  "emotional_hook": "coragem",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio",
+   "vento"
+  ]
+ },
+ {
+  "id": "sl-139-7-8",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 139:7-8",
+  "text": "Para onde me irei do teu Espírito ou para onde fugirei da tua face? Se subir ao céu, tu aí estás; se fizer no Seol a minha cama, eis que tu ali estás também;",
+  "words": 34,
+  "historical_context": "Davi pergunta para onde poderia fugir da presença de Deus, e conclui que nem a escuridão esconde.",
+  "emotional_hook": "proteção",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "mar"
+  ]
+ },
+ {
+  "id": "sl-140-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 140:1-3",
+  "text": "Livra-me, ó Senhor , do homem mau; guarda-me do homem violento; os quais pensam o mal no coração; continuamente se ajuntam para a guerra. Aguçaram a língua como a serpente; o veneno das víboras está debaixo dos seus lábios. (Selá)",
+  "words": 40,
+  "historical_context": "Davi pede livramento de pessoas violentas que tramam o mal e afiam a língua como serpentes.",
+  "emotional_hook": "injustiça",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "batalha"
+  ]
+ },
+ {
+  "id": "sl-141-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 141:3-4",
+  "text": "Põe, ó Senhor , uma guarda à minha boca; guarda a porta dos meus lábios. Não inclines o meu coração para o mal, nem para se ocupar de coisas más com aqueles que praticam a iniquidade; e não coma eu das suas delícias.",
+  "words": 43,
+  "historical_context": "Pedido para que Deus ponha uma guarda na boca do salmista.",
+  "emotional_hook": "sabedoria",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-142-1-2",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 142:1-2",
+  "text": "Com a minha voz clamei ao Senhor ; com a minha voz ao Senhor supliquei. Derramei a minha queixa perante a sua face; expus-lhe a minha angústia.",
+  "words": 27,
+  "historical_context": "Escrito, segundo o título, quando Davi estava escondido numa caverna, fugindo de Saul.",
+  "emotional_hook": "solidão",
+  "tone": "comfort",
+  "audio_cues": [
+   "caverna",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-143-3-4",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 143:3-4",
+  "text": "Pois o inimigo perseguiu a minha alma; abateu-me até ao chão; fez-me habitar na escuridão, como aqueles que morreram há muito. Pelo que o meu espírito se angustia em mim; e o meu coração em mim está desolado.",
+  "words": 38,
+  "historical_context": "Davi, perseguido e abatido, tem sede de Deus como a terra seca tem sede de chuva.",
+  "emotional_hook": "cansaço",
+  "tone": "comfort",
+  "audio_cues": [
+   "deserto",
+   "noite"
+  ]
+ },
+ {
+  "id": "sl-144-1",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 144:1",
+  "text": "Bendito seja o Senhor , minha rocha, que adestra as minhas mãos para a peleja e os meus dedos para a guerra;",
+  "words": 22,
+  "historical_context": "Davi agradece pelo treino para a guerra e chama Deus de sua fortaleza.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "trovão"
+  ]
+ },
+ {
+  "id": "sl-145-14-16",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 145:14-16",
+  "text": "O Senhor sustenta a todos os que caem e levanta a todos os abatidos. Os olhos de todos esperam em ti, e tu lhes dás o seu mantimento a seu tempo. Abres a mão e satisfazes os desejos de todos os viventes.",
+  "words": 42,
+  "historical_context": "Deus sustenta os que caem e levanta os abatidos; os olhos de todos esperam nele.",
+  "emotional_hook": "provisão",
+  "tone": "comfort",
+  "audio_cues": [
+   "vento",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-146-5-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 146:5-6",
+  "text": "Bem-aventurado aquele que tem o Deus de Jacó por seu auxílio e cuja esperança está posta no Senhor , seu Deus, que fez os céus e a terra, o mar e tudo quanto há neles e que guarda a verdade para sempre;",
+  "words": 42,
+  "historical_context": "Aviso para não confiar em príncipes, mas no Deus que faz justiça aos oprimidos.",
+  "emotional_hook": "esperança",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-147-3-5",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 147:3-5",
+  "text": "sara os quebrantados de coração e liga-lhes as feridas; conta o número das estrelas, chamando-as a todas pelos seus nomes. Grande é o nosso Senhor e de grande poder; o seu entendimento é infinito.",
+  "words": 34,
+  "historical_context": "O Deus que cura os quebrantados é o mesmo que conta as estrelas e as chama pelo nome.",
+  "emotional_hook": "superação",
+  "tone": "comfort",
+  "audio_cues": [
+   "noite",
+   "silêncio"
+  ]
+ },
+ {
+  "id": "sl-148-7-9",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 148:7-9",
+  "text": "Louvai ao Senhor desde a terra, vós, baleias e todos os abismos, fogo e saraiva, neve e vapores e vento tempestuoso que executa a sua palavra; montes e todos os outeiros, árvores frutíferas e todos os cedros;",
+  "words": 37,
+  "historical_context": "Convocação para que a tempestade, o fogo, o granizo e as montanhas louvem a Deus.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "trovão",
+   "mar"
+  ]
+ },
+ {
+  "id": "sl-149-4-6",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 149:4-6",
+  "text": "Porque o Senhor se agrada do seu povo; ele adornará os mansos com a salvação. Exultem os santos na glória, cantem de alegria no seu leito. Estejam na sua garganta os altos louvores de Deus e espada de dois fios, nas suas mãos,",
+  "words": 43,
+  "historical_context": "Canto de vitória, com louvores na boca e espada de dois gumes na mão.",
+  "emotional_hook": "coragem",
+  "tone": "epic",
+  "audio_cues": [
+   "batalha",
+   "multidão"
+  ]
+ },
+ {
+  "id": "sl-150-1-3",
+  "book": "sl",
+  "bookName": "Salmos",
+  "testament": "AT",
+  "reference": "Salmos 150:1-3",
+  "text": "Louvai ao Senhor ! Louvai a Deus no seu santuário; louvai-o no firmamento do seu poder. Louvai-o pelos seus atos poderosos; louvai-o conforme a excelência da sua grandeza. Louvai-o com o som de trombeta; louvai-o com o saltério e a harpa.",
+  "words": 41,
+  "historical_context": "Ápice do Saltério: uma explosão de instrumentos, trombeta, harpa, tambores e címbalos.",
+  "emotional_hook": "gratidão",
+  "tone": "epic",
+  "audio_cues": [
+   "multidão",
+   "trovão"
+  ]
+ }
+]

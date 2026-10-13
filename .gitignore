@@ -4,3 +4,11 @@ data/raw/
 output/
 .env
 data/voz/
+
+# biblia/ (Remotion)
+biblia/node_modules/
+biblia/out/
+biblia/public/
+biblia/data/cache/
+biblia/data/raw/
+biblia/.env

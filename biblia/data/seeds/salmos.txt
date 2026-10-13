@@ -1,0 +1,154 @@
+# livro cap:vers | gancho | tom (epic|comfort) | sinais de áudio | contexto histórico
+# O intervalo é o MÁXIMO desejado: build-catalog corta versículos do fim até caber em ~48 palavras.
+sl 1:1-3 | sabedoria | comfort | vento,chuva | Abertura do Saltério: compara quem medita na Lei a uma árvore plantada junto à água, numa terra em que a seca decidia quem vivia e quem morria.
+sl 2:1-4 | juízo | epic | trovão,multidão | Canto de coroação de um rei de Israel, cercado de nações vizinhas que conspiravam para derrubá-lo.
+sl 3:3-6 | medo | epic | noite,batalha | Davi foge de Jerusalém quando o próprio filho, Absalão, toma o trono e reúne um exército contra ele.
+sl 4:6-8 | paz | comfort | noite,silêncio | Davi, pressionado por inimigos e rodeado de gente sem esperança, ainda consegue se deitar e dormir.
+sl 5:1-3 | ansiedade | comfort | silêncio,vento | Oração da manhã de alguém cercado de mentirosos, que escolhe falar com Deus antes de falar com qualquer pessoa.
+sl 6:6-9 | luto | comfort | noite,chuva | Um homem doente e exausto de tanto chorar, atribuído a Davi, atravessa noites inteiras sem dormir.
+sl 7:9-11 | injustiça | epic | trovão,batalha | Davi é acusado falsamente por um homem da corte de Saul e apela ao juiz de toda a terra.
+sl 8:3-6 | dúvida | comfort | noite,silêncio | Escrito por alguém que passou noites sob o céu aberto cuidando de ovelhas e se sentiu pequeno diante das estrelas.
+sl 9:9-10 | proteção | comfort | vento,montanha | Canto de gratidão depois de uma vitória, afirmando que Deus é abrigo para os oprimidos.
+sl 10:17-18 | injustiça | comfort | noite,silêncio | Lamento de um oprimido numa sociedade em que os poderosos esmagavam órfãos e pobres sem consequência.
+sl 11:1-4 | medo | epic | batalha,montanha | Aconselhado a fugir como um pássaro para as montanhas, Davi recusa e declara que sua confiança está em Deus.
+sl 12:5-6 | injustiça | comfort | fogo,silêncio | Num tempo em que a mentira corria solta, o salmista lembra que as palavras de Deus são como prata purificada no fogo.
+sl 13:1-3 | solidão | comfort | noite,silêncio | Davi, esquecido e perseguido por anos, pergunta a Deus até quando precisará esperar.
+sl 14:1-3 | orgulho | epic | trovão,multidão | Retrato de uma sociedade em que muitos viviam como se ninguém fosse pedir contas de nada.
+sl 15:1-5 | sabedoria | comfort | silêncio,montanha | Pergunta feita na entrada do santuário: quem pode estar na presença de Deus? A resposta é sobre caráter, não sobre ritual.
+sl 16:8-11 | esperança | comfort | silêncio,vento | Davi declara que, com Deus à sua direita, nada o abalará — nem mesmo a morte.
+sl 17:6-8 | proteção | comfort | noite,silêncio | Perseguido por inimigos, Davi pede para ser guardado como a menina dos olhos, sob a sombra das asas de Deus.
+sl 18:6-9 | superação | epic | trovão,tempestade | Davi, já rei, descreve como Deus o tirou das mãos de Saul e de todos os seus inimigos, em linguagem de terremoto e tempestade.
+sl 19:1-4 | sabedoria | comfort | noite,deserto | Cantado por quem olhava o céu limpo do deserto e via nas estrelas uma voz sem palavras.
+sl 20:6-8 | coragem | epic | batalha,multidão | Oração do povo na véspera de uma batalha, quando carros e cavalos pareciam decidir a guerra.
+sl 21:1-4 | gratidão | epic | multidão,fogo | Canto de agradecimento do povo pela vitória e pela vida longa do rei.
+sl 22:1-5 | solidão | epic | deserto,noite | Davi escreve de um lugar de abandono total; séculos depois, estas palavras seriam repetidas na cruz.
+sl 23:3-4 | proteção | comfort | noite,vento | Escrito por um ex-pastor que sabia o que era conduzir ovelhas por vales escuros cheios de ladrões e lobos.
+sl 24:7-10 | chamado | epic | trovão,multidão | Cantado em procissão, quando a arca da aliança foi levada a Jerusalém e as portas da cidade se abriram.
+sl 25:16-18 | solidão | comfort | noite,silêncio | Davi se descreve solitário e aflito, pedindo que alguém olhe para a sua dor.
+sl 26:1-3 | injustiça | comfort | silêncio | Davi, acusado injustamente, pede que Deus examine seu coração e seus passos.
+sl 27:1-3 | medo | epic | batalha,noite | Davi, cercado por exércitos e por traidores, declara que não tem medo porque Deus é a sua luz.
+sl 28:6-7 | gratidão | comfort | vento | Depois de clamar em desespero, Davi reconhece que foi ouvido e que o seu coração agora salta de alegria.
+sl 29:3-5 | coragem | epic | trovão,tempestade | Hino à voz de Deus como uma tempestade que desce do mar e racha os cedros do Líbano.
+sl 30:4-5 | superação | comfort | noite,silêncio | Davi agradece por ter saído de uma doença grave que quase o levou à sepultura.
+sl 31:22-24 | coragem | comfort | noite,silêncio | Davi lembra do momento em que, em pânico, achou que tinha sido abandonado — e foi ouvido.
+sl 32:1-5 | culpa | comfort | silêncio,noite | Davi descreve o peso de esconder o próprio erro, provavelmente depois do episódio com Bate-Seba, até confessá-lo.
+sl 33:16-19 | coragem | epic | batalha,multidão | O rei não se salva pelo grande exército, nem o guerreiro pela sua enorme força — uma lição repetida a um povo menor que seus vizinhos.
+sl 34:4-7 | medo | comfort | silêncio,caverna | Davi escreve depois de fingir loucura diante do rei Aquis para escapar com vida.
+sl 35:1-3 | injustiça | epic | batalha,trovão | Davi pede a Deus que lute por ele contra quem o acusa sem motivo.
+sl 36:5-7 | proteção | comfort | mar,montanha | Contraste entre a maldade dos homens e a fidelidade de Deus, vasta como os céus e profunda como o mar.
+sl 37:3-7 | ansiedade | comfort | vento,silêncio | Conselho de um homem idoso que viu muitos injustos prosperarem e depois desaparecerem: não se aflija por isso.
+sl 38:1-4 | culpa | comfort | noite,chuva | Um homem fisicamente doente e esmagado pela consciência pesada, que sente os próprios erros como uma carga grande demais.
+sl 39:4-7 | ansiedade | comfort | silêncio,vento | Davi, abatido, pede que Deus o ensine a medir os seus dias — a vida é um sopro.
+sl 40:1-3 | superação | comfort | chuva,caverna | Davi agradece por ter sido tirado de um poço de lama e posto sobre uma rocha firme.
+sl 41:9-12 | traição | epic | noite,silêncio | Davi, doente, descobre que até um amigo íntimo, que comia à sua mesa, o traiu.
+sl 42:1-5 | ansiedade | comfort | deserto,chuva | Escrito por um levita longe do templo, com sede de Deus como um cervo que procura água.
+sl 43:3-5 | esperança | comfort | noite,silêncio | Longe de casa, o salmista pede luz e verdade para voltar ao lugar a que pertence.
+sl 44:23-26 | dúvida | epic | noite,multidão | Lamento nacional depois de uma derrota, quando o povo se sentiu abandonado por Deus.
+sl 45:6-7 | juízo | epic | multidão,fogo | Canto composto para um casamento real, exaltando um trono baseado em justiça.
+sl 46:1-3 | medo | epic | trovão,mar | Canto de um povo ameaçado por exércitos, que afirma não temer nem mesmo se a terra tremer e os montes caírem no mar.
+sl 47:1-2 | gratidão | epic | multidão,trovão | Convite a todos os povos para aplaudirem o Deus que governa toda a terra.
+sl 48:1-3 | proteção | epic | montanha,multidão | Canto sobre Jerusalém, cidade fortificada que se tornou símbolo de proteção.
+sl 49:15-17 | orgulho | comfort | silêncio,vento | Meditação sobre a ilusão de que a riqueza compra segurança diante da morte.
+sl 50:1-3 | juízo | epic | fogo,tempestade | Cena de julgamento em que Deus vem como fogo devorador e tempestade ao redor.
+sl 51:10-12 | perdão | comfort | noite,silêncio | Davi, confrontado pelo profeta Natã por causa de Bate-Seba e do assassinato de Urias, pede um coração limpo.
+sl 52:1-3 | traição | epic | trovão,silêncio | Davi escreve depois que Doegue, um oficial de Saul, denunciou o sacerdote que o havia ajudado.
+sl 53:1-3 | orgulho | epic | trovão,noite | Versão paralela do salmo 14, sobre quem vive como se Deus não existisse.
+sl 54:1-4 | traição | epic | deserto,noite | Davi, escondido no deserto, é denunciado a Saul pelos zifeus, gente da sua própria terra.
+sl 55:4-8 | ansiedade | comfort | deserto,vento | Davi, traído por um amigo próximo, deseja ter asas de pomba para fugir e descansar.
+sl 56:3-4 | medo | comfort | silêncio,noite | Davi, capturado pelos filisteus em Gate, admite que sente medo e escolhe confiar.
+sl 57:1-3 | medo | comfort | caverna,noite | Escrito, segundo o título, quando Davi fugia de Saul e se escondeu numa caverna.
+sl 58:10-11 | injustiça | epic | trovão,fogo | Davi denuncia juízes corruptos e afirma que haverá justiça um dia.
+sl 59:16-17 | proteção | comfort | noite,vento | Saul mandou vigiar a casa de Davi para matá-lo; ao amanhecer, Davi canta pelo livramento.
+sl 60:11-12 | coragem | epic | batalha,deserto | Pedido de ajuda de um exército em apuros no meio de uma guerra difícil.
+sl 61:1-4 | solidão | comfort | vento,montanha | Do fim da terra, Davi clama a Deus pedindo uma rocha mais alta do que ele.
+sl 62:5-8 | paz | comfort | silêncio,montanha | Davi, rodeado de gente que o queria derrubar, encontra descanso apenas em Deus.
+sl 63:1-4 | solidão | comfort | deserto,noite | Escrito, segundo o título, no deserto de Judá, quando Davi estava longe do santuário e com sede.
+sl 64:1-2 | medo | epic | noite,silêncio | Davi pede proteção contra o terror de um inimigo, e contra as conspirações feitas em segredo.
+sl 65:9-11 | gratidão | comfort | chuva,vento | Canto de agradecimento pela chuva e pela colheita, tão importantes para um povo de agricultores.
+sl 66:10-12 | superação | epic | fogo,mar | O povo lembra que foi provado como prata no fogo, passou pelo fogo e pela água, e saiu para um lugar de abundância.
+sl 67:1-2 | gratidão | comfort | vento | Oração para que a bênção de Deus sobre Israel alcance todos os povos.
+sl 68:5-6 | solidão | comfort | silêncio,vento | Deus é descrito como pai dos órfãos e defensor das viúvas, e como quem dá lar aos solitários.
+sl 69:1-3 | ansiedade | epic | mar,chuva | Davi, no limite, sente as águas subindo até a alma e já cansou de clamar.
+sl 70:4-5 | ansiedade | comfort | silêncio | Oração curta e urgente de Davi, sentindo-se pobre e necessitado, pedindo pressa a Deus.
+sl 71:9-12 | cansaço | comfort | noite,silêncio | Oração de um idoso que teme ser abandonado quando as forças começarem a faltar.
+sl 72:12-14 | injustiça | epic | multidão | Salmo sobre o rei ideal, cuja grandeza se mede por defender o pobre e o oprimido.
+sl 73:23-26 | dúvida | comfort | noite,silêncio | Asafe confessa que quase perdeu a fé ao ver os ímpios prosperando, até entrar no santuário e ver tudo de outro ângulo.
+sl 74:1-3 | luto | epic | fogo,silêncio | Lamento de um povo vendo o templo em ruínas após a invasão babilônica.
+sl 75:4-7 | orgulho | epic | trovão | Aviso aos arrogantes: promoção não vem do leste, nem do oeste, nem do deserto, mas de Deus.
+sl 76:3-6 | proteção | epic | batalha,trovão | Celebração de uma vitória em que o inimigo foi desfeito sem que o povo precisasse lutar.
+sl 77:16-19 | coragem | epic | mar,tempestade | Asafe, insone e angustiado, lembra como Deus abriu o mar e fez as águas tremerem.
+sl 78:12-16 | superação | epic | deserto,mar | Relembra os feitos de Deus no Egito e no deserto, quando o mar se abriu e a rocha deu água.
+sl 79:8-9 | perdão | epic | fogo,silêncio | Pedido de perdão e socorro de um povo humilhado diante de Jerusalém destruída.
+sl 80:1-3 | esperança | comfort | noite,silêncio | Oração de um povo ferido, pedindo que Deus faça brilhar o seu rosto sobre eles.
+sl 81:6-7 | superação | epic | trovão | Deus lembra ao povo que o ouviu no lugar secreto do trovão, quando clamaram na aflição.
+sl 82:3-4 | injustiça | epic | trovão,multidão | Cena de tribunal em que Deus repreende juízes que deixam o pobre e o órfão sem defesa.
+sl 83:1-4 | medo | epic | batalha,noite | Oração do povo cercado por uma coalizão de nações que queria apagar o nome de Israel.
+sl 84:5-7 | esperança | comfort | deserto,chuva | Peregrinos que atravessavam o vale árido a caminho do templo, transformando-o em fonte.
+sl 85:8-10 | paz | comfort | silêncio,chuva | Oração de um povo que voltou do exílio e espera por restauração.
+sl 86:5-7 | ansiedade | comfort | silêncio,noite | Davi, em dia de angústia, lembra que Deus é bom e perdoador para quem o invoca.
+sl 87:1-3 | chamado | epic | montanha,multidão | Canto sobre Sião, a cidade em que povos de várias nações seriam registrados como filhos.
+sl 88:1-4 | luto | comfort | noite,caverna | O salmo mais sombrio do Saltério: um homem em sofrimento prolongado, quase sem esperança, que continua orando.
+sl 89:8-9 | coragem | epic | mar,tempestade | Hino que lembra que Deus governa o mar enfurecido e acalma suas ondas.
+sl 90:10-12 | sabedoria | comfort | deserto,vento | Oração atribuída a Moisés, diante da brevidade da vida, depois de quarenta anos no deserto.
+sl 91:5-7 | medo | epic | noite,batalha | Promessa de proteção para quem habita no abrigo do Altíssimo, ainda que mil caiam ao lado.
+sl 92:1-4 | gratidão | comfort | noite | Canto de louvor para o dia de descanso.
+sl 93:3-4 | coragem | epic | mar,tempestade | As ondas do mar rugem, mas o Senhor nas alturas é mais poderoso.
+sl 94:16-19 | ansiedade | comfort | noite,silêncio | Quando os pensamentos do salmista se multiplicavam, o consolo de Deus alegrava a sua alma.
+sl 95:6-8 | dúvida | comfort | deserto | Lembra a geração do deserto que endureceu o coração em Meribá e Massá.
+sl 96:1-4 | gratidão | epic | multidão,trovão | Canto composto para a chegada da arca a Jerusalém, convidando todas as nações a cantarem.
+sl 97:1-5 | juízo | epic | fogo,trovão | Imagem do Deus que reina cercado de nuvem e escuridão, com fogo adiante e relâmpagos iluminando o mundo.
+sl 98:7-9 | gratidão | epic | mar,trovão | Convite para o mar, os rios e os montes aplaudirem a chegada do juiz da terra.
+sl 99:1-3 | juízo | epic | trovão,multidão | Cena de Deus entronizado entre os querubins, e a terra estremecendo.
+sl 100:1-5 | gratidão | comfort | multidão | Canto de ação de graças entoado pelos peregrinos ao entrarem no templo.
+sl 101:2-3 | sabedoria | comfort | silêncio | Promessa de um rei de governar com integridade dentro da sua própria casa.
+sl 102:6-8 | solidão | comfort | noite,vento | Um homem aflito se compara a um pássaro solitário no telhado, sem dormir.
+sl 103:8-12 | perdão | comfort | vento,montanha | Davi canta que Deus é lento em irar-se e afasta os pecados como o oriente está longe do ocidente.
+sl 104:1-4 | gratidão | epic | trovão,vento | Hino à criação, descrevendo Deus que faz das nuvens o seu carro e anda sobre as asas do vento.
+sl 105:39-41 | superação | epic | deserto,fogueira | Recorda o deserto, com a nuvem que cobria o povo de dia e o fogo que o iluminava à noite.
+sl 106:6-8 | culpa | epic | mar,deserto | Confissão coletiva do povo, que lembra que seus antepassados esqueceram os milagres do Egito.
+sl 107:28-31 | medo | epic | tempestade,mar | Marinheiros no meio de uma tempestade clamam a Deus, e o mar se acalma.
+sl 108:12-13 | coragem | epic | batalha | Pedido de ajuda de Davi diante do inimigo: o socorro dos homens é vão.
+sl 109:21-22 | injustiça | comfort | noite,silêncio | Davi, acusado por pessoas a quem fez bem, pede ajuda a Deus.
+sl 110:1-2 | chamado | epic | trovão,multidão | Oráculo real sobre o rei que se senta à direita de Deus e governa até que os inimigos sejam derrotados.
+sl 111:9-10 | sabedoria | comfort | silêncio | Louvor às obras de Deus e declaração de que o princípio da sabedoria é o temor do Senhor.
+sl 112:6-8 | medo | comfort | silêncio | O justo não temerá más notícias, pois o seu coração está firme.
+sl 113:5-9 | solidão | comfort | vento | Louvor ao Deus que se inclina para ver o céu e a terra e levanta o pobre do pó.
+sl 114:3-8 | superação | epic | mar,montanha | Poesia sobre o êxodo: o mar viu e fugiu, o Jordão voltou atrás e os montes saltaram como carneiros.
+sl 115:9-11 | proteção | comfort | silêncio | Convite ao povo a confiar em Deus, que é socorro e escudo.
+sl 116:7-9 | paz | comfort | noite,silêncio | Quem escapou da morte volta à calma e caminha na presença de Deus.
+sl 117:1-2 | gratidão | comfort | silêncio | O menor salmo: convida todas as nações a louvar a bondade de Deus.
+sl 118:5-8 | superação | comfort | multidão,silêncio | Cantado por peregrinos que entravam em Jerusalém lembrando livramentos passados.
+sl 119:105-106 | sabedoria | comfort | noite,silêncio | O maior salmo do Saltério, um poema em acróstico que compara a palavra de Deus a uma lamparina para quem anda no escuro.
+sl 119:71-72 | superação | comfort | silêncio,chuva | O salmista reconhece que o sofrimento o ensinou mais do que a prosperidade.
+sl 119:114-117 | proteção | comfort | noite,silêncio | O salmista chama Deus de seu esconderijo e escudo em tempos de perseguição.
+sl 120:1-2 | ansiedade | comfort | noite,deserto | Primeiro dos cantos de peregrinação: alguém que vive entre mentirosos e ansiaria por paz.
+sl 121:1-4 | proteção | comfort | montanha,noite | Canto de peregrinos que olhavam para as montanhas ao redor de Jerusalém e lembravam que seu verdadeiro guarda nunca dorme.
+sl 122:6-8 | paz | comfort | multidão | Alegria dos peregrinos ao chegarem a Jerusalém, pedindo paz para a cidade.
+sl 123:1-2 | cansaço | comfort | silêncio | O salmista levanta os olhos a Deus como um servo olha para o seu senhor.
+sl 124:2-5 | superação | epic | mar,tempestade | Se o Senhor não estivesse do nosso lado, as águas teriam nos arrastado.
+sl 125:1-2 | proteção | epic | montanha | Quem confia em Deus é como o monte Sião, que não se abala; os montes cercam Jerusalém.
+sl 126:5-6 | superação | comfort | chuva,silêncio | Poema sobre a volta do cativeiro babilônico: os que semeiam com lágrimas colherão com alegria.
+sl 127:1-2 | ansiedade | comfort | noite,silêncio | Se o Senhor não edificar a casa, em vão trabalham os que a edificam.
+sl 128:1-3 | gratidão | comfort | silêncio | Bênção para quem teme a Deus: trabalho recompensado e uma casa em paz.
+sl 129:1-4 | superação | epic | batalha,noite | Muitas vezes me angustiaram desde a minha mocidade, mas não prevaleceram contra mim.
+sl 130:1-5 | perdão | comfort | noite,silêncio | Do mais fundo, o salmista clama por perdão e espera por Deus como o vigia espera pela manhã.
+sl 131:1-3 | ansiedade | comfort | silêncio,vento | Salmo curto de Davi: acalmou a alma como uma criança no colo da mãe.
+sl 132:1-5 | esperança | epic | noite,multidão | Davi jura não descansar até achar um lugar para Deus habitar.
+sl 133:1-3 | paz | comfort | silêncio,montanha | Como é bom e agradável os irmãos viverem em união, como o orvalho do Hermom.
+sl 134:1-3 | gratidão | comfort | noite,silêncio | Último canto de peregrinação, dirigido aos que vigiavam o templo à noite.
+sl 135:5-7 | juízo | epic | trovão,chuva | Hino que celebra o Deus que faz subir as nuvens e produz os relâmpagos para a chuva.
+sl 136:23-26 | gratidão | epic | multidão | Refrão repetido pelo povo e pelos sacerdotes: porque a sua benignidade dura para sempre.
+sl 137:1-4 | luto | epic | silêncio,mar | Exilados às margens dos rios da Babilônia, incapazes de cantar canções de alegria.
+sl 138:7-8 | coragem | comfort | silêncio,vento | Mesmo andando no meio da angústia, Davi diz que Deus o reanima e completa o que começou.
+sl 139:7-12 | proteção | epic | noite,mar | Davi pergunta para onde poderia fugir da presença de Deus, e conclui que nem a escuridão esconde.
+sl 140:1-4 | injustiça | epic | noite,batalha | Davi pede livramento de pessoas violentas que tramam o mal e afiam a língua como serpentes.
+sl 141:3-4 | sabedoria | comfort | silêncio | Pedido para que Deus ponha uma guarda na boca do salmista.
+sl 142:1-4 | solidão | comfort | caverna,silêncio | Escrito, segundo o título, quando Davi estava escondido numa caverna, fugindo de Saul.
+sl 143:3-8 | cansaço | comfort | deserto,noite | Davi, perseguido e abatido, tem sede de Deus como a terra seca tem sede de chuva.
+sl 144:1-2 | coragem | epic | batalha,trovão | Davi agradece pelo treino para a guerra e chama Deus de sua fortaleza.
+sl 145:14-16 | provisão | comfort | vento,silêncio | Deus sustenta os que caem e levanta os abatidos; os olhos de todos esperam nele.
+sl 146:5-7 | esperança | comfort | silêncio | Aviso para não confiar em príncipes, mas no Deus que faz justiça aos oprimidos.
+sl 147:3-5 | superação | comfort | noite,silêncio | O Deus que cura os quebrantados é o mesmo que conta as estrelas e as chama pelo nome.
+sl 148:7-9 | gratidão | epic | trovão,mar | Convocação para que a tempestade, o fogo, o granizo e as montanhas louvem a Deus.
+sl 149:4-6 | coragem | epic | batalha,multidão | Canto de vitória, com louvores na boca e espada de dois gumes na mão.
+sl 150:1-6 | gratidão | epic | multidão,trovão | Ápice do Saltério: uma explosão de instrumentos, trombeta, harpa, tambores e címbalos.

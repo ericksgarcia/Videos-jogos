@@ -1,0 +1,174 @@
+/**
+ * Esteira completa:  engine → roteiro → narração (Google TTS) → linha do tempo no compasso →
+ * visuais (Replicate e/ou Pexels) → mixagem de áudio → plano → render no Remotion.
+ *
+ *   npm run video                         # tudo, modo "hybrid"
+ *   npm run video -- --visual replicate   # só imagens Flux + profundidade (parallax 2.5D)
+ *   npm run video -- --visual pexels      # só vídeos do Pexels com cortes no ritmo
+ *   npm run video -- --ref sl-23          # força uma passagem (prefixo do id do catálogo)
+ *   npm run video -- --offline            # voz/imagens sintéticas de teste (sem chaves)
+ *   opções: --seed N  --tone epic|comfort  --no-render  --no-history  --frames 300-450
+ */
+import { spawnSync } from "node:child_process";
+import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { basename, extname, join } from "node:path";
+import { loadCatalog, loadHistory, RAIZ, saveHistory } from "../lib/catalog.ts";
+import "../lib/env.ts";
+import { FPS, type Plano, type PlanoTomada } from "../lib/plan.ts";
+import { gravarMix, mixar } from "../audio/mix.ts";
+import { pickNext, prng, registrar } from "./engine.ts";
+import { finalizar } from "./encode.ts";
+import { prepararOverlays } from "./overlays.ts";
+import { imagemFalsa, videoFalso } from "./offline.ts";
+import { buscarClipe } from "./pexels.ts";
+import { dataUri, gerarImagem, gerarProfundidade } from "./replicate.ts";
+import { DUR_MAX, ENQUADRAMENTOS, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
+import { gerarRoteiro } from "./script.ts";
+import { narrar } from "./tts.ts";
+
+type ModoVisual = "hybrid" | "replicate" | "pexels";
+
+function args() {
+  const a = process.argv.slice(2);
+  const v = (k: string) => { const i = a.indexOf(`--${k}`); return i >= 0 ? a[i + 1] : undefined; };
+  return {
+    offline: a.includes("--offline"), semRender: a.includes("--no-render"), semHistorico: a.includes("--no-history"),
+    visual: (v("visual") ?? "hybrid") as ModoVisual, ref: v("ref"), seed: v("seed") ? Number(v("seed")) : undefined,
+    tom: v("tone") as "epic" | "comfort" | undefined, frames: v("frames"),
+  };
+}
+
+async function main() {
+  const o = args();
+  prepararOverlays();
+  const rand = prng(o.seed ?? Date.now());
+  const catalogo = loadCatalog();
+  const historico = loadHistory();
+
+  // 1) engine
+  let entrada;
+  if (o.ref) {
+    entrada = catalogo.find((e) => e.id === o.ref) ?? catalogo.find((e) => e.id.startsWith(o.ref!));
+    if (!entrada) throw new Error(`passagem "${o.ref}" não existe no catálogo`);
+  } else {
+    const r = pickNext(catalogo, historico, { rand, tone: o.tom });
+    entrada = r.entry;
+    if (r.relaxed.length) console.warn(`⚠ regras relaxadas: ${r.relaxed.join(", ")}`);
+  }
+  console.log(`▶ ${entrada.reference} | gancho: ${entrada.emotional_hook} | ritmo: ${entrada.tone} | sinais: ${entrada.audio_cues.join(", ")}`);
+
+  // 2) roteiro
+  const rot = await gerarRoteiro(entrada, historico, { rand, offline: o.offline });
+  console.log(`  roteiro (${rot.origem}); CTA [${rot.cta_style}]: "${rot.cta}"`);
+
+  // 3) narração
+  const falas = await narrar([
+    { chave: "ato1", texto: rot.ato1, perfil: "narrador", maxDur: 11.2 },
+    { chave: "cta", texto: rot.cta, perfil: "cta", maxDur: 4.0 },
+    { chave: "ato2", texto: rot.versiculo, perfil: "leitura", maxDur: 19 },
+    { chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: 20 },
+  ], o.offline) as Record<"ato1" | "cta" | "ato2" | "ato3", Awaited<ReturnType<typeof narrar>>[string]>;
+  console.log("  narração: " + (["ato1", "cta", "ato2", "ato3"] as const).map((k) => `${k} ${falas[k].dur.toFixed(1)}s`).join(" | "));
+
+  // 4) linha do tempo
+  const bpm = bpmDoTom(entrada.tone);
+  let linha = montarLinha(falas, bpm);
+  if (linha.total > DUR_MAX) {
+    // O ato 3 é o elástico: fala mais ligeiro (até 1.0) para o vídeo fechar em DUR_MAX.
+    const orcamento = DUR_MAX - 0.8 - linha.ini.ato3;
+    console.warn(`  ato 3 refeito para caber em ${orcamento.toFixed(1)} s`);
+    falas.ato3 = (await narrar([{ chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: orcamento }], o.offline)).ato3;
+    linha = montarLinha(falas, bpm);
+  }
+  linha.avisos.forEach((x) => console.warn("⚠ " + x));
+  const segs = segmentos(falas, linha);
+  const climaxT = palavraClimaxTempo(segs.find((s) => s.id === "ato2")!, rot.climax);
+
+  const id = `${new Date().toISOString().slice(0, 10)}-${entrada.id}`;
+  const pub = join(RAIZ, "public/runs", id), saida = join(RAIZ, "out", id);
+  mkdirSync(pub, { recursive: true }); mkdirSync(saida, { recursive: true });
+
+  // 5) visuais
+  const anteriores = new Set(historico.slice(-30).flatMap((h) => h.pexels_ids ?? []));
+  const usados = new Set<number>(anteriores);   // o Pexels não repete clipes dos últimos 30 vídeos
+  const tomadas: PlanoTomada[] = [];
+  const creditos: string[] = [];
+  const temRep = Boolean(process.env.REPLICATE_API_TOKEN), temPex = Boolean(process.env.PEXELS_API_KEY);
+  let n = 0;
+  for (const bloco of blocos(linha, bpm)) {
+    const limites = [bloco.ini, ...bloco.cortes, bloco.fim];
+    for (let k = 0; k < limites.length - 1; k++, n++) {
+      const [ini, fim] = [limites[k], limites[k + 1]];
+      const cena = rot.cenas[bloco.ato];
+      const usarPexels = o.offline ? bloco.ato !== "ato1"
+        : o.visual === "pexels" ? true : o.visual === "replicate" ? false
+        : bloco.ato !== "ato1" ? temPex || !temRep : !temRep && temPex;   // hybrid: ato1=Flux, resto=Pexels
+      const ext = (f: string) => extname(f) || ".png";
+      if (usarPexels) {
+        const arq = o.offline ? videoFalso(n, Math.ceil(fim - ini) + 2)
+          : await (async () => {
+            const c = await buscarClipe(cena.pexels[k % cena.pexels.length], usados, Math.ceil(fim - ini) + 1, k);
+            creditos.push(`Pexels — ${c.autor}: ${c.url}`);
+            return c.arquivo;
+          })();
+        const dest = `tomada-${n}.mp4`; copyFileSync(arq, join(pub, dest));
+        tomadas.push({ ini, fim, tipo: "video", src: `runs/${id}/${dest}`, seed: n });
+      } else {
+        let img: string, prof: string | undefined;
+        if (o.offline) ({ imagem: img, profundidade: prof } = imagemFalsa(n));
+        else {
+          img = await gerarImagem(`${cena.flux}, ${ENQUADRAMENTOS[k % ENQUADRAMENTOS.length]}`, 1000 + n);
+          try { prof = await gerarProfundidade(await dataUri(img), img); }
+          catch (e) { console.warn(`⚠ sem mapa de profundidade na tomada ${n}: ${(e as Error).message}`); }
+        }
+        const di = `tomada-${n}${ext(img)}`; copyFileSync(img, join(pub, di));
+        let dp: string | undefined;
+        if (prof) { dp = `profundidade-${n}${ext(prof)}`; copyFileSync(prof, join(pub, dp)); }
+        tomadas.push({ ini, fim, tipo: "parallax", src: `runs/${id}/${di}`, depth: dp && `runs/${id}/${dp}`, seed: n });
+      }
+    }
+  }
+  console.log(`  visuais: ${tomadas.length} tomadas (${tomadas.filter((t) => t.tipo === "video").length} vídeo, ${tomadas.filter((t) => t.tipo === "parallax").length} parallax); cortes no compasso de ${bpm} BPM`);
+
+  // 6) áudio
+  const at = linha.ini;
+  const mix = mixar({
+    total: linha.total,
+    voz: [{ ini: at.ato1, audio: falas.ato1.audio }, { ini: at.cta, audio: falas.cta.audio }, { ini: at.ato2, audio: falas.ato2.audio }, { ini: at.ato3, audio: falas.ato3.audio }],
+    atos: { ato1: [0, at.cta], cta: [at.cta, at.ato2], ato2: [at.ato2, at.ato3], ato3: [at.ato3, linha.total] },
+    cues: entrada.audio_cues, tom: entrada.tone, bpm, climaxEm: climaxT,
+  });
+  const mixArq = gravarMix(mix.esq, mix.dir, join(pub, "mix"));
+  copyFileSync(mixArq, join(saida, basename(mixArq)));
+
+  // 7) plano
+  const plano: Plano = {
+    id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
+    audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
+    rotulo: rotuloDe(entrada, at.ato2),
+  };
+  const planoArq = join(saida, "plano.json");
+  writeFileSync(planoArq, JSON.stringify(plano, null, 2));
+  writeFileSync(join(saida, "roteiro.json"), JSON.stringify({ referencia: entrada.reference, contexto: entrada.historical_context, ...rot, falas: { ato1: rot.ato1, cta: rot.cta, ato2: rot.versiculo, ato3: rot.ato3 } }, null, 2));
+  if (creditos.length) writeFileSync(join(saida, "creditos.json"), JSON.stringify(creditos, null, 2));
+  console.log(`  plano: ${planoArq} (${linha.total.toFixed(1)} s)`);
+
+  // 8) render
+  if (!o.semRender) {
+    const bruto = join(saida, "bruto.mp4"), video = join(saida, "video.mp4");
+    const r = spawnSync("npx", ["remotion", "render", "src/remotion/index.ts", "Verso", bruto, `--props=${planoArq}`, "--codec=h264", "--crf=20", ...(o.frames ? [`--frames=${o.frames}`] : [])],
+      { cwd: RAIZ, stdio: "inherit" });
+    if (r.status !== 0) throw new Error("render falhou");
+    const [f0, f1] = o.frames ? o.frames.split("-").map(Number) : [0, Math.round(linha.total * FPS) - 1];
+    const { mb, kbps } = finalizar(bruto, video, (f1 - f0 + 1) / FPS);
+    console.log(`✔ ${video} (${mb.toFixed(1)} MB, vídeo a ${kbps} kbps)`);
+  }
+
+  // 9) histórico (só depois de o vídeo existir)
+  if (!o.semHistorico && !o.offline) {
+    saveHistory(registrar(historico, entrada, { cta_style: rot.cta_style, cta_text: rot.cta, pexels_ids: [...usados].filter((x) => !anteriores.has(x)) }));
+    console.log("  histórico atualizado");
+  }
+}
+
+main().catch((e) => { console.error("✖", e instanceof Error ? e.message : e); process.exit(1); });
