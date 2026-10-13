@@ -6,6 +6,7 @@ import { ParallaxScene } from "./ParallaxScene";
 import { StockScene } from "./StockScene";
 import { CenaProcedural, type Cenario, type Clima } from "./CenaProcedural";
 import { GanchoTela, SeloComentario } from "./Engajamento";
+import { Cenografia } from "./Cenografia";
 
 const DISSOLVER = 8; // quadros de fusão entre tomadas
 
@@ -26,7 +27,7 @@ export const Video = (plano: Plano) => {
   const t = frame / fps;
   const q = (s: number) => Math.round(s * fps);
   const cortes = plano.tomadas.slice(1).map((x) => x.ini);
-  const proc = plano.tomadas.every((x) => x.tipo === "procedural"); // cenas vetoriais já são claras e limpas: menos escurecimento
+  const proc = plano.tomadas.every((x) => x.tipo === "procedural" || x.tipo === "cenografia"); // cenas vetoriais já são claras e limpas: menos escurecimento
 
   // Pulsação sutil da imagem inteira a cada batida (mais forte na leitura do versículo).
   const beat = 60 / plano.bpm;
@@ -43,13 +44,16 @@ export const Video = (plano: Plano) => {
       <Audio src={staticFile(plano.audio)} />
       <AbsoluteFill style={{ transform: `scale(${pulsar})`, filter: proc ? "contrast(1.06) saturate(1.0) brightness(1.08)" : "contrast(1.1) saturate(0.88) brightness(0.9)" }}>
         {plano.tomadas.map((x, i) => {
-          const dur = q(x.fim - x.ini);
+          const dur = (i === plano.tomadas.length - 1 ? durationInFrames : q(x.fim)) - q(x.ini); // pelos quadros: sem buraco no fim
           const entrada = i === 0 ? 0 : DISSOLVER;
           const resto = i === plano.tomadas.length - 1 ? 0 : DISSOLVER; // fica por baixo enquanto a próxima aparece
           return (
             <Sequence key={i} from={q(x.ini) - entrada} durationInFrames={dur + entrada + resto} layout="none">
               <FusaoEntrada entrada={entrada}>
-                {x.tipo === "procedural" ? (
+                {x.tipo === "cenografia" ? (
+                  <Cenografia cena={x.cena ?? "cova_leoes"} variante={x.variante} duracaoQuadros={dur + entrada}
+                    climaxQuadro={plano.climax.t >= x.ini && plano.climax.t < x.fim ? Math.round((plano.climax.t - x.ini) * fps) + entrada : undefined} />
+                ) : x.tipo === "procedural" ? (
                   <CenaProcedural
                     cenario={(x.cenario ?? "noite") as Cenario} clima={(x.clima ?? []) as Clima[]} seed={x.seed} duracaoQuadros={dur + entrada}
                     climaxQuadro={Math.round((plano.climax.t - x.ini) * fps) + entrada}
@@ -64,7 +68,7 @@ export const Video = (plano: Plano) => {
         })}
       </AbsoluteFill>
       <FaixaLegibilidade forca={proc ? 0.5 : 1} />
-      <Fumaca intensidade={proc ? 0.1 : plano.tom === "epic" ? 0.26 : 0.18} />
+      <Fumaca intensidade={plano.tomadas.some((x) => x.tipo === "cenografia") ? 0.035 : proc ? 0.1 : plano.tom === "epic" ? 0.26 : 0.18} />
       <Poeira />
       <Pulso cortes={cortes} />
       <Vinheta forca={proc ? 0.62 : 0.88} />

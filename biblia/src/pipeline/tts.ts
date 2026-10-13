@@ -144,8 +144,8 @@ const DIRECAO_BASE =
   "## DIRECTOR'S NOTES\nStyle: voz grave, profunda e calorosa; solene, nunca eufórica, sem tom de pregador nem de propaganda; " +
   "gravidade e ternura. Accent: português do Brasil. ";
 const DIRECAO: Record<keyof typeof PERFIS, string> = {
-  narrador: "Pace: lento e pausado, com pausas longas nos pontos finais, como quem conta uma história séria à luz de vela.\n#### TRANSCRIPT\n",
-  leitura: "Pace: muito lento e solene, cada frase com peso e silêncio depois dela, como a leitura de um texto sagrado; sem pressa.\n#### TRANSCRIPT\n",
+  narrador: "Pace: pausado mas fluido, como trailer de cinema: frases curtas, pausas breves, tensão crescente, sem arrastar.\n#### TRANSCRIPT\n",
+  leitura: "Pace: solene e firme, cada frase com peso, como a leitura de um texto sagrado; pausas curtas entre as frases.\n#### TRANSCRIPT\n",
   cta: "Pace: moderado, voz mais próxima e baixa, quase sussurrada, como um convite sincero entre amigos.\n#### TRANSCRIPT\n",
 };
 
@@ -249,6 +249,32 @@ export async function alinharComGemini(palavras: string[], audio: Float32Array):
   return out;
 }
 
+
+/** Encurta silêncios longos para no máximo `max` s (corta o meio da pausa, com fusão de 10 ms). */
+export function encurtarPausas(audio: Float32Array, max = 0.5, limiar = 0.012): Float32Array {
+  const jan = Math.floor(SR * 0.01), maxA = Math.floor(max * SR), fusao = Math.floor(SR * 0.01);
+  const silencioso = (i: number) => { let m = 0; for (let k = i; k < Math.min(audio.length, i + jan); k++) m = Math.max(m, Math.abs(audio[k])); return m < limiar; };
+  const cortes: [number, number][] = [];
+  let ini = -1;
+  for (let i = 0; i < audio.length; i += jan) {
+    if (silencioso(i)) { if (ini < 0) ini = i; }
+    else if (ini >= 0) { if (i - ini > maxA) cortes.push([ini + Math.floor(maxA / 2), i - Math.floor(maxA / 2)]); ini = -1; }
+  }
+  if (!cortes.length) return audio;
+  const partes: Float32Array[] = [];
+  let a = 0;
+  for (const [c0, c1] of cortes) { partes.push(audio.subarray(a, c0)); a = c1; }
+  partes.push(audio.subarray(a));
+  const out = new Float32Array(partes.reduce((n, p) => n + p.length, 0));
+  let o = 0;
+  partes.forEach((p, k) => {
+    out.set(p, o);
+    if (k > 0) for (let i = 0; i < fusao && o + i < out.length; i++) out[o + i] *= i / fusao; // entrada suave
+    o += p.length;
+  });
+  return out;
+}
+
 function aparar(audio: Float32Array): Float32Array {
   let a = 0, b = audio.length;
   while (a < b && Math.abs(audio[a]) < 0.004) a++;
@@ -269,8 +295,8 @@ function acelerar(audio: Float32Array, fator: number): Float32Array {
   return out;
 }
 
-async function geminiBruto(texto: string, perfil: keyof typeof PERFIS): Promise<string> {
-  const chaveCache = createHash("sha1").update(JSON.stringify([texto, perfil, GEMINI_VOZ(), GEMINI_MODELO(), DIRECAO[perfil]])).digest("hex").slice(0, 16);
+async function geminiBruto(texto: string, perfil: keyof typeof PERFIS, tentativa = 0): Promise<string> {
+  const chaveCache = createHash("sha1").update(JSON.stringify([texto, perfil, GEMINI_VOZ(), GEMINI_MODELO(), DIRECAO[perfil], tentativa || undefined])).digest("hex").slice(0, 16);
   mkdirSync(cacheDir(), { recursive: true });
   const arq = join(cacheDir(), `gem-${chaveCache}.b64`);
   if (existsSync(arq)) return readFileSync(arq, "utf8");
@@ -294,12 +320,26 @@ async function geminiBruto(texto: string, perfil: keyof typeof PERFIS): Promise<
   return b64;
 }
 
+const decodificar = (buf: Buffer) => buf.toString("ascii", 0, 4) === "RIFF"
+  ? reamostrar(lerWav(buf))
+  : (() => { const n = Math.floor(buf.length / 2), f = new Float32Array(n); for (let i = 0; i < n; i++) f[i] = buf.readInt16LE(i * 2) / 32768; return reamostrar({ sr: 24000, data: f }); })();
+
+/** Segundos de FALA (sem pausas) por palavra: acima de ~0,75 o modelo leu algo a mais (direção, repetição). */
+export const segundosPorPalavra = (audio: Float32Array, palavras: number) => {
+  const sem = encurtarPausas(audio, 0.08);
+  return sem.length / SR / Math.max(1, palavras);
+};
+
 async function sintetizarGemini(texto: string, perfil: keyof typeof PERFIS, maxDur: number): Promise<Fala> {
-  const buf = Buffer.from(await geminiBruto(texto, perfil), "base64");
-  let audio = buf.toString("ascii", 0, 4) === "RIFF"
-    ? reamostrar(lerWav(buf))
-    : (() => { const n = Math.floor(buf.length / 2), f = new Float32Array(n); for (let i = 0; i < n; i++) f[i] = buf.readInt16LE(i * 2) / 32768; return reamostrar({ sr: 24000, data: f }); })();
-  audio = aparar(audio);
+  const n = texto.split(/\s+/).filter(Boolean).length;
+  let audio = new Float32Array(0);
+  for (let tentativa = 0; tentativa < 4; tentativa++) {
+    audio = aparar(decodificar(Buffer.from(await geminiBruto(texto, perfil, tentativa), "base64")));
+    const spp = segundosPorPalavra(audio, n);
+    if (spp <= 0.75) break;
+    console.warn(`  ⚠ narração suspeita (${spp.toFixed(2)} s/palavra: leu algo a mais ou repetiu) — pedindo de novo`);
+  }
+  audio = encurtarPausas(audio, perfil === "leitura" ? 0.6 : 0.42);
   let taxa = 1;
   if (audio.length / SR > maxDur) { // acelera só o necessário, no máximo 1,18x
     taxa = Math.min(1.18, (audio.length / SR / maxDur) * 1.01);

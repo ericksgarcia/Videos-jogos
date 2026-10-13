@@ -1,10 +1,60 @@
 {
-  "gancho_tela": ["UMA NOITE INTEIRA", "COM OS LEÕES"],
+  "gancho_tela": [
+    "UMA NOITE INTEIRA",
+    "COM OS LEÕES"
+  ],
   "ato1": "Um decreto proíbe orar. Daniel ora assim mesmo. Jogado na cova dos leões, passa a noite lá dentro. De manhã, o rei grita o nome dele.",
   "cta": "Se Deus já te guardou numa noite assim, escreve: Amém.",
   "cta_tela": "Comente: AMÉM",
   "ato3": "Talvez a sua cova hoje tenha outro nome: diagnóstico, dívida, solidão. A pedra parece fechada e ninguém vê você lá dentro. Mas o mesmo Deus fecha a boca dos leões. E tudo começou numa noite em que",
   "loop": true,
   "climax": "leões,",
-  "cta_style": "amem"
+  "cta_style": "amem",
+  "tomadas": [
+    {
+      "cena": "janela_babilonia"
+    },
+    {
+      "cena": "cova_leoes",
+      "variante": "queda",
+      "palavra": "Jogado"
+    },
+    {
+      "cena": "cova_leoes",
+      "palavra": "passa"
+    },
+    {
+      "cena": "amanhecer_cova",
+      "palavra": "De"
+    },
+    {
+      "cena": "janela_babilonia",
+      "variante": "perto",
+      "inicio": "cta"
+    },
+    {
+      "cena": "cova_leoes",
+      "variante": "anjo",
+      "inicio": "ato2"
+    },
+    {
+      "cena": "amanhecer_cova",
+      "variante": "perto",
+      "palavra": "porque"
+    },
+    {
+      "cena": "quarto_chuva",
+      "inicio": "ato3"
+    },
+    {
+      "cena": "quarto_chuva",
+      "variante": "luz",
+      "palavra": "Mas"
+    },
+    {
+      "cena": "janela_babilonia",
+      "variante": "volta",
+      "palavra": "E"
+    }
+  ]
 }

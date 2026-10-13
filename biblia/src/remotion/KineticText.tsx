@@ -16,24 +16,26 @@ const OURO = "#f6c64a";
 const MARFIM = "#f4ecd8";
 const OPACIDADE_APAGADA = 0.35;
 
-interface Frase { seg: SegmentoPlano["id"]; palavras: PalavraPlano[]; ini: number; fim: number; ate: number }
+interface Frase { seg: SegmentoPlano["id"]; palavras: PalavraPlano[]; ini: number; fim: number; ate: number; colada: boolean; seguida: boolean }
 
 /** Quebra em frases curtas: no máximo `max` palavras, preferindo cortar após pontuação. */
 export function dividirFrases(segs: SegmentoPlano[], max = 6): Frase[] {
   const frases: Frase[] = [];
   for (const s of segs) {
     let atual: PalavraPlano[] = [];
-    const fechar = () => { if (atual.length) { frases.push({ seg: s.id, palavras: atual, ini: atual[0].ini, fim: atual[atual.length - 1].fim, ate: 0 }); atual = []; } };
+    const fechar = () => { if (atual.length) { frases.push({ seg: s.id, palavras: atual, ini: atual[0].ini, fim: atual[atual.length - 1].fim, ate: 0, colada: false, seguida: false }); atual = []; } };
     for (const w of s.palavras) {
       atual.push(w);
       const forte = /[.!?…]$/.test(w.t), medio = /[,;:]$/.test(w.t);
-      if (forte || (medio && atual.length >= 3) || atual.length >= max) fechar();
+      if (forte || (medio && atual.length >= 2) || atual.length >= max) fechar();
     }
     fechar();
   }
   frases.forEach((f, i) => {
     const prox = frases[i + 1];
-    f.ate = prox && prox.ini - f.fim < 1.2 ? prox.ini : f.fim + 0.55;   // fica até a próxima, ou some logo após o fim
+    f.seguida = Boolean(prox && prox.ini - f.fim < 1.2);
+    f.ate = f.seguida ? prox.ini : f.fim + 0.55;   // fica até a próxima, ou some logo após o fim
+    if (prox) prox.colada = f.seguida;            // emendadas: troca direta, sem piscar
   });
   return frases;
 }
@@ -75,18 +77,21 @@ export const KineticText = ({ segmentos }: { segmentos: SegmentoPlano[] }) => {
   const { fps } = useVideoConfig();
   const t = frame / fps;
   const frases = dividirFrases(segmentos);
-  const f = frases.find((x) => t >= x.ini - 0.12 && t < x.ate);
+  const f = frases.find((x) => t >= (x.colada ? x.ini : x.ini - 0.12) && t < x.ate);
   if (!f) return null;
   const verso = f.seg === "ato2";
   const cta = f.seg === "cta";
-  const entrada = interpolate(t, [f.ini - 0.12, f.ini + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const saida = interpolate(t, [f.ate - 0.18, f.ate], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  // frase emendada na anterior: entra com um "pop" curto (sem fade); frase isolada: fade normal
+  const entrada = f.colada ? 1 : interpolate(t, [f.ini - 0.12, f.ini + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const saida = f.seguida ? 1 : interpolate(t, [f.ate - 0.18, f.ate], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const pop = f.colada ? spring({ frame: frame - Math.round(f.ini * fps), fps, config: { damping: 14, stiffness: 260, mass: 0.5 } }) : 1;
   return (
     <div style={{
       position: "absolute", left: 70, right: 70, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center",
       paddingTop: verso ? 120 : 260, textAlign: "center", opacity: entrada * saida,
-      transform: `translateY(${(1 - entrada) * 18}px)`,
+      transform: `translateY(${(1 - entrada) * 18}px) scale(${0.94 + 0.06 * pop})`,
     }}>
+      <div style={{ position: "absolute", left: -40, right: -40, top: verso ? "38%" : "44%", height: verso ? 420 : 360, background: "radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 45%, rgba(0,0,0,0) 72%)", pointerEvents: "none" }} />
       <div style={{
         fontFamily: verso ? "Cinzel, serif" : "'Cormorant Garamond', serif", fontWeight: verso ? 700 : 700,
         fontStyle: cta ? "italic" : "normal", fontSize: verso ? 78 : cta ? 84 : 92, lineHeight: 1.22,

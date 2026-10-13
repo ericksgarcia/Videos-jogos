@@ -41,8 +41,12 @@ function args() {
 }
 
 /** Roteiro escrito à mão/por Claude: JSON { ato1, cta, ato3, climax?, cta_style } (o versículo vem sempre do catálogo). */
+type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+let extras: Extras = {};
+
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
+  extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   return { ato1: j.ato1, cta: j.cta, ato3: j.ato3, versiculo: e.text, climax: palavraClimax(e.text, j.climax), cta_style: j.cta_style ?? "manual",
@@ -83,13 +87,13 @@ async function main() {
 
   // 4) linha do tempo
   const bpm = bpmDoTom(entrada.tone);
-  let linha = montarLinha(falas, bpm);
+  let linha = montarLinha(falas, bpm, extras.loop);
   if (linha.total > DUR_MAX) {
     // O ato 3 é o elástico: fala mais ligeiro (até 1.0) para o vídeo fechar em DUR_MAX.
     const orcamento = DUR_MAX - 0.8 - linha.ini.ato3;
     console.warn(`  ato 3 refeito para caber em ${orcamento.toFixed(1)} s`);
     falas.ato3 = (await narrar([{ chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: orcamento }], o.offline)).ato3;
-    linha = montarLinha(falas, bpm);
+    linha = montarLinha(falas, bpm, extras.loop);
   }
   linha.avisos.forEach((x) => console.warn("⚠ " + x));
   const segs = segmentos(falas, linha);
@@ -100,13 +104,31 @@ async function main() {
   mkdirSync(pub, { recursive: true }); mkdirSync(saida, { recursive: true });
 
   // 5) visuais
+  let tomadasRoteiro = null as PlanoTomada[] | null;
+  if (extras.tomadas?.length) {
+    // Cenografia do roteiro: cada tomada começa NA palavra indicada (ou no início de um ato).
+    const todas = segs.flatMap((sg) => sg.palavras.map((w) => ({ ...w, seg: sg.id })));
+    const limpa = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, "");
+    let depois = 0;
+    const inicios = extras.tomadas.map((tm, k) => {
+      if (k === 0) return 0;
+      if (tm.inicio) { const sg = segs.find((x) => x.id === tm.inicio); if (sg) return (depois = sg.ini); }
+      const w = todas.find((x) => x.ini > depois + 0.3 && limpa(x.t) === limpa(tm.palavra ?? ""));
+      if (!w) throw new Error(`tomada ${k}: palavra "${tm.palavra}" não encontrada depois de ${depois.toFixed(1)}s`);
+      return (depois = Math.max(0, w.ini - 0.06));   // o corte antecipa a palavra em 2 quadros
+    });
+    const roteiroTomadas: PlanoTomada[] = extras.tomadas.map((tm, k) => ({
+      ini: inicios[k], fim: k + 1 < inicios.length ? inicios[k + 1] : 0, tipo: "cenografia", src: "", cena: tm.cena, variante: tm.variante, seed: k,
+    }));
+    tomadasRoteiro = roteiroTomadas;
+  }
   const anteriores = new Set(historico.slice(-30).flatMap((h) => h.pexels_ids ?? []));
   const usados = new Set<number>(anteriores);   // o Pexels não repete clipes dos últimos 30 vídeos
   const tomadas: PlanoTomada[] = [];
   const creditos: string[] = [];
   const temRep = Boolean(process.env.REPLICATE_API_TOKEN), temPex = Boolean(process.env.PEXELS_API_KEY);
   let n = 0;
-  for (const bloco of blocos(linha, bpm)) {
+  for (const bloco of tomadasRoteiro ? [] : blocos(linha, bpm)) {
     const limites = [bloco.ini, ...bloco.cortes, bloco.fim];
     for (let k = 0; k < limites.length - 1; k++, n++) {
       const [ini, fim] = [limites[k], limites[k + 1]];
@@ -146,6 +168,7 @@ async function main() {
       }
     }
   }
+  if (tomadasRoteiro) { tomadasRoteiro[tomadasRoteiro.length - 1].fim = linha.total; tomadas.push(...tomadasRoteiro); }
   console.log(`  visuais: ${tomadas.length} tomadas (${tomadas.filter((t) => t.tipo === "video").length} vídeo, ${tomadas.filter((t) => t.tipo === "parallax").length} parallax); cortes no compasso de ${bpm} BPM`);
 
   // 6) áudio
@@ -154,7 +177,7 @@ async function main() {
     total: linha.total,
     voz: [{ ini: at.ato1, audio: falas.ato1.audio }, { ini: at.cta, audio: falas.cta.audio }, { ini: at.ato2, audio: falas.ato2.audio }, { ini: at.ato3, audio: falas.ato3.audio }],
     atos: { ato1: [0, at.cta], cta: [at.cta, at.ato2], ato2: [at.ato2, at.ato3], ato3: [at.ato3, linha.total] },
-    cues: entrada.audio_cues, tom: entrada.tone, bpm, climaxEm: climaxT,
+    cues: entrada.audio_cues, tom: entrada.tone, bpm, climaxEm: climaxT, abertura: Boolean(extras.gancho_tela), loop: extras.loop,
   });
   const mixArq = gravarMix(mix.esq, mix.dir, join(pub, "mix"));
   copyFileSync(mixArq, join(saida, basename(mixArq)));
@@ -164,6 +187,8 @@ async function main() {
     id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
     rotulo: rotuloDe(entrada, at.ato2),
+    gancho_tela: extras.gancho_tela, loop: extras.loop,
+    cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");
   writeFileSync(planoArq, JSON.stringify(plano, null, 2));
