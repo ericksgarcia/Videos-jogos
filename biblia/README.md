@@ -34,6 +34,40 @@ Opções de `npm run video -- ...`
 Requisitos: Node ≥ 20, **ffmpeg** no PATH. Sem GPU (servidor/CI) use `REMOTION_GL=swangle`
 (≈ 0,7–1 s/quadro com 4 núcleos → 20–30 min por vídeo); com GPU o padrão `angle` é bem mais rápido.
 
+## 0. Modo sem custo além da narração (recomendado)
+
+Só a narração é paga (Gemini TTS, ou Google Cloud TTS se houver chave). Todo o resto é gratuito:
+
+- **Roteiro escrito à mão/por Claude** em `data/roteiros/<id>.json` e passado com `--roteiro`:
+  ```json
+  {
+    "gancho_tela": ["UMA NOITE INTEIRA", "COM OS LEÕES"],
+    "ato1": "…", "cta": "…", "cta_tela": "Comente: AMÉM", "ato3": "…",
+    "loop": true, "climax": "leões,", "cta_style": "amem",
+    "tomadas": [
+      { "cena": "janela_babilonia" },
+      { "cena": "cova_leoes", "variante": "queda", "palavra": "Jogado" },
+      { "cena": "cova_leoes", "variante": "anjo", "inicio": "ato2" }
+    ]
+  }
+  ```
+  O versículo vem sempre do catálogo. Cada tomada começa **na palavra** indicada (`palavra`) ou no início de um ato
+  (`inicio`); a primeira começa em 0. `loop: true` tira os fades e encurta a cauda: termine o Ato 3 emendando na
+  primeira frase do Ato 1 e use na última tomada a variante `volta` (volta ao enquadramento inicial).
+- **Fundo desenhado** (`src/remotion/Cenografia.tsx`): cenas completas em SVG com luz e volume — `janela_babilonia`
+  (`perto`, `volta`), `cova_leoes` (`queda`, `anjo` = luz dourada no clímax), `amanhecer_cova` (`perto`),
+  `quarto_chuva` (`luz`). Peças reaproveitáveis: céu, lua, estrelas, cidade antiga, palmeira, pessoa ajoelhada, rei,
+  leão, feixe de luz com poeira. Veja todas com `npx remotion still src/remotion/index.ts GaleriaCenografia out/g.png`.
+  Para outra passagem, crie as cenas dela no mesmo arquivo e registre em `CENAS`.
+- **Legendas alinhadas de graça** (`src/audio/alinhador.ts`): o mesmo texto é gerado com a voz grátis do Edge TTS
+  (que informa o instante de cada palavra) e casado com a narração real por MFCC + DTW, com refinamento pela energia.
+  Medido com gabarito (`npx tsx scripts/avaliar-alinhador.ts`): **erro médio 29 ms, mediana 17 ms, 94 % < 100 ms**
+  (um quadro = 33 ms). Requer `pip install -r requirements.txt` (edge-tts). `ALINHADOR=gemini` volta ao Gemini (pago).
+- **Ritmo da narração sob controle**: pausas longas do TTS são cortadas (máx. 0,42 s; 0,6 s no versículo) e, se o
+  áudio tiver fala demais para o texto (> 0,75 s/palavra — o modelo leu algo além do texto), ele é pedido de novo.
+- **Engajamento**: gancho em texto grande nos 2,5 s iniciais com batida grave no 1º quadro; selo "Comente: …"
+  durante o CTA; cortes e clarão no ritmo; final em loop.
+
 ## 1. Banco de dados (`data/catalog.json`, `src/pipeline/engine.ts`)
 
 - **294 trechos**: os **150 Salmos** (um por salmo, mais 2 trechos extras do 119), Provérbios (26), Isaías (23),
