@@ -6,6 +6,10 @@
 //   mandibula: -1..1, olho: 0.8–1.3, sobrancelha: 0.6–1.6 (espessura), feminino, crianca, idade }
 // Coordenadas: milésimos de H, origem no topo do pescoço; coroa em y≈-162, frente do rosto em x≈60.
 
+// Estilo de desenho (o.estilo em figura): "linha" (traço de luz, o padrão), "cheio" (cores chapadas com sombra, sem brilho: ilustração
+// vetorial) ou "silhueta" (corpo escuro, sem feições; só a luz de contorno do cenário o desenha).
+let KIT_ESTILO = "linha";
+const kitEsc = (rgb, k) => String(rgb).split(",").map((v) => Math.round(+v * k)).join(",");
 // Proporções de Loomis: a cabeça (coroa −162 até o queixo −2) em terços do rosto. Olhos no meio da altura da cabeça,
 // sobrancelha logo acima, base do nariz a 1/3 do queixo, boca a 1/3 entre o nariz e o queixo, orelha entre a sobrancelha e
 // a base do nariz. Os pontos desenhados à mão (de antes) ficam como estão; esta função remapeia a altura (y) de tudo
@@ -28,6 +32,8 @@ function kitPerfil(r = {}) {
 // traço de pincel: largura máxima no meio e fina nas pontas (pontos já na tela)
 function kitPincel(y, pts, w, rgb, a = 1, o = {}) {
   if (pts.length < 2) return;
+  if (KIT_ESTILO === "silhueta") return;
+  if (KIT_ESTILO === "cheio") { rgb = kitEsc(rgb, 0.45); o = { ...o, brilho: 0 }; a = Math.min(1, a * 1.1); }
   const n = pts.length, g = (k) => pts[Math.max(0, Math.min(n - 1, k))], S = [];
   for (let k = 0; k < n - 1; k++) { const p0 = g(k - 1), p1 = g(k), p2 = g(k + 1), p3 = g(k + 2), c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
     for (let j = 0; j < 8; j++) { const u = j / 8, v = 1 - u; S.push([v * v * v * p1[0] + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * p2[0], v * v * v * p1[1] + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * p2[1]]); } }
@@ -62,7 +68,7 @@ function kitRosto(y, poe, traca, o) {
     pin([[ex0, ey], [39, ey - 4.5 * ab], [45, ey - 4.2 * ab], [ex1, ey - 0.8]], 1.15);
     pin([[ex0 + 1, ey + 0.5], [41, ey + 2.4 * ab], [ex1 - 1, ey + 0.6]], 0.6, 0.8);
     const [ix, iy] = poe([[43.5, ey - 1.4]])[0], ir = Math.max(1.2, 3.1 * ab * o.kk * W / 3.3);
-    y.beginPath(); y.ellipse(ix, iy, ir * 0.62, ir, 0, 0, 6.283); y.fillStyle = `rgba(${P},${o.a})`; y.fill();
+    y.beginPath(); y.ellipse(ix, iy, ir * 0.62, ir, 0, 0, 6.283); y.fillStyle = `rgba(${KIT_ESTILO === "cheio" ? kitEsc(P, 0.35) : P},${o.a})`; y.fill();
     pin([[ex0 + 2, ey - 6.5 * ab], [41, ey - 8.5 * ab], [ex1 - 2, ey - 6.5 * ab]], 0.55, 0.6);
     if (fem || r.cilios) { pin([[ex1 - 2, ey - 3.5], [ex1 + 4, ey - 6.5]], 0.6, 0.9); pin([[ex1 - 5, ey - 4.2], [ex1, ey - 8.5]], 0.5, 0.8); }
   }
@@ -102,7 +108,7 @@ function kitReamostra(pts, m) {
 function kitDentro(p, poly) { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < (b[0] - a[0]) * (p[1] - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; }
 // massa: preenche (esconde o que está atrás) e tinge com luz vinda de cima/frente
 function kitMassa(y, poe, pts, o, al = 1) {
-  const sp = poe(pts); y.beginPath(); _curva(y, sp, true); y.fillStyle = `rgba(${o.fundo},0.97)`; y.fill();
+  const sp = poe(pts); y.beginPath(); _curva(y, sp, true); y.fillStyle = KIT_ESTILO === "cheio" ? `rgba(${kitEsc(o.rgb, 0.78)},1)` : KIT_ESTILO === "silhueta" ? "rgba(8,10,24,1)" : `rgba(${o.fundo},0.97)`; y.fill();
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
   const fx = o.d > 0 ? x1 : x0, g = y.createLinearGradient(fx, y0, o.d > 0 ? x0 : x1, y1);
   g.addColorStop(0, `rgba(${o.rgb},${0.3 * al})`); g.addColorStop(0.5, `rgba(${o.rgb},${0.12 * al})`); g.addColorStop(1, `rgba(${o.rgb},${0.05 * al})`); y.fillStyle = g; y.fill();

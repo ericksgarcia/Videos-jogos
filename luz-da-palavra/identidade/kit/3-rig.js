@@ -5,6 +5,7 @@
 //   (mão de trás, mão da frente). Mesmo retorno do personagem(): { maos, cotovelos, ombro, quadril, cabeca,
 //   escala, pr, H, oy, ox, d }. Sem rosto, sempre.
 function figura(x, t, pose0, o = {}) {
+  KIT_ESTILO = o.estilo || "linha";
   const F = { ...(KIT_ELENCO[o.tipo] || KIT_ELENCO.pessoa), ...(o.ficha || {}) }, d = o.dir ?? 1, a = o.a ?? 1, fase = o.fase ?? 0;
   const H = (o.H || 560) * (F.alt || 1), s = H / 1000, L = F.larg || 1, hk = F.cabecaGrande || 1, id = F.idade || 0;
   // vida: respiração e leve balanço quando parado; idade curva as costas
@@ -36,6 +37,14 @@ function figura(x, t, pose0, o = {}) {
   const poe = (pts, P, u, sx = 1, sy = 1) => pts.map(([px, py]) => pr([P[0] + fr(u)[0] * px * s * sx + u[0] * py * s * sy, P[1] + fr(u)[1] * px * s * sx + u[1] * py * s * sy]));
   const traca = (sp, fechado, o2 = {}) => {
     y.beginPath(); _curva(y, sp, fechado);
+    if (KIT_ESTILO !== "linha") { // ilustração cheia (cores chapadas com degradê e contorno fino escuro) ou silhueta
+      const c2 = o2.rgb || RGB;
+      if (fechado && o2.fill !== false) { let y0 = 1e9, y1 = -1e9; for (const [, py] of sp) { y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
+        if (KIT_ESTILO === "silhueta") y.fillStyle = "rgba(8,10,24,1)";
+        else { const g = y.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, `rgba(${kitEsc(c2, 0.95)},1)`); g.addColorStop(1, `rgba(${kitEsc(c2, 0.66)},1)`); y.fillStyle = g; }
+        y.fill(); if (KIT_ESTILO === "cheio" && !o2.semTraco) { y.strokeStyle = `rgba(${kitEsc(c2, 0.38)},0.9)`; y.lineWidth = LW * 0.5 * (o2.lw || 1); y.stroke(); } }
+      else if (!fechado && KIT_ESTILO === "cheio") { y.strokeStyle = `rgba(${kitEsc(c2, 0.4)},0.8)`; y.lineWidth = LW * 0.5; y.stroke(); }
+      return; }
     if (fechado && o2.fill !== false) {
       y.fillStyle = `rgba(${fundo},${o2.fa ?? 0.95})`; y.fill();
       let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
@@ -124,9 +133,9 @@ function figura(x, t, pose0, o = {}) {
   const hB = T(-62, 34), hF = T(62, 34), wB = T(-56, -42), wF = T(56, -42);
   { const sp = [wB, hB, hemB, meio, hemF, hF, wF].map(pr); y.beginPath(); y.moveTo(sp[0][0], sp[0][1]); y.quadraticCurveTo(sp[1][0], sp[1][1], (sp[1][0] + sp[2][0]) / 2, (sp[1][1] + sp[2][1]) / 2);
     y.lineTo(sp[2][0], sp[2][1]); y.quadraticCurveTo(sp[3][0], sp[3][1], sp[4][0], sp[4][1]); y.lineTo((sp[5][0] + sp[4][0]) / 2, (sp[5][1] + sp[4][1]) / 2); y.quadraticCurveTo(sp[5][0], sp[5][1], sp[6][0], sp[6][1]); y.closePath();
-    y.fillStyle = `rgba(${fundo},0.95)`; y.fill(); let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
+    y.fillStyle = KIT_ESTILO === "linha" ? `rgba(${fundo},0.95)` : KIT_ESTILO === "silhueta" ? "rgba(8,10,24,1)" : `rgba(${kitEsc(RGB, 0.82)},1)`; y.fill(); let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
     const g = y.createLinearGradient(d > 0 ? x1 : x0, y0, d > 0 ? x0 : x1, y1); g.addColorStop(0, `rgba(${RGB},0.15)`); g.addColorStop(0.5, `rgba(${RGB},0.03)`); g.addColorStop(1, "rgba(0,0,0,0)"); y.fillStyle = g; y.fill();
-    y.strokeStyle = `rgba(${RGB},1)`; y.lineWidth = LW; y.shadowColor = `rgba(${RGB},0.65)`; y.shadowBlur = 9 * kk; y.stroke(); y.shadowBlur = 0; y.stroke();
+    if (KIT_ESTILO === "linha") { y.strokeStyle = `rgba(${RGB},1)`; y.lineWidth = LW; y.shadowColor = `rgba(${RGB},0.65)`; y.shadowBlur = 9 * kk; y.stroke(); y.shadowBlur = 0; y.stroke(); } else if (KIT_ESTILO === "cheio") { y.strokeStyle = `rgba(${kitEsc(RGB, 0.38)},0.9)`; y.lineWidth = LW * 0.5; y.stroke(); }
     // faixa bordada perto da barra (estilo pela ficha: linha, dupla, zigue, pontos, nenhuma)
     const est = F.barraEstilo ?? "linha";
     if (est) { const up2 = (P, k) => [P[0] + (k * 0.035 * H) * (-uT[0]), P[1] + (k * 0.035 * H) * (-uT[1])];
