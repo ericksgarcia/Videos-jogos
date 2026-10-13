@@ -14,7 +14,7 @@ function figura(x, t, pose0, o = {}) {
   const pose = o.vida === false ? p0 : { ...p0, tronco: p0.tronco + 0.012 * Math.sin(t * 1.7 + fase), cabeca: p0.cabeca + 0.02 * Math.sin(t * 1.1 + fase * 2) };
   const Lt = 0.28 * H, Ln = 0.03 * H * (hk > 1 ? 0.45 : 1), Rh = 0.066 * H * hk, La = 0.165 * H, Lf = 0.15 * H, Lc = 0.235 * H, Ls = 0.225 * H;
   const v = (ang, l) => [Math.sin(ang) * d * l, Math.cos(ang) * l], up = (ang, l) => [Math.sin(ang) * d * l, -Math.cos(ang) * l], ad = (p, q, k = 1) => [p[0] + q[0] * k, p[1] + q[1] * k];
-  const C = up(pose.tronco, Lt), N = ad(C, up(pose.tronco + pose.cabeca * 0.4, Ln)), Hd = ad(N, up(pose.tronco + pose.cabeca, Rh * 0.95)), S = ad(C, up(pose.tronco, -0.035 * H));
+  const C = up(pose.tronco, Lt), N = ad(ad(C, up(pose.tronco + pose.cabeca * 0.4, Ln)), up(pose.tronco + Math.PI / 2, 0.012 * H)), Hd = ad(N, up(pose.tronco + pose.cabeca, Rh * 0.95)), S = ad(C, up(pose.tronco, -0.035 * H));
   const bracos = pose.braco.map(([om, co]) => { const E = ad(S, v(pose.tronco + om, La)); return [S, E, ad(E, v(pose.tronco + om + co, Lf))]; });
   const pernas = pose.perna.map(([qu, jo]) => { const K = v(qu, Lc); return [[0, 0], K, ad(K, v(qu + jo, Ls)), qu]; });
   let baixo = 0; for (const [, K, Fp] of pernas) baixo = Math.max(baixo, K[1] + 0.03 * H, Fp[1] + 0.05 * H); baixo = Math.max(baixo, C[1], Hd[1] + Rh);
@@ -87,7 +87,7 @@ function figura(x, t, pose0, o = {}) {
   const PERF_PERNA = [[0, 0, 34, 35], [0, 0.3, 32, 32], [0, 0.75, 25, 24], [1, 0, 19, 20], [1, 0.26, 24, 18], [1, 0.62, 16, 14], [1, 1, 11, 11]];
   const braco = ([Sb, E, W], k, atras) => {
     const al = atras ? 0.75 : 1, uA = un(Sb, E), uF = un(E, W), sx = 1.02 + 0.14 * L;
-    traca(membro([Sb, E, W], PERF_BRACO, sx * 1.2).map(pr), true, { al, rgb: PELE });
+    traca(membro([Sb, E, W], PERF_BRACO, sx * 1.2, 0.5, atras ? 0 : 0.5).map(pr), true, { al, rgb: PELE }); // braço de trás não sobe acima do ombro
     { const mk = KIT_ESTILO === "cheio" ? 1.28 : 1; peca("mao_" + (maos[k] || "aberta"), W, uF, { al, sx: (hk > 1 ? 1.0 : 0.94) * mk, sy: (hk > 1 ? 1.0 : 0.94) * (KIT_ESTILO === "cheio" ? 1.12 : 1), rgb: PELE }); }
     // mangas de tecido: forma contínua com dobras de pincel; a longa abre em sino no punho
     const manga = (m) => { const sp = m.map(pr); traca(sp, true, { al, semTraco: true }); traca(sp, false, { al, fill: false }); }; // ombro sem emenda
@@ -96,11 +96,11 @@ function figura(x, t, pose0, o = {}) {
     { const crz = uA[0] * uF[1] - uA[1] * uF[0], dobrado = Math.min(1, Math.abs(crz) * 2.2); // dobras de compressão no lado de dentro do cotovelo
       if (dobrado > 0.3 && F.manga === "manga_longa") { const lado = crz > 0 ? 1 : -1; for (let q = 0; q < 3; q++) dobra([ponto(0, 0.93 - 0.05 * q, lado * 6), ponto(1, 0.06 + 0.07 * q, lado * 24), ponto(1, 0.1 + 0.07 * q, lado * 8)], 0.6, 0.35 + 0.4 * dobrado); } }
     if (F.manga === "manga_curta") {
-      manga(membro([Sb, E, W], [[0, -0.14, 22, 20], [0, 0.04, 27, 25], [0, 0.3, 28, 28], [0, 0.58, 31, 32]], sx * 1.12, 0, 0));
+      manga(membro([Sb, E, W], [[0, atras ? 0.08 : -0.14, 22, 20], [0, 0.04, 27, 25], [0, 0.3, 28, 28], [0, 0.58, 31, 32]], sx * 1.12, 0, 0));
       dobra([ponto(0, 0.5, -24), ponto(0, 0.53, 0), ponto(0, 0.5, 25)], 0.6, 0.6); dobra([ponto(0, 0.12, 6), ponto(0, 0.3, 10), ponto(0, 0.44, 6)], 0.6, 0.55);
     }
     if (F.manga === "manga_longa") {
-      manga(membro([Sb, E, W], [[0, -0.14, 22, 20], [0, 0.04, 26, 24], [0, 0.45, 24, 24], [1, 0, 21, 22], [1, 0.4, 21, 22], [1, 0.7, 25, 26], [1, 0.9, 35, 36]], sx * 1.12, 0, 0));
+      manga(membro([Sb, E, W], [[0, atras ? 0.08 : -0.14, 22, 20], [0, 0.04, 26, 24], [0, 0.45, 24, 24], [1, 0, 21, 22], [1, 0.4, 21, 22], [1, 0.7, 25, 26], [1, 0.9, 35, 36]], sx * 1.12, 0, 0));
       dobra([ponto(1, 0.76, -30), ponto(1, 0.8, 0), ponto(1, 0.76, 31)], 0.6, 0.6);
       dobra([ponto(0, 0.82, 14), ponto(0, 0.92, 4), ponto(1, 0.06, 12)], 0.7, 0.7); dobra([ponto(1, 0.1, -16), ponto(1, 0.35, -6), ponto(1, 0.6, -10)], 0.6, 0.55);
       dobra([ponto(0, 0.15, 4), ponto(0, 0.45, 8), ponto(0, 0.7, 2)], 0.6, 0.5);
@@ -133,7 +133,9 @@ function figura(x, t, pose0, o = {}) {
   // ajoelhado/sentado: o pano cai pela gravidade (o ponto médio da barra desce até o nível do chão/da perna mais baixa)
   const abre2 = Math.max(0, Math.min(1, (Math.abs(pernas[0][3] - pernas[1][3]) - 0.6) / 0.8)), baixoHem = Math.max(hemF[1], hemB[1]) + 0.015 * H;
   const meio = [(hemF[0] + hemB[0]) / 2 + bal - 0.05 * H * d * abre2, PT.lerp((hemF[1] + hemB[1]) / 2 + 0.01 * H, baixoHem, abre2)];
-  const hB = T(-62, 34), hF = T(62, 34), wB = T(-56, -42), wF = T(56, -42);
+  // coxa da frente levantada (ajoelhado, sentado, passo largo): o pano passa POR CIMA da coxa e do joelho (nada de perna à mostra)
+  const kq = Math.max(0, Math.min(1, (Math.abs(ppF[3]) - 0.55) / 0.6)), kneeTop = ad(ad(ppF[1], fr(un(ppF[0], ppF[1])), 0.055 * H * L), un(ppF[0], ppF[1]), 0.035 * H);
+  const hB = T(-62, 34), hF0 = T(62, 34), hF = [PT.lerp(hF0[0], kneeTop[0], kq), PT.lerp(hF0[1], kneeTop[1], kq)], wB = T(-56, -42), wF = T(56, -42);
   { const sp = [wB, hB, hemB, meio, hemF, hF, wF].map(pr); y.beginPath(); y.moveTo(sp[0][0], sp[0][1]); y.quadraticCurveTo(sp[1][0], sp[1][1], (sp[1][0] + sp[2][0]) / 2, (sp[1][1] + sp[2][1]) / 2);
     y.lineTo(sp[2][0], sp[2][1]); y.quadraticCurveTo(sp[3][0], sp[3][1], sp[4][0], sp[4][1]); y.lineTo((sp[5][0] + sp[4][0]) / 2, (sp[5][1] + sp[4][1]) / 2); y.quadraticCurveTo(sp[5][0], sp[5][1], sp[6][0], sp[6][1]); y.closePath();
     y.fillStyle = KIT_ESTILO === "linha" ? `rgba(${fundo},0.95)` : KIT_ESTILO === "silhueta" ? "rgba(8,10,24,1)" : `rgba(${kitEsc(RGB, 0.82)},1)`; y.fill(); if (KIT_ESTILO === "cheio") kitSombreia(y, sp, RGB, 1, kk, 1, (ox, oy) => { const q = sp.map(([px, py]) => [px + ox, py + oy]); y.moveTo(q[0][0], q[0][1]); y.quadraticCurveTo(q[1][0], q[1][1], (q[1][0] + q[2][0]) / 2, (q[1][1] + q[2][1]) / 2); y.lineTo(q[2][0], q[2][1]); y.quadraticCurveTo(q[3][0], q[3][1], q[4][0], q[4][1]); y.lineTo((q[5][0] + q[4][0]) / 2, (q[5][1] + q[4][1]) / 2); y.quadraticCurveTo(q[5][0], q[5][1], q[6][0], q[6][1]); y.closePath(); }); let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [px, py] of sp) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
@@ -158,6 +160,35 @@ function figura(x, t, pose0, o = {}) {
       kitPincel(y, [top, m1, m2, bot].map(pr), LW * (0.55 + 0.45 * Math.abs(Math.sin(n * 2.3 + 1))), RGB, a * (0.3 + 0.35 * Math.abs(Math.cos(n * 1.7 + 0.4))), { brilho: 4 * kk, ini: 0.05, fim: 0.45, suave: true }); }
     const aperto = Math.abs(pernas[0][3] - pernas[1][3]);
     if (aperto > 0.3) { const ap = [PT.lerp(T(0, 30)[0], meio[0], 0.42), PT.lerp(T(0, 30)[1], meio[1], 0.42)]; kitPincel(y, [T(-44, 26), [ap[0] - 0.03 * H * d, ap[1] - 0.01 * H], [ap[0] + 0.03 * H * d, ap[1] - 0.01 * H], T(44, 26)].map(pr), LW * 0.8, RGB, a * Math.min(0.7, 0.15 + aperto * 0.3), { brilho: 4 * kk, suave: true }); } }
+  // ---- cabeça + pescoço numa SILHUETA SÓ (desenhada ANTES do tronco: a roupa cobre a base do pescoço) ----
+  // Um contorno contínuo: base da nuca → nuca (curva para dentro) → parte de trás do crânio → topo → testa, nariz, boca,
+  // queixo → por baixo do queixo até o ângulo com a garganta → garganta descendo até o peito. Sem emenda entre cabeça e
+  // pescoço; a mandíbula vira só um traço interno suave. Sombra: a do queixo projetada no pescoço e o lado da nuca mais escuro.
+  const uH = un(Hd, N), [hsx, hsy] = F.cab || [1, 1], hs = { sx: hsx * hk, sy: hsy * hk };
+  const poeF = kitFace((pts) => poe(pts, N, uH, hs.sx, hs.sy)), poeT = (pts) => poe(pts, [0, 0], un(C, [0, 0]), 1.12 * L, 1);
+  const R = { ...({ cabeca_aquilino: { nariz: 1.1, curva: 0.8 }, cabeca_curto: { nariz: 0.78, curva: -0.5, ponta: 0.5 }, cabeca_queixo: { queixo: 1, mandibula: 1 } }[F.cabeca] || {}), feminino: !!F.cilios, crianca: hk > 1, idade: id, ...(F.rosto || {}) };
+  { const kc = hk > 1 ? 0.82 : 1, P = kitPerfil(R); // P[1] = trás do crânio embaixo … P[22] = embaixo do queixo
+    const nucaT = poeT([[-34 * kc, -248], [-34 * kc, -292]]), nucaH = poeF([[-36 * kc, -6]]), cabeca = poeF(P.slice(1, 23));
+    const gargH = hk > 1 ? poeF([[28, -1.5]]) : poeF([[31, -1.5], [25, 12]]), gargT = poeT([[22 * kc, -292], [20 * kc, -262]]);
+    const silhueta = [...nucaT, ...nucaH, ...cabeca, ...gargH, ...gargT];
+    traca(silhueta, true, { rgb: PELE, semTraco: true, flat: true, fa2: 0 });
+    if (KIT_ESTILO === "cheio") {
+      // só a parte do pescoço (abaixo da linha da mandíbula) recebe as sombras
+      const pescoco = [...gargH, ...gargT, ...nucaT, ...nucaH, ...poeF([[-48, -38], [-30, -16], [14, -9], [28, -4]])];
+      y.save(); y.beginPath(); _curva(y, pescoco, true); y.clip();
+      const gU = gargH[gargH.length - 1], mF = [PT.lerp(gU[0], gargT[0][0], 0.5), PT.lerp(gU[1], gargT[0][1], 0.5)], mN = [PT.lerp(nucaH[0][0], nucaT[1][0], 0.5), PT.lerp(nucaH[0][1], nucaT[1][1], 0.5)];
+      const gv = y.createLinearGradient(mF[0], mF[1], mN[0], mN[1]); gv.addColorStop(0, `rgba(${kitSombraPele(PELE, 0.95)},0)`); gv.addColorStop(0.5, `rgba(${kitSombraPele(PELE, 0.95)},0.06)`); gv.addColorStop(1, `rgba(${kitSombraPele(PELE, 0.95)},0.4)`);
+      y.fillStyle = gv; y.fillRect(Math.min(mF[0], mN[0]) - 0.2 * H, Math.min(mF[1], mN[1]) - 0.2 * H, Math.abs(mF[0] - mN[0]) + 0.4 * H, 0.5 * H);
+      const jaw = poeF([[54, -6], [42, -1], [28, -3], [14, -8], [-10, -13], [-32, -16]]), desce = 0.032 * H * kk * (hk > 1 ? 0.75 : 1);
+      let jy = -1e9; for (const [, py] of jaw) jy = Math.max(jy, py);
+      y.beginPath(); jaw.forEach(([px, py], k2) => k2 ? y.lineTo(px, py) : y.moveTo(px, py));
+      for (let k2 = jaw.length - 1; k2 >= 0; k2--) { const [px, py] = jaw[k2], u = k2 / (jaw.length - 1); y.lineTo(px, py + desce * (u < 0.5 ? 1 : 1 - 1.4 * (u - 0.5))); }
+      y.closePath(); y.filter = `blur(${Math.max(1, 0.006 * H * kk)}px)`; const gj = y.createLinearGradient(0, jy - desce * 0.5, 0, jy + desce); gj.addColorStop(0, `rgba(${kitSombraPele(PELE, 0.85)},0.7)`); gj.addColorStop(1, `rgba(${kitSombraPele(PELE, 0.85)},0)`); y.fillStyle = gj; y.fill();
+      y.restore();
+      // mandíbula: traço interno fino que nasce no queixo e some antes da orelha (não é contorno)
+      kitPincel(y, poeF([[47, -4], [34, -6], [20, -11], [9, -19]]), LW * 0.75, kitSombraPele(PELE, 0.8), a * 0.35, { brilho: 0, ini: 0.05, fim: 0.02, suave: false });
+    }
+    traca(silhueta, false, { rgb: PELE, fill: false }); }
   // tronco, cinto, manto
   { const pc = KIT_PECAS[F.corpo || "tronco"], sp = poe(pc.contorno, [0, 0], uT, 1.12 * L, 1); traca(sp, true, { semTraco: true }); traca(sp.slice(0, 15), false, { fill: false });
     const pt2 = (pts) => poe(pts, [0, 0], uT, 1.12 * L, 1);
@@ -174,28 +205,7 @@ function figura(x, t, pose0, o = {}) {
     traca(pt2([[40, -46], [50, -48], [54, -40], [50, -32], [40, -34], [38, -40]]), true, { rgb: ROUPA2, lw: 0.9 }); }
   if (F.xale) peca("xale", [0, 0], uT, { sx: 1.12 * L, rgb: ROUPA2 });
   if (F.manto) peca("manto", [0, 0], uT, { sx: 1.12 * L, sy: Math.max(0.7, (F.barra || 400) / 430), rgb: rgbOf(F.corManto || cor) });
-  // pescoço e cabeça (cabeça no osso do pescoço → centro), cabelo, barba, cobertura
-  const uH = un(Hd, N), [hsx, hsy] = F.cab || [1, 1], hs = { sx: hsx * hk, sy: hsy * hk };
-  // pescoço: sai de baixo da mandíbula (frente, mais baixo) e da nuca (trás, mais alto); inclina um pouco para a frente, a frente é
-  // quase reta e a nuca abre em curva para o ombro (trapézio). A cabeça é desenhada por cima; a gola da roupa esconde a base.
-  { const uN = un(N, C), fN = fr(uN), pT = poe([[13, -10], [-28, -38]], N, uH, hs.sx, hs.sy), tf = pT[0], tb = pT[1];
-    const mf = pr(ad(C, fN, 0.022 * H)), bf = pr(ad(C, fN, 0.03 * H)), mb = pr(ad(C, fN, -0.02 * H)), bb = pr(ad(C, fN, -0.052 * H));
-    const nuca = [tb, [PT.lerp(tb[0], mb[0], 0.45) - 0.004 * H * d, PT.lerp(tb[1], mb[1], 0.45)], [PT.lerp(mb[0], bb[0], 0.7), PT.lerp(mb[1], bb[1], 0.7)], bb], frente = [tf, [PT.lerp(tf[0], mf[0], 0.5), PT.lerp(tf[1], mf[1], 0.5)], bf];
-    // decote em U: a base do pescoço desce em curva por baixo (pele aparecendo na abertura da túnica)
-    const cen = [(bf[0] + bb[0]) / 2, (bf[1] + bb[1]) / 2 + 0.05 * H], arco = (u) => [(1 - u) * (1 - u) * bf[0] + 2 * u * (1 - u) * cen[0] + u * u * bb[0], (1 - u) * (1 - u) * bf[1] + 2 * u * (1 - u) * cen[1] + u * u * bb[1]], u5 = [1, 2, 3, 4, 5].map((k) => arco(k / 6));
-    const forma = [tf, ...frente.slice(1), ...u5, ...nuca.slice(0, 3).reverse()];
-    traca(forma, true, { rgb: PELE, semTraco: true, flat: true, fa2: 0 });
-    if (KIT_ESTILO === "cheio") { y.save(); y.beginPath(); _curva(y, forma, true); y.clip(); const gs = y.createLinearGradient(0, tf[1], 0, tf[1] + 0.06 * H * kk); gs.addColorStop(0, `rgba(${kitSombraPele(PELE, 0.78)},0.85)`); gs.addColorStop(1, `rgba(${kitSombraPele(PELE, 0.78)},0)`); y.fillStyle = gs; y.fillRect(tf[0] - 0.1 * H, tf[1], 0.2 * H, 0.1 * H); y.restore(); }
-    traca(frente, false, { rgb: PELE, fill: false }); traca(nuca, false, { rgb: PELE, fill: false });
-    // friso fino do decote, na cor de detalhe da roupa, acompanhando a curva do U
-    { const ar = [...u5]; y.save(); y.lineCap = "round"; y.lineJoin = "round"; y.beginPath(); _curva(y, ar, false);
-      if (KIT_ESTILO === "linha") { y.strokeStyle = `rgba(${ROUPA2},0.9)`; y.lineWidth = LW * 1.1; y.stroke(); }
-      else if (KIT_ESTILO === "cheio") { y.strokeStyle = `rgba(${kitSombra(ROUPA2, 1.3)},1)`; y.lineWidth = LW * 1.5; y.stroke(); y.strokeStyle = `rgba(${kitEsc(ROUPA2, 0.38)},0.9)`; y.lineWidth = LW * 0.4; y.stroke(); }
-      y.restore(); } }
-  // rosto por medidas (ficha.rosto) ou pelo perfil antigo da ficha (cabeca_aquilino, cabeca_curto, cabeca_queixo)
-  const R = { ...({ cabeca_aquilino: { nariz: 1.1, curva: 0.8 }, cabeca_curto: { nariz: 0.78, curva: -0.5, ponta: 0.5 }, cabeca_queixo: { queixo: 1, mandibula: 1 } }[F.cabeca] || {}), feminino: !!F.cilios, crianca: hk > 1, idade: id, ...(F.rosto || {}) };
-  const poeF = kitFace((pts) => poe(pts, N, uH, hs.sx, hs.sy));
-  { const sp = poeF(kitPerfil(R)); traca(sp, true, { rgb: PELE, semTraco: true, fa2: 0, flat: true }); /* rosto: um tom só (nada de metade clara, metade escura) */ traca(sp.slice(1), false, { rgb: PELE, fill: false }); }
+  // cabeça (no osso do pescoço → centro), cabelo, barba, cobertura (o pescoço já foi desenhado antes do tronco)
   kitRosto(y, poeF, traca, { expr: o.expr || F.expr || "neutro", t, fase, idade: id, PELE, LW, kk, a, rosto: R });
   const poeH = poeF, oH = { rgb: CABELO, LW, kk, a, d, fundo, PELE };
   if (F.barba && !kitBarba(y, F.barba, poeH, oH)) peca(F.barba, N, uH, { ...hs, rgb: CABELO });
