@@ -1,0 +1,14 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "teste-25d",
+  "titulo": "Teste 2.5D",
+  "gancho": "TESTE 2.5D",
+  "gancho_destaque": "2.5D",
+  "voz": "Achird",
+  "sons": {},
+  "cenas": [
+    {"id": "estabulo", "tipo": "estabulo", "titulo": "",
+     "fala": "Não é Deus lá longe, olhando de cima. É Deus aqui, na noite sem dormir, no medo, na decisão difícil. Foi isso que o José entendeu.",
+     "batidas": {}}
+  ]
+}
