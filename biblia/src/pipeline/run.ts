@@ -79,7 +79,7 @@ async function main() {
     { chave: "ato2", texto: rot.versiculo, perfil: "leitura", maxDur: 19 },
     { chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: 20 },
   ], o.offline) as Record<"ato1" | "cta" | "ato2" | "ato3", Awaited<ReturnType<typeof narrar>>[string]>;
-  console.log("  narração: " + (["ato1", "cta", "ato2", "ato3"] as const).map((k) => `${k} ${falas[k].dur.toFixed(1)}s`).join(" | "));
+  console.log("  duração: " + (["ato1", "cta", "ato2", "ato3"] as const).map((k) => `${k} ${falas[k].dur.toFixed(1)}s`).join(" | "));
 
   // 4) linha do tempo
   const bpm = bpmDoTom(entrada.tone);

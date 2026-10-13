@@ -10,12 +10,13 @@
  * Autenticação: GOOGLE_TTS_API_KEY (chave de API) ou GOOGLE_TTS_ACCESS_TOKEN (OAuth/gcloud).
  * `offline`: voz sintética de teste (rajadas de ruído por palavra) — só para validar a esteira.
  */
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { RAIZ } from "../lib/catalog.ts";
 import { comTentativas } from "../lib/env.ts";
-import { SR, escreverWavMono, lerWav, reamostrar } from "../audio/wav.ts";
+import { SR, escreverWavMono, lerWav, lerWavArquivo, reamostrar } from "../audio/wav.ts";
 import { prng } from "./engine.ts";
 
 const cacheDir = () => process.env.BIBLIA_TTS_CACHE ?? join(RAIZ, "data/cache/tts");
@@ -133,16 +134,205 @@ function sintetizarOffline(texto: string, p: Perfil, taxa: number): Fala {
   return { audio, dur: est.dur, palavras: out, taxa };
 }
 
+
+// ───────────────────────────── Gemini TTS (alternativa, sem chave própria nas sessões na nuvem) ─────────────────────────────
+const GEMINI_VOZ = () => process.env.GEMINI_TTS_VOICE ?? "Charon";
+const GEMINI_MODELO = () => process.env.GEMINI_TTS_MODEL ?? "gemini-3.8-flash-tts";
+const DIRECAO_BASE =
+  "# AUDIO PROFILE: Narrador de um canal cristão sóbrio e cinematográfico, português do Brasil.\n" +
+  "## DIRECTOR'S NOTES\nStyle: voz grave, profunda e calorosa; solene, nunca eufórica, sem tom de pregador nem de propaganda; " +
+  "gravidade e ternura. Accent: português do Brasil. ";
+const DIRECAO: Record<keyof typeof PERFIS, string> = {
+  narrador: "Pace: lento e pausado, com pausas longas nos pontos finais, como quem conta uma história séria à luz de vela.\n#### TRANSCRIPT\n",
+  leitura: "Pace: muito lento e solene, cada frase com peso e silêncio depois dela, como a leitura de um texto sagrado; sem pressa.\n#### TRANSCRIPT\n",
+  cta: "Pace: moderado, voz mais próxima e baixa, quase sussurrada, como um convite sincero entre amigos.\n#### TRANSCRIPT\n",
+};
+
+/** Instantes de silêncio (>= minDur s) do áudio, para ancorar as palavras. */
+function silencios(audio: Float32Array, minDur = 0.14, limiar = 0.012): { ini: number; fim: number }[] {
+  const out: { ini: number; fim: number }[] = [];
+  const jan = Math.floor(SR * 0.01);
+  let ini = -1;
+  for (let i = 0; i + jan <= audio.length; i += jan) {
+    let m = 0; for (let k = 0; k < jan; k++) m = Math.max(m, Math.abs(audio[i + k]));
+    if (m < limiar) { if (ini < 0) ini = i; }
+    else if (ini >= 0) { if ((i - ini) / SR >= minDur) out.push({ ini: ini / SR, fim: i / SR }); ini = -1; }
+  }
+  return out;
+}
+
+/**
+ * O Gemini não devolve o tempo das palavras: distribui as palavras (peso = letras) apenas pelos trechos COM voz,
+ * pulando os silêncios detectados — as pausas de pontuação ficam no lugar certo e o erro típico é < 0,15 s.
+ */
+export function alinharPorPausas(palavras: string[], audio: Float32Array): Palavra[] {
+  const dur = audio.length / SR;
+  const sil = silencios(audio).filter((x) => x.ini > 0.05 && x.fim < dur - 0.05);
+  const falas: [number, number][] = [];
+  let a = 0;
+  for (const x of sil) { falas.push([a, x.ini]); a = x.fim; }
+  falas.push([a, dur]);
+  const total = falas.reduce((t, [i, f]) => t + (f - i), 0);
+  const pesos = palavras.map((w) => 0.6 + w.replace(/[^\p{L}\p{N}]/gu, "").length);
+  const soma = pesos.reduce((x, y) => x + y, 0);
+  const noTempo = (u: number) => { // u em [0,1] do tempo de fala → segundos reais
+    let alvo = u * total;
+    for (const [i, f] of falas) { if (alvo <= f - i + 1e-9) return i + alvo; alvo -= f - i; }
+    return dur;
+  };
+  let acc = 0;
+  return palavras.map((w, k) => {
+    const ini = noTempo(acc / soma); acc += pesos[k];
+    const fim = noTempo(acc / soma);
+    return { texto: w, ini, fim: Math.max(ini + 0.1, fim - (/[.!?…,;:]$/.test(w) ? 0.04 : 0)) };
+  });
+}
+
+
+/** Pergunta ao Gemini (que "ouve" o áudio) em que segundo começa cada frase e encaixa cada início na pausa mais próxima. */
+export async function alinharComGemini(palavras: string[], audio: Float32Array): Promise<Palavra[]> {
+  const frases: number[][] = []; let atual: number[] = [];
+  palavras.forEach((w, i) => { atual.push(i); if (/[.!?…,;:]$/.test(w)) { frases.push(atual); atual = []; } });
+  if (atual.length) frases.push(atual);
+  const dur = audio.length / SR;
+  const tmp = join(cacheDir(), `al-${process.pid}-${Math.random().toString(36).slice(2, 8)}.wav`);
+  mkdirSync(cacheDir(), { recursive: true });
+  escreverWavMono(tmp, audio);
+  const wav = readFileSync(tmp); rmSync(tmp, { force: true });
+  const chave = createHash("sha1").update(wav).update(palavras.join(" ")).digest("hex").slice(0, 16);
+  const arq = join(cacheDir(), `al-${chave}.json`);
+  let inicios: number[];
+  if (existsSync(arq)) inicios = JSON.parse(readFileSync(arq, "utf8"));
+  else {
+    const lista = frases.map((f, k) => `${k + 1}. ${f.map((i) => palavras[i]).join(" ")}`).join("\n");
+    const pergunta = "Ouça o áudio e diga em que segundo começa a fala de cada trecho abaixo (na ordem). " +
+      "Responda só um array JSON de números com 2 casas decimais, um por trecho.\n" + lista;
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    if (process.env.GEMINI_API_KEY) headers["x-goog-api-key"] = process.env.GEMINI_API_KEY;
+    inicios = await comTentativas(async () => {
+      const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent", {
+        method: "POST", headers,
+        body: JSON.stringify({
+          contents: [{ parts: [{ inlineData: { mimeType: "audio/wav", data: wav.toString("base64") } }, { text: pergunta }] }],
+          generationConfig: { responseMimeType: "application/json", temperature: 0 },
+        }),
+      });
+      if (!r.ok) throw new Error(`Gemini alinhamento ${r.status}`);
+      const j: any = await r.json();
+      const v = JSON.parse(j.candidates?.[0]?.content?.parts?.[0]?.text ?? "[]");
+      if (!Array.isArray(v) || v.length !== frases.length) throw new Error("número de trechos diferente");
+      return v.map(Number);
+    }, 3, 2000);
+    writeFileSync(arq, JSON.stringify(inicios));
+  }
+  const pausas = silencios(audio, 0.08);
+  const aj: number[] = [];
+  inicios.forEach((t0, k) => {
+    let t = Math.min(Math.max(0, t0), dur - 0.1);
+    if (k) { // a frase começa no fim da pausa mais longa por perto (±0,6 s)
+      const perto = pausas.filter((x) => Math.abs(x.fim - t) <= 0.6).sort((a, b) => b.fim - b.ini - (a.fim - a.ini))[0];
+      if (perto) t = perto.fim;
+    }
+    aj.push(aj.length ? Math.max(t, aj[aj.length - 1] + 0.15) : t);
+  });
+  const out: Palavra[] = [];
+  frases.forEach((f, k) => {
+    const t0 = aj[k], t1 = k + 1 < frases.length ? aj[k + 1] : dur;
+    // o fim da fala é o começo da pausa COLADA ao fim da frase (não uma pausa no meio dela)
+    const colada = pausas.filter((x) => x.ini > t0 + 0.2 && x.ini < t1 && t1 - x.fim < 0.15)[0];
+    const fimFala = Math.max(t0 + 0.2, colada ? colada.ini : k + 1 < frases.length ? t1 : dur - 0.08);
+    const pesos = f.map((i) => palavras[i].length + 1), soma = pesos.reduce((a, b) => a + b, 0);
+    let t = t0;
+    f.forEach((i, j) => { const d = ((fimFala - t0) * pesos[j]) / soma; out.push({ texto: palavras[i], ini: t, fim: t + d * 0.92 }); t += d; });
+  });
+  return out;
+}
+
+function aparar(audio: Float32Array): Float32Array {
+  let a = 0, b = audio.length;
+  while (a < b && Math.abs(audio[a]) < 0.004) a++;
+  while (b > a && Math.abs(audio[b - 1]) < 0.004) b--;
+  const folga = Math.floor(SR * 0.08);
+  return audio.slice(Math.max(0, a - folga), Math.min(audio.length, b + folga));
+}
+
+/** Acelera sem mudar o tom (ffmpeg atempo). */
+function acelerar(audio: Float32Array, fator: number): Float32Array {
+  const tmp = join(cacheDir(), `at-${process.pid}-${Math.random().toString(36).slice(2, 8)}`);
+  mkdirSync(cacheDir(), { recursive: true });
+  escreverWavMono(tmp + ".in.wav", audio);
+  const r = spawnSync("ffmpeg", ["-y", "-loglevel", "error", "-i", tmp + ".in.wav", "-af", `atempo=${fator.toFixed(4)}`, "-ar", String(SR), "-ac", "1", tmp + ".out.wav"]);
+  if (r.status !== 0) throw new Error("ffmpeg atempo: " + r.stderr?.toString().slice(0, 200));
+  const out = reamostrar(lerWavArquivo(tmp + ".out.wav"));
+  rmSync(tmp + ".in.wav", { force: true }); rmSync(tmp + ".out.wav", { force: true });
+  return out;
+}
+
+async function geminiBruto(texto: string, perfil: keyof typeof PERFIS): Promise<string> {
+  const chaveCache = createHash("sha1").update(JSON.stringify([texto, perfil, GEMINI_VOZ(), GEMINI_MODELO(), DIRECAO[perfil]])).digest("hex").slice(0, 16);
+  mkdirSync(cacheDir(), { recursive: true });
+  const arq = join(cacheDir(), `gem-${chaveCache}.b64`);
+  if (existsSync(arq)) return readFileSync(arq, "utf8");
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (process.env.GEMINI_API_KEY) headers["x-goog-api-key"] = process.env.GEMINI_API_KEY; // senão o proxy injeta
+  const b64 = await comTentativas(async () => {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODELO()}:generateContent`, {
+      method: "POST", headers,
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: DIRECAO_BASE + DIRECAO[perfil] + texto }] }],
+        generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: GEMINI_VOZ() } } } },
+      }),
+    });
+    if (!r.ok) throw new Error(`Gemini TTS ${r.status}: ${(await r.text()).slice(0, 200)}`);
+    const j: any = await r.json();
+    const d = j.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+    if (!d) throw new Error("Gemini TTS sem áudio");
+    return d as string;
+  }, 4, 4000);
+  writeFileSync(arq, b64);
+  return b64;
+}
+
+async function sintetizarGemini(texto: string, perfil: keyof typeof PERFIS, maxDur: number): Promise<Fala> {
+  const buf = Buffer.from(await geminiBruto(texto, perfil), "base64");
+  let audio = buf.toString("ascii", 0, 4) === "RIFF"
+    ? reamostrar(lerWav(buf))
+    : (() => { const n = Math.floor(buf.length / 2), f = new Float32Array(n); for (let i = 0; i < n; i++) f[i] = buf.readInt16LE(i * 2) / 32768; return reamostrar({ sr: 24000, data: f }); })();
+  audio = aparar(audio);
+  let taxa = 1;
+  if (audio.length / SR > maxDur) { // acelera só o necessário, no máximo 1,18x
+    taxa = Math.min(1.18, (audio.length / SR / maxDur) * 1.01);
+    audio = acelerar(audio, taxa);
+  }
+  const palavras = texto.split(/\s+/).filter(Boolean);
+  let alinhadas: Palavra[];
+  try { alinhadas = await alinharComGemini(palavras, audio); }
+  catch (e) { console.warn(`⚠ alinhamento pelo Gemini falhou (${(e as Error).message}); usando as pausas`); alinhadas = alinharPorPausas(palavras, audio); }
+  return { audio, dur: audio.length / SR, palavras: alinhadas, taxa };
+}
+
+export type Provedor = "google" | "gemini" | "offline";
+export function escolherProvedor(offline: boolean): Provedor {
+  const pedido = process.env.VOZ_PROVEDOR as Provedor | undefined;
+  if (offline) return "offline";
+  if (pedido) return pedido;
+  if (process.env.GOOGLE_TTS_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_TTS_ACCESS_TOKEN) return "google";
+  return "gemini";
+}
+
 export interface PedidoSegmento { chave: string; texto: string; perfil: keyof typeof PERFIS; maxDur: number }
 
 /** Sintetiza e, se passar de `maxDur`, refaz mais devagar → mais rápido (até taxaMin). */
 export async function narrar(pedidos: PedidoSegmento[], offline = false): Promise<Record<string, Fala>> {
   const resultado: Record<string, Fala> = {};
+  const provedor = escolherProvedor(offline);
+  console.log(`  narração: provedor ${provedor}${provedor === "gemini" ? ` (voz ${GEMINI_VOZ()})` : provedor === "google" ? ` (voz ${VOZ_PADRAO})` : " (voz de teste)"}`);
   for (const ped of pedidos) {
     const p = PERFIS[ped.perfil];
-    const fazer = (taxa: number) => (offline ? Promise.resolve(sintetizarOffline(ped.texto, p, taxa)) : sintetizarUma(ped.texto, p, taxa));
+    if (provedor === "gemini") { resultado[ped.chave] = await sintetizarGemini(ped.texto, ped.perfil, ped.maxDur); continue; }
+    const fazer = (taxa: number) => (provedor === "offline" ? Promise.resolve(sintetizarOffline(ped.texto, p, taxa)) : sintetizarUma(ped.texto, p, taxa));
     let fala = await fazer(p.taxa);
-    // Só acelera se estourar o tempo; a taxa sobe de 0.82 para no máximo 1.0 (nunca "corrido").
+    // Só acelera se estourar o tempo; a taxa sobe no máximo até 1.0 (nunca "corrido").
     for (let t = 0; t < 2 && fala.dur > ped.maxDur && fala.taxa < 1.0; t++) {
       const nova = Math.min(1.0, fala.taxa * (fala.dur / ped.maxDur) * 1.02);
       fala = await fazer(nova);
