@@ -6,7 +6,7 @@
 //   escala, pr, H, oy, ox, d }. Sem rosto, sempre.
 function figura(x, t, pose0, o = {}) {
   KIT_ESTILO = o.estilo || "cheio";
-  { const lz = o.luzDir || [-0.7, -0.7], ln = Math.hypot(lz[0], lz[1]) || 1; KIT_LUZ = [lz[0] / ln, lz[1] / ln]; }
+  { const lz = o.luzDir || [0.5 * (o.dir ?? 1), -0.9], ln = Math.hypot(lz[0], lz[1]) || 1; KIT_LUZ = [lz[0] / ln, lz[1] / ln]; }
   const F = { ...(KIT_ELENCO[o.tipo] || KIT_ELENCO.pessoa), ...(o.ficha || {}) }, d = o.dir ?? 1, a = o.a ?? 1, fase = o.fase ?? 0;
   const H = (o.H || 560) * (F.alt || 1), s = H / 1000, L = F.larg || 1, hk = F.cabecaGrande || 1, id = F.idade || 0;
   // vida: respiração e leve balanço quando parado; idade curva as costas
@@ -42,8 +42,8 @@ function figura(x, t, pose0, o = {}) {
       const c2 = o2.rgb || RGB;
       if (fechado && o2.fill !== false) { let y0 = 1e9, y1 = -1e9; for (const [, py] of sp) { y0 = Math.min(y0, py); y1 = Math.max(y1, py); }
         if (KIT_ESTILO === "silhueta") y.fillStyle = "rgba(8,10,24,1)";
-        else { const vk = 0.75 + 0.25 * (o2.al ?? 1), g = y.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, `rgba(${kitClara(c2, vk * 0.92)},1)`); g.addColorStop(1, `rgba(${kitSombra(c2, vk)},1)`); y.fillStyle = g; }
-        y.fill(); if (KIT_ESTILO === "cheio") kitSombreia(y, sp, c2, 0.75 + 0.25 * (o2.al ?? 1), kk, o2.fa2 ?? 1);
+        else { const vk = 0.75 + 0.25 * (o2.al ?? 1), g = y.createLinearGradient(0, y0, 0, y1), pl = c2 === PELE; g.addColorStop(0, `rgba(${(pl ? kitClaraPele : kitClara)(c2, vk * 0.92)},1)`); g.addColorStop(1, `rgba(${(pl ? kitSombraPele : kitSombra)(c2, vk)},1)`); y.fillStyle = g; }
+        y.fill(); if (KIT_ESTILO === "cheio") kitSombreia(y, sp, c2, 0.75 + 0.25 * (o2.al ?? 1), kk, o2.fa2 ?? 1, null, c2 === PELE);
         if (KIT_ESTILO === "cheio" && !o2.semTraco) { y.strokeStyle = `rgba(${kitSombra(kitEsc(c2, 0.7), 0.55)},0.95)`; y.lineWidth = LW * 0.45 * (o2.lw || 1); y.stroke(); } }
       else if (!fechado && KIT_ESTILO === "cheio") { y.strokeStyle = `rgba(${kitEsc(c2, 0.4)},0.8)`; y.lineWidth = LW * 0.5; y.stroke(); }
       return; }
@@ -62,7 +62,7 @@ function figura(x, t, pose0, o = {}) {
     let cont = pc.contorno;
     if (pc.cachos) { const cx = cont.reduce((m, p) => m + p[0], 0) / cont.length, cy = cont.reduce((m, p) => m + p[1], 0) / cont.length; const out = []; for (let k = 0; k < cont.length; k++) { const p = cont[k], q = cont[(k + 1) % cont.length]; out.push(p); if (k < cont.length - 5) { const m = [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2], dd = Math.hypot(m[0] - cx, m[1] - cy) || 1; out.push([m[0] + (m[0] - cx) / dd * 9, m[1] + (m[1] - cy) / dd * 9]); } } cont = out; }
     traca(poe(cont, P, u, sx, sy), true, o2);
-    for (const ln of pc.linhas || []) kitPincel(y, poe(ln, P, u, sx, sy), LW * 0.8, o2.rgb || RGB, a * (o2.al ?? 1) * 0.8, { brilho: 4 * kk });
+    for (const ln of pc.linhas || []) kitPincel(y, poe(ln, P, u, sx, sy), LW * (KIT_ESTILO === "cheio" && o2.rgb === PELE ? 0.55 : 0.8), o2.rgb || RGB, a * (o2.al ?? 1) * (KIT_ESTILO === "cheio" && o2.rgb === PELE ? 0.4 : 0.8), { brilho: 4 * kk });
     if (pc.extra) { traca(poe(pc.extra.contorno, P, u, sx, sy), true, o2); for (const ln of pc.extra.linhas || []) traca(poe(ln, P, u, sx, sy), false, { ...o2, lw: 0.55, det: true, al: 0.8, fill: false }); }
   };
   // sombra no chão
@@ -175,9 +175,13 @@ function figura(x, t, pose0, o = {}) {
   if (F.manto) peca("manto", [0, 0], uT, { sx: 1.12 * L, sy: Math.max(0.7, (F.barra || 400) / 430), rgb: rgbOf(F.corManto || cor) });
   // pescoço e cabeça (cabeça no osso do pescoço → centro), cabelo, barba, cobertura
   const uH = un(Hd, N), [hsx, hsy] = F.cab || [1, 1], hs = { sx: hsx * hk, sy: hsy * hk };
-  // pescoço: nasce embaixo da mandíbula (frente) e na nuca (trás), entra na cabeça; só os lados têm traço
-  { const uN = un(N, C), fN = fr(uN), [tf, tb] = poe([[18, 0], [-40, -30]], N, uH, hs.sx, hs.sy), bf = pr(ad(C, fN, 0.026 * H)), bb = pr(ad(C, fN, -0.03 * H));
-    traca([tf, bf, bb, tb], true, { rgb: PELE, semTraco: true }); traca([tf, bf], false, { rgb: PELE, fill: false }); traca([tb, bb], false, { rgb: PELE, fill: false }); }
+  // pescoço: sai de baixo da mandíbula (frente, mais baixo) e da nuca (trás, mais alto), é mais estreito no meio e alarga na base
+  // (trapézio); a cabeça é desenhada por cima. A sombra do queixo cai sobre ele (estilo cheio).
+  { const uN = un(N, C), fN = fr(uN), pT = poe([[14, -12], [-34, -40]], N, uH, hs.sx, hs.sy), tf = pT[0], tb = pT[1], mf = pr(ad(C, fN, 0.022 * H)), mb = pr(ad(C, fN, -0.024 * H)), bf = pr(ad(C, fN, 0.034 * H)), bb = pr(ad(C, fN, -0.042 * H));
+    const nuca = [tb, [PT.lerp(tb[0], mb[0], 0.5), PT.lerp(tb[1], mb[1], 0.5)], bb], frente = [tf, [PT.lerp(tf[0], mf[0], 0.5), PT.lerp(tf[1], mf[1], 0.5)], bf];
+    traca([tf, ...frente.slice(1), bb, ...nuca.slice(0, 2).reverse()], true, { rgb: PELE, semTraco: true });
+    if (KIT_ESTILO === "cheio") { y.save(); y.beginPath(); _curva(y, [tf, ...frente.slice(1), bb, ...nuca.slice(0, 2).reverse()], true); y.clip(); const gs = y.createLinearGradient(0, tf[1], 0, tf[1] + 0.07 * H * kk); gs.addColorStop(0, `rgba(${kitSombraPele(PELE, 0.8)},0.9)`); gs.addColorStop(1, `rgba(${kitSombraPele(PELE, 0.8)},0)`); y.fillStyle = gs; y.fillRect(tf[0] - 0.1 * H, tf[1], 0.2 * H, 0.1 * H); y.restore(); }
+    traca(frente, false, { rgb: PELE, fill: false }); traca(nuca, false, { rgb: PELE, fill: false }); }
   // rosto por medidas (ficha.rosto) ou pelo perfil antigo da ficha (cabeca_aquilino, cabeca_curto, cabeca_queixo)
   const R = { ...({ cabeca_aquilino: { nariz: 1.1, curva: 0.8 }, cabeca_curto: { nariz: 0.78, curva: -0.5, ponta: 0.5 }, cabeca_queixo: { queixo: 1, mandibula: 1 } }[F.cabeca] || {}), feminino: !!F.cilios, crianca: hk > 1, idade: id, ...(F.rosto || {}) };
   const poeF = kitFace((pts) => poe(pts, N, uH, hs.sx, hs.sy));
