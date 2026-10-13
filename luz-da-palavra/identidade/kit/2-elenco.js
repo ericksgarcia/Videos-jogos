@@ -33,6 +33,10 @@ const KIT_ELENCO = {
   // anjo: "veste branca como a neve" (Mt 28:3); asas da arte tradicional; sem barba, cabelo claro ondulado
   anjo: { corpo: "tronco", larg: 0.98, alt: 1.06, cab: [0.98, 1.0], cabeca: "cabeca_curto", cabelo: "cabelo_ondulado", manga: "manga_longa", barra: 470, cinto: true, asas: true, barraEstilo: "dupla",
     pele: [1, 0.9, 0.78], roupa: [0.97, 0.97, 1], roupa2: [1, 0.86, 0.55], corCabelo: [0.98, 0.88, 0.64] },
+  // Golias (1 Sm 17:4–7, Almeida 1911): "seis côvados e um palmo" de altura, capacete de bronze, couraça de escamas, grevas de
+  // bronze nas pernas; iconografia (Doré, Tissot): enorme, barba escura, elmo com crista. Use H bem maior que os outros (×1.6).
+  golias: { corpo: "tronco_barriga", larg: 1.32, alt: 1.0, cab: [1.08, 1.05], cabeca: "cabeca_queixo", cabelo: "cabelo_curto", barba: "barba_longa", manga: "manga_curta", barra: 250, cinto: true, couraca: true, elmo: true, grevas: true, barraEstilo: "dupla",
+    pele: [0.82, 0.6, 0.44], roupa: [0.62, 0.3, 0.26], roupa2: [0.85, 0.3, 0.25], corCabelo: [0.28, 0.2, 0.16] },
   idoso: { corpo: "tronco_barriga", larg: 1.12, alt: 0.95, cab: [1.03, 1.0], cabeca: "cabeca_queixo", cobertura: "pano_cabeca", barba: "barba_longa", manga: "manga_longa", barra: 420, cinto: true, colete: true, barraEstilo: "dupla", idade: 0.6,
     pele: [0.9, 0.74, 0.6], roupa: [0.8, 0.78, 0.92], roupa2: [0.72, 0.62, 0.95], corCabelo: [0.9, 0.9, 0.92] },
 };

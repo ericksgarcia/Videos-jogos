@@ -27,7 +27,7 @@ function figura(x, t, pose0, o = {}) {
   if (o.medir) return info();
   const y = x._texto || x; if (x._texto) y._usado = true;
   const rgbOf = (c) => c.map((q) => Math.round(q * 255)).join(","), tinge = (c) => (o.cor ? mixCor(c, o.cor, 0.5) : c), cor = tinge(F.roupa || F.cor || [1, 1, 1]), fundo = o.preench || "9,12,29";
-  const RGB = rgbOf(cor), PELE = rgbOf(tinge(F.pele || [1, 0.86, 0.7])), ROUPA2 = rgbOf(tinge(F.roupa2 || F.cor || [1, 0.84, 0.55])), CABELO = rgbOf(tinge(F.corCabelo || F.cabeloCor || [0.9, 0.78, 0.6]));
+  const BRONZE = rgbOf(tinge([0.78, 0.56, 0.3])), RGB = rgbOf(cor), PELE = rgbOf(tinge(F.pele || [1, 0.86, 0.7])), ROUPA2 = rgbOf(tinge(F.roupa2 || F.cor || [1, 0.84, 0.55])), CABELO = rgbOf(tinge(F.corCabelo || F.cabeloCor || [0.9, 0.78, 0.6]));
   const LW = Math.max(1.4, Math.min(3.2, 0.0058 * H * kk)); // traço fino e elegante em qualquer tamanho
   y.save(); y.setTransform(1, 0, 0, 1, 0, 0); y.lineJoin = "round"; y.lineCap = "round"; y.globalAlpha = a;
   // camada (2.5D): o.camada = "tras" | "corpo" | "frente" desenha só essa parte (braço de trás + asas / tudo no meio / braço da frente), para pôr cada uma numa profundidade
@@ -109,6 +109,7 @@ function figura(x, t, pose0, o = {}) {
   const perna = ([Q, K, Fp], atras) => {
     const al = atras ? 0.75 : 1, uC = un(Q, K), uS = un(K, Fp), sx = 0.9 + 0.12 * L, uP = un([0, 0], [uS[0] * 0.35, 0.65 + uS[1] * 0.35]);
     traca(membro([Q, K, Fp], PERF_PERNA, sx * 1.3, 0).map(pr), true, { al, rgb: PELE }); peca("pe", Fp, uP, { al, rgb: PELE });
+    if (F.grevas) { traca(membro([K, Fp], [[0, 0.14, 19, 17], [0, 0.4, 21, 16], [0, 0.86, 13, 12]], sx * 1.3, 0.15, 0.15).map(pr), true, { al, rgb: BRONZE }); kitPincel(y, [ad(K, uS, 0.04 * H), ad(K, uS, 0.2 * H)].map(pr), LW * 0.8, BRONZE, a * al * 0.6, { claro: true, brilho: 0 }); }
   };
   // ---- ordem: braço de trás, (objeto de trás), pernas, túnica, tronco, cinto, manto, pescoço, cabeça, cabelo/barba/cobertura, braço da frente ----
   // asas (anjos): nascem atrás das omoplatas; o.asas (0–1) abre/fecha, respiram sozinhas
@@ -119,7 +120,7 @@ function figura(x, t, pose0, o = {}) {
     const PENAS = [[[-206, -440], [-244, -260], [-276, -56]], [[-176, -436], [-212, -280], [-244, -86]], [[-146, -420], [-180, -290], [-210, -116]], [[-116, -392], [-146, -300], [-174, -158]], [[-86, -352], [-110, -290], [-132, -204]],
       [[-52, -300], [-110, -372], [-176, -420], [-226, -424]], [[-48, -276], [-100, -330], [-160, -366], [-232, -366]]];
     for (const [k, al2, dx] of [[1.3, 0.55, -22], [1, 1, 0]]) { const tr = (pts) => poe(gira2(pts.map(([px, py]) => [px + dx, py - dx * 0.4]), k), [0, 0], uW, 1, 1);
-      traca(tr(ASA), true, { rgb: ROUPA2, al: al2 }); for (const pn of PENAS) kitPincel(y, tr(pn), LW * 0.8, ROUPA2, a * al2 * 0.75, { brilho: 4 * kk }); } }
+      const cA = KIT_ESTILO === "cheio" ? "247,242,230" : ROUPA2; traca(tr(ASA), true, { rgb: cA, al: al2 }); for (const pn of PENAS) kitPincel(y, tr(pn), LW * 0.8, cA, a * al2 * 0.75, { brilho: 4 * kk, suave: true }); } }
   braco(bracos[0], 0, true);
   if (o.atras && (!o.camada || o.camada === "tras")) { y.save(); o.atras(y, info()); y.restore(); }
   vis("corpo");
@@ -196,6 +197,12 @@ function figura(x, t, pose0, o = {}) {
     kitPincel(y, pt2([[30, -244], [38, -200], [42, -150], [38, -100]]), LW * 0.7, RGB, a * 0.55, { brilho: 3 * kk });
     kitPincel(y, pt2([[-44, -236], [-46, -170], [-42, -110]]), LW * 0.7, RGB, a * 0.5, { brilho: 3 * kk });
     kitPincel(y, pt2([[8, -150], [18, -100], [14, -60]]), LW * 0.6, RGB, a * 0.45, { brilho: 3 * kk }); }
+  if (F.couraca) { const pt2 = (pts) => poe(pts, [0, 0], uT, 1.12 * L, 1), cour = pt2([[-58, -30], [-61, -150], [-56, -222], [-40, -262], [-10, -278], [16, -276], [40, -258], [56, -214], [62, -160], [60, -100], [58, -30], [0, -24]]);
+    traca(cour, true, { rgb: BRONZE });
+    if (KIT_ESTILO !== "silhueta") { y.save(); y.beginPath(); _curva(y, cour, true); y.clip(); // escamas: fileiras de meias-luas sobrepostas
+      for (let fy = -262; fy < -24; fy += 15) for (let fx = -66 + ((fy / 15) % 2 ? 7 : 0); fx < 66; fx += 14) { const q = pt2([[fx - 7, fy], [fx - 6, fy + 7], [fx, fy + 11], [fx + 6, fy + 7], [fx + 7, fy]]);
+        y.beginPath(); _curva(y, q, false); y.strokeStyle = KIT_ESTILO === "cheio" ? `rgba(${kitSombra(BRONZE, 0.9)},0.8)` : `rgba(${BRONZE},0.6)`; y.lineWidth = LW * 0.55; y.stroke(); }
+      y.restore(); } }
   if (F.clavi) for (const cx of [18, 30]) traca(poe([[cx, -270], [cx + 2, -150], [cx, -40]], [0, 0], uT, 1.12 * L, 1), false, { lw: 0.6, det: true, rgb: ROUPA2, fill: false });
   if (F.colete) peca("colete", [0, 0], uT, { sx: 1.12 * L, rgb: ROUPA2 });
   if (F.cinto) { const pt2 = (pts) => poe(pts, [0, 0], uT, 1.12 * L, 1); // faixa de pano amarrada na frente, pontas caindo
@@ -213,6 +220,10 @@ function figura(x, t, pose0, o = {}) {
   let orelha = !cobre;
   if (F.cabelo && !cobre) { const r = kitCabelo(y, F.cabelo, poeH, oH); if (r === null) peca(F.cabelo, N, uH, { ...hs, rgb: CABELO }); else orelha = r; }
   if (orelha) kitOrelha(y, poeH, oH);
+  if (F.elmo) { // elmo de bronze (1 Sm 17:5): calota até a sobrancelha, protetor da nuca e da bochecha, crista
+    const el = poeF([[54, -116], [52, -138], [38, -162], [10, -178], [-24, -177], [-52, -162], [-68, -132], [-72, -100], [-68, -70], [-50, -66], [-44, -84], [-28, -96], [-6, -104], [8, -100], [12, -78], [24, -70], [30, -96], [42, -112]]);
+    traca(el, true, { rgb: BRONZE }); kitPincel(y, poeF([[52, -120], [20, -126], [-20, -124], [-56, -112], [-68, -96]]), LW * 1.1, BRONZE, a * 0.8, { claro: true, brilho: 0 });
+    const cr = poeF([[30, -170], [6, -196], [-26, -200], [-56, -186], [-72, -164], [-56, -170], [-26, -182], [4, -180], [24, -166]]); traca(cr, true, { rgb: ROUPA2 }); }
   if (F.cobertura && !kitCobertura(y, F.cobertura, poeH, { ...oH, rgb: ROUPA2 }, { rgbEsc: rgbOf(mixCor(tinge(F.roupa2 || [1, 0.84, 0.55]), [0.2, 0.15, 0.1], 0.45)), cabelo: F.cabelo ? CABELO : null }))
     peca(F.cobertura, N, uH, { ...hs, rgb: ROUPA2 });
   vis("frente");
