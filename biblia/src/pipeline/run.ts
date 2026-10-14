@@ -25,7 +25,7 @@ import { buscarClipe } from "./pexels.ts";
 import { dataUri, gerarProfundidade } from "./replicate.ts";
 import { DUR_MAX, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
 import { cenaDaTomada } from "./cenarios.ts";
-import { avaliar, confirmarFundos, fundoInedito } from "./fundos.ts";
+import { avaliar, confirmarFundos, dhash, fundoInedito } from "./fundos.ts";
 import { profundidadeLocal } from "./profundidade.ts";
 import { agruparParaImagens, montarBlocos } from "../lib/blocos.ts";
 import { gerarRoteiro, palavraClimax, validar, type Roteiro } from "./script.ts";
@@ -161,6 +161,8 @@ async function main() {
         if (o.reusar && existsSync(jaTem) && existsSync(join(pub, `bloco-${k}-prof.png`)) && !o.trocar.includes(k)) {
           // mesma imagem do plano anterior: não gera nada novo (e como já foi registrada, não duplica o registro)
           f = { img: jaTem, prof: join(pub, `bloco-${k}-prof.png`), faixa: avaliar(jaTem).faixa };
+          // a imagem reaproveitada também precisa constar no registro (confirmarFundos ignora as que já estão lá)
+          novosFundos.push({ hash: dhash(jaTem), prompt: "(reaproveitada do plano)", seed: 0, video: id, ato: humor[b.seg], em: new Date().toISOString() });
           if (k === 0) primeira = f;
           tomadas.push({ ini, fim, tipo: "parallax", src: `runs/${id}/bloco-${k}.png`, depth: `runs/${id}/bloco-${k}-prof.png`, seed: k, faixa: f.faixa });
           continue;

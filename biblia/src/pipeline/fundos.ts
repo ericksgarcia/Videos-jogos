@@ -148,5 +148,9 @@ export async function fundoInedito(ato: Ato, video: string, rand: () => number, 
 }
 
 export function confirmarFundos(novos: Registro[]) {
-  writeFileSync(REGISTRO, JSON.stringify([...carregarRegistro(), ...novos], null, 1) + "\n");
+  const atuais = carregarRegistro();
+  // não duplica: ignora o que já está registrado (mesma impressão digital)
+  const faltam = novos.filter((n) => !atuais.some((a) => hamming(a.hash, n.hash) < 10));
+  writeFileSync(REGISTRO, JSON.stringify([...atuais, ...faltam], null, 1) + "\n");
+  return faltam.length;
 }
