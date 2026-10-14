@@ -103,7 +103,7 @@ export const KineticText = ({ segmentos, blocos, faixa = 100 }: { segmentos: Seg
       paddingTop: verso ? 160 : 260, textAlign: "center", opacity: entrada * saida,
       transform: `translateY(${(1 - entrada) * 18}px) scale(${0.95 + 0.05 * pop})`,
     }}>
-      <div style={{ position: "absolute", left: -120, right: -120, top: verso ? "36%" : "40%", height: 560, background: `radial-gradient(ellipse closest-side at center, rgba(0,0,0,${scrim}) 0%, rgba(0,0,0,${scrim * 0.6}) 40%, rgba(0,0,0,${scrim * 0.22}) 72%, rgba(0,0,0,0) 100%)`, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left: -120, right: -120, top: verso ? "36%" : "40%", height: 560, background: `radial-gradient(ellipse closest-side at center, rgba(8,5,3,${scrim}) 0%, rgba(8,5,3,${scrim * 0.6}) 40%, rgba(8,5,3,${scrim * 0.22}) 72%, rgba(8,5,3,0) 100%)`, pointerEvents: "none" }} />
       <div style={{
         fontFamily: verso ? "Cinzel, serif" : "'Cormorant Garamond', serif", fontWeight: 700,
         fontStyle: cta ? "italic" : "normal", fontSize: fonte, lineHeight: 1.22, letterSpacing: verso ? "0.02em" : "0.005em",

@@ -49,7 +49,7 @@ export const SeloComentario = ({ texto, ini, fim }: { texto: string; ini: number
           <path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill={OURO} />
           <circle cx="8" cy="11" r="1.4" fill="#1a140a" /><circle cx="12" cy="11" r="1.4" fill="#1a140a" /><circle cx="16" cy="11" r="1.4" fill="#1a140a" />
         </svg>
-        <span style={{ fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: 52, color: "#f4ecd8", letterSpacing: "0.04em" }}>{texto}</span>
+        <span style={{ fontFamily: "Cinzel, serif", fontWeight: 700, whiteSpace: "nowrap", fontSize: Math.min(52, Math.floor(760 / Math.max(10, texto.length * 0.78))), color: "#f4ecd8", letterSpacing: "0.04em" }}>{texto}</span>
       </div>
     </AbsoluteFill>
   );
