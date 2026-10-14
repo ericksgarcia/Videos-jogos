@@ -146,7 +146,7 @@ const DIRECAO_BASE =
 const DIRECAO: Record<keyof typeof PERFIS, string> = {
   narrador: "Pace: pausado mas fluido, como trailer de cinema: frases curtas, pausas breves, tensão crescente, sem arrastar.\n#### TRANSCRIPT\n",
   leitura: "Pace: solene e firme, cada frase com peso, como a leitura de um texto sagrado; pausas curtas entre as frases.\n#### TRANSCRIPT\n",
-  cta: "Pace: moderado, voz mais próxima e baixa, quase sussurrada, como um convite sincero entre amigos.\n#### TRANSCRIPT\n",
+  cta: "Pace: ritmo natural de conversa, direto e caloroso, sem pausas longas entre as palavras, como quem faz um convite rápido a um amigo; leia em cerca de 5 segundos.\n#### TRANSCRIPT\n",
 };
 
 /** Instantes de silêncio (>= minDur s) do áudio, para ancorar as palavras. */
