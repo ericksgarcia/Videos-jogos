@@ -132,6 +132,7 @@ export async function fundoInedito(ato: Ato, video: string, rand: () => number, 
     let arq: string;
     try { arq = await gerarImagem(prompt, seed); }
     catch (e) { // falha do serviço (erro interno do Replicate etc.): tenta outra semente, sem perder a rodada
+      if (/402|Insufficient credit/.test((e as Error).message)) throw new Error("Replicate sem crédito (402): adicione crédito em replicate.com/account/billing e rode de novo");
       console.warn(`  ⚠ geração falhou (${(e as Error).message.slice(0, 90)}) — tentando de novo`);
       await new Promise((r) => setTimeout(r, 5000)); continue;
     }
