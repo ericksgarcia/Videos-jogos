@@ -48,19 +48,23 @@ function args() {
 
 /** Roteiro escrito à mão/por Claude: JSON { ato1, cta, ato3, climax?, cta_style } (o versículo vem sempre do catálogo). */
 /** Fim da 1ª frase falada do ato 1 = saída do texto de abertura; início da 2ª = "virada" (2º golpe de retenção). */
-function ganchoTempos(segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[]) {
+function ganchoTempos(segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[], linhas: string[] = []) {
   const p = segs.find((x) => x.id === "ato1")?.palavras ?? [];
   const i = p.findIndex((w) => /[.!?…]$/.test(w.t));
   if (i < 0 || i + 1 >= p.length) return {};
-  return { gancho_fim: Math.min(5, Math.max(2.6, p[i].fim + 0.25)), gancho_virada: p[i + 1].ini };
+  // cada linha do texto de abertura entra na palavra em que é falada (o texto = a 1ª frase narrada, palavra por palavra)
+  let k = 0;
+  const gancho_linhas = linhas.map((l) => { const t = Math.max(0, (p[Math.min(k, i)]?.ini ?? 0) - 0.1); k += l.trim().split(/\s+/).length; return Number(t.toFixed(2)); });
+  return { gancho_fim: Math.min(5, Math.max(2.6, p[i].fim + 0.25)), gancho_virada: p[i + 1].ini, gancho_linhas };
 }
 
 /** Fases que o roteiro precisa justificar (teste do "dedo rolando" em CADA fase, não só no gancho). */
 const FASES_AUDITORIA = ["gancho", "virada", "contexto", "cta", "versiculo", "ato3", "final"] as const;
 
 /**
- * Portão de qualidade do roteiro: sem auditoria por fase (por que o espectador continua assistindo AQUI?) e com gancho
- * fraco (pergunta de autoajuda, 1ª frase longa) a esteira não gera o vídeo. --sem-auditoria só para testes técnicos.
+ * Portão de qualidade do roteiro: sem auditoria por fase, sem nota ≥ 8 do avaliador independente (REVISAO.md) ou com gancho
+ * fraco (pergunta, 1ª frase longa, texto de abertura diferente da fala) a esteira não gera o vídeo.
+ * --sem-auditoria só para testes técnicos.
  */
 function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: Record<string, string>; revisao?: Record<string, number> }, arq: string) {
   if (process.argv.includes("--sem-auditoria")) return;
@@ -71,6 +75,8 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (!j.gancho_tela?.length) falhas.push("falta gancho_tela (afirmação de abertura)");
   else {
     if (j.gancho_tela.some((l) => /\?/.test(l))) falhas.push("gancho_tela com pergunta: use afirmação");
+    const norm = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").replace(/\s+/g, " ").trim();
+    if (norm(j.gancho_tela.join(" ")) !== norm(primeira)) falhas.push(`gancho_tela precisa ser EXATAMENTE a 1ª frase narrada (palavra por palavra), senão o espectador lê uma coisa e ouve outra. Tela: "${j.gancho_tela.join(" ")}" | fala: "${primeira}"`);
     if (j.gancho_tela.length > 3 || j.gancho_tela.some((l) => l.length > 20)) falhas.push("gancho_tela: no máx. 3 linhas de até 20 letras (senão corta nas bordas ou fica pequeno)");
   }
   for (const f of FASES_AUDITORIA) if ((j.auditoria?.[f] ?? "").trim().split(/\s+/).length < 6) falhas.push(`auditoria.${f} ausente ou vaga (explique em ≥ 6 palavras por que o espectador continua aqui)`);
@@ -285,7 +291,7 @@ async function main() {
     id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
     rotulo: rotuloDe(entrada, at.ato2),
-    gancho_tela: extras.gancho_tela, ...ganchoTempos(segs), loop: extras.loop, blocos: blocosLeg,
+    gancho_tela: extras.gancho_tela, ...ganchoTempos(segs, extras.gancho_tela), loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");

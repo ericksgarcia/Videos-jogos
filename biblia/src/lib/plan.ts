@@ -43,6 +43,7 @@ export type Plano = {
   climax: { t: number; palavra: string };
   rotulo: { texto: string; ini: number; fim: number };
   gancho_tela?: string[];             // texto grande de abertura (afirmação de choque, não pergunta de autoajuda)
+  gancho_linhas?: number[];           // s em que cada linha do texto de abertura entra: NA PALAVRA em que é falada (o texto é a 1ª frase narrada)
   gancho_fim?: number;                // s em que o texto de abertura sai (fim da 1ª frase falada); padrão 2,6
   gancho_virada?: number;             // s do 2º golpe (início da 2ª frase): flash + empurrão de câmera que segura a retenção aos 3-4 s
   cta_tela?: { texto: string; ini: number; fim: number };

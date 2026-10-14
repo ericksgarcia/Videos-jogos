@@ -78,7 +78,7 @@ export const Video = (plano: Plano) => {
       <Vinheta forca={proc ? 0.62 : 0.6} />
       <KineticText segmentos={plano.segmentos} blocos={plano.blocos} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
       <RotuloReferencia {...plano.rotulo} />
-      {plano.gancho_tela && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} />}
+      {plano.gancho_tela && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
       {plano.gancho_virada !== undefined && <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, rgba(255,230,170,1), rgba(255,200,110,0) 65%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.gancho_virada!); return k < 0 ? 0 : 0.5 * Math.exp(-k / 5); })() }} />}
       {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
       {/* granulado no navegador trocava a cada 2 quadros (15 Hz) e parecia tranco: em foto ele vai para o ffmpeg */}

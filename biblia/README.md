@@ -172,7 +172,8 @@ Os vídeos perdiam gente entre 3 e 4 s. Regras a partir de agora (vale para todo
 
 1. **A 1ª frase falada é o gancho** (≤ 8 palavras, concreta, com violência/paradoxo/mistério): um fato de choque, não uma
    pergunta ao espectador. Nada de autoajuda no começo ("Ansioso?", "Você quer desistir?"). O texto de abertura
-   (`gancho_tela`) é uma AFIRMAÇÃO curta que reforça a 1ª frase (ex.: "JOGARAM 3 NO FOGO / O REI CONTOU 4").
+   (`gancho_tela`) é EXATAMENTE a 1ª frase narrada, palavra por palavra (cada linha entra na hora em que é falada):
+   quem lê uma frase grande e ouve a voz dizer outra coisa perde a atenção nos dois. A esteira recusa se divergir.
 2. **A 2ª frase (a "virada", ~3 s) precisa escalar**, nunca explicar contexto: pânico, reviravolta, pergunta sem resposta.
    A esteira marca esse instante (`gancho_virada`) com um clarão; o texto de abertura fica até o fim da 1ª frase (`gancho_fim`).
 3. **Laço aberto**: a pergunta feita no ato 1 só se fecha depois (versículo ou ato 3). O CTA pode alimentar o laço

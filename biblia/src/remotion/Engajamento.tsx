@@ -5,7 +5,7 @@ import { SOMBRA_TEXTO } from "./KineticText";
 const OURO = "#f6c64a";
 
 /** Duas linhas em maiúsculas que "batem" na tela (a 2ª em dourado), sobre a imagem do clímax. */
-export const GanchoTela = ({ linhas, fim }: { linhas: string[]; fim: number }) => {
+export const GanchoTela = ({ linhas, fim, ini }: { linhas: string[]; fim: number; ini?: number[] }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -14,8 +14,9 @@ export const GanchoTela = ({ linhas, fim }: { linhas: string[]; fim: number }) =
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "flex-start", paddingTop: 380, opacity: saida, pointerEvents: "none" }}>
       {linhas.map((l, i) => {
-        const s = spring({ frame: frame - i * 7, fps, config: { damping: 13, mass: 0.7, stiffness: 170 } });
-        const tremor = i === 0 ? Math.max(0, 1 - frame / 8) * Math.sin(frame * 3.1) * 6 : 0;
+        const t0 = Math.round((ini?.[i] ?? i * 0.23) * fps); // a linha entra na palavra em que é falada
+        const s = spring({ frame: frame - t0, fps, config: { damping: 13, mass: 0.7, stiffness: 170 } });
+        const tremor = Math.max(0, 1 - (frame - t0) / 8) * Math.sin(frame * 3.1) * (i === 0 ? 6 : 3);
         return (
           <div key={i} style={{
             fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: Math.min(i === linhas.length - 1 ? 118 : 104, Math.floor(960 / (0.82 * Math.max(8, l.length)))), letterSpacing: "0.05em", whiteSpace: "nowrap",
