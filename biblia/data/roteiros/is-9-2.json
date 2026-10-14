@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["SE TUDO ESTÁ", "ESCURO AGORA"],
+  "ato1": "A Assíria invade o norte de Israel. Cidades queimadas, famílias levadas à força. Um povo sem saber se haveria amanhã. É nesse escuro que Isaías anuncia uma luz.",
+  "cta": "Deixe seu pedido de oração aqui, e curte pra luz chegar em quem está no escuro.",
+  "cta_tela": "Deixe seu pedido de oração",
+  "ato3": "Talvez você esteja andando em trevas agora: um luto, um diagnóstico, um futuro que não aparece. A promessa não é que o escuro desaparece num dia. É que a luz resplandece dentro dele. Uma luz pequena já basta para o próximo passo. Essa promessa nasceu quando",
+  "loop": true,
+  "climax": "luz,",
+  "cta_style": "oracao"
+}

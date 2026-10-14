@@ -23,17 +23,31 @@ function quebrar(ws: PalavraPlano[], max: number): PalavraPlano[][] {
 }
 const cabe = (ws: PalavraPlano[], max: number) => quebrar(ws, max).length <= 2;
 
-/** Divide um trecho em n pedaços de tamanho parecido, cada um cabendo em 2 linhas. */
+const LIGACAO = new Set(["a", "o", "as", "os", "e", "em", "de", "do", "da", "dos", "das", "no", "na", "nos", "nas", "um", "uma", "que", "se", "por", "para", "pra", "com", "nem", "mas", "ou", "ao", "aos", "à", "às", "pelo", "pela", "me", "te", "meu", "seu", "sua", "teu", "tua"]);
+const ligacao = (w: PalavraPlano) => LIGACAO.has(w.t.toLowerCase().replace(/[^\p{L}]/gu, ""));
+
+/**
+ * Divide um trecho em pedaços que cabem em 2 linhas: testa todas as combinações de cortes (com poucos pedaços)
+ * e escolhe a de tamanhos mais parecidos, evitando terminar um pedaço numa palavra de ligação ("em", "de", "que"…).
+ */
 function dividirEquilibrado(ws: PalavraPlano[], max: number): PalavraPlano[][] {
-  const total = larg(ws);
-  for (let n = 2; n <= ws.length; n++) {
-    const alvo = total / n, pedacos: PalavraPlano[][] = [[]];
-    for (const w of ws) {
-      const p = pedacos[pedacos.length - 1];
-      if (p.length && larg(p) + 1 + w.t.length / 2 > alvo && pedacos.length < n) pedacos.push([]);
-      pedacos[pedacos.length - 1].push(w);
-    }
-    if (pedacos.every((p) => cabe(p, max))) return pedacos;
+  for (let n = 2; n <= Math.min(5, ws.length); n++) {
+    const achado: { custo: number; cortes: number[] }[] = [];
+    const tenta = (ini: number, restantes: number, cortes: number[]) => {
+      if (restantes === 0) {
+        const lim = [0, ...cortes, ws.length], pedacos = lim.slice(0, -1).map((c, i) => ws.slice(c, lim[i + 1]));
+        if (!pedacos.every((p) => p.length && cabe(p, max))) return;
+        const tam = pedacos.map((p) => larg(p)), media = tam.reduce((x, y) => x + y, 0) / n;
+        let custo = tam.reduce((x, t) => x + (t - media) ** 2, 0) / n;
+        for (const p of pedacos.slice(0, -1)) if (ligacao(p[p.length - 1])) custo += 400;    // termina em "em/de/que…"
+        for (const p of pedacos) if (p.length === 1) custo += 600;
+        if (!achado.length || custo < achado[0].custo) achado[0] = { custo, cortes: [...cortes] };
+        return;
+      }
+      for (let c = ini; c <= ws.length - restantes; c++) tenta(c + 1, restantes - 1, [...cortes, c]);
+    };
+    tenta(1, n - 1, []);
+    if (achado.length) { const lim = [0, ...achado[0].cortes, ws.length]; return lim.slice(0, -1).map((c, i) => ws.slice(c, lim[i + 1])); }
   }
   return ws.map((w) => [w]);
 }

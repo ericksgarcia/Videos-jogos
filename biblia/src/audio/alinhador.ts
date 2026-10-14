@@ -223,3 +223,8 @@ export function alinhar(texto: string, audio: Float32Array, sr = SR, op: OpcoesA
   }
   return out;
 }
+
+/** Duração (s) do mesmo texto na voz de referência: régua independente para detectar narração com texto a mais/a menos. */
+export function duracaoReferencia(texto: string, op: OpcoesAlinhador = {}): number {
+  return referencia(texto, op.voz ?? "pt-BR-AntonioNeural", op.taxa ?? "-15%").audio.length / FS;
+}

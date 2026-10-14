@@ -16,7 +16,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import { join } from "node:path";
 import { RAIZ } from "../lib/catalog.ts";
 import { comTentativas } from "../lib/env.ts";
-import { alinhar } from "../audio/alinhador.ts";
+import { alinhar, duracaoReferencia } from "../audio/alinhador.ts";
 import { SR, escreverWavMono, lerWav, lerWavArquivo, reamostrar } from "../audio/wav.ts";
 import { prng } from "./engine.ts";
 
@@ -142,7 +142,7 @@ const GEMINI_MODELO = () => process.env.GEMINI_TTS_MODEL ?? "gemini-3.8-flash-tt
 const DIRECAO_BASE =
   "# AUDIO PROFILE: Narrador de um canal cristão sóbrio e cinematográfico, português do Brasil.\n" +
   "## DIRECTOR'S NOTES\nStyle: voz grave, profunda e calorosa; solene, nunca eufórica, sem tom de pregador nem de propaganda; " +
-  "gravidade e ternura. Accent: português do Brasil. ";
+  "gravidade e ternura. Accent: português do Brasil. IMPORTANT: read the transcript exactly ONCE, word for word, as written; never repeat any part of it and never add words, titles or comments. ";
 const DIRECAO: Record<keyof typeof PERFIS, string> = {
   narrador: "Pace: pausado mas fluido, como trailer de cinema: frases curtas, pausas breves, tensão crescente, sem arrastar.\n#### TRANSCRIPT\n",
   leitura: "Pace: solene e firme, cada frase com peso, como a leitura de um texto sagrado; pausas curtas entre as frases.\n#### TRANSCRIPT\n",
@@ -332,13 +332,21 @@ export const segundosPorPalavra = (audio: Float32Array, palavras: number) => {
 
 async function sintetizarGemini(texto: string, perfil: keyof typeof PERFIS, maxDur: number): Promise<Fala> {
   const n = texto.split(/\s+/).filter(Boolean).length;
-  let audio = new Float32Array(0);
-  for (let tentativa = 0; tentativa < 4; tentativa++) {
-    audio = aparar(decodificar(Buffer.from(await geminiBruto(texto, perfil, tentativa), "base64")));
-    const spp = segundosPorPalavra(audio, n);
-    if (spp <= 0.75) break;
-    console.warn(`  ⚠ narração suspeita (${spp.toFixed(2)} s/palavra: leu algo a mais ou repetiu) — pedindo de novo`);
+  // régua independente: a mesma frase na voz grátis de referência. Narração bem acima disso = o modelo repetiu/acrescentou texto
+  let ref = 0;
+  try { ref = duracaoReferencia(texto); } catch { /* sem edge-tts: cai só na checagem de s/palavra */ }
+  const limite = perfil === "leitura" ? 1.55 : 1.4;
+  let melhor: { audio: Float32Array; razao: number } | null = null;
+  for (let tentativa = 0; tentativa < 5; tentativa++) {
+    const a = aparar(decodificar(Buffer.from(await geminiBruto(texto, perfil, tentativa), "base64")));
+    const efetiva = encurtarPausas(a, 0.4).length / SR;
+    const razao = ref ? efetiva / ref : segundosPorPalavra(a, n) / 0.5;
+    if (!melhor || razao < melhor.razao) melhor = { audio: a, razao };
+    if (razao <= limite && segundosPorPalavra(a, n) <= 0.75) break;
+    console.warn(`  ⚠ narração suspeita (${efetiva.toFixed(1)} s para ${ref ? `${ref.toFixed(1)} s esperados` : `${n} palavras`}: leu algo a mais ou repetiu) — pedindo de novo`);
   }
+  if (melhor!.razao > limite * 1.15) throw new Error(`narração com texto a mais em 5 tentativas (${perfil}): "${texto.slice(0, 40)}…"`);
+  let audio = melhor!.audio;
   audio = encurtarPausas(audio, perfil === "leitura" ? 0.6 : 0.42);
   let taxa = 1;
   if (audio.length / SR > maxDur) { // acelera só o necessário, no máximo 1,18x
