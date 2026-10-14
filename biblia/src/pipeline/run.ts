@@ -62,7 +62,7 @@ const FASES_AUDITORIA = ["gancho", "virada", "contexto", "cta", "versiculo", "at
  * Portão de qualidade do roteiro: sem auditoria por fase (por que o espectador continua assistindo AQUI?) e com gancho
  * fraco (pergunta de autoajuda, 1ª frase longa) a esteira não gera o vídeo. --sem-auditoria só para testes técnicos.
  */
-function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: Record<string, string> }, arq: string) {
+function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: Record<string, string>; revisao?: Record<string, number> }, arq: string) {
   if (process.argv.includes("--sem-auditoria")) return;
   const falhas: string[] = [];
   const primeira = (j.ato1.match(/^[^.!?…]*[.!?…]/)?.[0] ?? j.ato1).trim();
@@ -71,6 +71,7 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (!j.gancho_tela?.length) falhas.push("falta gancho_tela (afirmação de abertura)");
   else if (j.gancho_tela.some((l) => /\?/.test(l))) falhas.push("gancho_tela com pergunta: use afirmação");
   for (const f of FASES_AUDITORIA) if ((j.auditoria?.[f] ?? "").trim().split(/\s+/).length < 6) falhas.push(`auditoria.${f} ausente ou vaga (explique em ≥ 6 palavras por que o espectador continua aqui)`);
+  for (const f of FASES_AUDITORIA) { const n = j.revisao?.[f]; if (typeof n !== "number") falhas.push(`revisao.${f}: falta a nota do avaliador independente (REVISAO.md)`); else if (n < 8) falhas.push(`revisao.${f} = ${n} (< 8): reescreva a fase e passe por novo avaliador`); }
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
 }
 

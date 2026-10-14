@@ -200,3 +200,6 @@ O roteiro `data/roteiros/<id>.json` leva um objeto `"auditoria"` com UMA frase (
 retenção ali. A esteira **recusa** o roteiro sem a auditoria completa ou com gancho fraco (1ª frase > 9 palavras,
 pergunta no gancho). Nas etapas técnicas a mesma régua se aplica: depois do render, revisar os frames de cada fase
 (0 s, 1,5 s, virada, CTA, versículo, ato 3, final) e só enviar se cada uma passar; se alguma for fraca, refazer.
+
+**Revisão rígida:** além da auditoria do autor, um avaliador independente (que só vê o roteiro) dá nota 1–10 por fase seguindo
+`REVISAO.md`; mínimo **8 em todas**, registrado em `"revisao"` no roteiro — a esteira recusa nota ausente ou menor que 8.

@@ -1,19 +1,33 @@
 {
-  "gancho_tela": ["O CÉU SE ABRIU", "SÓ PARA OS DESPREZADOS"],
-  "ato1": "O céu se abriu só para os mais desprezados. Eram pastores, homens que nem podiam testemunhar num tribunal. De madrugada, no escuro, algo desceu sobre eles.",
-  "cta": "Marque alguém que precisa ouvir o que o anjo disse primeiro, e curte.",
-  "cta_tela": "Marque quem precisa ouvir",
-  "ato3": "A primeira frase do anjo foi um alívio: não temais. Antes da mensagem, Deus cuidou do medo deles. E o sinal? Um bebê numa manjedoura. Deus chegou pelo lugar mais baixo. Se você se sente pequeno, ele sabe chegar até aí. Tudo começou quando o",
+  "gancho_tela": [
+    "O MESSIAS FOI ANUNCIADO",
+    "A QUEM NINGUÉM OUVIA"
+  ],
+  "versiculo": "E eis que um anjo do Senhor veio sobre eles, e a glória do Senhor os cercou de resplendor, e tiveram grande temor.",
+  "ato1": "Deus anunciou Jesus a quem nenhum tribunal ouvia. Eram pastores: nos escritos rabínicos, pastor era visto como testemunha suspeita. Numa noite, entre as ovelhas, o céu acendeu.",
+  "cta": "Curte e marca quem se sente ignorado. Agora repara no que o céu faz com eles.",
+  "cta_tela": "Marque quem se sente ignorado",
+  "ato3": "O anjo começa com: não temais. O sinal? Um bebê num cocho. Os que ninguém ouvia foram os primeiros a espalhar a notícia. Trinta e poucos anos depois, o túmulo vazio foi anunciado primeiro a mulheres. Gente que o tribunal também mal ouvia. De novo. Desde o começo",
   "loop": true,
   "climax": "temor.",
   "cta_style": "compartilhar",
   "auditoria": {
-    "gancho": "Afirma algo absurdo e concreto: o céu abriu e só os desprezados viram, o espectador quer saber quem e por quê.",
-    "virada": "Revela que eram pastores sem valor legal e fecha com algo desceu sobre eles, escalando o mistério.",
-    "contexto": "Cada frase acrescenta um fato novo e estranho (testemunho proibido, madrugada, escuro) sem explicar a história toda.",
-    "cta": "Teaser do que o anjo disse primeiro mantém a pergunta viva e pede só uma ação, marcar alguém.",
-    "versiculo": "Entrega o anjo e o grande temor que respondem ao algo desceu, e a palavra temor cai no clarão de luz.",
-    "ato3": "Revela a primeira frase do anjo e o sinal inesperado de um bebê na manjedoura, virando a ideia de quem Deus procura.",
-    "final": "Termina em tudo começou quando o, que emenda em O céu se abriu, fechando o laço e pedindo para rever."
+    "gancho": "Fato estranho e concreto em oito palavras: o Messias foi anunciado a quem nenhum tribunal ouvia, e a tela mostra quem.",
+    "virada": "Revela que eram pastores e que, nos escritos rabínicos, eram testemunhas suspeitas, respondendo o gancho com um fato desconhecido.",
+    "contexto": "A imagem curta de o céu acendeu entre as ovelhas passa a tensão para o CTA sem explicar nada.",
+    "cta": "Pede curtida e marcação ligada ao tema dos ignorados e promete mostrar o que o céu faz com eles.",
+    "versiculo": "A leitura entrega o anjo, a glória e o grande temor que o CTA prometeu mostrar.",
+    "ato3": "Liga o nascimento ao túmulo vazio anunciado primeiro a mulheres, mostrando que os desprezados são sempre os primeiros a contar.",
+    "final": "Desde o começo emenda em Deus anunciou Jesus a quem nenhum tribunal ouvia, fechando o laço com sentido novo e puxando o replay."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 9,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 8
   }
 }
