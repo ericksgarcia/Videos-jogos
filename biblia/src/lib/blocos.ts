@@ -108,7 +108,7 @@ export function montarBlocos(segs: SegmentoPlano[]): Bloco[] {
  * imagem, e nenhuma imagem fica menos de `minS` segundos (parte curta junta com a seguinte do mesmo ato).
  * Devolve listas de índices de blocos.
  */
-export function agruparParaImagens(blocos: Bloco[], minS = 2.0): number[][] {
+export function agruparParaImagens(blocos: Bloco[], minS = 2.0, maxS = Infinity): number[][] {
   const grupos: number[][] = [];
   for (let i = 0; i < blocos.length; i++) {
     const g = [i];
@@ -122,6 +122,19 @@ export function agruparParaImagens(blocos: Bloco[], minS = 2.0): number[][] {
   for (let k = grupos.length - 1; k > 0; k--) {
     const g = grupos[k], dur = blocos[g[g.length - 1]].fim - blocos[g[0]].ini;
     if (dur < minS * 0.75 && blocos[grupos[k - 1][0]].seg === blocos[g[0]].seg) { grupos[k - 1].push(...g); grupos.splice(k, 1); }
+  }
+  // nenhuma imagem passa de maxS: um grupo longo é partido no corte de bloco mais perto do meio
+  const dur = (g: number[]) => blocos[g[g.length - 1]].fim - blocos[g[0]].ini;
+  for (let k = 0; k < grupos.length; k++) {
+    const g = grupos[k];
+    if (dur(g) <= maxS || g.length < 2) continue;
+    let melhor = 1, dif = Infinity;
+    for (let c = 1; c < g.length; c++) {
+      const d = Math.abs(blocos[g[c]].ini - blocos[g[0]].ini - dur(g) / 2);
+      if (d < dif) { dif = d; melhor = c; }
+    }
+    grupos.splice(k, 1, g.slice(0, melhor), g.slice(melhor));
+    k--; // reavalia a primeira metade
   }
   return grupos;
 }

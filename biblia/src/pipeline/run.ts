@@ -150,7 +150,7 @@ async function main() {
     let primeira: { img: string; prof: string; faixa: number } | null = null;
     // metade das imagens de antes: cada imagem fica >= MIN_IMG_S (padrão 4,5 s ≈ 8 imagens por vídeo) e só troca no início de uma linha
     // (ou quando o ato muda); duas partes de 1 linha seguidas sempre dividem a mesma imagem
-    const grupos = agruparParaImagens(blocosLeg, Number(process.env.MIN_IMG_S ?? 4.5));
+    const grupos = agruparParaImagens(blocosLeg, Number(process.env.MIN_IMG_S ?? 4.5), Number(process.env.MAX_IMG_S ?? 9));
     for (let k = 0; k < grupos.length; k++) {
       const b = blocosLeg[grupos[k][0]];
       const ini = k === 0 ? 0 : Math.max(0, b.ini - 0.06);

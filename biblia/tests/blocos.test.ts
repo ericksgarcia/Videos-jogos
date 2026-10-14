@@ -35,3 +35,12 @@ test("tomadas de imagem: duas partes de uma linha seguidas dividem a imagem; nen
   for (const x of g) assert.ok(blocos[x[x.length - 1]].fim - blocos[x[0]].ini >= 2.0, JSON.stringify(x));
   assert.deepEqual(g.flat(), [0, 1, 2, 3, 4, 5]);
 });
+
+test("nenhuma imagem passa do tempo máximo: grupo longo é partido num corte de bloco", async () => {
+  const { agruparParaImagens } = await import("../src/lib/blocos.ts");
+  const w = (t: string, ini: number) => ({ t, ini, fim: ini + 0.3 });
+  const blocos = Array.from({ length: 6 }, (_, i) => ({ seg: "ato1" as const, ini: i * 2.5, fim: (i + 1) * 2.5, linhas: [[w("x", i * 2.5)], [w("y", i * 2.5 + 1)]] }));
+  const g = agruparParaImagens(blocos, 4.5, 9);
+  for (const x of g) assert.ok(blocos[x[x.length - 1]].fim - blocos[x[0]].ini <= 9.01, JSON.stringify(x));
+  assert.deepEqual(g.flat(), [0, 1, 2, 3, 4, 5]);
+});
