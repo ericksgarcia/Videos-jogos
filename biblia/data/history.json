@@ -116,5 +116,16 @@
     "cta_style": "nome",
     "cta_text": "Marque alguém que precisa de socorro hoje, e curte pra essa palavra chegar até ele.",
     "pexels_ids": []
+  },
+  {
+    "at": "2026-10-14T14:17:09.927Z",
+    "id": "hb-12-1",
+    "reference": "Hebreus 12:1",
+    "book": "hb",
+    "emotional_hook": "cansaço",
+    "tone": "epic",
+    "cta_style": "alcance",
+    "cta_text": "Curta pra essa palavra alcançar quem quer desistir hoje, e comente: eu continuo.",
+    "pexels_ids": []
   }
 ]
