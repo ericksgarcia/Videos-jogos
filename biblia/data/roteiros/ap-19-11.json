@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["ALGUÉM TE FEZ", "INJUSTIÇA?"],
+  "ato1": "João está exilado numa ilha, enquanto Roma persegue os cristãos. Parece que o império venceu. Então o céu se abre diante dele.",
+  "cta": "Qual injustiça você entrega a Deus hoje? Comenta, e curte pra chegar a quem precisa.",
+  "cta_tela": "Comente: eu entrego",
+  "ato3": "Se alguém te fez injustiça, e parece que ninguém viu, essa palavra é para você. Ele vê o que foi escondido e não esquece o que foi feito contra você. Não precisa se vingar. Entregue. A justiça dele não falha. Foi o que viu um homem chamado",
+  "loop": true,
+  "climax": "Verdadeiro",
+  "cta_style": "pergunta"
+}
