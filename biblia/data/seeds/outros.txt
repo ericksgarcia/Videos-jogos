@@ -55,6 +55,7 @@ jr 1:4-8 | chamado | epic | noite,silêncio | Jeremias, ainda muito jovem, é ch
 jr 9:23-24 | orgulho | epic | trovão | Não se glorie o sábio na sua sabedoria, nem o rico nas suas riquezas.
 jr 17:5-8 | sabedoria | comfort | deserto,chuva | O contraste entre um arbusto no deserto e uma árvore plantada junto à água.
 jr 18:1-6 | superação | comfort | silêncio,fogo | Deus manda Jeremias à casa do oleiro, que refaz o vaso estragado.
+jr 18:4-6 | superação | comfort | silêncio,fogo | O vaso de barro se quebra na mão do oleiro, e ele o refaz; Deus diz que Israel é como o barro na mão do oleiro.
 jr 20:7-9 | cansaço | epic | fogo,noite | Jeremias, ridicularizado e preso por anunciar a verdade, diz que a palavra lhe queima como fogo nos ossos.
 jr 23:28-29 | juízo | epic | fogo,trovão | Palavra de Deus é fogo e martelo que despedaça a rocha.
 jr 29:4-7 | esperança | comfort | silêncio | Carta aos exilados na Babilônia: construam casas, plantem pomares, procurem a paz da cidade.

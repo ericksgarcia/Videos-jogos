@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "DOIS VASOS QUEBRARAM",
+    "DEUS SÓ REFEZ UM"
+  ],
+  "versiculo": "Como o vaso que ele fazia de barro se quebrou na mão do oleiro, tornou a fazer dele outro vaso, conforme o que pareceu bem aos seus olhos fazer.",
+  "ato1": "Dois vasos quebraram, Deus só refez um. O primeiro se quebrou na mão do oleiro, e ele nem jogou fora. O segundo, Deus mandou Jeremias quebrar de propósito.",
+  "cta": "Três palavras do versículo mostram por que o primeiro tinha volta. Curte, comenta amém e escuta.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Que ele fazia: o primeiro ainda estava na roda, barro mole, e virou outro vaso. O segundo Jeremias comprou já pronto, duro. E Deus explicou: endureceram a cerviz, a nuca que não dobra. Não é a rachadura que decide, é a dureza. Lembra:",
+  "loop": true,
+  "climax": "quebrou",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Fato concreto e estranho com injustiça aparente: dois vasos quebraram e Deus só refez um, e a tela repete a fala.",
+    "virada": "E ele nem jogou fora cria imagem simples e deixa o contraste armado com o segundo vaso.",
+    "contexto": "Deus mandou Jeremias quebrar de propósito é a reviravolta que quase ninguém conhece e eleva a tensão.",
+    "cta": "Três palavras do versículo viram caça ao tesouro durante a leitura, e o pedido curto alimenta o suspense.",
+    "versiculo": "O espectador ouve a leitura solene procurando as três palavras que explicam por que o primeiro tinha volta.",
+    "ato3": "Que ele fazia paga a promessa e o contraste barro mole contra vaso duro vira a dureza como virada do gancho.",
+    "final": "Lembra emenda no gancho dois vasos quebraram e a segunda volta já traz a resposta, puxando o replay."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 9,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 8
+  }
+}
