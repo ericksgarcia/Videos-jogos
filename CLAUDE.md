@@ -212,7 +212,7 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 Esteira de vídeos bíblicos de 45–58 s (catálogo de passagens, roteiro com CTA de fé dinâmico, Google TTS,
 sonoplastia com ducking, Replicate/Pexels, legendas cinéticas). É **independente** de `aprendendo/`: não
 compartilha código, pasta de saída nem regras de conteúdo deste guia (o público e o estilo são outros).
-Leia `biblia/README.md`. Chaves em `biblia/.env` (nunca versionar); `cd biblia && npm test` roda sem rede.
+Leia `biblia/README.md` (inclui o **protocolo de gancho** e a **auditoria por fase**, obrigatórios em todo roteiro: a esteira recusa roteiro sem eles). Chaves em `biblia/.env` (nunca versionar); `cd biblia && npm test` roda sem rede.
 
 ## Git
 

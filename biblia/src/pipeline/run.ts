@@ -55,6 +55,25 @@ function ganchoTempos(segs: { id: string; palavras: { t: string; ini: number; fi
   return { gancho_fim: Math.min(5, Math.max(2.6, p[i].fim + 0.25)), gancho_virada: p[i + 1].ini };
 }
 
+/** Fases que o roteiro precisa justificar (teste do "dedo rolando" em CADA fase, não só no gancho). */
+const FASES_AUDITORIA = ["gancho", "virada", "contexto", "cta", "versiculo", "ato3", "final"] as const;
+
+/**
+ * Portão de qualidade do roteiro: sem auditoria por fase (por que o espectador continua assistindo AQUI?) e com gancho
+ * fraco (pergunta de autoajuda, 1ª frase longa) a esteira não gera o vídeo. --sem-auditoria só para testes técnicos.
+ */
+function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: Record<string, string> }, arq: string) {
+  if (process.argv.includes("--sem-auditoria")) return;
+  const falhas: string[] = [];
+  const primeira = (j.ato1.match(/^[^.!?…]*[.!?…]/)?.[0] ?? j.ato1).trim();
+  if (primeira.split(/\s+/).length > 9) falhas.push(`1ª frase falada com ${primeira.split(/\s+/).length} palavras (máx. 9): "${primeira}"`);
+  if (/\?/.test(primeira)) falhas.push("1ª frase falada é pergunta: abra com fato de choque/paradoxo");
+  if (!j.gancho_tela?.length) falhas.push("falta gancho_tela (afirmação de abertura)");
+  else if (j.gancho_tela.some((l) => /\?/.test(l))) falhas.push("gancho_tela com pergunta: use afirmação");
+  for (const f of FASES_AUDITORIA) if ((j.auditoria?.[f] ?? "").trim().split(/\s+/).length < 6) falhas.push(`auditoria.${f} ausente ou vaga (explique em ≥ 6 palavras por que o espectador continua aqui)`);
+  if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
+}
+
 type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
@@ -63,6 +82,7 @@ function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro
   extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
+  auditarRoteiro(j, arq);
   // o roteiro pode usar só um TRECHO do versículo do catálogo — mas ele precisa ser um pedaço exato do texto bíblico
   if (j.versiculo && !e.text.includes(j.versiculo)) throw new Error(`"versiculo" do roteiro não é um trecho exato do texto do catálogo (${e.id})`);
   const versiculo: string = j.versiculo ?? e.text;

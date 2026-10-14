@@ -179,3 +179,24 @@ Os vídeos perdiam gente entre 3 e 4 s. Regras a partir de agora (vale para todo
    ("já já eu mostro quem era o quarto homem").
 4. **Teste do dedo rolando** antes de renderizar: "por que eu pararia e veria isso inteiro?" — se a resposta for só
    "é bonito" ou "é bom pra mim", reescreva.
+
+### Auditoria por fase (obrigatória, vale para TODO vídeo)
+
+O gancho não basta: o vídeo só vale se o espectador quiser ver até o fim. Antes de gerar qualquer coisa, o roteiro é
+lido como alguém que rola o feed por hábito, **fase por fase**, perguntando em cada uma *"por que eu continuaria
+assistindo agora?"*. Se a resposta for fraca, reescreva — não corrija na edição.
+
+| Fase (campo `auditoria`) | Janela | Precisa ter |
+|---|---|---|
+| `gancho` | 0–3 s | fato de choque/paradoxo concreto, ≤ 9 palavras, sem pergunta de autoajuda; texto de abertura é afirmação |
+| `virada` | 3–5 s | 2ª frase que ESCALA (pânico, reviravolta, pergunta sem resposta), nunca contexto frio |
+| `contexto` | 5–11 s | cada frase traz informação nova; nada de explicação de fundo "de enciclopédia" |
+| `cta` | ~11–16 s | não é pausa: alimenta o laço aberto (teaser do que vem) e pede UMA ação clara |
+| `versiculo` | ~17–32 s | paga (ou aprofunda) o laço do ato 1; a palavra de clímax cai num momento de imagem/luz forte |
+| `ato3` | ~32–52 s | reviravolta ou revelação + cena concreta de hoje; sermão genérico reprova |
+| `final` | últimos 5 s | frase que fecha o laço E emenda no começo (loop), motivo para rever/compartilhar |
+
+O roteiro `data/roteiros/<id>.json` leva um objeto `"auditoria"` com UMA frase (≥ 6 palavras) por fase justificando a
+retenção ali. A esteira **recusa** o roteiro sem a auditoria completa ou com gancho fraco (1ª frase > 9 palavras,
+pergunta no gancho). Nas etapas técnicas a mesma régua se aplica: depois do render, revisar os frames de cada fase
+(0 s, 1,5 s, virada, CTA, versículo, ato 3, final) e só enviar se cada uma passar; se alguma for fraca, refazer.

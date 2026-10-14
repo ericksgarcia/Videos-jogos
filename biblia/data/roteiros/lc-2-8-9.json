@@ -1,0 +1,19 @@
+{
+  "gancho_tela": ["O CÉU SE ABRIU", "SÓ PARA OS DESPREZADOS"],
+  "ato1": "O céu se abriu só para os mais desprezados. Eram pastores, homens que nem podiam testemunhar num tribunal. De madrugada, no escuro, algo desceu sobre eles.",
+  "cta": "Marque alguém que precisa ouvir o que o anjo disse primeiro, e curte.",
+  "cta_tela": "Marque quem precisa ouvir",
+  "ato3": "A primeira frase do anjo foi um alívio: não temais. Antes da mensagem, Deus cuidou do medo deles. E o sinal? Um bebê numa manjedoura. Deus chegou pelo lugar mais baixo. Se você se sente pequeno, ele sabe chegar até aí. Tudo começou quando o",
+  "loop": true,
+  "climax": "temor.",
+  "cta_style": "compartilhar",
+  "auditoria": {
+    "gancho": "Afirma algo absurdo e concreto: o céu abriu e só os desprezados viram, o espectador quer saber quem e por quê.",
+    "virada": "Revela que eram pastores sem valor legal e fecha com algo desceu sobre eles, escalando o mistério.",
+    "contexto": "Cada frase acrescenta um fato novo e estranho (testemunho proibido, madrugada, escuro) sem explicar a história toda.",
+    "cta": "Teaser do que o anjo disse primeiro mantém a pergunta viva e pede só uma ação, marcar alguém.",
+    "versiculo": "Entrega o anjo e o grande temor que respondem ao algo desceu, e a palavra temor cai no clarão de luz.",
+    "ato3": "Revela a primeira frase do anjo e o sinal inesperado de um bebê na manjedoura, virando a ideia de quem Deus procura.",
+    "final": "Termina em tudo começou quando o, que emenda em O céu se abriu, fechando o laço e pedindo para rever."
+  }
+}
