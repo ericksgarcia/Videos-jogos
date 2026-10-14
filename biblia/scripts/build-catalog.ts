@@ -40,7 +40,7 @@ async function carregarBiblia(): Promise<{ abbrev: string; chapters: string[][] 
   return JSON.parse(readFileSync(CACHE, "utf8").replace(/^﻿/, ""));
 }
 
-const limpar = (v: string) => v.replace(/\{[^}]*\}/g, "").replace(/\s+/g, " ").trim();
+const limpar = (v: string) => v.replace(/\{[^}]*\}/g, "").replace(/\s+/g, " ").replace(/\s+([,;:.!?])/g, "$1").trim();
 const contar = (t: string) => t.split(/\s+/).filter(Boolean).length;
 
 async function main() {

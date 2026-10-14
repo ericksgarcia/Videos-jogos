@@ -1,0 +1,11 @@
+{
+  "gancho_tela": ["DE ONDE VAI VIR", "O SEU SOCORRO?"],
+  "versiculo": "Elevo os olhos para os montes: de onde me virá o socorro? O meu socorro vem do Senhor, que fez o céu e a terra.",
+  "ato1": "Peregrinos sobem a estrada para Jerusalém. É um caminho longo, com calor, cansaço e perigo. De longe, eles avistam os montes. E cantam uma pergunta.",
+  "cta": "Marque alguém que precisa de socorro hoje, e curte pra essa palavra chegar até ele.",
+  "cta_tela": "Marque quem precisa de socorro",
+  "ato3": "Talvez hoje você também esteja olhando para os montes: contas, diagnóstico, uma decisão grande demais. De onde virá o socorro? Não é do seu esforço. É de quem fez o céu e a terra. E aquele que te guarda não dorme. Foi a pergunta de",
+  "loop": true,
+  "climax": "Senhor,",
+  "cta_style": "nome"
+}
