@@ -26,7 +26,8 @@ export function montarLinha(f: Record<"ato1" | "cta" | "ato2" | "ato3", Fala>, b
   const ato1 = 0.5;
   const cta = sobeBatida(Math.max(12, ato1 + f.ato1.dur + 0.35), bpm);
   const ato2 = sobeBatida(Math.max(16, cta + f.cta.dur + 0.5), bpm);
-  const ato3 = sobeBatida(Math.max(35, ato2 + f.ato2.dur + 0.9), bpm);
+  // marca nominal 35 s, mas se o versículo for curto não deixa mais que ~2 s de silêncio antes do ato 3
+  const ato3 = sobeBatida(Math.max(ato2 + f.ato2.dur + 0.9, Math.min(35, ato2 + f.ato2.dur + 2)), bpm);
   const fala3 = ato3 + f.ato3.dur;
   // cauda de 0,8-1,6 s (encolhe para fechar em 58 s); em loop, quase nada: a última palavra emenda na primeira
   let total = fala3 + (loop ? 0.3 : Math.min(1.6, Math.max(0.8, DUR_MAX - fala3)));

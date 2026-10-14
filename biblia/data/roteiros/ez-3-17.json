@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["ALGUÉM PRECISA", "DESTE AVISO"],
+  "ato1": "Ezequiel está exilado, longe de casa, às margens de um rio na Babilônia. Sete dias em silêncio, atônito. E então Deus o interrompe com uma missão.",
+  "cta": "Marque nos comentários alguém que precisa ouvir isso hoje, e curte pra essa palavra chegar longe.",
+  "cta_tela": "Marque quem precisa ouvir",
+  "ato3": "Hoje você também é atalaia. Tem alguém por perto afundando em silêncio: um amigo, um filho, uma mãe. Uma mensagem, uma oração, um “estou aqui” pode ser o aviso que salva. Quem vem à sua mente agora? Procure essa pessoa. Deus fez isso com",
+  "loop": true,
+  "climax": "atalaia",
+  "cta_style": "nome"
+}

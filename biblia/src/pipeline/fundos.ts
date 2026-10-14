@@ -129,7 +129,12 @@ export async function fundoInedito(ato: Ato, video: string, rand: () => number, 
   for (let tentativa = 0; tentativa < 10; tentativa++) {
     const prompt = promptNovo(ato, rand, prompts);
     const seed = Math.floor(rand() * 2 ** 31);
-    const arq = await gerarImagem(prompt, seed);
+    let arq: string;
+    try { arq = await gerarImagem(prompt, seed); }
+    catch (e) { // falha do serviço (erro interno do Replicate etc.): tenta outra semente, sem perder a rodada
+      console.warn(`  ⚠ geração falhou (${(e as Error).message.slice(0, 90)}) — tentando de novo`);
+      await new Promise((r) => setTimeout(r, 5000)); continue;
+    }
     const q = avaliar(arq), hash = dhash(arq);
     const parecida = [...reg.map((r) => r.hash), ...jaNesteVideo].find((h) => hamming(h, hash) < 10);
     if (q.ok && !parecida) {
