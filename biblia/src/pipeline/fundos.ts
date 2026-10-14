@@ -53,7 +53,7 @@ const TERRAS = [
   "over a winding river valley", "over a wide golden wheat field", "over a deep rocky canyon", "over a still mirror-like lake",
   "over tall sea cliffs", "over a wide plain with scattered rocks", "over snow-capped peaks", "over a forest of pines in fog",
 ];
-const FINAL = "vertical 9:16 composition, cinematic landscape photography, epic scale, rich detail, natural colors, no people, no animals, no buildings, no text";
+const FINAL = "vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text";
 
 /** Prompt inédito: combinação de céu × terra ainda não usada para esse ato. */
 export function promptNovo(ato: Ato, rand: () => number, usados: Set<string>): string {

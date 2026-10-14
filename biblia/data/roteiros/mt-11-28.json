@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["CANSADO", "DE TUDO?"],
+  "ato1": "Se você acordou cansado hoje, cansado de verdade, fica até o fim. Na Galileia, Jesus olha para gente esmagada por impostos, regras religiosas e trabalho sem fim.",
+  "cta": "Se você precisa desse descanso, comenta EU RECEBO, e curte pra chegar em quem está cansado.",
+  "cta_tela": "Comente: EU RECEBO",
+  "ato3": "Talvez seu cansaço não passe com uma noite de sono. É a alma pesada: contas, cobranças, gente que depende de você. Jesus não promete uma vida sem peso. Ele promete carregar o peso com você. Hoje, entregue o que é pesado demais. Descanse nisso.",
+  "loop": true,
+  "climax": "aliviarei.",
+  "cta_style": "declaracao"
+}

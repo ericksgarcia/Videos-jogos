@@ -70,8 +70,10 @@ export function montarBlocos(segs: SegmentoPlano[]): Bloco[] {
     for (let i = 0; i < doSeg.length; i++) {
       if (doSeg[i].length > 2 || doSeg.length === 1) continue;
       const ant = doSeg[i - 1], prox = doSeg[i + 1];
-      if (ant && cabe([...ant, ...doSeg[i]], folga)) { ant.push(...doSeg[i]); doSeg.splice(i--, 1); }
-      else if (prox && cabe([...doSeg[i], ...prox], folga)) { prox.unshift(...doSeg[i]); doSeg.splice(i--, 1); }
+      const fimFrase = (b: PalavraPlano[]) => /[.!?…]$/.test(b[b.length - 1].t);
+      // nunca junta por cima de um ponto final: a imagem/legenda troca junto com a frase
+      if (ant && !fimFrase(ant) && cabe([...ant, ...doSeg[i]], folga)) { ant.push(...doSeg[i]); doSeg.splice(i--, 1); }
+      else if (prox && !fimFrase(doSeg[i]) && cabe([...doSeg[i], ...prox], folga)) { prox.unshift(...doSeg[i]); doSeg.splice(i--, 1); }
     }
     for (const ws of doSeg.filter((x) => x.length)) {
       // 2 linhas sempre: se não cabe na largura normal (bloco que recebeu a sobra), usa a folga (a fonte encolhe)

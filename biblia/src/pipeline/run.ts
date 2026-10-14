@@ -253,7 +253,7 @@ async function main() {
   }
 
   // 9) histórico (só depois de o vídeo existir)
-  if (!o.semHistorico && !o.offline) {
+  if (!o.semHistorico && !o.offline && !o.semRender) { // só conta como publicado quando o vídeo existe
     saveHistory(registrar(historico, entrada, { cta_style: rot.cta_style, cta_text: rot.cta, pexels_ids: [...usados].filter((x) => !anteriores.has(x)) }));
     console.log("  histórico atualizado");
   }
