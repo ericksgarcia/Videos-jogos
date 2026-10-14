@@ -76,7 +76,7 @@ const Palavra = ({ w, proxIni, t, frame, fps, verso }: { w: PalavraPlano; proxIn
 };
 
 /** Legenda em blocos de 2 linhas (os mesmos blocos que trocam a imagem de fundo). */
-export const KineticText = ({ segmentos, blocos }: { segmentos: SegmentoPlano[]; blocos?: Bloco[] }) => {
+export const KineticText = ({ segmentos, blocos, faixa = 100 }: { segmentos: SegmentoPlano[]; blocos?: Bloco[]; faixa?: number }) => {
   useFontes();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -95,13 +95,15 @@ export const KineticText = ({ segmentos, blocos }: { segmentos: SegmentoPlano[];
   const maiorLinha = Math.max(...b.linhas.map((l) => l.reduce((n, w, k) => n + w.t.length + (k ? 1 : 0), 0)));
   const fonte = Math.min(base, Math.floor(940 / Math.max(1, maiorLinha * em)));   // a linha mais longa sempre cabe
   const palavras = b.linhas.flat();
+  // fundo escuro atrás do texto proporcional ao brilho da imagem (claro = mais escuro; escuro = discreto)
+  const scrim = 0.42 + 0.36 * Math.min(1, Math.max(0, (faixa - 90) / 90));
   return (
     <div style={{
       position: "absolute", left: 50, right: 50, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center",
       paddingTop: verso ? 160 : 260, textAlign: "center", opacity: entrada * saida,
       transform: `translateY(${(1 - entrada) * 18}px) scale(${0.95 + 0.05 * pop})`,
     }}>
-      <div style={{ position: "absolute", left: -40, right: -40, top: verso ? "40%" : "44%", height: 380, background: "radial-gradient(ellipse at center, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0) 74%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left: -120, right: -120, top: verso ? "36%" : "40%", height: 560, background: `radial-gradient(ellipse closest-side at center, rgba(0,0,0,${scrim}) 0%, rgba(0,0,0,${scrim * 0.6}) 40%, rgba(0,0,0,${scrim * 0.22}) 72%, rgba(0,0,0,0) 100%)`, pointerEvents: "none" }} />
       <div style={{
         fontFamily: verso ? "Cinzel, serif" : "'Cormorant Garamond', serif", fontWeight: 700,
         fontStyle: cta ? "italic" : "normal", fontSize: fonte, lineHeight: 1.22, letterSpacing: verso ? "0.02em" : "0.005em",

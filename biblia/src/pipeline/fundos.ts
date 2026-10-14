@@ -87,7 +87,7 @@ export const hamming = (a: string, b: string) => {
   return n;
 };
 
-export interface Qualidade { ok: boolean; motivos: string[]; brilho: number; contraste: number; nitidez: number; escuro: number; baixo: number }
+export interface Qualidade { ok: boolean; motivos: string[]; brilho: number; contraste: number; nitidez: number; escuro: number; baixo: number; faixa: number }
 
 /** Checagens objetivas para os limites do schnell. */
 export function avaliar(arq: string): Qualidade {
@@ -114,7 +114,7 @@ export function avaliar(arq: string): Qualidade {
   if (escuro > 0.22) motivos.push(`${Math.round(escuro * 100)}% preto puro`);
   if (baixo < 28) motivos.push(`metade de baixo apagada (${baixo.toFixed(0)})`);
   if (faixa > 170) motivos.push(`faixa da legenda clara demais (${faixa.toFixed(0)})`);
-  return { ok: motivos.length === 0, motivos, brilho, contraste, nitidez, escuro, baixo };
+  return { ok: motivos.length === 0, motivos, brilho, contraste, nitidez, escuro, baixo, faixa };
 }
 
 export const carregarRegistro = (): Registro[] => (existsSync(REGISTRO) ? JSON.parse(readFileSync(REGISTRO, "utf8")) : []);
@@ -139,7 +139,7 @@ export async function fundoInedito(ato: Ato, video: string, rand: () => number, 
     const parecida = [...reg.map((r) => r.hash), ...jaNesteVideo].find((h) => hamming(h, hash) < 10);
     if (q.ok && !parecida) {
       console.log(`  fundo ${ato}: ok (brilho ${q.brilho.toFixed(0)}, contraste ${q.contraste.toFixed(0)}, nitidez ${q.nitidez.toFixed(0)}) — ${prompt.split(",")[0]}`);
-      return { arq, registro: { hash, prompt, seed, video, ato, em: new Date().toISOString() } as Registro };
+      return { arq, faixa: q.faixa, registro: { hash, prompt, seed, video, ato, em: new Date().toISOString() } as Registro };
     }
     console.warn(`  ⚠ fundo ${ato} recusado (${parecida ? "parecido com um já usado" : q.motivos.join(", ")}) — gerando outro`);
     prompts.add(prompt);

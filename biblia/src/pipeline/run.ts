@@ -141,23 +141,23 @@ async function main() {
   if (!tomadasRoteiro && modoGeral === "replicate" && !o.offline) {
     porBloco = true;
     const humor = { ato1: "ato1", cta: "ato2", ato2: "ato2", ato3: "ato3" } as const;
-    let primeira: { img: string; prof: string } | null = null;
+    let primeira: { img: string; prof: string; faixa: number } | null = null;
     const grupos = agruparParaImagens(blocosLeg);   // 2 partes de 1 linha seguidas = 1 imagem; mínimo ~2 s por imagem
     for (let k = 0; k < grupos.length; k++) {
       const b = blocosLeg[grupos[k][0]];
       const ini = k === 0 ? 0 : Math.max(0, b.ini - 0.06);
       const fim = k + 1 < grupos.length ? Math.max(0, blocosLeg[grupos[k + 1][0]].ini - 0.06) : linha.total;
-      let f: { img: string; prof: string };
+      let f: { img: string; prof: string; faixa: number };
       if (extras.loop && k === grupos.length - 1 && primeira) f = primeira;   // loop: termina na imagem do começo
       else {
         const r = await fundoInedito(humor[b.seg], id, rand, novosFundos.map((x) => x.hash));
         novosFundos.push(r.registro);
-        f = { img: r.arq, prof: profundidadeLocal(r.arq) };
+        f = { img: r.arq, prof: profundidadeLocal(r.arq), faixa: r.faixa };
       }
       if (k === 0) primeira = f;
       const di = `bloco-${k}.png`, dp = `bloco-${k}-prof.png`;
       copyFileSync(f.img, join(pub, di)); copyFileSync(f.prof, join(pub, dp));
-      tomadas.push({ ini, fim, tipo: "parallax", src: `runs/${id}/${di}`, depth: `runs/${id}/${dp}`, seed: k });
+      tomadas.push({ ini, fim, tipo: "parallax", src: `runs/${id}/${di}`, depth: `runs/${id}/${dp}`, seed: k, faixa: f.faixa });
     }
     console.log(`  fundos: ${novosFundos.length} imagens inéditas para ${blocosLeg.length} blocos de legenda`);
   }

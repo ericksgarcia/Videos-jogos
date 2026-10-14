@@ -76,7 +76,7 @@ export const Video = (plano: Plano) => {
       <Poeira />
       <Pulso cortes={cortes} />
       <Vinheta forca={proc ? 0.62 : 0.6} />
-      <KineticText segmentos={plano.segmentos} blocos={plano.blocos} />
+      <KineticText segmentos={plano.segmentos} blocos={plano.blocos} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
       <RotuloReferencia {...plano.rotulo} />
       {plano.gancho_tela && <GanchoTela linhas={plano.gancho_tela} fim={2.6} />}
       {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
