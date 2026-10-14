@@ -12,11 +12,13 @@ export function bitrateKbps(duracao: number, maxMb = 28, audioKbps = 160): numbe
   return Math.max(1500, Math.floor(total - audioKbps));
 }
 
-export function finalizar(bruto: string, final: string, duracao: number): { mb: number; kbps: number } {
+export function finalizar(bruto: string, final: string, duracao: number, grao = 0): { mb: number; kbps: number } {
   const maxMb = Number(process.env.MAX_MB ?? 28);
   const kbps = Math.min(Number(process.env.VIDEO_KBPS ?? 12000), bitrateKbps(duracao, maxMb));
   const log = join(dirname(final), "x264-2pass");
-  const base = ["-y", "-loglevel", "error", "-i", bruto, "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
+  // granulado de filme temporal (muda a cada quadro, suave): mais fluido que textura trocada a cada 2 quadros
+  const vf = grao > 0 ? ["-vf", `noise=c0s=${grao}:c0f=t+u`] : [];
+  const base = ["-y", "-loglevel", "error", "-i", bruto, ...vf, "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
     "-b:v", `${kbps}k`, "-maxrate", `${Math.round(kbps * 1.6)}k`, "-bufsize", `${kbps * 2}k`, "-passlogfile", log];
   const p1 = spawnSync("ffmpeg", [...base, "-pass", "1", "-an", "-f", "null", "/dev/null"]);
   if (p1.status !== 0) throw new Error("ffmpeg passada 1: " + p1.stderr?.toString().slice(0, 300));

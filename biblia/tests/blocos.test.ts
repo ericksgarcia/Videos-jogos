@@ -23,3 +23,15 @@ test("blocos de no máximo 2 linhas que cabem na largura, sem perder palavras, e
   for (let i = 1; i < b.length; i++) assert.ok(b[i].ini > b[i - 1].ini);
   assert.ok(b.length >= 6, `poucos blocos: ${b.length}`);
 });
+
+test("tomadas de imagem: duas partes de uma linha seguidas dividem a imagem; nenhuma imagem curta demais", async () => {
+  const { agruparParaImagens } = await import("../src/lib/blocos.ts");
+  const w = (t: string, ini: number) => ({ t, ini, fim: ini + 0.3 });
+  const b = (ini: number, fim: number, linhas: number) => ({ seg: "ato1" as const, ini, fim, linhas: Array.from({ length: linhas }, (_, k) => [w("x" + k, ini)]) });
+  const blocos = [b(0, 2.5, 2), b(2.5, 4.0, 1), b(4.0, 5.5, 1), b(5.5, 8, 2), b(8, 9, 2), b(9, 12, 2)];
+  const g = agruparParaImagens(blocos);
+  assert.deepEqual(g[0], [0]);
+  assert.deepEqual(g[1], [1, 2]);                 // as duas de uma linha juntas
+  for (const x of g) assert.ok(blocos[x[x.length - 1]].fim - blocos[x[0]].ini >= 2.0, JSON.stringify(x));
+  assert.deepEqual(g.flat(), [0, 1, 2, 3, 4, 5]);
+});

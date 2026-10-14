@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "at": "2026-10-14T02:24:00.105Z",
+    "id": "dn-6-22",
+    "reference": "Daniel 6:22",
+    "book": "dn",
+    "emotional_hook": "proteção",
+    "tone": "epic",
+    "cta_style": "amem",
+    "cta_text": "Se Deus já te guardou numa noite assim, escreve: Amém."
+  },
+  {
+    "at": "2026-10-14T02:24:00.105Z",
+    "id": "sl-91-5-7",
+    "reference": "Salmos 91:5-7",
+    "book": "sl",
+    "emotional_hook": "medo",
+    "tone": "epic",
+    "cta_style": "alcance",
+    "cta_text": "Se você crê nessa promessa, curte e escreve Amém, pra ela chegar em quem precisa."
+  }
+]

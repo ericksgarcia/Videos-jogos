@@ -26,7 +26,7 @@ import { DUR_MAX, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, s
 import { cenaDaTomada } from "./cenarios.ts";
 import { confirmarFundos, fundoInedito } from "./fundos.ts";
 import { profundidadeLocal } from "./profundidade.ts";
-import { montarBlocos } from "../lib/blocos.ts";
+import { agruparParaImagens, montarBlocos } from "../lib/blocos.ts";
 import { gerarRoteiro, palavraClimax, validar, type Roteiro } from "./script.ts";
 import { readFileSync } from "node:fs";
 import { narrar } from "./tts.ts";
@@ -142,12 +142,13 @@ async function main() {
     porBloco = true;
     const humor = { ato1: "ato1", cta: "ato2", ato2: "ato2", ato3: "ato3" } as const;
     let primeira: { img: string; prof: string } | null = null;
-    for (let k = 0; k < blocosLeg.length; k++) {
-      const b = blocosLeg[k];
+    const grupos = agruparParaImagens(blocosLeg);   // 2 partes de 1 linha seguidas = 1 imagem; mínimo ~2 s por imagem
+    for (let k = 0; k < grupos.length; k++) {
+      const b = blocosLeg[grupos[k][0]];
       const ini = k === 0 ? 0 : Math.max(0, b.ini - 0.06);
-      const fim = k + 1 < blocosLeg.length ? Math.max(0, blocosLeg[k + 1].ini - 0.06) : linha.total;
+      const fim = k + 1 < grupos.length ? Math.max(0, blocosLeg[grupos[k + 1][0]].ini - 0.06) : linha.total;
       let f: { img: string; prof: string };
-      if (extras.loop && k === blocosLeg.length - 1 && primeira) f = primeira;   // loop: termina na imagem do começo
+      if (extras.loop && k === grupos.length - 1 && primeira) f = primeira;   // loop: termina na imagem do começo
       else {
         const r = await fundoInedito(humor[b.seg], id, rand, novosFundos.map((x) => x.hash));
         novosFundos.push(r.registro);
@@ -158,7 +159,7 @@ async function main() {
       copyFileSync(f.img, join(pub, di)); copyFileSync(f.prof, join(pub, dp));
       tomadas.push({ ini, fim, tipo: "parallax", src: `runs/${id}/${di}`, depth: `runs/${id}/${dp}`, seed: k });
     }
-    console.log(`  fundos: ${novosFundos.length} imagens inéditas (uma por bloco de legenda)`);
+    console.log(`  fundos: ${novosFundos.length} imagens inéditas para ${blocosLeg.length} blocos de legenda`);
   }
   for (const bloco of tomadasRoteiro || porBloco ? [] : blocos(linha, bpm)) {
     const limites = [bloco.ini, ...bloco.cortes, bloco.fim];
@@ -245,7 +246,8 @@ async function main() {
       { cwd: RAIZ, stdio: "inherit" });
     if (r.status !== 0) throw new Error("render falhou");
     const [f0, f1] = o.frames ? o.frames.split("-").map(Number) : [0, Math.round(linha.total * FPS) - 1];
-    const { mb, kbps } = finalizar(bruto, video, (f1 - f0 + 1) / FPS);
+    const foto = tomadas.some((x) => x.tipo === "parallax" || x.tipo === "video");
+    const { mb, kbps } = finalizar(bruto, video, (f1 - f0 + 1) / FPS, foto ? 6 : 0);
     if (novosFundos.length) confirmarFundos(novosFundos);   // a partir daqui essas imagens nunca mais se repetem
     console.log(`✔ ${video} (${mb.toFixed(1)} MB, vídeo a ${kbps} kbps)`);
   }

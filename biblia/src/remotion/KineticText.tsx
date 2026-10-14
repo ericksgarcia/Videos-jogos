@@ -15,7 +15,9 @@ import { montarBlocos, type Bloco } from "../lib/blocos";
 
 const OURO = "#f6c64a";
 const MARFIM = "#f4ecd8";
-const OPACIDADE_APAGADA = 0.35;
+const OPACIDADE_APAGADA = 0.4;
+/** Sombra em camadas: curta e firme colada à letra + halo largo e suave. Discreta no escuro, segura no claro. */
+export const SOMBRA_TEXTO = "0 1px 2px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5), 0 0 22px rgba(0,0,0,0.45)";
 
 interface Frase { seg: SegmentoPlano["id"]; palavras: PalavraPlano[]; ini: number; fim: number; ate: number; colada: boolean; seguida: boolean }
 
@@ -66,7 +68,8 @@ const Palavra = ({ w, proxIni, t, frame, fps, verso }: { w: PalavraPlano; proxIn
     <span style={{
       display: "inline-block", margin: "0 0.24em", color: cor, opacity: OPACIDADE_APAGADA + (1 - OPACIDADE_APAGADA) * acende,
       transform: `scale(${escala})`, transformOrigin: "50% 60%",
-      textShadow: `0 2px 14px rgba(0,0,0,0.85)${brilho > 0.02 ? `, 0 0 ${18 * brilho}px rgba(255,205,90,${0.95 * brilho}), 0 0 ${46 * brilho}px rgba(255,160,40,${0.6 * brilho})` : ""}`,
+      WebkitTextStroke: "0.6px rgba(0,0,0,0.35)", paintOrder: "stroke fill",
+      textShadow: `${SOMBRA_TEXTO}${brilho > 0.02 ? `, 0 0 ${18 * brilho}px rgba(255,205,90,${0.95 * brilho}), 0 0 ${46 * brilho}px rgba(255,160,40,${0.6 * brilho})` : ""}`,
       willChange: "transform",
     }}>{w.t}</span>
   );
@@ -130,7 +133,7 @@ export const RotuloReferencia = ({ texto, ini }: { texto: string; ini: number; f
       <div style={{ margin: "0 auto 14px", width: linha, height: 2, background: `linear-gradient(90deg, transparent, ${OURO}, transparent)` }} />
       <div style={{
         fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: 46, letterSpacing: "0.28em", color: OURO, textTransform: "uppercase",
-        textShadow: `0 2px 12px #000, 0 0 ${18 + 30 * destaque}px rgba(255,190,70,${0.45 + 0.4 * destaque})`,
+        textShadow: `${SOMBRA_TEXTO}, 0 0 ${18 + 30 * destaque}px rgba(255,190,70,${0.45 + 0.4 * destaque})`,
       }}>{texto}</div>
       <div style={{ margin: "14px auto 0", width: linha, height: 2, background: `linear-gradient(90deg, transparent, ${OURO}, transparent)` }} />
     </div>

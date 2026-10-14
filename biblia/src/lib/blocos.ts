@@ -86,3 +86,26 @@ export function montarBlocos(segs: SegmentoPlano[]): Bloco[] {
   });
   return out;
 }
+
+/**
+ * Agrupa blocos de legenda em TOMADAS de imagem: duas partes de uma linha seguidas dividem a mesma
+ * imagem, e nenhuma imagem fica menos de `minS` segundos (parte curta junta com a seguinte do mesmo ato).
+ * Devolve listas de índices de blocos.
+ */
+export function agruparParaImagens(blocos: Bloco[], minS = 2.0): number[][] {
+  const grupos: number[][] = [];
+  for (let i = 0; i < blocos.length; i++) {
+    const g = [i];
+    const mesmoSeg = (j: number) => j < blocos.length && blocos[j].seg === blocos[i].seg;
+    if (blocos[i].linhas.length === 1 && mesmoSeg(i + 1) && blocos[i + 1].linhas.length === 1) g.push(++i);
+    const dur = () => blocos[g[g.length - 1]].fim - blocos[g[0]].ini;
+    while (dur() < minS && mesmoSeg(g[g.length - 1] + 1)) g.push(++i);
+    grupos.push(g);
+  }
+  // sobra curta no fim de um ato (ex.: última frase) volta para o grupo anterior do mesmo ato
+  for (let k = grupos.length - 1; k > 0; k--) {
+    const g = grupos[k], dur = blocos[g[g.length - 1]].fim - blocos[g[0]].ini;
+    if (dur < minS * 0.75 && blocos[grupos[k - 1][0]].seg === blocos[g[0]].seg) { grupos[k - 1].push(...g); grupos.splice(k, 1); }
+  }
+  return grupos;
+}

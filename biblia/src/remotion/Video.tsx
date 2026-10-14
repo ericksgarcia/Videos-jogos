@@ -33,7 +33,9 @@ export const Video = (plano: Plano) => {
   const beat = 60 / plano.bpm;
   const fase = (t % beat) / beat;
   const emLeitura = plano.segmentos.some((s) => s.id === "ato2" && t >= s.ini && t < s.fim);
-  const pulsar = 1 + (emLeitura ? 0.012 : 0.005) * Math.exp(-fase * 6);
+  // pulsação no ritmo só nas cenas desenhadas; em foto (parallax/vídeo) ela parece tranco
+  const foto = plano.tomadas.some((x) => x.tipo === "parallax" || x.tipo === "video");
+  const pulsar = foto ? 1 : 1 + (emLeitura ? 0.012 : 0.005) * Math.exp(-fase * 6);
 
   // em loop não há fade: o último quadro emenda no primeiro
   const abrir = plano.loop ? 1 : interpolate(frame, [0, q(0.7)], [0, 1], { extrapolateRight: "clamp" });
@@ -78,7 +80,8 @@ export const Video = (plano: Plano) => {
       <RotuloReferencia {...plano.rotulo} />
       {plano.gancho_tela && <GanchoTela linhas={plano.gancho_tela} fim={2.6} />}
       {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
-      <GranuladoFilme />
+      {/* granulado no navegador trocava a cada 2 quadros (15 Hz) e parecia tranco: em foto ele vai para o ffmpeg */}
+      {!foto && <GranuladoFilme />}
     </AbsoluteFill>
   );
 };

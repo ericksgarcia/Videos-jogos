@@ -91,12 +91,13 @@ export const ParallaxScene = ({ src, depth, duracaoQuadros, seed }: Props) => {
     const s = gl.current; if (!s || !pronto) return;
     const { g, prog, aspecto } = s;
     const p = interpolate(frame, [0, Math.max(1, duracaoQuadros - 1)], [0, 1], { extrapolateRight: "clamp" });
-    const e = Easing.inOut(Easing.sin)(p);
+    // velocidade CONSTANTE (sem acelerar/frear dentro da tomada): o movimento fica contínuo, sem trancos
+    const ts = frame / fps;
     const sentido = seed % 2 === 0 ? 1 : -1;
-    const durS = duracaoQuadros / fps, alcance = Math.min(0.16, 0.05 * durS);
-    const zoom = 1.06 + alcance * e;                           // dolly para dentro, proporcional à duração da tomada
-    const ox = sentido * Math.min(1, durS / 4) * (0.05 * Math.sin(p * Math.PI * 0.9 + seed) + 0.03 * (p - 0.5));
-    const oy = -0.02 * Math.cos(p * Math.PI * 0.7 + seed * 0.5) - 0.025 * p;
+    const zoom = 1.06 + 0.022 * ts;                          // dolly lento e constante
+    const ox = sentido * (0.012 * ts - 0.015);               // deriva lateral constante
+    const oy = -0.006 * ts;
+    void p;
     const ca = LARGURA / ALTURA;
     const cover: [number, number] = aspecto > ca ? [ca / aspecto, 1] : [1, aspecto / ca];
     g.viewport(0, 0, LARGURA, ALTURA);

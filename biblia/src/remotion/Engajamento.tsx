@@ -1,5 +1,6 @@
 /** Gancho em texto nos primeiros segundos e selo de comentário durante o CTA. */
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { SOMBRA_TEXTO } from "./KineticText";
 
 const OURO = "#f6c64a";
 
@@ -20,7 +21,7 @@ export const GanchoTela = ({ linhas, fim }: { linhas: string[]; fim: number }) =
             fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: i === 0 ? 70 : Math.min(96, Math.floor(1380 / Math.max(8, l.length))), letterSpacing: "0.05em", whiteSpace: "nowrap",
             color: i === linhas.length - 1 ? OURO : "#f4ecd8", textAlign: "center", lineHeight: 1.08, marginTop: i ? 10 : 0,
             transform: `translate(${tremor}px, ${(1 - s) * 40}px) scale(${1.35 - 0.35 * s})`, opacity: Math.min(1, s * 1.4),
-            textShadow: `0 4px 24px rgba(0,0,0,0.95)${i === linhas.length - 1 ? ", 0 0 30px rgba(255,190,70,0.75)" : ""}`,
+            textShadow: `${SOMBRA_TEXTO}, 0 4px 24px rgba(0,0,0,0.6)${i === linhas.length - 1 ? ", 0 0 30px rgba(255,190,70,0.75)" : ""}`,
           }}>{l}</div>
         );
       })}
