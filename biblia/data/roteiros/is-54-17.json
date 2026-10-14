@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["ACUSARAM", "VOCÊ À TOA?"],
+  "ato1": "O povo de Judá vive exilado na Babilônia. Humilhado, acusado, sem voz diante dos poderosos. É nesse cenário que Deus faz esta promessa.",
+  "cta": "Declare nos comentários: nenhuma arma prosperará. E curte pra alcançar quem está sendo injustiçado.",
+  "cta_tela": "Declare: NENHUMA ARMA",
+  "ato3": "Alguém falou mal de você. Te acusou sem saber a verdade. Isso dói, e dá vontade de responder na mesma moeda. Mas veja: Deus não pede que você vença a discussão. Ele promete defender você. Descanse na justiça dele. Foi a promessa dada ao",
+  "loop": true,
+  "climax": "prosperará;",
+  "cta_style": "declaracao"
+}
