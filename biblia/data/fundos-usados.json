@@ -550,5 +550,117 @@
   "video": "2026-10-14-is-9-2",
   "ato": "ato3",
   "em": "2026-10-14T03:43:04.631Z"
+ },
+ {
+  "hash": "078965989b178cc10c1300ffffffffff",
+  "prompt": "a blue-hour sky with drifting clouds and a pale rising moon over a deep rocky canyon, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1844927306,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato1",
+  "em": "2026-10-14T04:13:52.722Z"
+ },
+ {
+  "hash": "04c8633100070f01000080f00f7fffff",
+  "prompt": "a dark dusk sky with swirling wind-blown clouds and a last thin line of red light over a wide plain with scattered rocks, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 89113716,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato1",
+  "em": "2026-10-14T04:13:53.070Z"
+ },
+ {
+  "hash": "c8896018082f0000c01000ff770bffff",
+  "prompt": "a dark dusk sky with swirling wind-blown clouds and a last thin line of red light over a calm open sea, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1426434767,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato1",
+  "em": "2026-10-14T04:13:53.414Z"
+ },
+ {
+  "hash": "1767df5ffffffffe137f8ffffffffcbf",
+  "prompt": "a radiant sunburst behind dramatic clouds with golden light rays fanning out over tall sea cliffs, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1358943850,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato2",
+  "em": "2026-10-14T04:13:54.074Z"
+ },
+ {
+  "hash": "64270f0f0f8a9868000000fffffe3c3f",
+  "prompt": "glowing crepuscular rays streaming across a vast sky at golden hour over a deep rocky canyon, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1114267904,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato2",
+  "em": "2026-10-14T04:13:54.418Z"
+ },
+ {
+  "hash": "509019cbcc0f0700ff0003feffffffff",
+  "prompt": "majestic golden god rays bursting through parting storm clouds over misty rolling hills, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1297218372,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato2",
+  "em": "2026-10-14T04:13:54.754Z"
+ },
+ {
+  "hash": "1d2707070301070f7960efffffff7fff",
+  "prompt": "warm divine light pouring down from the sky through towering clouds over a winding river valley, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1406717855,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato2",
+  "em": "2026-10-14T04:13:55.116Z"
+ },
+ {
+  "hash": "b1fe7df1030300240780f8e0c07fffff",
+  "prompt": "a luminous opening in the clouds with soft golden light spilling down over a calm open sea, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 340411130,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato2",
+  "em": "2026-10-14T04:13:55.787Z"
+ },
+ {
+  "hash": "0f07070707070d0d00c0f7ffffff7fff",
+  "prompt": "a quiet golden-hour sky with gentle haze, the light coming from behind the viewer over a deep rocky canyon, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1696828297,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato3",
+  "em": "2026-10-14T04:13:56.147Z"
+ },
+ {
+  "hash": "871207170f4e4f0700c001e7ffffffff",
+  "prompt": "a calm early morning sky in pastel pink and gold, sun just out of frame over a forest of pines in fog, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1577012208,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato3",
+  "em": "2026-10-14T04:13:58.875Z"
+ },
+ {
+  "hash": "377f3f0f8ecd05a460ffe7ff7ffffffa",
+  "prompt": "a serene overcast morning with soft warm light filtering through thin clouds over a deep rocky canyon, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 738118323,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato3",
+  "em": "2026-10-14T04:13:59.229Z"
+ },
+ {
+  "hash": "0743033b030f0303f001ffffffffffff",
+  "prompt": "a quiet golden-hour sky with gentle haze, the light coming from behind the viewer over a calm open sea, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 616517831,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato3",
+  "em": "2026-10-14T04:13:59.978Z"
+ },
+ {
+  "hash": "88e2d5970f1f03170101c7ffffff81ff",
+  "prompt": "a calm early morning sky in pastel pink and gold, sun just out of frame over a forest of pines in fog, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 1814776293,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato3",
+  "em": "2026-10-14T04:14:00.352Z"
+ },
+ {
+  "hash": "3f1f1f3f3f1f0f0fe0ff1ffff0ffff3f",
+  "prompt": "a serene overcast morning with soft warm light filtering through thin clouds over a wide plain with scattered rocks, vertical 9:16 composition, cinematic landscape photography, epic scale, crisp detailed textures in clouds and terrain, rich detail, natural colors, no people, no animals, no buildings, no text",
+  "seed": 198473686,
+  "video": "2026-10-14-sl-66-12",
+  "ato": "ato3",
+  "em": "2026-10-14T04:14:01.046Z"
  }
 ]

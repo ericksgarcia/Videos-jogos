@@ -66,7 +66,7 @@ const Palavra = ({ w, proxIni, t, frame, fps, verso }: { w: PalavraPlano; proxIn
   const brilho = acende;
   return (
     <span style={{
-      display: "inline-block", margin: "0 0.24em", color: cor, opacity: OPACIDADE_APAGADA + (1 - OPACIDADE_APAGADA) * acende,
+      display: "inline-block", margin: "0 0.3em", color: cor, opacity: OPACIDADE_APAGADA + (1 - OPACIDADE_APAGADA) * acende,
       transform: `scale(${escala})`, transformOrigin: "50% 60%",
       WebkitTextStroke: "0.6px rgba(0,0,0,0.35)", paintOrder: "stroke fill",
       textShadow: `${SOMBRA_TEXTO}${brilho > 0.02 ? `, 0 0 ${18 * brilho}px rgba(255,205,90,${0.95 * brilho}), 0 0 ${46 * brilho}px rgba(255,160,40,${0.6 * brilho})` : ""}`,
