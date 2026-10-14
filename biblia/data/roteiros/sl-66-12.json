@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["VOCÊ JÁ PASSOU", "PELO FOGO?"],
+  "ato1": "Existe um povo que lembra de cada cicatriz. Foram oprimidos, humilhados, quase destruídos. E mesmo assim, alguém compõe uma canção de gratidão.",
+  "cta": "Deus já te tirou de um aperto? Comenta seu testemunho e curte pra encorajar outros.",
+  "cta_tela": "Comente seu testemunho",
+  "ato3": "Você também já passou pelo fogo: uma demissão, uma doença, uma traição. Mas olhe onde você está agora: ainda de pé. O fogo não teve a última palavra, e a água não te levou. Deus te trouxe até aqui. Lembre-se do que Ele fez. Porque",
+  "loop": true,
+  "climax": "abundância.",
+  "cta_style": "testemunho"
+}

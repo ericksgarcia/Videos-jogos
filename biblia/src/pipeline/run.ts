@@ -40,6 +40,7 @@ function args() {
     offline: a.includes("--offline"), semRender: a.includes("--no-render"), semHistorico: a.includes("--no-history"),
     visual: (v("visual") ?? "auto") as ModoVisual, roteiro: v("roteiro"), ref: v("ref"), seed: v("seed") ? Number(v("seed")) : undefined,
     tom: v("tone") as "epic" | "comfort" | undefined, frames: v("frames"),
+    trocar: (v("trocar") ?? "").split(",").filter(Boolean).map(Number),   // índices de imagens a refazer (ex.: texto indesejado)
   };
 }
 
@@ -150,7 +151,12 @@ async function main() {
       let f: { img: string; prof: string; faixa: number };
       if (extras.loop && k === grupos.length - 1 && primeira) f = primeira;   // loop: termina na imagem do começo
       else {
-        const r = await fundoInedito(humor[b.seg], id, rand, novosFundos.map((x) => x.hash));
+        // --trocar 3,7: refaz só essas imagens (outra semente), recusando também a anterior
+        let r = await fundoInedito(humor[b.seg], id, rand, novosFundos.map((x) => x.hash));
+        if (o.trocar.includes(k)) {
+          const rand2 = prng((o.seed ?? 1) * 7919 + k * 104729 + 13);
+          r = await fundoInedito(humor[b.seg], id, rand2, [...novosFundos.map((x) => x.hash), r.registro.hash]);
+        }
         novosFundos.push(r.registro);
         f = { img: r.arq, prof: profundidadeLocal(r.arq), faixa: r.faixa };
       }

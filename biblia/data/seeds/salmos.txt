@@ -65,7 +65,8 @@ sl 62:5-8 | paz | comfort | silêncio,montanha | Davi, rodeado de gente que o qu
 sl 63:1-4 | solidão | comfort | deserto,noite | Escrito, segundo o título, no deserto de Judá, quando Davi estava longe do santuário e com sede.
 sl 64:1-2 | medo | epic | noite,silêncio | Davi pede proteção contra o terror de um inimigo, e contra as conspirações feitas em segredo.
 sl 65:9-11 | gratidão | comfort | chuva,vento | Canto de agradecimento pela chuva e pela colheita, tão importantes para um povo de agricultores.
-sl 66:10-12 | superação | epic | fogo,mar | O povo lembra que foi provado como prata no fogo, passou pelo fogo e pela água, e saiu para um lugar de abundância.
+
+sl 66:12 | superação | epic | fogo,mar | O povo lembra que passou pelo fogo e pela água e foi levado a um lugar de abundância.
 sl 67:1-2 | gratidão | comfort | vento | Oração para que a bênção de Deus sobre Israel alcance todos os povos.
 sl 68:5-6 | solidão | comfort | silêncio,vento | Deus é descrito como pai dos órfãos e defensor das viúvas, e como quem dá lar aos solitários.
 sl 69:1-3 | ansiedade | epic | mar,chuva | Davi, no limite, sente as águas subindo até a alma e já cansou de clamar.
