@@ -1,15 +1,13 @@
 {
-  "gancho_tela": ["ESTE VÍDEO", "NÃO É COINCIDÊNCIA"],
+  "gancho_tela": [
+    "ESTE VÍDEO",
+    "NÃO É COINCIDÊNCIA"
+  ],
   "ato1": "Se este vídeo chegou até você, não foi por acaso. Segundo a tradição, Moisés escreve isto no deserto, com uma praga atravessando o acampamento.",
   "cta": "Se você crê nessa promessa, curte e escreve Amém, pra ela chegar em quem precisa.",
   "cta_tela": "Curta e comente: AMÉM",
   "ato3": "Talvez hoje a praga tenha outro nome: notícia ruim, conta atrasada, medo do que vem. Mil coisas caem ao seu lado. Mas essa promessa ainda está de pé. Respire, e guarde isso no coração. E lembre:",
   "loop": true,
   "climax": "Mil",
-  "cta_style": "alcance",
-  "fundos": {
-    "ato1": "vertical composition, epic wide view of a vast desert valley at blue hour under a dramatic stormy sky, heavy dark clouds with moonlight breaking through, wind-blown sand over dunes, distant mountains, tense mysterious atmosphere",
-    "ato2": "vertical composition, majestic golden god rays bursting through parting storm clouds over a mountain range, heavenly light beams reaching the earth, awe-inspiring divine atmosphere",
-    "ato3": "vertical composition, peaceful sunrise over misty rolling hills, soft golden light, fog in the valleys, a calm river reflecting the sky, hopeful serene atmosphere"
-  }
+  "cta_style": "alcance"
 }

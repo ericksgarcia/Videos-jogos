@@ -21,9 +21,10 @@ import { finalizar } from "./encode.ts";
 import { prepararOverlays } from "./overlays.ts";
 import { imagemFalsa, videoFalso } from "./offline.ts";
 import { buscarClipe } from "./pexels.ts";
-import { dataUri, gerarImagem, gerarProfundidade } from "./replicate.ts";
-import { DUR_MAX, ENQUADRAMENTOS, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
+import { dataUri, gerarProfundidade } from "./replicate.ts";
+import { DUR_MAX, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
 import { cenaDaTomada } from "./cenarios.ts";
+import { confirmarFundos, fundoInedito } from "./fundos.ts";
 import { gerarRoteiro, palavraClimax, validar, type Roteiro } from "./script.ts";
 import { readFileSync } from "node:fs";
 import { narrar } from "./tts.ts";
@@ -41,12 +42,12 @@ function args() {
 }
 
 /** Roteiro escrito à mão/por Claude: JSON { ato1, cta, ato3, climax?, cta_style } (o versículo vem sempre do catálogo). */
-type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; fundos?: Record<"ato1" | "ato2" | "ato3", string>; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, fundos: j.fundos, tomadas: j.tomadas };
+  extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   return { ato1: j.ato1, cta: j.cta, ato3: j.ato3, versiculo: e.text, climax: palavraClimax(e.text, j.climax), cta_style: j.cta_style ?? "manual",
@@ -127,6 +128,8 @@ async function main() {
   const tomadas: PlanoTomada[] = [];
   const creditos: string[] = [];
   const temRep = Boolean(process.env.REPLICATE_API_TOKEN), temPex = Boolean(process.env.PEXELS_API_KEY);
+  const fundosAto: Partial<Record<"ato1" | "ato2" | "ato3", { img: string; prof?: string }>> = {};
+  const novosFundos: Parameters<typeof confirmarFundos>[0] = [];
   let n = 0;
   for (const bloco of tomadasRoteiro ? [] : blocos(linha, bpm)) {
     const limites = [bloco.ini, ...bloco.cortes, bloco.fim];
@@ -161,11 +164,15 @@ async function main() {
           // em loop, a última tomada volta à imagem do ato 1
           const ultima = k === limites.length - 2 && bloco.ato === "ato3";
           const atoImg = extras.loop && ultima ? "ato1" : bloco.ato;
-          img = extras.fundos
-            ? await gerarImagem(extras.fundos[atoImg], 1000 + ["ato1", "ato2", "ato3"].indexOf(atoImg))
-            : await gerarImagem(`${cena.flux}, ${ENQUADRAMENTOS[k % ENQUADRAMENTOS.length]}`, 1000 + n);
-          try { prof = await gerarProfundidade(await dataUri(img), img); }
-          catch (e) { console.warn(`⚠ sem mapa de profundidade na tomada ${n}: ${(e as Error).message}`); }
+          if (!fundosAto[atoImg]) { // um fundo INÉDITO por ato (qualidade checada, nunca repetido entre vídeos)
+            const f = await fundoInedito(atoImg, id, rand, novosFundos.map((x) => x.hash));
+            novosFundos.push(f.registro);
+            let d: string | undefined;
+            try { d = await gerarProfundidade(await dataUri(f.arq), f.arq); }
+            catch (e) { console.warn(`⚠ sem mapa de profundidade (${atoImg}): ${(e as Error).message}`); }
+            fundosAto[atoImg] = { img: f.arq, prof: d };
+          }
+          img = fundosAto[atoImg]!.img; prof = fundosAto[atoImg]!.prof;
         }
         const di = `tomada-${n}${ext(img)}`; copyFileSync(img, join(pub, di));
         let dp: string | undefined;
@@ -210,6 +217,7 @@ async function main() {
     if (r.status !== 0) throw new Error("render falhou");
     const [f0, f1] = o.frames ? o.frames.split("-").map(Number) : [0, Math.round(linha.total * FPS) - 1];
     const { mb, kbps } = finalizar(bruto, video, (f1 - f0 + 1) / FPS);
+    if (novosFundos.length) confirmarFundos(novosFundos);   // a partir daqui essas imagens nunca mais se repetem
     console.log(`✔ ${video} (${mb.toFixed(1)} MB, vídeo a ${kbps} kbps)`);
   }
 
