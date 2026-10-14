@@ -15,7 +15,7 @@ import { montarBlocos, type Bloco } from "../lib/blocos";
 
 const OURO = "#f6c64a";
 const MARFIM = "#f4ecd8";
-const OPACIDADE_APAGADA = 0.4;
+const OPACIDADE_APAGADA = 0.48;
 /** Sombra em camadas: curta e firme colada à letra + halo largo e suave. Discreta no escuro, segura no claro. */
 export const SOMBRA_TEXTO = "0 1px 2px rgba(0,0,0,0.65), 0 2px 6px rgba(0,0,0,0.5), 0 0 22px rgba(0,0,0,0.45)";
 
@@ -96,7 +96,7 @@ export const KineticText = ({ segmentos, blocos, faixa = 100 }: { segmentos: Seg
   const fonte = Math.min(base, Math.floor(940 / Math.max(1, maiorLinha * em)));   // a linha mais longa sempre cabe
   const palavras = b.linhas.flat();
   // fundo escuro atrás do texto proporcional ao brilho da imagem (claro = mais escuro; escuro = discreto)
-  const scrim = 0.42 + 0.36 * Math.min(1, Math.max(0, (faixa - 90) / 90));
+  const scrim = 0.45 + 0.45 * Math.min(1, Math.max(0, (faixa - 90) / 70));
   return (
     <div style={{
       position: "absolute", left: 50, right: 50, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center",

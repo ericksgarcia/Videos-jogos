@@ -51,7 +51,7 @@ export const Video = (plano: Plano) => {
           const resto = i === plano.tomadas.length - 1 ? 0 : DISSOLVER; // fica por baixo enquanto a próxima aparece
           return (
             <Sequence key={i} from={q(x.ini) - entrada} durationInFrames={dur + entrada + resto} layout="none">
-              <FusaoEntrada entrada={entrada}>
+              <FusaoEntrada entrada={entrada} escurecer={x.faixa === undefined ? 1 : 1 - 0.3 * Math.min(1, Math.max(0, (x.faixa - 105) / 60))}>
                 {x.tipo === "cenografia" ? (
                   <Cenografia cena={x.cena ?? "cova_leoes"} variante={x.variante} duracaoQuadros={dur + entrada}
                     climaxQuadro={plano.climax.t >= x.ini && plano.climax.t < x.fim ? Math.round((plano.climax.t - x.ini) * fps) + entrada : undefined} />
@@ -86,8 +86,8 @@ export const Video = (plano: Plano) => {
   );
 };
 
-const FusaoEntrada = ({ entrada, children }: { entrada: number; children: React.ReactNode }) => {
+const FusaoEntrada = ({ entrada, escurecer = 1, children }: { entrada: number; escurecer?: number; children: React.ReactNode }) => {
   const frame = useCurrentFrame();
   const o = entrada ? interpolate(frame, [0, entrada], [0, 1], { easing: Easing.inOut(Easing.quad), extrapolateRight: "clamp" }) : 1;
-  return <AbsoluteFill style={{ opacity: o }}>{children}</AbsoluteFill>;
+  return <AbsoluteFill style={{ opacity: o, filter: escurecer < 1 ? `brightness(${escurecer})` : undefined }}>{children}</AbsoluteFill>;
 };
