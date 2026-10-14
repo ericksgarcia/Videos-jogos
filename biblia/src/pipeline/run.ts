@@ -8,9 +8,10 @@
  *   npm run video -- --ref sl-23          # força uma passagem (prefixo do id do catálogo)
  *   npm run video -- --offline            # voz/imagens sintéticas de teste (sem chaves)
  *   opções: --seed N  --tone epic|comfort  --no-render  --no-history  --frames 300-450
+ *           --reusar (re-renderiza com as MESMAS imagens do plano anterior)  --trocar 3,7 (refaz só essas imagens)
  */
 import { spawnSync } from "node:child_process";
-import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { basename, extname, join } from "node:path";
 import { loadCatalog, loadHistory, RAIZ, saveHistory } from "../lib/catalog.ts";
 import "../lib/env.ts";
@@ -24,7 +25,7 @@ import { buscarClipe } from "./pexels.ts";
 import { dataUri, gerarProfundidade } from "./replicate.ts";
 import { DUR_MAX, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
 import { cenaDaTomada } from "./cenarios.ts";
-import { confirmarFundos, fundoInedito } from "./fundos.ts";
+import { avaliar, confirmarFundos, fundoInedito } from "./fundos.ts";
 import { profundidadeLocal } from "./profundidade.ts";
 import { agruparParaImagens, montarBlocos } from "../lib/blocos.ts";
 import { gerarRoteiro, palavraClimax, validar, type Roteiro } from "./script.ts";
@@ -40,6 +41,7 @@ function args() {
     offline: a.includes("--offline"), semRender: a.includes("--no-render"), semHistorico: a.includes("--no-history"),
     visual: (v("visual") ?? "auto") as ModoVisual, roteiro: v("roteiro"), ref: v("ref"), seed: v("seed") ? Number(v("seed")) : undefined,
     tom: v("tone") as "epic" | "comfort" | undefined, frames: v("frames"),
+    reusar: a.includes("--reusar"),
     trocar: (v("trocar") ?? "").split(",").filter(Boolean).map(Number),   // índices de imagens a refazer (ex.: texto indesejado)
   };
 }
@@ -155,6 +157,14 @@ async function main() {
       if (extras.loop && k === grupos.length - 1 && primeira) f = primeira;   // loop: termina na imagem do começo
       else {
         // --trocar 3,7: refaz só essas imagens (outra semente), recusando também a anterior
+        const jaTem = join(pub, `bloco-${k}.png`);
+        if (o.reusar && existsSync(jaTem) && existsSync(join(pub, `bloco-${k}-prof.png`)) && !o.trocar.includes(k)) {
+          // mesma imagem do plano anterior: não gera nada novo (e como já foi registrada, não duplica o registro)
+          f = { img: jaTem, prof: join(pub, `bloco-${k}-prof.png`), faixa: avaliar(jaTem).faixa };
+          if (k === 0) primeira = f;
+          tomadas.push({ ini, fim, tipo: "parallax", src: `runs/${id}/bloco-${k}.png`, depth: `runs/${id}/bloco-${k}-prof.png`, seed: k, faixa: f.faixa });
+          continue;
+        }
         let r = await fundoInedito(humor[b.seg], id, rand, novosFundos.map((x) => x.hash));
         if (o.trocar.includes(k)) {
           const rand2 = prng((o.seed ?? 1) * 7919 + k * 104729 + 13);
