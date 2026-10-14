@@ -203,3 +203,14 @@ pergunta no gancho). Nas etapas técnicas a mesma régua se aplica: depois do re
 
 **Revisão rígida:** além da auditoria do autor, um avaliador independente (que só vê o roteiro) dá nota 1–10 por fase seguindo
 `REVISAO.md`; mínimo **8 em todas**, registrado em `"revisao"` no roteiro — a esteira recusa nota ausente ou menor que 8.
+
+## Esteira contínua (regra do dono): um vídeo por vez, sempre em seguida
+
+- Os vídeos saem **em sequência, um de cada vez**, e o próximo começa **automaticamente**, sem perguntar e sem esperar
+  confirmação: assim que o anterior é enviado (`SendUserFile` com a legenda do TikTok), commitado e enviado ao remoto,
+  a MESMA rodada segue direto para o próximo (escolher versículo → roteiro → avaliador independente → plano/imagens →
+  render → revisão de frames → envio). Nunca iniciar o seguinte antes de enviar o anterior; nunca encerrar a resposta
+  logo depois de enviar um vídeo sem já ter começado o próximo.
+- Só para quando o dono mandar parar (ou se faltar crédito/chave: avisar e esperar). Dúvida de rumo não é motivo para parar:
+  decidir pelo padrão do README e registrar a escolha na resposta.
+- Mensagem ao dono só nos marcos (vídeo enviado, problema que ele precise decidir); o resto é trabalho contínuo.
