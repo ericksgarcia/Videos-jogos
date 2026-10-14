@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["PRECISA", "RECOMEÇAR?"],
+  "ato1": "João está preso na ilha de Patmos, velho e exilado pelo Império Romano. Os amigos morreram, as igrejas sofrem. E então ele ouve uma voz do trono.",
+  "cta": "Se você crê, comente amém, e curte pra essa promessa chegar em quem precisa recomeçar.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Tem coisa na sua vida que você acha que acabou. Um sonho, um casamento, uma fase. Mas o fim de algo não é o fim de tudo. Deus não conserta só o velho. Ele faz novo. Você pode recomeçar hoje. Essa foi a promessa dada a",
+  "loop": true,
+  "climax": "novas",
+  "cta_style": "amem"
+}
