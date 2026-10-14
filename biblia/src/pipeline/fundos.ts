@@ -38,14 +38,15 @@ const CEUS: Record<Ato, string[]> = {
     "glowing crepuscular rays streaming across a vast sky at golden hour",
     "a luminous opening in the clouds with soft golden light spilling down",
   ],
-  ato3: [
-    "a peaceful sunrise with soft golden light and pastel clouds",
-    "a calm dawn sky with warm pink and gold tones",
-    "a serene early morning sky with gentle light and thin clouds",
-    "a hopeful clear sky at sunrise with a soft warm glow on the horizon",
-    "a tranquil sky at first light with delicate high clouds",
-    "a quiet golden-hour sky with a gentle haze and warm light",
+  ato3: [ // esperança sem sol estourado no meio (é onde fica a legenda)
+    "a soft morning sky with warm diffused light, the sun hidden behind gentle clouds",
+    "a calm early morning sky in pastel pink and gold, sun just out of frame",
+    "a serene overcast morning with soft warm light filtering through thin clouds",
+    "a hopeful morning sky with light breaking softly through high clouds, no visible sun",
+    "a tranquil sky at first light with delicate high clouds and a warm glow at the top of the frame",
+    "a quiet golden-hour sky with gentle haze, the light coming from behind the viewer",
   ],
+
 };
 const TERRAS = [
   "over vast desert dunes", "over a rugged mountain range", "over misty rolling hills", "over a calm open sea",
@@ -125,7 +126,7 @@ export const carregarRegistro = (): Registro[] => (existsSync(REGISTRO) ? JSON.p
 export async function fundoInedito(ato: Ato, video: string, rand: () => number, jaNesteVideo: string[] = []) {
   const reg = carregarRegistro();
   const prompts = new Set(reg.map((r) => r.prompt));
-  for (let tentativa = 0; tentativa < 6; tentativa++) {
+  for (let tentativa = 0; tentativa < 10; tentativa++) {
     const prompt = promptNovo(ato, rand, prompts);
     const seed = Math.floor(rand() * 2 ** 31);
     const arq = await gerarImagem(prompt, seed);
@@ -138,7 +139,7 @@ export async function fundoInedito(ato: Ato, video: string, rand: () => number, 
     console.warn(`  ⚠ fundo ${ato} recusado (${parecida ? "parecido com um já usado" : q.motivos.join(", ")}) — gerando outro`);
     prompts.add(prompt);
   }
-  throw new Error(`não consegui um fundo bom e inédito para ${ato} em 6 tentativas`);
+  throw new Error(`não consegui um fundo bom e inédito para ${ato} em 10 tentativas`);
 }
 
 export function confirmarFundos(novos: Registro[]) {
