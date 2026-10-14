@@ -69,7 +69,10 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (primeira.split(/\s+/).length > 9) falhas.push(`1ª frase falada com ${primeira.split(/\s+/).length} palavras (máx. 9): "${primeira}"`);
   if (/\?/.test(primeira)) falhas.push("1ª frase falada é pergunta: abra com fato de choque/paradoxo");
   if (!j.gancho_tela?.length) falhas.push("falta gancho_tela (afirmação de abertura)");
-  else if (j.gancho_tela.some((l) => /\?/.test(l))) falhas.push("gancho_tela com pergunta: use afirmação");
+  else {
+    if (j.gancho_tela.some((l) => /\?/.test(l))) falhas.push("gancho_tela com pergunta: use afirmação");
+    if (j.gancho_tela.length > 3 || j.gancho_tela.some((l) => l.length > 20)) falhas.push("gancho_tela: no máx. 3 linhas de até 20 letras (senão corta nas bordas ou fica pequeno)");
+  }
   for (const f of FASES_AUDITORIA) if ((j.auditoria?.[f] ?? "").trim().split(/\s+/).length < 6) falhas.push(`auditoria.${f} ausente ou vaga (explique em ≥ 6 palavras por que o espectador continua aqui)`);
   for (const f of FASES_AUDITORIA) { const n = j.revisao?.[f]; if (typeof n !== "number") falhas.push(`revisao.${f}: falta a nota do avaliador independente (REVISAO.md)`); else if (n < 8) falhas.push(`revisao.${f} = ${n} (< 8): reescreva a fase e passe por novo avaliador`); }
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);

@@ -18,7 +18,7 @@ export const GanchoTela = ({ linhas, fim }: { linhas: string[]; fim: number }) =
         const tremor = i === 0 ? Math.max(0, 1 - frame / 8) * Math.sin(frame * 3.1) * 6 : 0;
         return (
           <div key={i} style={{
-            fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: Math.min(i === 0 ? 92 : 128, Math.floor(1500 / Math.max(8, l.length))), letterSpacing: "0.05em", whiteSpace: "nowrap",
+            fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: Math.min(i === linhas.length - 1 ? 118 : 104, Math.floor(960 / (0.82 * Math.max(8, l.length)))), letterSpacing: "0.05em", whiteSpace: "nowrap",
             color: i === linhas.length - 1 ? OURO : "#f4ecd8", textAlign: "center", lineHeight: 1.08, marginTop: i ? 10 : 0,
             transform: `translate(${tremor}px, ${(1 - s) * 40}px) scale(${1.35 - 0.35 * s})`, opacity: Math.min(1, s * 1.4),
             textShadow: `${SOMBRA_TEXTO}, 0 4px 24px rgba(0,0,0,0.6)${i === linhas.length - 1 ? ", 0 0 30px rgba(255,190,70,0.75)" : ""}`,
