@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "JESUS CHEGOU",
+    "QUATRO DIAS",
+    "DEPOIS DO ENTERRO"
+  ],
+  "ato1": "Jesus chegou quatro dias depois do enterro. De propósito. Mandou abrir o túmulo, e Marta protestou: Senhor, já cheira mal. Tiraram a pedra. Todo mundo esperou o cheiro.",
+  "cta": "Fica até a última ordem: ela não é pro morto. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Repara: ele saiu vivo, mas amarrado. A mesma voz que venceu a morte podia soltar as faixas. Jesus não soltou: mandou os outros soltarem. O milagre é dele; desamarrar é com a gente. Marca quem te desamarrou. E se você ainda está amarrado, lembra que",
+  "loop": true,
+  "climax": "fora.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Fato estranho e concreto dito sem pergunta: Jesus chegou quatro dias depois do enterro, e a tela repete a fala.",
+    "virada": "De propósito, em duas palavras, transforma o atraso em escolha e deixa a pergunta por quê urgente.",
+    "contexto": "O protesto de Marta e o todo mundo esperou o cheiro criam imagem física e tensão crescente sem explicação.",
+    "cta": "A promessa da última ordem que não é pro morto abre suspense que o versículo paga, e o pedido vem depois.",
+    "versiculo": "O morto sai amarrado e a última ordem Desligai-o chega no fim, cumprindo o que o CTA prometeu.",
+    "ato3": "Ele saiu vivo mas amarrado e Jesus mandou os outros soltarem, mudando o sentido da cena e pedindo marcação de quem desamarrou.",
+    "final": "O final ainda amarrado emenda em Jesus chegou quatro dias depois, fechando o laço: a demora não é abandono."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 8
+  }
+}
