@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["JOGARAM 3 NO FOGO", "O REI CONTOU 4"],
+  "ato1": "O rei mandou queimar três homens vivos. Minutos depois, ele se levanta em pânico, olha o fogo e pergunta aos capitães: quantos eu joguei?",
+  "cta": "Comente amém se você crê, e curte. Já já eu mostro quem era o quarto homem.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Você também já foi jogado no fogo: demissão, diagnóstico, traição. Mas olha o que o rei viu. Não eram três. Eram quatro, soltos, andando no meio das chamas. O quarto estava com eles. Ele não tirou os três do fogo: entrou nele. Tudo começou quando o",
+  "loop": true,
+  "climax": "espantou",
+  "cta_style": "amem"
+}

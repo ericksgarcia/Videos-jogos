@@ -47,6 +47,14 @@ function args() {
 }
 
 /** Roteiro escrito à mão/por Claude: JSON { ato1, cta, ato3, climax?, cta_style } (o versículo vem sempre do catálogo). */
+/** Fim da 1ª frase falada do ato 1 = saída do texto de abertura; início da 2ª = "virada" (2º golpe de retenção). */
+function ganchoTempos(segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[]) {
+  const p = segs.find((x) => x.id === "ato1")?.palavras ?? [];
+  const i = p.findIndex((w) => /[.!?…]$/.test(w.t));
+  if (i < 0 || i + 1 >= p.length) return {};
+  return { gancho_fim: Math.min(5, Math.max(2.6, p[i].fim + 0.25)), gancho_virada: p[i + 1].ini };
+}
+
 type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
@@ -253,7 +261,7 @@ async function main() {
     id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
     rotulo: rotuloDe(entrada, at.ato2),
-    gancho_tela: extras.gancho_tela, loop: extras.loop, blocos: blocosLeg,
+    gancho_tela: extras.gancho_tela, ...ganchoTempos(segs), loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");

@@ -165,3 +165,17 @@ histórico). `--visual replicate` e `--visual pexels` forçam um só.
 - O roteiro do Gemini **dramatiza** o contexto (pode acrescentar detalhes de cena). Leia o `roteiro.json` antes de publicar
   conteúdo religioso; o prompt só autoriza fatos do `historical_context`, mas o modelo não é infalível.
 - Imagens do Flux evitam rostos (silhuetas/costas) por reverência e para não gerar figuras sagradas.
+
+## Protocolo de gancho (retenção aos 3–4 s)
+
+Os vídeos perdiam gente entre 3 e 4 s. Regras a partir de agora (vale para todo roteiro novo):
+
+1. **A 1ª frase falada é o gancho** (≤ 8 palavras, concreta, com violência/paradoxo/mistério): um fato de choque, não uma
+   pergunta ao espectador. Nada de autoajuda no começo ("Ansioso?", "Você quer desistir?"). O texto de abertura
+   (`gancho_tela`) é uma AFIRMAÇÃO curta que reforça a 1ª frase (ex.: "JOGARAM 3 NO FOGO / O REI CONTOU 4").
+2. **A 2ª frase (a "virada", ~3 s) precisa escalar**, nunca explicar contexto: pânico, reviravolta, pergunta sem resposta.
+   A esteira marca esse instante (`gancho_virada`) com um clarão; o texto de abertura fica até o fim da 1ª frase (`gancho_fim`).
+3. **Laço aberto**: a pergunta feita no ato 1 só se fecha depois (versículo ou ato 3). O CTA pode alimentar o laço
+   ("já já eu mostro quem era o quarto homem").
+4. **Teste do dedo rolando** antes de renderizar: "por que eu pararia e veria isso inteiro?" — se a resposta for só
+   "é bonito" ou "é bom pra mim", reescreva.
