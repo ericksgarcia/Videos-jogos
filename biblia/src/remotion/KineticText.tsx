@@ -11,6 +11,7 @@ import "@fontsource/cormorant-garamond/600-italic.css";
 import { useEffect } from "react";
 import { continueRender, delayRender, interpolate, interpolateColors, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import type { PalavraPlano, SegmentoPlano } from "../lib/plan";
+import { montarBlocos, type Bloco } from "../lib/blocos";
 
 const OURO = "#f6c64a";
 const MARFIM = "#f4ecd8";
@@ -57,13 +58,13 @@ const Palavra = ({ w, proxIni, t, frame, fps, verso }: { w: PalavraPlano; proxIn
   const f0 = Math.round(w.ini * fps);
   const s = ativa ? spring({ frame: frame - f0, fps, config: { damping: 11, mass: 0.55, stiffness: 190 } }) : 0;
   const saida = passou ? interpolate(t, [Math.max(proxIni, w.fim), Math.max(proxIni, w.fim) + 0.22], [1, 0], { extrapolateRight: "clamp" }) : 0;
-  const escala = ativa ? 1 + 0.13 * s : 1 + 0.13 * saida * (passou ? 1 : 0);
+  const escala = ativa ? 1 + 0.1 * s : 1 + 0.1 * saida * (passou ? 1 : 0);
   const acende = ativa ? interpolate(frame - f0, [0, 4], [0, 1], { extrapolateRight: "clamp" }) : passou ? saida : 0;
   const cor = interpolateColors(acende, [0, 1], [MARFIM, OURO]);
   const brilho = acende;
   return (
     <span style={{
-      display: "inline-block", margin: "0 0.17em", color: cor, opacity: OPACIDADE_APAGADA + (1 - OPACIDADE_APAGADA) * acende,
+      display: "inline-block", margin: "0 0.24em", color: cor, opacity: OPACIDADE_APAGADA + (1 - OPACIDADE_APAGADA) * acende,
       transform: `scale(${escala})`, transformOrigin: "50% 60%",
       textShadow: `0 2px 14px rgba(0,0,0,0.85)${brilho > 0.02 ? `, 0 0 ${18 * brilho}px rgba(255,205,90,${0.95 * brilho}), 0 0 ${46 * brilho}px rgba(255,160,40,${0.6 * brilho})` : ""}`,
       willChange: "transform",
@@ -71,34 +72,44 @@ const Palavra = ({ w, proxIni, t, frame, fps, verso }: { w: PalavraPlano; proxIn
   );
 };
 
-export const KineticText = ({ segmentos }: { segmentos: SegmentoPlano[] }) => {
+/** Legenda em blocos de 2 linhas (os mesmos blocos que trocam a imagem de fundo). */
+export const KineticText = ({ segmentos, blocos }: { segmentos: SegmentoPlano[]; blocos?: Bloco[] }) => {
   useFontes();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const frases = dividirFrases(segmentos);
-  const f = frases.find((x) => t >= (x.colada ? x.ini : x.ini - 0.12) && t < x.ate);
-  if (!f) return null;
-  const verso = f.seg === "ato2";
-  const cta = f.seg === "cta";
-  // frase emendada na anterior: entra com um "pop" curto (sem fade); frase isolada: fade normal
-  const entrada = f.colada ? 1 : interpolate(t, [f.ini - 0.12, f.ini + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const saida = f.seguida ? 1 : interpolate(t, [f.ate - 0.18, f.ate], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const pop = f.colada ? spring({ frame: frame - Math.round(f.ini * fps), fps, config: { damping: 14, stiffness: 260, mass: 0.5 } }) : 1;
+  const lista = blocos ?? montarBlocos(segmentos);
+  const i = lista.findIndex((x) => t >= x.ini - 0.1 && t < x.fim);
+  if (i < 0) return null;
+  const b = lista[i];
+  const colado = i > 0 && lista[i - 1].fim >= b.ini - 0.05;          // emendado no anterior: troca direta
+  const seguido = i + 1 < lista.length && lista[i + 1].ini <= b.fim + 0.05;
+  const verso = b.seg === "ato2", cta = b.seg === "cta";
+  const entrada = colado ? 1 : interpolate(t, [b.ini - 0.1, b.ini + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const saida = seguido ? 1 : interpolate(t, [b.fim - 0.18, b.fim], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const pop = spring({ frame: frame - Math.round(b.ini * fps), fps, config: { damping: 14, stiffness: 240, mass: 0.5 } });
+  const base = verso ? 78 : cta ? 84 : 92, em = verso ? 0.62 : 0.47;
+  const maiorLinha = Math.max(...b.linhas.map((l) => l.reduce((n, w, k) => n + w.t.length + (k ? 1 : 0), 0)));
+  const fonte = Math.min(base, Math.floor(940 / Math.max(1, maiorLinha * em)));   // a linha mais longa sempre cabe
+  const palavras = b.linhas.flat();
   return (
     <div style={{
-      position: "absolute", left: 70, right: 70, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center",
-      paddingTop: verso ? 120 : 260, textAlign: "center", opacity: entrada * saida,
-      transform: `translateY(${(1 - entrada) * 18}px) scale(${0.94 + 0.06 * pop})`,
+      position: "absolute", left: 50, right: 50, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center",
+      paddingTop: verso ? 160 : 260, textAlign: "center", opacity: entrada * saida,
+      transform: `translateY(${(1 - entrada) * 18}px) scale(${0.95 + 0.05 * pop})`,
     }}>
-      <div style={{ position: "absolute", left: -40, right: -40, top: verso ? "38%" : "44%", height: verso ? 420 : 360, background: "radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 45%, rgba(0,0,0,0) 72%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", left: -40, right: -40, top: verso ? "40%" : "44%", height: 380, background: "radial-gradient(ellipse at center, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0) 74%)", pointerEvents: "none" }} />
       <div style={{
-        fontFamily: verso ? "Cinzel, serif" : "'Cormorant Garamond', serif", fontWeight: verso ? 700 : 700,
-        fontStyle: cta ? "italic" : "normal", fontSize: verso ? 78 : cta ? 84 : 92, lineHeight: 1.22,
-        letterSpacing: verso ? "0.02em" : "0.005em", maxWidth: 940,
+        fontFamily: verso ? "Cinzel, serif" : "'Cormorant Garamond', serif", fontWeight: 700,
+        fontStyle: cta ? "italic" : "normal", fontSize: fonte, lineHeight: 1.22, letterSpacing: verso ? "0.02em" : "0.005em",
       }}>
-        {f.palavras.map((w, i) => (
-          <Palavra key={i} w={w} proxIni={f.palavras[i + 1]?.ini ?? w.fim} t={t} frame={frame} fps={fps} verso={verso} />
+        {b.linhas.map((l, li) => (
+          <div key={li} style={{ whiteSpace: "nowrap" }}>
+            {l.map((w, k) => {
+              const idx = palavras.indexOf(w);
+              return <Palavra key={k} w={w} proxIni={palavras[idx + 1]?.ini ?? w.fim} t={t} frame={frame} fps={fps} verso={verso} />;
+            })}
+          </div>
         ))}
       </div>
     </div>

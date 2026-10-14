@@ -22,12 +22,12 @@ type Ato = "ato1" | "ato2" | "ato3";
 interface Registro { hash: string; prompt: string; seed: number; video: string; ato: Ato; em: string }
 
 const CEUS: Record<Ato, string[]> = {
-  ato1: [
-    "a dramatic stormy night sky with heavy dark clouds and moonlight breaking through",
+  ato1: [ // tensão, mas com luz: o schnell faz cenas noturnas escuras demais (o filtro recusava ~50%)
+    "a dramatic stormy dusk sky with heavy dark clouds and silver light breaking through",
     "a brooding overcast sky with towering storm clouds and distant faint lightning",
-    "a deep blue night sky with drifting clouds lit by a pale full moon",
+    "a blue-hour sky with drifting clouds and a pale rising moon",
     "a dark dusk sky with swirling wind-blown clouds and a last thin line of red light",
-    "a misty midnight sky with low fog and cold moonlight",
+    "a stormy late-afternoon sky with dark clouds and a band of cold light near the horizon",
     "a tense twilight sky with dense layered clouds and shafts of cold silver light",
   ],
   ato2: [
@@ -91,8 +91,12 @@ export interface Qualidade { ok: boolean; motivos: string[]; brilho: number; con
 /** Checagens objetivas para os limites do schnell. */
 export function avaliar(arq: string): Qualidade {
   const W = 216, H = 384, g = cinza(arq, W, H);
-  let soma = 0, soma2 = 0, escuros = 0, somaBaixo = 0;
-  g.forEach((v, i) => { soma += v; soma2 += v * v; if (v < 14) escuros++; if (i >= (W * H) / 2) somaBaixo += v; });
+  let soma = 0, soma2 = 0, escuros = 0, somaBaixo = 0, somaFaixa = 0, nFaixa = 0;
+  g.forEach((v, i) => {
+    soma += v; soma2 += v * v; if (v < 14) escuros++; if (i >= (W * H) / 2) somaBaixo += v;
+    const y = Math.floor(i / W); if (y >= H * 0.42 && y < H * 0.66) { somaFaixa += v; nFaixa++; }
+  });
+  const faixa = somaFaixa / nFaixa; // onde fica a legenda: clara demais apaga o texto
   const baixo = somaBaixo / ((W * H) / 2); // a metade de baixo recebe a legenda: não pode ser um bloco preto
   const n = g.length, brilho = soma / n, contraste = Math.sqrt(soma2 / n - brilho * brilho), escuro = escuros / n;
   let lap = 0, lap2 = 0, m = 0;
@@ -108,6 +112,7 @@ export function avaliar(arq: string): Qualidade {
   if (nitidez < 25) motivos.push(`sem detalhe (nitidez ${nitidez.toFixed(0)})`);
   if (escuro > 0.22) motivos.push(`${Math.round(escuro * 100)}% preto puro`);
   if (baixo < 28) motivos.push(`metade de baixo apagada (${baixo.toFixed(0)})`);
+  if (faixa > 170) motivos.push(`faixa da legenda clara demais (${faixa.toFixed(0)})`);
   return { ok: motivos.length === 0, motivos, brilho, contraste, nitidez, escuro, baixo };
 }
 

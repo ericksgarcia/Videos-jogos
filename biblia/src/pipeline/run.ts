@@ -25,6 +25,8 @@ import { dataUri, gerarProfundidade } from "./replicate.ts";
 import { DUR_MAX, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
 import { cenaDaTomada } from "./cenarios.ts";
 import { confirmarFundos, fundoInedito } from "./fundos.ts";
+import { profundidadeLocal } from "./profundidade.ts";
+import { montarBlocos } from "../lib/blocos.ts";
 import { gerarRoteiro, palavraClimax, validar, type Roteiro } from "./script.ts";
 import { readFileSync } from "node:fs";
 import { narrar } from "./tts.ts";
@@ -131,7 +133,34 @@ async function main() {
   const fundosAto: Partial<Record<"ato1" | "ato2" | "ato3", { img: string; prof?: string }>> = {};
   const novosFundos: Parameters<typeof confirmarFundos>[0] = [];
   let n = 0;
-  for (const bloco of tomadasRoteiro ? [] : blocos(linha, bpm)) {
+  // Legenda em blocos de 2 linhas; com o Replicate, CADA bloco ganha uma imagem nova, trocada no instante
+  // em que a voz começa o bloco (sincronia). Profundidade calculada localmente (grátis).
+  const blocosLeg = montarBlocos(segs);
+  const modoGeral: ModoVisual = o.visual !== "auto" ? o.visual : temRep && temPex ? "hybrid" : temRep ? "replicate" : temPex ? "pexels" : "procedural";
+  let porBloco = false;
+  if (!tomadasRoteiro && modoGeral === "replicate" && !o.offline) {
+    porBloco = true;
+    const humor = { ato1: "ato1", cta: "ato2", ato2: "ato2", ato3: "ato3" } as const;
+    let primeira: { img: string; prof: string } | null = null;
+    for (let k = 0; k < blocosLeg.length; k++) {
+      const b = blocosLeg[k];
+      const ini = k === 0 ? 0 : Math.max(0, b.ini - 0.06);
+      const fim = k + 1 < blocosLeg.length ? Math.max(0, blocosLeg[k + 1].ini - 0.06) : linha.total;
+      let f: { img: string; prof: string };
+      if (extras.loop && k === blocosLeg.length - 1 && primeira) f = primeira;   // loop: termina na imagem do começo
+      else {
+        const r = await fundoInedito(humor[b.seg], id, rand, novosFundos.map((x) => x.hash));
+        novosFundos.push(r.registro);
+        f = { img: r.arq, prof: profundidadeLocal(r.arq) };
+      }
+      if (k === 0) primeira = f;
+      const di = `bloco-${k}.png`, dp = `bloco-${k}-prof.png`;
+      copyFileSync(f.img, join(pub, di)); copyFileSync(f.prof, join(pub, dp));
+      tomadas.push({ ini, fim, tipo: "parallax", src: `runs/${id}/${di}`, depth: `runs/${id}/${dp}`, seed: k });
+    }
+    console.log(`  fundos: ${novosFundos.length} imagens inéditas (uma por bloco de legenda)`);
+  }
+  for (const bloco of tomadasRoteiro || porBloco ? [] : blocos(linha, bpm)) {
     const limites = [bloco.ini, ...bloco.cortes, bloco.fim];
     for (let k = 0; k < limites.length - 1; k++, n++) {
       const [ini, fim] = [limites[k], limites[k + 1]];
@@ -168,7 +197,7 @@ async function main() {
             const f = await fundoInedito(atoImg, id, rand, novosFundos.map((x) => x.hash));
             novosFundos.push(f.registro);
             let d: string | undefined;
-            try { d = await gerarProfundidade(await dataUri(f.arq), f.arq); }
+            try { d = process.env.PROFUNDIDADE === "replicate" ? await gerarProfundidade(await dataUri(f.arq), f.arq) : profundidadeLocal(f.arq); }
             catch (e) { console.warn(`⚠ sem mapa de profundidade (${atoImg}): ${(e as Error).message}`); }
             fundosAto[atoImg] = { img: f.arq, prof: d };
           }
@@ -200,7 +229,7 @@ async function main() {
     id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
     rotulo: rotuloDe(entrada, at.ato2),
-    gancho_tela: extras.gancho_tela, loop: extras.loop,
+    gancho_tela: extras.gancho_tela, loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");

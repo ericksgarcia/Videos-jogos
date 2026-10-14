@@ -44,6 +44,7 @@ export type Plano = {
   gancho_tela?: string[];             // texto grande nos primeiros ~2,5 s
   cta_tela?: { texto: string; ini: number; fim: number };
   loop?: boolean;                     // sem fade no fim/começo: o vídeo emenda em si mesmo
+  blocos?: import("./blocos").Bloco[]; // legenda em 2 linhas = cortes de imagem
 };
 
 export const planoPadrao: Plano = {
