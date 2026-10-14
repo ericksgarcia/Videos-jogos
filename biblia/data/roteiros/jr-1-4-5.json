@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["VOCÊ SE ACHA", "POUCO PRA ISSO?"],
+  "ato1": "Jeremias é só um garoto em Judá, perto da queda de Jerusalém. Deus o chama pra falar a um reino inteiro. Ele responde: não sei falar.",
+  "cta": "Marque quem precisa ouvir isso hoje, e comente: eu fui escolhido.",
+  "cta_tela": "Comente: EU FUI ESCOLHIDO",
+  "ato3": "Você já pensou que não serve, que não é bom o bastante, que Deus escolheu a pessoa errada. Mas Deus não te escolheu pelo que você sabe. Ele te conheceu antes de qualquer erro. Você não é acidente. Tem propósito. Foi o chamado de",
+  "loop": true,
+  "climax": "santifiquei",
+  "cta_style": "compartilhar"
+}
