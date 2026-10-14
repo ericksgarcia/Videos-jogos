@@ -105,19 +105,23 @@ export const KineticText = ({ segmentos }: { segmentos: SegmentoPlano[] }) => {
   );
 };
 
-/** Referência bíblica em versaletes dourados, com filetes, quando começa a leitura. */
-export const RotuloReferencia = ({ texto, ini, fim }: { texto: string; ini: number; fim: number }) => {
+/** Referência bíblica fixa no topo durante TODO o vídeo; dá um "pulso" de brilho quando a leitura começa. */
+export const RotuloReferencia = ({ texto, ini }: { texto: string; ini: number; fim: number }) => {
   useFontes();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const a = interpolate(t, [ini, ini + 0.6, fim - 0.6, fim], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  if (a <= 0) return null;
+  const entra = interpolate(t, [0.15, 0.7], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const destaque = Math.max(0, 1 - Math.abs(t - ini - 0.4) / 1.1);  // brilha ao começar a leitura do versículo
+  const linha = 170 + 70 * entra + 60 * destaque;
   return (
-    <div style={{ position: "absolute", top: 330, left: 0, right: 0, textAlign: "center", opacity: a, transform: `translateY(${(1 - a) * -10}px)` }}>
-      <div style={{ margin: "0 auto 18px", width: 220 * a, height: 2, background: `linear-gradient(90deg, transparent, ${OURO}, transparent)` }} />
-      <div style={{ fontFamily: "Cinzel, serif", fontWeight: 600, fontSize: 44, letterSpacing: "0.32em", color: OURO, textShadow: "0 0 24px rgba(255,190,70,0.6), 0 2px 10px #000", textTransform: "uppercase" }}>{texto}</div>
-      <div style={{ margin: "18px auto 0", width: 220 * a, height: 2, background: `linear-gradient(90deg, transparent, ${OURO}, transparent)` }} />
+    <div style={{ position: "absolute", top: 205, left: 0, right: 0, textAlign: "center", opacity: entra, transform: `scale(${1 + 0.08 * destaque})` }}>
+      <div style={{ margin: "0 auto 14px", width: linha, height: 2, background: `linear-gradient(90deg, transparent, ${OURO}, transparent)` }} />
+      <div style={{
+        fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: 46, letterSpacing: "0.28em", color: OURO, textTransform: "uppercase",
+        textShadow: `0 2px 12px #000, 0 0 ${18 + 30 * destaque}px rgba(255,190,70,${0.45 + 0.4 * destaque})`,
+      }}>{texto}</div>
+      <div style={{ margin: "14px auto 0", width: linha, height: 2, background: `linear-gradient(90deg, transparent, ${OURO}, transparent)` }} />
     </div>
   );
 };

@@ -11,13 +11,13 @@ export const GanchoTela = ({ linhas, fim }: { linhas: string[]; fim: number }) =
   if (t > fim + 0.4 || !linhas.length) return null;
   const saida = interpolate(t, [fim - 0.25, fim + 0.2], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
-    <AbsoluteFill style={{ alignItems: "center", justifyContent: "flex-start", paddingTop: 360, opacity: saida, pointerEvents: "none" }}>
+    <AbsoluteFill style={{ alignItems: "center", justifyContent: "flex-start", paddingTop: 420, opacity: saida, pointerEvents: "none" }}>
       {linhas.map((l, i) => {
         const s = spring({ frame: frame - i * 7, fps, config: { damping: 13, mass: 0.7, stiffness: 170 } });
         const tremor = i === 0 ? Math.max(0, 1 - frame / 8) * Math.sin(frame * 3.1) * 6 : 0;
         return (
           <div key={i} style={{
-            fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: i === 0 ? 74 : 96, letterSpacing: "0.06em",
+            fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: i === 0 ? 70 : Math.min(96, Math.floor(1380 / Math.max(8, l.length))), letterSpacing: "0.05em", whiteSpace: "nowrap",
             color: i === linhas.length - 1 ? OURO : "#f4ecd8", textAlign: "center", lineHeight: 1.08, marginTop: i ? 10 : 0,
             transform: `translate(${tremor}px, ${(1 - s) * 40}px) scale(${1.35 - 0.35 * s})`, opacity: Math.min(1, s * 1.4),
             textShadow: `0 4px 24px rgba(0,0,0,0.95)${i === linhas.length - 1 ? ", 0 0 30px rgba(255,190,70,0.75)" : ""}`,

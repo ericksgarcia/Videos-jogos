@@ -42,7 +42,7 @@ export const Video = (plano: Plano) => {
   return (
     <AbsoluteFill style={{ background: "#000", opacity: Math.min(abrir, fechar) }}>
       <Audio src={staticFile(plano.audio)} />
-      <AbsoluteFill style={{ transform: `scale(${pulsar})`, filter: proc ? "contrast(1.06) saturate(1.0) brightness(1.08)" : "contrast(1.1) saturate(0.88) brightness(0.9)" }}>
+      <AbsoluteFill style={{ transform: `scale(${pulsar})`, filter: proc ? "contrast(1.06) saturate(1.0) brightness(1.08)" : "contrast(1.06) saturate(1.06) brightness(1.04)" }}>
         {plano.tomadas.map((x, i) => {
           const dur = (i === plano.tomadas.length - 1 ? durationInFrames : q(x.fim)) - q(x.ini); // pelos quadros: sem buraco no fim
           const entrada = i === 0 ? 0 : DISSOLVER;
@@ -67,11 +67,13 @@ export const Video = (plano: Plano) => {
           );
         })}
       </AbsoluteFill>
-      <FaixaLegibilidade forca={proc ? 0.5 : 1} />
-      <Fumaca intensidade={plano.tomadas.some((x) => x.tipo === "cenografia") ? 0.035 : proc ? 0.1 : plano.tom === "epic" ? 0.26 : 0.18} />
+      {/* clarão dourado na palavra de clímax (qualquer tipo de fundo) */}
+      <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 35%, rgba(255,225,150,1), rgba(255,180,80,0) 62%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.climax.t); return k < 0 ? 0 : 0.6 * Math.exp(-k / 7); })() }} />
+      <FaixaLegibilidade forca={proc ? 0.5 : 0.55} />
+      <Fumaca intensidade={plano.tomadas.some((x) => x.tipo === "cenografia") ? 0.035 : proc ? 0.1 : 0.06} />
       <Poeira />
       <Pulso cortes={cortes} />
-      <Vinheta forca={proc ? 0.62 : 0.88} />
+      <Vinheta forca={proc ? 0.62 : 0.6} />
       <KineticText segmentos={plano.segmentos} />
       <RotuloReferencia {...plano.rotulo} />
       {plano.gancho_tela && <GanchoTela linhas={plano.gancho_tela} fim={2.6} />}

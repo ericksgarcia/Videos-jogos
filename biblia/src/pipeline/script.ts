@@ -17,7 +17,7 @@ import { prng } from "./engine.ts";
 
 export const LIMITES = {
   ato1: { min: 20, max: 28 },   // ≈ 12 s no ritmo solene (~2,3 palavras/s)
-  cta: { min: 5, max: 10 },     // ≤ 4 s
+  cta: { min: 5, max: 16 },     // ≤ 6 s (apelo de fé: curtir + comentar para alcançar quem precisa)
   ato3: { min: 36, max: 48 },   // ≈ 20 s
 };
 

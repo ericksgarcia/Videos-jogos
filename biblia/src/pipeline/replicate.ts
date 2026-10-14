@@ -18,8 +18,8 @@ export const FLUX_MODEL = () => process.env.FLUX_MODEL ?? "black-forest-labs/flu
 export const DEPTH_MODEL = () => process.env.DEPTH_MODEL ?? "cjwbw/depth-anything";
 
 /** Estilo fixo do canal: escuro, cinema 35 mm, Rembrandt. Acrescentado a todo prompt. */
-export const ESTILO_FLUX =
-  "cinematic 35mm film still, Rembrandt lighting, chiaroscuro, deep dark shadows with warm golden highlights, volumetric haze, fine film grain, shallow depth of field, muted desaturated palette, no text, no watermark";
+export const ESTILO_FLUX = process.env.FLUX_ESTILO ??
+  "cinematic 35mm film still, dramatic volumetric light, rich detail, high dynamic range, deep but readable shadows, warm golden highlights, subtle film grain, epic scale, no people, no text, no watermark";
 
 const token = () => {
   const t = process.env.REPLICATE_API_TOKEN;
@@ -31,12 +31,21 @@ const cab = () => ({ Authorization: `Bearer ${token()}`, "Content-Type": "applic
 async function criar(modelo: string, input: Record<string, unknown>) {
   const [dono, nome] = modelo.split("/");
   const headers = { ...cab(), Prefer: "wait=60" };
-  let r = await fetch(`${API}/models/${dono}/${nome}/predictions`, { method: "POST", headers, body: JSON.stringify({ input }) });
+  // contas com pouco crédito: 6 criações/minuto, uma por vez → respeita o retry_after do 429
+  const postar = async (url: string, corpo: unknown) => {
+    for (let i = 0; ; i++) {
+      const res = await fetch(url, { method: "POST", headers, body: JSON.stringify(corpo) });
+      if (res.status !== 429 || i >= 8) return res;
+      const j: any = await res.json().catch(() => ({}));
+      await new Promise((ok) => setTimeout(ok, (Number(j.retry_after ?? 10) + 1) * 1000));
+    }
+  };
+  let r = await postar(`${API}/models/${dono}/${nome}/predictions`, { input });
   if (r.status === 404) { // modelo da comunidade: precisa da versão
     const m = await fetch(`${API}/models/${dono}/${nome}`, { headers: cab() });
     if (!m.ok) throw new Error(`Replicate: modelo ${modelo} não encontrado (${m.status})`);
     const versao = ((await m.json()) as any).latest_version?.id;
-    r = await fetch(`${API}/predictions`, { method: "POST", headers, body: JSON.stringify({ version: versao, input }) });
+    r = await postar(`${API}/predictions`, { version: versao, input });
   }
   if (!r.ok) throw new Error(`Replicate ${r.status}: ${(await r.text()).slice(0, 300)}`);
   let p: any = await r.json();
@@ -97,6 +106,11 @@ export async function gerarProfundidade(imagemUrlOuArquivo: string, arquivoImage
   if (existsSync(arq)) return arq;
   const out = await comTentativas(() => criar(modelo, { image: imagemUrlOuArquivo }), 2);
   await baixar(urlDaSaida(out, [/grey|gray/i, /depth/i]), arq);
+  // alguns modelos devolvem o mapa colorido (paleta inferno/magma): a luminância é monótona → vira cinza
+  const { spawnSync } = await import("node:child_process");
+  const tmp = arq + ".cinza.png";
+  const r = spawnSync("ffmpeg", ["-y", "-loglevel", "error", "-i", arq, "-vf", "format=gray,gblur=sigma=1.5", tmp]);
+  if (r.status === 0) (await import("node:fs")).renameSync(tmp, arq);
   return arq;
 }
 

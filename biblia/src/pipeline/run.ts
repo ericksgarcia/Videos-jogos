@@ -41,12 +41,12 @@ function args() {
 }
 
 /** Roteiro escrito à mão/por Claude: JSON { ato1, cta, ato3, climax?, cta_style } (o versículo vem sempre do catálogo). */
-type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; fundos?: Record<"ato1" | "ato2" | "ato3", string>; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
+  extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, fundos: j.fundos, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   return { ato1: j.ato1, cta: j.cta, ato3: j.ato3, versiculo: e.text, climax: palavraClimax(e.text, j.climax), cta_style: j.cta_style ?? "manual",
@@ -79,7 +79,7 @@ async function main() {
   // 3) narração
   const falas = await narrar([
     { chave: "ato1", texto: rot.ato1, perfil: "narrador", maxDur: 11.2 },
-    { chave: "cta", texto: rot.cta, perfil: "cta", maxDur: 4.0 },
+    { chave: "cta", texto: rot.cta, perfil: "cta", maxDur: Number(process.env.CTA_MAX_S ?? 6) },
     { chave: "ato2", texto: rot.versiculo, perfil: "leitura", maxDur: 19 },
     { chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: 20 },
   ], o.offline) as Record<"ato1" | "cta" | "ato2" | "ato3", Awaited<ReturnType<typeof narrar>>[string]>;
@@ -157,7 +157,13 @@ async function main() {
         let img: string, prof: string | undefined;
         if (o.offline) ({ imagem: img, profundidade: prof } = imagemFalsa(n));
         else {
-          img = await gerarImagem(`${cena.flux}, ${ENQUADRAMENTOS[k % ENQUADRAMENTOS.length]}`, 1000 + n);
+          // fundos neutros do roteiro: UMA imagem por ato (mesmo prompt e semente), cada tomada com outro movimento;
+          // em loop, a última tomada volta à imagem do ato 1
+          const ultima = k === limites.length - 2 && bloco.ato === "ato3";
+          const atoImg = extras.loop && ultima ? "ato1" : bloco.ato;
+          img = extras.fundos
+            ? await gerarImagem(extras.fundos[atoImg], 1000 + ["ato1", "ato2", "ato3"].indexOf(atoImg))
+            : await gerarImagem(`${cena.flux}, ${ENQUADRAMENTOS[k % ENQUADRAMENTOS.length]}`, 1000 + n);
           try { prof = await gerarProfundidade(await dataUri(img), img); }
           catch (e) { console.warn(`⚠ sem mapa de profundidade na tomada ${n}: ${(e as Error).message}`); }
         }
