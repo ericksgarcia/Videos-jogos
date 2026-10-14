@@ -53,7 +53,10 @@ function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro
   extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
-  return { ato1: j.ato1, cta: j.cta, ato3: j.ato3, versiculo: e.text, climax: palavraClimax(e.text, j.climax), cta_style: j.cta_style ?? "manual",
+  // o roteiro pode usar só um TRECHO do versículo do catálogo — mas ele precisa ser um pedaço exato do texto bíblico
+  if (j.versiculo && !e.text.includes(j.versiculo)) throw new Error(`"versiculo" do roteiro não é um trecho exato do texto do catálogo (${e.id})`);
+  const versiculo: string = j.versiculo ?? e.text;
+  return { ato1: j.ato1, cta: j.cta, ato3: j.ato3, versiculo, climax: palavraClimax(versiculo, j.climax), cta_style: j.cta_style ?? "manual",
     cenas: j.cenas ?? { ato1: { flux: "", pexels: [] }, ato2: { flux: "", pexels: [] }, ato3: { flux: "", pexels: [] } }, origem: "banco-local" };
 }
 
