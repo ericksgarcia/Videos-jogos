@@ -11,5 +11,24 @@
   "loop": true,
   "climax": "negou",
   "cta_style": "amem",
-  "versiculo": "Mas ele negou diante de todos, dizendo: Não sei o que dizes."
+  "versiculo": "Mas ele negou diante de todos, dizendo: Não sei o que dizes.",
+  "auditoria": {
+    "gancho": "Pedro negou Jesus e Jesus se virou abre uma pergunta visual concreta em três segundos.",
+    "virada": "Só um evangelho conta isso promete um segredo exclusivo que só o ato três paga.",
+    "contexto": "A passagem direta do segredo ao pedido mantém a curiosidade acesa sem enchimento.",
+    "cta": "Curte e comenta amém prende o pedido às cinco palavras que o versículo entrega.",
+    "versiculo": "O trecho curto termina exatamente nas cinco palavras prometidas, sem cenário sobrando.",
+    "ato3": "Lucas conta o olhar do Senhor e as três perguntas na praia respondem à virada.",
+    "final": "Três vezes, como na noite em que fecha o laço e muda o sentido do gancho."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 9,
+    "ato3": 8,
+    "final": 9,
+    "rodadas": 13
+  }
 }
