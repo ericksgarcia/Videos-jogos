@@ -1,5 +1,7 @@
 # Revisão rígida do roteiro (avaliador independente)
 
+> **Desde o vídeo 35 a revisão é por especialistas: um analista independente por fase, com prompt próprio, em paralelo — veja `REVISAO_ESPECIALISTAS.md`.** Esta página continua sendo a régua (notas, o que reprova, o que é extraordinário).
+
 Todo roteiro passa por um avaliador que NÃO escreveu o texto e só enxerga o roteiro — nunca a justificativa do autor.
 Ele age como alguém que rola o TikTok por hábito, com o polegar já a caminho de passar o vídeo. A pergunta em cada
 fase é: **"eu paro aqui? eu deixo passar? em que palavra eu rolaria?"**

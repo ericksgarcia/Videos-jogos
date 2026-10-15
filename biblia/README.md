@@ -204,6 +204,8 @@ pergunta no gancho). Nas etapas técnicas a mesma régua se aplica: depois do re
 
 **Revisão rígida:** além da auditoria do autor, um avaliador independente (que só vê o roteiro) dá nota 1–10 por fase seguindo
 `REVISAO.md`; mínimo **8 em todas**, registrado em `"revisao"` no roteiro — a esteira recusa nota ausente ou menor que 8.
+**Por especialistas (regra do dono, a partir do vídeo 35):** cada fase (gancho, virada, contexto, CTA, versículo, ato 3, final) é avaliada por
+um analista **separado, com prompt próprio e em paralelo**, sem ver o parecer dos outros — prompts e dependências em `REVISAO_ESPECIALISTAS.md`.
 
 ## Esteira contínua (regra do dono): um vídeo por vez, sempre em seguida
 
