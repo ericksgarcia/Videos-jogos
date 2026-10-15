@@ -212,7 +212,7 @@ vetorial. Uma versão "simples" (ilustrações soltas no meio da tela) foi **rej
 Esteira de vídeos bíblicos de 45–58 s (catálogo de passagens, roteiro com CTA de fé dinâmico, Google TTS,
 sonoplastia com ducking, Replicate/Pexels, legendas cinéticas). É **independente** de `aprendendo/`: não
 compartilha código, pasta de saída nem regras de conteúdo deste guia (o público e o estilo são outros).
-Leia `biblia/README.md` (inclui a **revisão por especialistas**, um analista independente por fase — `biblia/REVISAO_ESPECIALISTAS.md` — e o **protocolo de gancho** e a **auditoria por fase**, obrigatórios em todo roteiro: a esteira recusa roteiro sem eles). **Esteira contínua:** um vídeo por vez, e o próximo começa automaticamente assim que o anterior é enviado, sem perguntar (só para quando o dono mandar). Depois de enviar cada vídeo, rode `biblia/scripts/limpar.sh` (apaga imagens e caches locais; o MP4 final fica 5 dias; nada disso vai ao GitHub). Chaves em `biblia/.env` (nunca versionar); `cd biblia && npm test` roda sem rede.
+Leia `biblia/README.md` (inclui a **revisão por um único avaliador independente** das 7 fases (novo a cada rodada; `biblia/REVISAO.md`) — e o **protocolo de gancho** e a **auditoria por fase**, obrigatórios em todo roteiro: a esteira recusa roteiro sem eles). **Esteira contínua:** um vídeo por vez, e o próximo começa automaticamente assim que o anterior é enviado, sem perguntar (só para quando o dono mandar). Depois de enviar cada vídeo, rode `biblia/scripts/limpar.sh` (apaga imagens e caches locais; o MP4 final fica 5 dias; nada disso vai ao GitHub). Chaves em `biblia/.env` (nunca versionar); `cd biblia && npm test` roda sem rede.
 
 ## Git
 

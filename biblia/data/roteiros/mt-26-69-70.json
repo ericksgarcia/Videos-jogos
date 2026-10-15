@@ -10,5 +10,24 @@
   "ato3": "Na terceira negação, o galo cantou, e Lucas revela o olhar: o Senhor se virou e olhou para Pedro. Ele saiu e chorou amargamente. Depois, na praia, Jesus esperava junto a brasas, como as do pátio. Perguntou três vezes: amas-me? Cada pergunta curava a noite em que",
   "loop": true,
   "climax": "negou",
-  "cta_style": "amem"
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Pedro negou Jesus e Jesus se virou abre uma pergunta concreta sem pedir nada ao espectador.",
+    "virada": "Só um evangelho conta isso é um fato exclusivo que aumenta o mistério do gancho.",
+    "contexto": "Brasas, cusparadas e a promessa de morrer juntos dão imagens fortes até o pedido.",
+    "cta": "Curte e comenta amém se já falhou prende o pedido às cinco palavras prometidas.",
+    "versiculo": "O versículo inteiro paga as cinco palavras de Pedro na última frase lida.",
+    "ato3": "O olhar de Lucas, as brasas da praia e as três perguntas revelam o que o gancho escondia.",
+    "final": "Cada pergunta curava a noite em que Pedro negou Jesus fecha o laço com causa clara."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 9,
+    "contexto": 9,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 11
+  }
 }
