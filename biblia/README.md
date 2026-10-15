@@ -1,6 +1,6 @@
 # biblia/ — vídeos bíblicos verticais (Remotion + FFmpeg)
 
-Esteira completa para vídeos de 45–58 s: **engine** escolhe a passagem → **Gemini** escreve o roteiro (CTA de fé
+Esteira completa para vídeos de 15–30 s (alvo ~27 s): **engine** escolhe a passagem → **Gemini** escreve o roteiro (CTA de fé
 diferente a cada vídeo) → **Google TTS** narra com o tempo real de cada palavra → **mixagem** de 3 camadas com
 ducking → **Replicate** (Flux + profundidade) e/ou **Pexels** (vídeos) como fundo → **Remotion** renderiza →
 **FFmpeg** fecha o MP4 em ≤ 28 MB.
@@ -79,7 +79,7 @@ Só a narração é paga (Gemini TTS, ou Google Cloud TTS se houver chave). Todo
   silêncio, montanha).
 - O **texto vem de uma Bíblia em JSON** baixada por `npm run catalogo` (padrão: Almeida Revista e Corrigida,
   `pt_arc`; troque com `BIBLIA_VERSAO=pt_nvi` etc.) — nunca da memória do modelo. Os intervalos das sementes
-  (`data/seeds/*.txt`) são cortados do fim até caber em 44 palavras (≈ 19 s de leitura solene).
+  (`data/seeds/*.txt`) são cortados do fim até caber em 44 palavras; o roteiro de 15–30 s usa só um TRECHO curto (campo `versiculo`).
   **Confira a licença da versão escolhida** antes de monetizar: a base de 1898 da ARC é domínio público, edições
   modernas/outras versões (NVI, ARA, NAA…) têm direitos reservados.
 - O **contexto histórico** é conteúdo editorial das sementes: revise-o. O roteirista é instruído a usar só ele.
@@ -92,13 +92,14 @@ Só a narração é paga (Gemini TTS, ou Google Cloud TTS se houver chave). Todo
 
 | ato | janela | conteúdo |
 |---|---|---|
-| 1 | 0–12 s | crise real vivida pelo autor (Gemini, a partir do contexto verificado) |
-| CTA | 12–16 s (≤ 4 s) | pedido de fé para curtir/comentar |
-| 2 | 16–35 s | leitura solene da passagem (texto do catálogo) |
-| 3 | 35–55 s | aplicação moderna (ansiedade, decisões, superação, medo do futuro) |
+| 1 | 0–6 s (12–16 palavras) | gancho (1ª frase = texto grande na tela) + virada |
+| CTA | ~6–10 s (5–10 palavras, ≤ 4,5 s) | pedido de curtir/comentar preso a uma promessa do versículo |
+| 2 | ~10–16 s | trecho CURTO do versículo (≤ ~12 palavras, ≤ 8 s; campo `versiculo` = trecho exato do catálogo) |
+| 3 | ~16–28 s (20–24 palavras) | revelação que muda o sentido do gancho e emenda no loop |
 
-Os atos começam nas marcas acima, **empurrados para a próxima batida** do BPM (e para depois da fala anterior se ela
-passar). O ato 3 é o "elástico": se o total passar de 58 s, é re-narrado mais ligeiro (até 1,0).
+Vídeo total **entre 15 e 30 s** (`DUR_MIN`/`DUR_MAX` em `src/pipeline/plan.ts`). Cada ato entra logo depois do anterior,
+**empurrado para a próxima batida** do BPM. O ato 3 é o "elástico": se o total passar de 30 s, é re-narrado mais ligeiro
+(até 1,0). Em 27 s não há folga: sem contexto de enciclopédia; cada frase precisa prender.
 
 **CTA que muda a cada vídeo**: a cada execução o prompt recebe (a) um **estilo** (amém, alcance, nome de alguém,
 compartilhar, declaração, pergunta, oração, testemunho) que *não* esteve nos últimos 3 vídeos, (b) um **registro**

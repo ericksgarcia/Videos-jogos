@@ -16,9 +16,10 @@ import { comTentativas } from "../lib/env.ts"; // também ativa o proxy e lê o 
 import { prng } from "./engine.ts";
 
 export const LIMITES = {
-  ato1: { min: 20, max: 28 },   // ≈ 12 s no ritmo solene (~2,3 palavras/s)
-  cta: { min: 5, max: 16 },     // ≤ 6 s (apelo de fé: curtir + comentar para alcançar quem precisa)
-  ato3: { min: 36, max: 48 },   // ≈ 20 s
+  // vídeo de 15–30 s: ato 1 ≈ 6-7 s, CTA ≈ 3-4 s, versículo curto ≈ 5 s (trecho do catálogo), ato 3 ≈ 9-10 s (~2,3 palavras/s)
+  ato1: { min: 12, max: 16 },
+  cta: { min: 5, max: 10 },
+  ato3: { min: 20, max: 24 },
 };
 
 export interface CtaStyle { id: string; instrucao: string; exemplo: string }

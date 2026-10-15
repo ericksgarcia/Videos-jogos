@@ -5,21 +5,21 @@ import type { Fala } from "../src/pipeline/tts.ts";
 
 const fala = (dur: number): Fala => ({ audio: new Float32Array(0), dur, palavras: [], taxa: 0.9 });
 
-test("atos começam nas marcas 12/16/35 s, alinhados às batidas, e o vídeo fica em 45-58 s", () => {
+test("atos entram logo após o anterior, alinhados às batidas, e o vídeo fica em 15-30 s", () => {
   const bpm = 72, b = 60 / bpm;
-  const l = montarLinha({ ato1: fala(11), cta: fala(3.5), ato2: fala(17), ato3: fala(19) }, bpm);
-  for (const [k, ref] of [["cta", 12], ["ato2", 16], ["ato3", 35]] as const) {
+  const l = montarLinha({ ato1: fala(7), cta: fala(3.5), ato2: fala(5), ato3: fala(9.5) }, bpm);
+  for (const k of ["cta", "ato2", "ato3"] as const) {
     const t = l.ini[k];
-    assert.ok(t >= ref && t < ref + 2 * b, `${k} em ${t}`);
     assert.ok(Math.abs(t / b - Math.round(t / b)) < 1e-6, `${k} fora da batida`);
   }
-  assert.ok(l.total >= 45 && l.total <= 58, String(l.total));
+  assert.ok(l.ini.cta < 9.5 && l.ini.ato2 < 14 && l.ini.ato3 < 20.5, JSON.stringify(l.ini));
+  assert.ok(l.total >= 15 && l.total <= 30, String(l.total));
 });
 
-test("fala longa empurra os atos seguintes e gera aviso quando passa de 58 s", () => {
-  const l = montarLinha({ ato1: fala(11), cta: fala(4), ato2: fala(24), ato3: fala(22) }, 60);
-  assert.ok(l.ini.ato3 > 35);
-  assert.ok(l.avisos.some((a) => /58/.test(a)));
+test("fala longa empurra os atos seguintes e gera aviso quando passa de 30 s", () => {
+  const l = montarLinha({ ato1: fala(9), cta: fala(4.5), ato2: fala(10), ato3: fala(12) }, 60);
+  assert.ok(l.ini.ato3 > 22);
+  assert.ok(l.avisos.some((a) => /30/.test(a)));
 });
 
 test("cortes caem em múltiplos de compasso (4 batidas)", () => {

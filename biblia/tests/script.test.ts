@@ -27,6 +27,6 @@ test("roteiro local respeita os limites de CTA e traz cenas", async () => {
   const e = loadCatalog().find((x) => x.id.startsWith("mt-14"))!;
   const r = await gerarRoteiro(e, [], { rand: prng(2), offline: true });
   assert.equal(r.versiculo, e.text);
-  assert.deepEqual(validar({ ato1: "uma duas três quatro cinco seis sete oito nove dez onze doze treze catorze quinze dezesseis dezessete dezoito dezenove vinte", cta: r.cta, ato3: r.ato3.split(" ").slice(0, 40).join(" ") }), []);
+  assert.deepEqual(validar({ ato1: "uma duas três quatro cinco seis sete oito nove dez onze doze treze catorze", cta: r.cta, ato3: r.ato3.split(" ").slice(0, 22).join(" ") }), []);
   assert.ok(r.cenas.ato1.flux.length > 10 && r.cenas.ato2.pexels.length >= 1);
 });

@@ -9,8 +9,8 @@ import type { CatalogEntry, Tone } from "../lib/types.ts";
 import type { PalavraPlano, SegmentoPlano } from "../lib/plan.ts";
 import type { Fala } from "./tts.ts";
 
-export const DUR_MIN = 45;
-export const DUR_MAX = 58;
+export const DUR_MIN = 15;
+export const DUR_MAX = 30;
 
 export const bpmDoTom = (tom: Tone) => (tom === "epic" ? 72 : 60);
 const sobeBatida = (t: number, bpm: number) => Math.ceil(t / (60 / bpm) - 1e-6) * (60 / bpm);
@@ -30,7 +30,7 @@ export function montarLinha(f: Record<"ato1" | "cta" | "ato2" | "ato3", Fala>, b
   const ato2 = sobeBatida(cta + f.cta.dur + 0.5, bpm);
   const ato3 = sobeBatida(ato2 + f.ato2.dur + 0.5, bpm);
   const fala3 = ato3 + f.ato3.dur;
-  // cauda de 0,8-1,6 s (encolhe para fechar em 58 s); em loop, quase nada: a última palavra emenda na primeira
+  // cauda de 0,8-1,6 s (encolhe para fechar em DUR_MAX); em loop, quase nada: a última palavra emenda na primeira
   let total = fala3 + (loop ? 0.3 : Math.min(1.6, Math.max(0.8, DUR_MAX - fala3)));
   if (cta + f.cta.dur > ato2) avisos.push("CTA invadiu o ato 2");
   if (total < DUR_MIN) { if (loop) avisos.push(`duração ${total.toFixed(1)}s abaixo de ${DUR_MIN}s (loop não estica)`); else total = DUR_MIN; }

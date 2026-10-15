@@ -125,10 +125,10 @@ async function main() {
 
   // 3) narração
   const falas = await narrar([
-    { chave: "ato1", texto: rot.ato1, perfil: "narrador", maxDur: 11.2 },
-    { chave: "cta", texto: rot.cta, perfil: "cta", maxDur: Number(process.env.CTA_MAX_S ?? 6) },
-    { chave: "ato2", texto: rot.versiculo, perfil: "leitura", maxDur: 19 },
-    { chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: 20 },
+    { chave: "ato1", texto: rot.ato1, perfil: "narrador", maxDur: 7.6 },
+    { chave: "cta", texto: rot.cta, perfil: "cta", maxDur: Number(process.env.CTA_MAX_S ?? 4.5) },
+    { chave: "ato2", texto: rot.versiculo, perfil: "leitura", maxDur: 8 },
+    { chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: 11 },
   ], o.offline) as Record<"ato1" | "cta" | "ato2" | "ato3", Awaited<ReturnType<typeof narrar>>[string]>;
   console.log("  duração: " + (["ato1", "cta", "ato2", "ato3"] as const).map((k) => `${k} ${falas[k].dur.toFixed(1)}s`).join(" | "));
 
