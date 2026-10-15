@@ -2470,5 +2470,61 @@
   "video": "2026-10-15-pv-28-1",
   "ato": "ato3",
   "em": "2026-10-15T08:17:34.527Z"
+ },
+ {
+  "hash": "4f032f0f1f0f0f57c00480ffff00ffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-sl-94-16-17",
+  "ato": "ato1",
+  "em": "2026-10-15T08:59:33.813Z"
+ },
+ {
+  "hash": "02431f0f0000000100073fe0f8ff9fff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-sl-94-16-17",
+  "ato": "ato1",
+  "em": "2026-10-15T08:59:34.372Z"
+ },
+ {
+  "hash": "7d2f3d170f0c0e89c01cc0ffffbeff7d",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-sl-94-16-17",
+  "ato": "ato2",
+  "em": "2026-10-15T08:59:34.914Z"
+ },
+ {
+  "hash": "06051d3f3f3f7f371d0e0fffffffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-sl-94-16-17",
+  "ato": "ato2",
+  "em": "2026-10-15T08:59:35.412Z"
+ },
+ {
+  "hash": "0f0f0f0655c3f8500000feff7f0cfcfb",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-sl-94-16-17",
+  "ato": "ato2",
+  "em": "2026-10-15T08:59:35.922Z"
+ },
+ {
+  "hash": "070a030f61a73f5b0000ffe7ff0fffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-sl-94-16-17",
+  "ato": "ato3",
+  "em": "2026-10-15T08:59:36.421Z"
+ },
+ {
+  "hash": "0f0b0f0f0f0f0706000007fffffff7ff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-sl-94-16-17",
+  "ato": "ato3",
+  "em": "2026-10-15T08:59:36.929Z"
  }
 ]
