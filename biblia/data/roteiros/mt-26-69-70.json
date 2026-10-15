@@ -1,9 +1,9 @@
 {
-  "gancho_tela": ["UMA CRIADA", "DERRUBOU PEDRO", "COM UMA FRASE."],
-  "ato1": "Uma criada derrubou Pedro com uma frase. Horas antes, ele jurara morrer com Jesus. Nenhum soldado o prendeu. Foi só uma pergunta de empregada.",
-  "cta": "Curte e comenta amém se já negou o que jurou. Escuta o que Pedro respondeu.",
+  "gancho_tela": ["PEDRO ENFRENTOU", "SOLDADOS E MENTIU", "PARA UMA CRIADA."],
+  "ato1": "Pedro enfrentou soldados e mentiu para uma criada. Horas antes, prometera morrer com Jesus. Agora, no pátio do sumo sacerdote, ninguém o ameaçava. Só uma criada o encarou.",
+  "cta": "Curte e comenta amém: ainda dá pra voltar. Escuta as cinco palavras do Pedro.",
   "cta_tela": "Comente: AMÉM",
-  "ato3": "Jesus já tinha avisado, e Pedro não acreditou. Mais duas vezes, e o galo cantou. Pedro saiu e chorou amargamente. Mais tarde, Jesus lhe diria: apascenta as minhas ovelhas. Nada o prendeu, nada o feriu. Foi assim que",
+  "ato3": "Na terceira vez, Pedro já praguejava e jurava não conhecer Jesus. O galo cantou. Ele saiu e chorou amargamente. Depois da ressurreição, Jesus perguntou três vezes: amas-me? Três negações, três perguntas. Tudo começou na noite em que",
   "loop": true,
   "climax": "negou",
   "cta_style": "amem"
