@@ -2118,5 +2118,53 @@
   "video": "2026-10-15-mc-4-37-38",
   "ato": "ato3",
   "em": "2026-10-15T03:43:52.106Z"
+ },
+ {
+  "hash": "3f8bef4f6f270f070010610cfbffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-is-61-2",
+  "ato": "ato1",
+  "em": "2026-10-15T04:29:43.122Z"
+ },
+ {
+  "hash": "030702010203010000037c0ffbff9f47",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-is-61-2",
+  "ato": "ato1",
+  "em": "2026-10-15T04:29:43.586Z"
+ },
+ {
+  "hash": "27070f0f8795e1a5e2c1feffff7fb3f5",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-is-61-2",
+  "ato": "ato2",
+  "em": "2026-10-15T04:29:44.027Z"
+ },
+ {
+  "hash": "062e3e7c793d3f3f805ffe1dffcff3ff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-is-61-2",
+  "ato": "ato2",
+  "em": "2026-10-15T04:29:44.448Z"
+ },
+ {
+  "hash": "1e2f1f0207070f060000e2ffffffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-is-61-2",
+  "ato": "ato3",
+  "em": "2026-10-15T04:29:44.913Z"
+ },
+ {
+  "hash": "0f100fce4f0f3df5ffc33fffffffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-is-61-2",
+  "ato": "ato3",
+  "em": "2026-10-15T04:29:45.311Z"
  }
 ]
