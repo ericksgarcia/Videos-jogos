@@ -1,0 +1,32 @@
+{
+  "gancho_tela": [
+    "NINGUÉM SE LEVANTOU",
+    "POR ESSE HOMEM"
+  ],
+  "ato1": "Ninguém se levantou por esse homem. Os poderosos condenavam inocentes com a lei na mão. Ele gritou: quem fica do meu lado? Ninguém respondeu.",
+  "cta": "A resposta chegou por um fio. Curte e comenta amém antes de ouvir qual foi.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Lugar do silêncio é como os Salmos chamam a morte. Ele estava a um passo dela. No versículo seguinte, confessa: o meu pé vacila. E não foi gente que o segurou: a benignidade do Senhor o susteve. Ficou de pé, mesmo quando",
+  "loop": true,
+  "climax": "silêncio.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Ninguém se levantou por esse homem traz uma imagem curta de injustiça e curiosidade.",
+    "virada": "Os poderosos condenavam inocentes com a lei na mão é concreto e atual.",
+    "contexto": "Ele gritou quem fica do meu lado e ninguém respondeu sobe a tensão.",
+    "cta": "A resposta chegou por um fio contradiz o ninguém e promete o quase morreu.",
+    "versiculo": "Quem se porá ao meu lado paga a pergunta e lugar do silêncio segura a dúvida.",
+    "ato3": "Silêncio como morte, o pé que vacila e não foi gente que o segurou mudam o começo.",
+    "final": "Ficou de pé mesmo quando ninguém se levantou fecha o laço com o jogo levantar e ficar de pé."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 9,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 3
+  }
+}
