@@ -126,6 +126,7 @@ jo 11:43-44 | esperança | epic | caverna,trovão | Diante do túmulo de Lázaro
 jo 14:1-3 | ansiedade | comfort | noite,silêncio | Na última ceia, Jesus acalma discípulos assustados com sua partida.
 jo 14:27 | paz | comfort | silêncio | Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá.
 jo 16:33 | superação | epic | trovão,tempestade | No mundo tereis aflições, mas tende bom ânimo: eu venci o mundo.
+jo 18:17-18 | culpa | epic | noite,fogueira | No pátio do sumo sacerdote, a porteira pergunta se Pedro é discípulo de Jesus; ele nega, junto às brasas onde os servos se aquecem.
 jo 20:19-21 | medo | comfort | noite,silêncio | Discípulos escondidos atrás de portas trancadas por medo recebem a visita do ressuscitado: paz seja convosco.
 # --- Apocalipse: João, exilado na ilha de Patmos, escreve a igrejas perseguidas pelo Império Romano
 ap 1:12-18 | medo | epic | trovão,fogo | João, exilado na ilha de Patmos, vê o Cristo glorificado e cai como morto, até ouvir: não temas.

@@ -1899,6 +1899,22 @@
   ]
  },
  {
+  "id": "jo-18-17-18",
+  "book": "jo",
+  "bookName": "João",
+  "testament": "NT",
+  "reference": "João 18:17-18",
+  "text": "Então, a porteira disse a Pedro: Não és tu também dos discípulos deste homem? Disse ele: Não sou. Ora, estavam ali os servos e os criados, que tinham feito brasas, e se aquentavam, porque fazia frio; e com eles estava Pedro, aquentando-se também.",
+  "words": 43,
+  "historical_context": "No pátio do sumo sacerdote, a porteira pergunta se Pedro é discípulo de Jesus; ele nega, junto às brasas onde os servos se aquecem.",
+  "emotional_hook": "culpa",
+  "tone": "epic",
+  "audio_cues": [
+   "noite",
+   "fogueira"
+  ]
+ },
+ {
   "id": "jo-20-19",
   "book": "jo",
   "bookName": "João",
