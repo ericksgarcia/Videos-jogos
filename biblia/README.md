@@ -207,6 +207,14 @@ pergunta no gancho). Nas etapas técnicas a mesma régua se aplica: depois do re
 **Por especialistas (regra do dono, a partir do vídeo 35):** cada fase (gancho, virada, contexto, CTA, versículo, ato 3, final) é avaliada por
 um analista **separado, com prompt próprio e em paralelo**, sem ver o parecer dos outros — prompts e dependências em `REVISAO_ESPECIALISTAS.md`.
 
+## Limpeza de arquivos pesados (regra do dono)
+
+As imagens do Replicate, planos, MP4 e caches **nunca vão para o GitHub** (`public/`, `out/` e `data/cache/` estão no `.gitignore`;
+o repositório só tem texto: roteiros, catálogo, histórico, hashes em `data/fundos-usados.json`). Para não ocupar disco do ambiente, depois
+de **enviar** cada vídeo rode `scripts/limpar.sh` (sem argumentos apaga `public/runs`, `out` e `data/cache`). Com um render em andamento, passe a
+pasta dele para mantê-la: `scripts/limpar.sh 2026-10-15-<id>` (preserva também o cache de voz até o fim). Nunca limpar antes do envio:
+`--reusar` precisa das imagens do plano.
+
 ## Esteira contínua (regra do dono): um vídeo por vez, sempre em seguida
 
 - Os vídeos saem **em sequência, um de cada vez**, e o próximo começa **automaticamente**, sem perguntar e sem esperar
