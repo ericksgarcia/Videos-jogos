@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "PESCADORES DE",
+    "PROFISSÃO ACHARAM",
+    "QUE IAM MORRER"
+  ],
+  "ato1": "Pescadores de profissão acharam que iam morrer. O lago é um poço: duzentos metros abaixo do nível do mar. O vento despencou das montanhas. E alguém dormia.",
+  "cta": "O pior medo deles veio depois da calmaria. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Bastaram duas palavras: cala-te, aquieta-te. O mar virou espelho. E ele perguntou: por que tanto medo? Ainda não tendes fé? Aí o temor deles dobrou. Temiam a tempestade. Agora temiam quem mandou nela. A pergunta já não era: vamos morrer? Era: quem é este? Antes disso,",
+  "loop": true,
+  "climax": "almofada;",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Paradoxo concreto: pescadores de profissão, especialistas do lago, acharam que iam morrer, e a tela repete a fala.",
+    "virada": "O lago é um poço, duzentos metros abaixo do nível do mar, é fato estranho que a maioria não sabe e vira imagem.",
+    "contexto": "O vento despencou das montanhas liga a geografia ao perigo e e alguém dormia cria o mistério que segura até o versículo.",
+    "cta": "O pior medo deles veio depois da calmaria promete uma virada contraintuitiva que o ato três paga.",
+    "versiculo": "A leitura paga alguém dormia com a almofada e termina na acusação não te importa que pereçamos.",
+    "ato3": "Temiam a tempestade e agora temiam quem mandou nela muda o sentido do começo e responde à acusação do versículo.",
+    "final": "A pergunta quem é este em aberto emenda em pescadores de profissão acharam que iam morrer e puxa o replay."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 8,
+    "contexto": 9,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 5
+  }
+}
