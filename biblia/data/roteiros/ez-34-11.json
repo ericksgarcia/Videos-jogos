@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "DEUS FICOU CONTRA",
+    "OS PASTORES",
+    "DE ISRAEL"
+  ],
+  "ato1": "Deus ficou contra os pastores de Israel. Não de igreja: reis e chefes do povo. Comiam a gordura, vestiam a lã. A ovelha perdida virou comida de fera.",
+  "cta": "Então Deus decidiu fazer o que nenhum líder fez. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Não mandou um anjo. Disse: eu mesmo. Uns seiscentos anos depois, Jesus se chama de bom pastor. Cercado no templo, diz: eu e o Pai somos um. O eu mesmo de Ezequiel tinha chegado. Pegaram pedras. Ezequiel já tinha avisado:",
+  "loop": true,
+  "climax": "mesmo,",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Deus ficou contra os pastores choca quem pensa em pastor de igreja e deixa a lacuna aberta.",
+    "virada": "Não de igreja, reis e chefes do povo desarma a leitura errada e entrega fato novo.",
+    "contexto": "Comiam a gordura, vestiam a lã e a ovelha virou comida de fera são imagens concretas.",
+    "cta": "O que nenhum líder fez abre a pergunta que o versículo responde sem cortar o suspense.",
+    "versiculo": "Eu, eu mesmo responde à promessa do CTA no momento exato em que o espectador espera.",
+    "ato3": "Disse eu mesmo, Jesus bom pastor e o Pai somos um mudam o sentido do começo.",
+    "final": "Ezequiel já tinha avisado emenda no gancho e recoloca as pedras como julgamento dos maus pastores."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 9,
+    "rodadas": 5
+  }
+}
