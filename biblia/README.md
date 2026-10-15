@@ -227,5 +227,6 @@ pasta dele para mantê-la: `scripts/limpar.sh 2026-10-15-<id>` (preserva também
 - Mensagem ao dono só nos marcos (vídeo enviado, problema que ele precise decidir); o resto é trabalho contínuo.
 
 ### Duração (regra do dono)
-O alvo é 45–58 s (`DUR_MIN`/`DUR_MAX` em `src/pipeline/plan.ts`). O dono aceita ficar um pouco acima (até ~60 s): não cortar versículo
-nem roteiro só por isso; só encurtar se passar muito, para não perder retenção.
+Desde o vídeo 38 o alvo é **15–30 s** (`DUR_MIN`/`DUR_MAX` em `src/pipeline/plan.ts`; pedido do dono, para prender mais). Como o versículo
+inteiro quase nunca cabe, o roteiro usa só um trecho curto e forte (`versiculo`, substring exata do catálogo). Os vídeos 1–37 (45–58 s)
+seguiram o alvo antigo.
