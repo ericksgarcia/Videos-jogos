@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "DANIEL ESCREVEU UMA",
+    "PROFECIA QUE ELE",
+    "MESMO NÃO ENTENDEU"
+  ],
+  "ato1": "Daniel escreveu uma profecia que ele mesmo não entendeu. Está escrito: ouvi, mas não entendi. Perguntou: qual será o fim dessas coisas? Ouviu: está selado até o fim.",
+  "cta": "Mas no meio do selo, uma frase ficou clara. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "E a última frase que ele ouve é para ele: vai até ao fim, porque repousarás, e estarás na tua sorte, no fim dos dias. Ele também ia dormir no pó. Mas o homem que não entendeu o fim recebeu um lugar nele. E tudo começou quando",
+  "loop": true,
+  "climax": "ressuscitarão,",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Uma profecia que o próprio Daniel não entendeu é um fato estranho e verdadeiro.",
+    "virada": "Está escrito ouvi mas não entendi dá a prova com citação do texto.",
+    "contexto": "Ele pergunta pelo fim e ouve que está selado, uma imagem forte de mistério.",
+    "cta": "Uma frase ficou clara no meio do selo promete a resposta durante o pedido.",
+    "versiculo": "Os que dormem no pó ressuscitarão paga a promessa e prepara o ato três.",
+    "ato3": "Ele também ia dormir no pó liga o versículo a Daniel e muda o sentido do gancho.",
+    "final": "Recebeu um lugar nele emenda com e tudo começou quando Daniel escreveu."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 2
+  }
+}
