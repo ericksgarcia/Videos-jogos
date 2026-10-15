@@ -2278,6 +2278,21 @@
   ]
  },
  {
+  "id": "is-61-2",
+  "book": "is",
+  "bookName": "Isaías",
+  "testament": "AT",
+  "reference": "Isaías 61:2",
+  "text": "a apregoar o ano aceitável do Senhor e o dia da vingança do nosso Deus; a consolar todos os tristes;",
+  "words": 20,
+  "historical_context": "Isaías anuncia o ano aceitável do Senhor; em Lucas 4, Jesus lê até aqui na sinagoga de Nazaré e fecha o rolo.",
+  "emotional_hook": "luto",
+  "tone": "comfort",
+  "audio_cues": [
+   "silêncio"
+  ]
+ },
+ {
   "id": "sl-1-1-2",
   "book": "sl",
   "bookName": "Salmos",
