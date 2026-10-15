@@ -1,9 +1,9 @@
 {
-  "gancho_tela": ["PEDRO ENFRENTOU", "SOLDADOS E MENTIU", "PARA UMA CRIADA."],
-  "ato1": "Pedro enfrentou soldados e mentiu para uma criada. Horas antes, prometera morrer com Jesus. Agora, no pátio do sumo sacerdote, ninguém o ameaçava. Só uma criada o encarou.",
-  "cta": "Curte e comenta amém: ainda dá pra voltar. Escuta as cinco palavras do Pedro.",
+  "gancho_tela": ["PEDRO SACOU ESPADA,", "MAS NEGOU JESUS", "A UMA CRIADA."],
+  "ato1": "Pedro sacou espada, mas negou Jesus a uma criada. Horas antes, disse a Jesus: não te negarei. Agora, entre os criados do sumo sacerdote, uma serva se aproximou.",
+  "cta": "Antes da resposta dele, curte e comenta amém. Cinco palavras derrubaram o Pedro.",
   "cta_tela": "Comente: AMÉM",
-  "ato3": "Na terceira vez, Pedro já praguejava e jurava não conhecer Jesus. O galo cantou. Ele saiu e chorou amargamente. Depois da ressurreição, Jesus perguntou três vezes: amas-me? Três negações, três perguntas. Tudo começou na noite em que",
+  "ato3": "Na terceira vez, Pedro praguejou e jurou: não conheço esse homem. O galo cantou. Ele saiu e chorou amargamente. Dias depois, na praia, Jesus esperava junto a brasas, como as do pátio, e perguntou três vezes: amas-me? Cada pergunta nasceu na noite em que",
   "loop": true,
   "climax": "negou",
   "cta_style": "amem"
