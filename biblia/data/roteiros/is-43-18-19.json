@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "DEUS MANDOU",
+    "ESQUECER O",
+    "MAR VERMELHO"
+  ],
+  "ato1": "Deus mandou esquecer o Mar Vermelho. Um versículo antes, ele mesmo lembrou: mar aberto, cavalos afundados. Quem ouvia eram exilados na Babilônia, esperando outro Mar Vermelho.",
+  "cta": "Antes da resposta: curte, e comenta amém se você ainda espera seu caminho.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Não era para apagar o milagre. Era para não morar nele. Quem fica olhando o mar não vê o caminho. O caminho veio de um rei pagão: Ciro, que Isaías chama de ungido. Tomou a Babilônia e deixou o povo voltar. Deus estava fazendo coisa nova. Por isso",
+  "loop": true,
+  "climax": "ermo.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Deus mandou esquecer o Mar Vermelho choca por contradizer o maior milagre conhecido.",
+    "virada": "Um versículo antes ele mesmo lembrou cria uma contradição real com imagem forte.",
+    "contexto": "Exilados esperando outro Mar Vermelho deixa a pergunta de se vai haver outro.",
+    "cta": "Antes da resposta e seu caminho seguram a curiosidade e adiantam o versículo.",
+    "versiculo": "O versículo paga o gancho com caminho no deserto respondendo ao caminho no mar.",
+    "ato3": "Não morar no milagre e o rei pagão chamado de ungido trazem um fato estranho e novo.",
+    "final": "Coisa nova emenda em Por isso Deus mandou esquecer o Mar Vermelho com lógica."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 4
+  }
+}
