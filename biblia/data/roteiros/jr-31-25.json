@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "O PROFETA DO CHORO",
+    "ESCREVEU: MEU SONO",
+    "FOI DOCE"
+  ],
+  "ato1": "O profeta do choro escreveu: meu sono foi doce. Era Jeremias, preso pelo rei por avisar: Jerusalém vai cair. Babilônia cercando a cidade. Como ele dormiu doce?",
+  "cta": "Escuta o motivo do sono dele. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Logo depois ele diz: despertei, e o meu sono foi doce. Deus não prometeu o fim do cerco. Prometeu saciar a alma cansada. No capítulo seguinte, preso, Jeremias compra um campo em terra tomada pelo inimigo. Quem compra terra no cerco acredita no amanhã. Por isso",
+  "loop": true,
+  "climax": "saciei.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Profeta do choro com sono doce é um paradoxo concreto que prende.",
+    "virada": "Preso pelo rei por avisar que Jerusalém vai cair traz um fato forte.",
+    "contexto": "Babilônia cercando a cidade deixa a pergunta do sono doce urgente.",
+    "cta": "O motivo do sono dele segura a promessa de resposta antes do pedido curto.",
+    "versiculo": "Alma cansada saciada responde direto à pergunta do sono e é curto e solene.",
+    "ato3": "Não prometeu o fim do cerco e a compra do campo trazem a virada e uma imagem nova.",
+    "final": "Quem acredita no amanhã emenda em por isso o profeta do choro escreveu."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 3
+  }
+}
