@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "ESTE AVISO DE MORTE",
+    "ESTÁ DUAS VEZES",
+    "NA BÍBLIA."
+  ],
+  "ato1": "Este aviso de morte está duas vezes na Bíblia. Mesmas palavras no hebraico. E não é só para os maus. É para quem jura estar no caminho certo.",
+  "cta": "Curte e comenta amém antes de ouvir onde esse caminho termina.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Em hebraico, direito aqui é iaxar. A mesma palavra que, um versículo antes, nomeia os retos: a tenda dos retos florescerá. O caminho da morte não parece errado. Parece o caminho dos retos. Quem anda nele se sente do lado certo. É por isso que",
+  "loop": true,
+  "climax": "morte.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Aviso de morte duas vezes na Bíblia é um fato estranho e verificável sem pergunta.",
+    "virada": "Mesmas palavras no hebraico e não é só para os maus invertem o que se esperava.",
+    "contexto": "É para quem jura estar no caminho certo põe o espectador dentro do aviso.",
+    "cta": "O pedido de amém antes de ouvir onde esse caminho termina prende a promessa ao versículo.",
+    "versiculo": "Parece direito paga o caminho prometido e a palavra morte cai no fim da leitura.",
+    "ato3": "A mesma palavra iaxar nomeia o caminho da morte e os retos e muda o sentido do aviso.",
+    "final": "É por isso que este aviso de morte está duas vezes faz o replay virar a resposta."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 9,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 11
+  }
+}
