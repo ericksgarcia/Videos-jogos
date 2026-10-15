@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "JESUS ENTREGOU",
+    "A MAIOR MISSÃO",
+    "A QUEM DUVIDAVA"
+  ],
+  "ato1": "Jesus entregou a maior missão a quem duvidava. Eram só onze. O décimo segundo tinha traído. Viram Jesus ressuscitado. Adoraram. Mas alguns duvidaram. Ele se aproximou.",
+  "cta": "Ouve o que ele disse a quem duvidava. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Ele não expulsou quem duvidava. Em Mateus, não deu prova. Deu uma ordem e uma promessa: eu estou convosco todos os dias. Essa é a última frase de Mateus. Mateus nem mostra Jesus subindo ao céu. O livro termina com ele ficando. Foi assim, ficando, que",
+  "loop": true,
+  "climax": "convosco",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "A maior missão entregue a quem duvidava é um paradoxo claro em poucas palavras.",
+    "virada": "Eram só onze e o décimo segundo tinha traído piora o grupo e sobe a tensão.",
+    "contexto": "Viram o ressuscitado, adoraram, mas alguns duvidaram, e ele se aproximou em suspense.",
+    "cta": "Ouve o que ele disse a quem duvidava alimenta o laço antes do pedido curto.",
+    "versiculo": "Eu estou convosco todos os dias paga a pergunta do CTA no fim da leitura solene.",
+    "ato3": "Mateus nem mostra Jesus subindo ao céu e termina com ele ficando muda o sentido do começo.",
+    "final": "Foi assim, ficando, que emenda no gancho e dá sentido de causa ao replay."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 9,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 2
+  }
+}
