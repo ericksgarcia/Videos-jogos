@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "UM PESCADOR USOU",
+    "A PALAVRA MAIS",
+    "FAMOSA DA GRÉCIA"
+  ],
+  "ato1": "Um pescador usou a palavra mais famosa da Grécia. Logos. Na Bíblia, virou Verbo. Para os filósofos, era a razão do universo. João disse que era alguém.",
+  "cta": "Se você sabe quem é esse alguém, curte e comenta amém. Agora ouve João apresentá-lo.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Gênesis abre com: no princípio. João repete as mesmas palavras, de propósito. Ele volta à criação e põe o Logos antes da primeira luz. No versículo catorze: o Verbo se fez carne. Os filósofos procuraram essa razão por séculos. Um pescador jantou com ela. Nome: Jesus. Por isso",
+  "loop": true,
+  "climax": "Deus.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "O contraste entre um pescador e a palavra mais famosa da Grécia abre uma lacuna imediata.",
+    "virada": "Logos ligado ao Verbo da Bíblia do espectador entrega um fato novo e pessoal.",
+    "contexto": "Passar da razão dos filósofos para João disse que era alguém cria tensão.",
+    "cta": "O pedido de amém nasce da dúvida sobre quem é esse alguém e entrega ao versículo.",
+    "versiculo": "O versículo vira recompensa porque o espectador já sabe o peso da palavra Verbo.",
+    "ato3": "Gênesis repetido, a luz e o pescador que jantou com ela trazem um fato novo por frase.",
+    "final": "Por isso emenda no gancho e dá sentido novo ao pescador que usou a palavra."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 8,
+    "contexto": 9,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 4
+  }
+}
