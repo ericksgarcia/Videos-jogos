@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "A BÍBLIA FALA",
+    "DE UM FUGITIVO",
+    "SEM PERSEGUIDOR"
+  ],
+  "ato1": "A Bíblia fala de um fugitivo sem perseguidor. O primeiro foi Adão. Fugiu de Deus. Deus só passeava no jardim. Adão ouviu a voz e se escondeu.",
+  "cta": "Escuta o que Provérbios diz sobre esse medo. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Em Levítico, Deus avisa: quem desobedecesse fugiria do barulho de uma folha. Sem ninguém atrás. Quem persegue é a culpa. Depois que Adão se escondeu, Deus perguntou: onde estás? Ele sabia a resposta. Era uma porta aberta. Ele não estava caçando. Por isso",
+  "loop": true,
+  "climax": "leão.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Um fugitivo sem perseguidor é um paradoxo concreto que abre a lacuna sem pergunta.",
+    "virada": "Adão que fugiu de Deus choca porque Deus só passeava no jardim.",
+    "contexto": "Deus só passeava e Adão ouviu a voz e se escondeu cria uma imagem forte.",
+    "cta": "Esse medo liga Adão ao versículo e segura a espera do que Provérbios diz.",
+    "versiculo": "Fogem os ímpios sem que ninguém os persiga é literalmente o gancho dito pela Bíblia.",
+    "ato3": "A folha de Levítico e quem persegue é a culpa trazem fato novo e virada.",
+    "final": "Ele não estava caçando emenda com lógica no fugitivo sem perseguidor."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 9,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 4
+  }
+}

@@ -337,7 +337,7 @@ async function sintetizarGemini(texto: string, perfil: keyof typeof PERFIS, maxD
   try { ref = duracaoReferencia(texto); } catch { /* sem edge-tts: cai só na checagem de s/palavra */ }
   const limite = perfil === "leitura" ? 1.55 : 1.4;
   let melhor: { audio: Float32Array; razao: number } | null = null;
-  for (let tentativa = 0; tentativa < 5; tentativa++) {
+  for (let tentativa = 0; tentativa < Number(process.env.TTS_TENTATIVAS ?? 5); tentativa++) {
     const a = aparar(decodificar(Buffer.from(await geminiBruto(texto, perfil, tentativa), "base64")));
     const efetiva = encurtarPausas(a, 0.4).length / SR;
     const razao = ref ? efetiva / ref : segundosPorPalavra(a, n) / 0.5;
