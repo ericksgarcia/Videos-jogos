@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "O TRONO DE DEUS",
+    "TEM RODAS DE FOGO"
+  ],
+  "versiculo": "um ancião de dias se assentou; a sua veste era branca como a neve, e o cabelo da sua cabeça, como a limpa lã; o seu trono, chamas de fogo, e as rodas dele, fogo ardente.",
+  "ato1": "O trono de Deus tem rodas de fogo. Daniel acabou de ver quatro feras devorando o mundo. Então o céu montou um tribunal, e abriram os livros.",
+  "cta": "Uma das quatro feras não sai viva desse tribunal. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "A quarta fera é morta e queimada. Um como o filho do homem recebe reino eterno. Séculos depois, Jesus diz ao sinédrio: vocês verão o filho do homem vindo nas nuvens. O sumo sacerdote rasga as vestes: blasfêmia. O réu era o rei. E esse tribunal se move:",
+  "loop": true,
+  "climax": "ardente.",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Fato concreto e estranho que quase ninguém conhece: o trono de Deus tem rodas de fogo, e a tela repete a fala.",
+    "virada": "Quatro feras devorando o mundo troca a imagem, aumenta a escala e cria perigo logo na segunda frase.",
+    "contexto": "O céu montou um tribunal e abriram os livros põe um processo aberto e faz perguntar quem será julgado.",
+    "cta": "Uma das quatro feras não sai viva desse tribunal planta a pergunta qual antes do pedido e alimenta o suspense.",
+    "versiculo": "A leitura paga o gancho porque o versículo termina em as rodas dele fogo ardente, o que o espectador esperava ouvir.",
+    "ato3": "Responde ao CTA com a quarta fera morta e salta ao sinédrio, onde o réu era o rei, mudando o sentido do tribunal.",
+    "final": "E esse tribunal se move emenda em o trono de Deus tem rodas de fogo, justificando as rodas e puxando o replay."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 10
+  }
+}
