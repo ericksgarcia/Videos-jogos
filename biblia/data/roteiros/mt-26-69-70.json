@@ -1,9 +1,9 @@
 {
-  "gancho_tela": ["PEDRO NEGOU JESUS", "E FOI VISTO."],
-  "ato1": "Pedro negou Jesus e foi visto. Mateus não conta por quem. Pedro se aquecia no pátio; Jesus era julgado lá dentro. Horas antes, disse que morreria com ele.",
-  "cta": "Curte e comenta amém por quem já falhou. Ouve as cinco palavras de Pedro. Alguém viu.",
+  "gancho_tela": ["PEDRO NEGOU JESUS", "E ALGUÉM SE VIROU."],
+  "ato1": "Pedro negou Jesus e alguém se virou. Mateus não conta quem. Pedro se aquecia nas brasas; lá dentro, cuspiam em Jesus. Antes, Pedro jurara morrer com ele.",
+  "cta": "Curte e comenta amém se você já falhou. Ouve as cinco palavras de Pedro.",
   "cta_tela": "Comente: AMÉM",
-  "ato3": "O galo cantou, e Lucas registra: o Senhor se virou e olhou para Pedro. Pedro saiu e chorou amargamente. Depois da ressurreição, na praia, havia brasas, como no pátio, e Jesus perguntou três vezes: amas-me? Três perguntas, três negações. Tudo voltou ao instante em que",
+  "ato3": "Na terceira negação, o galo cantou, e Lucas conta quem se virou: o Senhor olhou para Pedro. Ele saiu e chorou amargamente. Depois da ressurreição, na praia, Jesus esperava junto a brasas, como as do pátio. Perguntou três vezes: amas-me? Cada pergunta voltava à noite em que",
   "loop": true,
   "climax": "negou",
   "cta_style": "amem"
