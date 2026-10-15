@@ -1,0 +1,33 @@
+{
+  "gancho_tela": [
+    "DAVI ESCREVEU",
+    "ISTO FUGINDO DO",
+    "PRÓPRIO FILHO"
+  ],
+  "ato1": "Davi escreveu isto fugindo do próprio filho. Absalão se fez rei; Davi saiu descalço, chorando. Apedrejado, sem água no deserto, ele não pede o trono de volta.",
+  "cta": "Repara no que ele busca no lugar do trono. Curte e comenta amém.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Dois versículos depois ele diz: a tua benignidade é melhor do que a vida. Um homem correndo pra salvar a vida, dizendo que existe algo melhor que ela. E no último versículo, sem trono e sem água, ele ainda se chama de rei. Lembra:",
+  "loop": true,
+  "climax": "sede",
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Fato estranho e concreto: Davi escreveu isto fugindo do próprio filho, e o isto deixa a dúvida aberta sobre o que ele escreveu.",
+    "virada": "Absalão se fez rei e Davi saiu descalço chorando traz nome, perda e imagem física com informação nova.",
+    "contexto": "Apedrejado e sem água no deserto, ele não pede o trono de volta cria a pergunta então o que ele pede.",
+    "cta": "Repara no que ele busca no lugar do trono alimenta o suspense e o pedido vem curto logo atrás.",
+    "versiculo": "O versículo paga o suspense com te buscarei e a terra seca onde não há água retoma o sem água do começo.",
+    "ato3": "Melhor do que a vida dito por quem foge para salvar a vida e depois sem trono ainda se chama de rei, virada sem sermão.",
+    "final": "Ele ainda se chama de rei emenda em Davi escreveu isto fugindo do próprio filho e muda o sentido do gancho no replay."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 8
+  }
+}
