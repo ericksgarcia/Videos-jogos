@@ -215,3 +215,7 @@ pergunta no gancho). Nas etapas técnicas a mesma régua se aplica: depois do re
 - Só para quando o dono mandar parar (ou se faltar crédito/chave: avisar e esperar). Dúvida de rumo não é motivo para parar:
   decidir pelo padrão do README e registrar a escolha na resposta.
 - Mensagem ao dono só nos marcos (vídeo enviado, problema que ele precise decidir); o resto é trabalho contínuo.
+
+### Duração (regra do dono)
+O alvo é 45–58 s (`DUR_MIN`/`DUR_MAX` em `src/pipeline/plan.ts`). O dono aceita ficar um pouco acima (até ~60 s): não cortar versículo
+nem roteiro só por isso; só encurtar se passar muito, para não perder retenção.
