@@ -1,0 +1,10 @@
+{
+  "gancho_tela": ["UMA CRIADA", "DERRUBOU PEDRO", "COM UMA FRASE."],
+  "ato1": "Uma criada derrubou Pedro com uma frase. Horas antes, ele jurara morrer com Jesus. Nenhum soldado o prendeu. Foi só uma pergunta de empregada.",
+  "cta": "Curte e comenta amém se já negou o que jurou. Escuta o que Pedro respondeu.",
+  "cta_tela": "Comente: AMÉM",
+  "ato3": "Jesus já tinha avisado, e Pedro não acreditou. Mais duas vezes, e o galo cantou. Pedro saiu e chorou amargamente. Mais tarde, Jesus lhe diria: apascenta as minhas ovelhas. Nada o prendeu, nada o feriu. Foi assim que",
+  "loop": true,
+  "climax": "negou",
+  "cta_style": "amem"
+}
