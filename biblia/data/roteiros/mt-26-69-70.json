@@ -1,9 +1,9 @@
 {
-  "gancho_tela": ["PEDRO SACOU ESPADA,", "MAS NEGOU JESUS", "A UMA CRIADA."],
-  "ato1": "Pedro sacou espada, mas negou Jesus a uma criada. Horas antes, disse a Jesus: não te negarei. Agora, entre os criados do sumo sacerdote, uma serva se aproximou.",
-  "cta": "Antes da resposta dele, curte e comenta amém. Cinco palavras derrubaram o Pedro.",
+  "gancho_tela": ["ALGUÉM VIU PEDRO", "NEGAR JESUS."],
+  "ato1": "Alguém viu Pedro negar Jesus. Não foi a criada. Horas antes, ele disse que morreria com Jesus. Agora, sentado no pátio, ia quebrar a promessa.",
+  "cta": "Curte e comenta amém. Escuta as cinco palavras de Pedro, e descobre quem viu.",
   "cta_tela": "Comente: AMÉM",
-  "ato3": "Na terceira vez, Pedro praguejou e jurou: não conheço esse homem. O galo cantou. Ele saiu e chorou amargamente. Dias depois, na praia, Jesus esperava junto a brasas, como as do pátio, e perguntou três vezes: amas-me? Cada pergunta nasceu na noite em que",
+  "ato3": "Mateus não conta, mas Lucas conta: quando o galo cantou, o Senhor se virou e olhou para Pedro. Ele saiu e chorou amargamente. Depois da ressurreição, na praia, junto a brasas, Jesus perguntou três vezes: amas-me? Cada pergunta nasceu no instante em que",
   "loop": true,
   "climax": "negou",
   "cta_style": "amem"
