@@ -66,13 +66,14 @@ const FASES_AUDITORIA = ["gancho", "virada", "contexto", "cta", "versiculo", "at
  * fraco (pergunta, 1ª frase longa, texto de abertura diferente da fala) a esteira não gera o vídeo.
  * --sem-auditoria só para testes técnicos.
  */
-function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: Record<string, string>; revisao?: Record<string, number> }, arq: string) {
+function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: Record<string, string>; revisao?: Record<string, number> }, arq: string, versoFixo = false) {
   if (process.argv.includes("--sem-auditoria")) return;
   const falhas: string[] = [];
   const primeira = (j.ato1.match(/^[^.!?…]*[.!?…]/)?.[0] ?? j.ato1).trim();
   if (primeira.split(/\s+/).length > 9) falhas.push(`1ª frase falada com ${primeira.split(/\s+/).length} palavras (máx. 9): "${primeira}"`);
   if (/\?/.test(primeira)) falhas.push("1ª frase falada é pergunta: abra com fato de choque/paradoxo");
-  if (!j.gancho_tela?.length) falhas.push("falta gancho_tela (afirmação de abertura)");
+  if (versoFixo) { /* o texto de abertura não aparece na tela: só vale a 1ª frase falada */ }
+  else if (!j.gancho_tela?.length) falhas.push("falta gancho_tela (afirmação de abertura)");
   else {
     if (j.gancho_tela.some((l) => /\?/.test(l))) falhas.push("gancho_tela com pergunta: use afirmação");
     const norm = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, "").replace(/\s+/g, " ").trim();
@@ -84,15 +85,15 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
 }
 
-type Extras = { gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
+  extras = { verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
-  auditarRoteiro(j, arq);
+  auditarRoteiro(j, arq, j.texto_na_tela !== "tudo");
   // o roteiro pode usar só um TRECHO do versículo do catálogo — mas ele precisa ser um pedaço exato do texto bíblico
   if (j.versiculo && !e.text.includes(j.versiculo)) throw new Error(`"versiculo" do roteiro não é um trecho exato do texto do catálogo (${e.id})`);
   const versiculo: string = j.versiculo ?? e.text;
@@ -291,7 +292,7 @@ async function main() {
     id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
     rotulo: rotuloDe(entrada, at.ato2),
-    gancho_tela: extras.gancho_tela, ...ganchoTempos(segs, extras.gancho_tela), loop: extras.loop, blocos: blocosLeg,
+    gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");

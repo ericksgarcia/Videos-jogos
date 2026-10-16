@@ -7,6 +7,7 @@ import { StockScene } from "./StockScene";
 import { CenaProcedural, type Cenario, type Clima } from "./CenaProcedural";
 import { GanchoTela, SeloComentario } from "./Engajamento";
 import { Cenografia } from "./Cenografia";
+import { VersoFixo } from "./VersoFixo";
 
 const DISSOLVER = 8; // quadros de fusão entre tomadas
 
@@ -76,9 +77,11 @@ export const Video = (plano: Plano) => {
       <Poeira />
       <Pulso cortes={cortes} />
       <Vinheta forca={proc ? 0.62 : 0.6} />
-      <KineticText segmentos={plano.segmentos} blocos={plano.blocos} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
+      {plano.verso_fixo
+        ? <VersoFixo palavras={plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
+        : <KineticText segmentos={plano.segmentos} blocos={plano.blocos} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />}
       <RotuloReferencia {...plano.rotulo} />
-      {plano.gancho_tela && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
+      {plano.gancho_tela && !plano.verso_fixo && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
       {plano.gancho_virada !== undefined && <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, rgba(255,230,170,1), rgba(255,200,110,0) 65%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.gancho_virada!); return k < 0 ? 0 : 0.5 * Math.exp(-k / 5); })() }} />}
       {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
       {/* granulado no navegador trocava a cada 2 quadros (15 Hz) e parecia tranco: em foto ele vai para o ffmpeg */}
