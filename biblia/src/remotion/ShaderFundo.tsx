@@ -37,7 +37,8 @@ void main(){
   float em = on * smoothstep(.13, .0, length(gf - off)) * (.5 + .5*sin(uT*3. + rnd*40.));
   col += vec3(1., .62, .25) * em * .9;
   // vinheta e tom
-  col *= 1. - .55*smoothstep(.45, 1.05, length(p*vec2(1.,.62)));
+  col *= 1.55;
+  col *= 1. - .45*smoothstep(.5, 1.1, length(p*vec2(1.,.62)));
   col = pow(col, vec3(.92));
   gl_FragColor = vec4(col, 1.);
 }`;
@@ -46,7 +47,7 @@ export interface PaletaGerativa { a: [number, number, number]; b: [number, numbe
 export const PALETAS: Record<string, PaletaGerativa> = {
   ouro: { a: [.02, .03, .07], b: [.35, .17, .05], c: [1., .78, .38] },
   azul: { a: [.01, .03, .09], b: [.06, .22, .38], c: [.55, .85, 1.] },
-  brasa: { a: [.05, .01, .01], b: [.40, .08, .03], c: [1., .55, .2] },
+  brasa: { a: [.06, .012, .01], b: [.55, .12, .04], c: [1., .6, .22] },
   aurora: { a: [.01, .04, .06], b: [.05, .32, .30], c: [.7, 1., .75] },
 };
 

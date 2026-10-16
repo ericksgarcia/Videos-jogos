@@ -68,7 +68,7 @@ export const VersoFixo = ({ palavras, faixa = 100, caixa = CAIXA }: { palavras: 
               const texto = k === 0 ? w.t.charAt(0).toUpperCase() + w.t.slice(1) : w.t;
               return (
                 <span key={k} style={{
-                  display: "inline-block", margin: "0 0.16em", color: cor, opacity: opac, transform: `scale(${ativa ? 1 + 0.08 * s : 1})`, transformOrigin: "50% 60%",
+                  display: "inline-block", margin: "0 0.24em", color: cor, opacity: opac, transform: `scale(${ativa ? 1 + 0.08 * s : 1})`, transformOrigin: "50% 60%",
                   WebkitTextStroke: "0.6px rgba(0,0,0,0.35)", paintOrder: "stroke fill",
                   textShadow: `${SOMBRA_TEXTO}${acende > 0.02 ? `, 0 0 ${18 * acende}px rgba(255,205,90,${0.95 * acende}), 0 0 ${46 * acende}px rgba(255,160,40,${0.6 * acende})` : ""}`,
                 }}>{texto}</span>
