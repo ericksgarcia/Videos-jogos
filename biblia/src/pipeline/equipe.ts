@@ -63,8 +63,15 @@ ${ERROS_PASSADOS}
 
 ${EXEMPLOS}
 
+COMO TRABALHAR (você não tem tempo de "pensar em voz alta" fora do JSON, então use os 3 primeiros campos do JSON como rascunho):
+1. "fatos": liste 4 fatos VERDADEIROS, concretos e pouco conhecidos ligados a esta passagem ou ao seu contexto histórico (cada um com a fonte: livro/capítulo:versículo, ou autor/obra histórica). Só entram fatos de que você tem certeza.
+2. "angulos": escreva 3 ganchos candidatos (afirmações ≤ 9 palavras), cada um baseado num dos fatos acima, NÃO na história que todo mundo já conhece; marque os que seriam mentira ou exagero.
+3. "escolha": o gancho escolhido e por quê ele para o polegar.
+4. Só então escreva os campos finais, contando as palavras de cada um contra os limites.
+Para uma passagem de consolo (tom comfort), o choque pode vir de um contraste concreto (onde/quando/para quem foi dito), de um número, de uma regra da época ou de um detalhe do texto que quase ninguém nota — nunca de autoajuda.
+
 SAÍDA: responda SOMENTE com um objeto JSON (sem texto em volta) com os campos:
-{"ato1":"…","cta":"…","versiculo":"trecho EXATO do texto bíblico","climax":"uma palavra do trecho, com a pontuação dela","ato3":"…sem ponto final, terminando incompleto para emendar no ato1","auditoria":{"gancho":"1 frase ≥6 palavras: por que o espectador não rola aqui","virada":"…","contexto":"…","cta":"…","versiculo":"…","ato3":"…","final":"…"},"descricao_tiktok":"gancho + 2-3 linhas curtas + pedido de AMÉM","hashtags":"#fe #biblia … (6 a 8)"}
+{"fatos":["…","…","…","…"],"angulos":["…","…","…"],"escolha":"…","ato1":"…","cta":"…","versiculo":"trecho EXATO do texto bíblico","climax":"uma palavra do trecho, com a pontuação dela","ato3":"…sem ponto final, terminando incompleto para emendar no ato1","auditoria":{"gancho":"1 frase ≥6 palavras: por que o espectador não rola aqui","virada":"…","contexto":"…","cta":"…","versiculo":"…","ato3":"…","final":"…"},"descricao_tiktok":"gancho + 2-3 linhas curtas + pedido de AMÉM","hashtags":"#fe #biblia … (6 a 8)"}
 Antes de responder, CONTE as palavras de cada campo e confira o versículo letra por letra contra o texto fornecido.`;
 
 const COMUM_ANALISTA = `Você é um ANALISTA cético e independente de roteiros de vídeos bíblicos verticais para TikTok, em português do Brasil. Você NÃO escreveu o roteiro e avalia SOMENTE a fase indicada. Aja como quem rola o feed por hábito, com o polegar a caminho do próximo vídeo, mas seja JUSTO e CONSISTENTE: reprove só por falha concreta (gancho fraco, fato errado ou duvidoso, laço quebrado, limite estourado), nunca por gosto, e não puna interpretação legítima. Não invente defeito onde a fase prende.
@@ -74,6 +81,8 @@ ${FORMATO}
 ${REGRAS_CONTEUDO}
 
 ${ERROS_PASSADOS}
+
+CALIBRAGEM: o tema bíblico ser conhecido NÃO reprova por si só; reprove se o ÂNGULO não trouxer nada novo ou verdadeiro. Se o roteiro tem um fato concreto, verdadeiro e bem posto, a nota é ≥ 8. Dê notas pelo que está escrito, não pelo que você reescreveria. Quando reprovar, a "reescrita" precisa ser melhor E respeitar os limites de palavras (conte).
 
 RÉGUA: nota 1-10. 10 = eu travaria e contaria para alguém; 8 = continuo assistindo sem pensar em rolar (APROVA); 7 = continuo só por inércia (REPROVA); ≤5 = rolo agora. Mínimo para aprovar: 8.
 
@@ -108,11 +117,27 @@ export function pedidoAnalista(fase: Fase, r: Rot, p: Passagem): { system: strin
   return { system: `${COMUM_ANALISTA}\n\n${OBJETIVOS[fase]}`, user: partes[fase] };
 }
 
+/** Trechos candidatos para o versículo: sequências de cláusulas inteiras (começam no início do texto ou após pontuação e terminam em pontuação), 5-16 palavras. */
+export function candidatos(texto: string, max = 16, min = 5): string[] {
+  const ws = texto.trim().split(/\s+/);
+  const fim = (w: string) => /[,;:.!?…]$/.test(w);
+  const out: string[] = [];
+  for (let i = 0; i < ws.length; i++) {
+    if (i > 0 && !fim(ws[i - 1])) continue;
+    for (let j = i; j < ws.length && j - i + 1 <= max; j++) if (fim(ws[j]) || j === ws.length - 1) { if (j - i + 1 >= min) out.push(ws.slice(i, j + 1).join(" ")); }
+  }
+  return [...new Set(out)];
+}
+
 export function pedidoAutor(p: Passagem, evitar: string[], feedback?: { rot: Rot; falhas: string[]; analises: Partial<Record<Fase, string>> }): string {
   let u = `PASSAGEM: ${p.reference} (ARC)\nTEXTO BÍBLICO COMPLETO (o versículo do vídeo é um TRECHO EXATO deste texto): "${p.text}"\nCONTEXTO HISTÓRICO VERIFICADO (fatos autorizados; você pode acrescentar só fatos amplamente atestados, com o livro/fonte certo): ${p.historical_context}\nEmoção da passagem: ${p.emotional_hook} | tom: ${p.tone}\n`;
+  const cand = candidatos(p.text);
+  if (cand.length) u += `\nTRECHOS CANDIDATOS PARA O VERSÍCULO (já conferidos letra por letra; COPIE UM deles exatamente, sem mudar nada; a cópia é o que garante o trecho exato): ${cand.map((c, i) => `[${i + 1}] "${c}"`).join(" ")}\n`;
   if (evitar.length) u += `\nGANCHOS JÁ USADOS EM OUTROS VÍDEOS (não repita a estrutura nem o ângulo): ${evitar.map((x) => `"${x}"`).join("; ")}\n`;
-  if (!feedback) return u + "\nEscreva o roteiro completo (JSON).";
-  return u + `\nROTEIRO ATUAL (reprovado em parte): ${JSON.stringify(feedback.rot)}\n` +
+  if (!feedback) return u + "\nEscreva o roteiro completo (JSON), começando por fatos, angulos e escolha.";
+  const c = (s: string) => palavras(s).length;
+  const contagens = `ato1 = ${c(feedback.rot.ato1)} palavras (precisa ${LIMITES.ato1.min}-${LIMITES.ato1.max}) | 1ª frase = ${c(frases(feedback.rot.ato1)[0] ?? "")} (máx. 9) | cta = ${c(feedback.rot.cta)} (precisa ${LIMITES.cta.min}-${LIMITES.cta.max}) | versiculo = ${c(feedback.rot.versiculo)} (máx. 16) | ato3 = ${c(feedback.rot.ato3)} (precisa ${LIMITES.ato3.min}-${LIMITES.ato3.max})`;
+  return u + `\nROTEIRO ATUAL (reprovado em parte): ${JSON.stringify(feedback.rot)}\nCONTAGENS ATUAIS: ${contagens}\n` +
     (feedback.falhas.length ? `\nERROS OBJETIVOS (corrija todos): ${feedback.falhas.join("; ")}\n` : "") +
     (Object.keys(feedback.analises).length ? `\nPARECERES DOS ANALISTAS DAS FASES REPROVADAS (cada um viu só a sua fase; reescritas são sugestões, adote-as ou faça melhor):\n${Object.entries(feedback.analises).map(([k, v]) => `- ${k.toUpperCase()}: ${v}`).join("\n")}\n` : "") +
     `\nReescreva o roteiro INTEIRO (JSON completo). Mantenha o que está bom, mas lembre que mudar uma fase afeta as vizinhas (gancho↔virada↔contexto↔cta↔versículo↔ato 3↔final↔gancho): confira que a emenda do loop, a promessa do CTA e as contagens continuam certas.`;
