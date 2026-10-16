@@ -34,7 +34,7 @@ export function checagens(r: Rot, texto: string): string[] {
 
 async function escrever(p: Passagem, evitar: string[], fb?: Parameters<typeof pedidoAutor>[2]): Promise<Roteiro> {
   for (let t = 0; t < 3; t++) {
-    const txt = await conversar({ model: MODELOS.autor(), system: SISTEMA_AUTOR, user: pedidoAutor(p, evitar, fb), maxTokens: 12000 });
+    const txt = await conversar({ model: MODELOS.autor(), system: SISTEMA_AUTOR, user: pedidoAutor(p, evitar, fb), maxTokens: 32000, pensar: "low" });
     try {
       const j = extrairJson<Roteiro>(txt);
       if (j.ato1 && j.cta && j.versiculo && j.ato3) return { ...j, ato1: j.ato1.trim(), cta: j.cta.trim(), versiculo: j.versiculo.trim(), ato3: j.ato3.trim(), climax: String(j.climax ?? "").trim() };
@@ -44,10 +44,11 @@ async function escrever(p: Passagem, evitar: string[], fb?: Parameters<typeof pe
 }
 
 async function analisar(fase: Fase, r: Rot, p: Passagem): Promise<Analise> {
-  const modelo = fase === "ato3" || fase === "final" ? MODELOS.fatos() : MODELOS.analista();
+  const fatos = fase === "ato3" || fase === "final";   // fatos/laço: modelo forte com raciocínio; as demais: flash sem raciocínio
+  const modelo = fatos ? MODELOS.fatos() : MODELOS.analista();
   const { system, user } = pedidoAnalista(fase, r, p);
   for (let t = 0; t < 3; t++) {
-    const txt = await conversar({ model: modelo, system, user, temperatura: 0.2, maxTokens: 6000 });
+    const txt = await conversar({ model: modelo, system, user, temperatura: 0.2, maxTokens: fatos ? 20000 : 3000, pensar: fatos ? "low" : "off" });
     try {
       const a = extrairJson<Analise>(txt);
       if (typeof a.nota === "number") return { ...a, nota: Math.round(a.nota) };

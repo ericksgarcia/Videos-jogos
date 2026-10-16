@@ -1,20 +1,21 @@
 /**
  * Cliente mínimo do DeepSeek (API compatível com OpenAI). A chave vem de DEEPSEEK_API_KEY (.env, nunca versionado).
- * Modelos (custo-benefício): "deepseek-chat" = rápido e barato (escrita e a maioria dos analistas);
- * "deepseek-reasoner" = raciocínio (autor do roteiro e analistas de FATOS: ato 3 e final). Trocáveis por variável de ambiente.
+ * Modelos (GET /models): "deepseek-flash" (V4.1 Flash, barato e rápido) para 5 dos 7 analistas;
+ * "deepseek-v4-pro" para o autor do roteiro e os analistas de FATOS (ato 3 e final). Trocáveis por variável de ambiente.
  */
 import { comTentativas } from "../lib/env.ts";
 
 export const MODELOS = {
-  autor: () => process.env.DEEPSEEK_MODEL_AUTOR ?? "deepseek-reasoner",
-  analista: () => process.env.DEEPSEEK_MODEL_ANALISTA ?? "deepseek-chat",
-  fatos: () => process.env.DEEPSEEK_MODEL_FATOS ?? "deepseek-reasoner",
+  autor: () => process.env.DEEPSEEK_MODEL_AUTOR ?? "deepseek-v4-pro",
+  analista: () => process.env.DEEPSEEK_MODEL_ANALISTA ?? "deepseek-flash",
+  fatos: () => process.env.DEEPSEEK_MODEL_FATOS ?? "deepseek-v4-pro",
 };
 
 export interface Uso { prompt: number; saida: number; chamadas: number }
 export const uso: Uso = { prompt: 0, saida: 0, chamadas: 0 };
 
-export interface Pedido { model: string; system: string; user: string; temperatura?: number; maxTokens?: number }
+/** pensar: "off" desliga o raciocínio (rápido, ~2 s); "low"/"high" ligam (o raciocínio consome tokens: use maxTokens ≥ 16000). */
+export interface Pedido { model: string; system: string; user: string; temperatura?: number; maxTokens?: number; pensar?: "off" | "low" | "high" }
 
 export async function conversar(p: Pedido): Promise<string> {
   const chave = process.env.DEEPSEEK_API_KEY;
@@ -25,7 +26,8 @@ export async function conversar(p: Pedido): Promise<string> {
       model: p.model, stream: false, max_tokens: p.maxTokens ?? 8000,
       messages: [{ role: "system", content: p.system }, { role: "user", content: p.user }],
     };
-    if (!/reasoner/.test(p.model)) corpo.temperature = p.temperatura ?? 0.7;   // o modelo de raciocínio ignora temperatura
+    corpo.temperature = p.temperatura ?? 0.7;   // ignorada quando o raciocínio está ligado
+    if (p.pensar === "off") corpo.thinking = { type: "disabled" }; else corpo.reasoning_effort = p.pensar ?? "low";
     const r = await fetch(`${base}/chat/completions`, {
       method: "POST", headers: { "content-type": "application/json", authorization: `Bearer ${chave}` },
       body: JSON.stringify(corpo), signal: AbortSignal.timeout(Number(process.env.DEEPSEEK_TIMEOUT_MS ?? 400_000)),
@@ -34,7 +36,7 @@ export async function conversar(p: Pedido): Promise<string> {
     const j = await r.json() as { choices?: { message?: { content?: string } }[]; usage?: { prompt_tokens?: number; completion_tokens?: number } };
     uso.chamadas++; uso.prompt += j.usage?.prompt_tokens ?? 0; uso.saida += j.usage?.completion_tokens ?? 0;
     const txt = j.choices?.[0]?.message?.content?.trim();
-    if (!txt) throw new Error("DeepSeek devolveu resposta vazia");
+    if (!txt) throw new Error(`DeepSeek devolveu resposta vazia (${(j as { choices?: { finish_reason?: string }[] }).choices?.[0]?.finish_reason}; aumente maxTokens ou desligue o raciocínio)`);
     return txt;
   }, 3, 4000);
 }
