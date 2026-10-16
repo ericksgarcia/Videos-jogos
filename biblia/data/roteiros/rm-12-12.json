@@ -8,8 +8,27 @@
   "cta": "Curte e comenta amém. Escuta as três ordens de Paulo.",
   "cta_tela": "Comente: AMÉM",
   "versiculo": "alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração;",
-  "ato3": "No ano 64, Nero culpou os cristãos pelo incêndio de Roma. Tácito conta: muitos viraram tochas nos jardins dele. Foi para eles que",
+  "ato3": "No ano 64, Nero culpou os cristãos pelo incêndio de Roma. Tácito conta: muitos viraram tochas nos jardins de Nero. Foi para eles que",
   "loop": true,
   "climax": "tribulação,",
-  "cta_style": "amem"
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Carta chegou antes das fogueiras de Nero cria uma ameaça concreta sem pergunta.",
+    "virada": "Os leitores não sabiam o que vinha mantém o presságio sem entregar o fato.",
+    "contexto": "O presságio leva direto ao pedido sem enchimento nenhum de contexto histórico.",
+    "cta": "Escuta as três ordens de Paulo promete algo que o versículo entrega contável.",
+    "versiculo": "Os três imperativos curtos caem sobre a palavra tribulação que o espectador já temia.",
+    "ato3": "Tácito, o ano 64 e as tochas nos jardins dão fato novo com fonte.",
+    "final": "Foi para eles que esta carta chegou fecha o laço com causa clara."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 9,
+    "ato3": 8,
+    "final": 9,
+    "rodadas": 2
+  }
 }
