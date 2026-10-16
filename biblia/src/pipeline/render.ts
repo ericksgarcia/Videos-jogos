@@ -16,6 +16,11 @@ const BLOCO_S = Number(process.env.BLOCO_S ?? 8);
 export function renderEmBlocos(planoArq: string, bruto: string, mixArq: string, duracao: number) {
   const dir = join(dirname(bruto), "blocos");
   mkdirSync(dir, { recursive: true });
+  // trava: duas execuções ao mesmo tempo gravavam o mesmo bloco e o encode final lia arquivo pela metade
+  const trava = join(dir, ".trava");
+  if (existsSync(trava)) { const pid = Number(readFileSync(trava, "utf8")); let vivo = false; try { process.kill(pid, 0); vivo = pid !== process.pid; } catch { /* morto */ } if (vivo) throw new Error(`já existe um render deste vídeo em andamento (pid ${pid}); aguarde ou encerre-o`); }
+  writeFileSync(trava, String(process.pid));
+  process.on("exit", () => rmSync(trava, { force: true }));
   const assinatura = createHash("sha1").update(readFileSync(planoArq)).digest("hex");
   const arqAss = join(dir, "plano.sha");
   if (!existsSync(arqAss) || readFileSync(arqAss, "utf8") !== assinatura) {
