@@ -3,8 +3,8 @@
   "cta": "Comenta o número da última bolha. E amém.",
   "cta_tela": "Comente: nº + AMÉM",
   "versiculo": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
-  "climax": "levantará;",
-  "ato3": "No verso antes, ele avisa o ímpio: não espies a habitação do justo. Quem tropeça é quem espiava.",
+  "climax": "tropeçarão",
+  "ato3": "No verso antes, o texto avisa o ímpio: não espies a habitação do justo. Quem tropeça é quem espiava.",
   "loop": true,
   "cta_style": "amem",
   "fundo": "gerativo",
@@ -31,14 +31,14 @@
     "final": "Fechar com o pedido do número e do amém faz o espectador rever e comentar."
   },
   "revisao": {
-    "gancho": 0,
-    "virada": 0,
-    "contexto": 0,
-    "cta": 0,
-    "versiculo": 0,
-    "ato3": 0,
-    "final": 0,
-    "rodadas": 0
+    "gancho": 8,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 9,
+    "ato3": 9,
+    "final": 8,
+    "rodadas": 4
   },
   "cta_final": true
 }
