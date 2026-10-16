@@ -2958,5 +2958,29 @@
   "video": "2026-10-16-jo-14-1-2",
   "ato": "ato3",
   "em": "2026-10-16T19:56:17.585Z"
+ },
+ {
+  "hash": "013b770fff210307013fcffe08f0ffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-16-sl-104-1-2",
+  "ato": "ato1",
+  "em": "2026-10-16T20:21:15.784Z"
+ },
+ {
+  "hash": "1f330f1f1f3f3f0f3de7471fffffe0fb",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-16-sl-104-1-2",
+  "ato": "ato2",
+  "em": "2026-10-16T20:21:16.187Z"
+ },
+ {
+  "hash": "37193f3f2f0f0b114007ff7dffffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-16-sl-104-1-2",
+  "ato": "ato2",
+  "em": "2026-10-16T20:21:16.591Z"
  }
 ]
