@@ -30,7 +30,7 @@ void main(){
   vec2 src = vec2(.25*sin(uPh+s), .62);
   vec2 d = p - src; float ang = atan(d.y, d.x);
   float ray = pow(n(vec2(ang*7. + .35*sin(uPh*2.+s) + s, 1.3 + .4*cos(uPh))), 3.) * smoothstep(1.4, .0, length(d));
-  col += uC * ray * (.55 + .6*uPulse + .25*uBeat);
+  col += uC * ray * (.2 + .22*uPulse + .1*uBeat);
   // brasas
   vec2 g = vec2(uv.x*26., uv.y*46. - uPh/6.2831853*22.); vec2 gi = floor(g); vec2 gf = fract(g) - .5;
   float rnd = h(gi + s); float on = step(.93, rnd);
