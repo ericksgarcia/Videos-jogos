@@ -17,9 +17,9 @@ export const CAIXA = { x: 70, w: 850, y: 330, h: 1150 };   // área segura (px, 
 const EM = 0.66;                                             // largura média de um caractere do Cinzel 700, em "em"
 
 /** Quebra gulosa nas linhas da caixa e escolhe a maior fonte (≤ 104 px) em que o texto inteiro cabe. */
-export function diagramar(palavras: PalavraPlano[]): { fonte: number; linhas: PalavraPlano[][] } {
+export function diagramar(palavras: PalavraPlano[], caixa = CAIXA): { fonte: number; linhas: PalavraPlano[][] } {
   for (let fonte = 104; fonte >= 34; fonte -= 2) {
-    const max = Math.floor(CAIXA.w / (EM * fonte));
+    const max = Math.floor(caixa.w / (EM * fonte));
     const linhas: PalavraPlano[][] = [[]];
     let ok = true;
     for (const w of palavras) {
@@ -29,12 +29,12 @@ export function diagramar(palavras: PalavraPlano[]): { fonte: number; linhas: Pa
       if (atual.length && n + 1 + w.t.length > max) linhas.push([]);
       linhas[linhas.length - 1].push(w);
     }
-    if (ok && linhas.length * fonte * 1.3 <= CAIXA.h) return { fonte, linhas };
+    if (ok && linhas.length * fonte * 1.3 <= caixa.h) return { fonte, linhas };
   }
   return { fonte: 34, linhas: [palavras] };
 }
 
-export const VersoFixo = ({ palavras, faixa = 100 }: { palavras: PalavraPlano[]; faixa?: number }) => {
+export const VersoFixo = ({ palavras, faixa = 100, caixa = CAIXA }: { palavras: PalavraPlano[]; faixa?: number; caixa?: typeof CAIXA }) => {
   useEffect(() => {
     const h = delayRender("fonte do versículo");
     Promise.all([document.fonts.load("700 70px Cinzel")]).finally(() => continueRender(h));
@@ -43,7 +43,7 @@ export const VersoFixo = ({ palavras, faixa = 100 }: { palavras: PalavraPlano[];
   const { fps } = useVideoConfig();
   const t = frame / fps;
   if (!palavras.length) return null;
-  const { fonte, linhas } = diagramar(palavras);
+  const { fonte, linhas } = diagramar(palavras, caixa);
   const ini = palavras[0].ini, fim = palavras[palavras.length - 1].fim;
   const entra = interpolate(t, [0.1, 0.7], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const lendo = t >= ini - 0.05 && t <= fim + 0.3;
@@ -51,8 +51,8 @@ export const VersoFixo = ({ palavras, faixa = 100 }: { palavras: PalavraPlano[];
   let k = -1;
   return (
     <div style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: entra }}>
-      <div style={{ position: "absolute", left: CAIXA.x - 60, width: CAIXA.w + 120, top: CAIXA.y - 40, height: CAIXA.h + 80, background: `radial-gradient(ellipse closest-side at center, rgba(8,5,3,${scrim}) 0%, rgba(8,5,3,${scrim * 0.75}) 55%, rgba(8,5,3,0) 100%)` }} />
-      <div style={{ position: "absolute", left: CAIXA.x, width: CAIXA.w, top: CAIXA.y, height: CAIXA.h, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: fonte, lineHeight: 1.3 }}>
+      <div style={{ position: "absolute", left: caixa.x - 60, width: caixa.w + 120, top: caixa.y - 40, height: caixa.h + 80, background: `radial-gradient(ellipse closest-side at center, rgba(8,5,3,${scrim}) 0%, rgba(8,5,3,${scrim * 0.75}) 55%, rgba(8,5,3,0) 100%)` }} />
+      <div style={{ position: "absolute", left: caixa.x, width: caixa.w, top: caixa.y, height: caixa.h, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", fontFamily: "Cinzel, serif", fontWeight: 700, fontSize: fonte, lineHeight: 1.3 }}>
         {linhas.map((l, li) => (
           <div key={li} style={{ whiteSpace: "nowrap" }}>
             {l.map((w) => {

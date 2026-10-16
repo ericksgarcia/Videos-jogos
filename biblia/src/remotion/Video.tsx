@@ -8,6 +8,8 @@ import { CenaProcedural, type Cenario, type Clima } from "./CenaProcedural";
 import { GanchoTela, SeloComentario } from "./Engajamento";
 import { Cenografia } from "./Cenografia";
 import { VersoFixo } from "./VersoFixo";
+import { ShaderFundo } from "./ShaderFundo";
+import { Lacres } from "./Lacres";
 
 const DISSOLVER = 8; // quadros de fusão entre tomadas
 
@@ -28,7 +30,7 @@ export const Video = (plano: Plano) => {
   const t = frame / fps;
   const q = (s: number) => Math.round(s * fps);
   const cortes = plano.tomadas.slice(1).map((x) => x.ini);
-  const proc = plano.tomadas.every((x) => x.tipo === "procedural" || x.tipo === "cenografia"); // cenas vetoriais já são claras e limpas: menos escurecimento
+  const proc = plano.tomadas.every((x) => x.tipo === "procedural" || x.tipo === "cenografia" || x.tipo === "gerativo"); // cenas vetoriais já são claras e limpas: menos escurecimento
 
   // Pulsação sutil da imagem inteira a cada batida (mais forte na leitura do versículo).
   const beat = 60 / plano.bpm;
@@ -53,7 +55,10 @@ export const Video = (plano: Plano) => {
           return (
             <Sequence key={i} from={q(x.ini) - entrada} durationInFrames={dur + entrada + resto} layout="none">
               <FusaoEntrada entrada={entrada} escurecer={x.faixa === undefined ? 1 : 1 - 0.3 * Math.min(1, Math.max(0, (x.faixa - 105) / 60))}>
-                {x.tipo === "cenografia" ? (
+                {x.tipo === "gerativo" ? (
+                  <ShaderFundo paleta={plano.fundo?.paleta} semente={plano.fundo?.semente} batida={plano.bpm / 60}
+                    pulsos={[plano.climax.t, ...(plano.visual_fato?.gatilhos ?? [])]} />
+                ) : x.tipo === "cenografia" ? (
                   <Cenografia cena={x.cena ?? "cova_leoes"} variante={x.variante} duracaoQuadros={dur + entrada}
                     climaxQuadro={plano.climax.t >= x.ini && plano.climax.t < x.fim ? Math.round((plano.climax.t - x.ini) * fps) + entrada : undefined} />
                 ) : x.tipo === "procedural" ? (
@@ -78,11 +83,12 @@ export const Video = (plano: Plano) => {
       <Pulso cortes={cortes} />
       <Vinheta forca={proc ? 0.62 : 0.6} />
       {plano.verso_fixo
-        ? <VersoFixo palavras={plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
+        ? <VersoFixo caixa={plano.visual_fato ? { x: 70, w: 850, y: 330, h: 860 } : undefined} palavras={plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
         : <KineticText segmentos={plano.segmentos} blocos={plano.blocos} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />}
       <RotuloReferencia {...plano.rotulo} />
       {plano.gancho_tela && !plano.verso_fixo && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
       {plano.gancho_virada !== undefined && <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, rgba(255,230,170,1), rgba(255,200,110,0) 65%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.gancho_virada!); return k < 0 ? 0 : 0.5 * Math.exp(-k / 5); })() }} />}
+      {plano.visual_fato?.tipo === "lacres" && <Lacres v={plano.visual_fato} />}
       {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
       {/* granulado no navegador trocava a cada 2 quadros (15 Hz) e parecia tranco: em foto ele vai para o ffmpeg */}
       {!foto && <GranuladoFilme />}

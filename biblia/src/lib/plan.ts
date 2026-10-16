@@ -17,7 +17,7 @@ export interface SegmentoPlano {
 
 export interface PlanoTomada {
   ini: number; fim: number;           // s
-  tipo: "parallax" | "video" | "procedural" | "cenografia";
+  tipo: "parallax" | "video" | "procedural" | "cenografia" | "gerativo";
   src: string;                        // relativo a public/ (staticFile); vazio em "procedural"
   cenario?: string;                   // procedural: deserto | montanha | mar | noite | fogueira | caverna | cidade
   clima?: string[];                   // procedural: tempestade | chuva | vento | fogo | estrelas | raios | brasas
@@ -47,6 +47,8 @@ export type Plano = {
   gancho_fim?: number;                // s em que o texto de abertura sai (fim da 1ª frase falada); padrão 2,6
   gancho_virada?: number;             // s do 2º golpe (início da 2ª frase): flash + empurrão de câmera que segura a retenção aos 3-4 s
   cta_tela?: { texto: string; ini: number; fim: number };
+  fundo?: { paleta: string; semente: number };   // fundo gerativo (shader), sem imagens pagas
+  visual_fato?: { tipo: "lacres"; n: number; entradas: number[]; gatilhos: number[] };   // o fato vira cena, sincronizado com a voz
   verso_fixo?: boolean;               // o versículo inteiro fica escrito na tela o vídeo todo; as outras falas não têm texto
   loop?: boolean;                     // sem fade no fim/começo: o vídeo emenda em si mesmo
   blocos?: import("./blocos").Bloco[]; // legenda em 2 linhas = cortes de imagem

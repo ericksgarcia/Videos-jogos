@@ -4,7 +4,41 @@
   "cta_tela": "Comente: AMÉM",
   "versiculo": "A tribulação, ou a angústia, ou a perseguição, ou a fome, ou a nudez, ou o perigo, ou a espada?",
   "climax": "espada?",
-  "ato3": "Em 2 Coríntios, ele conta fome, nudez e perigos. Pela tradição, a espada o encontrou em Roma. E foi para Roma que",
+  "ato3": "Na segunda aos Coríntios, ele conta fome, nudez e perigos. Pela tradição, a espada o encontrou em Roma. E foi para Roma que",
   "loop": true,
-  "cta_style": "amem"
+  "cta_style": "amem",
+  "fundo": "gerativo",
+  "paleta": "brasa",
+  "visual_fato": {
+    "tipo": "lacres",
+    "entrada": "sete",
+    "gatilhos": [
+      "tribulação,",
+      "angústia,",
+      "perseguição,",
+      "fome,",
+      "nudez,",
+      "perigo,",
+      "espada?"
+    ]
+  },
+  "auditoria": {
+    "gancho": "Sete ameaças e sete lacres aparecendo juntos dão um número concreto e visual.",
+    "virada": "Já tinha vivido seis e a sétima era a espada deixa a última pendurada.",
+    "contexto": "Escuta a lista completa segura quem quer ouvir as sete ameaças.",
+    "cta": "O pedido curto de amém leva direto à lista que o versículo lê.",
+    "versiculo": "Cada lacre quebra na palavra lida e a espada fecha o clímax.",
+    "ato3": "A espada em Roma, marcada como tradição, é o fato novo da lista.",
+    "final": "E foi para Roma que Paulo listou sete ameaças fecha o laço com ironia."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 9,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 9,
+    "ato3": 8,
+    "final": 9,
+    "rodadas": 2
+  }
 }

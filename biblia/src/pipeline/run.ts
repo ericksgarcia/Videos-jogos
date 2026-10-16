@@ -59,6 +59,17 @@ function ganchoTempos(segs: { id: string; palavras: { t: string; ini: number; fi
   return { gancho_fim: Math.min(5, Math.max(2.6, p[i].fim + 0.25)), gancho_virada: p[i + 1].ini, gancho_linhas };
 }
 
+/** O fato vira cena: lacres que entram no gancho (a partir da palavra "sete", ou de 0,3 s) e quebram na palavra de cada ameaça lida no versículo. */
+function visualFato(v: { tipo: "lacres"; gatilhos: string[]; entrada?: string }, segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[]) {
+  const limpa = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, "");
+  const a2 = segs.find((s) => s.id === "ato2")!.palavras, a1 = segs.find((s) => s.id === "ato1")!.palavras;
+  let k = 0;
+  const gatilhos = v.gatilhos.map((g) => { const i = a2.findIndex((w, j) => j >= k && limpa(w.t) === limpa(g)); if (i < 0) throw new Error(`visual_fato: palavra "${g}" não está no versículo`); k = i + 1; return Number(a2[i].fim.toFixed(2)); });
+  const ent = v.entrada ? a1.find((w) => limpa(w.t).startsWith(limpa(v.entrada!))) : undefined;
+  const t0 = ent ? ent.ini : 0.3;
+  return { tipo: v.tipo, n: v.gatilhos.length, entradas: v.gatilhos.map((_, i) => Number((t0 + i * 0.22).toFixed(2))), gatilhos };
+}
+
 /** Fases que o roteiro precisa justificar (teste do "dedo rolando" em CADA fase, não só no gancho). */
 const FASES_AUDITORIA = ["gancho", "virada", "contexto", "cta", "versiculo", "ato3", "final"] as const;
 
@@ -86,12 +97,12 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
 }
 
-type Extras = { verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
+  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   auditarRoteiro(j, arq, j.texto_na_tela !== "tudo");
@@ -154,7 +165,10 @@ async function main() {
 
   // 5) visuais
   let tomadasRoteiro = null as PlanoTomada[] | null;
-  if (extras.tomadas?.length) {
+  if (extras.fundo === "gerativo") {
+    // fundo gerado por shader (sem imagens, sem custo): uma única tomada para o vídeo inteiro
+    tomadasRoteiro = [{ ini: 0, fim: linha.total, tipo: "gerativo", src: "", seed: entrada.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % 97 }];
+  } else if (extras.tomadas?.length) {
     // Cenografia do roteiro: cada tomada começa NA palavra indicada (ou no início de um ato).
     const todas = segs.flatMap((sg) => sg.palavras.map((w) => ({ ...w, seg: sg.id })));
     const limpa = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, "");
@@ -293,6 +307,8 @@ async function main() {
     id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
     rotulo: rotuloDe(entrada, at.ato2),
+    fundo: extras.fundo === "gerativo" ? { paleta: extras.paleta ?? (entrada.tone === "epic" ? "ouro" : "azul"), semente: tomadas[0]?.seed ?? 1 } : undefined,
+    visual_fato: extras.visual_fato ? visualFato(extras.visual_fato, segs) : undefined,
     gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
   };
