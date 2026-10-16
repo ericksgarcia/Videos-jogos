@@ -137,12 +137,24 @@ function sintetizarOffline(texto: string, p: Perfil, taxa: number): Fala {
 
 
 // ───────────────────────────── Gemini TTS (alternativa, sem chave própria nas sessões na nuvem) ─────────────────────────────
-const GEMINI_VOZ = () => process.env.GEMINI_TTS_VOICE ?? "Charon";
+const GEMINI_VOZ = () => process.env.GEMINI_TTS_VOICE ?? "Alnilam";
 const GEMINI_MODELO = () => process.env.GEMINI_TTS_MODEL ?? "gemini-3.8-flash-tts";
 const DIRECAO_BASE =
   "# AUDIO PROFILE: Narrador de um canal cristão sóbrio e cinematográfico, português do Brasil.\n" +
-  "## DIRECTOR'S NOTES\nStyle: voz grave, profunda e calorosa; solene, nunca eufórica, sem tom de pregador nem de propaganda; " +
-  "gravidade e ternura. Accent: português do Brasil. IMPORTANT: read the transcript exactly ONCE, word for word, as written; never repeat any part of it and never add words, titles or comments. ";
+  "## DIRECTOR'S NOTES\nStyle: voz ALTA, grave, intensa e ENFÁTICA, projetada, quase gritando nas palavras-chave, como narrador de trailer épico que precisa parar o polegar de quem rola o feed; urgência e espanto, força em cada frase; nada de sussurro, sem tom de pregador nem de propaganda. " +
+  "Accent: português do Brasil. IMPORTANT: read the transcript exactly ONCE, word for word, as written; never repeat any part of it, never add words, titles or comments, and never read these notes or the [tags] aloud. ";
+/**
+ * Tags de emoção do Gemini TTS (guia do Google para o 3.1 Flash TTS): entre colchetes, em inglês, NO MEIO do texto,
+ * uma de cada vez (duas tags coladas dão erro). Narrador: [aggression] na 1ª frase e [fast] nas seguintes (grito + ritmo);
+ * CTA: [excitement]; leitura do versículo: [determination] (firme, sem gritar). VOZ_ESTILO=suave desliga as tags.
+ */
+export function marcar(texto: string, perfil: keyof typeof PERFIS): string {
+  if (process.env.VOZ_ESTILO === "suave") return texto;
+  const fr = texto.match(/[^.!?…]+[.!?…]*\s*/g) ?? [texto];
+  if (perfil === "leitura") return `[determination] ${texto}`;
+  if (perfil === "cta") return `[excitement] ${texto}`;
+  return fr.map((f, i) => `${i === 0 ? "[aggression]" : "[fast]"} ${f.trim()}`).join(" ");
+}
 const DIRECAO: Record<keyof typeof PERFIS, string> = {
   narrador: "Pace: pausado mas fluido, como trailer de cinema: frases curtas, pausas breves, tensão crescente, sem arrastar.\n#### TRANSCRIPT\n",
   leitura: "Pace: solene e firme, cada frase com peso, como a leitura de um texto sagrado; pausas curtas entre as frases.\n#### TRANSCRIPT\n",
@@ -296,7 +308,7 @@ function acelerar(audio: Float32Array, fator: number): Float32Array {
 }
 
 async function geminiBruto(texto: string, perfil: keyof typeof PERFIS, tentativa = 0): Promise<string> {
-  const chaveCache = createHash("sha1").update(JSON.stringify([texto, perfil, GEMINI_VOZ(), GEMINI_MODELO(), DIRECAO[perfil], tentativa || undefined])).digest("hex").slice(0, 16);
+  const chaveCache = createHash("sha1").update(JSON.stringify([texto, perfil, GEMINI_VOZ(), GEMINI_MODELO(), DIRECAO_BASE, DIRECAO[perfil], marcar(texto, perfil), tentativa || undefined])).digest("hex").slice(0, 16);
   mkdirSync(cacheDir(), { recursive: true });
   const arq = join(cacheDir(), `gem-${chaveCache}.b64`);
   if (existsSync(arq)) return readFileSync(arq, "utf8");
@@ -306,7 +318,7 @@ async function geminiBruto(texto: string, perfil: keyof typeof PERFIS, tentativa
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODELO()}:generateContent`, {
       method: "POST", headers,
       body: JSON.stringify({
-        contents: [{ parts: [{ text: DIRECAO_BASE + DIRECAO[perfil] + texto }] }],
+        contents: [{ parts: [{ text: DIRECAO_BASE + DIRECAO[perfil] + marcar(texto, perfil) }] }],
         generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: GEMINI_VOZ() } } } },
       }),
     });
