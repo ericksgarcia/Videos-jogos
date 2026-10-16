@@ -28,6 +28,7 @@ import { cenaDaTomada } from "./cenarios.ts";
 import { avaliar, confirmarFundos, dhash, fundoInedito } from "./fundos.ts";
 import { profundidadeLocal } from "./profundidade.ts";
 import { agruparParaImagens, montarBlocos } from "../lib/blocos.ts";
+import { renderEmBlocos } from "./render.ts";
 import { gerarRoteiro, palavraClimax, validar, type Roteiro } from "./script.ts";
 import { readFileSync } from "node:fs";
 import { narrar } from "./tts.ts";
@@ -304,9 +305,10 @@ async function main() {
   // 8) render
   if (!o.semRender) {
     const bruto = join(saida, "bruto.mp4"), video = join(saida, "video.mp4");
-    const r = spawnSync("npx", ["remotion", "render", "src/remotion/index.ts", "Verso", bruto, `--props=${planoArq}`, "--codec=h264", "--crf=20", ...(o.frames ? [`--frames=${o.frames}`] : [])],
-      { cwd: RAIZ, stdio: "inherit" });
-    if (r.status !== 0) throw new Error("render falhou");
+    if (o.frames) {
+      const r = spawnSync("npx", ["remotion", "render", "src/remotion/index.ts", "Verso", bruto, `--props=${planoArq}`, "--codec=h264", "--crf=20", `--frames=${o.frames}`], { cwd: RAIZ, stdio: "inherit" });
+      if (r.status !== 0) throw new Error("render falhou");
+    } else renderEmBlocos(planoArq, bruto, mixArq, linha.total);
     const [f0, f1] = o.frames ? o.frames.split("-").map(Number) : [0, Math.round(linha.total * FPS) - 1];
     const foto = tomadas.some((x) => x.tipo === "parallax" || x.tipo === "video");
     const { mb, kbps } = finalizar(bruto, video, (f1 - f0 + 1) / FPS, foto ? 6 : 0);
