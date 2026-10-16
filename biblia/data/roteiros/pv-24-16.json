@@ -1,10 +1,10 @@
 {
   "ato1": "Quero ver você adivinhar qual quebra por último. Cada lacre é uma queda. Alguém não levanta.",
-  "cta": "Comenta amém antes do sétimo lacre quebrar.",
+  "cta": "Comenta amém antes do último lacre quebrar.",
   "cta_tela": "Comente: AMÉM",
   "versiculo": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
   "climax": "levantará;",
-  "ato3": "Um verso antes, o texto avisa o ímpio que espreita a casa do justo. Quem não levanta é o caçador. Então, de novo:",
+  "ato3": "Um verso antes, o texto proíbe o ímpio de espiar a casa do justo. Quem não levanta é quem espiava. Então, de novo:",
   "loop": true,
   "cta_style": "amem",
   "fundo": "gerativo",
@@ -25,10 +25,10 @@
     "gancho": "O desafio de adivinhar qual lacre quebra por último prende e puxa o replay.",
     "virada": "Cada lacre é uma queda liga a imagem às sete quedas do justo.",
     "contexto": "Alguém não levanta abre a dúvida de quem é esse alguém.",
-    "cta": "Comenta amém antes do sétimo lacre quebrar usa a mecânica dos lacres.",
+    "cta": "Comenta amém antes do último lacre quebrar usa a mecânica dos lacres e retoma o por último do gancho.",
     "versiculo": "Se levantará contra tropeçarão responde quem se levanta e quem tropeça.",
-    "ato3": "O verso anterior avisa o ímpio que espreita a casa do justo, fato novo do contexto.",
-    "final": "Quem não levanta é o caçador responde o alguém do início e Então de novo reabre o desafio."
+    "ato3": "O verso 15 proíbe o ímpio de espiar a habitação do justo, fato novo do contexto.",
+    "final": "Quem não levanta é quem espiava responde o alguém do início, e Então de novo reabre o desafio."
   },
   "revisao": {
     "gancho": 8,
