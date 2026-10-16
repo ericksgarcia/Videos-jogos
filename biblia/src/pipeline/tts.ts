@@ -137,7 +137,7 @@ function sintetizarOffline(texto: string, p: Perfil, taxa: number): Fala {
 
 
 // ───────────────────────────── Gemini TTS (alternativa, sem chave própria nas sessões na nuvem) ─────────────────────────────
-const GEMINI_VOZ = () => process.env.GEMINI_TTS_VOICE ?? "Alnilam";
+const GEMINI_VOZ = () => process.env.GEMINI_TTS_VOICE ?? "Achird";
 const GEMINI_MODELO = () => process.env.GEMINI_TTS_MODEL ?? "gemini-3.8-flash-tts";
 const DIRECAO_BASE =
   "# AUDIO PROFILE: Narrador de um canal cristão sóbrio e cinematográfico, português do Brasil.\n" +
