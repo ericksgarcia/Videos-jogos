@@ -4,7 +4,7 @@
   "cta_tela": "Comente: AMÉM",
   "versiculo": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
   "climax": "levantará;",
-  "ato3": "O verso antes avisa quem arma emboscada ao justo: ele cai sete vezes e levanta. Quem não levanta é o caçador. Então, de novo:",
+  "ato3": "Um verso antes, o texto avisa o ímpio que espreita a casa do justo. Quem não levanta é o caçador. Então, de novo:",
   "loop": true,
   "cta_style": "amem",
   "fundo": "gerativo",
@@ -27,7 +27,7 @@
     "contexto": "Alguém não levanta abre a dúvida de quem é esse alguém.",
     "cta": "Comenta amém antes do sétimo lacre quebrar usa a mecânica dos lacres.",
     "versiculo": "Se levantará contra tropeçarão responde quem se levanta e quem tropeça.",
-    "ato3": "O verso anterior avisa quem arma emboscada ao justo, fato novo do contexto.",
+    "ato3": "O verso anterior avisa o ímpio que espreita a casa do justo, fato novo do contexto.",
     "final": "Quem não levanta é o caçador responde o alguém do início e Então de novo reabre o desafio."
   },
   "revisao": {
