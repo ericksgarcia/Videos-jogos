@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { extrairJson } from "../src/pipeline/deepseek.ts";
+import { extrairJson } from "../src/pipeline/llm.ts";
 import { checagens } from "../src/pipeline/autor.ts";
 import { FASES, pedidoAnalista } from "../src/pipeline/equipe.ts";
 

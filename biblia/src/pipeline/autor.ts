@@ -1,9 +1,9 @@
 /**
- * Roteiro feito 100 % pelo DeepSeek: 1 autor + 7 analistas (um por fase, em paralelo, prompts completos).
+ * Roteiro feito 100 % pelo LLM: 1 autor + 7 analistas (um por fase, em paralelo, prompts completos).
  * Rodadas: autor escreve → checagens objetivas locais → 7 analistas → se alguma fase < 8, o autor reescreve com os pareceres
  * das fases reprovadas → novos analistas (sempre chamadas novas, sem memória) … até todas ≥ 8 (máx. RODADAS_MAX).
  */
-import { conversar, extrairJson, MODELOS, uso } from "./deepseek.ts";
+import { conversar, extrairJson, MODELOS, uso } from "./llm.ts";
 import { DEPENDENCIAS, FASES, SISTEMA_AUTOR, pedidoAnalista, pedidoAutor, type Fase, type Passagem, type Rot } from "./equipe.ts";
 import { LIMITES, validar } from "./script.ts";
 
@@ -73,7 +73,7 @@ async function analisar(fase: Fase, r: Rot, p: Passagem): Promise<Analise> {
   const modelo = fatos ? MODELOS.fatos() : MODELOS.analista();
   const { system, user } = pedidoAnalista(fase, r, p);
   for (let t = 0; t < 3; t++) {
-    const txt = await conversar({ model: modelo, system, user, temperatura: 0.2, maxTokens: 14000, pensar: process.env.DEEPSEEK_PENSAR_ANALISTA as "off" | "low" | "high" ?? "low" });
+    const txt = await conversar({ model: modelo, system, user, temperatura: 0.2, maxTokens: 14000, pensar: process.env.LLM_PENSAR_ANALISTA as "off" | "low" | "high" ?? "off" });
     try {
       const a = extrairJson<Analise>(txt);
       if (typeof a.nota === "number") return { ...a, nota: Math.round(a.nota) };
@@ -125,7 +125,7 @@ export async function criarRoteiro(p: Passagem, evitar: string[] = [], log: (s: 
     log(`  reprovadas: ${reprovadas.join(", ")} — o autor reescreve`);
     rot = await escrever(p, evitar, { rot: base, falhas, analises: pareceres });
   }
-  throw new Error(`roteiro não convergiu em ${RODADAS_MAX} rodadas (uso DeepSeek: ${uso.chamadas} chamadas, ${uso.prompt} tokens de entrada, ${uso.saida} de saída)`);
+  throw new Error(`roteiro não convergiu em ${RODADAS_MAX} rodadas (uso LLM: ${uso.chamadas} chamadas, ${uso.prompt} tokens de entrada, ${uso.saida} de saída)`);
 }
 
 export const limites = LIMITES;

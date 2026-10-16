@@ -1,5 +1,5 @@
 /**
- * Equipe do DeepSeek: 1 AUTOR + 7 ANALISTAS (um por fase), cada um com prompt completo e só o que precisa ver.
+ * Equipe de IA (Gemini): 1 AUTOR + 7 ANALISTAS (um por fase), cada um com prompt completo e só o que precisa ver.
  * Os prompts concentram tudo o que o dono do canal decidiu e tudo o que já foi reprovado em vídeos anteriores.
  */
 import { LIMITES } from "./script.ts";

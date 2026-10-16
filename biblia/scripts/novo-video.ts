@@ -1,5 +1,5 @@
 /**
- * Um comando faz o vídeo inteiro com o DeepSeek:
+ * Um comando faz o vídeo inteiro com o LLM:
  *   npx tsx scripts/novo-video.ts [--seed N] [--ref id] [--fase roteiro|plano|tudo]
  * 1) escolhe a passagem (engine, sem repetir), 2) autor + 7 analistas escrevem e aprovam o roteiro (todas as fases ≥ 8),
  * 3) grava data/roteiros/<id>.json, 4) roda a esteira (voz, imagens, plano) e, em "tudo", o render + histórico.
@@ -11,7 +11,7 @@ import "../src/lib/env.ts";
 import { RAIZ, loadCatalog, loadHistory } from "../src/lib/catalog.ts";
 import { pickNext, prng } from "../src/pipeline/engine.ts";
 import { criarRoteiro } from "../src/pipeline/autor.ts";
-import { uso } from "../src/pipeline/deepseek.ts";
+import { uso } from "../src/pipeline/llm.ts";
 
 const arg = (n: string) => { const i = process.argv.indexOf(`--${n}`); return i >= 0 ? process.argv[i + 1] : undefined; };
 const seed = Number(arg("seed") ?? Date.now() % 1e6), fase = arg("fase") ?? "tudo";
@@ -34,7 +34,7 @@ if (!existsSync(arq) || process.argv.includes("--refazer")) {
     loop: true, cta_style: "amem", auditoria: roteiro.auditoria, revisao: { ...notas, rodadas },
     descricao_tiktok: roteiro.descricao_tiktok, hashtags: roteiro.hashtags,
   }, null, 2));
-  console.log(`✔ roteiro aprovado em ${rodadas} rodada(s) → ${arq}\n  DeepSeek: ${uso.chamadas} chamadas, ${uso.prompt} tokens de entrada, ${uso.saida} de saída`);
+  console.log(`✔ roteiro aprovado em ${rodadas} rodada(s) → ${arq}\n  LLM: ${uso.chamadas} chamadas, ${uso.prompt} tokens de entrada, ${uso.saida} de saída`);
 } else console.log(`roteiro já existe (${arq}); use --refazer para reescrever`);
 
 if (fase === "roteiro") process.exit(0);
