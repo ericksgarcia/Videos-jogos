@@ -6,5 +6,24 @@
   "climax": "moradas;",
   "ato3": "Antes, Jesus avisou Pedro que o negaria três vezes. Mesmo assim, incluiu Pedro na promessa. Tomé nem sabia o caminho, na noite em que",
   "loop": true,
-  "cta_style": "amem"
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Onze homens aflitos cria um número estranho e um isso sem referência.",
+    "virada": "Judas tinha acabado de sair explica o onze com um choque concreto.",
+    "contexto": "Escuta o que ele prometeu mantém a curiosidade viva durante o pedido.",
+    "cta": "O pedido curto de amém promete algo que o versículo paga logo depois.",
+    "versiculo": "Muitas moradas pesa como resposta logo depois da saída de Judas.",
+    "ato3": "O aviso a Pedro e a dúvida de Tomé são dois fatos novos em sequência.",
+    "final": "Tomé nem sabia o caminho na noite em que fecha o laço com sentido novo."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 9,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 2
+  }
 }
