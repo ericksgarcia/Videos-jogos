@@ -4,7 +4,7 @@
   "cta_tela": "Comente: AMÉM",
   "versiculo": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
   "climax": "levantará;",
-  "ato3": "Sete, na Bíblia, é a conta completa. E um versículo antes vem o aviso a quem arma emboscada contra o justo. Foi assim que",
+  "ato3": "Sete, na Bíblia, é a conta completa. E o versículo não fala ao justo: fala a quem arma emboscada contra ele. Foi assim que",
   "loop": true,
   "cta_style": "amem",
   "fundo": "gerativo",
@@ -20,5 +20,24 @@
       "ímpios",
       "tropeçarão"
     ]
+  },
+  "auditoria": {
+    "gancho": "O justo cai sete vezes é uma afirmação estranha e concreta sem pergunta.",
+    "virada": "A queda não o separa do ímpio abre a dúvida do que separa os dois.",
+    "contexto": "A diferença vem agora mantém a pergunta aberta durante o pedido.",
+    "cta": "O pedido curto de amém promete a diferença que o versículo entrega.",
+    "versiculo": "Se levantará contra tropeçarão paga a diferença com sete lacres quebrando.",
+    "ato3": "O versículo fala a quem arma emboscada contra o justo, fato novo do contexto.",
+    "final": "Foi assim que a Bíblia diz que o justo cai sete vezes retoma o aviso."
+  },
+  "revisao": {
+    "gancho": 8,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 9,
+    "ato3": 8,
+    "final": 8,
+    "rodadas": 2
   }
 }
