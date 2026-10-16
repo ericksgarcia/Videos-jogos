@@ -2870,5 +2870,37 @@
   "video": "2026-10-15-sl-128-1-2",
   "ato": "ato3",
   "em": "2026-10-15T14:51:50.845Z"
+ },
+ {
+  "hash": "bf7f3f5d1f070f0700000000fffcffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-mt-26-69-70",
+  "ato": "ato1",
+  "em": "2026-10-15T23:57:49.481Z"
+ },
+ {
+  "hash": "5b7bf30309090106b1fff8c004ffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-mt-26-69-70",
+  "ato": "ato2",
+  "em": "2026-10-15T23:57:49.860Z"
+ },
+ {
+  "hash": "230b0f4f290e4f16cd0021ffffffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-mt-26-69-70",
+  "ato": "ato2",
+  "em": "2026-10-15T23:57:50.187Z"
+ },
+ {
+  "hash": "0b72fffdfebe8e867e05001fffffffff",
+  "prompt": "(reaproveitada do plano)",
+  "seed": 0,
+  "video": "2026-10-15-mt-26-69-70",
+  "ato": "ato3",
+  "em": "2026-10-15T23:57:50.539Z"
  }
 ]

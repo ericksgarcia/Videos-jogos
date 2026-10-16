@@ -446,5 +446,16 @@
     "cta_style": "amem",
     "cta_text": "Curte e comenta amém se quer o prato de volta. Escuta a condição.",
     "pexels_ids": []
+  },
+  {
+    "at": "2026-10-16T00:09:23.747Z",
+    "id": "mt-26-69-70",
+    "reference": "Mateus 26:69-70",
+    "book": "mt",
+    "emotional_hook": "culpa",
+    "tone": "epic",
+    "cta_style": "amem",
+    "cta_text": "Curte e comenta amém. Escuta as cinco palavras de Pedro.",
+    "pexels_ids": []
   }
 ]
