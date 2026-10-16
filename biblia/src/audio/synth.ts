@@ -243,3 +243,13 @@ export function estalo(seed = 1): Float32Array {
   for (let k = 0; k < 7; k++) { const t0 = Math.floor((0.03 + r() * 0.3) * SR), g = 0.15 + r() * 0.25; for (let j = 0; j < SR * 0.012 && t0 + j < n; j++) o[t0 + j] += (r() * 2 - 1) * g * Math.exp(-j / (SR * 0.004)); }
   return reverb(normalizar(o, 0.95), 0.7, 0.18).subarray(0, n);
 }
+
+/** Estouro de bolha: "plop" de água (chirp curto que sobe), estalinho da película e gotículas tilintando, com eco leve. */
+export function estouroBolha(seed = 1): Float32Array {
+  const n = N(0.7), o = new Float32Array(n), r = prng(seed + 500);
+  for (let i = 0; i < n; i++) { const t = i / SR; const f = 520 + 2300 * (1 - Math.exp(-t * 90)); o[i] += Math.sin(2 * Math.PI * f * t) * Math.exp(-t * 38) * 0.75; }
+  const click = filtrar(ruido(0.05, seed, "branco"), "hp", 3500);
+  for (let i = 0; i < click.length; i++) o[i] += click[i] * Math.exp(-i / (SR * 0.006)) * 0.55;
+  for (let k = 0; k < 6; k++) { const t0 = Math.floor((0.03 + r() * 0.25) * SR), f = 2400 + r() * 2800, g = 0.12 + r() * 0.16; for (let j = 0; j < SR * 0.07 && t0 + j < n; j++) o[t0 + j] += Math.sin(2 * Math.PI * f * (j / SR)) * g * Math.exp(-j / (SR * 0.016)); }
+  return reverb(normalizar(o, 0.9), 0.6, 0.14).subarray(0, n);
+}

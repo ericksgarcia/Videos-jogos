@@ -60,7 +60,7 @@ function ganchoTempos(segs: { id: string; palavras: { t: string; ini: number; fi
 }
 
 /** O fato vira cena: lacres que entram no gancho (a partir da palavra "sete", ou de 0,3 s) e quebram na palavra de cada ameaça lida no versículo. */
-function visualFato(id: string, v: { tipo: "lacres"; gatilhos: string[]; entrada?: string }, segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[]) {
+function visualFato(id: string, v: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }, segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[]) {
   const limpa = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, "");
   const a2 = segs.find((s) => s.id === "ato2")!.palavras, a1 = segs.find((s) => s.id === "ato1")!.palavras;
   let k = 0;
@@ -104,12 +104,12 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
 }
 
-type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; cta_final?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, tomadas: j.tomadas };
+  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, cta_final: j.cta_final, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   auditarRoteiro(j, arq, j.texto_na_tela !== "tudo");
@@ -154,13 +154,13 @@ async function main() {
 
   // 4) linha do tempo
   const bpm = bpmDoTom(entrada.tone);
-  let linha = montarLinha(falas, bpm, extras.loop);
+  let linha = montarLinha(falas, bpm, extras.loop, extras.cta_final);
   if (linha.total > DUR_MAX) {
     // O ato 3 é o elástico: fala mais ligeiro (até 1.0) para o vídeo fechar em DUR_MAX.
-    const orcamento = DUR_MAX - 0.8 - linha.ini.ato3;
+    const orcamento = extras.cta_final ? DUR_MAX - 0.8 - linha.ini.ato3 - falas.cta.dur - 0.6 : DUR_MAX - 0.8 - linha.ini.ato3;
     console.warn(`  ato 3 refeito para caber em ${orcamento.toFixed(1)} s`);
     falas.ato3 = (await narrar([{ chave: "ato3", texto: rot.ato3, perfil: "narrador", maxDur: orcamento }], o.offline)).ato3;
-    linha = montarLinha(falas, bpm, extras.loop);
+    linha = montarLinha(falas, bpm, extras.loop, extras.cta_final);
   }
   linha.avisos.forEach((x) => console.warn("⚠ " + x));
   const segs = segmentos(falas, linha);
@@ -304,9 +304,9 @@ async function main() {
   const mix = mixar({
     total: linha.total,
     voz: [{ ini: at.ato1, audio: falas.ato1.audio }, { ini: at.cta, audio: falas.cta.audio }, { ini: at.ato2, audio: falas.ato2.audio }, { ini: at.ato3, audio: falas.ato3.audio }],
-    atos: { ato1: [0, at.cta], cta: [at.cta, at.ato2], ato2: [at.ato2, at.ato3], ato3: [at.ato3, linha.total] },
+    atos: { ato1: [0, linha.fim.ato1], cta: [at.cta, linha.fim.cta], ato2: [at.ato2, linha.fim.ato2], ato3: [at.ato3, linha.fim.ato3] },
     cues: entrada.audio_cues, tom: entrada.tone, bpm, climaxEm: climaxT, abertura: Boolean(extras.gancho_tela), loop: extras.loop,
-    extras: vf ? vf.gatilhos.flatMap((t) => [{ t, tipo: "voo" as const }, { t, tipo: "estalo" as const }]) : undefined,
+    extras: vf ? vf.gatilhos.flatMap((t) => [{ t, tipo: "voo" as const }, { t, tipo: vf.tipo === "bolhas" ? "pop" as const : "estalo" as const }]) : undefined,
   });
   const mixArq = gravarMix(mix.esq, mix.dir, join(pub, "mix"));
   copyFileSync(mixArq, join(saida, basename(mixArq)));
@@ -319,7 +319,7 @@ async function main() {
     fundo: extras.fundo === "gerativo" ? { paleta: extras.paleta ?? (entrada.tone === "epic" ? "ouro" : "azul"), semente: tomadas[0]?.seed ?? 1 } : undefined,
     visual_fato: vf,
     gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, loop: extras.loop, blocos: blocosLeg,
-    cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
+    cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: extras.cta_final ? linha.total - 0.1 : at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");
   writeFileSync(planoArq, JSON.stringify(plano, null, 2));

@@ -11,7 +11,7 @@ import { existsSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { RAIZ } from "../lib/catalog.ts";
 import type { AudioCue, Tone } from "../lib/types.ts";
-import { AMBIENTES, batida, drone, estalo, pulso, swoosh, trovao, voo } from "./synth.ts";
+import { AMBIENTES, batida, drone, estalo, estouroBolha, pulso, swoosh, trovao, voo } from "./synth.ts";
 import { SR, escreverWavEstereo, lerWavArquivo, reamostrar } from "./wav.ts";
 
 export interface SegmentoAudio { ini: number; audio: Float32Array }
@@ -28,7 +28,7 @@ export interface PedidoMix {
   /** sem fade no começo/fim (vídeo em loop) */
   loop?: boolean;
   /** efeitos extras no tempo: "voo" (swoosh que acelera e termina em t) e "estalo" (impacto + cera quebrando em t) */
-  extras?: { t: number; tipo: "voo" | "estalo" }[];
+  extras?: { t: number; tipo: "voo" | "estalo" | "pop" }[];
   /** modo teste: grava só o WAV (sem ffmpeg) */
   sem_ffmpeg?: boolean;
 }
@@ -114,7 +114,7 @@ export function mixar(p: PedidoMix): { esq: Float32Array; dir: Float32Array; voz
   somar(fx, bo, p.atos.ato2[0], 0.85);
   somar(fx, sw, p.atos.ato3[0] - 0.9, 0.6);
   somar(fxForte, impacto, p.climaxEm - 0.04, 1.0); // o estalo bate no começo da palavra de clímax
-  (p.extras ?? []).forEach((e, k) => { if (e.tipo === "voo") somar(fx, voo(0.62, 10 + k), e.t - 0.62, 0.5); else somar(fxForte, estalo(20 + k), e.t - 0.015, 0.75); });
+  (p.extras ?? []).forEach((e, k) => { if (e.tipo === "voo") somar(fx, voo(0.55, 10 + k), e.t - 0.55, 0.4); else if (e.tipo === "pop") somar(fxForte, estouroBolha(20 + k), e.t - 0.01, 0.8); else somar(fxForte, estalo(20 + k), e.t - 0.015, 0.75); });
 
   const esq = new Float32Array(n), dir = new Float32Array(n), fundo = new Float32Array(n); // fundo = tudo menos a voz (para medir/depurar)
   for (let i = 0; i < n; i++) {

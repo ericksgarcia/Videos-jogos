@@ -41,8 +41,8 @@ export const Video = (plano: Plano) => {
   const foto = plano.tomadas.some((x) => x.tipo === "parallax" || x.tipo === "video");
   const pulsar = foto ? 1 : 1 + (emLeitura ? 0.012 : 0.005) * Math.exp(-fase * 6);
   // tremor de câmera a cada impacto de lacre (decai em ~0,35 s)
-  const tremor = (plano.visual_fato?.gatilhos ?? []).reduce((a, g) => a + (t >= g ? Math.exp(-(t - g) * 9) : 0), 0);
-  const tx = Math.sin(t * 95) * 11 * Math.min(1, tremor), ty = Math.cos(t * 83) * 9 * Math.min(1, tremor);
+  const tremor = (plano.visual_fato?.gatilhos ?? []).reduce((a, g) => a + (t >= g ? Math.exp(-(t - g) * 5) : 0), 0);
+  const tx = Math.sin(t * 38) * 2.2 * Math.min(1, tremor), ty = Math.cos(t * 31) * 2 * Math.min(1, tremor);
 
   // em loop não há fade: o último quadro emenda no primeiro
   const abrir = plano.loop ? 1 : interpolate(frame, [0, q(0.7)], [0, 1], { extrapolateRight: "clamp" });
@@ -51,7 +51,7 @@ export const Video = (plano: Plano) => {
   return (
     <AbsoluteFill style={{ background: "#000", opacity: Math.min(abrir, fechar) }}>
       <Audio src={staticFile(plano.audio)} />
-      <AbsoluteFill style={{ transform: `translate(${tx}px, ${ty}px) scale(${pulsar * (1 + 0.012 * Math.min(1, tremor))})`, filter: proc ? "contrast(1.06) saturate(1.0) brightness(1.08)" : "contrast(1.06) saturate(1.06) brightness(1.04)" }}>
+      <AbsoluteFill style={{ transform: `translate(${tx}px, ${ty}px) scale(${pulsar * (1 + 0.006 * Math.min(1, tremor))})`, filter: proc ? "contrast(1.06) saturate(1.0) brightness(1.08)" : "contrast(1.06) saturate(1.06) brightness(1.04)" }}>
         {plano.tomadas.map((x, i) => {
           const dur = (i === plano.tomadas.length - 1 ? durationInFrames : q(x.fim)) - q(x.ini); // pelos quadros: sem buraco no fim
           const entrada = i === 0 ? 0 : DISSOLVER;
@@ -92,7 +92,7 @@ export const Video = (plano: Plano) => {
       <RotuloReferencia {...plano.rotulo} />
       {plano.gancho_tela && !plano.verso_fixo && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
       {plano.gancho_virada !== undefined && <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, rgba(255,230,170,1), rgba(255,200,110,0) 65%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.gancho_virada!); return k < 0 ? 0 : 0.5 * Math.exp(-k / 5); })() }} />}
-      {plano.visual_fato?.tipo === "lacres" && <Lacres v={plano.visual_fato} palavras={(plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []).map((w) => w.t)} caixa={{ x: 70, w: 850, y: 330, h: 860 }} />}
+      {plano.visual_fato && <Lacres v={plano.visual_fato} palavras={(plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []).map((w) => w.t)} caixa={{ x: 70, w: 850, y: 330, h: 860 }} />}
       {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
       {/* granulado no navegador trocava a cada 2 quadros (15 Hz) e parecia tranco: em foto ele vai para o ffmpeg */}
       {!foto && <GranuladoFilme />}

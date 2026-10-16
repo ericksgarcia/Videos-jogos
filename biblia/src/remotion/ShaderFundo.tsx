@@ -18,7 +18,7 @@ float fbm(vec2 p){ float v=0., a=.5; for(int i=0;i<5;i++){ v+=a*n(p); p=p*2.02+v
 void main(){
   vec2 uv = gl_FragCoord.xy / uRes; vec2 p = (gl_FragCoord.xy - .5*uRes) / uRes.y;
   float s = uSeed;
-  vec2 o1 = .55*vec2(cos(uPh), sin(uPh)), o2 = .45*vec2(cos(2.*uPh+1.), sin(2.*uPh+1.));
+  vec2 o1 = .6*vec2(cos(2.*uPh), sin(2.*uPh)), o2 = .5*vec2(cos(3.*uPh+1.), sin(3.*uPh+1.));
   vec2 q = vec2(fbm(p*1.6 + vec2(s, s*.7) + o1), fbm(p*1.6 + vec2(5.2,1.3) - o1.yx*1.3));
   vec2 r = vec2(fbm(p*2.0 + 3.*q + vec2(1.7,9.2) + o2*1.5), fbm(p*2.0 + 3.*q + vec2(8.3,2.8) - o2.yx));
   float f = fbm(p*1.8 + 3.2*r);
@@ -26,6 +26,14 @@ void main(){
   vec3 col = mix(uA, uB, f2);
   col += uC * pow(f2, 3.) * (.38 + .5*uPulse);
   col = mix(col, uC, clamp(length(q)*.55 + uPulse*.35, 0., 1.) * smoothstep(.45,.95,f) * .6);
+  // fitas de seda de luz que acompanham o fluxo do líquido (linhas de nível do campo, deslizando)
+  float seda = .5 + .5*sin(f*17. + 3.*uPh*2. + r.x*5.);
+  col += uC * pow(seda, 7.) * (.10 + .08*uPulse) * smoothstep(.2, .8, f);
+  // bolhas de luz grandes e macias subindo e balançando (profundidade)
+  vec2 bg = vec2(uv.x*5. + .35*sin(uPh*3. + uv.y*4.), uv.y*8. - uPh/6.2831853*16.); vec2 bi = floor(bg), bf = fract(bg) - .5;
+  float br = h(bi + s*3.); vec2 bo = vec2(h(bi+3.3)-.5, h(bi+7.7)-.5)*.5;
+  float bd = length(bf - bo); float bon = step(.55, br);
+  col += mix(uC, vec3(1.), .3) * bon * (smoothstep(.2 + .12*br, .0, bd) * .035 + smoothstep(.2 + .12*br, .17 + .12*br, bd) * smoothstep(.24 + .12*br, .19 + .12*br, bd) * .035);
   // raios de luz (a partir do alto), girando devagar
   vec2 src = vec2(.25*sin(uPh+s), .62);
   vec2 d = p - src; float ang = atan(d.y, d.x);

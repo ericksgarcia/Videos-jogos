@@ -17,29 +17,36 @@ const sobeBatida = (t: number, bpm: number) => Math.ceil(t / (60 / bpm) - 1e-6) 
 
 export interface Linha {
   ini: { ato1: number; cta: number; ato2: number; ato3: number };
+  fim: { ato1: number; cta: number; ato2: number; ato3: number };   // cada ato termina onde o próximo (em ordem de tempo) começa
   total: number;
   avisos: string[];
 }
 
-export function montarLinha(f: Record<"ato1" | "cta" | "ato2" | "ato3", Fala>, bpm: number, loop = false): Linha {
+export function montarLinha(f: Record<"ato1" | "cta" | "ato2" | "ato3", Fala>, bpm: number, loop = false, ctaFinal = false): Linha {
   const avisos: string[] = [];
   const ato1 = 0.5;
   // sem tempo morto: cada ato entra logo depois do anterior (só a folga para cair na batida, ≤ ~1,5 s de silêncio).
   // Antes havia pisos fixos (CTA ≥ 12 s, ato 2 ≥ 16 s, ato 3 ≈ 35 s) que deixavam até ~3 s de tela parada e sem voz.
-  const cta = sobeBatida(ato1 + f.ato1.dur + 0.35, bpm);
-  const ato2 = sobeBatida(cta + f.cta.dur + 0.5, bpm);
-  const ato3 = sobeBatida(ato2 + f.ato2.dur + 0.5, bpm);
-  const fala3 = ato3 + f.ato3.dur;
+  // ctaFinal: gancho → versículo → contexto → CTA (o pedido fecha o vídeo); senão: gancho → CTA → versículo → contexto
+  const cta0 = ctaFinal ? 0 : sobeBatida(ato1 + f.ato1.dur + 0.35, bpm);
+  const ato2 = ctaFinal ? sobeBatida(ato1 + f.ato1.dur + 0.3, bpm) : sobeBatida(cta0 + f.cta.dur + 0.5, bpm);
+  const ato3 = sobeBatida(ato2 + f.ato2.dur + (ctaFinal ? 0.3 : 0.5), bpm);
+  const cta = ctaFinal ? sobeBatida(ato3 + f.ato3.dur + 0.25, bpm) : cta0;
+  const fala3 = ctaFinal ? cta + f.cta.dur : ato3 + f.ato3.dur;
   // cauda de 0,8-1,6 s (encolhe para fechar em DUR_MAX); em loop, quase nada: a última palavra emenda na primeira
   let total = fala3 + (loop ? 0.3 : Math.min(1.6, Math.max(0.8, DUR_MAX - fala3)));
-  if (cta + f.cta.dur > ato2) avisos.push("CTA invadiu o ato 2");
+  if (!ctaFinal && cta + f.cta.dur > ato2) avisos.push("CTA invadiu o ato 2");
   if (total < DUR_MIN) { if (loop) avisos.push(`duração ${total.toFixed(1)}s abaixo de ${DUR_MIN}s (loop não estica)`); else total = DUR_MIN; }
   if (total > DUR_MAX) avisos.push(`duração ${total.toFixed(1)}s passa de ${DUR_MAX}s — encurte o roteiro`);
-  return { ini: { ato1, cta, ato2, ato3 }, total, avisos };
+  const ini = { ato1, cta, ato2, ato3 };
+  const ordem = (["ato1", "cta", "ato2", "ato3"] as const).slice().sort((a, b) => ini[a] - ini[b]);
+  const fim = { ato1: 0, cta: 0, ato2: 0, ato3: 0 };
+  ordem.forEach((id, k) => { fim[id] = k + 1 < ordem.length ? ini[ordem[k + 1]] : total; });
+  return { ini, fim, total, avisos };
 }
 
 export function segmentos(f: Record<"ato1" | "cta" | "ato2" | "ato3", Fala>, l: Linha): SegmentoPlano[] {
-  const fins = { ato1: l.ini.cta, cta: l.ini.ato2, ato2: l.ini.ato3, ato3: l.total };
+  const fins = l.fim;
   return (["ato1", "cta", "ato2", "ato3"] as const).map((id) => ({
     id, ini: id === "ato1" ? 0 : l.ini[id], fim: fins[id],
     palavras: f[id].palavras.map((w): PalavraPlano => ({ t: w.texto, ini: l.ini[id] + w.ini, fim: l.ini[id] + w.fim })),
