@@ -311,7 +311,7 @@ async function main() {
     } else renderEmBlocos(planoArq, bruto, mixArq, linha.total);
     const [f0, f1] = o.frames ? o.frames.split("-").map(Number) : [0, Math.round(linha.total * FPS) - 1];
     const foto = tomadas.some((x) => x.tipo === "parallax" || x.tipo === "video");
-    const { mb, kbps } = finalizar(bruto, video, (f1 - f0 + 1) / FPS, foto ? 6 : 0);
+    const { mb, kbps } = finalizar(bruto, video, (f1 - f0 + 1) / FPS, foto ? 6 : 0, { titulo: `${entrada.reference} — ${(rot.ato1.match(/^[^.!?…]*[.!?…]?/)?.[0] ?? "").trim()}`, descricao: (rot as { descricao_tiktok?: string }).descricao_tiktok ?? `${entrada.reference}. ${rot.ato1}` });
     if (novosFundos.length) confirmarFundos(novosFundos);   // a partir daqui essas imagens nunca mais se repetem
     console.log(`✔ ${video} (${mb.toFixed(1)} MB, vídeo a ${kbps} kbps)`);
   }

@@ -12,7 +12,15 @@ export function bitrateKbps(duracao: number, maxMb = 28, audioKbps = 160): numbe
   return Math.max(1500, Math.floor(total - audioKbps));
 }
 
-export function finalizar(bruto: string, final: string, duracao: number, grao = 0): { mb: number; kbps: number } {
+export interface Meta { titulo?: string; descricao?: string }
+
+/** Metadados do arquivo (título, descrição, idioma pt-BR); o alcance no TikTok depende da legenda, hashtags e retenção, não destes campos. */
+const metadados = (m?: Meta) => [
+  ...(m?.titulo ? ["-metadata", `title=${m.titulo}`] : []), ...(m?.descricao ? ["-metadata", `description=${m.descricao}`] : []),
+  "-metadata", "language=por", "-metadata:s:a:0", "language=por", "-metadata:s:v:0", "language=por",
+];
+
+export function finalizar(bruto: string, final: string, duracao: number, grao = 0, meta?: Meta): { mb: number; kbps: number } {
   const maxMb = Number(process.env.MAX_MB ?? 28);
   const kbps = Math.min(Number(process.env.VIDEO_KBPS ?? 12000), bitrateKbps(duracao, maxMb));
   const log = join(dirname(final), "x264-2pass");
@@ -22,7 +30,7 @@ export function finalizar(bruto: string, final: string, duracao: number, grao = 
     "-b:v", `${kbps}k`, "-maxrate", `${Math.round(kbps * 1.6)}k`, "-bufsize", `${kbps * 2}k`, "-passlogfile", log];
   const p1 = spawnSync("ffmpeg", [...base, "-pass", "1", "-an", "-f", "null", "/dev/null"]);
   if (p1.status !== 0) throw new Error("ffmpeg passada 1: " + p1.stderr?.toString().slice(0, 300));
-  const p2 = spawnSync("ffmpeg", [...base, "-pass", "2", "-c:a", "copy", "-movflags", "+faststart", final]);
+  const p2 = spawnSync("ffmpeg", [...base, "-pass", "2", "-c:a", "copy", "-movflags", "+faststart", ...metadados(meta), final]);
   if (p2.status !== 0) throw new Error("ffmpeg passada 2: " + p2.stderr?.toString().slice(0, 300));
   for (const f of [`${log}-0.log`, `${log}-0.log.mbtree`]) rmSync(f, { force: true });
   rmSync(bruto, { force: true });
