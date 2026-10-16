@@ -222,3 +222,24 @@ export function trovao(seg = 4.5, seed = 2): Float32Array {
   }
   return reverb(normalizar(o, 0.95), 2.2, 0.3).subarray(0, n);
 }
+
+/** Swoosh que ACELERA: o filtro sobe de 250 Hz a 4 kHz e o volume cresce até o fim (termina seco, no impacto). */
+export function voo(seg = 0.62, seed = 1): Float32Array {
+  const r = ruido(seg, seed, "rosa"), o = new Float32Array(r.length), b = Biquad.tipo("bp", 250, 1.4);
+  for (let i = 0; i < o.length; i++) {
+    const u = i / o.length, env = u ** 2.4;
+    if (i % 192 === 0) Object.assign(b, Biquad.tipo("bp", 250 + 3750 * u ** 2.2, 1.3));
+    o[i] = b.p(r[i]) * env;
+  }
+  return normalizar(o, 0.8);
+}
+
+/** Estalo de cera: crack agudo curto + baque grave + estilhaços e eco curto. */
+export function estalo(seed = 1): Float32Array {
+  const n = N(0.7), o = new Float32Array(n), r = prng(seed + 300);
+  const crack = filtrar(ruido(0.2, seed, "branco"), "hp", 1800);
+  for (let i = 0; i < crack.length; i++) o[i] += crack[i] * Math.exp(-i / (SR * 0.022)) * 0.9;
+  for (let i = 0; i < n; i++) { const t = i / SR; o[i] += Math.sin(2 * Math.PI * (120 * Math.exp(-t * 22) + 48) * t) * Math.exp(-t * 14) * 1.0; }
+  for (let k = 0; k < 7; k++) { const t0 = Math.floor((0.03 + r() * 0.3) * SR), g = 0.15 + r() * 0.25; for (let j = 0; j < SR * 0.012 && t0 + j < n; j++) o[t0 + j] += (r() * 2 - 1) * g * Math.exp(-j / (SR * 0.004)); }
+  return reverb(normalizar(o, 0.95), 0.7, 0.18).subarray(0, n);
+}

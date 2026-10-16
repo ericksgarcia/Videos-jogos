@@ -40,6 +40,9 @@ export const Video = (plano: Plano) => {
   // pulsação no ritmo só nas cenas desenhadas; em foto (parallax/vídeo) ela parece tranco
   const foto = plano.tomadas.some((x) => x.tipo === "parallax" || x.tipo === "video");
   const pulsar = foto ? 1 : 1 + (emLeitura ? 0.012 : 0.005) * Math.exp(-fase * 6);
+  // tremor de câmera a cada impacto de lacre (decai em ~0,35 s)
+  const tremor = (plano.visual_fato?.gatilhos ?? []).reduce((a, g) => a + (t >= g ? Math.exp(-(t - g) * 9) : 0), 0);
+  const tx = Math.sin(t * 95) * 11 * Math.min(1, tremor), ty = Math.cos(t * 83) * 9 * Math.min(1, tremor);
 
   // em loop não há fade: o último quadro emenda no primeiro
   const abrir = plano.loop ? 1 : interpolate(frame, [0, q(0.7)], [0, 1], { extrapolateRight: "clamp" });
@@ -48,7 +51,7 @@ export const Video = (plano: Plano) => {
   return (
     <AbsoluteFill style={{ background: "#000", opacity: Math.min(abrir, fechar) }}>
       <Audio src={staticFile(plano.audio)} />
-      <AbsoluteFill style={{ transform: `scale(${pulsar})`, filter: proc ? "contrast(1.06) saturate(1.0) brightness(1.08)" : "contrast(1.06) saturate(1.06) brightness(1.04)" }}>
+      <AbsoluteFill style={{ transform: `translate(${tx}px, ${ty}px) scale(${pulsar * (1 + 0.012 * Math.min(1, tremor))})`, filter: proc ? "contrast(1.06) saturate(1.0) brightness(1.08)" : "contrast(1.06) saturate(1.06) brightness(1.04)" }}>
         {plano.tomadas.map((x, i) => {
           const dur = (i === plano.tomadas.length - 1 ? durationInFrames : q(x.fim)) - q(x.ini); // pelos quadros: sem buraco no fim
           const entrada = i === 0 ? 0 : DISSOLVER;
@@ -57,7 +60,7 @@ export const Video = (plano: Plano) => {
             <Sequence key={i} from={q(x.ini) - entrada} durationInFrames={dur + entrada + resto} layout="none">
               <FusaoEntrada entrada={entrada} escurecer={x.faixa === undefined ? 1 : 1 - 0.3 * Math.min(1, Math.max(0, (x.faixa - 105) / 60))}>
                 {x.tipo === "gerativo" ? (
-                  <ShaderFundo paleta={plano.fundo?.paleta} semente={plano.fundo?.semente} batida={plano.bpm / 60}
+                  <ShaderFundo paleta={plano.fundo?.paleta} semente={plano.fundo?.semente} batida={plano.bpm / 60} periodo={plano.loop ? plano.duracao : 0}
                     pulsos={[plano.climax.t, ...(plano.visual_fato?.gatilhos ?? [])]} />
                 ) : x.tipo === "cenografia" ? (
                   <Cenografia cena={x.cena ?? "cova_leoes"} variante={x.variante} duracaoQuadros={dur + entrada}

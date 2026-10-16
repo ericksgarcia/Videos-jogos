@@ -60,7 +60,7 @@ function ganchoTempos(segs: { id: string; palavras: { t: string; ini: number; fi
 }
 
 /** O fato vira cena: lacres que entram no gancho (a partir da palavra "sete", ou de 0,3 s) e quebram na palavra de cada ameaça lida no versículo. */
-function visualFato(v: { tipo: "lacres"; gatilhos: string[]; entrada?: string }, segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[]) {
+function visualFato(id: string, v: { tipo: "lacres"; gatilhos: string[]; entrada?: string }, segs: { id: string; palavras: { t: string; ini: number; fim: number }[] }[]) {
   const limpa = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, "");
   const a2 = segs.find((s) => s.id === "ato2")!.palavras, a1 = segs.find((s) => s.id === "ato1")!.palavras;
   let k = 0;
@@ -68,7 +68,13 @@ function visualFato(v: { tipo: "lacres"; gatilhos: string[]; entrada?: string },
   const gatilhos = v.gatilhos.map((g) => { const i = a2.findIndex((w, j) => j >= k && limpa(w.t) === limpa(g)); if (i < 0) throw new Error(`visual_fato: palavra "${g}" não está no versículo`); k = i + 1; idx.push(i); return Number((a2[i].ini + 0.1).toFixed(2)); });
   const ent = v.entrada ? a1.find((w) => limpa(w.t).startsWith(limpa(v.entrada!))) : undefined;
   const t0 = ent ? ent.ini : 0.3;
-  return { tipo: v.tipo, n: v.gatilhos.length, entradas: v.gatilhos.map((_, i) => Number((t0 + i * 0.22).toFixed(2))), gatilhos, idx };
+  // ordem de quebra ALEATÓRIA (sorteada pelo id do vídeo): o lacre número `selo[j]+1` bate na palavra j
+  let seed = id.split("").reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const rnd = () => { seed = (seed + 0x6d2b79f5) >>> 0; let t = seed; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const selo = v.gatilhos.map((_, i) => i);
+  for (let i = selo.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [selo[i], selo[j]] = [selo[j], selo[i]]; }
+  if (selo.every((x, i) => x === i)) selo.reverse();   // nunca na ordem 1,2,3…
+  return { tipo: v.tipo, n: v.gatilhos.length, entradas: v.gatilhos.map((_, i) => Number((0.05 + i * 0.07).toFixed(2))), gatilhos, idx, selo };
 }
 
 /** Fases que o roteiro precisa justificar (teste do "dedo rolando" em CADA fase, não só no gancho). */
@@ -294,11 +300,13 @@ async function main() {
 
   // 6) áudio
   const at = linha.ini;
+  const vf = extras.visual_fato ? visualFato(entrada.id, extras.visual_fato, segs) : undefined;
   const mix = mixar({
     total: linha.total,
     voz: [{ ini: at.ato1, audio: falas.ato1.audio }, { ini: at.cta, audio: falas.cta.audio }, { ini: at.ato2, audio: falas.ato2.audio }, { ini: at.ato3, audio: falas.ato3.audio }],
     atos: { ato1: [0, at.cta], cta: [at.cta, at.ato2], ato2: [at.ato2, at.ato3], ato3: [at.ato3, linha.total] },
     cues: entrada.audio_cues, tom: entrada.tone, bpm, climaxEm: climaxT, abertura: Boolean(extras.gancho_tela), loop: extras.loop,
+    extras: vf ? vf.gatilhos.flatMap((t) => [{ t, tipo: "voo" as const }, { t, tipo: "estalo" as const }]) : undefined,
   });
   const mixArq = gravarMix(mix.esq, mix.dir, join(pub, "mix"));
   copyFileSync(mixArq, join(saida, basename(mixArq)));
@@ -309,7 +317,7 @@ async function main() {
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
     rotulo: rotuloDe(entrada, at.ato2),
     fundo: extras.fundo === "gerativo" ? { paleta: extras.paleta ?? (entrada.tone === "epic" ? "ouro" : "azul"), semente: tomadas[0]?.seed ?? 1 } : undefined,
-    visual_fato: extras.visual_fato ? visualFato(extras.visual_fato, segs) : undefined,
+    visual_fato: vf,
     gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: at.ato2 - 0.2 } : undefined,
   };

@@ -48,7 +48,7 @@ export type Plano = {
   gancho_virada?: number;             // s do 2º golpe (início da 2ª frase): flash + empurrão de câmera que segura a retenção aos 3-4 s
   cta_tela?: { texto: string; ini: number; fim: number };
   fundo?: { paleta: string; semente: number };   // fundo gerativo (shader), sem imagens pagas
-  visual_fato?: { tipo: "lacres"; n: number; entradas: number[]; gatilhos: number[]; idx: number[] };   // o fato vira cena, sincronizado com a voz
+  visual_fato?: { tipo: "lacres"; n: number; entradas: number[]; gatilhos: number[]; idx: number[]; selo: number[] };   // o fato vira cena, sincronizado com a voz
   verso_fixo?: boolean;               // o versículo inteiro fica escrito na tela o vídeo todo; as outras falas não têm texto
   loop?: boolean;                     // sem fade no fim/começo: o vídeo emenda em si mesmo
   blocos?: import("./blocos").Bloco[]; // legenda em 2 linhas = cortes de imagem

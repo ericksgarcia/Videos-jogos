@@ -1,0 +1,24 @@
+{
+  "ato1": "A Bíblia diz que o justo cai sete vezes. A queda não o separa do ímpio.",
+  "cta": "Curte e comenta amém. A diferença vem agora.",
+  "cta_tela": "Comente: AMÉM",
+  "versiculo": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
+  "climax": "levantará;",
+  "ato3": "Sete, na Bíblia, é a conta completa. E um versículo antes vem o aviso a quem arma emboscada contra o justo. Foi assim que",
+  "loop": true,
+  "cta_style": "amem",
+  "fundo": "gerativo",
+  "paleta": "ouro",
+  "visual_fato": {
+    "tipo": "lacres",
+    "gatilhos": [
+      "sete",
+      "vezes",
+      "cairá",
+      "justo",
+      "levantará;",
+      "ímpios",
+      "tropeçarão"
+    ]
+  }
+}
