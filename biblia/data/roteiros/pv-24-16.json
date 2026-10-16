@@ -1,10 +1,10 @@
 {
-  "ato1": "Quero ver você adivinhar qual quebra por último. O justo cai sete vezes.",
-  "cta": "Curte e comenta amém. A diferença vem agora.",
+  "ato1": "Quero ver você adivinhar qual quebra por último. São sete quedas, e só um se levanta.",
+  "cta": "Curte e comenta amém antes do último lacre.",
   "cta_tela": "Comente: AMÉM",
   "versiculo": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
   "climax": "levantará;",
-  "ato3": "Sete, na Bíblia, é a conta completa. E o versículo não fala ao justo: fala a quem arma emboscada contra ele. Sabendo disso,",
+  "ato3": "Sete, na Bíblia, é a conta completa. O recado é para quem arma emboscada ao justo: quem não levanta é ele. Então, de novo:",
   "loop": true,
   "cta_style": "amem",
   "fundo": "gerativo",
@@ -22,13 +22,13 @@
     ]
   },
   "auditoria": {
-    "gancho": "O justo cai sete vezes é uma afirmação estranha e concreta sem pergunta.",
-    "virada": "A queda não o separa do ímpio abre a dúvida do que separa os dois.",
-    "contexto": "A diferença vem agora mantém a pergunta aberta durante o pedido.",
-    "cta": "O pedido curto de amém promete a diferença que o versículo entrega.",
-    "versiculo": "Se levantará contra tropeçarão paga a diferença com sete lacres quebrando.",
+    "gancho": "O desafio de adivinhar qual lacre quebra por último prende e puxa o replay.",
+    "virada": "São sete quedas, e só um se levanta abre a dúvida de quem é esse um.",
+    "contexto": "O pedido de amém antes do último lacre mantém a tensão sobre quem se levanta.",
+    "cta": "Curte e comenta amém usa a mecânica dos lacres e promete o versículo.",
+    "versiculo": "Se levantará contra tropeçarão paga a dúvida enquanto os sete lacres quebram.",
     "ato3": "O versículo fala a quem arma emboscada contra o justo, fato novo do contexto.",
-    "final": "Foi assim que a Bíblia diz que o justo cai sete vezes retoma o aviso."
+    "final": "Então, de novo emenda no convite de rever e adivinhar o último lacre."
   },
   "revisao": {
     "gancho": 8,
