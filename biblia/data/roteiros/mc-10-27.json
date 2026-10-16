@@ -3,8 +3,27 @@
   "cta": "Curte e comenta amém. Escuta o que ele disse depois.",
   "cta_tela": "Comente: AMÉM",
   "versiculo": "Para os homens é impossível, mas não para Deus,",
-  "climax": "impossível,",
+  "climax": "Deus,",
   "ato3": "Marcos conta: Jesus olhou para um rico e o amou. Mesmo amado, saiu triste. Os discípulos perguntaram: quem se salva? Foi aí que",
   "loop": true,
-  "cta_style": "amem"
+  "cta_style": "amem",
+  "auditoria": {
+    "gancho": "Jesus admitiu que era impossível é curto, chocante e deixa o quê no ar.",
+    "virada": "O camelo passando pela agulha é uma imagem concreta que antecede o impossível.",
+    "contexto": "Escuta o que ele disse depois mantém a tensão aberta durante o pedido.",
+    "cta": "O pedido curto de amém promete a resposta que o versículo entrega.",
+    "versiculo": "Mas não para Deus paga o gancho e dá peso de consolo ao trecho.",
+    "ato3": "Só Marcos conta que Jesus amou o rico que saiu triste.",
+    "final": "A pergunta quem se salva dispara a resposta e fecha o laço."
+  },
+  "revisao": {
+    "gancho": 9,
+    "virada": 8,
+    "contexto": 8,
+    "cta": 8,
+    "versiculo": 8,
+    "ato3": 9,
+    "final": 9,
+    "rodadas": 2
+  }
 }
