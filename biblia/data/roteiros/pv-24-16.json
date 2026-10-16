@@ -1,10 +1,10 @@
 {
-  "ato1": "Adivinha qual bolha estoura por último. Cada uma é uma queda do justo.",
-  "cta": "Comenta o número da última bolha e amém.",
+  "ato1": "Adivinha qual bolha estoura por último. A última queda não é do justo.",
+  "cta": "Comenta o número da última bolha. E amém.",
   "cta_tela": "Comente: nº + AMÉM",
   "versiculo": "Porque sete vezes cairá o justo e se levantará; mas os ímpios tropeçarão no mal.",
   "climax": "levantará;",
-  "ato3": "Um verso antes: não espies a habitação do justo, ó ímpio. Quem tropeça é quem espiava.",
+  "ato3": "No verso antes, ele avisa o ímpio: não espies a habitação do justo. Quem tropeça é quem espiava.",
   "loop": true,
   "cta_style": "amem",
   "fundo": "gerativo",
@@ -23,12 +23,12 @@
   },
   "auditoria": {
     "gancho": "O desafio de adivinhar qual bolha estoura por último prende já na primeira frase.",
-    "virada": "Cada uma é uma queda do justo transforma as bolhas nas quedas antes da leitura.",
-    "contexto": "A bolha vira queda do justo e o versículo revela o número: sete vezes.",
-    "cta": "Comenta o número da última bolha usa o desafio e pede o amém.",
+    "virada": "A última queda não é do justo cria a pergunta de quem é essa queda.",
+    "contexto": "Sete bolhas, sete palavras: o justo levanta e quem cai de vez é o ímpio.",
+    "cta": "Comenta o número da última bolha usa o desafio e pede o amém separado.",
     "versiculo": "O estouro maior cai em tropeçarão, sobre o ímpio, e responde o desafio do último.",
     "ato3": "O verso quinze ARC manda o ímpio não espiar a habitação do justo: quem tropeça é quem espiava.",
-    "final": "Fechar com o pedido de número e amém faz o espectador rever e comentar."
+    "final": "Fechar com o pedido do número e do amém faz o espectador rever e comentar."
   },
   "revisao": {
     "gancho": 0,
