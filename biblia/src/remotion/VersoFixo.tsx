@@ -14,7 +14,7 @@ import { SOMBRA_TEXTO } from "./KineticText";
 const OURO = "#f6c64a";
 const MARFIM = "#f4ecd8";
 export const CAIXA = { x: 70, w: 850, y: 330, h: 1150 };   // área segura (px, vídeo 1080×1920)
-const EM = 0.66;                                             // largura média de um caractere do Cinzel 700, em "em"
+export const EM = 0.66;                                             // largura média de um caractere do Cinzel 700, em "em"
 
 /** Quebra gulosa nas linhas da caixa e escolhe a maior fonte (≤ 104 px) em que o texto inteiro cabe. */
 export function diagramar(palavras: PalavraPlano[], caixa = CAIXA): { fonte: number; linhas: PalavraPlano[][] } {

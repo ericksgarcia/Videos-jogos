@@ -64,10 +64,11 @@ function visualFato(v: { tipo: "lacres"; gatilhos: string[]; entrada?: string },
   const limpa = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, "");
   const a2 = segs.find((s) => s.id === "ato2")!.palavras, a1 = segs.find((s) => s.id === "ato1")!.palavras;
   let k = 0;
-  const gatilhos = v.gatilhos.map((g) => { const i = a2.findIndex((w, j) => j >= k && limpa(w.t) === limpa(g)); if (i < 0) throw new Error(`visual_fato: palavra "${g}" não está no versículo`); k = i + 1; return Number(a2[i].fim.toFixed(2)); });
+  const idx: number[] = [];
+  const gatilhos = v.gatilhos.map((g) => { const i = a2.findIndex((w, j) => j >= k && limpa(w.t) === limpa(g)); if (i < 0) throw new Error(`visual_fato: palavra "${g}" não está no versículo`); k = i + 1; idx.push(i); return Number((a2[i].ini + 0.1).toFixed(2)); });
   const ent = v.entrada ? a1.find((w) => limpa(w.t).startsWith(limpa(v.entrada!))) : undefined;
   const t0 = ent ? ent.ini : 0.3;
-  return { tipo: v.tipo, n: v.gatilhos.length, entradas: v.gatilhos.map((_, i) => Number((t0 + i * 0.22).toFixed(2))), gatilhos };
+  return { tipo: v.tipo, n: v.gatilhos.length, entradas: v.gatilhos.map((_, i) => Number((t0 + i * 0.22).toFixed(2))), gatilhos, idx };
 }
 
 /** Fases que o roteiro precisa justificar (teste do "dedo rolando" em CADA fase, não só no gancho). */

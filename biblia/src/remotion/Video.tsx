@@ -89,7 +89,7 @@ export const Video = (plano: Plano) => {
       <RotuloReferencia {...plano.rotulo} />
       {plano.gancho_tela && !plano.verso_fixo && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
       {plano.gancho_virada !== undefined && <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, rgba(255,230,170,1), rgba(255,200,110,0) 65%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.gancho_virada!); return k < 0 ? 0 : 0.5 * Math.exp(-k / 5); })() }} />}
-      {plano.visual_fato?.tipo === "lacres" && <Lacres v={plano.visual_fato} />}
+      {plano.visual_fato?.tipo === "lacres" && <Lacres v={plano.visual_fato} palavras={(plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []).map((w) => w.t)} caixa={{ x: 70, w: 850, y: 330, h: 860 }} />}
       {plano.cta_tela && <SeloComentario {...plano.cta_tela} />}
       {/* granulado no navegador trocava a cada 2 quadros (15 Hz) e parecia tranco: em foto ele vai para o ffmpeg */}
       {!foto && <GranuladoFilme />}
