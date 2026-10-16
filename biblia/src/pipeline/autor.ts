@@ -122,6 +122,8 @@ export async function criarRoteiro(p: Passagem, evitar: string[] = [], log: (s: 
     const base = melhor.rot;
     const aprovadas = FASES.filter((f) => melhor!.notas[f] >= NOTA_MIN).map((f) => CAMPO[f]);
     const falhas = aprovadas.length ? [`NÃO ALTERE (já aprovados pelos analistas): ${aprovadas.join("; ")}. Reescreva SOMENTE o que reprovou; copie o resto palavra por palavra.`] : [];
+    for (const f of reprovadas) log(`    ${f}: ${analises[f].motivo} | rolaria em: ${analises[f].onde_rolaria} | sugestão: ${analises[f].reescrita ?? "-"}`);
+    log(`    ato3 atual: "${rot.ato3}"`);
     log(`  reprovadas: ${reprovadas.join(", ")} — o autor reescreve`);
     rot = await escrever(p, evitar, { rot: base, falhas, analises: pareceres });
   }
