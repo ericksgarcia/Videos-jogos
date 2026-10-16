@@ -1,0 +1,11 @@
+{
+  "gancho_tela": ["ESTA CARTA CHEGOU", "EM ROMA ANTES DAS", "FOGUEIRAS DE NERO."],
+  "ato1": "Esta carta chegou em Roma antes das fogueiras de Nero. Os leitores não sabiam o que vinha.",
+  "cta": "Curte e comenta amém. Escuta as três ordens de Paulo.",
+  "cta_tela": "Comente: AMÉM",
+  "versiculo": "alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração;",
+  "ato3": "Em 64, Nero culpou os cristãos pelo incêndio de Roma. Paulo não prometeu escapar da tribulação, só perseverança. Foi para eles que",
+  "loop": true,
+  "climax": "tribulação,",
+  "cta_style": "amem"
+}
