@@ -1,6 +1,6 @@
 # Revisão rígida do roteiro (avaliador independente)
 
-> **Desde o vídeo 38 a revisão volta a ser feita por UM avaliador independente (as 7 fases juntas), novo a cada rodada; o modelo de 7 especialistas (`REVISAO_ESPECIALISTAS.md`, vídeos 35–37) foi aposentado por pedido do dono.** Esta página é a régua (notas, o que reprova, o que é extraordinário).
+> **Desde o vídeo 39 a revisão é feita por 7 analistas do DeepSeek, um por fase, em paralelo e com prompt completo (`src/pipeline/equipe.ts`; ver README, "Equipe DeepSeek").** Esta página é a régua (notas, o que reprova, o que é extraordinário).
 
 Todo roteiro passa por um avaliador que NÃO escreveu o texto e só enxerga o roteiro — nunca a justificativa do autor.
 Ele age como alguém que rola o TikTok por hábito, com o polegar já a caminho de passar o vídeo. A pergunta em cada

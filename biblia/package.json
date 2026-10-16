@@ -8,7 +8,8 @@
     "video": "tsx src/pipeline/run.ts",
     "studio": "tsx scripts/make-overlays.ts && remotion studio src/remotion/index.ts",
     "test": "tsx --test tests/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "novo": "tsx scripts/novo-video.ts"
   },
   "dependencies": {
     "@fontsource/cinzel": "^5.3.0",
