@@ -19,7 +19,7 @@ fase é: **"eu paro aqui? eu deixo passar? em que palavra eu rolaria?"**
 - Fase sem informação nova ou sem tensão; CTA que corta o clima sem alimentar o laço; ato 3 em tom de sermão/lista.
 - Final que só "termina" em vez de fechar o laço e puxar o replay.
 
-- Texto grande de abertura diferente do que a voz diz (o espectador lê uma coisa e ouve outra): o texto na tela é SEMPRE a 1ª frase narrada.
+- (Formato antigo, com texto de abertura na tela: o texto era SEMPRE a 1ª frase narrada.) No formato atual só o versículo aparece escrito; as demais falas são só ouvidas.
 
 ## O que o roteiro extraordinário tem
 - Um fato concreto e estranho que o espectador não sabia (número, nome, regra da época, reviravolta).
