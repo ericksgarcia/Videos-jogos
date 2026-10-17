@@ -4,7 +4,7 @@
   "catalogo_id": "dn-6-22",
   "versiculo_chave": "O meu Deus enviou o seu anjo e fechou a boca dos leões",
   "duracao_alvo_s": 88,
-  "duracao_estimada_s": 89.2,
+  "duracao_estimada_s": 88.3,
   "formato": "história: gancho → laço aberto → escalada → virada → clímax (versículo) → payoff → CTA → loop",
   "imagens_total": 18,
   "regras_de_tela": "sem texto no gancho e na escalada; o versículo-chave (Dn 6:22) e a referência 'Daniel 6:22' entram no B14 e ficam até o B16; no CTA some o versículo e aparece só 'Comenta: fecharia a janela?'. Dramatizações marcadas: quem não dormiu foi o rei (sugere que Daniel dormiu), a cova engoliria outros, bastava fechar a janela, sem um arranhão, o escuro respondeu. Omitidas as famílias de 6:24. A imagem 12 mostra Daniel sendo lançado na cova (o texto vai direto ao selo).",
@@ -20,13 +20,13 @@
       "tecnica": "perigo concreto em 5 palavras + virada do rei insone (Dn 6:16,18)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 0.5,
+      "inicio_aprox_s": 0.1,
       "duracao_aprox_s": 5.5
     },
     {
       "id": "B2",
       "fase": "laco_aberto",
-      "fala": "Mas a cova ainda engoliria outros homens. De manhã, o rei correu até lá.",
+      "fala": "A cova ainda engoliria outros. De manhã, o rei correu até lá.",
       "imagens": [
         3,
         4
@@ -34,8 +34,8 @@
       "tecnica": "laço: quem foram os outros? Pago no B16 (Dn 6:19,24; 'engoliria' é dramatização); não revela se Daniel vive",
       "tela": "",
       "som": "passos e respiração; coração",
-      "inicio_aprox_s": 6.0,
-      "duracao_aprox_s": 7.0
+      "inicio_aprox_s": 5.6,
+      "duracao_aprox_s": 6.0
     },
     {
       "id": "B3",
@@ -47,7 +47,7 @@
       "tecnica": "liga o homem do gancho a Daniel e o motivo da inveja (Dn 6:3)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 13.0,
+      "inicio_aprox_s": 11.7,
       "duracao_aprox_s": 5.5
     },
     {
@@ -60,7 +60,7 @@
       "tecnica": "a inveja dentro da ação; cliffhanger (Dn 6:4-5)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 18.5,
+      "inicio_aprox_s": 17.2,
       "duracao_aprox_s": 5.5
     },
     {
@@ -73,7 +73,7 @@
       "tecnica": "regra estranha e concreta (Dn 6:7)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 24.1,
+      "inicio_aprox_s": 22.7,
       "duracao_aprox_s": 5.1
     },
     {
@@ -86,7 +86,7 @@
       "tecnica": "mini-cliffhanger: ponto sem volta (Dn 6:8-9)",
       "tela": "",
       "som": "carimbo",
-      "inicio_aprox_s": 29.1,
+      "inicio_aprox_s": 27.8,
       "duracao_aprox_s": 4.6
     },
     {
@@ -99,7 +99,7 @@
       "tecnica": "a escolha contra o óbvio (Dn 6:10; 'bastava fechar a janela' é dramatização)",
       "tela": "",
       "som": "vento entra",
-      "inicio_aprox_s": 33.7,
+      "inicio_aprox_s": 32.4,
       "duracao_aprox_s": 4.6
     },
     {
@@ -112,7 +112,7 @@
       "tecnica": "identificação (Dn 6:10)",
       "tela": "",
       "som": "coração sobe",
-      "inicio_aprox_s": 38.3,
+      "inicio_aprox_s": 37.0,
       "duracao_aprox_s": 4.6
     },
     {
@@ -125,7 +125,7 @@
       "tecnica": "denúncia e rei impotente (Dn 6:13-15)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 42.9,
+      "inicio_aprox_s": 41.5,
       "duracao_aprox_s": 5.5
     },
     {
@@ -138,7 +138,7 @@
       "tecnica": "fé do rei e ponto sem volta (Dn 6:16-17)",
       "tela": "",
       "som": "pedra arrastando",
-      "inicio_aprox_s": 48.4,
+      "inicio_aprox_s": 47.1,
       "duracao_aprox_s": 6.0
     },
     {
@@ -151,7 +151,7 @@
       "tecnica": "retorno ao gancho (Dn 6:18)",
       "tela": "",
       "som": "tocha",
-      "inicio_aprox_s": 54.5,
+      "inicio_aprox_s": 53.1,
       "duracao_aprox_s": 3.6
     },
     {
@@ -165,7 +165,7 @@
       "tecnica": "eco do B2 pelas imagens 3 e 4 + dúvida do rei (Dn 6:20)",
       "tela": "",
       "som": "passos e respiração",
-      "inicio_aprox_s": 58.1,
+      "inicio_aprox_s": 56.7,
       "duracao_aprox_s": 5.5
     },
     {
@@ -178,7 +178,7 @@
       "tecnica": "silêncio real antes da resposta",
       "tela": "",
       "som": "só vento",
-      "inicio_aprox_s": 63.6,
+      "inicio_aprox_s": 62.3,
       "duracao_aprox_s": 1.2
     },
     {
@@ -191,7 +191,7 @@
       "tecnica": "paga o laço do B2 (Dn 6:21)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 64.8,
+      "inicio_aprox_s": 63.5,
       "duracao_aprox_s": 4.6
     },
     {
@@ -205,7 +205,7 @@
       "tecnica": "versículo-chave só aqui (Dn 6:22); a imagem 16 entra em 'fechou'",
       "tela": "VERSÍCULO + Daniel 6:22",
       "som": "luz",
-      "inicio_aprox_s": 69.4,
+      "inicio_aprox_s": 68.1,
       "duracao_aprox_s": 6.5
     },
     {
@@ -218,21 +218,21 @@
       "tecnica": "fato do texto (Dn 6:23)",
       "tela": "VERSÍCULO",
       "som": "",
-      "inicio_aprox_s": 75.9,
+      "inicio_aprox_s": 74.5,
       "duracao_aprox_s": 5.1
     },
     {
       "id": "B16",
       "fase": "payoff",
-      "fala": "Os outros? Os acusadores. Os leões os pegaram antes do fundo.",
+      "fala": "E os outros? Os acusadores. Os leões os pegaram antes do fundo.",
       "imagens": [
         18
       ],
       "tecnica": "paga o laço do B2 com o fato literal (Dn 6:24; omitidas as famílias)",
       "tela": "VERSÍCULO",
       "som": "rugido curto e corte seco",
-      "inicio_aprox_s": 81.0,
-      "duracao_aprox_s": 5.5
+      "inicio_aprox_s": 79.6,
+      "duracao_aprox_s": 6.0
     },
     {
       "id": "B17",
@@ -244,7 +244,7 @@
       "tecnica": "UMA ação binária; a imagem 1 volta e o vídeo recomeça no gancho",
       "tela": "Comenta: fecharia a janela?",
       "som": "",
-      "inicio_aprox_s": 86.5,
+      "inicio_aprox_s": 85.6,
       "duracao_aprox_s": 2.7
     }
   ],
@@ -267,6 +267,6 @@
     "payoff": 0,
     "cta": 0,
     "ritmo_fidelidade": 0,
-    "rodadas": 6
+    "rodadas": 7
   }
 }
