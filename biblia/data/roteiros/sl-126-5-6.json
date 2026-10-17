@@ -1,8 +1,8 @@
 {
-  "ato1": "Ele chorava enterrando a comida dos filhos. E fazia de propósito, sabendo que podia não nascer nada.",
+  "ato1": "Ele chorava enterrando a comida dos filhos. E fazia de propósito, sabendo que podia perder tudo.",
   "versiculo": "Aquele que leva a preciosa semente, andando e chorando, voltará, sem dúvida, com alegria",
   "climax": "alegria",
-  "ato3": "Cada grão na terra era um grão a menos na mesa. O salmo não diz talvez: diz sem dúvida. O que você enterra chorando volta em feixes.",
+  "ato3": "Cada grão na terra era um grão a menos na mesa. Mas o salmo diz sem dúvida: volta em feixes.",
   "cta": "Comenta amém se você está plantando chorando hoje.",
   "cta_tela": "Comente: AMÉM",
   "cta_style": "amem",
@@ -40,11 +40,11 @@
   ],
   "auditoria": {
     "gancho": "Enterrar a comida dos filhos chorando é um paradoxo concreto de sete palavras.",
-    "virada": "De propósito, sabendo que podia não nascer nada, escala o risco e abre o porquê.",
+    "virada": "De propósito, sabendo que podia perder tudo, escala o risco e abre o porquê.",
     "contexto": "Cada grão na terra era um grão a menos na mesa, dito no começo do ato três.",
     "cta": "Comenta amém se você está plantando chorando hoje emenda no ele chorava do início.",
     "versiculo": "Voltará com alegria responde ao porquê com a preciosa semente e o sem dúvida.",
-    "ato3": "Um grão a menos na mesa e o sem dúvida do salmo mudam o sentido de enterrar a comida.",
+    "ato3": "O sem dúvida do salmo e o volta em feixes mudam o sentido de enterrar a comida.",
     "final": "O pedido de amém a quem planta chorando hoje reabre o ele chorava do começo."
   },
   "revisao": {
