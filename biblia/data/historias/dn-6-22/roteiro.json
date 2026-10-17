@@ -4,233 +4,235 @@
   "catalogo_id": "dn-6-22",
   "versiculo_chave": "O meu Deus enviou o seu anjo e fechou a boca dos leões",
   "duracao_alvo_s": 88,
-  "duracao_estimada_s": 92.1,
+  "duracao_estimada_s": 86.8,
   "formato": "história: gancho → laço aberto → escalada → virada → clímax (versículo) → payoff → CTA → loop",
   "imagens_total": 18,
-  "regras_de_tela": "sem texto no gancho e na escalada; o versículo-chave (Dn 6:22) e a referência 'Daniel 6:22' entram no B14 e ficam até o fim; no CTA aparece 'Comente: sua cova de leões'.",
+  "regras_de_tela": "sem texto no gancho e na escalada; o versículo-chave (Dn 6:22) e a referência 'Daniel 6:22' entram no B14 e ficam até o B16; no CTA some o versículo e aparece só 'Comente: sua cova de leões'. Dramatizações marcadas: braço direito, bastava fechar a janela, nenhum arranhão, o escuro respondeu. Omitidas as famílias de 6:24.",
   "beats": [
     {
       "id": "B1",
       "fase": "gancho",
-      "fala": "Jogaram um homem numa cova cheia de leões. E quem não dormiu foi o rei.",
+      "fala": "Jogaram um homem aos leões. Quem não dormiu foi o rei.",
       "imagens": [
         1,
         2
       ],
-      "tecnica": "perigo concreto + virada do rei insone",
+      "tecnica": "perigo concreto em 5 palavras + virada do rei insone (Dn 6:16,18)",
       "tela": "",
       "som": "",
       "inicio_aprox_s": 0.5,
-      "duracao_aprox_s": 7.4
+      "duracao_aprox_s": 5.5
     },
     {
       "id": "B2",
       "fase": "laco_aberto",
-      "fala": "De manhã, a cova recebeu outros homens. Nem tocaram o chão.",
+      "fala": "Ao amanhecer, ele correu até a cova. E gritou para o escuro.",
       "imagens": [
-        3
+        3,
+        4
       ],
-      "tecnica": "laço aberto: quem são eles? só é pago no B16 (Dn 6:24)",
+      "tecnica": "laço aberto: alguém respondeu? vivo ou morto? Pago no B13 (Dn 6:19-20)",
       "tela": "",
-      "som": "pancada seca e silêncio",
-      "inicio_aprox_s": 7.9,
-      "duracao_aprox_s": 5.5
+      "som": "passos e respiração; coração",
+      "inicio_aprox_s": 6.0,
+      "duracao_aprox_s": 6.0
     },
     {
       "id": "B3",
       "fase": "escalada",
-      "fala": "Daniel era o mais fiel do reino. Virou o problema dele.",
+      "fala": "Daniel era o braço direito do rei.",
       "imagens": [
-        4
+        5
       ],
-      "tecnica": "paradoxo: a virtude vira ameaça (Dn 6:3-4)",
+      "tecnica": "motivo da inveja (Dn 6:3; dramatização: braço direito)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 13.4,
-      "duracao_aprox_s": 5.5
+      "inicio_aprox_s": 12.1,
+      "duracao_aprox_s": 3.6
     },
     {
       "id": "B4",
       "fase": "escalada",
-      "fala": "Procuraram uma falha. Nada. Então miraram a fé dele.",
+      "fala": "Caçaram uma falha nele. Nada. Então miraram a fé.",
       "imagens": [
-        5
+        6
       ],
       "tecnica": "cliffhanger curto (Dn 6:4-5)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 18.9,
-      "duracao_aprox_s": 4.5
+      "inicio_aprox_s": 15.7,
+      "duracao_aprox_s": 4.6
     },
     {
       "id": "B5",
       "fase": "escalada",
       "fala": "Nova lei: trinta dias orando só ao rei. Ou leões.",
       "imagens": [
-        6
+        7
       ],
       "tecnica": "regra estranha e concreta (Dn 6:7)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 23.4,
-      "duracao_aprox_s": 5.0
+      "inicio_aprox_s": 20.3,
+      "duracao_aprox_s": 5.1
     },
     {
       "id": "B6",
       "fase": "escalada",
       "fala": "O rei assinou. E lei assinada não se desfaz.",
       "imagens": [
-        7
+        8
       ],
       "tecnica": "mini-cliffhanger: ponto sem volta (Dn 6:8-9)",
       "tela": "",
       "som": "carimbo",
-      "inicio_aprox_s": 28.4,
-      "duracao_aprox_s": 4.5
+      "inicio_aprox_s": 25.3,
+      "duracao_aprox_s": 4.6
     },
     {
       "id": "B7",
       "fase": "virada",
-      "fala": "Bastava fechar a janela por trinta dias. Daniel não fechou.",
+      "fala": "Daniel soube. Bastava fechar a janela. Ele não fechou.",
       "imagens": [
-        8
+        9
       ],
-      "tecnica": "a escolha contra o óbvio (Dn 6:10)",
+      "tecnica": "a escolha contra o óbvio (Dn 6:10; 'bastava fechar a janela' é dramatização)",
       "tela": "",
       "som": "vento entra",
-      "inicio_aprox_s": 33.0,
-      "duracao_aprox_s": 5.0
+      "inicio_aprox_s": 29.9,
+      "duracao_aprox_s": 4.6
     },
     {
       "id": "B8",
       "fase": "virada",
-      "fala": "Três vezes ao dia, de joelhos. Eles viram. E você, fecharia?",
+      "fala": "De joelhos, três vezes ao dia. Eles viram. E você, fecharia?",
       "imagens": [
-        9
+        10
       ],
       "tecnica": "identificação (Dn 6:10-11)",
       "tela": "",
       "som": "coração sobe",
-      "inicio_aprox_s": 38.0,
+      "inicio_aprox_s": 34.5,
       "duracao_aprox_s": 5.5
     },
     {
       "id": "B9",
       "fase": "escalada",
-      "fala": "O rei lutou até o pôr do sol. Não conseguiu salvá-lo.",
+      "fala": "Contaram ao rei. Ele lutou até o pôr do sol. Perdeu.",
       "imagens": [
-        10
+        11
       ],
-      "tecnica": "até o rei está preso (Dn 6:14)",
+      "tecnica": "denúncia e rei impotente (Dn 6:13-15)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 43.5,
+      "inicio_aprox_s": 40.0,
       "duracao_aprox_s": 5.5
     },
     {
       "id": "B10",
       "fase": "escalada",
-      "fala": "Cova. Pedra na entrada. Selada com o anel do rei.",
+      "fala": "Pedra na boca da cova. Selada pelo rei.",
       "imagens": [
-        11
+        12
       ],
-      "tecnica": "ponto sem volta (Dn 6:16-17)",
+      "tecnica": "ponto sem volta (Dn 6:17)",
       "tela": "",
       "som": "pedra arrastando",
-      "inicio_aprox_s": 48.9,
-      "duracao_aprox_s": 5.0
+      "inicio_aprox_s": 45.6,
+      "duracao_aprox_s": 4.1
     },
     {
       "id": "B11",
       "fase": "escalada",
-      "fala": "Naquela noite, o rei não comeu, nem dormiu.",
+      "fala": "Naquela noite, ele não comeu nem dormiu.",
       "imagens": [
-        12
+        13
       ],
       "tecnica": "retorno ao gancho (Dn 6:18)",
       "tela": "",
       "som": "tocha",
-      "inicio_aprox_s": 54.0,
-      "duracao_aprox_s": 4.1
+      "inicio_aprox_s": 49.7,
+      "duracao_aprox_s": 3.6
     },
     {
       "id": "B12",
       "fase": "climax",
-      "fala": "Ao amanhecer, correu à cova e chamou, com voz triste: Daniel! O teu Deus te livrou?",
+      "fala": "Ao amanhecer, correu e chamou, com voz triste: Daniel! O teu Deus te livrou?",
       "imagens": [
-        13,
-        14
+        3,
+        4
       ],
-      "tecnica": "corrida + pergunta sem resposta (Dn 6:19-20)",
+      "tecnica": "volta ao instante do B2 (eco visual) + pergunta (Dn 6:19-20)",
       "tela": "",
       "som": "passos e respiração",
-      "inicio_aprox_s": 58.0,
-      "duracao_aprox_s": 7.9
+      "inicio_aprox_s": 53.3,
+      "duracao_aprox_s": 7.0
     },
     {
       "id": "PAUSA",
       "fase": "climax",
       "fala": "[1,2 s de silêncio real, só vento e coração]",
       "imagens": [
-        15
+        14
       ],
       "tecnica": "silêncio real antes da resposta",
       "tela": "",
       "som": "só vento",
-      "inicio_aprox_s": 65.9,
+      "inicio_aprox_s": 60.3,
       "duracao_aprox_s": 1.2
     },
     {
       "id": "B13",
       "fase": "climax",
-      "fala": "Do fundo, uma voz: Ó rei, vive para sempre!",
+      "fala": "E o escuro respondeu: Ó rei, vive para sempre!",
       "imagens": [
-        15
+        14
       ],
-      "tecnica": "a voz vem do escuro (Dn 6:21)",
+      "tecnica": "paga o laço do B2 (Dn 6:21)",
       "tela": "",
       "som": "",
-      "inicio_aprox_s": 67.1,
-      "duracao_aprox_s": 4.5
+      "inicio_aprox_s": 61.5,
+      "duracao_aprox_s": 4.6
     },
     {
       "id": "B14",
       "fase": "climax",
       "fala": "O meu Deus enviou o seu anjo e fechou a boca dos leões.",
       "imagens": [
+        15,
         16
       ],
-      "tecnica": "versículo-chave só aqui (Dn 6:22)",
+      "tecnica": "versículo-chave só aqui (Dn 6:22); a imagem 16 entra em 'fechou'",
       "tela": "VERSÍCULO + Daniel 6:22",
       "som": "luz",
-      "inicio_aprox_s": 71.6,
-      "duracao_aprox_s": 6.4
+      "inicio_aprox_s": 66.1,
+      "duracao_aprox_s": 6.5
     },
     {
       "id": "B15",
       "fase": "payoff",
-      "fala": "Nenhum arranhão. Porque ele confiou no seu Deus.",
+      "fala": "O rei se alegrou. Nenhum arranhão: ele confiou no seu Deus.",
       "imagens": [
         17
       ],
-      "tecnica": "fato do texto: nenhum dano porque confiou (Dn 6:23)",
+      "tecnica": "fato do texto (Dn 6:23)",
       "tela": "VERSÍCULO",
       "som": "",
-      "inicio_aprox_s": 78.1,
-      "duracao_aprox_s": 4.1
+      "inicio_aprox_s": 72.6,
+      "duracao_aprox_s": 5.5
     },
     {
       "id": "B16",
       "fase": "payoff",
-      "fala": "Os acusadores foram jogados ali. Os leões os pegaram antes do chão.",
+      "fala": "Os acusadores foram jogados ali. Nem chegaram ao fundo.",
       "imagens": [
         18
       ],
-      "tecnica": "paga o laço do B2 (Dn 6:24)",
+      "tecnica": "virada final (Dn 6:24; omitidas as famílias)",
       "tela": "VERSÍCULO",
       "som": "rugido curto e corte seco",
-      "inicio_aprox_s": 82.1,
-      "duracao_aprox_s": 6.0
+      "inicio_aprox_s": 78.1,
+      "duracao_aprox_s": 4.6
     },
     {
       "id": "B17",
@@ -240,21 +242,21 @@
         1
       ],
       "tecnica": "UMA ação; a imagem 1 volta e o vídeo recomeça no gancho",
-      "tela": "VERSÍCULO + Comente: sua cova de leões",
+      "tela": "Comente: sua cova de leões",
       "som": "",
-      "inicio_aprox_s": 88.1,
+      "inicio_aprox_s": 82.7,
       "duracao_aprox_s": 4.1
     }
   ],
   "auditoria": {
-    "gancho": "Cova de leões é perigo concreto e o rei insone é a virada.",
-    "laco_aberto": "A cova recebeu outros homens que nem tocaram o chão, e isso só é pago no B16.",
-    "escalada": "Fidelidade, falha procurada, lei, assinatura irrevogável, rei impotente e selo sobem a aposta.",
-    "virada": "Bastava fechar a janela; ele não fechou e orou três vezes de joelhos.",
-    "climax": "Chamado com voz triste, silêncio real, voz do fundo e versículo seis vinte e dois.",
-    "payoff": "Nenhum dano porque confiou, e os acusadores pegos antes do fundo, fecham o laço.",
+    "gancho": "Homem jogado aos leões em cinco palavras, e a virada do rei insone.",
+    "laco_aberto": "O rei grita para o escuro ao amanhecer, e a resposta só vem no B13.",
+    "escalada": "Braço direito, falha procurada, lei, assinatura irrevogável, denúncia, rei derrotado, selo e noite.",
+    "virada": "Daniel soube da lei, bastava fechar a janela, e ele não fechou.",
+    "climax": "Voz triste, um segundo e meio de silêncio, o escuro responde, e o versículo entra.",
+    "payoff": "O rei se alegra, nenhum dano porque confiou, e os acusadores nem chegam ao fundo.",
     "cta": "Uma ação, comentar a sua cova de leões, e a imagem um recomeça o gancho.",
-    "ritmo_fidelidade": "Dezoito imagens, imagem nova a cada seis segundos, tudo de Daniel seis."
+    "ritmo_fidelidade": "Dezoito imagens, nenhuma acima de seis segundos, dramatizações marcadas e famílias omitidas."
   },
   "revisao": {
     "gancho": 0,
@@ -265,6 +267,6 @@
     "payoff": 0,
     "cta": 0,
     "ritmo_fidelidade": 0,
-    "rodadas": 0
+    "rodadas": 2
   }
 }

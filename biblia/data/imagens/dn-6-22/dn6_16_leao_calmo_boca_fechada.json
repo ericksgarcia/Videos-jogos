@@ -1,10 +1,10 @@
 {
   "video": "Daniel e a cova dos leões",
-  "imagem": "5 de 18",
-  "arquivo_de_saida": "dn6_05_rivais_conspirando.png",
-  "fase_da_historia": "ESCALADA: a armadilha",
-  "descricao": "Rivais sussurrando em sombras à luz de tocha.",
-  "prompt_en": "Cinematic low-key scene of several officials in dark hooded robes with gold chains of office whispering together in a dark stone chamber, seen only as silhouettes and shadows with rim light from a single torch, long distorted shadows on the wall, one pointing at a scroll on a table, sinister and secretive atmosphere, smoke in the air, group placed in the lower half, upper half dark stone wall. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "imagem": "16 de 18",
+  "arquivo_de_saida": "dn6_16_leao_calmo_boca_fechada.png",
+  "fase_da_historia": "CLÍMAX: 'fechou a boca dos leões'",
+  "descricao": "Close de um leão adulto deitado, calmo, de boca fechada, banhado em luz dourada.",
+  "prompt_en": "Extreme close-up of a large adult male lion lying down calmly in a stone pit, mouth gently closed, head resting on his paws, eyes half closed, thick mane catching a warm column of golden dawn light, dust motes floating, soft haze, majestic and tamed, shallow depth of field, a dark stone wall in the background, the upper-middle of the frame soft and calm for text, nothing aggressive. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
   "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
   "personagens": {
     "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
@@ -25,10 +25,10 @@
     },
     "variacoes": "3 a 4 por imagem"
   },
-  "zona_do_texto": "Sem texto.",
-  "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
-  "como_vou_animar": "Câmera lateral lenta, chama da tocha pulsando, sombras se alongando.",
-  "camadas_para_parallax": "Mesa/rolo (frente), conspiradores (meio), parede (fundo).",
+  "zona_do_texto": "VERSÍCULO no centro (y 330-1190): área suave, sem objeto claro.",
+  "ordem_de_geracao": "Gere 9 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Push-in lento; respiração do leão; partículas douradas; sem rugido (silêncio e luz).",
+  "camadas_para_parallax": "Juba (frente), rosto (meio), parede (fundo).",
   "criterios_de_aceite": [
     "Sem texto/logo",
     "Sem objetos modernos",

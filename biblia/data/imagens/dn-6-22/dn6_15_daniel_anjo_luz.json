@@ -1,10 +1,10 @@
 {
   "video": "Daniel e a cova dos leões",
-  "imagem": "12 de 18",
-  "arquivo_de_saida": "dn6_12_mesa_vazia_noite.png",
-  "fase_da_historia": "ESCALADA: a noite do rei",
-  "descricao": "Mesa de comida intocada, cadeiras de músicos vazias e uma vela.",
-  "prompt_en": "Atmospheric interior of a palace dining chamber at night, a long table with untouched golden food and fruit, empty stools and a harp left alone in the corner, a single candle burning low, the king seen from behind sitting rigid at the end of the table, deep purple robe, cold moonlight from a tall window, long shadows, silence and anxiety, king small in the lower third, dark upper wall. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "imagem": "15 de 18",
+  "arquivo_de_saida": "dn6_15_daniel_anjo_luz.png",
+  "fase_da_historia": "CLÍMAX: versículo-chave",
+  "descricao": "Daniel entre leões calmos, envolvido por luz dourada (presença do anjo).",
+  "prompt_en": "Epic cinematic shot of an elderly man kneeling in the center of the stone pit seen in profile, short grey beard, off-white tunic and dark mantle, a warm radiant column of golden light descending around him, a subtle luminous presence suggested only as soft light and haze (no visible figure or wings), several large lions lying calmly around him with heads resting on their paws, soft rays, golden particles floating, sacred and powerful, the upper-middle of the frame softly lit and calm for text. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
   "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
   "personagens": {
     "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
@@ -25,10 +25,10 @@
     },
     "variacoes": "3 a 4 por imagem"
   },
-  "zona_do_texto": "Sem texto.",
-  "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
-  "como_vou_animar": "Push-in muito lento; vela tremendo; sons de silêncio e coração.",
-  "camadas_para_parallax": "Mesa (frente), rei (meio), janela (fundo).",
+  "zona_do_texto": "VERSÍCULO entra no centro (y 330-1190): deixe essa área suave, sem rosto, sem objeto claro.",
+  "ordem_de_geracao": "Gere 9 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Push-in lento; partículas douradas subindo; brilho respirando com a voz.",
+  "camadas_para_parallax": "Leões (frente), Daniel (meio), luz (fundo).",
   "criterios_de_aceite": [
     "Sem texto/logo",
     "Sem objetos modernos",

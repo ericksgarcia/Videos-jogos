@@ -1,10 +1,10 @@
 {
   "video": "Daniel e a cova dos leões",
-  "imagem": "7 de 18",
-  "arquivo_de_saida": "dn6_07_anel_no_lacre.png",
-  "fase_da_historia": "ESCALADA: a lei estranha",
-  "descricao": "Decreto sendo selado com cera e anel.",
-  "prompt_en": "Extreme close-up of a royal decree on aged parchment being sealed, a gold signet ring pressing into molten red wax, the hand of the king in purple sleeve seen from the side, ancient cuneiform-like marks on the parchment (not readable text, abstract), warm candlelight, dramatic highlights on wax and gold, shallow depth of field, a faint silhouette of officials watching in the dark background, sense of irreversible law. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "imagem": "3 de 18",
+  "arquivo_de_saida": "dn6_03_rei_correndo_amanhecer.png",
+  "fase_da_historia": "LAÇO ABERTO (prévia do amanhecer) e depois o CLÍMAX (as mesmas imagens voltam como eco)",
+  "descricao": "O rei correndo pelo pátio ao primeiro raio de sol.",
+  "prompt_en": "Dynamic cinematic shot of the ancient Median king running across a vast stone palace courtyard at first dawn, seen from behind and slightly from the side, purple robe flying behind him, tiara in hand, first golden rays of sunrise cutting through morning mist across the paving stones, long shadow stretching toward the camera, columns and high walls around, urgency, figure in the lower-center, bright dawn glow in the upper-middle. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
   "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
   "personagens": {
     "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
@@ -25,10 +25,10 @@
     },
     "variacoes": "3 a 4 por imagem"
   },
-  "zona_do_texto": "Sem texto legível na imagem (marcas abstratas).",
-  "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
-  "como_vou_animar": "Macro com push-in até o selo; brilho da cera; flare dourado quando o anel toca.",
-  "camadas_para_parallax": "Anel e cera (frente), pergaminho (meio), sombras (fundo).",
+  "zona_do_texto": "Sem texto.",
+  "ordem_de_geracao": "Gere 9 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Travelling frontal acompanhando o rei; névoa e poeira em movimento; raios de sol.",
+  "camadas_para_parallax": "Pedras (frente), rei (meio), colunas/céu (fundo).",
   "criterios_de_aceite": [
     "Sem texto/logo",
     "Sem objetos modernos",

@@ -2,8 +2,8 @@
   "video": "Daniel e a cova dos leões",
   "imagem": "1 de 18",
   "arquivo_de_saida": "dn6_01_cova_olhos.png",
-  "fase_da_historia": "GANCHO + loop (reaproveitada no CTA final)",
-  "descricao": "Cova profunda vista de cima, com olhos de leão brilhando no escuro. Esta mesma imagem volta no CTA (\"qual é a sua cova de leões?\") e fecha o loop.",
+  "fase_da_historia": "GANCHO + loop (volta no CTA)",
+  "descricao": "Cova profunda vista de cima, com olhos de leão brilhando no escuro. Esta mesma imagem volta no CTA ('qual é a sua cova de leões?') e fecha o loop.",
   "prompt_en": "Dramatic top-down view into a deep round stone pit at night, rough ancient stone walls descending into darkness, many pairs of glowing amber lion eyes in the shadows at the bottom, a single narrow shaft of cold moonlight falling from the open top, dust floating in the beam, claustrophobic and ominous, composition centered, the pit opening filling the lower two thirds. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
   "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
   "personagens": {
@@ -26,7 +26,7 @@
     "variacoes": "3 a 4 por imagem"
   },
   "zona_do_texto": "Topo escuro e limpo (marca); sem texto na tela neste momento.",
-  "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
+  "ordem_de_geracao": "Gere 9 e 2 primeiro (referência de estilo e figurino).",
   "como_vou_animar": "Aproximação lenta (dolly in) para dentro da cova, olhos piscando em código, poeira no feixe, batida de coração no som.",
   "camadas_para_parallax": "Primeiro plano (borda de pedra), meio (feixe de luz), fundo (olhos).",
   "criterios_de_aceite": [
