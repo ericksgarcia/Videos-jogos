@@ -1,6 +1,6 @@
 {
   "video": "Daniel e a cova dos leões",
-  "imagem": "2 de 16",
+  "imagem": "2 de 18",
   "arquivo_de_saida": "dn6_02_rei_insone.png",
   "fase_da_historia": "GANCHO (virada) + LAÇO ABERTO",
   "descricao": "O rei acordado de madrugada, sozinho, olhando pela janela.",
@@ -26,7 +26,7 @@
     "variacoes": "3 a 4 por imagem"
   },
   "zona_do_texto": "Centro (y 330-1190) calmo e escuro.",
-  "ordem_de_geracao": "GERE ESTA PRIMEIRO: é referência de estilo/figurino.",
+  "ordem_de_geracao": "GERE ESTA PRIMEIRO: referência de estilo/figurino.",
   "como_vou_animar": "Push-in lento até o ombro do rei, chama da lamparina tremendo, noite com neblina fina.",
   "camadas_para_parallax": "Lamparina/mesa (frente), rei (meio), janela e céu (fundo).",
   "criterios_de_aceite": [

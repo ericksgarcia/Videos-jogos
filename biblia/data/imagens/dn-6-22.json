@@ -8,11 +8,12 @@
     "rivais": "RIVAL OFFICIALS: men in dark hooded robes with gold chains of office; always silhouettes, shadows or backs, never faces."
   },
   "regras": [
-    "Gere primeiro as imagens 6 (Daniel orando) e 2 (rei) e use-as como referência de estilo, figurino e iluminação nas outras.",
+    "Gere primeiro a imagem 8 (Daniel na janela) e a 2 (rei) e use-as como referência de estilo, figurino e iluminação nas outras.",
     "Rosto nunca de frente: costas, perfil ou silhueta.",
     "Nada de sangue, ferimentos ou violência explícita: os leões só aparecem calmos ou como olhos no escuro.",
     "Sem texto na imagem.",
-    "Mesma paleta: teal-preto nas sombras e âmbar nas luzes; o dourado cresce do clímax (13) até o fim."
+    "Mesma paleta: teal-preto nas sombras e âmbar nas luzes; o dourado cresce do clímax (13) até o fim.",
+    "Imagens 3 e 18: só silhuetas distantes, nada gráfico."
   ],
   "requisitos_tecnicos": {
     "formato": "vertical 9:16",
@@ -31,10 +32,10 @@
   "cenas": [
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "1 de 16",
+      "imagem": "1 de 18",
       "arquivo_de_saida": "dn6_01_cova_olhos.png",
-      "fase_da_historia": "GANCHO",
-      "descricao": "Cova profunda vista de cima, com olhos de leão brilhando no escuro.",
+      "fase_da_historia": "GANCHO + loop (reaproveitada no CTA final)",
+      "descricao": "Cova profunda vista de cima, com olhos de leão brilhando no escuro. Esta mesma imagem volta no CTA (\"qual é a sua cova de leões?\") e fecha o loop.",
       "prompt_en": "Dramatic top-down view into a deep round stone pit at night, rough ancient stone walls descending into darkness, many pairs of glowing amber lion eyes in the shadows at the bottom, a single narrow shaft of cold moonlight falling from the open top, dust floating in the beam, claustrophobic and ominous, composition centered, the pit opening filling the lower two thirds. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
       "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
       "personagens": {
@@ -57,7 +58,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Topo escuro e limpo (marca); sem texto na tela neste momento.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Aproximação lenta (dolly in) para dentro da cova, olhos piscando em código, poeira no feixe, batida de coração no som.",
       "camadas_para_parallax": "Primeiro plano (borda de pedra), meio (feixe de luz), fundo (olhos).",
       "criterios_de_aceite": [
@@ -73,7 +74,7 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "2 de 16",
+      "imagem": "2 de 18",
       "arquivo_de_saida": "dn6_02_rei_insone.png",
       "fase_da_historia": "GANCHO (virada) + LAÇO ABERTO",
       "descricao": "O rei acordado de madrugada, sozinho, olhando pela janela.",
@@ -99,7 +100,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Centro (y 330-1190) calmo e escuro.",
-      "ordem_de_geracao": "GERE ESTA PRIMEIRO: é referência de estilo/figurino.",
+      "ordem_de_geracao": "GERE ESTA PRIMEIRO: referência de estilo/figurino.",
       "como_vou_animar": "Push-in lento até o ombro do rei, chama da lamparina tremendo, noite com neblina fina.",
       "camadas_para_parallax": "Lamparina/mesa (frente), rei (meio), janela e céu (fundo).",
       "criterios_de_aceite": [
@@ -115,8 +116,50 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "3 de 16",
-      "arquivo_de_saida": "dn6_03_daniel_governante.png",
+      "imagem": "3 de 18",
+      "arquivo_de_saida": "dn6_03_sombras_na_borda.png",
+      "fase_da_historia": "LAÇO ABERTO",
+      "descricao": "Sombras de homens à beira da cova ao amanhecer (laço aberto: 'outros homens' que nem tocaram o chão).",
+      "prompt_en": "Atmospheric wide shot of the edge of the great round stone pit at dawn, several dark human silhouettes seen from behind and far away standing at the rim and tumbling over the edge into the pit, only shadows and motion blur with no detail and nothing graphic, a few pairs of glowing amber lion eyes in the darkness below, cold blue pre-dawn light with a thin line of gold on the horizon, dust rising, ominous and shocking, composition centered with the pit in the lower two thirds. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
+      "personagens": {
+        "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
+        "rei": "KING DARIUS: Median king, deep purple robe with gold trim, tall rounded gold tiara, heavy gold ring on his hand; seen only from behind, in profile or in silhouette.",
+        "rivais": "RIVAL OFFICIALS: men in dark hooded robes with gold chains of office; always silhouettes, shadows or backs, never faces."
+      },
+      "formato": {
+        "formato": "vertical 9:16",
+        "resolucao_ideal": "2160x3840",
+        "minimo": "1620x2880",
+        "arquivo": "PNG",
+        "folga": "mantenha tudo importante nos 80% centrais (eu dou zoom até ~12%)",
+        "zonas_seguras_1080x1920": {
+          "topo_0_300": "sem detalhe importante",
+          "centro_330_1190": "versículo nas imagens 14, 15 e 16: área suave",
+          "base_1480_1920": "legenda/ícones; sem detalhe importante",
+          "direita_x_acima_de_880": "evitar elementos importantes"
+        },
+        "variacoes": "3 a 4 por imagem"
+      },
+      "zona_do_texto": "Sem texto.",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
+      "como_vou_animar": "Push-in tenso; poeira; olhos de leão piscando; sem detalhe gráfico (só silhuetas e movimento).",
+      "camadas_para_parallax": "Borda (frente), silhuetas (meio), olhos na escuridão (fundo).",
+      "criterios_de_aceite": [
+        "Sem texto/logo",
+        "Sem objetos modernos",
+        "Sem rosto de frente",
+        "Sem sangue ou violência",
+        "Anatomia/mãos corretas",
+        "Resolução mínima",
+        "Zonas seguras respeitadas",
+        "Coerência de paleta e figurino"
+      ]
+    },
+    {
+      "video": "Daniel e a cova dos leões",
+      "imagem": "4 de 18",
+      "arquivo_de_saida": "dn6_04_daniel_governante.png",
       "fase_da_historia": "ESCALADA: o homem confiável",
       "descricao": "Daniel, idoso e respeitado, atravessando um corredor do palácio.",
       "prompt_en": "Wide cinematic shot inside a grand Babylonian palace corridor with tall carved stone columns, an elderly man seen from behind walking confidently with scrolls under his arm, short grey beard visible in profile, off-white linen tunic and dark blue-grey wool mantle, warm golden afternoon light slanting through high narrow openings in long beams, polished stone floor reflecting the light, small officials bowing in the distance, grand, dignified and calm mood, figure in the lower third. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -141,7 +184,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Travelling lento acompanhando Daniel, parallax forte das colunas.",
       "camadas_para_parallax": "Colunas (frente), Daniel (meio), fundo do corredor (longe).",
       "criterios_de_aceite": [
@@ -157,8 +200,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "4 de 16",
-      "arquivo_de_saida": "dn6_04_rivais_conspirando.png",
+      "imagem": "5 de 18",
+      "arquivo_de_saida": "dn6_05_rivais_conspirando.png",
       "fase_da_historia": "ESCALADA: a armadilha",
       "descricao": "Rivais sussurrando em sombras à luz de tocha.",
       "prompt_en": "Cinematic low-key scene of several officials in dark hooded robes with gold chains of office whispering together in a dark stone chamber, seen only as silhouettes and shadows with rim light from a single torch, long distorted shadows on the wall, one pointing at a scroll on a table, sinister and secretive atmosphere, smoke in the air, group placed in the lower half, upper half dark stone wall. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -183,7 +226,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Câmera lateral lenta, chama da tocha pulsando, sombras se alongando.",
       "camadas_para_parallax": "Mesa/rolo (frente), conspiradores (meio), parede (fundo).",
       "criterios_de_aceite": [
@@ -199,8 +242,50 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "5 de 16",
-      "arquivo_de_saida": "dn6_05_decreto_selo.png",
+      "imagem": "6 de 18",
+      "arquivo_de_saida": "dn6_06_decreto_no_trono.png",
+      "fase_da_historia": "ESCALADA: a lei",
+      "descricao": "Os rivais apresentam o decreto ao rei, no salão do trono.",
+      "prompt_en": "Cinematic shot inside a grand Babylonian throne hall, an ancient Median king seen from behind and side on a throne, deep purple robe with gold trim and tall gold tiara, a group of officials in dark hooded robes with gold chains presenting a rolled decree, seen as silhouettes and backs, warm torchlight against deep shadows, long columns, tension and scheming, king in the left third, officials in the right third, upper part dark carved stone. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
+      "personagens": {
+        "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
+        "rei": "KING DARIUS: Median king, deep purple robe with gold trim, tall rounded gold tiara, heavy gold ring on his hand; seen only from behind, in profile or in silhouette.",
+        "rivais": "RIVAL OFFICIALS: men in dark hooded robes with gold chains of office; always silhouettes, shadows or backs, never faces."
+      },
+      "formato": {
+        "formato": "vertical 9:16",
+        "resolucao_ideal": "2160x3840",
+        "minimo": "1620x2880",
+        "arquivo": "PNG",
+        "folga": "mantenha tudo importante nos 80% centrais (eu dou zoom até ~12%)",
+        "zonas_seguras_1080x1920": {
+          "topo_0_300": "sem detalhe importante",
+          "centro_330_1190": "versículo nas imagens 14, 15 e 16: área suave",
+          "base_1480_1920": "legenda/ícones; sem detalhe importante",
+          "direita_x_acima_de_880": "evitar elementos importantes"
+        },
+        "variacoes": "3 a 4 por imagem"
+      },
+      "zona_do_texto": "Sem texto.",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
+      "como_vou_animar": "Travelling lateral lento; tochas pulsando; sombras longas.",
+      "camadas_para_parallax": "Colunas (frente), grupo (meio), parede/salão (fundo).",
+      "criterios_de_aceite": [
+        "Sem texto/logo",
+        "Sem objetos modernos",
+        "Sem rosto de frente",
+        "Sem sangue ou violência",
+        "Anatomia/mãos corretas",
+        "Resolução mínima",
+        "Zonas seguras respeitadas",
+        "Coerência de paleta e figurino"
+      ]
+    },
+    {
+      "video": "Daniel e a cova dos leões",
+      "imagem": "7 de 18",
+      "arquivo_de_saida": "dn6_07_anel_no_lacre.png",
       "fase_da_historia": "ESCALADA: a lei estranha",
       "descricao": "Decreto sendo selado com cera e anel.",
       "prompt_en": "Extreme close-up of a royal decree on aged parchment being sealed, a gold signet ring pressing into molten red wax, the hand of the king in purple sleeve seen from the side, ancient cuneiform-like marks on the parchment (not readable text, abstract), warm candlelight, dramatic highlights on wax and gold, shallow depth of field, a faint silhouette of officials watching in the dark background, sense of irreversible law. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -225,7 +310,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto legível na imagem (marcas abstratas).",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Macro com push-in até o selo; brilho da cera; flare dourado quando o anel toca.",
       "camadas_para_parallax": "Anel e cera (frente), pergaminho (meio), sombras (fundo).",
       "criterios_de_aceite": [
@@ -241,8 +326,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "6 de 16",
-      "arquivo_de_saida": "dn6_06_daniel_orando_janela.png",
+      "imagem": "8 de 18",
+      "arquivo_de_saida": "dn6_08_daniel_janela_aberta.png",
       "fase_da_historia": "VIRADA: a escolha",
       "descricao": "Daniel de joelhos orando diante da janela aberta, voltado para Jerusalém.",
       "prompt_en": "Iconic cinematic shot of an elderly man kneeling in prayer in profile in front of a tall open arched window in an upper room of a stone house, short grey beard, off-white linen tunic and dark blue-grey mantle, hands lifted, warm golden light pouring through the open window beyond which a vast ancient city and a golden sunset sky are visible in the distance, dust motes glowing in the light, peaceful and brave, silhouette strongly backlit, figure in the lower-left third. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -267,7 +352,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "GERE ESTA PRIMEIRO: é referência de estilo/figurino.",
+      "ordem_de_geracao": "GERE ESTA PRIMEIRO: referência de estilo/figurino.",
       "como_vou_animar": "Push-in lento; luz crescendo; cortinas movendo com o vento; poeira dourada.",
       "camadas_para_parallax": "Cortina/peitoril (frente), Daniel (meio), cidade (fundo).",
       "criterios_de_aceite": [
@@ -283,8 +368,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "7 de 16",
-      "arquivo_de_saida": "dn6_07_espioes_na_porta.png",
+      "imagem": "9 de 18",
+      "arquivo_de_saida": "dn6_09_espioes_na_porta.png",
       "fase_da_historia": "VIRADA: ameaça visual",
       "descricao": "Rivais espiando por uma fresta da porta.",
       "prompt_en": "Tense cinematic shot from inside a dark room looking at a slightly open wooden door, a narrow crack of warm light, through the crack the silhouettes of several hooded men peering in, one dark eye reflecting light, in the foreground out of focus the edge of a stone window where the praying man kneels as a small shape, cold shadows and a thin vertical slice of warm light, suspenseful. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -309,7 +394,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Câmera avança até a fresta; luz estreita pulsa; sombras se movem.",
       "camadas_para_parallax": "Beirada (frente), porta com fresta (meio), sombras (fundo).",
       "criterios_de_aceite": [
@@ -325,8 +410,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "8 de 16",
-      "arquivo_de_saida": "dn6_08_rei_por_do_sol.png",
+      "imagem": "10 de 18",
+      "arquivo_de_saida": "dn6_10_rei_por_do_sol.png",
       "fase_da_historia": "ESCALADA: o rei preso à lei",
       "descricao": "O rei no pôr do sol, desolado, com o decreto nas mãos.",
       "prompt_en": "Wide shot of the ancient Median king seen from behind, sitting on the stone steps of a palace terrace at sunset, deep purple robe with gold trim, tiara in his hands, head bowed, a rolled decree on the steps, enormous Babylonian walls and ziggurat silhouettes against a blood-orange sky, long shadow, desolate and powerless mood, king in the lower-left third, big sky in the upper area. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -351,7 +436,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Recuo lento (dolly out) revelando a cidade; sol afundando; poeira.",
       "camadas_para_parallax": "Degraus (frente), rei (meio), cidade/céu (fundo).",
       "criterios_de_aceite": [
@@ -367,8 +452,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "9 de 16",
-      "arquivo_de_saida": "dn6_09_daniel_pedra_selada.png",
+      "imagem": "11 de 18",
+      "arquivo_de_saida": "dn6_11_pedra_selada.png",
       "fase_da_historia": "ESCALADA: ponto sem volta",
       "descricao": "Daniel na borda da cova; a pedra sendo selada com o anel do rei.",
       "prompt_en": "Cinematic night scene at the edge of an ancient round stone pit lit by torches, a heavy round stone being rolled over the opening, the king's hand with a heavy gold ring pressing a wax seal on the stone, torch-bearing soldiers as silhouettes, an elderly man in off-white tunic and dark mantle standing calm at the pit's edge seen from behind, orange torch light against deep blue night, tense and solemn, flames and sparks. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -393,7 +478,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Push-in até o selo; chamas tremendo; faíscas em partículas.",
       "camadas_para_parallax": "Tochas (frente), pedra/selo (meio), noite (fundo).",
       "criterios_de_aceite": [
@@ -409,8 +494,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "10 de 16",
-      "arquivo_de_saida": "dn6_10_mesa_vazia_noite.png",
+      "imagem": "12 de 18",
+      "arquivo_de_saida": "dn6_12_mesa_vazia_noite.png",
       "fase_da_historia": "ESCALADA: a noite do rei",
       "descricao": "Mesa de comida intocada, cadeiras de músicos vazias e uma vela.",
       "prompt_en": "Atmospheric interior of a palace dining chamber at night, a long table with untouched golden food and fruit, empty stools and a harp left alone in the corner, a single candle burning low, the king seen from behind sitting rigid at the end of the table, deep purple robe, cold moonlight from a tall window, long shadows, silence and anxiety, king small in the lower third, dark upper wall. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -435,7 +520,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Push-in muito lento; vela tremendo; sons de silêncio e coração.",
       "camadas_para_parallax": "Mesa (frente), rei (meio), janela (fundo).",
       "criterios_de_aceite": [
@@ -451,8 +536,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "11 de 16",
-      "arquivo_de_saida": "dn6_11_rei_correndo_amanhecer.png",
+      "imagem": "13 de 18",
+      "arquivo_de_saida": "dn6_13_rei_correndo_amanhecer.png",
       "fase_da_historia": "CLÍMAX (início): a corrida",
       "descricao": "O rei correndo pelo pátio ao primeiro raio de sol.",
       "prompt_en": "Dynamic cinematic shot of the ancient Median king running across a vast stone palace courtyard at first dawn, seen from behind and slightly from the side, purple robe flying behind him, tiara in hand, first golden rays of sunrise cutting through morning mist across the paving stones, long shadow stretching toward the camera, columns and high walls around, urgency, figure in the lower-center, bright dawn glow in the upper-middle. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -477,7 +562,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Travelling frontal acompanhando o rei; névoa e poeira em movimento; raios de sol.",
       "camadas_para_parallax": "Pedras (frente), rei (meio), colunas/céu (fundo).",
       "criterios_de_aceite": [
@@ -493,8 +578,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "12 de 16",
-      "arquivo_de_saida": "dn6_12_rei_na_boca_da_cova.png",
+      "imagem": "14 de 18",
+      "arquivo_de_saida": "dn6_14_rei_na_boca_da_cova.png",
       "fase_da_historia": "CLÍMAX: o chamado",
       "descricao": "O rei na beira da cova gritando para baixo.",
       "prompt_en": "Dramatic over-the-shoulder shot of the king kneeling at the edge of the great round stone pit at dawn, seen from behind, hands on the rim, calling down into the darkness, a hard column of golden dawn light falling into the pit and illuminating swirling dust, the heavy stone rolled aside, deep purple robe against pale stone, anxious and desperate, the pit opening in the lower half. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -519,7 +604,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Push-in até a borda; poeira girando no feixe; som de eco.",
       "camadas_para_parallax": "Mãos/borda (frente), rei (meio), cova escura (fundo).",
       "criterios_de_aceite": [
@@ -535,8 +620,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "13 de 16",
-      "arquivo_de_saida": "dn6_13_cova_silencio.png",
+      "imagem": "15 de 18",
+      "arquivo_de_saida": "dn6_15_cova_silencio.png",
       "fase_da_historia": "CLÍMAX: o silêncio",
       "descricao": "Dentro da cova, leões deitados em silêncio olhando para a luz.",
       "prompt_en": "View from inside the deep stone pit looking up, a hard beam of golden dawn light entering from the top opening, several large adult lions lying down calmly and quietly in the shadows around the edge of the light, their eyes catching the glow, dust motes drifting in the beam, an elderly man's silhouette kneeling in the center of the light seen from behind, awe and hush, composition centered and symmetrical, hushed and holy. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -561,7 +646,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Sem texto.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Dolly in lento; poeira subindo na luz; silêncio no som e depois um acorde grave.",
       "camadas_para_parallax": "Borda (frente), leões (meio), feixe (fundo).",
       "criterios_de_aceite": [
@@ -577,8 +662,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "14 de 16",
-      "arquivo_de_saida": "dn6_14_daniel_anjo_luz.png",
+      "imagem": "16 de 18",
+      "arquivo_de_saida": "dn6_16_daniel_anjo_luz.png",
       "fase_da_historia": "CLÍMAX: versículo-chave",
       "descricao": "Daniel entre leões calmos, envolvido por luz dourada (presença do anjo).",
       "prompt_en": "Epic cinematic shot of an elderly man kneeling in the center of the stone pit seen in profile, short grey beard, off-white tunic and dark mantle, a warm radiant column of golden light descending around him, a subtle luminous presence suggested only as soft light and haze (no visible figure or wings), several large lions lying calmly around him with heads resting on their paws, soft rays, golden particles floating, sacred and powerful, the upper-middle of the frame softly lit and calm for text. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -603,7 +688,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "VERSÍCULO entra no centro (y 330-1190): deixe essa área suave, sem rosto, sem objeto claro.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Push-in lento; partículas douradas subindo; brilho respirando com a voz.",
       "camadas_para_parallax": "Leões (frente), Daniel (meio), luz (fundo).",
       "criterios_de_aceite": [
@@ -619,8 +704,8 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "15 de 16",
-      "arquivo_de_saida": "dn6_15_daniel_saindo_cova.png",
+      "imagem": "17 de 18",
+      "arquivo_de_saida": "dn6_17_daniel_saindo_cova.png",
       "fase_da_historia": "PAYOFF: nenhum arranhão",
       "descricao": "Daniel sendo içado da cova, intacto, nos braços do amanhecer.",
       "prompt_en": "Cinematic shot of an elderly man being lifted out of the great stone pit on a rope by soldiers at sunrise, seen from the side and behind, his off-white tunic clean and untouched, calm and unharmed, the king reaching a hand toward him with relief, golden sunrise flaring behind them, warm light and floating dust, relief and joy, figures in the lower two thirds, upper area bright and soft for text. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
@@ -645,7 +730,7 @@
         "variacoes": "3 a 4 por imagem"
       },
       "zona_do_texto": "Versículo no centro, deixe o céu suave.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
       "como_vou_animar": "Push-in suave; flare de sol; partículas douradas.",
       "camadas_para_parallax": "Borda (frente), Daniel e rei (meio), nascer do sol (fundo).",
       "criterios_de_aceite": [
@@ -661,11 +746,11 @@
     },
     {
       "video": "Daniel e a cova dos leões",
-      "imagem": "16 de 16",
-      "arquivo_de_saida": "dn6_16_cova_luz_loop.png",
-      "fase_da_historia": "CTA + LOOP: espelho do gancho",
-      "descricao": "Mesma cova da imagem 1, agora cheia de luz dourada e leões calmos.",
-      "prompt_en": "Dramatic top-down view into the same deep round stone pit as the opening shot, same composition and angle, now flooded with warm golden dawn light, rough ancient stone walls glowing amber, lions lying calmly at the bottom with eyes closed or at rest, warm dust motes floating, mood of peace and victory, composition centered, SAME framing, angle and composition as the opening pit shot so the video can loop. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+      "imagem": "18 de 18",
+      "arquivo_de_saida": "dn6_18_acusadores_na_cova.png",
+      "fase_da_historia": "PAYOFF 2: justiça",
+      "descricao": "Os acusadores sendo jogados na mesma cova (Dn 6:24), só silhuetas distantes, nada gráfico.",
+      "prompt_en": "Wide cinematic shot of a pit edge at bright morning, dark hooded silhouettes of officials standing in a line at the rim being pushed forward by soldiers, seen as small distant shapes against the sky, no faces, no detail, cinematic composition with the great stone pit in the lower half and the lions' glowing eyes in its shadow, golden sunrise behind, stark and sobering, nothing graphic. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
       "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
       "personagens": {
         "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
@@ -686,10 +771,10 @@
         },
         "variacoes": "3 a 4 por imagem"
       },
-      "zona_do_texto": "Versículo e CTA no centro/baixo; mantenha a base limpa.",
-      "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
-      "como_vou_animar": "Dolly in lento; no último segundo a luz recua para o escuro do início (loop).",
-      "camadas_para_parallax": "Borda (frente), leões (meio), fundo da cova (longe).",
+      "zona_do_texto": "Versículo no centro: deixe o céu limpo.",
+      "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
+      "como_vou_animar": "Push-in lento; poeira; luz dourada de manhã; corte seco no som.",
+      "camadas_para_parallax": "Borda (frente), silhuetas (meio), céu (fundo).",
       "criterios_de_aceite": [
         "Sem texto/logo",
         "Sem objetos modernos",

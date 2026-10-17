@@ -1,10 +1,10 @@
 {
   "video": "Daniel e a cova dos leões",
-  "imagem": "3 de 16",
-  "arquivo_de_saida": "dn6_03_daniel_governante.png",
-  "fase_da_historia": "ESCALADA: o homem confiável",
-  "descricao": "Daniel, idoso e respeitado, atravessando um corredor do palácio.",
-  "prompt_en": "Wide cinematic shot inside a grand Babylonian palace corridor with tall carved stone columns, an elderly man seen from behind walking confidently with scrolls under his arm, short grey beard visible in profile, off-white linen tunic and dark blue-grey wool mantle, warm golden afternoon light slanting through high narrow openings in long beams, polished stone floor reflecting the light, small officials bowing in the distance, grand, dignified and calm mood, figure in the lower third. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "imagem": "6 de 18",
+  "arquivo_de_saida": "dn6_06_decreto_no_trono.png",
+  "fase_da_historia": "ESCALADA: a lei",
+  "descricao": "Os rivais apresentam o decreto ao rei, no salão do trono.",
+  "prompt_en": "Cinematic shot inside a grand Babylonian throne hall, an ancient Median king seen from behind and side on a throne, deep purple robe with gold trim and tall gold tiara, a group of officials in dark hooded robes with gold chains presenting a rolled decree, seen as silhouettes and backs, warm torchlight against deep shadows, long columns, tension and scheming, king in the left third, officials in the right third, upper part dark carved stone. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
   "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
   "personagens": {
     "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
@@ -26,9 +26,9 @@
     "variacoes": "3 a 4 por imagem"
   },
   "zona_do_texto": "Sem texto.",
-  "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
-  "como_vou_animar": "Travelling lento acompanhando Daniel, parallax forte das colunas.",
-  "camadas_para_parallax": "Colunas (frente), Daniel (meio), fundo do corredor (longe).",
+  "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Travelling lateral lento; tochas pulsando; sombras longas.",
+  "camadas_para_parallax": "Colunas (frente), grupo (meio), parede/salão (fundo).",
   "criterios_de_aceite": [
     "Sem texto/logo",
     "Sem objetos modernos",

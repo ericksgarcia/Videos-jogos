@@ -1,10 +1,10 @@
 {
   "video": "Daniel e a cova dos leões",
-  "imagem": "8 de 16",
-  "arquivo_de_saida": "dn6_08_rei_por_do_sol.png",
-  "fase_da_historia": "ESCALADA: o rei preso à lei",
-  "descricao": "O rei no pôr do sol, desolado, com o decreto nas mãos.",
-  "prompt_en": "Wide shot of the ancient Median king seen from behind, sitting on the stone steps of a palace terrace at sunset, deep purple robe with gold trim, tiara in his hands, head bowed, a rolled decree on the steps, enormous Babylonian walls and ziggurat silhouettes against a blood-orange sky, long shadow, desolate and powerless mood, king in the lower-left third, big sky in the upper area. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "imagem": "14 de 18",
+  "arquivo_de_saida": "dn6_14_rei_na_boca_da_cova.png",
+  "fase_da_historia": "CLÍMAX: o chamado",
+  "descricao": "O rei na beira da cova gritando para baixo.",
+  "prompt_en": "Dramatic over-the-shoulder shot of the king kneeling at the edge of the great round stone pit at dawn, seen from behind, hands on the rim, calling down into the darkness, a hard column of golden dawn light falling into the pit and illuminating swirling dust, the heavy stone rolled aside, deep purple robe against pale stone, anxious and desperate, the pit opening in the lower half. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
   "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
   "personagens": {
     "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
@@ -26,9 +26,9 @@
     "variacoes": "3 a 4 por imagem"
   },
   "zona_do_texto": "Sem texto.",
-  "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
-  "como_vou_animar": "Recuo lento (dolly out) revelando a cidade; sol afundando; poeira.",
-  "camadas_para_parallax": "Degraus (frente), rei (meio), cidade/céu (fundo).",
+  "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Push-in até a borda; poeira girando no feixe; som de eco.",
+  "camadas_para_parallax": "Mãos/borda (frente), rei (meio), cova escura (fundo).",
   "criterios_de_aceite": [
     "Sem texto/logo",
     "Sem objetos modernos",

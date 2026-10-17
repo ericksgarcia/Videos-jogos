@@ -1,10 +1,10 @@
 {
   "video": "Daniel e a cova dos leões",
-  "imagem": "7 de 16",
-  "arquivo_de_saida": "dn6_07_espioes_na_porta.png",
-  "fase_da_historia": "VIRADA: ameaça visual",
-  "descricao": "Rivais espiando por uma fresta da porta.",
-  "prompt_en": "Tense cinematic shot from inside a dark room looking at a slightly open wooden door, a narrow crack of warm light, through the crack the silhouettes of several hooded men peering in, one dark eye reflecting light, in the foreground out of focus the edge of a stone window where the praying man kneels as a small shape, cold shadows and a thin vertical slice of warm light, suspenseful. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "imagem": "17 de 18",
+  "arquivo_de_saida": "dn6_17_daniel_saindo_cova.png",
+  "fase_da_historia": "PAYOFF: nenhum arranhão",
+  "descricao": "Daniel sendo içado da cova, intacto, nos braços do amanhecer.",
+  "prompt_en": "Cinematic shot of an elderly man being lifted out of the great stone pit on a rope by soldiers at sunrise, seen from the side and behind, his off-white tunic clean and untouched, calm and unharmed, the king reaching a hand toward him with relief, golden sunrise flaring behind them, warm light and floating dust, relief and joy, figures in the lower two thirds, upper area bright and soft for text. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
   "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
   "personagens": {
     "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
@@ -25,10 +25,10 @@
     },
     "variacoes": "3 a 4 por imagem"
   },
-  "zona_do_texto": "Sem texto.",
-  "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
-  "como_vou_animar": "Câmera avança até a fresta; luz estreita pulsa; sombras se movem.",
-  "camadas_para_parallax": "Beirada (frente), porta com fresta (meio), sombras (fundo).",
+  "zona_do_texto": "Versículo no centro, deixe o céu suave.",
+  "ordem_de_geracao": "Gere 8 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Push-in suave; flare de sol; partículas douradas.",
+  "camadas_para_parallax": "Borda (frente), Daniel e rei (meio), nascer do sol (fundo).",
   "criterios_de_aceite": [
     "Sem texto/logo",
     "Sem objetos modernos",
