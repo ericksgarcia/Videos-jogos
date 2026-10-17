@@ -1,0 +1,206 @@
+{
+  "titulo": "Salmo 126:5-6: Quem semeia chorando",
+  "versao": 1,
+  "data": "2026-10-17",
+  "run_id": "2026-10-17-sl-126-5-6",
+  "ficha": {
+    "referencia": "Salmos 126:5-6",
+    "catalogo_id": "sl-126-5-6",
+    "versiculo_na_tela": "Os que semeiam em lágrimas segarão com alegria.",
+    "versiculo_completo_arc": "Os que semeiam em lágrimas segarão com alegria. Aquele que leva a preciosa semente, andando e chorando, voltará, sem dúvida, com alegria, trazendo consigo os seus molhos.",
+    "emocao": "superação / esperança depois da dor",
+    "duracao_alvo_s": 27,
+    "arco_visual": "lágrima que vira semente → semeador sozinho no campo seco → primeiro broto → trigo crescendo → campo dourado → volta com os feixes → eco do início (orvalho + broto) para o loop"
+  },
+  "roteiro_rascunho": {
+    "aviso": "Rascunho só para casar as imagens. O roteiro final passa pelo avaliador independente (7 fases) antes de eu gerar a voz; se ele mudar muito, ajusto os tempos, não as imagens.",
+    "ato1_gancho": "Há um plantio que só começa chorando. E o salmo garante que termina em festa.",
+    "ato2_versiculo": "Os que semeiam em lágrimas segarão com alegria.",
+    "ato3_conclusao": "O salmo não promete que a dor some. Promete que nenhuma lágrima é desperdiçada: ela rega o que vai crescer.",
+    "cta_final": "Comenta amém se você está semeando em lágrimas hoje."
+  },
+  "estilo_global": {
+    "descricao": "Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+    "paleta": {
+      "sombras": "#050b1a a #0b1a2e (azul-marinho/teal profundo)",
+      "luz_principal": "#ffb347 a #ffd27a (âmbar/ouro quente)",
+      "acento": "#ff7a3d (brasa) só em pontos pequenos",
+      "verde_vida": "#7fb069 / #a7c957, apenas a partir da imagem 3"
+    },
+    "progressao_de_cor": "Imagens 1-2 frias e escuras (dor), imagem 3 com o primeiro verde e luz, imagens 4-6 cada vez mais quentes, imagem 7 retoma o enquadramento da 1 mas quente (esperança).",
+    "personagem": "Um agricultor israelita antigo: túnica de linho cru, manto de lã marrom, cinto de corda, pés descalços ou sandálias de couro simples. SEMPRE de costas, de perfil perdido ou em silhueta; nunca rosto reconhecível. Mesmo figurino em todas as imagens em que aparece (2 e 6).",
+    "regras_de_consistencia": [
+      "Gere primeiro a imagem 2 (campo + semeador) e use-a como referência de estilo/figurino/céu para as demais.",
+      "Mesmo tipo de terra (argila avermelhada, rachada, depois úmida), mesma vegetação (trigo/cevada), mesmo horizonte baixo de colinas.",
+      "Nada de elementos modernos ou de outro continente (sem pinheiros nórdicos, sem cercas, sem trilhos, sem postes)."
+    ],
+    "negative_prompt_global": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in"
+  },
+  "requisitos_tecnicos": {
+    "formato": "vertical 9:16",
+    "resolucao_ideal": "2160x3840",
+    "minimo_aceito": "1620x2880",
+    "arquivo": "PNG (ou JPG qualidade máxima)",
+    "folga_para_movimento": "Eu vou dar zoom e deslocar a imagem (até ~12%): mantenha tudo que importa dentro dos 80% centrais; os 10% de cada borda são só ambiente.",
+    "zonas_seguras_1080x1920": {
+      "topo_0_300": "só céu/ambiente, sem detalhe importante (marca e referência ficam aqui)",
+      "centro_330_1190": "zona onde o versículo é escrito nas imagens 3 e 4: deixe baixo contraste, sombra suave ou céu calmo; sem rosto, sem objeto brilhante",
+      "base_1480_1920": "legenda/ícones do TikTok; sem detalhe importante; pode ser terra escura",
+      "coluna_direita_x_acima_de_880": "evitar elementos importantes"
+    },
+    "sem_texto_na_imagem": true,
+    "sem_molduras_ou_bordas": true,
+    "quantidade": "gere 3-4 variações de cada imagem e me mande todas; eu escolho a melhor",
+    "nomes": "use exatamente os nomes de 'arquivo' de cada cena",
+    "onde_colocar": "me envie na conversa ou coloque em biblia/public/runs/2026-10-17-sl-126-5-6/ (pasta imagens/)"
+  },
+  "como_vou_animar": {
+    "tecnicas": [
+      "Parallax 2.5D com mapa de profundidade (primeiro plano, meio e fundo deslizam em velocidades diferentes)",
+      "Ken Burns suave (aproximação lenta 1.00→1.10, com direção que conta a história)",
+      "Deriva de câmera de mão quase imperceptível",
+      "Partículas em código: poeira na luz, pólen, brasas, gotas, chuva fina, neblina rasteira",
+      "Raios de luz volumétricos e flare de lente nos momentos de virada",
+      "Respiração de luz sincronizada com a batida e com a palavra do clímax",
+      "Transições por dissolvência com 'light leak' e continuidade de movimento entre imagens",
+      "Cor graduada por código (frio→quente) e granulação de filme",
+      "Gota/lágrima animada em código sobre a imagem 1 (câmera lenta)"
+    ],
+    "qualidade_final": "render 60 fps com desfoque de movimento, mistura para 30 fps, encode CRF baixo e 2 passadas até 28 MB; revisão quadro a quadro antes de enviar."
+  },
+  "analista_de_qualidade": {
+    "roteiro": "Avaliador independente, novo a cada rodada, nota 0-10 nas 7 fases (gancho, virada, contexto, cta, versículo, conclusão, final). Só avança com todas ≥ 8.",
+    "imagens": "Eu inspeciono cada imagem recebida e devolvo reprovações com o motivo.",
+    "criterios_de_aceite_das_imagens": [
+      "Sem texto, letras, logos ou marcas d'água",
+      "Sem objetos modernos ou anacrônicos",
+      "Sem rosto reconhecível; mãos e anatomia corretas",
+      "Resolução mínima atendida e sem artefatos de compressão",
+      "Zonas seguras respeitadas (principalmente nas imagens 3 e 4)",
+      "Coerência de paleta, figurino e terreno com as demais",
+      "Profundidade clara: primeiro plano, meio e fundo separados (ajuda o parallax)",
+      "Contraste suficiente para a legenda dourada/branca ler bem na zona do texto"
+    ]
+  },
+  "cenas": [
+    {
+      "ordem": 1,
+      "arquivo": "sl126_01_lagrima_semente.png",
+      "janela_aprox_s": [
+        0.0,
+        3.2
+      ],
+      "funcao_narrativa": "GANCHO: imagem de impacto nos primeiros 2 segundos",
+      "fala_nesse_trecho": "Há um plantio que só começa chorando.",
+      "descricao": "Macro extremo: uma lágrima prestes a cair sobre uma semente de trigo em terra escura e rachada.",
+      "prompt_en": "Extreme macro photograph, a single glistening tear drop falling in mid-air about to hit one wheat seed resting on dark cracked red-clay soil, the tear refracts a tiny golden sunset, deep teal shadows, warm amber rim light from the left, tiny dust motes floating in the light, background dissolved into soft bokeh of a dry barren field at dusk, subject centered slightly below the middle, dramatic and intimate. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+      "zona_do_texto": "Ambiente escuro e calmo; sem versículo nesta imagem. Mantenha o topo (0-300) escuro e limpo.",
+      "movimento_planejado": "Aproximação lenta e firme 1.00→1.12 em direção à semente; a lágrima desce em câmera lenta (animada em código sobre a imagem) e o impacto levanta um anel de poeira dourada.",
+      "camadas_opcionais_para_parallax": "Plate sem a lágrima (opcional) para eu animar a gota; semente e terra em camada separada do fundo desfocado.",
+      "luz_e_efeitos_em_codigo": "Poeira na luz, pulso de luz âmbar no impacto da gota, leve flare."
+    },
+    {
+      "ordem": 2,
+      "arquivo": "sl126_02_semeador_campo_seco.png",
+      "janela_aprox_s": [
+        3.2,
+        6.0
+      ],
+      "funcao_narrativa": "VIRADA: mostra quem planta chorando; sensação de solidão e perda",
+      "fala_nesse_trecho": "E o salmo garante que termina em festa.",
+      "descricao": "Plano geral: o semeador de costas, pequeno, no centro-baixo de um campo seco ao entardecer sob céu carregado.",
+      "prompt_en": "Wide cinematic shot, lone ancient farmer seen from behind in a rough linen tunic and brown wool cloak, walking slowly and scattering seeds by hand across a vast dry cracked red-earth field at dusk, small in frame in the lower third, heavy dramatic storm-teal sky with a single crack of amber light on the horizon, low rolling hills, a long soft shadow, mist near the ground, strong depth with dry stalks in the foreground, middle ground figure and far hills. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+      "zona_do_texto": "Céu dramático ocupa o topo; figura no terço inferior; evitar detalhe forte no centro.",
+      "movimento_planejado": "Pan lento da esquerda para a direita com parallax: talos secos do primeiro plano deslizam mais rápido que as colinas; push-in suave de 1.00→1.08.",
+      "camadas_opcionais_para_parallax": "Três camadas: primeiro plano (talos), semeador, fundo (céu e colinas). Se puder, gere o fundo limpo sem o semeador.",
+      "luz_e_efeitos_em_codigo": "Névoa rasteira andando, sementes em partículas saindo da mão, nuvem se abrindo para a fenda de luz."
+    },
+    {
+      "ordem": 3,
+      "arquivo": "sl126_03_primeiro_broto.png",
+      "janela_aprox_s": [
+        6.0,
+        9.5
+      ],
+      "funcao_narrativa": "VERSÍCULO (início): 'Os que semeiam em lágrimas'; a primeira esperança",
+      "fala_nesse_trecho": "Os que semeiam em lágrimas...",
+      "descricao": "O primeiro broto verde rompendo a terra molhada, com orvalho e a primeira luz da manhã.",
+      "prompt_en": "Cinematic close-up low angle, a single tiny green wheat sprout breaking through dark moist red-clay soil, dewdrops on its blade catching first warm sunrise light, soft golden backlight, shallow depth of field, blurred misty field and hills far behind, calm and hopeful atmosphere, large calm dark area in the middle-top of the frame for text, subject placed in the lower third. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+      "zona_do_texto": "Versículo escrito no centro (y 330-1190): mantenha essa área calma, escura e de baixo contraste; o broto vai no terço inferior.",
+      "movimento_planejado": "Push-in muito lento 1.00→1.07; o broto 'respira' em parallax; luz âmbar cresce devagar.",
+      "camadas_opcionais_para_parallax": "Primeiro plano (broto e orvalho) separado do fundo desfocado.",
+      "luz_e_efeitos_em_codigo": "Orvalho brilhando, partículas de pólen subindo, raios de luz suaves vindo do canto."
+    },
+    {
+      "ordem": 4,
+      "arquivo": "sl126_04_trigo_crescendo.png",
+      "janela_aprox_s": [
+        9.5,
+        13.0
+      ],
+      "funcao_narrativa": "VERSÍCULO (final): 'segarão com alegria'; a virada emocional",
+      "fala_nesse_trecho": "...segarão com alegria.",
+      "descricao": "Mudança de estação: trigo verde-dourado crescendo, luz de manhã abrindo, chuva fina acabando.",
+      "prompt_en": "Cinematic wide-low shot across a growing field of green-gold wheat swaying in warm morning light, last thin rain streaks catching sunbeams, parted clouds with golden god rays falling on the field, warm amber highlights, deep teal shadows fading, rolling hills in soft haze, an empty calm sky area in the upper-middle for text, foreground wheat ears sharp in the lower third. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+      "zona_do_texto": "Versículo no centro (y 330-1190): céu limpo e suave, sem objeto claro; trigo só na parte baixa.",
+      "movimento_planejado": "Travelling lateral lento com parallax forte: espigas do primeiro plano mais rápidas que o fundo; raios de luz abrindo no clímax da palavra 'alegria'.",
+      "camadas_opcionais_para_parallax": "Três camadas: espigas (primeiro plano), campo (meio), colinas e céu (fundo).",
+      "luz_e_efeitos_em_codigo": "Chuva fina terminando, raios de luz que se intensificam na palavra do clímax, flare dourado."
+    },
+    {
+      "ordem": 5,
+      "arquivo": "sl126_05_campo_dourado.png",
+      "janela_aprox_s": [
+        13.0,
+        17.5
+      ],
+      "funcao_narrativa": "CONCLUSÃO: a promessa cumprida; panorama de colheita",
+      "fala_nesse_trecho": "O salmo não promete que a dor some...",
+      "descricao": "Campo de trigo dourado imenso ao nascer do sol; sensação de abundância e paz.",
+      "prompt_en": "Epic wide landscape, vast golden wheat field at sunrise stretching to the horizon, wind making waves through the grain, warm glowing backlight, long soft shadows, delicate morning mist, distant low hills, a few birds in the sky far away, serene triumphant mood, strong foreground wheat stalks, clear separation of foreground, middle ground and background. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+      "zona_do_texto": "Sem versículo; livre. Mantenha o topo (0-300) com céu limpo.",
+      "movimento_planejado": "Aproximação em direção ao horizonte com parallax profundo (espigas deslizando nos lados); ondas de vento nas espigas animadas por código.",
+      "camadas_opcionais_para_parallax": "Primeiro plano (espigas), campo, horizonte (separar bem).",
+      "luz_e_efeitos_em_codigo": "Ondas de vento, grãos de poeira dourada, raios de sol, leve respiração de luz."
+    },
+    {
+      "ordem": 6,
+      "arquivo": "sl126_06_volta_com_feixes.png",
+      "janela_aprox_s": [
+        17.5,
+        22.5
+      ],
+      "funcao_narrativa": "CONCLUSÃO (virada): 'ela rega o que vai crescer'; o semeador volta transformado",
+      "fala_nesse_trecho": "Promete que nenhuma lágrima é desperdiçada: ela rega o que vai crescer.",
+      "descricao": "O mesmo semeador, agora voltando em contraluz, carregando feixes de trigo, no campo dourado.",
+      "prompt_en": "Cinematic backlit silhouette of the same ancient farmer in linen tunic and brown wool cloak seen from behind and slightly from the side, walking home through golden wheat carrying bundled sheaves of wheat on his shoulder, warm sunrise rim light outlining his shape, long golden shadow, lens flare, soft dust and chaff in the light, calm fulfilled mood, figure in the lower third, distant village-free horizon with low hills. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+      "zona_do_texto": "Sem versículo; figura no terço inferior, sem rosto.",
+      "movimento_planejado": "Câmera acompanha o caminhar (travelling lento) com parallax; push-in de 1.00→1.09 terminando num flare quente.",
+      "camadas_opcionais_para_parallax": "Figura+feixes, campo, fundo.",
+      "luz_e_efeitos_em_codigo": "Flare de lente, poeira e palha na contraluz, brilho nas bordas."
+    },
+    {
+      "ordem": 7,
+      "arquivo": "sl126_07_orvalho_broto_loop.png",
+      "janela_aprox_s": [
+        22.5,
+        27.0
+      ],
+      "funcao_narrativa": "CTA e LOOP: eco do enquadramento da imagem 1, agora com esperança",
+      "fala_nesse_trecho": "Comenta amém se você está semeando em lágrimas hoje.",
+      "descricao": "Mesmo enquadramento macro da imagem 1, mas a lágrima virou orvalho sobre um broto verde e a luz é quente.",
+      "prompt_en": "Extreme macro photograph, a single glistening dewdrop resting on a tiny green wheat sprout growing from the same dark red-clay soil, the dewdrop refracts a tiny golden sunrise, warm amber rim light from the left, tiny golden dust motes, background soft bokeh of a golden wheat field at dawn, subject centered slightly below the middle, SAME framing, angle and composition as the opening tear-and-seed macro shot so the video can loop. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+      "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+      "zona_do_texto": "CTA fica no centro-baixo; mantenha a base limpa e escura.",
+      "movimento_planejado": "Aproximação lenta 1.00→1.10 e luz subindo; no último segundo a imagem se funde com a imagem 1 (loop).",
+      "camadas_opcionais_para_parallax": "Broto+gota em primeiro plano, fundo desfocado.",
+      "luz_e_efeitos_em_codigo": "Brilho no orvalho, poeira dourada, transição final de luz para o início."
+    }
+  ]
+}
