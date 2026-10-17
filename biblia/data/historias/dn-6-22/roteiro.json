@@ -1,0 +1,205 @@
+{
+  "titulo": "Daniel e a cova dos leões",
+  "referencia": "Daniel 6",
+  "catalogo_id": "dn-6-22",
+  "versiculo_chave": "O meu Deus enviou o seu anjo e fechou a boca dos leões",
+  "duracao_alvo_s": 88,
+  "duracao_estimada_s": 92.6,
+  "formato": "história: gancho → laço aberto → escalada → virada → clímax (versículo) → payoff → CTA → loop",
+  "imagens_total": 16,
+  "regras_de_tela": "sem texto durante o gancho e a escalada (para não gastar o mistério); o versículo-chave só entra no clímax (B12) e fica até o fim; referência 'Daniel 6:22' no topo junto com o versículo.",
+  "beats": [
+    {
+      "id": "B1",
+      "fala": "Jogaram um homem numa cova cheia de leões. E quem não dormiu foi o rei.",
+      "imagens": [
+        1,
+        2
+      ],
+      "fase": "gancho",
+      "tecnica": "perigo concreto + virada na 2ª frase (o rei insone)",
+      "tela": "",
+      "inicio_aprox_s": 0.5,
+      "duracao_aprox_s": 7.3
+    },
+    {
+      "id": "B2",
+      "fala": "Daqui a pouco você vê o que o rei achou de manhã.",
+      "imagens": [
+        2
+      ],
+      "fase": "laco_aberto",
+      "tecnica": "laço aberto: promessa que só é paga no final",
+      "tela": "",
+      "inicio_aprox_s": 7.8,
+      "duracao_aprox_s": 5.9
+    },
+    {
+      "id": "B3",
+      "fala": "Daniel era o homem mais confiável do reino. E isso virou o problema dele.",
+      "imagens": [
+        3
+      ],
+      "fase": "escalada",
+      "tecnica": "paradoxo: a virtude vira ameaça",
+      "tela": "",
+      "inicio_aprox_s": 13.8,
+      "duracao_aprox_s": 6.9
+    },
+    {
+      "id": "B4",
+      "fala": "Procuraram uma falha nele. Nada. Então usaram a fé dele contra ele.",
+      "imagens": [
+        4
+      ],
+      "fase": "escalada",
+      "tecnica": "cliffhanger curto (Dn 6:4-5)",
+      "tela": "",
+      "inicio_aprox_s": 20.7,
+      "duracao_aprox_s": 5.9
+    },
+    {
+      "id": "B5",
+      "fala": "Por trinta dias, orar a qualquer um, menos ao rei, valia a cova dos leões.",
+      "imagens": [
+        5
+      ],
+      "fase": "escalada",
+      "tecnica": "regra estranha e concreta (Dn 6:7)",
+      "tela": "",
+      "inicio_aprox_s": 26.6,
+      "duracao_aprox_s": 7.3
+    },
+    {
+      "id": "B6",
+      "fala": "Daniel soube. Abriu as janelas e orou, como sempre. Eles espiavam.",
+      "imagens": [
+        6,
+        7
+      ],
+      "fase": "virada",
+      "tecnica": "a escolha contra o óbvio + ameaça visual (Dn 6:10-11)",
+      "tela": "",
+      "inicio_aprox_s": 34.0,
+      "duracao_aprox_s": 5.5
+    },
+    {
+      "id": "B7",
+      "fala": "O rei tentou salvá-lo até o pôr do sol. Mas a lei não podia ser desfeita.",
+      "imagens": [
+        8
+      ],
+      "fase": "escalada",
+      "tecnica": "mini-cliffhanger: até o rei está preso (Dn 6:14-15)",
+      "tela": "",
+      "inicio_aprox_s": 39.4,
+      "duracao_aprox_s": 7.8
+    },
+    {
+      "id": "B8",
+      "fala": "Jogaram Daniel na cova. Rolaram uma pedra. O rei selou com o próprio anel.",
+      "imagens": [
+        9
+      ],
+      "fase": "escalada",
+      "tecnica": "ponto sem volta (Dn 6:16-17)",
+      "tela": "",
+      "inicio_aprox_s": 47.2,
+      "duracao_aprox_s": 6.9
+    },
+    {
+      "id": "B9",
+      "fala": "Naquela noite o rei não comeu, não quis música, e não dormiu.",
+      "imagens": [
+        10
+      ],
+      "fase": "escalada",
+      "tecnica": "retorno ao gancho: espera e tensão (Dn 6:18)",
+      "tela": "",
+      "inicio_aprox_s": 54.1,
+      "duracao_aprox_s": 5.9
+    },
+    {
+      "id": "B10",
+      "fala": "Ao amanhecer, ele correu até a cova e gritou: Daniel! O teu Deus te salvou?",
+      "imagens": [
+        11,
+        12
+      ],
+      "fase": "climax",
+      "tecnica": "corrida + pergunta sem resposta (Dn 6:19-20)",
+      "tela": "",
+      "inicio_aprox_s": 60.1,
+      "duracao_aprox_s": 7.3
+    },
+    {
+      "id": "B11",
+      "fala": "Silêncio. E então, do fundo, uma voz: Ó rei, vive para sempre!",
+      "imagens": [
+        13
+      ],
+      "fase": "climax",
+      "tecnica": "pausa de silêncio antes da resposta (Dn 6:21)",
+      "tela": "",
+      "inicio_aprox_s": 67.4,
+      "duracao_aprox_s": 5.9
+    },
+    {
+      "id": "B12",
+      "fala": "O meu Deus enviou o seu anjo e fechou a boca dos leões.",
+      "imagens": [
+        14
+      ],
+      "fase": "climax",
+      "tecnica": "versículo-chave só aqui (Dn 6:22); entra na tela e fica até o fim",
+      "tela": "VERSÍCULO",
+      "inicio_aprox_s": 73.4,
+      "duracao_aprox_s": 6.4
+    },
+    {
+      "id": "B13",
+      "fala": "Nenhum arranhão. A Bíblia diz o motivo: ele confiou no seu Deus.",
+      "imagens": [
+        15
+      ],
+      "fase": "payoff",
+      "tecnica": "paga o laço (o que o rei encontrou) com fato do texto (Dn 6:23)",
+      "tela": "VERSÍCULO",
+      "inicio_aprox_s": 79.8,
+      "duracao_aprox_s": 5.9
+    },
+    {
+      "id": "B14",
+      "fala": "Qual é a sua cova de leões hoje? Comenta amém se você ainda ora.",
+      "imagens": [
+        16
+      ],
+      "fase": "cta",
+      "tecnica": "identificação + comentário; emenda no gancho",
+      "tela": "VERSÍCULO + Comente: AMÉM",
+      "inicio_aprox_s": 85.7,
+      "duracao_aprox_s": 6.9
+    }
+  ],
+  "auditoria": {
+    "gancho": "Jogaram um homem numa cova de leões é perigo concreto, e o rei insone é a virada.",
+    "laco_aberto": "O que o rei encontrou de manhã só é revelado no payoff do arranhão.",
+    "escalada": "Inveja, armadilha, lei e escolha sobem a aposta, cada degrau termina em tensão.",
+    "virada": "Daniel abre as janelas e ora como sempre, mesmo sabendo da pena de morte.",
+    "climax": "O silêncio e a voz do fundo da cova antecedem o versículo-chave que paga a pergunta do rei.",
+    "payoff": "Nenhum arranhão e o motivo do texto, confiou no seu Deus, resolvem o laço aberto.",
+    "cta": "A pergunta da cova de leões de hoje convida ao comentário e emenda no gancho.",
+    "ritmo_fidelidade": "Quinze beats de até sete segundos cobrem Daniel 6 em ordem, com dramatização mínima."
+  },
+  "revisao": {
+    "gancho": 0,
+    "laco_aberto": 0,
+    "escalada": 0,
+    "virada": 0,
+    "climax": 0,
+    "payoff": 0,
+    "cta": 0,
+    "ritmo_fidelidade": 0,
+    "rodadas": 0
+  }
+}

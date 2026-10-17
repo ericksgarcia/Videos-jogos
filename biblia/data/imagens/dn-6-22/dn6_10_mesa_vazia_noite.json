@@ -1,0 +1,42 @@
+{
+  "video": "Daniel e a cova dos leões",
+  "imagem": "10 de 16",
+  "arquivo_de_saida": "dn6_10_mesa_vazia_noite.png",
+  "fase_da_historia": "ESCALADA: a noite do rei",
+  "descricao": "Mesa de comida intocada, cadeiras de músicos vazias e uma vela.",
+  "prompt_en": "Atmospheric interior of a palace dining chamber at night, a long table with untouched golden food and fruit, empty stools and a harp left alone in the corner, a single candle burning low, the king seen from behind sitting rigid at the end of the table, deep purple robe, cold moonlight from a tall window, long shadows, silence and anxiety, king small in the lower third, dark upper wall. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
+  "personagens": {
+    "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
+    "rei": "KING DARIUS: Median king, deep purple robe with gold trim, tall rounded gold tiara, heavy gold ring on his hand; seen only from behind, in profile or in silhouette.",
+    "rivais": "RIVAL OFFICIALS: men in dark hooded robes with gold chains of office; always silhouettes, shadows or backs, never faces."
+  },
+  "formato": {
+    "formato": "vertical 9:16",
+    "resolucao_ideal": "2160x3840",
+    "minimo": "1620x2880",
+    "arquivo": "PNG",
+    "folga": "mantenha tudo importante nos 80% centrais (eu dou zoom até ~12%)",
+    "zonas_seguras_1080x1920": {
+      "topo_0_300": "sem detalhe importante",
+      "centro_330_1190": "versículo nas imagens 14, 15 e 16: área suave",
+      "base_1480_1920": "legenda/ícones; sem detalhe importante",
+      "direita_x_acima_de_880": "evitar elementos importantes"
+    },
+    "variacoes": "3 a 4 por imagem"
+  },
+  "zona_do_texto": "Sem texto.",
+  "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Push-in muito lento; vela tremendo; sons de silêncio e coração.",
+  "camadas_para_parallax": "Mesa (frente), rei (meio), janela (fundo).",
+  "criterios_de_aceite": [
+    "Sem texto/logo",
+    "Sem objetos modernos",
+    "Sem rosto de frente",
+    "Sem sangue ou violência",
+    "Anatomia/mãos corretas",
+    "Resolução mínima",
+    "Zonas seguras respeitadas",
+    "Coerência de paleta e figurino"
+  ]
+}

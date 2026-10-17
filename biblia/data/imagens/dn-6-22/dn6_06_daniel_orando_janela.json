@@ -1,0 +1,42 @@
+{
+  "video": "Daniel e a cova dos leões",
+  "imagem": "6 de 16",
+  "arquivo_de_saida": "dn6_06_daniel_orando_janela.png",
+  "fase_da_historia": "VIRADA: a escolha",
+  "descricao": "Daniel de joelhos orando diante da janela aberta, voltado para Jerusalém.",
+  "prompt_en": "Iconic cinematic shot of an elderly man kneeling in prayer in profile in front of a tall open arched window in an upper room of a stone house, short grey beard, off-white linen tunic and dark blue-grey mantle, hands lifted, warm golden light pouring through the open window beyond which a vast ancient city and a golden sunset sky are visible in the distance, dust motes glowing in the light, peaceful and brave, silhouette strongly backlit, figure in the lower-left third. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
+  "personagens": {
+    "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
+    "rei": "KING DARIUS: Median king, deep purple robe with gold trim, tall rounded gold tiara, heavy gold ring on his hand; seen only from behind, in profile or in silhouette.",
+    "rivais": "RIVAL OFFICIALS: men in dark hooded robes with gold chains of office; always silhouettes, shadows or backs, never faces."
+  },
+  "formato": {
+    "formato": "vertical 9:16",
+    "resolucao_ideal": "2160x3840",
+    "minimo": "1620x2880",
+    "arquivo": "PNG",
+    "folga": "mantenha tudo importante nos 80% centrais (eu dou zoom até ~12%)",
+    "zonas_seguras_1080x1920": {
+      "topo_0_300": "sem detalhe importante",
+      "centro_330_1190": "versículo nas imagens 14, 15 e 16: área suave",
+      "base_1480_1920": "legenda/ícones; sem detalhe importante",
+      "direita_x_acima_de_880": "evitar elementos importantes"
+    },
+    "variacoes": "3 a 4 por imagem"
+  },
+  "zona_do_texto": "Sem texto.",
+  "ordem_de_geracao": "GERE ESTA PRIMEIRO: é referência de estilo/figurino.",
+  "como_vou_animar": "Push-in lento; luz crescendo; cortinas movendo com o vento; poeira dourada.",
+  "camadas_para_parallax": "Cortina/peitoril (frente), Daniel (meio), cidade (fundo).",
+  "criterios_de_aceite": [
+    "Sem texto/logo",
+    "Sem objetos modernos",
+    "Sem rosto de frente",
+    "Sem sangue ou violência",
+    "Anatomia/mãos corretas",
+    "Resolução mínima",
+    "Zonas seguras respeitadas",
+    "Coerência de paleta e figurino"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "video": "Daniel e a cova dos leões",
+  "imagem": "16 de 16",
+  "arquivo_de_saida": "dn6_16_cova_luz_loop.png",
+  "fase_da_historia": "CTA + LOOP: espelho do gancho",
+  "descricao": "Mesma cova da imagem 1, agora cheia de luz dourada e leões calmos.",
+  "prompt_en": "Dramatic top-down view into the same deep round stone pit as the opening shot, same composition and angle, now flooded with warm golden dawn light, rough ancient stone walls glowing amber, lions lying calmly at the bottom with eyes closed or at rest, warm dust motes floating, mood of peace and victory, composition centered, SAME framing, angle and composition as the opening pit shot so the video can loop. Cinematic photorealistic film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric light with haze and floating dust, shallow depth of field, rich teal-black shadows and warm amber-gold highlights, fine film grain, ultra-detailed textures of stone, cloth and skin, 8k, masterpiece, ancient Babylon and Persia around 540 BC, reverent tense mood",
+  "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, electric light, cars, glass windows, plastic, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face looking at camera, gore, blood, visible wounds, crowd, duplicated subject, frame, border, baked-in vignette",
+  "personagens": {
+    "daniel": "DANIEL: elderly man, short grey beard, simple off-white linen tunic with a dark blue-grey wool mantle, bare feet or plain leather sandals; seen only from behind, in profile or in silhouette, never facing the camera.",
+    "rei": "KING DARIUS: Median king, deep purple robe with gold trim, tall rounded gold tiara, heavy gold ring on his hand; seen only from behind, in profile or in silhouette.",
+    "rivais": "RIVAL OFFICIALS: men in dark hooded robes with gold chains of office; always silhouettes, shadows or backs, never faces."
+  },
+  "formato": {
+    "formato": "vertical 9:16",
+    "resolucao_ideal": "2160x3840",
+    "minimo": "1620x2880",
+    "arquivo": "PNG",
+    "folga": "mantenha tudo importante nos 80% centrais (eu dou zoom até ~12%)",
+    "zonas_seguras_1080x1920": {
+      "topo_0_300": "sem detalhe importante",
+      "centro_330_1190": "versículo nas imagens 14, 15 e 16: área suave",
+      "base_1480_1920": "legenda/ícones; sem detalhe importante",
+      "direita_x_acima_de_880": "evitar elementos importantes"
+    },
+    "variacoes": "3 a 4 por imagem"
+  },
+  "zona_do_texto": "Versículo e CTA no centro/baixo; mantenha a base limpa.",
+  "ordem_de_geracao": "Gere 6 e 2 primeiro (referência de estilo e figurino).",
+  "como_vou_animar": "Dolly in lento; no último segundo a luz recua para o escuro do início (loop).",
+  "camadas_para_parallax": "Borda (frente), leões (meio), fundo da cova (longe).",
+  "criterios_de_aceite": [
+    "Sem texto/logo",
+    "Sem objetos modernos",
+    "Sem rosto de frente",
+    "Sem sangue ou violência",
+    "Anatomia/mãos corretas",
+    "Resolução mínima",
+    "Zonas seguras respeitadas",
+    "Coerência de paleta e figurino"
+  ]
+}
