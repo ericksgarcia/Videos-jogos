@@ -104,12 +104,12 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
 }
 
-type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; cta_final?: boolean; referencia?: string; imagens?: { arquivo: string; inicio?: string; palavra?: string }[]; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; cta_final?: boolean; referencia?: string; verso_janela?: boolean; imagens?: { arquivo: string; inicio?: string; palavra?: string }[]; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, cta_final: j.cta_final, referencia: j.referencia, imagens: j.imagens, tomadas: j.tomadas };
+  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, cta_final: j.cta_final, referencia: j.referencia, verso_janela: j.verso_janela, imagens: j.imagens, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   auditarRoteiro(j, arq, j.texto_na_tela !== "tudo");
@@ -345,7 +345,7 @@ async function main() {
     rotulo: rotuloDe({ ...entrada, reference: extras.referencia ?? entrada.reference }, at.ato2),
     fundo: extras.fundo === "gerativo" ? { paleta: extras.paleta ?? (entrada.tone === "epic" ? "ouro" : "azul"), semente: tomadas[0]?.seed ?? 1 } : undefined,
     visual_fato: vf,
-    gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, loop: extras.loop, blocos: blocosLeg,
+    gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, verso_janela: extras.verso_janela, loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: extras.cta_final ? linha.total - 0.1 : at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");

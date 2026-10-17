@@ -34,7 +34,7 @@ export function diagramar(palavras: PalavraPlano[], caixa = CAIXA): { fonte: num
   return { fonte: 34, linhas: [palavras] };
 }
 
-export const VersoFixo = ({ palavras, faixa = 100, caixa = CAIXA }: { palavras: PalavraPlano[]; faixa?: number; caixa?: typeof CAIXA }) => {
+export const VersoFixo = ({ palavras, faixa = 100, caixa = CAIXA, janela = false }: { palavras: PalavraPlano[]; faixa?: number; caixa?: typeof CAIXA; janela?: boolean }) => {
   useEffect(() => {
     const h = delayRender("fonte do versículo");
     Promise.all([document.fonts.load("700 70px Cinzel")]).finally(() => continueRender(h));
@@ -45,7 +45,8 @@ export const VersoFixo = ({ palavras, faixa = 100, caixa = CAIXA }: { palavras: 
   if (!palavras.length) return null;
   const { fonte, linhas } = diagramar(palavras, caixa);
   const ini = palavras[0].ini, fim = palavras[palavras.length - 1].fim;
-  const entra = interpolate(t, [0.1, 0.7], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  // janela: o texto só existe durante a leitura (entra um instante antes e sai logo depois), deixando a imagem limpa no gancho e na conclusão
+  const entra = janela ? interpolate(t, [ini - 0.45, ini - 0.05, fim + 0.8, fim + 1.4], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : interpolate(t, [0.1, 0.7], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const lendo = t >= ini - 0.05 && t <= fim + 0.3;
   const scrim = 0.4 + 0.35 * Math.min(1, Math.max(0, (faixa - 90) / 70));
   let k = -1;

@@ -81,13 +81,13 @@ export const Video = (plano: Plano) => {
       </AbsoluteFill>
       {/* clarão dourado na palavra de clímax (qualquer tipo de fundo) */}
       <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 35%, rgba(255,225,150,1), rgba(255,180,80,0) 62%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.climax.t); return k < 0 ? 0 : 0.6 * Math.exp(-k / 7); })() }} />
-      <FaixaLegibilidade forca={gerativo ? 0.22 : proc ? 0.5 : 0.55} />
+      <FaixaLegibilidade forca={gerativo ? 0.22 : plano.verso_janela ? 0.3 : proc ? 0.5 : 0.55} />
       <Fumaca intensidade={plano.tomadas.some((x) => x.tipo === "cenografia") ? 0.035 : proc ? 0.1 : 0.06} />
       <Poeira />
       <Pulso cortes={cortes} />
       <Vinheta forca={gerativo ? 0.35 : proc ? 0.62 : 0.6} />
       {plano.verso_fixo
-        ? <VersoFixo caixa={plano.visual_fato ? { x: 70, w: 850, y: 330, h: 860 } : undefined} palavras={plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []} faixa={gerativo ? 70 : plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
+        ? <VersoFixo janela={Boolean(plano.verso_janela)} caixa={plano.visual_fato ? { x: 70, w: 850, y: 330, h: 860 } : undefined} palavras={plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []} faixa={gerativo ? 70 : plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
         : <KineticText segmentos={plano.segmentos} blocos={plano.blocos} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />}
       <RotuloReferencia {...plano.rotulo} />
       {plano.gancho_tela && !plano.verso_fixo && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
