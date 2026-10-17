@@ -104,12 +104,12 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
 }
 
-type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; cta_final?: boolean; imagens?: { arquivo: string; inicio?: string; palavra?: string }[]; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; cta_final?: boolean; referencia?: string; imagens?: { arquivo: string; inicio?: string; palavra?: string }[]; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, cta_final: j.cta_final, imagens: j.imagens, tomadas: j.tomadas };
+  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, cta_final: j.cta_final, referencia: j.referencia, imagens: j.imagens, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   auditarRoteiro(j, arq, j.texto_na_tela !== "tudo");
@@ -340,9 +340,9 @@ async function main() {
 
   // 7) plano
   const plano: Plano = {
-    id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: entrada.reference, gancho: entrada.emotional_hook,
+    id, fps: FPS, duracao: linha.total, bpm, tom: entrada.tone, referencia: extras.referencia ?? entrada.reference, gancho: entrada.emotional_hook,
     audio: `runs/${id}/${basename(mixArq)}`, segmentos: segs, tomadas, climax: { t: climaxT, palavra: rot.climax },
-    rotulo: rotuloDe(entrada, at.ato2),
+    rotulo: rotuloDe({ ...entrada, reference: extras.referencia ?? entrada.reference }, at.ato2),
     fundo: extras.fundo === "gerativo" ? { paleta: extras.paleta ?? (entrada.tone === "epic" ? "ouro" : "azul"), semente: tomadas[0]?.seed ?? 1 } : undefined,
     visual_fato: vf,
     gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, loop: extras.loop, blocos: blocosLeg,
