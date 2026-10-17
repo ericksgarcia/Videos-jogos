@@ -1,8 +1,8 @@
 {
-  "ato1": "Ele chorava enterrando a comida dos filhos. De propósito. Era o último grão da casa.",
-  "versiculo": "Aquele que leva a preciosa semente, andando e chorando, voltará, sem dúvida, com alegria",
+  "ato1": "Ele chorava enterrando a comida dos filhos. De propósito: ou comiam hoje, ou ele plantava.",
+  "versiculo": "andando e chorando, voltará, sem dúvida, com alegria, trazendo consigo os seus molhos.",
   "climax": "alegria",
-  "ato3": "Ele não estava tirando comida da mesa. Estava multiplicando. Quem enterra grão não volta com grão. Volta com feixes.",
+  "ato3": "Ele não estava tirando comida da mesa. Estava multiplicando. Quem enterra grão volta com molhos: braços cheios de feixes.",
   "cta": "Comenta amém se hoje você também planta chorando.",
   "cta_tela": "Comente: AMÉM",
   "cta_style": "amem",
@@ -40,11 +40,11 @@
   ],
   "auditoria": {
     "gancho": "Enterrar a comida dos filhos chorando é um paradoxo concreto de sete palavras.",
-    "virada": "De propósito, era o último grão da casa: o risco fica concreto.",
-    "contexto": "Último grão da casa explica por que a semente era preciosa antes do versículo.",
+    "virada": "De propósito: ou comiam hoje, ou ele plantava, torna a escolha concreta.",
+    "contexto": "A escolha entre comer hoje ou plantar explica por que a semente era preciosa.",
     "cta": "Comenta amém se hoje você também planta chorando, e o chorando emenda no ele chorava.",
-    "versiculo": "Voltará com alegria responde ao porquê com a preciosa semente e o sem dúvida.",
-    "ato3": "Não estava tirando comida, estava multiplicando: o gancho muda de sentido.",
+    "versiculo": "Voltará com alegria, trazendo os molhos, paga o porquê do choro com a recompensa.",
+    "ato3": "Não estava tirando comida, estava multiplicando: molhos são braços cheios de feixes.",
     "final": "O planta chorando fecha o vídeo e reabre o ele chorava enterrando a comida do gancho."
   },
   "revisao": {
