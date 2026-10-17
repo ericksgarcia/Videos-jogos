@@ -345,7 +345,7 @@ async function main() {
     rotulo: rotuloDe({ ...entrada, reference: extras.referencia ?? entrada.reference }, at.ato2),
     fundo: extras.fundo === "gerativo" ? { paleta: extras.paleta ?? (entrada.tone === "epic" ? "ouro" : "azul"), semente: tomadas[0]?.seed ?? 1 } : undefined,
     visual_fato: vf,
-    gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, verso_janela: extras.verso_janela, loop: extras.loop, blocos: blocosLeg,
+    gancho_tela: extras.verso_fixo ? undefined : extras.gancho_tela, ...ganchoTempos(segs, extras.verso_fixo ? [] : extras.gancho_tela), verso_fixo: extras.verso_fixo, verso_janela: extras.verso_janela, imagens_prontas: extras.imagens?.length ? true : undefined, loop: extras.loop, blocos: blocosLeg,
     cta_tela: extras.cta_tela ? { texto: extras.cta_tela, ini: at.cta, fim: extras.cta_final ? linha.total - 0.1 : at.ato2 - 0.2 } : undefined,
   };
   const planoArq = join(saida, "plano.json");

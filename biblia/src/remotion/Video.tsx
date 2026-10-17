@@ -81,7 +81,7 @@ export const Video = (plano: Plano) => {
       </AbsoluteFill>
       {/* clarão dourado na palavra de clímax (qualquer tipo de fundo) */}
       <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 35%, rgba(255,225,150,1), rgba(255,180,80,0) 62%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.climax.t); return k < 0 ? 0 : 0.6 * Math.exp(-k / 7); })() }} />
-      <FaixaLegibilidade forca={gerativo ? 0.22 : plano.verso_janela ? 0.3 : proc ? 0.5 : 0.55} />
+      <FaixaLegibilidade forca={gerativo ? 0.22 : plano.verso_janela || plano.imagens_prontas ? 0.3 : proc ? 0.5 : 0.55} />
       <Fumaca intensidade={plano.tomadas.some((x) => x.tipo === "cenografia") ? 0.035 : proc ? 0.1 : 0.06} />
       <Poeira />
       <Pulso cortes={cortes} />
