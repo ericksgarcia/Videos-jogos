@@ -87,9 +87,9 @@ export const Video = (plano: Plano) => {
       <Pulso cortes={cortes} />
       <Vinheta forca={gerativo ? 0.35 : proc ? 0.62 : 0.6} />
       {plano.verso_fixo
-        ? <VersoFixo janela={Boolean(plano.verso_janela)} caixa={plano.visual_fato ? { x: 70, w: 850, y: 330, h: 860 } : undefined} palavras={plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []} faixa={gerativo ? 70 : plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
+        ? <VersoFixo intervalo={plano.verso_intervalo} janela={Boolean(plano.verso_janela)} caixa={plano.visual_fato ? { x: 70, w: 850, y: 330, h: 860 } : undefined} palavras={plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []} faixa={gerativo ? 70 : plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />
         : <KineticText segmentos={plano.segmentos} blocos={plano.blocos} faixa={plano.tomadas.find((x) => t >= x.ini && t < x.fim)?.faixa} />}
-      <RotuloReferencia {...plano.rotulo} />
+      <RotuloReferencia {...plano.rotulo} janela={plano.verso_intervalo} />
       {plano.gancho_tela && !plano.verso_fixo && <GanchoTela linhas={plano.gancho_tela} fim={plano.gancho_fim ?? 2.6} ini={plano.gancho_linhas} />}
       {plano.gancho_virada !== undefined && <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, rgba(255,230,170,1), rgba(255,200,110,0) 65%)", mixBlendMode: "screen", pointerEvents: "none", opacity: (() => { const k = frame - q(plano.gancho_virada!); return k < 0 ? 0 : 0.5 * Math.exp(-k / 5); })() }} />}
       {plano.visual_fato && <Lacres v={plano.visual_fato} palavras={(plano.segmentos.find((s) => s.id === "ato2")?.palavras ?? []).map((w) => w.t)} caixa={{ x: 70, w: 850, y: 330, h: 860 }} />}

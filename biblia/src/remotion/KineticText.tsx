@@ -122,12 +122,12 @@ export const KineticText = ({ segmentos, blocos, faixa = 100 }: { segmentos: Seg
 };
 
 /** Referência bíblica fixa no topo durante TODO o vídeo; dá um "pulso" de brilho quando a leitura começa. */
-export const RotuloReferencia = ({ texto, ini }: { texto: string; ini: number; fim: number }) => {
+export const RotuloReferencia = ({ texto, ini, janela }: { texto: string; ini: number; fim: number; janela?: [number, number] }) => {
   useFontes();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const entra = interpolate(t, [0.15, 0.7], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const entra = janela ? interpolate(t, [janela[0] - 0.4, janela[0] + 0.1, janela[1], janela[1] + 0.5], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : interpolate(t, [0.15, 0.7], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const destaque = Math.max(0, 1 - Math.abs(t - ini - 0.4) / 1.1);  // brilha ao começar a leitura do versículo
   const linha = 170 + 70 * entra + 60 * destaque;
   return (

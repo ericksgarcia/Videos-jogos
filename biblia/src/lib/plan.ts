@@ -50,6 +50,7 @@ export type Plano = {
   fundo?: { paleta: string; semente: number };   // fundo gerativo (shader), sem imagens pagas
   visual_fato?: { tipo: "lacres" | "bolhas"; n: number; entradas: number[]; gatilhos: number[]; idx: number[]; selo: number[] };   // o fato vira cena, sincronizado com a voz
   imagens_prontas?: boolean;   // fotos prontas por cena: escurecimento geral mais leve (o versículo tem fundo próprio)
+  verso_intervalo?: [number, number];   // história: o versículo e a referência só existem neste intervalo (s)
   verso_janela?: boolean;   // o versículo só aparece durante a leitura
   verso_fixo?: boolean;               // o versículo inteiro fica escrito na tela o vídeo todo; as outras falas não têm texto
   loop?: boolean;                     // sem fade no fim/começo: o vídeo emenda em si mesmo

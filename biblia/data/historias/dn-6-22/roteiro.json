@@ -28,8 +28,8 @@
       "fase": "laco_aberto",
       "fala": "A cova ainda engoliria outros. De manhã, o rei correu até lá.",
       "imagens": [
-        3,
-        4
+        4,
+        3
       ],
       "tecnica": "laço: quem foram os outros? Pago no B16 (Dn 6:19,24; 'engoliria' é dramatização); não revela se Daniel vive",
       "tela": "",
@@ -159,7 +159,6 @@
       "fase": "climax",
       "fala": "Chamou com voz triste: Daniel! O teu Deus conseguiu te livrar?",
       "imagens": [
-        3,
         4
       ],
       "tecnica": "eco do B2 pelas imagens 3 e 4 + dúvida do rei (Dn 6:20)",
@@ -177,7 +176,7 @@
       ],
       "tecnica": "silêncio real antes da resposta",
       "tela": "",
-      "som": "só vento",
+      "som": "vento baixo e coração (música cai para quase zero)",
       "inicio_aprox_s": 62.3,
       "duracao_aprox_s": 1.2
     },
@@ -188,7 +187,7 @@
       "imagens": [
         14
       ],
-      "tecnica": "paga o laço do B2 (Dn 6:21)",
+      "tecnica": "paga a corrida do rei (B2); o 'outros' fica para o B16 (Dn 6:21)",
       "tela": "",
       "som": "",
       "inicio_aprox_s": 63.5,
@@ -259,14 +258,14 @@
     "ritmo_fidelidade": "Dezoito imagens, nenhuma acima de seis segundos, dramatizações marcadas e famílias omitidas."
   },
   "revisao": {
-    "gancho": 0,
-    "laco_aberto": 0,
-    "escalada": 0,
-    "virada": 0,
-    "climax": 0,
-    "payoff": 0,
-    "cta": 0,
-    "ritmo_fidelidade": 0,
-    "rodadas": 7
+    "gancho": 9,
+    "laco_aberto": 8,
+    "escalada": 8,
+    "virada": 9,
+    "climax": 9,
+    "payoff": 9,
+    "cta": 8,
+    "ritmo_fidelidade": 8,
+    "rodadas": 8
   }
 }

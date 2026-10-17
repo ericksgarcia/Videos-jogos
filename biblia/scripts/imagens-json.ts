@@ -13,10 +13,10 @@ if (modelo) process.env.FLUX_MODEL = modelo;
 const spec = JSON.parse(readFileSync(join("data/imagens", `${id}.json`), "utf8"));
 const saida = join("out/imagens", id + (modelo ? "-" + modelo.split("/").pop() : ""));
 mkdirSync(saida, { recursive: true });
-const ordem = [2, 1, 3, 4, 5, 6, 7];   // a imagem 2 é a referência de estilo
-for (const n of ordem) {
-  const c = spec.cenas.find((x: { ordem: number }) => x.ordem === n);
+const dirImg = join("data/imagens", id, "img"); mkdirSync(dirImg, { recursive: true });
+for (let n = 1; n <= spec.cenas.length; n++) {
+  const c = spec.cenas[n - 1]; const nome = c.arquivo ?? c.arquivo_de_saida;
   const arq = await gerarImagem(`${c.prompt_en}. No text, no letters, no modern objects`, 1260 + n);
-  copyFileSync(arq, join(saida, c.arquivo));
-  console.log("✔", c.arquivo);
+  copyFileSync(arq, join(saida, nome)); copyFileSync(arq, join(dirImg, nome));
+  console.log("✔", nome);
 }
