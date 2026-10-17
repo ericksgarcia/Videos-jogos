@@ -114,6 +114,24 @@ export async function gerarProfundidade(imagemUrlOuArquivo: string, arquivoImage
   return arq;
 }
 
+export const UPSCALE_MODEL = () => process.env.UPSCALE_MODEL ?? "nightmareai/real-esrgan";
+
+/** Amplia a imagem 2× (Real-ESRGAN): 768×1344 → 1536×2688, nitidez para o zoom e o parallax parecerem 4K no vídeo de 1080p. */
+export async function ampliar(arquivo: string, escala = 2): Promise<string> {
+  mkdirSync(CACHE, { recursive: true });
+  const { readFileSync, statSync, renameSync } = await import("node:fs");
+  const modelo = UPSCALE_MODEL();
+  const arq = join(CACHE, `up-${hash(modelo, escala, createHash("sha1").update(readFileSync(arquivo)).digest("hex"))}.png`);
+  if (existsSync(arq)) return arq;
+  const out = await comTentativas(async () => criar(modelo, { image: await dataUri(arquivo), scale: escala, face_enhance: false }), 2);
+  await baixar(urlDaSaida(out), arq);
+  const { spawnSync } = await import("node:child_process");
+  const tmp = arq + ".tmp.png";   // garante PNG (alguns modelos devolvem webp/jpg)
+  if (spawnSync("ffmpeg", ["-y", "-loglevel", "error", "-i", arq, tmp]).status === 0) renameSync(tmp, arq);
+  if (statSync(arq).size < 1000) throw new Error("ampliação vazia");
+  return arq;
+}
+
 /** Envia a imagem como data URI (o Replicate aceita data URI no campo `image`). */
 export async function dataUri(arquivo: string): Promise<string> {
   const { readFileSync } = await import("node:fs");

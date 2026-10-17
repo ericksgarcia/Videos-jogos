@@ -1,0 +1,60 @@
+{
+  "ato1": "Ele chorava jogando na terra o pão dos filhos. E o salmo diz como ele volta.",
+  "versiculo": "Aquele que leva a preciosa semente, andando e chorando, voltará, sem dúvida, com alegria",
+  "climax": "alegria",
+  "ato3": "A semente era a comida da família. Plantar era passar fome hoje. O que se entrega chorando volta em feixes.",
+  "cta": "Comenta amém se você está plantando chorando hoje.",
+  "cta_tela": "Comente: AMÉM",
+  "cta_style": "amem",
+  "cta_final": true,
+  "loop": true,
+  "imagens": [
+    {
+      "arquivo": "sl126_01_lagrima_semente.png",
+      "inicio": "ato1"
+    },
+    {
+      "arquivo": "sl126_02_semeador_campo_seco.png",
+      "palavra": "pão"
+    },
+    {
+      "arquivo": "sl126_03_primeiro_broto.png",
+      "inicio": "ato2"
+    },
+    {
+      "arquivo": "sl126_04_trigo_crescendo.png",
+      "palavra": "voltará,"
+    },
+    {
+      "arquivo": "sl126_05_campo_dourado.png",
+      "inicio": "ato3"
+    },
+    {
+      "arquivo": "sl126_06_volta_com_feixes.png",
+      "palavra": "feixes"
+    },
+    {
+      "arquivo": "sl126_07_orvalho_broto_loop.png",
+      "inicio": "cta"
+    }
+  ],
+  "auditoria": {
+    "gancho": "Ele chorava jogando na terra o pão dos filhos é uma imagem concreta e chocante.",
+    "virada": "E o salmo diz como ele volta abre a curiosidade sem entregar a resposta.",
+    "contexto": "A semente era a comida da família: plantar era passar fome hoje.",
+    "cta": "Comenta amém se você está plantando chorando hoje emenda no ele chorava do início.",
+    "versiculo": "Voltará com alegria responde a pergunta de como ele volta, com a preciosa semente.",
+    "ato3": "O que se entrega chorando volta em feixes muda o sentido do pão jogado fora.",
+    "final": "O pedido de amém a quem planta chorando hoje reabre o ele chorava do começo."
+  },
+  "revisao": {
+    "gancho": 0,
+    "virada": 0,
+    "contexto": 0,
+    "cta": 0,
+    "versiculo": 0,
+    "ato3": 0,
+    "final": 0,
+    "rodadas": 0
+  }
+}

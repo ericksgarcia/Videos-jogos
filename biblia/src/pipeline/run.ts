@@ -22,7 +22,7 @@ import { finalizar } from "./encode.ts";
 import { prepararOverlays } from "./overlays.ts";
 import { imagemFalsa, videoFalso } from "./offline.ts";
 import { buscarClipe } from "./pexels.ts";
-import { dataUri, gerarProfundidade } from "./replicate.ts";
+import { ampliar, dataUri, gerarProfundidade } from "./replicate.ts";
 import { DUR_MAX, blocos, bpmDoTom, montarLinha, palavraClimaxTempo, rotuloDe, segmentos } from "./plan.ts";
 import { cenaDaTomada } from "./cenarios.ts";
 import { avaliar, confirmarFundos, dhash, fundoInedito } from "./fundos.ts";
@@ -104,12 +104,12 @@ function auditarRoteiro(j: { ato1: string; gancho_tela?: string[]; auditoria?: R
   if (falhas.length) throw new Error(`roteiro ${arq} reprovado na auditoria:\n  - ${falhas.join("\n  - ")}`);
 }
 
-type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; cta_final?: boolean; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
+type Extras = { fundo?: string; paleta?: string; visual_fato?: { tipo: "lacres" | "bolhas"; gatilhos: string[]; entrada?: string }; verso_fixo?: boolean; gancho_tela?: string[]; cta_tela?: string; loop?: boolean; cta_final?: boolean; imagens?: { arquivo: string; inicio?: string; palavra?: string }[]; tomadas?: { cena: string; variante?: string; palavra?: string; inicio?: string }[] };
 let extras: Extras = {};
 
 function roteiroDeArquivo(arq: string, e: { text: string; id: string }): Roteiro {
   const j = JSON.parse(readFileSync(arq, "utf8"));
-  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, cta_final: j.cta_final, tomadas: j.tomadas };
+  extras = { fundo: j.fundo, paleta: j.paleta, visual_fato: j.visual_fato, verso_fixo: j.texto_na_tela !== "tudo", gancho_tela: j.gancho_tela, cta_tela: j.cta_tela, loop: j.loop, cta_final: j.cta_final, imagens: j.imagens, tomadas: j.tomadas };
   const erros = validar(j);
   if (erros.length) console.warn(`⚠ roteiro ${arq}: ${erros.join("; ")}`);
   auditarRoteiro(j, arq, j.texto_na_tela !== "tudo");
@@ -175,6 +175,33 @@ async function main() {
   if (extras.fundo === "gerativo") {
     // fundo gerado por shader (sem imagens, sem custo): uma única tomada para o vídeo inteiro
     tomadasRoteiro = [{ ini: 0, fim: linha.total, tipo: "gerativo", src: "", seed: entrada.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % 97 }];
+  } else if (extras.imagens?.length) {
+    // Imagens prontas (geradas por fora ou pelo data/imagens/*.json): cada uma entra no início de um ato ou NA palavra indicada,
+    // é ampliada 2× (nitidez de 4K) e ganha mapa de profundidade para o parallax 2.5D.
+    const todas = segs.flatMap((sg) => sg.palavras.map((w) => ({ ...w, seg: sg.id })));
+    const limpa = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}-]/gu, "");
+    let depois = 0;
+    const lista: PlanoTomada[] = [];
+    for (let k = 0; k < extras.imagens.length; k++) {
+      const im = extras.imagens[k];
+      const origem = [join(RAIZ, "data/imagens", entrada.id, "img", im.arquivo), join(RAIZ, "out/imagens", entrada.id, im.arquivo)].find((x) => existsSync(x));
+      if (!origem) throw new Error(`imagem ${im.arquivo} não encontrada em data/imagens/${entrada.id}/img/`);
+      let ini = 0;
+      if (k > 0) {
+        if (im.inicio) { const sg = segs.find((x) => x.id === im.inicio); if (!sg) throw new Error(`imagens[${k}]: ato "${im.inicio}" inexistente`); ini = (depois = sg.ini); }
+        else { const w = todas.find((x) => x.ini > depois + 0.3 && limpa(x.t) === limpa(im.palavra ?? "")); if (!w) throw new Error(`imagens[${k}]: palavra "${im.palavra}" não encontrada depois de ${depois.toFixed(1)}s`); ini = (depois = Math.max(0, w.ini - 0.06)); }
+      }
+      const grande = o.offline ? origem : await ampliar(origem);
+      const di = `bloco-${k}.png`, dp = `bloco-${k}-prof.png`;
+      copyFileSync(grande, join(pub, di));
+      let prof: string | undefined;
+      if (!o.offline) { try { prof = await gerarProfundidade(await dataUri(origem), origem); } catch (e) { console.warn(`⚠ sem mapa de profundidade (${im.arquivo}): ${(e as Error).message} — usando o local`); prof = profundidadeLocal(origem); } }
+      if (prof) copyFileSync(prof, join(pub, dp));
+      lista.push({ ini, fim: 0, tipo: "parallax", src: `runs/${id}/${di}`, depth: prof ? `runs/${id}/${dp}` : undefined, seed: k, faixa: avaliar(origem).faixa });
+      console.log(`  imagem ${k + 1}/${extras.imagens.length}: ${im.arquivo} @ ${ini.toFixed(1)} s`);
+    }
+    lista.forEach((t, k) => { t.fim = k + 1 < lista.length ? lista[k + 1].ini : 0; });
+    tomadasRoteiro = lista;
   } else if (extras.tomadas?.length) {
     // Cenografia do roteiro: cada tomada começa NA palavra indicada (ou no início de um ato).
     const todas = segs.flatMap((sg) => sg.palavras.map((w) => ({ ...w, seg: sg.id })));
