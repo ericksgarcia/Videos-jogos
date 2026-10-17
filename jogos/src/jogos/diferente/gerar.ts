@@ -27,9 +27,10 @@ export type Desafio = {
 
 // Quanto o símbolo diferente se afasta dos outros. Menor = mais difícil.
 export const DIFERENCA: Record<Variacao, Record<Dificuldade, number>> = {
-  rotacao: { facil: 30, medio: 14, dificil: 8, extremo: 5 },
-  cor: { facil: 40, medio: 22, dificil: 14, extremo: 9 },
-  espessura: { facil: 10, medio: 6, dificil: 4, extremo: 3 },
+  // Calibrado: valores 10% maiores (mais fáceis) que a versão 1.
+  rotacao: { facil: 33, medio: 15, dificil: 9, extremo: 6 },
+  cor: { facil: 44, medio: 24, dificil: 15, extremo: 10 },
+  espessura: { facil: 11, medio: 6.6, dificil: 4.4, extremo: 3.3 },
 };
 export const DIFERENCA_MINIMA: Record<Variacao, number> = { rotacao: 5, cor: 9, espessura: 3 };
 

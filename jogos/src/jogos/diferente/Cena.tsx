@@ -37,7 +37,6 @@ const Estilo: React.FC<{ s: Simbolo; id: string; tam: number }> = ({ s, id, tam 
           <stop offset="1" stopColor={hsl(s.matiz, 90, 50)} />
         </linearGradient>
       </defs>
-      <path d={estrela(0, 6, R, s.pontas, s.rotacao)} fill="rgba(0,0,0,0.35)" style={{ filter: "blur(7px)" }} />
       <path d={estrela(0, 0, R, s.pontas, s.rotacao)} fill={`url(#${id})`} stroke={hsl(s.matiz, 100, 88)}
         strokeWidth={s.espessura} strokeLinejoin="round" />
       <path d={estrela(-R * 0.1, -R * 0.12, R * 0.55, s.pontas, s.rotacao)} fill="rgba(255,255,255,0.22)" />
@@ -130,7 +129,7 @@ export const Diferente: React.FC<PropsDiferente> = ({ semente, dificuldade }) =>
         const lin = Math.floor(i / d.colunas), col = i % d.colunas;
         const entra = gelatina(prog(t, atrasoCelula(lin, col), atrasoCelula(lin, col) + 0.7));
         const fase = (lin * 0.37 + col * 0.61) % 1;
-        const idle = jogando ? 1 + 0.03 * Math.sin(2 * Math.PI * (t * 0.5 + fase)) : 1;
+        const idle = jogando ? 1 + 0.02 * Math.sin(2 * Math.PI * (t * 0.5 + fase)) : 1;
         const certo = i === d.indiceCorreto;
         let esc = entra * idle;
         let op = 1;

@@ -1,0 +1,128 @@
+{
+  "versao": 1,
+  "id": "002-monalisa",
+  "formato": "o-que-mudou",
+  "resumo": "Retrato clássico estilo Mona Lisa. A imagem ORIGINAL não tem sobrancelhas (como a famosa pintura). A imagem ALTERADA é idêntica, só com sobrancelhas finas adicionadas.",
+
+  "decisao": {
+    "imagem_conhecida": "Mona Lisa (Leonardo da Vinci, c. 1503–1519) — domínio público, reconhecida no mundo todo",
+    "mudanca_minima": "Adicionar um par de sobrancelhas finas e naturais, cor castanho-escuro igual ao cabelo. NADA mais pode mudar.",
+    "por_que_funciona": [
+      "Quem olha reconhece a imagem de imediato, então só precisa 'achar' o que mudou",
+      "A mudança é pequena (menos de 1% da área da imagem) e fica no rosto, onde o olho já está",
+      "A Mona Lisa original não tem sobrancelhas: a resposta vira uma curiosidade famosa, que rende comentário e compartilhamento",
+      "Não depende de cor, rotação ou tamanho: é um detalhe que o cérebro 'completa' sozinho"
+    ],
+    "dificuldade_estimada": "media-dificil"
+  },
+
+  "saida": {
+    "arquivos": [
+      { "nome": "original.png", "descricao": "SEM sobrancelhas (versão A)" },
+      { "nome": "alterada.png", "descricao": "COM sobrancelhas, resto idêntico (versão B)" },
+      { "nome": "mascara.png", "descricao": "Máscara branca/preta usada na edição (branco = região editada). Opcional, mas guarde." }
+    ],
+    "pasta_no_repositorio": "jogos/assets/002-monalisa/",
+    "largura": 1080,
+    "altura": 1350,
+    "proporcao": "4:5",
+    "formato_arquivo": "PNG sem compressão com perdas, sem marca d'água, sem texto, sem moldura",
+    "gerar_em_resolucao_maior": "Se possível gere em 2160x2700 e reduza para 1080x1350 (as duas versões com o mesmo método)"
+  },
+
+  "passo_1_imagem_original": {
+    "tipo": "texto-para-imagem",
+    "seed": 20240017,
+    "fixar_seed": true,
+    "prompt": "Oil painting portrait in the style of Leonardo da Vinci's Mona Lisa, a woman with long dark brown hair parted in the middle, covered by a thin transparent veil, calm enigmatic half-smile, soft sfumato shading, smooth gradual transitions without outlines. She has NO eyebrows and NO eyelashes visible, bare smooth forehead and bare brow ridge. Three-quarter view, body turned slightly to the left, face turned toward the viewer, eyes looking straight at the viewer. Dark brown-green gown with a square neckline, bare neck and chest, hands folded in her lap at the bottom of the frame, right hand over left. Dreamy background landscape with a winding path, distant bluish-green mountains and misty valleys, warm golden-brown sky haze. Craquelure of an aged painting, warm yellowish varnish tone, museum-quality, highly detailed face, symmetrical lighting from the upper left. Vertical 4:5 composition, subject centered, head and shoulders and hands visible, face occupying about 28 percent of the image height.",
+    "prompt_negativo": "eyebrows, eyebrow hair, drawn eyebrows, penciled brows, eyelashes, text, watermark, signature, frame, border, picture frame, museum wall, multiple people, extra fingers, deformed hands, cartoon, anime, 3d render, photograph, modern clothing, jewelry, necklace, earrings, hat, glasses, blur, low resolution",
+    "parametros_sugeridos": {
+      "passos": 40,
+      "guidance_cfg": 6.5,
+      "sampler": "DPM++ 2M Karras (ou o padrão do gerador)",
+      "numero_de_imagens": 4,
+      "escolha": "Escolha a melhor entre as 4 (veja os critérios de aceitação abaixo)"
+    },
+    "criterios_de_aceitacao": [
+      "Rosto de frente/três quartos, nítido, olhos abertos e simétricos",
+      "SEM sobrancelhas (testa lisa acima dos olhos). Se aparecer sobrancelha, descarte e gere de novo",
+      "Duas mãos visíveis com cinco dedos cada, sem deformação",
+      "Sem texto, assinatura, moldura ou marca d'água",
+      "Rosto ocupa região central e alta da imagem (entre ~15% e ~45% da altura), para caber na área segura do vídeo",
+      "Nada importante nas bordas (o TikTok cobre as laterais e a parte de baixo)"
+    ]
+  },
+
+  "passo_2_imagem_alterada": {
+    "tipo": "edicao-com-mascara (inpainting)",
+    "partir_de": "original.png",
+    "importante": "NÃO gere de novo do zero. Use a MESMA imagem original e edite só a máscara. Qualquer outra diferença estraga o jogo.",
+    "mascara": {
+      "descricao": "Duas faixas finas e curvas logo acima dos olhos, onde ficariam as sobrancelhas. Deixe a máscara um pouco maior que a sobrancelha (margem de ~6 px) com borda suave de 3 px.",
+      "regiao_normalizada_esperada": {
+        "observacao": "Valores aproximados (0 a 1, x da esquerda, y de cima); ajuste ao rosto real da sua imagem. Meça e anote no campo 'resposta' abaixo.",
+        "sobrancelha_esquerda_da_imagem": { "x": 0.36, "y": 0.205, "largura": 0.12, "altura": 0.03 },
+        "sobrancelha_direita_da_imagem": { "x": 0.53, "y": 0.205, "largura": 0.12, "altura": 0.03 }
+      }
+    },
+    "prompt_de_edicao": "Add thin, natural, dark brown eyebrows above both eyes, same color as her hair, painted in the same oil-painting style with soft sfumato edges. Gentle arch, slightly lifted at the outer ends. Do not change anything else.",
+    "prompt_negativo": "thick eyebrows, bushy eyebrows, dark heavy makeup, changing the eyes, changing the face shape, changing the smile, changing hair, changing skin tone, changing background, changing hands, changing clothes, new objects",
+    "parametros_sugeridos": {
+      "forca_de_remocao_denoise": 0.55,
+      "guidance_cfg": 6.0,
+      "mesma_seed": 20240017,
+      "somente_dentro_da_mascara": true,
+      "preservar_fora_da_mascara": "pixel a pixel (cole a imagem original por cima fora da máscara, se o gerador alterar o restante)"
+    },
+    "alternativa_sem_inpainting": "Se o gerador não tiver edição por máscara: abra original.png num editor e pinte as duas sobrancelhas com pincel macio de ~6 px, cor #3b2a1d, opacidade 80%, sem mexer em mais nada.",
+    "criterios_de_aceitacao": [
+      "Diferença visível a olho nu só ao comparar lado a lado, mas pequena: sobrancelhas finas, não grossas",
+      "Todo o resto idêntico ao original (olhos, sorriso, cabelo, véu, mãos, fundo, craquelê)",
+      "Verificação objetiva: subtraia as duas imagens; a diferença deve estar concentrada na caixa das sobrancelhas e ocupar menos de 1% da área da imagem"
+    ]
+  },
+
+  "resposta": {
+    "o_que_mudou": "A versão ALTERADA ganhou sobrancelhas. A Mona Lisa original não tem sobrancelhas.",
+    "caixa_da_resposta_pixels": {
+      "observacao": "PREENCHA depois de gerar: caixa que envolve as DUAS sobrancelhas, em pixels da imagem final 1080x1350",
+      "x": null, "y": null, "largura": null, "altura": null
+    },
+    "frase_de_explicacao_curta": "Ela ganhou sobrancelhas! A Mona Lisa original não tem.",
+    "curiosidade_para_a_descricao": "Em 2007 um estudo com câmera de altíssima resolução sugeriu que ela chegou a ter sobrancelhas, apagadas com o tempo por limpezas da tinta."
+  },
+
+  "plano_do_video": {
+    "titulo_na_tela": "O QUE MUDOU?",
+    "subtitulo": "Compare as duas Mona Lisas",
+    "duracao_s": 20,
+    "estrutura": [
+      { "t": "0-3 s", "acao": "Título 'O QUE MUDOU?' e a imagem ORIGINAL aparece, com a palavra 'ANTES'." },
+      { "t": "3-7 s", "acao": "Cronômetro começa. Imagem ORIGINAL por ~3 s, depois pisca (corte seco com 'whoosh') para a ALTERADA com a palavra 'DEPOIS'." },
+      { "t": "7-13 s", "acao": "Alterna ANTES/DEPOIS a cada 1,2 s, cada vez mais rápido, com tique-taque acelerando. Nada indica onde está a mudança." },
+      { "t": "13-14 s", "acao": "'TEMPO!' e pausa de um tempo." },
+      { "t": "14-18 s", "acao": "Revelação: zoom suave na caixa da resposta, círculo amarelo, alterna antes/depois lentamente ali. Texto: 'Ela ganhou sobrancelhas!'. Explicação: 'A Mona Lisa original não tem.'" },
+      { "t": "18-19.2 s", "acao": "Chamada: 'Comenta sua resposta'." },
+      { "t": "19.2-20 s", "acao": "Volta ao quadro inicial (loop perfeito)." }
+    ],
+    "area_segura": "Imagem centralizada em x 60–880, y 330–1450. Nada importante no topo (<300), no rodapé (>1480) nem à direita (>880)."
+  },
+
+  "licenca_e_etica": {
+    "obra_base": "Mona Lisa — domínio público",
+    "as_imagens_geradas": "Use apenas gerador com licença que permita uso comercial. Guarde o nome do gerador, versão e seed junto das imagens.",
+    "sem_rosto_de_pessoa_real_viva": true
+  },
+
+  "entrega_para_o_claude": {
+    "coloque_os_arquivos_em": "jogos/assets/002-monalisa/ (original.png, alterada.png, mascara.png) OU anexe no chat",
+    "preencha_antes_de_enviar": ["resposta.caixa_da_resposta_pixels", "gerador_usado", "seed_final"],
+    "gerador_usado": null,
+    "seed_final": 20240017,
+    "o_que_o_claude_faz_depois": [
+      "Verifica por código se as duas imagens têm o mesmo tamanho e se a diferença está só dentro da caixa informada (teste automático, igual ao do 'Qual é diferente?')",
+      "Cria o formato 'O que mudou?' em Remotion (alternância com cortes, cronômetro, zoom de revelação, sons sintetizados, loop)",
+      "Renderiza, revisa os quadros, envia o MP4 (<30 MB) e a descrição do TikTok"
+    ]
+  }
+}
