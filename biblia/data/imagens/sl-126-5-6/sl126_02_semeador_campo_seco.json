@@ -1,0 +1,46 @@
+{
+  "video": "Salmo 126:5-6: Quem semeia chorando",
+  "referencia": "Salmos 126:5-6",
+  "imagem": "2 de 7",
+  "arquivo_de_saida": "sl126_02_semeador_campo_seco.png",
+  "ordem_de_geracao": "GERE ESTA PRIMEIRO: ela é a referência de estilo, figurino, terreno e céu para as outras 6.",
+  "descricao": "Plano geral: o semeador de costas, pequeno, no centro-baixo de um campo seco ao entardecer sob céu carregado.",
+  "funcao_narrativa": "VIRADA: mostra quem planta chorando; sensação de solidão e perda",
+  "prompt_en": "Wide cinematic shot, lone ancient farmer seen from behind in a rough linen tunic and brown wool cloak, walking slowly and scattering seeds by hand across a vast dry cracked red-earth field at dusk, small in frame in the lower third, heavy dramatic storm-teal sky with a single crack of amber light on the horizon, low rolling hills, a long soft shadow, mist near the ground, strong depth with dry stalks in the foreground, middle ground figure and far hills. Cinematic photorealistic painterly film still, shot on 35mm anamorphic lens, Rembrandt chiaroscuro, volumetric golden-hour light with soft atmospheric haze, shallow depth of field with creamy bokeh, rich teal-navy shadows and amber-gold highlights, fine organic film grain, ultra-detailed textures, 8k, masterpiece, ancient Near East setting around 1000 BC, timeless biblical atmosphere, reverent and emotional mood",
+  "negative_prompt": "text, letters, words, watermark, logo, signature, caption, modern objects, tractor, machinery, power lines, poles, roads, asphalt, fences, plastic, cars, buildings with glass, cartoon, anime, 3d render look, oversaturated neon, HDR halo, blurry, low resolution, jpeg artifacts, deformed hands, extra fingers, extra limbs, distorted anatomy, recognizable face, face looking at camera, crowd, duplicated subject, cut-off subject, frame, border, vignette baked in",
+  "formato": {
+    "proporcao": "9:16 vertical",
+    "resolucao_ideal": "2160x3840",
+    "minimo": "1620x2880",
+    "arquivo": "PNG",
+    "variacoes": "3 a 4"
+  },
+  "zona_do_texto": "Céu dramático ocupa o topo; figura no terço inferior; evitar detalhe forte no centro.",
+  "zonas_seguras": {
+    "topo_0_300": "só céu/ambiente, sem detalhe importante (marca e referência ficam aqui)",
+    "centro_330_1190": "zona onde o versículo é escrito nas imagens 3 e 4: deixe baixo contraste, sombra suave ou céu calmo; sem rosto, sem objeto brilhante",
+    "base_1480_1920": "legenda/ícones do TikTok; sem detalhe importante; pode ser terra escura",
+    "coluna_direita_x_acima_de_880": "evitar elementos importantes"
+  },
+  "folga_para_movimento": "Eu vou dar zoom e deslocar a imagem (até ~12%): mantenha tudo que importa dentro dos 80% centrais; os 10% de cada borda são só ambiente.",
+  "personagem": "Um agricultor israelita antigo: túnica de linho cru, manto de lã marrom, cinto de corda, pés descalços ou sandálias de couro simples. SEMPRE de costas, de perfil perdido ou em silhueta; nunca rosto reconhecível. Mesmo figurino em todas as imagens em que aparece (2 e 6).",
+  "paleta": {
+    "sombras": "#050b1a a #0b1a2e (azul-marinho/teal profundo)",
+    "luz_principal": "#ffb347 a #ffd27a (âmbar/ouro quente)",
+    "acento": "#ff7a3d (brasa) só em pontos pequenos",
+    "verde_vida": "#7fb069 / #a7c957, apenas a partir da imagem 3"
+  },
+  "progressao_de_cor": "Imagens 1-2 frias e escuras (dor), imagem 3 com o primeiro verde e luz, imagens 4-6 cada vez mais quentes, imagem 7 retoma o enquadramento da 1 mas quente (esperança).",
+  "camadas_opcionais_para_parallax": "Três camadas: primeiro plano (talos), semeador, fundo (céu e colinas). Se puder, gere o fundo limpo sem o semeador.",
+  "como_vou_animar": "Pan lento da esquerda para a direita com parallax: talos secos do primeiro plano deslizam mais rápido que as colinas; push-in suave de 1.00→1.08.",
+  "criterios_de_aceite": [
+    "Sem texto, letras, logos ou marcas d'água",
+    "Sem objetos modernos ou anacrônicos",
+    "Sem rosto reconhecível; mãos e anatomia corretas",
+    "Resolução mínima atendida e sem artefatos de compressão",
+    "Zonas seguras respeitadas (principalmente nas imagens 3 e 4)",
+    "Coerência de paleta, figurino e terreno com as demais",
+    "Profundidade clara: primeiro plano, meio e fundo separados (ajuda o parallax)",
+    "Contraste suficiente para a legenda dourada/branca ler bem na zona do texto"
+  ]
+}
