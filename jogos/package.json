@@ -1,0 +1,26 @@
+{
+  "name": "jogos-tiktok",
+  "private": true,
+  "description": "Canal Jogos TikTok: mini-desafios visuais gerados por código",
+  "type": "module",
+  "scripts": {
+    "test": "tsx --test tests/*.test.ts",
+    "tipos": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/nunito": "^5.3.0",
+    "@remotion/bundler": "^4.0.536",
+    "@remotion/cli": "^4.0.536",
+    "@remotion/google-fonts": "^4.0.536",
+    "@remotion/renderer": "^4.0.536",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.536"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^18.3.31",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
