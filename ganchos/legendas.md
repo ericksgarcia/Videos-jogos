@@ -475,7 +475,7 @@ Quando você come algo muito doce, o cérebro libera dopamina no sistema de reco
 • Não deixe doce à vista
 • Troque devagar, não de uma vez
 
-Assista de novo e repare no ponto brilhante no cérebro do vídeo: é a área da recompensa se acendendo. 💡
+Assista de novo e repare no brilho do cérebro logo atrás do doce: é a área da recompensa se acendendo. 💡
 
 💾 Salva para ler na próxima vontade de doce.
 💬 Qual doce é o seu ponto fraco? Conta aqui.
