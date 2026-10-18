@@ -30,6 +30,7 @@ W, H, FPS, DUR = (CFG["formato"][k] for k in ("largura", "altura", "fps", "durac
 N = FPS * DUR
 AMARELO, BRANCO, CIANO = (255, 210, 63), (248, 249, 255), (143, 227, 255)
 API = "https://api.replicate.com/v1"
+OFICIAIS = {"black-forest-labs/flux-schnell"}
 
 
 # ---------- Replicate ----------
@@ -44,25 +45,39 @@ def _token():
     return t
 
 
-def _rodar(modelo, entrada):
-    cab = {"Authorization": f"Bearer {_token()}", "Prefer": "wait=60"}
-    for tentativa in range(8):
-        r = requests.post(f"{API}/models/{modelo}/predictions", headers=cab, json={"input": entrada}, timeout=120)
-        if r.status_code == 404:  # modelo da comunidade: precisa do id da versão
+_ultimo = [0.0]
+
+
+def _criar(cab, modelo, entrada):
+    """Cria a predição respeitando o limite da conta (6/min com pouco crédito)."""
+    comunidade = modelo not in OFICIAIS
+    for _ in range(10):
+        espera = 11 - (time.time() - _ultimo[0])
+        if espera > 0:
+            time.sleep(espera)
+        _ultimo[0] = time.time()
+        if comunidade:
             v = requests.get(f"{API}/models/{modelo}", headers=cab, timeout=60).json()["latest_version"]["id"]
             r = requests.post(f"{API}/predictions", headers=cab, json={"version": v, "input": entrada}, timeout=120)
+        else:
+            r = requests.post(f"{API}/models/{modelo}/predictions", headers=cab, json={"input": entrada}, timeout=120)
         if r.status_code == 429:
-            time.sleep(10 + 4 * tentativa)
+            time.sleep(r.json().get("retry_after", 10) + 1)
             continue
         r.raise_for_status()
-        p = r.json()
-        while p["status"] in ("starting", "processing"):
-            time.sleep(1.5)
-            p = requests.get(p["urls"]["get"], headers=cab, timeout=60).json()
-        if p["status"] != "succeeded":
-            sys.exit(f"{modelo} falhou: {p.get('error')}")
-        return p["output"]
+        return r.json()
     sys.exit("limite de requisições da API")
+
+
+def _rodar(modelo, entrada):
+    cab = {"Authorization": f"Bearer {_token()}", "Prefer": "wait=60"}
+    p = _criar(cab, modelo, entrada)
+    while p["status"] in ("starting", "processing"):
+        time.sleep(1.5)
+        p = requests.get(p["urls"]["get"], headers=cab, timeout=60).json()
+    if p["status"] != "succeeded":
+        sys.exit(f"{modelo} falhou: {p.get('error')}")
+    return p["output"]
 
 
 def _baixar(url, destino):
@@ -122,7 +137,7 @@ def camada_texto(g):
     d = ImageDraw.Draw(img)
     margem = 90
     larg = W - 2 * margem
-    tam = 74 if len(g["texto"]) < 140 else 66
+    tam = 86 if len(g["texto"]) < 130 else 76
     fonte, fonte2 = _fonte(900, tam), _fonte(800, int(tam * 0.78))
 
     def colorir(txt, destaque, base):
@@ -178,11 +193,12 @@ def render(g):
     prof = (prof - prof.min()) / max(prof.max() - prof.min(), 1e-6) - 0.5  # -0.5 (longe) … +0.5 (perto)
     gx, gy = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
     ox, oy = (fw - W) / 2, (fh - H) / 2
+    prof = np.ascontiguousarray(prof[int(oy):int(oy) + H, int(ox):int(ox) + W])
 
     # escurece o centro (onde fica o texto) e as bordas
     yy = (np.arange(H, dtype=np.float32) / H)[:, None]
     xx = (np.arange(W, dtype=np.float32) / W)[None, :]
-    faixa = 0.30 + 0.30 * np.exp(-(((yy - 0.5) / 0.26) ** 2))
+    faixa = 0.08 + 0.34 * np.exp(-(((yy - 0.5) / 0.26) ** 2))
     vinheta = 1 - 0.55 * (((xx - 0.5) * 1.5) ** 2 + ((yy - 0.5) * 1.1) ** 2)
     escuro = np.clip(1 - faixa, 0, 1) * np.clip(vinheta, 0.35, 1)
     escuro = escuro[..., None]
