@@ -1,0 +1,316 @@
+{
+  "formato": {"largura": 1080, "altura": 1920, "fps": 30, "duracao_s": 8, "proporcao_imagem": "9:16"},
+  "modelos": {
+    "imagem": "black-forest-labs/flux-schnell",
+    "profundidade": "chenxwh/depth-anything-v2"
+  },
+  "cena_base": {
+    "style": "cinematic photoreal digital illustration, premium science-documentary look, volumetric light, shallow depth of field, rich separation between foreground, midground and background layers",
+    "palette": "deep navy blue shadows (#0a1230), warm golden-yellow highlights (#ffd23f), teal and cyan accents, a touch of orange",
+    "composition": "vertical 9:16, strong parallax depth with clearly separated foreground / midground / background, main subject in the upper-middle third, calm dark area in the center for overlaid text, vignette",
+    "camera": "35mm lens, slightly low angle, soft bokeh in the far background",
+    "negative": "text, letters, words, numbers, captions, watermark, logo, signature, cartoon for kids, childish, mascot, deformed hands, extra fingers, blurry subject, low quality"
+  },
+  "ganchos": [
+    {
+      "id": 1, "slug": "efeito-zeigarnik", "categoria": "Psicologia e Comportamento",
+      "texto": "Um psicólogo russo descobriu em 1927 por que você rola na cama e não consegue dormir. O culpado não é a ansiedade.",
+      "complemento": "É um “defeito” na sua memória.",
+      "destaque": ["1927", "defeito"],
+      "legenda": "Efeito Zeigarnik: o cérebro não consegue relaxar enquanto você tiver tarefas incompletas ou conversas inacabadas martelando na mente.",
+      "cena": {
+        "subject": "a restless adult lying awake in bed at night, eyes open, staring at the ceiling",
+        "foreground": "dark bedsheet folds and a pillow edge, slightly out of focus",
+        "midground": "dozens of glowing unfinished sticky notes, half-open notebooks and unfinished checklists floating above the bed like a swarm",
+        "background": "bedroom window with cold moonlight and a faint city skyline",
+        "lighting": "cold blue moonlight with warm golden glow coming from the floating notes",
+        "mood": "restless, insomnia, mind that will not switch off"
+      }
+    },
+    {
+      "id": 2, "slug": "efeito-dunning-kruger", "categoria": "Psicologia e Comportamento",
+      "texto": "Um estudo da Universidade de Cornell revelou o motivo perturbador pelo qual as pessoas incompetentes têm tanta autoconfiança.",
+      "complemento": "Eles sofrem de uma falha biológica no cérebro.",
+      "destaque": ["perturbador", "falha biológica"],
+      "legenda": "Efeito Dunning-Kruger: a incapacidade cognitiva que faz quem sabe pouco não perceber a própria ignorância.",
+      "cena": {
+        "subject": "a confident man in a suit standing proudly with arms crossed on top of a tiny rocky hill, smiling",
+        "foreground": "dark jagged rocks and drifting fog",
+        "midground": "the small hill he stands on, surrounded by thick mist",
+        "background": "an enormous colossal mountain range looming behind him that he does not notice, golden sunrise on the peaks",
+        "lighting": "dramatic backlight, golden rim light on the man, cold blue fog",
+        "mood": "ironic, overconfidence, hidden vastness"
+      }
+    },
+    {
+      "id": 3, "slug": "efeito-halo", "categoria": "Psicologia e Comportamento",
+      "texto": "O seu cérebro toma uma decisão financeira desastrosa em 3 segundos quando você olha para uma pessoa atraente.",
+      "complemento": "Psicólogos chamam isso de o “Viés Invisível”.",
+      "destaque": ["3 segundos", "desastrosa"],
+      "legenda": "Efeito Halo: nós associamos beleza à honestidade e à competência automaticamente.",
+      "cena": {
+        "subject": "an elegant attractive person seen in silhouette from behind with a glowing golden halo ring of light behind their head",
+        "foreground": "a desk with a signed contract and a pen, blurred, coins scattered",
+        "midground": "the glowing figure standing in a modern trading office",
+        "background": "blurred stock-market screens in red and green, city lights through glass walls",
+        "lighting": "warm golden halo glow against cold blue office light",
+        "mood": "seductive trap, hidden bias, money at risk"
+      }
+    },
+    {
+      "id": 4, "slug": "efeito-holofote", "categoria": "Psicologia e Comportamento",
+      "texto": "Você tropeça na rua e acha que todo mundo viu. Um estudo revelou que o seu cérebro está mentindo para você.",
+      "complemento": "O número real de pessoas que te notaram é chocante.",
+      "destaque": ["mentindo", "chocante"],
+      "legenda": "Efeito Holofote: a nossa tendência egocêntrica de superestimar o quanto os outros estão prestando atenção em nós.",
+      "cena": {
+        "subject": "a person stumbling on a city sidewalk, caught mid-trip, lit by a huge exaggerated spotlight cone from above",
+        "foreground": "wet pavement with reflections",
+        "midground": "passersby in dark silhouettes, all absorbed in their phones and not looking at the person",
+        "background": "blurred night street with neon signs and bokeh",
+        "lighting": "harsh theatrical spotlight in warm yellow, cold blue ambient night",
+        "mood": "embarrassment that exists only in the head"
+      }
+    },
+    {
+      "id": 5, "slug": "feedback-facial", "categoria": "Psicologia e Comportamento",
+      "texto": "Neurocientistas descobriram um “código de trapaça” no seu rosto. Se você fizer esse movimento por 2 segundos, o seu corpo é obrigado a desligar o estresse na hora.",
+      "complemento": "",
+      "destaque": ["código de trapaça", "2 segundos", "desligar o estresse"],
+      "legenda": "Hipótese do Feedback Facial: forçar fisicamente um sorriso faz o cérebro liberar endorfina e baixar o ritmo cardíaco.",
+      "cena": {
+        "subject": "close profile portrait of a person with a subtle calm smile, eyes closed, relieved",
+        "foreground": "dark swirling red-orange stress waves dissolving into soft particles near the face",
+        "midground": "the face with soft golden light on the cheek",
+        "background": "a translucent glowing neural network of the brain fading from red to calm teal",
+        "lighting": "soft golden key light, teal rim light",
+        "mood": "instant relief, hidden trick"
+      }
+    },
+    {
+      "id": 6, "slug": "lei-de-parkinson", "categoria": "Produtividade e Foco",
+      "texto": "Uma lei britânica de 1955 explica por que você demora 7 dias para fazer uma tarefa que leva apenas 2 horas.",
+      "complemento": "Você está sabotando o seu próprio tempo sem perceber.",
+      "destaque": ["1955", "7 dias", "2 horas"],
+      "legenda": "Lei de Parkinson: o trabalho se expande para preencher todo o prazo que você der a ele.",
+      "cena": {
+        "subject": "a giant glass hourglass overflowing with golden sand, time stretching",
+        "foreground": "a desk with a laptop, a coffee mug and a single small paper task, out of focus",
+        "midground": "the hourglass with sand spilling in slow motion across the desk",
+        "background": "a wall calendar with many pages flying away, a large vintage wall clock",
+        "lighting": "warm golden desk lamp, deep blue room",
+        "mood": "time slipping, procrastination"
+      }
+    },
+    {
+      "id": 7, "slug": "estado-de-flow", "categoria": "Produtividade e Foco",
+      "texto": "A CIA e o Google treinam seus funcionários para entrarem neste exato “estado de transe” no trabalho.",
+      "complemento": "Faz 4 horas parecerem 15 minutos.",
+      "destaque": ["CIA", "Google", "transe"],
+      "legenda": "Estado de Flow, de Mihaly Csikszentmihalyi: o nível máximo de imersão e foco absoluto.",
+      "cena": {
+        "subject": "a person from behind working intensely at a desk in total focus, enveloped by a tunnel of streaming golden light",
+        "foreground": "streaks of light and floating particles flowing toward the person",
+        "midground": "the desk, a glowing monitor and the focused silhouette",
+        "background": "the whole office dissolving into motion-blurred light streaks and a spinning clock",
+        "lighting": "intense golden-cyan glow from the monitor, radial light tunnel",
+        "mood": "deep trance, time distortion"
+      }
+    },
+    {
+      "id": 8, "slug": "ciclos-ultradianos", "categoria": "Produtividade e Foco",
+      "texto": "Trabalhar 8 horas seguidas está literalmente destruindo os seus neurônios. A elite mundial da produtividade obriga-se a parar a cada X minutos.",
+      "complemento": "",
+      "destaque": ["destruindo", "X minutos"],
+      "legenda": "Ciclos Ultradianos: o cérebro humano só consegue operar em alta performance em blocos de 90 a 120 minutos.",
+      "cena": {
+        "subject": "a glowing translucent human brain with cracks leaking orange light, hovering above an exhausted worker at a desk",
+        "foreground": "stacked papers and cold coffee cups, out of focus",
+        "midground": "the exhausted worker slumped over the keyboard at night",
+        "background": "dark office windows with a huge city skyline and a clock showing late night",
+        "lighting": "cracked orange glow from the brain, cold blue monitor light",
+        "mood": "burnout, overload"
+      }
+    },
+    {
+      "id": 9, "slug": "empilhamento-de-habitos", "categoria": "Produtividade e Foco",
+      "texto": "Cientistas de Stanford descobriram que motivação é inútil. Se você quiser criar um hábito novo hoje, precisa apenas usar esse truque enquanto escova os dentes.",
+      "complemento": "",
+      "destaque": ["motivação é inútil", "escova os dentes"],
+      "legenda": "Empilhamento de Hábitos: o truque de associar um hábito novo a uma ação que você já faz no piloto automático.",
+      "cena": {
+        "subject": "a toothbrush with toothpaste on a bathroom sink, with a chain of glowing golden links rising from it",
+        "foreground": "the toothbrush and sink edge in sharp detail",
+        "midground": "a vertical chain of floating glowing habit icons (a dumbbell, a book, a water glass) stacked like building blocks",
+        "background": "a bathroom mirror reflecting soft morning light, steam, bokeh",
+        "lighting": "soft morning light with golden glow on the chain",
+        "mood": "small trick, big effect"
+      }
+    },
+    {
+      "id": 10, "slug": "principio-de-pareto", "categoria": "Produtividade e Foco",
+      "texto": "Um economista italiano descobriu a equação exata que faz você ganhar o triplo trabalhando pela metade do tempo.",
+      "complemento": "A matemática não mente.",
+      "destaque": ["triplo", "metade do tempo"],
+      "legenda": "Princípio de Pareto: 80% dos seus resultados vêm de apenas 20% do seu esforço bem direcionado.",
+      "cena": {
+        "subject": "one enormous glowing golden 3D bar towering over a field of tiny dim blue bars, an abstract bar chart landscape",
+        "foreground": "tiny dim bars in sharp focus on a reflective dark floor",
+        "midground": "the giant golden bar emitting light and sparks",
+        "background": "an endless dark space with a faint grid horizon and floating particles",
+        "lighting": "golden light radiating from the tall bar onto the reflective floor",
+        "mood": "hidden leverage, mathematical elegance"
+      }
+    },
+    {
+      "id": 11, "slug": "aversao-a-perda", "categoria": "Finanças e Estratégia",
+      "texto": "Psicólogos ganhadores do Nobel descobriram por que pessoas inteligentes perdem todo o dinheiro na bolsa de valores.",
+      "complemento": "A dor no seu cérebro sabota a sua lógica.",
+      "destaque": ["Nobel", "perdem todo o dinheiro"],
+      "legenda": "Aversão à Perda: psicologicamente, a dor de perder 100 reais dói duas vezes mais do que a alegria de ganhar 100 reais.",
+      "cena": {
+        "subject": "an investor in a suit holding his head in his hands in front of a giant crashing red stock chart",
+        "foreground": "scattered coins and crumpled papers on the desk",
+        "midground": "the investor with a faint red glow of pain pulsing in his head",
+        "background": "a wall of trading screens full of red falling candlestick charts, dark trading floor",
+        "lighting": "red glow from the screens, cold shadows",
+        "mood": "panic, financial pain"
+      }
+    },
+    {
+      "id": 12, "slug": "efeito-chamariz", "categoria": "Finanças e Estratégia",
+      "texto": "O truque psicológico sujo que o cinema usa no balcão de pipoca para arrancar o seu dinheiro.",
+      "complemento": "Você acha que é esperto, mas caiu em uma armadilha visual.",
+      "destaque": ["truque psicológico sujo", "armadilha visual"],
+      "legenda": "Efeito Chamariz (Decoy Effect): a pipoca média custa quase o preço da grande só para fazer a grande parecer vantagem.",
+      "cena": {
+        "subject": "three popcorn buckets in small, medium and large sizes on a cinema concession counter, the large one glowing temptingly",
+        "foreground": "popcorn kernels flying in the air in sharp focus",
+        "midground": "the three buckets lined up on the counter in warm light",
+        "background": "a dim cinema lobby with neon marquee lights and blurred movie posters",
+        "lighting": "warm red-gold neon glow, deep shadows",
+        "mood": "tempting trap, sneaky persuasion"
+      }
+    },
+    {
+      "id": 13, "slug": "custo-irrecuperavel", "categoria": "Finanças e Estratégia",
+      "texto": "A falha mental perigosa que faz você continuar em um relacionamento tóxico ou em um negócio falido.",
+      "complemento": "O seu cérebro recusa-se a aceitar este fato simples.",
+      "destaque": ["falha mental perigosa", "recusa-se"],
+      "legenda": "Falácia do Custo Irrecuperável: nós não desistimos do que nos faz mal porque não queremos admitir o tempo e o dinheiro que já gastamos naquilo.",
+      "cena": {
+        "subject": "a lone figure gripping a heavy chain made of coins and clock gears that drags a sinking ship anchor into dark water",
+        "foreground": "dark rippling water with floating coins",
+        "midground": "the person standing at the edge of a wooden pier holding the chain",
+        "background": "a half-sunken old ship in a stormy twilight sea, dramatic clouds",
+        "lighting": "last golden light on the horizon, cold teal storm",
+        "mood": "stubbornness, can't let go"
+      }
+    },
+    {
+      "id": 14, "slug": "banho-de-gelo", "categoria": "Saúde e Biologia",
+      "texto": "O ritual doloroso de 3 minutos que os jogadores de elite são obrigados a fazer logo após o apito final.",
+      "complemento": "Isso reinicia o corpo deles para o dia seguinte.",
+      "destaque": ["doloroso", "3 minutos"],
+      "legenda": "Os efeitos reais da crioterapia e dos banhos de imersão no gelo para frear inflamações agudas.",
+      "cena": {
+        "subject": "a muscular athlete in sports shorts sitting submerged to the chest in a barrel of ice water, jaw clenched, breath steaming",
+        "foreground": "floating ice cubes and cold mist in sharp focus",
+        "midground": "the athlete in the icy water, wet skin with blue highlights",
+        "background": "a huge empty stadium at night with floodlights and bokeh",
+        "lighting": "cold cyan and blue light, warm stadium floodlights behind",
+        "mood": "pain and discipline"
+      }
+    },
+    {
+      "id": 15, "slug": "cafe-ao-acordar", "categoria": "Saúde e Biologia",
+      "texto": "Tomar café logo que acorda não te dá energia. Na verdade, neurocientistas dizem que isso destrói a sua disposição para o resto do dia.",
+      "complemento": "O horário certo é bizarro.",
+      "destaque": ["não te dá energia", "destrói", "bizarro"],
+      "legenda": "A cafeína anula o pico natural de cortisol matinal; o café deve ser tomado de 90 a 120 minutos depois de acordar.",
+      "cena": {
+        "subject": "a steaming cup of black coffee on a bedside table at dawn, next to an alarm clock",
+        "foreground": "rising steam curls and coffee beans in sharp focus",
+        "midground": "the cup and the alarm clock on the nightstand with rumpled bed sheets behind",
+        "background": "bedroom window with sunrise light and blurred city, soft bokeh",
+        "lighting": "golden sunrise through the window, cool blue shadows",
+        "mood": "groggy morning, deceptive energy"
+      }
+    },
+    {
+      "id": 16, "slug": "luz-azul", "categoria": "Saúde e Biologia",
+      "texto": "Você dorme 8 horas, mas acorda exausto. Um endocrinologista revelou o “veneno invisível” no seu quarto que bloqueia o hormônio do sono.",
+      "complemento": "",
+      "destaque": ["exausto", "veneno invisível"],
+      "legenda": "A Luz Azul das telas dos celulares destrói a produção de melatonina pela glândula pineal.",
+      "cena": {
+        "subject": "a person asleep in bed with a smartphone glowing on the pillow, an invisible blue mist of light flowing from the screen over their face",
+        "foreground": "bed sheets and the glowing phone edge",
+        "midground": "the sleeping face bathed in electric blue haze",
+        "background": "a dark bedroom with a window and distant city lights",
+        "lighting": "harsh electric blue from the phone, dark surroundings",
+        "mood": "invisible threat, ruined sleep"
+      }
+    },
+    {
+      "id": 17, "slug": "acucar-e-cerebro", "categoria": "Saúde e Biologia",
+      "texto": "O seu cérebro sob o efeito de um simples doce é idêntico ao cérebro de um viciado.",
+      "complemento": "Estudos de ressonância magnética mostram exatamente a mesma área acendendo.",
+      "destaque": ["idêntico", "viciado"],
+      "legenda": "Picos de dopamina no sistema de recompensa do cérebro gerados pelo açúcar e por alimentos ultraprocessados.",
+      "cena": {
+        "subject": "a glazed pink donut hovering in front of a glowing translucent human brain, one region lighting up bright",
+        "foreground": "sugar crystals and sprinkles floating in sharp focus",
+        "midground": "the donut and the neon brain facing each other",
+        "background": "a dark medical MRI scanner room with soft blue light",
+        "lighting": "neon magenta and cyan glow, one bright hotspot on the brain",
+        "mood": "craving, addiction"
+      }
+    },
+    {
+      "id": 18, "slug": "phubbing", "categoria": "Dinâmica Social e Relacionamentos",
+      "texto": "Terapeutas de casais soaram o alarme: existe um movimento de 1 segundo com as mãos que destrói a intimidade do seu relacionamento todos os dias.",
+      "complemento": "",
+      "destaque": ["alarme", "1 segundo", "destrói"],
+      "legenda": "Phubbing: o ato de pegar no celular enquanto o seu parceiro está falando com você.",
+      "cena": {
+        "subject": "a couple at a candlelit restaurant table, one person staring down at a smartphone while the other looks at them with sad eyes",
+        "foreground": "the glowing phone and a hand holding it in sharp focus, wine glasses",
+        "midground": "the two people separated by a visible cold gap across the table",
+        "background": "warm blurred restaurant with candle bokeh",
+        "lighting": "warm candlelight on one side, cold blue phone light on the other",
+        "mood": "loneliness together, quiet damage"
+      }
+    },
+    {
+      "id": 19, "slug": "efeito-espectador", "categoria": "Dinâmica Social e Relacionamentos",
+      "texto": "O paradoxo mais assustador da psicologia: se você passar mal na rua, você precisa que tenha apenas 1 pessoa passando, e não 50.",
+      "complemento": "A razão vai te enojar.",
+      "destaque": ["assustador", "1 pessoa", "não 50"],
+      "legenda": "Efeito Espectador: quanto mais gente na rua, mais cada um joga a responsabilidade de ajudar para o outro, e ninguém ajuda.",
+      "cena": {
+        "subject": "a person lying on a busy city sidewalk while a dense crowd of silhouettes walks past without stopping",
+        "foreground": "the fallen person's outstretched hand on the pavement in sharp focus",
+        "midground": "a crowd of faceless hurried pedestrians in dark silhouette",
+        "background": "tall city buildings and blurred headlights at dusk",
+        "lighting": "cold dusk light with a single warm lamp over the fallen person",
+        "mood": "isolation in a crowd, unsettling"
+      }
+    },
+    {
+      "id": 20, "slug": "bulbo-olfativo", "categoria": "Dinâmica Social e Relacionamentos",
+      "texto": "O seu corpo tem um “botão de viagem no tempo” escondido. É o único sentido humano com acesso direto e sem filtros ao seu cofre de memórias de infância.",
+      "complemento": "",
+      "destaque": ["viagem no tempo", "cofre de memórias"],
+      "legenda": "Bulbo Olfativo: o nervo do nariz está ligado diretamente à amígdala e ao hipocampo, fazendo cheiros trazerem lembranças instantâneas.",
+      "cena": {
+        "subject": "a person with eyes closed smelling a flower, a glowing golden scent trail swirling from the flower into the head",
+        "foreground": "flower petals and floating pollen in sharp focus",
+        "midground": "the person in profile with a luminous swirl of scent",
+        "background": "a hazy warm vintage memory of a childhood backyard with a swing and sunset, dreamlike glow",
+        "lighting": "nostalgic golden hour glow, soft haze",
+        "mood": "nostalgia, memory flooding back"
+      }
+    }
+  ]
+}
