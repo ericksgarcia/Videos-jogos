@@ -561,7 +561,7 @@ Todos os outros sentidos (visão, audição, tato) passam por uma "central de tr
 2️⃣ Crie "âncoras" de boas memórias: viagens, momentos felizes
 3️⃣ Quando sentir saudade, procure o cheiro certo
 
-Assista de novo e repare na espiral dourada saindo da flor para dentro da cabeça. É o caminho direto para a memória. 🌀
+Assista de novo e repare no fio de luz dourada subindo da flor até o rosto. É o caminho direto para a memória. 🌀
 
 💾 Salva para a próxima vez que bater a saudade.
 💬 Qual cheiro leva você de volta à infância? Conta aqui. 💛
