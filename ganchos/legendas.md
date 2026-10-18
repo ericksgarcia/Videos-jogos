@@ -504,7 +504,7 @@ Tem nome: phubbing (de phone + snubbing, "ignorar com o celular"). A palavra sur
 
 🧠 Teste de 24 horas: passe um jantar inteiro sem celular e repare como a conversa muda.
 
-Assista de novo e repare nas duas luzes: a quente da vela e a fria da tela. São dois mundos na mesma mesa. 🕯️
+Assista de novo e repare nas duas luzes: a quente das velas e a fria das telas. Dois mundos na mesma mesa. 🕯️
 
 💾 Salva e propõe um jantar sem celular.
 💬 Quem aí já foi "phubbado"? Conta aqui. 😅
