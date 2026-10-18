@@ -390,7 +390,7 @@ Resumo: serve mais para recuperar para o próximo jogo do que para ficar mais fo
 3️⃣ Nunca sozinho, se for em banheira com gelo
 4️⃣ Respire devagar: o primeiro minuto é o pior
 
-Assista de novo e repare no vapor da respiração: é o corpo reagindo ao choque. 💨
+Assista de novo e repare nos cubos de gelo em primeiro plano: é o frio que o corpo precisa encarar. 🧊
 
 💾 Salva antes de tentar.
 💬 Você encararia isso? Conta aqui. 🥶
