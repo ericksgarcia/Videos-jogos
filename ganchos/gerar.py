@@ -71,13 +71,15 @@ def _criar(cab, modelo, entrada):
 
 def _rodar(modelo, entrada):
     cab = {"Authorization": f"Bearer {_token()}", "Prefer": "wait=60"}
-    p = _criar(cab, modelo, entrada)
-    while p["status"] in ("starting", "processing"):
-        time.sleep(1.5)
-        p = requests.get(p["urls"]["get"], headers=cab, timeout=60).json()
-    if p["status"] != "succeeded":
-        sys.exit(f"{modelo} falhou: {p.get('error')}")
-    return p["output"]
+    for tentativa in range(3):
+        p = _criar(cab, modelo, entrada)
+        while p["status"] in ("starting", "processing"):
+            time.sleep(1.5)
+            p = requests.get(p["urls"]["get"], headers=cab, timeout=60).json()
+        if p["status"] == "succeeded":
+            return p["output"]
+        print(f"{modelo} falhou (tentativa {tentativa + 1}): {p.get('error')}", flush=True)
+    sys.exit(f"{modelo} falhou 3 vezes")
 
 
 def _baixar(url, destino):
