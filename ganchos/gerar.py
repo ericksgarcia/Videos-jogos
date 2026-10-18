@@ -4,9 +4,8 @@ Uso (da raiz do repositório):
   python ganchos/gerar.py imagens [id ...]   # Replicate: imagem (flux-schnell) + mapa de profundidade
   python ganchos/gerar.py render  [id ...]   # renderiza output/ganchos/<id>-<slug>.mp4
   python ganchos/gerar.py tudo    [id ...]   # imagens + render
-  python ganchos/gerar.py legendas           # escreve output/ganchos/legendas.md
 
-Sem ids, processa todos. A chave fica em REPLICATE_API_TOKEN (ambiente ou .env, ignorado
+Legendas: ganchos/legendas.md. Sem ids, processa todos. A chave fica em REPLICATE_API_TOKEN (ambiente ou .env, ignorado
 pelo git). Imagem e profundidade ficam em cache em data/ganchos/ (não versionado).
 """
 import json
@@ -258,22 +257,10 @@ def render(g):
     print("vídeo ok:", SAIDA / f"{base}.mp4")
 
 
-def legendas():
-    SAIDA.mkdir(parents=True, exist_ok=True)
-    tags = " ".join(json.loads((RAIZ / "aprendendo/identidade/marca.json").read_text())["hashtags"])
-    linhas = ["# Legendas dos ganchos\n"]
-    for g in CFG["ganchos"]:
-        linhas.append(f"## {g['id']:02d} · {g['slug']} ({g['categoria']})\n\n{g['legenda']}\n\n{tags}\n")
-    (SAIDA / "legendas.md").write_text("\n".join(linhas))
-    print("legendas:", SAIDA / "legendas.md")
-
-
 def main():
-    if len(sys.argv) < 2 or sys.argv[1] not in ("imagens", "render", "tudo", "legendas"):
+    if len(sys.argv) < 2 or sys.argv[1] not in ("imagens", "render", "tudo"):
         sys.exit(__doc__)
     cmd, ids = sys.argv[1], {int(a) for a in sys.argv[2:]}
-    if cmd == "legendas":
-        return legendas()
     for g in CFG["ganchos"]:
         if ids and g["id"] not in ids:
             continue
