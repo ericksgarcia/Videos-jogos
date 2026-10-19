@@ -518,7 +518,7 @@ O texto mais lido em casamentos não foi escrito para casais. Foi escrito para u
 
 ✅ Teste de hoje: troque a palavra "amor" pelo seu nome ("Eu sou paciente, eu sou bondoso…"). Em qual frase você tropeça? Comece por ela.
 
-Assista de novo e repare na vela e no pergaminho em primeiro plano, e na multidão dividida no salão lá no fundo. O amor é a ponte entre eles. 🌉
+Assista de novo e repare no pergaminho dourado e na lamparina acesa em primeiro plano, e nos grupos separados no pátio lá no fundo. O amor é a ponte entre eles. 🌉
 
 💾 Salva para ler em voz alta.
 💬 Qual característica do amor é a mais difícil para você? Escreve aqui.
