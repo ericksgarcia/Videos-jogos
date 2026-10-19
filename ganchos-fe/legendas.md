@@ -322,7 +322,7 @@ Deus mandou comida do céu todos os dias no deserto e proibiu o povo de guardar 
 • Entregue a Deus uma preocupação do futuro
 • Reserve um dia (ou uma pausa de verdade) para parar sem culpa
 
-Assista de novo e repare nos flocos dourados caindo sobre o acampamento. A provisão de Deus aparece com a luz do dia. ✨
+Assista de novo e repare nos grãos dourados espalhados na areia, ao lado da cesta, e nas tendas ao longe. A provisão chegava com a luz do dia. ✨
 
 💾 Salva para os dias de preocupação com o amanhã.
 💬 Qual provisão chegou "na hora certa" na sua vida? Conta aqui.
