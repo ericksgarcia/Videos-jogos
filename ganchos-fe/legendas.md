@@ -432,7 +432,7 @@ Zaqueu era o homem mais odiado da cidade. Jesus não o repreendeu na rua. Ele fe
 
 ✅ Quem é o "Zaqueu" na sua vida, alguém que todos rejeitam? Como você poderia se aproximar dele, como Jesus?
 
-Assista de novo e repare no homem pequeno no alto da árvore, no meio da multidão. Ele quis ver Jesus, mas foi Jesus quem o viu primeiro. 👀
+Assista de novo e repare no homem nos galhos da árvore, acima de toda a multidão, com a luz atravessando as folhas. Ele quis ver Jesus, mas foi Jesus quem o viu primeiro. 👀
 
 💾 Salva para lembrar da graça.
 💬 Você já foi tratado com graça quando não merecia? Conta aqui.
