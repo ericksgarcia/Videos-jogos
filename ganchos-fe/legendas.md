@@ -349,7 +349,7 @@ Deus disse a Salomão: "Peça o que quiser." Ele podia pedir riqueza, fama ou vi
 • Você pediria o que acalma o seu medo ou o que serve ao seu chamado?
 • Você pediria só para si ou para quem você lidera, cuida e ama?
 
-Assista de novo e repare no rei sozinho sob o feixe de luz. O poder dele estava em saber o quanto precisava. 💛
+Assista de novo e repare no rei sozinho, de joelhos, sob o feixe de luz, com a coroa ao chão diante dele. O poder dele estava em saber o quanto precisava. 💛
 
 💾 Salva para pensar no que você realmente pede.
 💬 Qual seria o seu pedido? Escreve aqui.
