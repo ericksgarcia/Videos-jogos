@@ -128,6 +128,7 @@ def _fonte(peso, tam):
 
 
 def _quebrar(draw, palavras, fonte, largura):
+    """Quebra em linhas e evita "viúva": uma palavra sozinha na última linha."""
     linhas, atual = [], []
     for p in palavras:
         teste = " ".join(w for w, _ in atual + [p])
@@ -135,7 +136,12 @@ def _quebrar(draw, palavras, fonte, largura):
             linhas.append(atual)
             atual = []
         atual.append(p)
-    return linhas + [atual]
+    linhas.append(atual)
+    if len(linhas) >= 2 and len(linhas[-1]) == 1 and len(linhas[-2]) >= 3:
+        puxada = linhas[-2][-1]
+        if draw.textlength(" ".join(w for w, _ in [puxada] + linhas[-1]), font=fonte) <= largura:
+            linhas[-1].insert(0, linhas[-2].pop())
+    return linhas
 
 
 def camada_texto(g):
