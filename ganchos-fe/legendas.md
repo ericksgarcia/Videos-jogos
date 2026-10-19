@@ -241,7 +241,7 @@ O que ela diz: o mal foi real, e Deus foi maior que ele.
 2️⃣ Entregue a vingança a Deus
 3️⃣ Procure o "bem" que Deus fez crescer a partir daquilo (em você e nos outros)
 
-Assista de novo e repare no governador em silêncio olhando os viajantes chegando. É a decisão entre a vingança e a graça. ⚖️
+Assista de novo e repare no governador de costas, em silêncio, olhando o deserto lá longe, onde a caravana se aproxima. É a decisão entre a vingança e a graça. ⚖️
 
 💾 Salva para quando a mágoa apertar.
 💬 Você já perdoou alguém que não merecia? Conta aqui.
