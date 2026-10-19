@@ -451,6 +451,8 @@ Quem passou direto pelo homem ferido foi um sacerdote e um levita. Por quê? �
 2️⃣ Um levita também viu e "passou pelo outro lado" (v. 32)
 Eram os homens do templo. Os "certinhos".
 
+🔥 O motivo que incomoda: um corpo caído na estrada podia estar morto, e tocar num cadáver tornava alguém ritualmente impuro (Números 19:11; Levítico 21). Ou seja, eles tinham uma razão "religiosa" para não parar. É a explicação mais aceita, e é exatamente o que Jesus expõe: regra sem misericórdia.
+
 💛 E quem parou? Um samaritano, de um povo desprezado pelos judeus da época. Ele cuidou das feridas, levou-o à hospedaria e pagou as despesas (v. 33-35).
 
 🔍 A inversão que Jesus faz:
