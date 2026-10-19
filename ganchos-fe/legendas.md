@@ -377,7 +377,7 @@ Daniel sabia que orar daria a ele a pena de morte. Mesmo assim, a Bíblia regist
 • Quem tem o hábito de orar tem raízes quando a pressão chega
 • Nem toda coragem é barulhenta: a de Daniel foi de portas abertas e voz baixa
 
-Assista de novo e repare no homem ajoelhado diante da janela aberta, com a cidade ao fundo. Ele não pediu licença para orar. 🌇
+Assista de novo e repare no homem de joelhos diante da janela aberta, com a cidade dourada ao fundo. Ele não pediu licença para orar. 🌇
 
 💾 Salva para lembrar da constância.
 💬 Qual hábito de oração você quer manter? Escreve aqui.
