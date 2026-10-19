@@ -377,7 +377,7 @@ Orar virou crime e a pena era a cova dos leões. Veja o detalhe que Daniel não 
 • Quem tem o hábito de orar tem raízes quando a pressão chega
 • Nem toda coragem é barulhenta: a de Daniel foi de portas abertas e voz baixa
 
-Assista de novo e repare no homem de joelhos diante da janela aberta, com a cidade dourada ao fundo. Ele não pediu licença para orar. 🌇
+Assista de novo e repare no homem de joelhos diante da abertura na parede, com a cidade e a torre escalonada da Babilônia ao fundo. Ele não pediu licença para orar. 🌇
 
 💾 Salva para lembrar da constância.
 💬 Qual hábito de oração você quer manter? Escreve aqui.
