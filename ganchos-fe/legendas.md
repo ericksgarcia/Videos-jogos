@@ -294,7 +294,7 @@ A parábola do filho pródigo tem um terceiro personagem que quase todo mundo es
 • Tenho ressentimento com quem "recebe graça" sem ter "merecido"?
 • Posso entrar na festa?
 
-Assista de novo e repare no pai abraçando o filho que voltou e, no canto, a figura que ficou de fora. Ela também é amada. 🕯️
+Assista de novo e repare no pai correndo pela estrada ao encontro do filho e na casa com as luzes acesas ao lado: a festa já está pronta. Quem está do lado de fora também é amado. 🕯️
 
 💾 Salva para refletir com calma.
 💬 Você se vê mais no mais novo ou no mais velho? Conta aqui.
