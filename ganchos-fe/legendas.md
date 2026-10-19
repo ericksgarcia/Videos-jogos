@@ -213,7 +213,7 @@ Os 40 anos de silêncio de Moisés não foram atraso. Foram o plano. 🔥
 • Não despreze o trabalho pequeno e sem plateia
 • Fique atento: o chamado costuma vir no meio da rotina, como o pastor que viu um arbusto queimando
 
-Assista de novo e repare no pastor velho olhando o arbusto pegando fogo ao longe. Deus chama quem está cuidando do que tem. 🐑
+Assista de novo e repare no pastor de costas, com o rebanho aos pés e o arbusto em chamas brilhando ao longe. Deus chama quem está cuidando do que tem. 🐑
 
 💾 Salva para os dias em que parecer tarde demais.
 💬 Quantos anos você tem e o que está aprendendo no seu "deserto"? Conta aqui.
