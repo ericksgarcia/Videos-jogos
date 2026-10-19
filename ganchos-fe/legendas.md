@@ -187,7 +187,7 @@ Jesus comparou a fé a uma semente, e não a uma montanha. Existe uma razão par
 • Diga a Deus: "eu confio nisso, ainda que pouco"
 • Dê um passo prático que combine com essa confiança
 
-Assista de novo e repare na semente brilhando na palma da mão, em frente a uma montanha imensa. O que é pequeno nas mãos certas é grande. 🏔️
+Assista de novo e repare na semente brilhando na palma da mão e na grande árvore ao fundo. O que é pequeno nas mãos certas se torna grande. 🌳
 
 💾 Salva para os dias em que a fé estiver pequena.
 💬 Escreve "planto" se você vai plantar a sua semente hoje.
