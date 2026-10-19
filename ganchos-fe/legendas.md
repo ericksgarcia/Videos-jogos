@@ -479,7 +479,7 @@ Paulo escreveu sobre paz que excede o entendimento… preso, sem saber se sairia
 
 📖 Filipenses 4:6-7. "Não andem ansiosos por coisa alguma, mas em tudo, pela oração e súplica, com ação de graças, apresentem seus pedidos a Deus. E a paz de Deus, que excede todo entendimento, guardará o coração e a mente de vocês em Cristo Jesus."
 
-🧠 O contexto: Paulo escreveu esta carta preso (Filipenses 1:12-14). Sem liberdade, sem conforto, sem certeza do futuro. E, mesmo assim, fala de alegria mais de uma dezena de vezes na carta.
+🧠 O contexto: Paulo escreveu esta carta preso (Filipenses 1:12-14). Sem liberdade, sem conforto, sem certeza do futuro: ele mesmo escreve que a sua sorte podia ser a vida ou a morte (Filipenses 1:20-24). E, mesmo assim, fala de alegria mais de uma dezena de vezes na carta.
 
 🔍 O que isso significa:
 1️⃣ A paz que ele descreve não depende das circunstâncias
