@@ -405,7 +405,7 @@ Pedro andou sobre a água. O que o fez afundar não foi a água, nem a onda. Foi
 • Diga como Pedro disse: "Senhor, salva-me"; é uma oração curta e atendida
 • Lembre que afundar não é o fim: a mão dele está esticada
 
-Assista de novo e repare na luz dourada no horizonte, enquanto as ondas se agitam. O foco decide a travessia. ⛵
+Assista de novo e repare no homem de braços abertos sobre as ondas, com os olhos na luz dourada do horizonte. Enquanto o foco está nela, ele caminha. ⛵
 
 💾 Salva para o dia da tempestade.
 💬 Qual é o vento que está te fazendo afundar? Conta aqui.
