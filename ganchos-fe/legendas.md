@@ -159,7 +159,7 @@ Jesus corrigiu Marta, mas não foi por ela estar trabalhando demais. Foi por cau
 • Qual é a "uma só coisa" que não pode ficar de fora hoje?
 • Reserve 10 minutos, antes de tudo, para sentar "aos pés dele"
 
-Assista de novo e repare na mulher correndo de um lado e na outra sentada em paz. As duas amavam Jesus. Só uma estava descansando. 🌿
+Assista de novo e repare na mesa cheia, na mulher de pé, inquieta, e na outra sentada em silêncio no canto. As duas amavam Jesus. Só uma estava descansando. 🌿
 
 💾 Salva para lembrar quando a correria apertar.
 💬 Você é mais Marta ou mais Maria? Conta aqui.
