@@ -391,10 +391,10 @@
         "vivia brigando"
       ],
       "cena": {
-        "subject": "an unrolled glowing parchment scroll on a rough wooden table in a first-century Roman house courtyard, with several groups of silhouetted people standing apart, turned away from one another",
-        "foreground": "the glowing scroll and a clay oil lamp in sharp focus",
+        "subject": "an unrolled glowing parchment scroll with a lit oil lamp on a wooden table in the foreground, and in a first-century Roman house courtyard behind, several groups of silhouetted people standing apart, turned away from one another",
+        "foreground": "an open parchment scroll glowing with warm golden light lying on a rough wooden table, and a small lit clay oil lamp with a visible flame beside it",
         "midground": "groups of silhouettes in simple tunics standing apart and arguing, turned away from each other",
-        "background": "a plain stone-walled ancient courtyard with simple flat plaster walls, clay oil lamps and a square doorway, no stained glass, no gothic arches, no rose window, no church interior",
+        "background": "a plain stone-walled ancient courtyard with simple plaster walls and a square doorway, no stained glass, no gothic arches, no rose window, no church interior, no game pieces",
         "lighting": "golden glow from the scroll, deep blue shadows",
         "mood": "love as the answer to division"
       }
