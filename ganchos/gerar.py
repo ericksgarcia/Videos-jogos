@@ -1,6 +1,6 @@
 """Vídeos-gancho de ~8 s: texto na tela + imagem com paralaxe + efeito sutil, em loop.
 
-Uso (da raiz do repositório):
+Uso (da raiz do repositório; "--pasta ganchos-fe" troca o tema, default "ganchos"):
   python ganchos/gerar.py imagens [id ...]   # Replicate: imagem (flux-schnell) + mapa de profundidade
   python ganchos/gerar.py render  [id ...]   # renderiza output/ganchos/<id>-<slug>.mp4
   python ganchos/gerar.py tudo    [id ...]   # imagens + render
@@ -21,9 +21,15 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 
 RAIZ = Path(__file__).resolve().parent.parent
-PASTA = RAIZ / "ganchos"
-CACHE = RAIZ / "data" / "ganchos"
-SAIDA = RAIZ / "output" / "ganchos"
+_ARGS = sys.argv[1:]
+_NOME = "ganchos"  # pasta do tema; "--pasta ganchos-fe" usa outro conjunto de ganchos
+if "--pasta" in _ARGS:
+    _i = _ARGS.index("--pasta")
+    _NOME = _ARGS[_i + 1]
+    sys.argv[1 + _i:3 + _i] = []
+PASTA = RAIZ / _NOME
+CACHE = RAIZ / "data" / _NOME
+SAIDA = RAIZ / "output" / _NOME
 CFG = json.loads((PASTA / "ganchos.json").read_text())
 W, H, FPS, DUR = (CFG["formato"][k] for k in ("largura", "altura", "fps", "duracao_s"))
 N = FPS * DUR

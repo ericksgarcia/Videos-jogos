@@ -1,0 +1,296 @@
+{
+  "formato": {"largura": 1080, "altura": 1920, "fps": 30, "duracao_s": 8, "proporcao_imagem": "9:16"},
+  "modelos": {
+    "imagem": "black-forest-labs/flux-schnell",
+    "profundidade": "chenxwh/depth-anything-v2"
+  },
+  "cena_base": {
+    "style": "cinematic epic biblical-era illustration, photoreal, reverent and warm, dramatic god rays and volumetric light, shallow depth of field, rich separation between foreground, midground and background layers",
+    "palette": "deep navy blue shadows, warm golden light, amber and soft white highlights, subtle teal accents",
+    "composition": "vertical 9:16, strong parallax depth with clearly separated foreground / midground / background, main subject in the upper-middle third, calm darker area in the center for overlaid text, vignette",
+    "camera": "35mm lens, slightly low angle, soft bokeh in the far background",
+    "negative": "text, letters, words, numbers, captions, watermark, logo, signature, face of Jesus, depiction of God's face, caricature, cartoon, childish, deformed hands, extra fingers, blurry subject, low quality"
+  },
+  "ganchos": [
+    {
+      "id": 1, "slug": "davi-e-golias", "categoria": "Histórias da Bíblia", "referencia": "1 Samuel 17",
+      "texto": "Davi não venceu o gigante com a pedra. A frase que ele gritou ANTES de correr é o que mudou tudo.",
+      "complemento": "E quase ninguém repara nela.",
+      "destaque": ["ANTES de correr", "mudou tudo"],
+      "cena": {
+        "subject": "a young shepherd boy in simple tunic holding a sling, standing small and calm on a rocky valley floor facing the shadow of a huge armored giant",
+        "foreground": "smooth stones scattered on the ground and dust particles",
+        "midground": "the shepherd in silhouette with golden sunrise light on his shoulders",
+        "background": "an ancient valley with two opposing armies on hills, the giant looming in haze",
+        "lighting": "dramatic golden dawn light against cold blue shadows",
+        "mood": "courage, faith against overwhelming odds"
+      }
+    },
+    {
+      "id": 2, "slug": "pai-nosso", "categoria": "Jesus e os Evangelhos", "referencia": "Mateus 6:9",
+      "texto": "Quando os discípulos pediram para aprender a orar, Jesus começou com uma palavra que a maioria passa direto.",
+      "complemento": "E ela muda a oração inteira.",
+      "destaque": ["uma palavra", "passa direto"],
+      "cena": {
+        "subject": "a lone figure in a plain robe seen from behind, kneeling in quiet prayer on a hillside, hands open toward the sky, no face visible",
+        "foreground": "wild grass and small flowers glowing with dew",
+        "midground": "the kneeling silhouette lit by a soft shaft of light from above",
+        "background": "a vast sky at sunrise with golden clouds parting, distant Galilean hills",
+        "lighting": "warm golden shaft of light from the clouds, soft rim light",
+        "mood": "intimacy, quiet prayer"
+      }
+    },
+    {
+      "id": 3, "slug": "salmo-23", "categoria": "Salmos e Sabedoria", "referencia": "Salmo 23",
+      "texto": "O Salmo 23 não promete que você não vai passar pelo vale. Leia de novo a palavra que vem no meio da frase.",
+      "complemento": "Ela muda o sentido.",
+      "destaque": ["não vai passar pelo vale", "palavra"],
+      "cena": {
+        "subject": "a shepherd with a staff leading a small flock of sheep along a narrow path through a dark valley toward a distant golden light",
+        "foreground": "dark rocky slopes and fog drifting between them",
+        "midground": "the shepherd and sheep walking in silhouette on the path",
+        "background": "a bright golden glow at the end of the valley, mountains in mist",
+        "lighting": "deep shadows on the valley walls, warm golden light at the far end",
+        "mood": "walking through hardship, not alone"
+      }
+    },
+    {
+      "id": 4, "slug": "jonas", "categoria": "Histórias da Bíblia", "referencia": "Jonas 4",
+      "texto": "O livro de Jonas termina de um jeito estranho: com uma pergunta de Deus que o profeta nunca responde.",
+      "complemento": "A pergunta é para você.",
+      "destaque": ["estranho", "nunca responde"],
+      "cena": {
+        "subject": "a lone prophet in simple robes sitting alone under a withered leafy plant at the edge of a vast ancient city, looking toward the horizon, seen from behind",
+        "foreground": "dry desert ground and a wilting green vine",
+        "midground": "the prophet's silhouette sitting in scorching heat",
+        "background": "a huge ancient walled city glowing in the sunset with a sea far away",
+        "lighting": "burning orange sunset with long shadows, dusty haze",
+        "mood": "unresolved question, quiet tension"
+      }
+    },
+    {
+      "id": 5, "slug": "jo", "categoria": "Histórias da Bíblia", "referencia": "Jó 38",
+      "texto": "Jó perdeu tudo e pediu uma explicação. Quando Deus finalmente respondeu, não deu a resposta que ele esperava.",
+      "complemento": "Deu outra coisa.",
+      "destaque": ["perdeu tudo", "outra coisa"],
+      "cena": {
+        "subject": "a worn man sitting among ashes looking up at an enormous whirlwind and starry sky above a desolate landscape, seen from behind",
+        "foreground": "ashes, broken pottery and embers on the ground",
+        "midground": "the man's small silhouette in the empty plain",
+        "background": "a gigantic swirling storm and a sky full of stars, a bright break in the clouds",
+        "lighting": "cold stormlight with a golden break in the clouds",
+        "mood": "grief, awe, humility"
+      }
+    },
+    {
+      "id": 6, "slug": "marta-e-maria", "categoria": "Jesus e os Evangelhos", "referencia": "Lucas 10:38-42",
+      "texto": "Jesus corrigiu Marta, mas não foi por ela estar trabalhando demais. Foi por causa de uma palavra que ele repetiu.",
+      "complemento": "Ela tem a ver com ansiedade.",
+      "destaque": ["não foi", "ansiedade"],
+      "cena": {
+        "subject": "an ancient kitchen courtyard where a woman hurries with dishes and bread, while another woman sits peacefully on the floor listening, no faces visible, seen from behind and side",
+        "foreground": "a table with bread, clay jars and steaming food, warm and blurred",
+        "midground": "the busy woman in motion and the still woman seated calmly",
+        "background": "an open doorway with soft golden evening light and blurred figures",
+        "lighting": "warm lantern and golden window light",
+        "mood": "busy vs still, hidden anxiety"
+      }
+    },
+    {
+      "id": 7, "slug": "semente-de-mostarda", "categoria": "Jesus e os Evangelhos", "referencia": "Mateus 17:20; 13:31-32",
+      "texto": "Jesus comparou a fé a uma semente, e não a uma montanha. Existe uma razão para isso.",
+      "complemento": "E está na própria semente.",
+      "destaque": ["semente", "uma razão"],
+      "cena": {
+        "subject": "a tiny glowing seed resting in an open palm, with a mighty mountain range and a large tree silhouetted behind it",
+        "foreground": "the open weathered hand holding the seed, in sharp focus",
+        "midground": "soft glowing particles rising from the seed",
+        "background": "an enormous mountain range at golden hour and a big tree with birds",
+        "lighting": "golden glow emanating from the seed, warm sunset behind",
+        "mood": "small beginnings, great power"
+      }
+    },
+    {
+      "id": 8, "slug": "moises-80-anos", "categoria": "Histórias da Bíblia", "referencia": "Êxodo 3 e 7:7",
+      "texto": "Moisés só começou a missão aos 80 anos. O que ele fez nos 40 anos de silêncio antes disso é o que a Bíblia quer que você veja.",
+      "complemento": "",
+      "destaque": ["80 anos", "40 anos de silêncio"],
+      "cena": {
+        "subject": "an elderly shepherd with a staff watching his flock in a desert at dusk, and a burning bush glowing with fire that does not consume it in the distance",
+        "foreground": "dry desert rocks and sheep wool, out of focus",
+        "midground": "the old shepherd in silhouette looking toward the burning bush",
+        "background": "the burning bush glowing orange-gold on a mountain slope at twilight",
+        "lighting": "twilight blue sky with intense golden-orange glow from the bush",
+        "mood": "patience, calling after long waiting"
+      }
+    },
+    {
+      "id": 9, "slug": "jose-do-egito", "categoria": "Histórias da Bíblia", "referencia": "Gênesis 50:20",
+      "texto": "Os irmãos de José o venderam como escravo. Anos depois, ele disse uma frase que a humanidade nunca esqueceu.",
+      "complemento": "É a mais difícil de dizer.",
+      "destaque": ["venderam", "nunca esqueceu"],
+      "cena": {
+        "subject": "an ancient Egyptian palace hall with a man in royal linen robes standing at the top of steps looking down at a group of travelers in the distance, seen from behind",
+        "foreground": "golden columns and hieroglyph-like carved stone, blurred",
+        "midground": "the ruler's silhouette with a golden collar, lit from the side",
+        "background": "travelers with camels arriving across golden desert dunes and the Nile",
+        "lighting": "golden desert sunlight, cool shadows in the palace",
+        "mood": "forgiveness, power and mercy"
+      }
+    },
+    {
+      "id": 10, "slug": "ovelha-perdida", "categoria": "Jesus e os Evangelhos", "referencia": "Lucas 15:1-7",
+      "texto": "Jesus contou uma história em que o pastor deixa 99 ovelhas para trás para buscar apenas uma. Parece má administração.",
+      "complemento": "Mas é exatamente esse o ponto.",
+      "destaque": ["99 ovelhas", "apenas uma"],
+      "cena": {
+        "subject": "a shepherd carrying a lost lamb on his shoulders at dawn, walking back toward a large flock far below on green hills, seen from behind",
+        "foreground": "rocks and thorny bushes lit by golden light",
+        "midground": "the shepherd with the lamb in silhouette",
+        "background": "a great flock of sheep on rolling hills under a golden-pink sky",
+        "lighting": "soft golden-pink sunrise with long shadows",
+        "mood": "rescue, tenderness"
+      }
+    },
+    {
+      "id": 11, "slug": "filho-prodigo", "categoria": "Jesus e os Evangelhos", "referencia": "Lucas 15:11-32",
+      "texto": "A parábola do filho pródigo tem um terceiro personagem que quase todo mundo esquece. E ele é o mais parecido com a gente.",
+      "complemento": "",
+      "destaque": ["terceiro personagem", "mais parecido com a gente"],
+      "cena": {
+        "subject": "a long dusty road leading to a farmhouse at sunset, with an older father running toward a returning figure, and another man standing apart at a doorway with arms crossed, all as silhouettes",
+        "foreground": "dusty road and wheat stalks in warm light",
+        "midground": "the father embracing the returning son in silhouette, and the third man alone near the house",
+        "background": "an ancient farmhouse with a lit celebration glowing inside, golden fields",
+        "lighting": "warm sunset glow on the embrace, the third figure half in shadow",
+        "mood": "return, welcome and resentment"
+      }
+    },
+    {
+      "id": 12, "slug": "mana-no-deserto", "categoria": "Histórias da Bíblia", "referencia": "Êxodo 16",
+      "texto": "Deus mandou comida do céu todos os dias no deserto e proibiu o povo de guardar para o dia seguinte. Com uma única exceção.",
+      "complemento": "A exceção ensina muito.",
+      "destaque": ["proibiu", "única exceção"],
+      "cena": {
+        "subject": "tiny white golden flakes of manna falling gently from the dawn sky onto a vast desert camp of ancient tents, people gathering in silhouette",
+        "foreground": "glowing flakes on the sand in sharp focus, baskets",
+        "midground": "silhouettes of people kneeling and gathering at sunrise",
+        "background": "rows of desert tents and a distant mountain under a luminous sky",
+        "lighting": "soft luminous golden-white dawn, gentle haze",
+        "mood": "daily provision, trust"
+      }
+    },
+    {
+      "id": 13, "slug": "salomao-sabedoria", "categoria": "Salmos e Sabedoria", "referencia": "1 Reis 3:5-14",
+      "texto": "Deus disse a Salomão: “Peça o que quiser.” Ele podia pedir riqueza, fama ou vida longa. O que ele pediu mudou a história.",
+      "complemento": "",
+      "destaque": ["Peça o que quiser", "mudou a história"],
+      "cena": {
+        "subject": "a young king in royal robes kneeling alone in an ancient stone hall at night, a soft beam of golden light falling on him from above, seen from behind",
+        "foreground": "golden crown and scepter resting on a stone step, blurred",
+        "midground": "the king in silhouette bathed in the beam",
+        "background": "a huge palace hall with torches and columns fading into darkness",
+        "lighting": "single golden beam from above, deep navy darkness around",
+        "mood": "humility, wise choice"
+      }
+    },
+    {
+      "id": 14, "slug": "daniel-janelas-abertas", "categoria": "Histórias da Bíblia", "referencia": "Daniel 6:10",
+      "texto": "Daniel sabia que orar daria a ele a pena de morte. Mesmo assim, a Bíblia registra um detalhe: as janelas estavam abertas.",
+      "complemento": "",
+      "destaque": ["pena de morte", "janelas estavam abertas"],
+      "cena": {
+        "subject": "an old man kneeling in prayer in an upper room of an ancient Babylonian house, beside wide open arched windows facing a glowing city skyline at sunset, seen from behind",
+        "foreground": "window arches and flowing curtains, warm light spilling in",
+        "midground": "the praying man in silhouette against the bright window",
+        "background": "an ancient city with towers and walls glowing in orange sunset",
+        "lighting": "golden sunset streaming through the windows, dark interior",
+        "mood": "unshakable devotion, courage in danger"
+      }
+    },
+    {
+      "id": 15, "slug": "pedro-sobre-as-aguas", "categoria": "Jesus e os Evangelhos", "referencia": "Mateus 14:28-31",
+      "texto": "Pedro andou sobre a água. O que o fez afundar não foi a água, nem a onda.",
+      "complemento": "Foi para onde ele olhou.",
+      "destaque": ["afundar", "para onde ele olhou"],
+      "cena": {
+        "subject": "a man in simple robes stepping on stormy night waves toward a distant glow of light, one foot sinking into the dark water, seen from behind",
+        "foreground": "huge dark waves and spray in sharp detail",
+        "midground": "the man in silhouette, arms stretched out for balance",
+        "background": "a distant warm golden light on the horizon through storm clouds and a small wooden boat",
+        "lighting": "moonlit storm, golden glow on the horizon",
+        "mood": "faith vs fear, focus"
+      }
+    },
+    {
+      "id": 16, "slug": "zaqueu", "categoria": "Jesus e os Evangelhos", "referencia": "Lucas 19:1-10",
+      "texto": "Zaqueu era o homem mais odiado da cidade. Jesus não o repreendeu na rua. Ele fez algo que chocou a multidão.",
+      "complemento": "",
+      "destaque": ["mais odiado", "chocou a multidão"],
+      "cena": {
+        "subject": "a small man climbing into a sycamore tree to see over a dense crowd in an ancient street, seen from the side with no clear face, while light falls on him from above",
+        "foreground": "tree branches and leaves in warm light, blurred",
+        "midground": "the small man in the tree and a crowd of silhouettes below",
+        "background": "an ancient city street with stone houses and a sunlit sky",
+        "lighting": "warm golden light through leaves, dusty air",
+        "mood": "being seen, unexpected grace"
+      }
+    },
+    {
+      "id": 17, "slug": "bom-samaritano", "categoria": "Jesus e os Evangelhos", "referencia": "Lucas 10:25-37",
+      "texto": "Na parábola do bom samaritano, os dois que passaram direto pelo homem ferido eram os mais religiosos da cidade.",
+      "complemento": "Jesus escolheu isso de propósito.",
+      "destaque": ["passaram direto", "mais religiosos"],
+      "cena": {
+        "subject": "a wounded traveler lying by an ancient dusty road while two robed figures walk away in the distance, and a third figure kneeling to help him, all silhouettes",
+        "foreground": "stones and dust on the road, the wounded man's outstretched hand",
+        "midground": "the kneeling helper tending the man in warm light",
+        "background": "two figures walking away down a winding road into hills at dusk",
+        "lighting": "late golden-hour light with long shadows",
+        "mood": "compassion over religiosity"
+      }
+    },
+    {
+      "id": 18, "slug": "paz-na-prisao", "categoria": "Cartas e Sabedoria", "referencia": "Filipenses 4:7",
+      "texto": "Paulo escreveu sobre “a paz que excede todo entendimento” de dentro de uma prisão. Isso muda como você lê a frase.",
+      "complemento": "",
+      "destaque": ["paz", "dentro de uma prisão"],
+      "cena": {
+        "subject": "a man in a dark ancient stone prison cell writing on a scroll by candlelight, a ray of golden light from a small barred window falling across the scroll, seen from the side without clear face",
+        "foreground": "iron bars and chains, out of focus",
+        "midground": "the man and the glowing scroll in the beam of light",
+        "background": "rough stone walls fading into darkness with a small window of sky",
+        "lighting": "single golden beam in a dark cell, warm candle glow",
+        "mood": "peace inside hardship"
+      }
+    },
+    {
+      "id": 19, "slug": "amor-1-corintios-13", "categoria": "Cartas e Sabedoria", "referencia": "1 Coríntios 13",
+      "texto": "O texto mais lido em casamentos não foi escrito para casais. Foi escrito para uma igreja que vivia brigando.",
+      "complemento": "E isso muda tudo.",
+      "destaque": ["não foi escrito para casais", "vivia brigando"],
+      "cena": {
+        "subject": "an ancient scroll glowing with golden light unrolled on a wooden table, surrounded by many divided groups of silhouettes in an ancient meeting hall, some turned away from each other",
+        "foreground": "the glowing scroll and a clay oil lamp in sharp focus",
+        "midground": "groups of silhouettes arguing and turned away from one another",
+        "background": "an ancient stone hall with warm lamps and arched windows",
+        "lighting": "golden glow from the scroll, deep blue shadows",
+        "mood": "love as the answer to division"
+      }
+    },
+    {
+      "id": 20, "slug": "guarda-o-coracao", "categoria": "Salmos e Sabedoria", "referencia": "Provérbios 4:23",
+      "texto": "Salomão, o homem mais sábio da Bíblia, disse em Provérbios: “Acima de tudo.” E o que vem depois não é dinheiro, nem sucesso.",
+      "complemento": "",
+      "destaque": ["Acima de tudo", "nem sucesso"],
+      "cena": {
+        "subject": "a glowing golden heart-shaped flame held in cupped hands in front of a dark stormy night sky, the light pushing back the darkness",
+        "foreground": "two cupped weathered hands protecting the glowing flame, sharp focus",
+        "midground": "embers and sparks rising",
+        "background": "a vast dark sky with distant lightning and a thin golden dawn on the horizon",
+        "lighting": "intense warm glow from the flame, dark blue surroundings",
+        "mood": "guard what matters most"
+      }
+    }
+  ]
+}
