@@ -491,7 +491,7 @@ Paulo escreveu sobre "a paz que excede todo entendimento" de dentro de uma pris�
 
 📌 Repare que ele não prometeu que a prisão acabaria hoje. Prometeu paz dentro dela.
 
-Assista de novo e repare no feixe de luz dourada dentro da cela escura, caindo sobre o pergaminho. A paz entrou onde ninguém esperava. 📜
+Assista de novo e repare na vela acesa, no pergaminho e na janelinha com grades lá no alto, na cela escura. A paz entrou onde ninguém esperava. 📜
 
 💾 Salva para ler na ansiedade.
 💬 Qual situação está tirando a sua paz? Escreve aqui e eu oro.
