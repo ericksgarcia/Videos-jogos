@@ -7,7 +7,7 @@ Limite do TikTok: 2.200 caracteres.
 
 ## 01 · Davi e Golias
 
-Todo mundo conta a história de Davi e Golias começando na pedra. Mas a virada está numa frase que ele disse ANTES de correr. ⚔️
+A pedra não decidiu a batalha de Davi. A frase que ele gritou antes de correr, sim. ⚔️
 
 📖 1 Samuel 17:45. Davi diz ao gigante: "Você vem contra mim com espada, lança e escudo. Eu vou contra você em nome do Senhor dos Exércitos." Ele nem tinha armadura: tinha recusado a de Saul (v. 38-39) e foi só com um cajado, uma funda e cinco pedras.
 
@@ -33,7 +33,7 @@ Assista de novo e repare no menino pequeno e na sombra enorme do gigante. A dife
 
 ## 02 · Pai-Nosso
 
-Quando os discípulos pediram "Senhor, ensina-nos a orar", Jesus começou com uma palavra que a maioria passa direto. 🙏
+A oração de Jesus começa com uma palavra que você diz sem perceber. Qual? 🙏
 
 📖 Mateus 6:9 e Lucas 11:2. A oração começa com "Pai". Não começa com "Senhor, preciso de…", não começa com um pedido, não começa com um título. Começa com um relacionamento.
 
@@ -61,7 +61,7 @@ Assista de novo e repare na figura ajoelhada de costas, com as mãos abertas par
 
 ## 03 · Salmo 23
 
-O Salmo 23 não promete que você não vai passar pelo vale. Leia de novo a palavra que vem no meio da frase. 🐑
+O Salmo 23 não promete que você vai escapar do vale. Promete algo mais forte. 🐑
 
 📖 Salmo 23:4. "Ainda que eu ande pelo vale da sombra da morte, não temerei mal algum, porque tu estás comigo."
 
@@ -116,7 +116,7 @@ Assista de novo e repare no profeta sozinho olhando a cidade ao longe. Ele está
 
 ## 05 · Jó
 
-Jó perdeu tudo e pediu uma explicação. Quando Deus finalmente respondeu, não deu a resposta que ele esperava. Deu outra coisa. 🌪️
+Jó pediu uma explicação a Deus. Recebeu outra coisa, e foi o que bastou. 🌪️
 
 📖 Jó 1 a 2, 38 a 42. Jó perdeu bens, filhos e saúde. Passou o livro inteiro pedindo uma audiência com Deus e ouvindo explicações dos amigos, que só acrescentaram dor.
 
@@ -144,7 +144,7 @@ Assista de novo e repare na figura pequena diante de um céu imenso. Jó se enco
 
 ## 06 · Marta e Maria
 
-Jesus corrigiu Marta, mas não foi por ela estar trabalhando demais. Foi por causa de uma palavra que ele repetiu. 🍞
+O que Jesus apontou em Marta provavelmente está na sua cabeça agora. 🍞
 
 📖 Lucas 10:38-42. Jesus visita a casa de duas irmãs. Maria senta aos pés dele para ouvir. Marta está na cozinha, sobrecarregada, e reclama: "Senhor, não te importas que minha irmã me deixe servir sozinha?"
 
@@ -169,7 +169,7 @@ Assista de novo e repare na mesa cheia, na mulher de pé, inquieta, e na outra s
 
 ## 07 · Semente de Mostarda
 
-Jesus comparou a fé a uma semente, e não a uma montanha. Existe uma razão para isso. 🌱
+Jesus podia ter comparado a fé a uma montanha. Escolheu uma semente. Por quê? 🌱
 
 📖 Mateus 17:20. "Se vocês tiverem fé do tamanho de uma semente de mostarda, dirão a este monte: 'Vá daqui para lá', e ele irá."
 
@@ -197,7 +197,7 @@ Assista de novo e repare na semente brilhando na palma da mão e na grande árvo
 
 ## 08 · Moisés aos 80 anos
 
-Moisés só começou a missão aos 80 anos. O que ele fez nos 40 anos de silêncio antes disso é o que a Bíblia quer que você veja. 🔥
+Os 40 anos de silêncio de Moisés não foram atraso. Foram o plano. 🔥
 
 📖 Êxodo 3 e 7:7; Atos 7:23, 30. Moisés tinha 80 anos quando falou com o Faraó. E antes disso, 40 anos como pastor de ovelhas no deserto de Midiã (Êxodo 3:1), depois de ter fugido do Egito.
 
@@ -223,7 +223,7 @@ Assista de novo e repare no pastor velho olhando o arbusto pegando fogo ao longe
 
 ## 09 · José do Egito
 
-Os irmãos de José o venderam como escravo. Anos depois, ele disse uma frase que a humanidade nunca esqueceu. É a mais difícil de dizer. 🤝
+José teve nas mãos os irmãos que o venderam. Escolheu dizer uma frase. 🤝
 
 📖 Gênesis 37 a 50. José foi vendido por 20 moedas de prata (37:28), levado ao Egito, preso injustamente e esquecido na cadeia. Anos depois, virou o governador do Egito, e seus irmãos, famintos, apareceram na porta dele sem o reconhecer.
 
@@ -251,7 +251,7 @@ Assista de novo e repare no governador de costas, em silêncio, olhando o desert
 
 ## 10 · A Ovelha Perdida
 
-Jesus contou uma história em que o pastor deixa 99 ovelhas para trás para buscar apenas uma. Parece má administração. Mas é exatamente esse o ponto. 🐑
+Um pastor deixa 99 ovelhas por uma só. A ovelha perdida pode ser você. 🐑
 
 📖 Lucas 15:1-7. Os religiosos reclamavam: "Esse homem recebe pecadores e come com eles." Jesus respondeu com uma pergunta: "Qual de vocês, tendo cem ovelhas, e perdendo uma, não deixa as noventa e nove e vai atrás da que se perdeu, até achá-la?"
 
@@ -276,7 +276,7 @@ Assista de novo e repare na ovelha nos ombros do pastor, com o rebanho enorme l�
 
 ## 11 · Filho Pródigo
 
-A parábola do filho pródigo tem um terceiro personagem que quase todo mundo esquece. E ele é o mais parecido com a gente. 🏡
+A parábola do filho pródigo tem um personagem que quase todo mundo esquece. 🏡
 
 📖 Lucas 15:11-32. A história é famosa: o filho mais novo pede a herança, gasta tudo e volta arrependido. O pai corre ao seu encontro, abraça, coloca anel e sandálias. Festa!
 
@@ -304,7 +304,7 @@ Assista de novo e repare no pai correndo pela estrada ao encontro do filho e na 
 
 ## 12 · Maná no Deserto
 
-Deus mandou comida do céu todos os dias no deserto e proibiu o povo de guardar para o dia seguinte. Com uma única exceção. A exceção ensina muito. 🍞
+Deus proibiu guardar o maná, com uma única exceção. Ela muda como você vê o amanhã. 🍞
 
 📖 Êxodo 16. O povo de Israel, faminto no deserto, recebeu o maná: um alimento que aparecia todas as manhãs. A regra: colher só o necessário para o dia.
 
@@ -332,7 +332,7 @@ Assista de novo e repare nos grãos dourados espalhados na areia, ao lado da ces
 
 ## 13 · Salomão
 
-Deus disse a Salomão: "Peça o que quiser." Ele podia pedir riqueza, fama ou vida longa. O que ele pediu mudou a história. 👑
+Deus disse a Salomão: peça o que quiser. Ele pediu outra coisa e ganhou tudo. 👑
 
 📖 1 Reis 3:5-14. Salomão acabara de assumir o trono, muito jovem. À noite, em sonho, Deus lhe apareceu: "Peça-me o que quiser que eu lhe dê."
 
@@ -359,7 +359,7 @@ Assista de novo e repare no rei sozinho, de joelhos, sob o feixe de luz, com a c
 
 ## 14 · Daniel
 
-Daniel sabia que orar daria a ele a pena de morte. Mesmo assim, a Bíblia registra um detalhe: as janelas estavam abertas. 🦁
+Orar virou crime e a pena era a cova dos leões. Veja o detalhe que Daniel não escondeu. 🦁
 
 📖 Daniel 6:10. O rei Dario assinou um decreto: durante 30 dias, ninguém poderia orar a nenhum deus ou homem, só ao rei. Quem desobedecesse seria jogado na cova dos leões.
 
@@ -387,7 +387,7 @@ Assista de novo e repare no homem de joelhos diante da janela aberta, com a cida
 
 ## 15 · Pedro sobre as águas
 
-Pedro andou sobre a água. O que o fez afundar não foi a água, nem a onda. Foi para onde ele olhou. 🌊
+Pedro andou sobre a água e só afundou quando mudou uma coisa. Não foi a onda. 🌊
 
 📖 Mateus 14:22-33. Era madrugada, havia uma tempestade, e os discípulos viram alguém andando sobre o mar. Pedro disse: "Senhor, se és tu, manda-me ir até ti sobre as águas." Jesus respondeu: "Vem."
 
@@ -442,7 +442,7 @@ Assista de novo e repare no homem nos galhos da árvore, acima de toda a multid�
 
 ## 17 · O Bom Samaritano
 
-Na parábola do bom samaritano, os dois que passaram direto pelo homem ferido eram os mais religiosos da cidade. Jesus escolheu isso de propósito. 🛤️
+Quem passou direto pelo homem ferido foi um sacerdote e um levita. Por quê? 🛤️
 
 📖 Lucas 10:25-37. Um especialista na lei perguntou a Jesus: "Quem é o meu próximo?" E Jesus contou uma história: um homem foi assaltado e deixado quase morto na estrada de Jericó.
 
@@ -473,7 +473,7 @@ Assista de novo e repare na mão estendida no chão e nas figuras que se afastam
 
 ## 18 · Paz na Prisão
 
-Paulo escreveu sobre "a paz que excede todo entendimento" de dentro de uma prisão. Isso muda como você lê a frase. 🕊️
+Paulo escreveu sobre paz que excede o entendimento… preso, sem saber se sairia vivo. 🕊️
 
 📖 Filipenses 4:6-7. "Não andem ansiosos por coisa alguma, mas em tudo, pela oração e súplica, com ação de graças, apresentem seus pedidos a Deus. E a paz de Deus, que excede todo entendimento, guardará o coração e a mente de vocês em Cristo Jesus."
 
@@ -526,7 +526,7 @@ Assista de novo e repare na vela e no pergaminho em primeiro plano, e na multid�
 
 ## 20 · Guarde o Coração
 
-Salomão, o homem mais sábio da Bíblia, disse em Provérbios: "Acima de tudo." E o que vem depois não é dinheiro, nem sucesso. 🔥
+Salomão escreveu uma frase que começa com “Acima de tudo”. Adivinha o que vem depois? 🔥
 
 📖 Provérbios 4:23. "Acima de tudo, guarde o seu coração, pois dele procedem as fontes da vida."
 

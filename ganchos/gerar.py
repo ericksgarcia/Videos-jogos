@@ -139,9 +139,10 @@ def _quebrar(draw, palavras, fonte, largura):
 
 
 def camada_texto(g):
-    """RGBA 1080x1920 com o texto centralizado, expressões em destaque em amarelo e sombra."""
-    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
+    """Duas camadas RGBA 1080x1920 (texto principal, complemento), centralizadas juntas, com destaque amarelo e sombra.
+    Separadas para o complemento poder entrar depois do texto principal."""
+    camadas = [Image.new("RGBA", (W, H), (0, 0, 0, 0)) for _ in range(2)]
+    d = ImageDraw.Draw(camadas[0])
     margem = 90
     larg = W - 2 * margem
     tam = 86 if len(g["texto"]) < 130 else 76
@@ -168,7 +169,8 @@ def camada_texto(g):
     alturas = [len(l) * int(f.size * e) for l, f, e in blocos]
     total = sum(alturas) + (int(tam * 0.7) if len(blocos) > 1 else 0)
     y = int(H * 0.5 - total / 2) + 30
-    for (linhas, f, esp), alt in zip(blocos, alturas):
+    for (linhas, f, esp), alt, camada in zip(blocos, alturas, camadas):
+        d = ImageDraw.Draw(camada)
         for lin in linhas:
             larg_lin = sum(d.textlength(w + " ", font=f) for w, _ in lin) - d.textlength(" ", font=f)
             x = (W - larg_lin) / 2
@@ -180,7 +182,7 @@ def camada_texto(g):
                 x += d.textlength(w + " ", font=f)
             y += int(f.size * esp)
         y += int(tam * 0.7)
-    return np.asarray(img).astype(np.float32) / 255.0
+    return [np.asarray(c).astype(np.float32) / 255.0 for c in camadas]
 
 
 # ---------- render ----------
@@ -247,14 +249,19 @@ def render(g):
             cv2.circle(luz, (int(x), int(y)), int(pr[k]), (1.0 * br, 0.86 * br, 0.5 * br), -1, cv2.LINE_AA)
         luz = cv2.GaussianBlur(luz, (0, 0), 4)
         quadro += luz * 0.55
-        # texto: entra em 0,2–0,7 s, sai nos últimos 0,3 s (o loop reentra com o fade)
+        # texto principal entra em 0,2–0,7 s; o complemento entra em 3,4–3,9 s (2ª camada de leitura);
+        # os dois saem nos últimos 0,3 s (o loop reentra com o fade)
         t = i / FPS
-        a = np.clip((t - 0.2) / 0.5, 0, 1) * np.clip((DUR - t) / 0.3, 0, 1)
-        a = a * a * (3 - 2 * a)
-        dy = int(18 * (1 - np.clip((t - 0.2) / 0.5, 0, 1)))
-        camada = np.roll(texto, dy, axis=0) if dy else texto
-        al = camada[..., 3:4] * a
-        quadro = quadro * (1 - al) + camada[..., :3] * al
+        saida = np.clip((DUR - t) / 0.3, 0, 1)
+        for camada, ini in zip(texto, (0.2, 3.4)):
+            ent = np.clip((t - ini) / 0.5, 0, 1)
+            a = ent * ent * (3 - 2 * ent) * saida
+            if a <= 0:
+                continue
+            dy = int(18 * (1 - ent))
+            cam = np.roll(camada, dy, axis=0) if dy else camada
+            al = cam[..., 3:4] * a
+            quadro = quadro * (1 - al) + cam[..., :3] * al
         # granulação de filme
         quadro += rng.normal(0, 0.012, (H, W, 1)).astype(np.float32)
         ff.stdin.write((np.clip(quadro, 0, 1) * 255).astype(np.uint8).tobytes())
