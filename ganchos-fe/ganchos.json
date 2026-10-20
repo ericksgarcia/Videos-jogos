@@ -36,7 +36,8 @@
         "background": "an ancient valley with two opposing armies on hills, the giant looming in haze",
         "lighting": "dramatic golden dawn light against cold blue shadows",
         "mood": "courage, faith against overwhelming odds"
-      }
+      },
+      "palavra_chave": "Davi"
     },
     {
       "id": 2,
@@ -56,7 +57,8 @@
         "background": "a vast sky at sunrise with golden clouds parting, distant Galilean hills",
         "lighting": "warm golden shaft of light from the clouds, soft rim light",
         "mood": "intimacy, quiet prayer"
-      }
+      },
+      "palavra_chave": "Jesus"
     },
     {
       "id": 3,
@@ -77,7 +79,8 @@
         "background": "a bright golden glow at the end of the valley, mountains in mist",
         "lighting": "deep shadows on the valley walls, warm golden light at the far end",
         "mood": "walking through hardship, not alone"
-      }
+      },
+      "palavra_chave": "Salmo 23"
     },
     {
       "id": 4,
@@ -97,7 +100,8 @@
         "background": "a huge ancient walled city glowing in the sunset with a sea far away",
         "lighting": "burning orange sunset with long shadows, dusty haze",
         "mood": "unresolved question, quiet tension"
-      }
+      },
+      "palavra_chave": "Jonas"
     },
     {
       "id": 5,
@@ -117,7 +121,8 @@
         "background": "a gigantic swirling storm and a sky full of stars, a bright break in the clouds",
         "lighting": "cold stormlight with a golden break in the clouds",
         "mood": "grief, awe, humility"
-      }
+      },
+      "palavra_chave": "Jó"
     },
     {
       "id": 6,
@@ -137,7 +142,8 @@
         "background": "an open doorway with soft golden evening light and blurred figures",
         "lighting": "warm lantern and golden window light",
         "mood": "busy vs still, hidden anxiety"
-      }
+      },
+      "palavra_chave": "Marta"
     },
     {
       "id": 7,
@@ -157,7 +163,8 @@
         "background": "an enormous mountain range at golden hour and a big tree with birds",
         "lighting": "golden glow emanating from the seed, warm sunset behind",
         "mood": "small beginnings, great power"
-      }
+      },
+      "palavra_chave": "semente"
     },
     {
       "id": 8,
@@ -177,7 +184,8 @@
         "background": "the burning bush glowing orange-gold on a mountain slope at twilight",
         "lighting": "twilight blue sky with intense golden-orange glow from the bush",
         "mood": "patience, calling after long waiting"
-      }
+      },
+      "palavra_chave": "Moisés"
     },
     {
       "id": 9,
@@ -197,7 +205,8 @@
         "background": "travelers with camels arriving across golden desert dunes and the Nile",
         "lighting": "golden desert sunlight, cool shadows in the palace",
         "mood": "forgiveness, power and mercy"
-      }
+      },
+      "palavra_chave": "José"
     },
     {
       "id": 10,
@@ -217,7 +226,8 @@
         "background": "a great flock of sheep on rolling hills under a golden-pink sky",
         "lighting": "soft golden-pink sunrise with long shadows",
         "mood": "rescue, tenderness"
-      }
+      },
+      "palavra_chave": "ovelha"
     },
     {
       "id": 11,
@@ -237,14 +247,15 @@
         "background": "an ancient farmhouse with a lit celebration glowing inside, golden fields",
         "lighting": "warm sunset glow on the embrace, the third figure half in shadow",
         "mood": "return, welcome and resentment"
-      }
+      },
+      "palavra_chave": "filho pródigo"
     },
     {
       "id": 12,
       "slug": "mana-no-deserto",
       "categoria": "Histórias da Bíblia",
       "referencia": "Êxodo 16",
-      "texto": "Deus mandou comida do céu todo dia e proibiu guardar para o dia seguinte. Só abriu uma exceção.",
+      "texto": "Deus mandou o maná do céu todo dia e proibiu guardar para o dia seguinte. Só abriu uma exceção.",
       "complemento": "Ela muda como você vê o amanhã.",
       "destaque": [
         "proibiu",
@@ -257,7 +268,8 @@
         "background": "rows of desert tents and a distant mountain under a luminous sky",
         "lighting": "soft luminous golden-white dawn, gentle haze",
         "mood": "daily provision, trust"
-      }
+      },
+      "palavra_chave": "maná"
     },
     {
       "id": 13,
@@ -277,7 +289,8 @@
         "background": "a huge palace hall with torches and columns fading into darkness",
         "lighting": "single golden beam from above, deep navy darkness around",
         "mood": "humility, wise choice"
-      }
+      },
+      "palavra_chave": "Salomão"
     },
     {
       "id": 14,
@@ -297,7 +310,8 @@
         "background": "ancient Babylon skyline with flat-roofed mudbrick houses and a tall stepped ziggurat tower glowing in golden sunset, no domes, no minarets",
         "lighting": "golden sunset streaming through the windows, dark interior",
         "mood": "unshakable devotion, courage in danger"
-      }
+      },
+      "palavra_chave": "Daniel"
     },
     {
       "id": 15,
@@ -317,7 +331,8 @@
         "background": "a distant warm golden light on the horizon through storm clouds and a small wooden boat",
         "lighting": "moonlit storm, golden glow on the horizon",
         "mood": "faith vs fear, focus"
-      }
+      },
+      "palavra_chave": "Pedro"
     },
     {
       "id": 16,
@@ -337,7 +352,8 @@
         "background": "an ancient city street with stone houses and a sunlit sky",
         "lighting": "warm golden light through leaves, dusty air",
         "mood": "being seen, unexpected grace"
-      }
+      },
+      "palavra_chave": "Zaqueu"
     },
     {
       "id": 17,
@@ -357,7 +373,8 @@
         "background": "two figures walking away down a winding road into hills at dusk",
         "lighting": "late golden-hour light with long shadows",
         "mood": "compassion over religiosity"
-      }
+      },
+      "palavra_chave": "samaritano"
     },
     {
       "id": 18,
@@ -377,7 +394,8 @@
         "background": "rough stone walls fading into darkness with a small window of sky",
         "lighting": "single golden beam in a dark cell, warm candle glow",
         "mood": "peace inside hardship"
-      }
+      },
+      "palavra_chave": "Paulo"
     },
     {
       "id": 19,
@@ -397,7 +415,8 @@
         "background": "a plain stone-walled ancient courtyard with simple plaster walls and a square doorway, no stained glass, no gothic arches, no rose window, no church interior, no game pieces",
         "lighting": "golden glow from the scroll, deep blue shadows",
         "mood": "love as the answer to division"
-      }
+      },
+      "palavra_chave": "casamentos"
     },
     {
       "id": 20,
@@ -417,7 +436,8 @@
         "background": "a vast dark sky with distant lightning and a thin golden dawn on the horizon",
         "lighting": "intense warm glow from the flame, dark blue surroundings",
         "mood": "guard what matters most"
-      }
+      },
+      "palavra_chave": "Salomão"
     }
   ]
 }

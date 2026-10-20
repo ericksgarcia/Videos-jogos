@@ -2,8 +2,9 @@
 
 Uso: python ganchos/checar.py [pasta]      (default: ganchos-fe)
 
-Confere, para cada gancho: tamanho do texto (leitura em 8 s), destaques que existem no texto,
-quantidade de destaques e primeira linha da legenda (a parte visível antes do "mais").
+Confere, para cada gancho: tamanho do texto (leitura em 8 s), destaques que existem no texto, quantidade de destaques,
+primeira linha da legenda (parte visível antes do "mais"), 3 a 5 hashtags sem #fyp e a palavra-chave de busca
+(na fala/tela e nos 80 primeiros caracteres da legenda).
 O julgamento de qualidade (curiosidade, emoção, fidelidade bíblica...) fica em avaliacao.md.
 """
 import json
@@ -30,10 +31,26 @@ def primeiras_linhas(md):
     return out
 
 
+def hashtags(md):
+    """{id: [hashtags]} (a última linha que começa com #fe de cada bloco)."""
+    out = {}
+    for bloco in re.split(r"\n## ", md)[1:]:
+        cab, _, resto = bloco.partition("\n")
+        linhas = [l for l in resto.splitlines() if l.startswith("#fe")]
+        out[int(cab.split("·")[0])] = re.findall(r"#\w+", linhas[-1]) if linhas else []
+    return out
+
+
+def sem_acento(txt):
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFD", txt.lower()) if unicodedata.category(c) != "Mn")
+
+
 def main():
     pasta = RAIZ / (sys.argv[1] if len(sys.argv) > 1 else "ganchos-fe")
     cfg = json.loads((pasta / "ganchos.json").read_text())
-    linhas = primeiras_linhas((pasta / "legendas.md").read_text())
+    md = (pasta / "legendas.md").read_text()
+    linhas, tags = primeiras_linhas(md), hashtags(md)
     erros = 0
     for g in cfg["ganchos"]:
         p, c = palavras(g["texto"]), palavras(g.get("complemento", ""))
@@ -51,6 +68,14 @@ def main():
         if not 1 <= len(g["destaque"]) <= 3:
             problemas.append("use de 1 a 3 destaques")
         pl = linhas.get(g["id"], "")
+        ht = tags.get(g["id"], [])
+        if not 3 <= len(ht) <= 5 or "#fyp" in ht:
+            problemas.append(f"hashtags: {len(ht)} (use de 3 a 5, sem #fyp)")
+        kw = g.get("palavra_chave")
+        if kw and sem_acento(kw) not in sem_acento(tudo):
+            problemas.append(f"palavra-chave {kw!r} não está no texto da tela/fala")
+        if kw and sem_acento(kw) not in sem_acento(pl[:80]):
+            problemas.append(f"palavra-chave {kw!r} fora dos 80 primeiros caracteres da legenda")
         if len(pl) > MAX_PRIMEIRA_LINHA:
             problemas.append(f"1ª linha da legenda com {len(pl)} caracteres (máx {MAX_PRIMEIRA_LINHA})")
         estado = "OK " if not problemas else "ERRO"

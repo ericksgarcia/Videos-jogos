@@ -29,7 +29,7 @@ Assista de novo e repare no menino pequeno e na sombra enorme do gigante. A dife
 💬 Qual é o gigante que você está enfrentando agora? Escreve "amém" que eu oro por você.
 📲 Manda para alguém que precisa dessa coragem hoje.
 
-#fe #biblia #davi #deus #palavradedeus #jesus #fyp
+#fe #biblia #davi #deus #jesus
 
 ## 02 · Pai-Nosso
 
@@ -57,7 +57,7 @@ Assista de novo e repare na figura ajoelhada de costas, com as mãos abertas par
 💬 Escreve "Pai" aqui nos comentários se você orou junto.
 📲 Manda para quem anda sem vontade de orar.
 
-#fe #oracao #painosso #jesus #biblia #deus #fyp
+#fe #oracao #painosso #jesus #biblia
 
 ## 03 · Salmo 23
 
@@ -85,7 +85,7 @@ Assista de novo e repare na luz dourada no fim do caminho: é para lá que você
 💬 Se esse salmo já te sustentou, escreve "amém".
 📲 Manda para quem está atravessando um vale.
 
-#fe #salmo23 #biblia #deus #esperanca #palavradedeus #fyp
+#fe #salmo23 #biblia #deus #esperanca
 
 ## 04 · Jonas
 
@@ -112,7 +112,7 @@ Assista de novo e repare no profeta sozinho olhando a cidade ao longe. Ele está
 💬 Qual seria a sua resposta? Escreve aqui.
 📲 Manda para alguém que gosta de estudar a Bíblia.
 
-#fe #jonas #biblia #misericordia #deus #palavradedeus #fyp
+#fe #jonas #biblia #misericordia #deus
 
 ## 05 · Jó
 
@@ -140,7 +140,7 @@ Assista de novo e repare na figura pequena diante de um céu imenso. Jó se enco
 💬 Qual dor ainda está sem resposta pra você? Pode desabafar aqui.
 📲 Manda para quem está sofrendo.
 
-#fe #jo #biblia #sofrimento #deus #esperanca #fyp
+#fe #jo #biblia #sofrimento #esperanca
 
 ## 06 · Marta e Maria
 
@@ -165,7 +165,7 @@ Assista de novo e repare na mesa cheia, na mulher de pé, inquieta, e na outra s
 💬 Você é mais Marta ou mais Maria? Conta aqui.
 📲 Manda para alguém sobrecarregada.
 
-#fe #marta #maria #biblia #ansiedade #jesus #fyp
+#fe #marta #biblia #ansiedade #jesus
 
 ## 07 · Semente de Mostarda
 
@@ -193,7 +193,7 @@ Assista de novo e repare na semente brilhando na palma da mão e na grande árvo
 💬 Escreve "planto" se você vai plantar a sua semente hoje.
 📲 Manda para quem está desanimado.
 
-#fe #fenoqueseespera #biblia #jesus #sementedemostarda #deus #fyp
+#fe #fenoqueseespera #biblia #jesus #sementedemostarda
 
 ## 08 · Moisés aos 80 anos
 
@@ -219,7 +219,7 @@ Assista de novo e repare no pastor de costas, com o rebanho aos pés e o arbusto
 💬 Quantos anos você tem e o que está aprendendo no seu "deserto"? Conta aqui.
 📲 Manda para alguém que acha que perdeu o tempo.
 
-#fe #moises #biblia #proposito #deus #esperanca #fyp
+#fe #moises #biblia #proposito #esperanca
 
 ## 09 · José do Egito
 
@@ -247,7 +247,7 @@ Assista de novo e repare no governador de costas, em silêncio, olhando o desert
 💬 Você já perdoou alguém que não merecia? Conta aqui.
 📲 Manda para alguém que precisa perdoar.
 
-#fe #jose #biblia #perdao #deus #palavradedeus #fyp
+#fe #jose #biblia #perdao #deus
 
 ## 10 · A Ovelha Perdida
 
@@ -272,7 +272,7 @@ Assista de novo e repare na ovelha nos ombros do pastor, com o rebanho enorme l�
 💬 Escreve "voltei" se essa mensagem foi para você.
 📲 Manda para alguém que se afastou da fé.
 
-#fe #jesus #ovelhaperdida #biblia #graca #deus #fyp
+#fe #jesus #ovelhaperdida #biblia #graca
 
 ## 11 · Filho Pródigo
 
@@ -300,7 +300,7 @@ Assista de novo e repare no pai correndo pela estrada ao encontro do filho e na 
 💬 Você se vê mais no mais novo ou no mais velho? Conta aqui.
 📲 Manda para quem ama o estudo da Bíblia.
 
-#fe #filhoprodigo #biblia #jesus #graca #fyp
+#fe #filhoprodigo #biblia #jesus #graca
 
 ## 12 · Maná no Deserto
 
@@ -328,7 +328,7 @@ Assista de novo e repare nos grãos dourados espalhados na areia, ao lado da ces
 💬 Qual provisão chegou "na hora certa" na sua vida? Conta aqui.
 📲 Manda para alguém ansioso com o futuro.
 
-#fe #mana #biblia #confianca #deus #providencia #fyp
+#fe #mana #biblia #confianca #providencia
 
 ## 13 · Salomão
 
@@ -355,7 +355,7 @@ Assista de novo e repare no rei sozinho, de joelhos, sob o feixe de luz, com a c
 💬 Qual seria o seu pedido? Escreve aqui.
 📲 Manda para alguém que lidera pessoas.
 
-#fe #salomao #biblia #sabedoria #deus #palavradedeus #fyp
+#fe #salomao #biblia #sabedoria #deus
 
 ## 14 · Daniel
 
@@ -383,7 +383,7 @@ Assista de novo e repare no homem de joelhos diante da abertura na parede, com a
 💬 Qual hábito de oração você quer manter? Escreve aqui.
 📲 Manda para quem enfrenta pressão por causa da fé.
 
-#fe #daniel #biblia #oracao #coragem #deus #fyp
+#fe #daniel #biblia #oracao #coragem
 
 ## 15 · Pedro sobre as águas
 
@@ -411,7 +411,7 @@ Assista de novo e repare no homem de braços abertos sobre as ondas, com os olho
 💬 Qual é o vento que está te fazendo afundar? Conta aqui.
 📲 Manda para alguém no meio de uma tempestade.
 
-#fe #pedro #biblia #jesus #tempestade #deus #fyp
+#fe #pedro #biblia #jesus #tempestade
 
 ## 16 · Zaqueu
 
@@ -438,11 +438,11 @@ Assista de novo e repare no homem nos galhos da árvore, acima de toda a multid�
 💬 Você já foi tratado com graça quando não merecia? Conta aqui.
 📲 Manda para alguém que se sente rejeitado.
 
-#fe #zaqueu #biblia #jesus #graca #deus #fyp
+#fe #zaqueu #biblia #jesus #graca
 
 ## 17 · O Bom Samaritano
 
-Quem passou direto pelo homem ferido foi um sacerdote e um levita. Por quê? 🛤️
+No bom samaritano, quem passou direto pelo homem ferido foi um sacerdote e um levita. Por quê? 🛤️
 
 📖 Lucas 10:25-37. Um especialista na lei perguntou a Jesus: "Quem é o meu próximo?" E Jesus contou uma história: um homem foi assaltado e deixado quase morto na estrada de Jericó.
 
@@ -471,7 +471,7 @@ Assista de novo e repare na mão estendida no chão e nas figuras que se afastam
 💬 Qual foi a última vez que você ajudou um estranho? Conta aqui.
 📲 Manda para alguém que tem bom coração.
 
-#fe #bomsamaritano #biblia #jesus #amor #deus #fyp
+#fe #bomsamaritano #biblia #jesus #amor
 
 ## 18 · Paz na Prisão
 
@@ -499,7 +499,7 @@ Assista de novo e repare na vela acesa, no pergaminho e na janelinha com grades 
 💬 Qual situação está tirando a sua paz? Escreve aqui e eu oro.
 📲 Manda para quem anda ansioso.
 
-#fe #paz #filipenses #biblia #ansiedade #deus #fyp
+#fe #paz #filipenses #biblia #ansiedade
 
 ## 19 · 1 Coríntios 13
 
@@ -524,7 +524,7 @@ Assista de novo e repare no pergaminho dourado e na lamparina acesa em primeiro 
 💬 Qual característica do amor é a mais difícil para você? Escreve aqui.
 📲 Manda para quem você ama (ou para quem você quer amar melhor).
 
-#fe #amor #1corintios13 #biblia #casamento #deus #fyp
+#fe #amor #1corintios13 #biblia #casamento
 
 ## 20 · Guarde o Coração
 
@@ -556,4 +556,4 @@ Assista de novo e repare na chama dourada protegida pelas mãos, enquanto a temp
 💬 Escreve "guarda" se você vai guardar o seu coração hoje.
 📲 Manda para quem anda cansado por dentro.
 
-#fe #proverbios #biblia #coracao #sabedoria #deus #fyp
+#fe #proverbios #biblia #coracao #sabedoria
