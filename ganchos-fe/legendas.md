@@ -629,7 +629,7 @@ Assista de novo e repare na figura de pé entre os escombros, sobre as pedras ra
 • Agradeça por ela, em voz alta
 • Conte para alguém, porque a alegria do salmo é coletiva
 
-Assista de novo e repare na pedra que brilha no canto da muralha, ao lado das pedras descartadas. É a pedra angular do versículo 22. 🪨
+Assista de novo e repare na grande pedra bruta no meio das pedras descartadas, diante da muralha dourada pelo nascer do sol. É a pedra do versículo 22. 🪨
 
 💾 Salva para a próxima manhã difícil.
 💬 Qual foi a sua "pedra rejeitada"? Escreve aqui.
