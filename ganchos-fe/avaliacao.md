@@ -89,3 +89,23 @@ Resultado da rodada 2: **20 aprovados**. Média da série: 7,4 → 8,2.
 
 Postar 2 versões do mesmo tema (original × reescrita) e comparar em 48 h: **retenção aos 3 s**, **% que vê até o fim / revê**,
 **comentários por visualização** e **abertura da legenda**. Se a nova ganhar de forma consistente, esse padrão vale para a série toda.
+
+## Lote 2: Salmos pedidos (lacuna de conteúdo do TikTok), 20/10/2026
+
+Temas vindos da ferramenta de insights do TikTok ("lacuna de conteúdo"): Salmo 27:10, Salmo 11, Salmo 118:24, Salmo 113 e Salmo 79.
+Mesma régua (aprova: média ≥ 8,0 e nenhum critério < 7). Rodada 1 = primeiro rascunho; rodada 2 = versão final.
+
+| # | Tema | Rodada | C | E | L | V | F | R | Média | Veredito | Observação |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 21 | Salmo 27:10 | 1 | 8 | 7 | 7 | 9 | 8 | 7 | 7,7 | ❌ | 22 palavras e pouco específico: "sentiu abandonado até pela própria família" |
+| 21 | Salmo 27:10 | 2 | 8 | 8 | 9 | 9 | 8 | 7 | 8,2 | ✅ | cortado; "só uma frase" dá o desafio; complemento "Quem escreveu conhecia essa dor." |
+| 22 | Salmo 11 | 1 | 8 | 8 | 7 | 7 | 9 | 8 | 7,8 | ❌ | 24 palavras, gancho em duas perguntas |
+| 22 | Salmo 11 | 2 | 8 | 8 | 9 | 7 | 9 | 8 | 8,2 | ✅ | uma pergunta ("o que o justo pode fazer quando os alicerces caem") e "a resposta vem no versículo seguinte" |
+| 23 | Salmo 118:24 | 1 | 8 | 8 | 8 | 8 | 9 | 8 | 8,2 | ✅ | contexto do versículo anterior; complemento "Não é sobre o seu humor." |
+| 24 | Salmo 113 | 1 | 7 | 8 | 8 | 6 | 9 | 7 | 7,5 | ❌ | "descreve um Deus altíssimo que se inclina" era correto, mas distante |
+| 24 | Salmo 113 | 2 | 8 | 7 | 9 | 9 | 9 | 7 | 8,2 | ✅ | "Quando você se sente lá embaixo… onde Deus está olhando": põe você na frase |
+| 25 | Salmo 79 | 1 | 9 | 8 | 8 | 7 | 8 | 8 | 8,0 | ✅ | "nada mudou" + "O que mudou foi outra coisa." |
+
+Cuidados de política (ver viralizacao.md, seção 5): tom de esperança nos Salmos 27 e 79 (assuntos de abandono e luto), sem
+diagnosticar; a legenda do 27 cita o CVV (188) para quem estiver em sofrimento intenso.
+

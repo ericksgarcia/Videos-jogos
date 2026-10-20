@@ -557,3 +557,135 @@ Assista de novo e repare na chama dourada protegida pelas mãos, enquanto a temp
 📲 Manda para quem anda cansado por dentro.
 
 #fe #proverbios #biblia #coracao #sabedoria
+
+## 21 · Salmo 27:10
+
+Se até a sua família te abandonar, o Salmo 27 tem uma frase para você. Só uma. 🕊️
+
+📖 Salmo 27:10. "Ainda que meu pai e minha mãe me abandonem, o Senhor me acolherá."
+
+🧠 Quem escreveu foi Davi, que conheceu a rejeição de perto: no dia em que o profeta Samuel procurou o futuro rei, o próprio pai o deixou cuidando das ovelhas, sem chamá-lo (1 Samuel 16:11), e anos depois ele foi perseguido pelo rei Saul.
+
+🔍 A palavra "acolher": no hebraico, a ideia é recolher, receber em casa, como quem pega no caminho alguém que estava perdido e o leva para dentro.
+
+💛 O salmo inteiro respira confiança. Começa com "O Senhor é a minha luz e a minha salvação; de quem terei medo?" (v. 1) e termina com "Espere no Senhor, seja forte" (v. 14).
+
+✅ Para hoje:
+• Diga a Deus, em voz alta, quem te machucou, sem esconder nada
+• Procure uma pessoa de confiança: a família que a gente escolhe também conta
+• Se a dor estiver muito grande, converse com alguém ou ligue para o CVV (188), gratuito e sigiloso
+
+Assista de novo e repare na pessoa sentada sozinha e na luz dourada chegando até ela. É assim que o salmo descreve ser acolhido. 🏠
+
+💾 Salva para um dia difícil.
+💬 Qual frase da Bíblia já te acolheu? Escreve aqui.
+📲 Manda para quem precisa ouvir isso hoje.
+
+#fe #salmos #biblia #esperanca #oracao
+
+## 22 · Salmo 11
+
+O Salmo 11 pergunta o que o justo faz quando tudo desmorona. A resposta é curta. 🏛️
+
+📖 Salmo 11:1-4. "No Senhor me refugio. Como podem dizer à minha alma: 'Fuja como um pássaro para o seu monte'?" Depois vem a pergunta: "Quando os alicerces são destruídos, que pode fazer o justo?" (v. 3). E a resposta: "O Senhor está no seu santo templo; o trono do Senhor está nos céus" (v. 4).
+
+🧠 O que o salmo faz, passo a passo:
+1️⃣ Os conselheiros mandam fugir, e a pergunta do versículo 3 admite que o chão pode mesmo ceder
+2️⃣ Davi não finge que está tudo bem, e também não entra em pânico
+3️⃣ A resposta muda o olhar: do chão que cai para o trono que não cai
+
+💛 No fim (v. 7), ele diz que "o Senhor é justo e ama a justiça". A esperança aqui não é que nada desabe, é que Deus continua governando enquanto desaba.
+
+✅ Quando tudo desmoronar:
+• Pare antes de decidir por pânico
+• Separe o que é conselho do que é medo
+• Faça só o próximo passo certo e pequeno
+
+Assista de novo e repare na figura de pé sobre a fundação rachada, com a luz dourada vindo do alto. É a imagem do versículo 4. ⛰️
+
+💾 Salva para quando o chão tremer.
+💬 Qual "alicerce" já caiu na sua vida e o que te sustentou? Conta aqui.
+📲 Manda para quem está no meio de um desabamento.
+
+#fe #salmos #biblia #confianca #esperanca
+
+## 23 · Salmo 118:24
+
+"Este é o dia que o Senhor fez" não é frase de motivação. O Salmo 118 mostra o porquê. ☀️
+
+📖 Salmo 118:22-24. "A pedra que os construtores rejeitaram tornou-se a pedra angular. Isto vem do Senhor e é maravilhoso aos nossos olhos. Este é o dia que o Senhor fez; regozijemo-nos e alegremo-nos nele."
+
+🧠 O contexto muda tudo:
+1️⃣ O Salmo 118 faz parte do Hallel (Salmos 113 a 118), cantado na Páscoa judaica
+2️⃣ Quem fala foi cercado, rejeitado e livrado
+3️⃣ "Este é o dia" é o dia em que Deus virou a história: a pedra descartada virou o fundamento
+
+💡 Não é "pense positivo". É gratidão por uma reviravolta que só Deus fez. Jesus cita o versículo 22 sobre si mesmo (Mateus 21:42).
+
+👥 E repare no plural: "regozijemo-nos". É uma alegria que se divide, não um humor pessoal da manhã.
+
+✅ Para hoje:
+• Lembre de uma "pedra rejeitada" que virou base na sua vida
+• Agradeça por ela, em voz alta
+• Conte para alguém, porque a alegria do salmo é coletiva
+
+Assista de novo e repare na pedra que brilha no canto da muralha, ao lado das pedras descartadas. É a pedra angular do versículo 22. 🪨
+
+💾 Salva para a próxima manhã difícil.
+💬 Qual foi a sua "pedra rejeitada"? Escreve aqui.
+📲 Manda para quem usa esse versículo todo dia.
+
+#fe #salmos #biblia #gratidao #jesus
+
+## 24 · Salmo 113
+
+Quando você se sente lá embaixo, o Salmo 113 diz para onde Deus olha. 🙌
+
+📖 Salmo 113:5-9. "Quem é como o Senhor, nosso Deus, que habita nas alturas e se inclina para ver o que está nos céus e na terra? Ele levanta do pó o necessitado e ergue o pobre do monturo, para fazê-lo sentar entre os príncipes. Faz da mulher estéril uma mãe feliz."
+
+🧠 O paradoxo do salmo: Deus é altíssimo e, ao mesmo tempo, se inclina. A direção do olhar dele é para baixo, para o pó.
+
+🔍 São só nove versículos, em três partes:
+1️⃣ Versículos 1 a 3: louvor do nascer ao pôr do sol
+2️⃣ Versículos 4 a 6: quem Deus é (alto, e inclinado)
+3️⃣ Versículos 7 a 9: o que ele faz (levanta, senta entre príncipes, dá um lar)
+
+🎶 Outras duas mulheres cantaram a mesma coisa: Ana (1 Samuel 2:8) e Maria (Lucas 1:52).
+
+✅ Para hoje:
+• Se você está "no pó": diga a Deus o nome exato da sua situação
+• Se você está bem: olhe para onde Deus olha. Quem está lá embaixo perto de você?
+• Faça uma coisa pequena por essa pessoa ainda hoje
+
+Assista de novo e repare nos raios dourados descendo das nuvens até a figura sentada no chão. É a direção do olhar do salmo. ⬇️
+
+💾 Salva para ler quando estiver desanimado.
+💬 Quem te levantou do "pó" um dia? Conta aqui.
+📲 Manda para quem precisa ser lembrado de que é visto.
+
+#fe #salmos #biblia #louvor #esperanca
+
+## 25 · Salmo 79
+
+O Salmo 79 começa em ruínas e termina em gratidão, sem que nada mude. Como? 🌅
+
+📖 Salmo 79:1, 5, 13. Começa assim: "Ó Deus, as nações invadiram a tua herança... deixaram Jerusalém em ruínas." No meio: "Até quando, Senhor?" (v. 5). E termina: "Nós, o teu povo, as ovelhas do teu pasto, te daremos graças para sempre" (v. 13).
+
+🧠 Asafe escreve depois de uma destruição, provavelmente a queda de Jerusalém. A cidade continua em ruínas até o último verso. O que muda é a postura: do "até quando?" ao "daremos graças".
+
+🔍 Repare em duas coisas:
+1️⃣ 12 dos 13 versículos são lamento. A Bíblia deixa o povo reclamar sem filtro
+2️⃣ A gratidão do versículo 13 é uma decisão e uma promessa, não um sentimento que apareceu
+
+✅ Para hoje:
+• Diga o seu lamento sem enfeitar
+• Escolha uma coisa pela qual agradecer, mesmo com a situação igual
+• Repita "daremos graças" como promessa, não como sentimento
+
+Assista de novo e repare nas silhuetas de mãos erguidas entre as pedras caídas, com o sol nascendo atrás da fumaça. É o versículo 13 acontecendo no meio das ruínas. 🙏
+
+💾 Salva para um dia em que nada mudou.
+💬 Por qual coisa você escolhe agradecer hoje, mesmo sem a situação mudar? Escreve aqui.
+📲 Manda para quem está reconstruindo alguma coisa.
+
+#fe #salmos #biblia #gratidao #esperanca

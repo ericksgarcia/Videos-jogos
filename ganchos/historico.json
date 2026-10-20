@@ -1,0 +1,255 @@
+{
+  "janela_dias": 60,
+  "videos": [
+    {
+      "pasta": "ganchos-fe",
+      "id": 1,
+      "slug": "davi-e-golias",
+      "referencia": "1 Samuel 17",
+      "palavra_chave": "Davi",
+      "texto": "A pedra não decidiu a batalha de Davi contra Golias. Foi uma frase que ele gritou ANTES de correr.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 2,
+      "slug": "pai-nosso",
+      "referencia": "Mateus 6:9",
+      "palavra_chave": "Jesus",
+      "texto": "A oração que Jesus ensinou começa com uma palavra que você já disse mil vezes sem perceber.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 3,
+      "slug": "salmo-23",
+      "referencia": "Salmo 23",
+      "palavra_chave": "Salmo 23",
+      "texto": "O Salmo 23 não promete que você vai escapar do vale. Promete algo mais forte. Está no meio do versículo 4.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 4,
+      "slug": "jonas",
+      "referencia": "Jonas 4",
+      "palavra_chave": "Jonas",
+      "texto": "O livro de Jonas termina de um jeito estranho: com uma pergunta de Deus que o profeta nunca responde.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 5,
+      "slug": "jo",
+      "referencia": "Jó 38",
+      "palavra_chave": "Jó",
+      "texto": "Jó perdeu tudo e exigiu uma explicação. Deus apareceu, mas não explicou nada. Fez outra coisa.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 6,
+      "slug": "marta-e-maria",
+      "referencia": "Lucas 10:38-42",
+      "palavra_chave": "Marta",
+      "texto": "Jesus corrigiu Marta, mas não por ela trabalhar demais. O que ele apontou nela provavelmente está na sua cabeça agora.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 7,
+      "slug": "semente-de-mostarda",
+      "referencia": "Mateus 17:20; 13:31-32",
+      "palavra_chave": "semente",
+      "texto": "Jesus podia ter comparado a fé a uma montanha. Escolheu a menor semente que os agricultores conheciam. Por quê?",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 8,
+      "slug": "moises-80-anos",
+      "referencia": "Êxodo 3 e 7:7",
+      "palavra_chave": "Moisés",
+      "texto": "Moisés só começou a missão aos 80 anos. Os 40 anos de silêncio antes disso não eram atraso. Eram o plano.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 9,
+      "slug": "jose-do-egito",
+      "referencia": "Gênesis 50:20",
+      "palavra_chave": "José",
+      "texto": "José foi vendido pelos próprios irmãos. Anos depois, teve todos eles nas mãos e escolheu dizer uma frase.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 10,
+      "slug": "ovelha-perdida",
+      "referencia": "Lucas 15:1-7",
+      "palavra_chave": "ovelha",
+      "texto": "Um pastor deixa 99 ovelhas sozinhas para buscar uma só. Jesus contou essa história de propósito.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 11,
+      "slug": "filho-prodigo",
+      "referencia": "Lucas 15:11-32",
+      "palavra_chave": "filho pródigo",
+      "texto": "Na parábola do filho pródigo existe um personagem que quase todo mundo esquece. E é o mais parecido com você.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 12,
+      "slug": "mana-no-deserto",
+      "referencia": "Êxodo 16",
+      "palavra_chave": "maná",
+      "texto": "Deus mandou o maná do céu todo dia e proibiu guardar para o dia seguinte. Só abriu uma exceção.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 13,
+      "slug": "salomao-sabedoria",
+      "referencia": "1 Reis 3:5-14",
+      "palavra_chave": "Salomão",
+      "texto": "Deus disse a Salomão: “Peça o que quiser.” Ele podia pedir riqueza, fama ou vida longa. Pediu outra coisa.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 14,
+      "slug": "daniel-janelas-abertas",
+      "referencia": "Daniel 6:10",
+      "palavra_chave": "Daniel",
+      "texto": "Orar virou crime e a pena era a cova dos leões. Daniel orou igual. Repare no detalhe que a Bíblia registra.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 15,
+      "slug": "pedro-sobre-as-aguas",
+      "referencia": "Mateus 14:28-31",
+      "palavra_chave": "Pedro",
+      "texto": "Pedro andou sobre a água e só afundou quando mudou uma coisa. Não foi a onda, nem o vento.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 16,
+      "slug": "zaqueu",
+      "referencia": "Lucas 19:1-10",
+      "palavra_chave": "Zaqueu",
+      "texto": "Zaqueu era o homem mais odiado da cidade. Jesus não o repreendeu na rua. Ele fez algo que chocou a multidão.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 17,
+      "slug": "bom-samaritano",
+      "referencia": "Lucas 10:25-37",
+      "palavra_chave": "samaritano",
+      "texto": "Na parábola do bom samaritano, quem passou direto pelo homem ferido foi um sacerdote e um levita. Jesus fez isso de propósito.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 18,
+      "slug": "paz-na-prisao",
+      "referencia": "Filipenses 4:7",
+      "palavra_chave": "Paulo",
+      "texto": "Quando Paulo escreveu “a paz que excede todo entendimento”, ele estava preso e sem saber se sairia vivo.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 19,
+      "slug": "amor-1-corintios-13",
+      "referencia": "1 Coríntios 13",
+      "palavra_chave": "casamentos",
+      "texto": "O texto mais lido em casamentos não foi escrito para casais. Foi escrito para uma igreja que vivia brigando.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 20,
+      "slug": "guarda-o-coracao",
+      "referencia": "Provérbios 4:23",
+      "palavra_chave": "Salomão",
+      "texto": "Salomão escreveu uma frase que começa com “Acima de tudo”. Não é dinheiro, nem saúde, nem sucesso.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 21,
+      "slug": "salmo-27-10",
+      "referencia": "Salmo 27:10",
+      "palavra_chave": "Salmo 27",
+      "texto": "Existe um versículo para quem foi abandonado até pela família. Está no Salmo 27 e tem só uma frase.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 22,
+      "slug": "salmo-11",
+      "referencia": "Salmo 11",
+      "palavra_chave": "Salmo 11",
+      "texto": "O Salmo 11 pergunta o que o justo pode fazer quando os alicerces caem. A resposta vem no versículo seguinte.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 23,
+      "slug": "salmo-118-24",
+      "referencia": "Salmo 118:24",
+      "palavra_chave": "Salmo 118",
+      "texto": "“Este é o dia que o Senhor fez” quase sempre é lido sozinho. O versículo anterior muda o sentido do Salmo 118:24.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 24,
+      "slug": "salmo-113",
+      "referencia": "Salmo 113",
+      "palavra_chave": "Salmo 113",
+      "texto": "Quando você se sente lá embaixo, o Salmo 113 diz onde Deus está olhando. São só nove versículos.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    },
+    {
+      "pasta": "ganchos-fe",
+      "id": 25,
+      "slug": "salmo-79",
+      "referencia": "Salmo 79",
+      "palavra_chave": "Salmo 79",
+      "texto": "O Salmo 79 começa com uma cidade em ruínas e termina com agradecimento. Entre o primeiro e o último verso, nada mudou.",
+      "data_criacao": "2026-10-20",
+      "data_publicacao": null
+    }
+  ]
+}

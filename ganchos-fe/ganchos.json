@@ -438,6 +438,111 @@
         "mood": "guard what matters most"
       },
       "palavra_chave": "Salomão"
+    },
+    {
+      "id": 21,
+      "slug": "salmo-27-10",
+      "categoria": "Salmos e Sabedoria",
+      "referencia": "Salmo 27:10",
+      "palavra_chave": "Salmo 27",
+      "texto": "Existe um versículo para quem foi abandonado até pela família. Está no Salmo 27 e tem só uma frase.",
+      "complemento": "Quem escreveu conhecia essa dor.",
+      "destaque": [
+        "abandonado até pela família",
+        "uma frase"
+      ],
+      "cena": {
+        "subject": "a lone person sitting on the stone steps of an old house at twilight, seen from behind, with a lit oil lantern beside them and a warm golden light reaching toward them from a distant doorway",
+        "foreground": "a worn stone step and a glowing lantern in sharp focus",
+        "midground": "the solitary figure gently lit by golden light",
+        "background": "a quiet ancient village hillside at dusk with warm windows and a soft glowing sky",
+        "lighting": "soft golden light embracing the figure against deep blue twilight",
+        "mood": "abandoned yet being gathered in, tender comfort"
+      }
+    },
+    {
+      "id": 22,
+      "slug": "salmo-11",
+      "categoria": "Salmos e Sabedoria",
+      "referencia": "Salmo 11",
+      "palavra_chave": "Salmo 11",
+      "texto": "O Salmo 11 pergunta o que o justo pode fazer quando os alicerces caem. A resposta vem no versículo seguinte.",
+      "complemento": "A resposta não é fugir.",
+      "destaque": [
+        "alicerces caem",
+        "versículo seguinte"
+      ],
+      "cena": {
+        "subject": "a steadfast figure standing on a cracked stone foundation while ancient walls crumble around, dust in the air, a brilliant golden light shining down from a mountain above",
+        "foreground": "broken stones and rubble with drifting dust, sharp detail",
+        "midground": "the upright figure standing firm on the foundation, seen from behind",
+        "background": "a high mountain top glowing with golden light above storm clouds",
+        "lighting": "dramatic golden light from above against dark storm clouds",
+        "mood": "everything collapsing, yet unshaken trust"
+      }
+    },
+    {
+      "id": 23,
+      "slug": "salmo-118-24",
+      "categoria": "Salmos e Sabedoria",
+      "referencia": "Salmo 118:24",
+      "palavra_chave": "Salmo 118",
+      "texto": "“Este é o dia que o Senhor fez” quase sempre é lido sozinho. O versículo anterior muda o sentido do Salmo 118:24.",
+      "complemento": "Não é sobre o seu humor.",
+      "destaque": [
+        "quase sempre é lido sozinho",
+        "muda o sentido"
+      ],
+      "cena": {
+        "subject": "a large rough stone set as the glowing cornerstone of an ancient golden temple wall at sunrise, with discarded rough stones lying in rubble beside it",
+        "foreground": "discarded rough stones and rubble in warm light",
+        "midground": "the glowing cornerstone where two great walls meet",
+        "background": "an ancient hilltop city at sunrise with golden clouds",
+        "lighting": "warm sunrise light flooding across the stones, golden rim light",
+        "mood": "rejected made essential, a day of victory"
+      }
+    },
+    {
+      "id": 24,
+      "slug": "salmo-113",
+      "categoria": "Salmos e Sabedoria",
+      "referencia": "Salmo 113",
+      "palavra_chave": "Salmo 113",
+      "texto": "Quando você se sente lá embaixo, o Salmo 113 diz onde Deus está olhando. São só nove versículos.",
+      "complemento": "E o que ele faz depois, mais ainda.",
+      "destaque": [
+        "lá embaixo",
+        "onde Deus está olhando"
+      ],
+      "cena": {
+        "subject": "a luminous opening in vast clouds with golden rays bending downward toward the dusty ground where a poor person sits alone, seen from behind and above",
+        "foreground": "dust and ashes on the ground in sharp detail, a small figure sitting",
+        "midground": "golden rays gently reaching down to the seated figure",
+        "background": "an immense sky with layered golden clouds",
+        "lighting": "gentle golden god rays descending from the clouds onto the figure",
+        "mood": "high yet stooping to the lowly, tenderness"
+      }
+    },
+    {
+      "id": 25,
+      "slug": "salmo-79",
+      "categoria": "Salmos e Sabedoria",
+      "referencia": "Salmo 79",
+      "palavra_chave": "Salmo 79",
+      "texto": "O Salmo 79 começa com uma cidade em ruínas e termina com agradecimento. Entre o primeiro e o último verso, nada mudou.",
+      "complemento": "O que mudou foi outra coisa.",
+      "destaque": [
+        "cidade em ruínas",
+        "nada mudou"
+      ],
+      "cena": {
+        "subject": "survivors standing among the ruins of an ancient city wall at dawn, raising their hands in quiet gratitude as golden sunrise breaks through the smoke, seen as silhouettes",
+        "foreground": "fallen stones and charred beams with drifting embers",
+        "midground": "a small group of silhouetted people with raised hands among the ruins",
+        "background": "a broken ancient city skyline with smoke and a glowing golden sunrise",
+        "lighting": "golden sunrise piercing through smoke, deep shadows in the ruins",
+        "mood": "gratitude rising from the ashes before anything is rebuilt"
+      }
     }
   ]
 }

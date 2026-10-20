@@ -3,14 +3,17 @@
 Uso: python ganchos/checar.py [pasta]      (default: ganchos-fe)
 
 Confere, para cada gancho: tamanho do texto (leitura em 8 s), destaques que existem no texto, quantidade de destaques,
-primeira linha da legenda (parte visível antes do "mais"), 3 a 5 hashtags sem #fyp e a palavra-chave de busca
-(na fala/tela e nos 80 primeiros caracteres da legenda).
+primeira linha da legenda (parte visível antes do "mais"), 3 a 5 hashtags sem #fyp, a palavra-chave de busca
+(na fala/tela e nos 80 primeiros caracteres da legenda) e tema repetido dentro da janela do histórico (historico.py).
 O julgamento de qualidade (curiosidade, emoção, fidelidade bíblica...) fica em avaliacao.md.
 """
 import json
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import historico as HI  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
 MAX_PRINCIPAL, MAX_COMPLEMENTO, MAX_TOTAL = 22, 8, 28
@@ -76,6 +79,8 @@ def main():
             problemas.append(f"palavra-chave {kw!r} não está no texto da tela/fala")
         if kw and sem_acento(kw) not in sem_acento(pl[:80]):
             problemas.append(f"palavra-chave {kw!r} fora dos 80 primeiros caracteres da legenda")
+        for e in HI.conflitos(g.get("referencia", ""), g["slug"], ignorar=(pasta.name, g["id"])):
+            problemas.append(f"tema repetido: {e['pasta']}/{e['id']:02d} ({e['referencia']}) só fica livre em {HI.livre_em(e, HI.carregar()['janela_dias'])}")
         if len(pl) > MAX_PRIMEIRA_LINHA:
             problemas.append(f"1ª linha da legenda com {len(pl)} caracteres (máx {MAX_PRIMEIRA_LINHA})")
         estado = "OK " if not problemas else "ERRO"
