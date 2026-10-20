@@ -87,6 +87,39 @@ alcance, seguidores e aprender o que prende. Quando for a hora, o gancho curto a
 paleta, ritmo, voz de abertura, para não parecer um lote de um mesmo modelo; (d) export limpo, sem marca d'água; (e) **nunca**
 postar o mesmo arquivo em várias contas.
 
+### 4.1 Onde fica a linha do rótulo de IA (pesquisa de 20/10/2026)
+
+- **[OFICIAL]** O rótulo é **obrigatório para conteúdo realista** (imagem, áudio ou vídeo que pareça real). Para estilos como
+  **pintura, desenho animado e anime**, a divulgação é **incentivada, não exigida**. Se o TikTok detectar IA, ele pode rotular
+  sozinho. Fontes: [Ajuda do TikTok](https://support.tiktok.com/en/using-tiktok/creating-videos/ai-generated-content),
+  [Creator Academy](https://www.tiktok.com/creator-academy/en/article/ai-generated-content-label),
+  [newsroom](https://newsroom.tiktok.com/en-us/new-labels-for-disclosing-ai-generated-content).
+- **[CONSENSO]** "Realista" = a cena leva a crer que a pessoa ou o fato é real (aparência de foto ou vídeo). Voz de IA que
+  imita pessoa real também entra. Não achei o limite exato; fica a critério do TikTok.
+  Fonte: [Cinerads](https://www.cinerads.com/blog/tiktok-ai-content-policy).
+- **Consequência prática:** a forma honesta de **não precisar do rótulo** é o conteúdo **não ser realista** e **não ter áudio de IA
+  realista**. Não é esconder a origem: é fazer um conteúdo que, pelas regras, não cai na obrigação. Esconder metadados ou
+  falsear continua sendo violação, e eu não faço.
+
+## 10. Geração e postagem em lote
+
+- **[OFICIAL]** Não achei teto oficial de uploads por dia no app. Pela API de publicação: apps **não auditados só postam em modo
+  privado**; erro `spam_risk_too_many_posts` quando passa do limite diário; no máximo **5 compartilhamentos pendentes em 24 h**.
+  Fonte: [TikTok for Developers](https://developers.tiktok.com/docs/en/content-posting-api-reference-direct-post).
+  O número "15 por dia por conta" é de terceiros, **não confirmado**.
+- **[CONSENSO]** Conteúdo **repetitivo ou duplicado** dispara filtros de spam; a "impressão digital" do conteúdo é comparada e
+  edição trivial não basta. Fonte: [referência de erros](https://zernio.com/tiktok/errors).
+- **[OFICIAL]** Contas falsas, bots e redes coordenadas para inflar alcance são proibidos; criar outra conta para burlar
+  restrição também. Fonte: [Integridade e autenticidade](https://www.tiktok.com/safety/en/policies-and-engagement/integrity-authenticity).
+- **Não achei** uma regra do TikTok contra "produzir em lote" por si só. O que pesa é originalidade, variação e rótulo. As
+  alegações de blog sobre "corte de monetização para conteúdo em massa" **não estão confirmadas**.
+- **Nossas ferramentas (medido):** o Replicate está limitado a **6 chamadas por minuto** (conta com menos de US$ 5 de crédito);
+  cada gancho gasta 2 (imagem + profundidade), então 20 ganchos levam ~7 min só em chamadas. O TTS do Google é "preview" e as
+  cotas por projeto não estão numa tabela pública que eu tenha achado; 20 narrações rodaram sem bloqueio.
+
+**Decisão:** gerar em lote é permitido e prático; **postar** é o que se espaça (1 por dia), com **variação real** entre vídeos e
+sem usar várias contas.
+
 ## 5. Conteúdo religioso e saúde mental: o que cuidar
 
 - **[OFICIAL]** As diretrizes protegem a religião como característica: proibem ataques, generalizações nocivas e comparações
