@@ -28,3 +28,35 @@ Pastas: `SKILL.md`, `references/`, `kit/` (câmera isométrica, sólidos, cabos,
 1. Instalar em ambiente isolado e gerar 1 figura de teste (ex.: "como funciona um relógio").
 2. Embutir o SVG como cena em `videos/<tema>/cenas.js`, animando com GSAP.
 3. Se valer, adaptar o estilo à paleta da marca (`identidade/marca.json`).
+
+---
+## Atualização — leitura do repositório clonado (sem executar nada)
+
+Li `SKILL.md`, `README.md` e `references/` (clone raso, só leitura). **Não rodei nenhum código
+da skill**: o sistema bloqueou a execução de código externo (build do exemplo, Chrome).
+
+### Fatos confirmados
+- Instalação oficial: `npx skills add` (README). Licença MIT, Node >= 20.10, zero dependências.
+- Exemplos: dial-indicator (menor, ~300 linhas), desk-computer, arcade-cabinet, raptor-engine
+  (com shaders WebGL), ripple-tank, test-rig, spot-plate, turning-dial (3D beta).
+- Cada exemplo roda `node examples/<nome>/build.mjs` e gera uma **página HTML** (tema escuro/claro).
+- Tamanhos: Figura (40–80 peças, < 1h), Hero (80–150 peças, 2–4h), Epic (6h+, não inicia sozinha).
+- Tem `scripts/capture.mjs` (screenshots/zoom/tempos) e `scripts/drive.mjs` (sessões roteirizadas,
+  câmera lenta, folhas de contato) com Chrome headless — dá para tirar frames em sequência.
+- Também imprime PDF A4 e publica numa galeria comunitária (só se o usuário pedir).
+- Exige muito rigor: auditoria de geometria e "line check" até zero — por isso é lenta.
+
+### Encaixe com o canal (Aprendendo Fácil)
+| Ponto | Avaliação |
+|---|---|
+| Visual | Isométrico técnico/"instrumento de bancada", bem diferente do nosso Kurzgesagt de cena cheia. Bom como **cena de destaque**, não como estilo do vídeo inteiro. |
+| Formato | Quadro isométrico em cartão, não 1080×1920 em tela cheia; precisa recompor para vertical. |
+| Animação | Tempo real/interativa (mola, ponteiro). Para vídeo é preciso dirigir via `drive.mjs` e capturar frames, ou embutir o SVG e animar com GSAP no nosso motor. |
+| Custo | Uma figura boa leva de dezenas de minutos a horas. Caro para um vídeo de 2 min com várias cenas. |
+| Assuntos | Ótima para mecanismos (relógio, fechadura, motor, circuito). Fraca para política/economia. |
+
+### Recomendação
+Usar como **gerador de uma cena-hero por vídeo** de tema mecânico (ex.: "como funciona um
+relógio"), capturando 2–3 poses/frames e animando a câmera no nosso `cenas.js`, em vez de
+trocar nosso pipeline. Antes de decidir, testar 1 figura pequena (dial-indicator) em ambiente
+isolado — depende de o dono liberar a execução do código externo.
