@@ -601,7 +601,7 @@ O Salmo 11 pergunta o que o justo faz quando tudo desmorona. A resposta é curta
 • Separe o que é conselho do que é medo
 • Faça só o próximo passo certo e pequeno
 
-Assista de novo e repare na figura de pé sobre a fundação rachada, com a luz dourada vindo do alto. É a imagem do versículo 4. ⛰️
+Assista de novo e repare na figura de pé entre os escombros, sobre as pedras rachadas, com a montanha iluminada ao fundo. É a imagem do versículo 4. ⛰️
 
 💾 Salva para quando o chão tremer.
 💬 Qual "alicerce" já caiu na sua vida e o que te sustentou? Conta aqui.
