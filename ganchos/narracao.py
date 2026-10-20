@@ -74,7 +74,7 @@ def trilha(destino, duracao, sr=48000):
 def mixar(voz_wav, trilha_wav, destino, duracao, volume_trilha=0.07):
     """Voz (48 kHz mono) + trilha, padronizada em ~-16 LUFS com limitador (sem estourar). A trilha fica bem baixa sob a voz."""
     filtro = (f"[0:a]apad=whole_dur={duracao}[v];[1:a]volume={volume_trilha}[t];"
-              f"[v][t]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-16:TP=-2.0:LRA=7,alimiter=limit=0.85[m]")
+              f"[v][t]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-16:TP=-2.0:LRA=7,alimiter=limit=0.80[m]")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(voz_wav), "-i", str(trilha_wav), "-filter_complex", filtro,
                     "-map", "[m]", "-t", str(duracao), "-ar", "48000", "-ac", "1", str(destino)], check=True)
     return destino

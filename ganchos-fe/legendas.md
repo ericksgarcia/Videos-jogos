@@ -575,7 +575,7 @@ Se até a sua família te abandonar, o Salmo 27 tem uma frase para você. Só um
 • Procure uma pessoa de confiança: a família que a gente escolhe também conta
 • Se a dor estiver muito grande, converse com alguém ou ligue para o CVV (188), gratuito e sigiloso
 
-Assista de novo e repare na pessoa sentada sozinha e na luz dourada chegando até ela. É assim que o salmo descreve ser acolhido. 🏠
+Assista de novo e repare na pessoa sentada sozinha na escada, ao lado da lamparina, e nas luzes quentes da vila ao longe. É a imagem de quem ainda tem um lugar para voltar. 🏠
 
 💾 Salva para um dia difícil.
 💬 Qual frase da Bíblia já te acolheu? Escreve aqui.
