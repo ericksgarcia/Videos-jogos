@@ -185,3 +185,10 @@ Registrar por vídeo: **retenção aos 3 s**, **% que chega ao fim**, **replays*
 | Horário | 7h | 19h | janela de postagem |
 
 Metas de partida (hipóteses de blog, ajustar com os dados reais da conta): ≥ 60% no 3º segundo; ≥ 70% de conclusão no gancho curto.
+
+## 11. Chamada para a legenda (decisão do dono, 20/10/2026)
+
+Todo gancho fecha com uma frase **falada e escrita na tela**: "A legenda **mostra**.", "A legenda **explica**." ou "A legenda **conta**."
+(o verbo varia entre os vídeos para não soar como modelo repetido). Objetivo: levar o espectador a abrir a legenda, onde está a
+resposta da lacuna de curiosidade, e medir isso em "abertura da legenda" no teste da seção 9. `checar.py` reprova gancho sem essa chamada.
+

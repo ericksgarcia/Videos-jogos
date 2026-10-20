@@ -5,6 +5,7 @@ Uso: python ganchos/checar.py [pasta]      (default: ganchos-fe)
 Confere, para cada gancho: tamanho do texto (leitura em 8 s), destaques que existem no texto, quantidade de destaques,
 primeira linha da legenda (parte visível antes do "mais"), 3 a 5 hashtags sem #fyp, a palavra-chave de busca
 (na fala/tela e nos 80 primeiros caracteres da legenda) e tema repetido dentro da janela do histórico (historico.py).
+Também exige a chamada "A legenda mostra/explica/conta." (fala e tela) em todo gancho.
 O julgamento de qualidade (curiosidade, emoção, fidelidade bíblica...) fica em avaliacao.md.
 """
 import json
@@ -16,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import historico as HI  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
-MAX_PRINCIPAL, MAX_COMPLEMENTO, MAX_TOTAL = 22, 8, 28
+MAX_PRINCIPAL, MAX_COMPLEMENTO, MAX_TOTAL = 22, 8, 31  # total inclui a chamada para a legenda (3 palavras)
 MAX_PRIMEIRA_LINHA = 125  # caracteres visíveis antes do "mais" no TikTok
 
 
@@ -63,8 +64,11 @@ def main():
             problemas.append(f"texto com {p} palavras (máx {MAX_PRINCIPAL})")
         if c > MAX_COMPLEMENTO:
             problemas.append(f"complemento com {c} palavras (máx {MAX_COMPLEMENTO})")
-        if p + c > MAX_TOTAL:
-            problemas.append(f"total {p + c} palavras (máx {MAX_TOTAL})")
+        cta = g.get("cta", "")
+        if not re.fullmatch(r"A legenda (mostra|explica|conta)\.", cta):
+            problemas.append(f"chamada para a legenda ausente ou fora do padrão: {cta!r}")
+        if p + c + palavras(cta) > MAX_TOTAL:
+            problemas.append(f"total {p + c + palavras(cta)} palavras (máx {MAX_TOTAL})")
         for d in g["destaque"]:
             if d.lower() not in tudo:
                 problemas.append(f"destaque ausente no texto: {d!r}")

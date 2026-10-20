@@ -75,7 +75,7 @@ def render(g, com_voz=True):
     SAIDA.mkdir(parents=True, exist_ok=True)
     (SAIDA / "capas").mkdir(exist_ok=True)
 
-    txt = g["texto"] + (" " + g["complemento"] if g.get("complemento") else "")
+    txt = " ".join(x for x in (g["texto"], g.get("complemento", ""), g.get("cta", "")) if x)
     palavras, dur_fala, voz_wav = NA.narrar(CACHE / "voz", base, txt)
     dur = max(float(CFG["formato"]["duracao_s"]), math.ceil((dur_fala + 0.9) * FPS) / FPS)
     n = int(round(dur * FPS))

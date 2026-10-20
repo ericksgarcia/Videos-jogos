@@ -37,7 +37,8 @@
         "lighting": "dramatic golden dawn light against cold blue shadows",
         "mood": "courage, faith against overwhelming odds"
       },
-      "palavra_chave": "Davi"
+      "palavra_chave": "Davi",
+      "cta": "A legenda mostra."
     },
     {
       "id": 2,
@@ -58,7 +59,8 @@
         "lighting": "warm golden shaft of light from the clouds, soft rim light",
         "mood": "intimacy, quiet prayer"
       },
-      "palavra_chave": "Jesus"
+      "palavra_chave": "Jesus",
+      "cta": "A legenda explica."
     },
     {
       "id": 3,
@@ -80,7 +82,8 @@
         "lighting": "deep shadows on the valley walls, warm golden light at the far end",
         "mood": "walking through hardship, not alone"
       },
-      "palavra_chave": "Salmo 23"
+      "palavra_chave": "Salmo 23",
+      "cta": "A legenda mostra."
     },
     {
       "id": 4,
@@ -101,7 +104,8 @@
         "lighting": "burning orange sunset with long shadows, dusty haze",
         "mood": "unresolved question, quiet tension"
       },
-      "palavra_chave": "Jonas"
+      "palavra_chave": "Jonas",
+      "cta": "A legenda explica."
     },
     {
       "id": 5,
@@ -122,7 +126,8 @@
         "lighting": "cold stormlight with a golden break in the clouds",
         "mood": "grief, awe, humility"
       },
-      "palavra_chave": "Jó"
+      "palavra_chave": "Jó",
+      "cta": "A legenda conta."
     },
     {
       "id": 6,
@@ -143,7 +148,8 @@
         "lighting": "warm lantern and golden window light",
         "mood": "busy vs still, hidden anxiety"
       },
-      "palavra_chave": "Marta"
+      "palavra_chave": "Marta",
+      "cta": "A legenda explica."
     },
     {
       "id": 7,
@@ -164,7 +170,8 @@
         "lighting": "golden glow emanating from the seed, warm sunset behind",
         "mood": "small beginnings, great power"
       },
-      "palavra_chave": "semente"
+      "palavra_chave": "semente",
+      "cta": "A legenda explica."
     },
     {
       "id": 8,
@@ -185,7 +192,8 @@
         "lighting": "twilight blue sky with intense golden-orange glow from the bush",
         "mood": "patience, calling after long waiting"
       },
-      "palavra_chave": "Moisés"
+      "palavra_chave": "Moisés",
+      "cta": "A legenda conta."
     },
     {
       "id": 9,
@@ -206,7 +214,8 @@
         "lighting": "golden desert sunlight, cool shadows in the palace",
         "mood": "forgiveness, power and mercy"
       },
-      "palavra_chave": "José"
+      "palavra_chave": "José",
+      "cta": "A legenda conta."
     },
     {
       "id": 10,
@@ -227,7 +236,8 @@
         "lighting": "soft golden-pink sunrise with long shadows",
         "mood": "rescue, tenderness"
       },
-      "palavra_chave": "ovelha"
+      "palavra_chave": "ovelha",
+      "cta": "A legenda conta."
     },
     {
       "id": 11,
@@ -248,7 +258,8 @@
         "lighting": "warm sunset glow on the embrace, the third figure half in shadow",
         "mood": "return, welcome and resentment"
       },
-      "palavra_chave": "filho pródigo"
+      "palavra_chave": "filho pródigo",
+      "cta": "A legenda conta."
     },
     {
       "id": 12,
@@ -269,7 +280,8 @@
         "lighting": "soft luminous golden-white dawn, gentle haze",
         "mood": "daily provision, trust"
       },
-      "palavra_chave": "maná"
+      "palavra_chave": "maná",
+      "cta": "A legenda explica."
     },
     {
       "id": 13,
@@ -290,7 +302,8 @@
         "lighting": "single golden beam from above, deep navy darkness around",
         "mood": "humility, wise choice"
       },
-      "palavra_chave": "Salomão"
+      "palavra_chave": "Salomão",
+      "cta": "A legenda conta."
     },
     {
       "id": 14,
@@ -311,7 +324,8 @@
         "lighting": "golden sunset streaming through the windows, dark interior",
         "mood": "unshakable devotion, courage in danger"
       },
-      "palavra_chave": "Daniel"
+      "palavra_chave": "Daniel",
+      "cta": "A legenda mostra."
     },
     {
       "id": 15,
@@ -332,7 +346,8 @@
         "lighting": "moonlit storm, golden glow on the horizon",
         "mood": "faith vs fear, focus"
       },
-      "palavra_chave": "Pedro"
+      "palavra_chave": "Pedro",
+      "cta": "A legenda explica."
     },
     {
       "id": 16,
@@ -353,7 +368,8 @@
         "lighting": "warm golden light through leaves, dusty air",
         "mood": "being seen, unexpected grace"
       },
-      "palavra_chave": "Zaqueu"
+      "palavra_chave": "Zaqueu",
+      "cta": "A legenda conta."
     },
     {
       "id": 17,
@@ -374,7 +390,8 @@
         "lighting": "late golden-hour light with long shadows",
         "mood": "compassion over religiosity"
       },
-      "palavra_chave": "samaritano"
+      "palavra_chave": "samaritano",
+      "cta": "A legenda explica."
     },
     {
       "id": 18,
@@ -395,7 +412,8 @@
         "lighting": "single golden beam in a dark cell, warm candle glow",
         "mood": "peace inside hardship"
       },
-      "palavra_chave": "Paulo"
+      "palavra_chave": "Paulo",
+      "cta": "A legenda conta."
     },
     {
       "id": 19,
@@ -416,7 +434,8 @@
         "lighting": "golden glow from the scroll, deep blue shadows",
         "mood": "love as the answer to division"
       },
-      "palavra_chave": "casamentos"
+      "palavra_chave": "casamentos",
+      "cta": "A legenda explica."
     },
     {
       "id": 20,
@@ -437,7 +456,8 @@
         "lighting": "intense warm glow from the flame, dark blue surroundings",
         "mood": "guard what matters most"
       },
-      "palavra_chave": "Salomão"
+      "palavra_chave": "Salomão",
+      "cta": "A legenda mostra."
     },
     {
       "id": 21,
@@ -458,7 +478,8 @@
         "background": "a quiet ancient village hillside at dusk with warm windows and a soft glowing sky",
         "lighting": "soft golden light embracing the figure against deep blue twilight",
         "mood": "abandoned yet being gathered in, tender comfort"
-      }
+      },
+      "cta": "A legenda mostra."
     },
     {
       "id": 22,
@@ -479,7 +500,8 @@
         "background": "a high mountain top glowing with golden light above storm clouds",
         "lighting": "dramatic golden light from above against dark storm clouds",
         "mood": "everything collapsing, yet unshaken trust"
-      }
+      },
+      "cta": "A legenda mostra."
     },
     {
       "id": 23,
@@ -500,7 +522,8 @@
         "background": "an ancient hilltop city at sunrise with golden clouds",
         "lighting": "warm sunrise light flooding across the stones, golden rim light",
         "mood": "rejected made essential, a day of victory"
-      }
+      },
+      "cta": "A legenda explica."
     },
     {
       "id": 24,
@@ -521,7 +544,8 @@
         "background": "an immense sky with layered golden clouds",
         "lighting": "gentle golden god rays descending from the clouds onto the figure",
         "mood": "high yet stooping to the lowly, tenderness"
-      }
+      },
+      "cta": "A legenda mostra."
     },
     {
       "id": 25,
@@ -542,7 +566,8 @@
         "background": "a broken ancient city skyline with smoke and a glowing golden sunrise",
         "lighting": "golden sunrise piercing through smoke, deep shadows in the ruins",
         "mood": "gratitude rising from the ashes before anything is rebuilt"
-      }
+      },
+      "cta": "A legenda explica."
     }
   ]
 }

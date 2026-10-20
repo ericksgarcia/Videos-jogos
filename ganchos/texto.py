@@ -64,9 +64,11 @@ def _layout(d, g, tam):
     blocos = [(_quebrar(d, _marcar(g["texto"], g["destaque"], BRANCO), f1, larg), f1, 1.22)]
     if g.get("complemento"):
         blocos.append((_quebrar(d, _marcar(g["complemento"], g["destaque"], CIANO), f2, larg), f2, 1.25))
+    if g.get("cta"):  # chamada para a legenda, em maiúsculas, com "LEGENDA" em amarelo
+        blocos.append((_quebrar(d, _marcar(g["cta"].upper(), ["legenda"], BRANCO), f2, larg), f2, 1.25))
     alturas = [len(l) * int(f.size * e) for l, f, e in blocos]
     folga = int(tam * 0.7)
-    return blocos, alturas, sum(alturas) + (folga if len(blocos) > 1 else 0), folga
+    return blocos, alturas, sum(alturas) + folga * (len(blocos) - 1), folga
 
 
 def _sprite(palavra, fonte, cor):
@@ -114,13 +116,15 @@ def _suave(x):
 
 
 def desenhar(quadro, spr, t, fade=1.0, antecip=0.04):
-    """Coloca as palavras no quadro (float32 H×W×3) no instante t. O complemento só aparece perto da hora de ser falado."""
+    """Coloca as palavras no quadro (float32 H×W×3) no instante t. O complemento e a chamada para a legenda só aparecem perto da hora de serem falados."""
     H, W = quadro.shape[:2]
-    c0 = min((s["ini"] for s in spr if s["bloco"] == 1), default=None)
+    ini_bloco = {}
+    for s in spr:
+        ini_bloco[s["bloco"]] = min(ini_bloco.get(s["bloco"], 1e9), s["ini"])
     for s in spr:
         a = DIM + (1 - DIM) * _suave((t - (s["ini"] - antecip)) / 0.10)
-        if s["bloco"] == 1:
-            a *= _suave((t - (c0 - 0.35)) / 0.30)
+        if s["bloco"] >= 1:
+            a *= _suave((t - (ini_bloco[s["bloco"]] - 0.35)) / 0.30)
         a *= fade
         if a <= 0.004:
             continue
