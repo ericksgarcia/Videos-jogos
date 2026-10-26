@@ -19,17 +19,17 @@ function EMC_titulo(pg, linhas, y, ts, dur, o = {}) {
 CENAS.abertura = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 11, y0: 820 }); EMC_zoom(pg, c);
   // gancho escrito à mão logo no quadro 0 (o papel já nasce com a caneta em movimento)
-  EMC_titulo(pg, [{ txt: "PRA QUEM SE SENTIU", fonte: "felix", max: 0.19 }, { txt: "SOZINHO", fonte: "elfin", max: 0.36, cor: CAD_VERM, marca: true }], 400, c.ini + 0.05, 1.7, { passo: 230 });
+  EMC_titulo(pg, [{ txt: "UM NOME CONTRA", fonte: "felix", max: 0.19 }, { txt: "A SOLIDÃO", fonte: "elfin", max: 0.36, cor: CAD_VERM, marca: true }], 400, c.ini + 0.05, 1.7, { passo: 230 });
   cadDesenho(pg, "sentado", { x: 820, y: 1580, esc: 1.4, ts: c.ini + 1.5, te: c.ini + 3.4, seed: 3 });
   cadDesenho(pg, "lua", { x: 230, y: 1560, esc: 0.95, ts: c.ini + 3.6, te: c.ini + 4.8, seed: 4 });
-  const w = cadPalavras(pg, { y0: 820, larg: 900, esc: 0.1, destaque: ["sozinho", "nome", "fim", "livro"] });
+  const w = cadPalavras(pg, { y0: 820, larg: 900, esc: 0.1, destaque: ["solidão", "sozinho", "nome", "fim", "livro"] });
   const m = w.mapa.nome && w.mapa.nome[0]; if (m) cadCirculo(pg, (m.x0 + m.x1) / 2, m.y - 28, (m.x1 - m.x0) / 2 + 24, 54, m.te, m.te + 0.5);
   cadDesenho(pg, "livro", { x: 540, y: 1590, esc: 1.1, ts: B("fim"), te: B("fim") + 1.2, seed: 5 });
 };
 
 CENAS.apoio = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 12, y0: 560 }); EMC_zoom(pg, c);
-  const w = cadPalavras(pg, { y0: 560, larg: 820, esc: 0.105, destaque: ["fé", "curte", "comenta", "Palavra", "Deus"] });
+  const w = cadPalavras(pg, { y0: 560, larg: 820, esc: 0.105, destaque: ["tocou", "curte", "comenta", "amém", "sozinho"] });
   cadDesenho(pg, "livro", { x: 250, y: 1290, esc: 0.95, ts: B("fe"), te: B("fe") + 1.2, seed: 6 });
   cadDesenho(pg, "coracao", { x: 560, y: 1290, esc: 1.1, ts: B("curte"), te: B("curte") + 1.0, seed: 7 });
   cadDesenho(pg, "balao", { x: 830, y: 1280, esc: 1.2, ts: B("comenta"), te: B("comenta") + 1.1, seed: 8 });
@@ -45,7 +45,7 @@ CENAS.jose = (el, c, B) => {
 
 CENAS.sonho = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 14, y0: 520 }); EMC_zoom(pg, c);
-  cadPalavras(pg, { y0: 520, larg: 800, esc: 0.105, destaque: ["sonho", "anjo", "temas", "nome"] });
+  cadPalavras(pg, { y0: 520, larg: 800, esc: 0.105, destaque: ["sonho", "anjo", "Adivinha", "temas", "nome"] });
   cadDesenho(pg, "lua", { x: 250, y: 1300, esc: 0.75, ts: B("sonho"), te: B("sonho") + 1.2, seed: 12 });
   cadDesenho(pg, "anjo", { x: 640, y: 1360, esc: 1.3, ts: B("anjo"), te: B("anjo") + 2.0, seed: 13 });
   cadDesenho(pg, "brilho", { x: 900, y: 1180, esc: 0.8, ts: B("nome2"), te: B("nome2") + 0.8, seed: 14, cor: CAD_OURO });
@@ -53,25 +53,27 @@ CENAS.sonho = (el, c, B) => {
 
 CENAS.significado = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 15, y0: 600, passo: 130 }); EMC_zoom(pg, c);
-  const w = cadPalavras(pg, { y0: 600, larg: 820, esc: 0.115, escDest: 1.2, destaque: ["Emanuel", "imanu", "conosco", "El", "Deus"] });
+  const w = cadPalavras(pg, { y0: 600, larg: 820, esc: 0.115, escDest: 1.2, destaque: ["Emanuel", "imanu", "conosco", "El", "Deus", "Isaías"] });
   const m = w.mapa.conosco && w.mapa.conosco[0]; if (m) cadSublinhado(pg, m.x0, m.x1, m.y + 30, m.te, m.te + 0.5);
-  cadDesenho(pg, "estrela", { x: 540, y: 1340, esc: 1.15, ts: B("junta"), te: B("junta") + 1.6, seed: 15 });
+  cadDesenho(pg, "estrela", { x: 540, y: 1520, esc: 0.95, ts: B("junta"), te: B("junta") + 1.6, seed: 15 });
 };
 
 CENAS.sentido = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 16, y0: 500, passo: 118 }); EMC_zoom(pg, c);
-  cadPalavras(pg, { y0: 500, larg: 820, esc: 0.105, destaque: ["longe", "aqui", "noite", "medo", "decisão", "José"] });
-  cadDesenho(pg, "nuvem", { x: 760, y: 1330, esc: 0.9, ts: B("longe"), te: B("longe") + 1.0, seed: 16 });
-  cadDesenho(pg, "coracao", { x: 290, y: 1350, esc: 0.9, ts: B("aqui"), te: B("aqui") + 1.1, seed: 17 });
-  cadDesenho(pg, "tunica", { x: 560, y: 1400, esc: 0.95, ts: B("jose2"), te: B("jose2") + 1.2, seed: 18 });
+  cadPalavras(pg, { y0: 500, larg: 820, esc: 0.105, destaque: ["longe", "aqui", "noite", "medo", "decisão", "reaparece"] });
+  cadDesenho(pg, "nuvem", { x: 800, y: 1580, esc: 0.8, ts: B("longe"), te: B("longe") + 1.0, seed: 16 });
+  cadDesenho(pg, "coracao", { x: 250, y: 1590, esc: 0.8, ts: B("aqui"), te: B("aqui") + 1.1, seed: 17 });
+  cadDesenho(pg, "seta", { x: 540, y: 1600, esc: 0.8, ts: B("volta"), te: B("volta") + 1.1, seed: 18, cor: CAD_VERM });
 };
 
 CENAS.detalhe = (el, c, B) => {
-  const pg = cadPagina(el, c, { seed: 17, y0: 500, passo: 118 }); EMC_zoom(pg, c);
-  const w = cadPalavras(pg, { y0: 500, larg: 820, esc: 0.105, destaque: ["detalhe", "Mateus", "nome", "começa", "termina", "Jesus", "promessa"] });
-  cadDesenho(pg, "livro", { x: 540, y: 1420, esc: 1.25, ts: B("detalhe"), te: B("detalhe") + 1.6, seed: 19 });
-  cadDesenho(pg, "estrela", { x: 250, y: 1360, esc: 0.5, ts: B("comeca"), te: B("comeca") + 0.9, seed: 20 });
-  cadDesenho(pg, "coracao", { x: 830, y: 1380, esc: 0.5, ts: B("termina"), te: B("termina") + 0.9, seed: 21 });
+  const pg = cadPagina(el, c, { seed: 17, y0: 440, passo: 112 }); EMC_zoom(pg, c);
+  const w = cadPalavras(pg, { y0: 440, larg: 820, esc: 0.105, destaque: ["detalhe", "Mateus", "nome", "começa", "termina", "Jesus", "promessa", "mesma"] });
+  cadDesenho(pg, "livro", { x: 540, y: 1460, esc: 1.1, ts: B("detalhe"), te: B("detalhe") + 1.6, seed: 19 });
+  cadDesenho(pg, "estrela", { x: 250, y: 1420, esc: 0.5, ts: B("comeca"), te: B("comeca") + 0.9, seed: 20 });
+  cadTexto(pg, "Mt 1:23", { x: 250, y: 1620, esc: 0.085, fonte: "felix", cor: CAD_VERM, ts: B("comeca") + 0.9, te: B("comeca") + 1.6, alinhar: "centro", seed: 25 });
+  cadTexto(pg, "Mt 28:20", { x: 830, y: 1620, esc: 0.085, fonte: "felix", cor: CAD_VERM, ts: B("termina") + 0.9, te: B("termina") + 1.6, alinhar: "centro", seed: 26 });
+  cadDesenho(pg, "coracao", { x: 830, y: 1440, esc: 0.5, ts: B("termina"), te: B("termina") + 0.9, seed: 21 });
   const m = w.mapa.promessa && w.mapa.promessa[0]; if (m) cadCirculo(pg, (m.x0 + m.x1) / 2, m.y - 28, (m.x1 - m.x0) / 2 + 26, 56, m.te, m.te + 0.5);
 };
 

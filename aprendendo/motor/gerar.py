@@ -141,7 +141,17 @@ def _ler_voz(arq):
     return np.stack([x, x], axis=1)
 
 
-def mixar(ag, falas, saida, sons_roteiro=None):
+def _riscado(dur, seed):
+    """Caneta riscando papel: ruído filtrado com 'traços' (modulação) do tamanho da palavra."""
+    g = np.random.default_rng(seed); n = max(1, int(dur * SR))
+    x = signal.sosfilt(signal.butter(2, [2200, 7500], btype="band", fs=SR, output="sos"), g.standard_normal(n))
+    t = np.arange(n) / SR; f = 9 + 7 * g.random()
+    m = (0.55 + 0.45 * np.abs(np.sin(np.pi * f * t + g.random() * 6))) ** 2
+    e = np.minimum(1, np.minimum(t / 0.02, (dur - t) / 0.05)).clip(0, 1)
+    return x * m * e / 4
+
+
+def mixar(ag, falas, saida, sons_roteiro=None, caderno=False):
     global TRANSICAO
     TRANSICAO = tuple(MARCA.get("trilha", {}).get("transicao", ("transicao", 0.55)))
     n = int(ag["total"] * SR)
@@ -151,6 +161,12 @@ def mixar(ag, falas, saida, sons_roteiro=None):
             _soma(voz_buf, _ler_voz(f["wav"]), c["voz"], 1.0)
         if c["ini"] > 0:
             _soma(efx, sons.som(TRANSICAO[0]), max(0, c["ini"] - 0.45), TRANSICAO[1])
+        if caderno:  # riscado de caneta no papel, palavra por palavra, junto com o texto escrito
+            for b in c.get("legendas", []):
+                for k, (_, wi, wf) in enumerate(b["palavras"]):
+                    d = max(0.26, wf - wi)
+                    x = _riscado(d, int(wi * 100) % 9973)
+                    _soma(efx, np.stack([x, x], axis=1), max(0, wi - 0.1), 0.55)
         for ev, t in c["batidas"].items():
             nome, g = (sons_roteiro or {}).get(ev, SOM_PADRAO)
             _soma(efx, sons.som(nome), t, g)
@@ -488,7 +504,7 @@ def main():
         return
     mudo = pasta / "video_mudo.mp4"
     renderizar(pasta, mudo, qualidade=a.qualidade)
-    mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"))
+    mixar(ag, falas, pasta / "trilha.wav", roteiro.get("sons"), roteiro.get("estilo") == "caderno")
     mp4 = saida / f"{roteiro['slug']}.mp4"
     codificar(mudo, pasta / "trilha.wav", mp4, ag["total"], metadados(roteiro))
     print("capa:", capa(roteiro, ag, pasta, saida / "capa.jpg"))

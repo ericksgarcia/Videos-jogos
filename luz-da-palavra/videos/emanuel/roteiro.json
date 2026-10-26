@@ -2,7 +2,7 @@
   "canal": "luz-da-palavra",
   "slug": "o-que-significa-emanuel",
   "titulo": "O que significa Emanuel",
-  "descricao": "Se hoje você se sentiu sozinho, esse nome foi escolhido pra você.\nO que significa Emanuel: em hebraico, \"Deus conosco\" (Mateus 1:23; Isaías 7:14). O sonho de José, o anjo que diz \"não temas\" e o detalhe que quase ninguém percebe no fim do evangelho de Mateus.\nEm que momento do seu dia você mais precisa lembrar que Deus está com você? Escreve numa palavra aqui nos comentários.\nSalva pra lembrar disso numa noite difícil.",
+  "descricao": "Existe um nome só, e ele responde à solidão.\nO que significa Emanuel: em hebraico, \"Deus conosco\" (Mateus 1:23; Isaías 7:14). O sonho de José, o anjo que diz \"não temas\" e o detalhe que muita gente nem nota no fim do evangelho de Mateus.\nEm que momento do seu dia você mais precisa lembrar que Deus está com você? Escreve numa palavra aqui nos comentários.\nSalva pra lembrar disso numa noite difícil.",
   "hashtags": [
     "#biblia",
     "#fe",
@@ -11,8 +11,8 @@
     "#luzdapalavra"
   ],
   "comentario_fixado": "Escreve numa palavra o momento do dia em que você mais precisa lembrar que Deus está com você 👇",
-  "gancho": "PRA QUEM SE SENTIU SOZINHO",
-  "gancho_destaque": "SOZINHO",
+  "gancho": "UM NOME CONTRA A SOLIDÃO",
+  "gancho_destaque": "SOLIDÃO",
   "voz": "Achird",
   "sons": {
     "sozinho": [
@@ -126,6 +126,10 @@
     "curte": [
       "plim",
       0.45
+    ],
+    "volta": [
+      "brilho",
+      0.4
     ]
   },
   "cenas": [
@@ -133,10 +137,10 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Se hoje você se sentiu sozinho, existe um nome na Bíblia que foi escolhido pra responder isso. E no fim do mesmo livro ele aparece de novo, de um jeito que quase ninguém percebe.",
+      "fala": "Existe um nome, só um, que responde à solidão. Se hoje você se sentiu sozinho, ele foi escolhido pra você. E no fim do mesmo livro ele volta, de um jeito que muita gente nem nota.",
       "batidas": {
+        "nome,": "nome",
         "sozinho,": "sozinho",
-        "nome": "nome",
         "fim": "fim"
       }
     },
@@ -144,9 +148,9 @@
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Antes de seguirmos: se você realmente tem fé, curte e comenta esse vídeo, pra Palavra de Deus chegar a mais pessoas.",
+      "fala": "Antes de seguirmos: se essa palavra tocou você, curte e comenta amém, pra ela chegar a quem está sozinho hoje. O detalhe vem já já.",
       "batidas": {
-        "fé,": "fe",
+        "tocou": "fe",
         "curte": "curte",
         "comenta": "comenta"
       }
@@ -166,7 +170,7 @@
       "id": "sonho",
       "tipo": "sonho",
       "titulo": "",
-      "fala": "Só que naquela noite, num sonho, um anjo aparece e diz: não temas. E dá ao menino um nome que muda tudo.",
+      "fala": "Só que naquela noite, num sonho, um anjo aparece. Adivinha o que ele diz primeiro? Não temas. E dá ao menino um nome que muda tudo.",
       "batidas": {
         "sonho,": "sonho",
         "anjo": "anjo",
@@ -178,7 +182,7 @@
       "id": "significado",
       "tipo": "significado",
       "titulo": "",
-      "fala": "O nome é Emanuel. Em hebraico, imanu quer dizer conosco. El quer dizer Deus. Deus conosco.",
+      "fala": "O nome é Emanuel. Em hebraico, imanu quer dizer conosco. El quer dizer Deus. Deus conosco. Isaías já tinha anunciado.",
       "batidas": {
         "Emanuel.": "emanuel",
         "imanu": "imanu",
@@ -190,23 +194,23 @@
       "id": "sentido",
       "tipo": "sentido",
       "titulo": "",
-      "fala": "Não é Deus lá longe, olhando de cima. É Deus aqui, na noite sem dormir, no medo, na decisão difícil. Foi isso que o José entendeu.",
+      "fala": "Não é Deus lá longe, olhando de cima. É Deus aqui, na noite sem dormir, no medo, na decisão difícil. Só que esse nome não aparece só aqui. Ele reaparece quando ninguém espera.",
       "batidas": {
         "longe,": "longe",
         "aqui,": "aqui",
-        "José": "jose2"
+        "reaparece": "volta"
       }
     },
     {
       "id": "detalhe",
       "tipo": "detalhe",
       "titulo": "",
-      "fala": "E o detalhe: Mateus começa com esse nome. E termina com Jesus dizendo: eu estou convosco todos os dias. O livro abre e fecha com a mesma promessa.",
+      "fala": "E o detalhe: Mateus começa com esse nome. E termina com Jesus dizendo: eu estou convosco todos os dias. É a mesma promessa, do começo ao fim.",
       "batidas": {
         "detalhe:": "detalhe",
         "começa": "comeca",
         "termina": "termina",
-        "promessa.": "promessa"
+        "promessa,": "promessa"
       }
     },
     {
