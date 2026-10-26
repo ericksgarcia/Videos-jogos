@@ -36,6 +36,7 @@ const ROMANOS = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"
   });
   st.setProperty("--fonte-titulo", `"${MARCA.fontes.titulo}"`); st.setProperty("--fonte-verso", `"${MARCA.fontes.verso}"`);
   const root = $("#root");
+  if (window.DADOS && DADOS.estilo) document.body.classList.add(DADOS.estilo);
   h("div", null, null, root).id = "vinheta";
   h("div", null, null, root).id = "faixa-topo";
   h("div", null, null, root).id = "faixa-base";

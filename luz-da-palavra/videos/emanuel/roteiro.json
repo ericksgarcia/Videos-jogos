@@ -233,5 +233,6 @@
   ],
   "video": {
     "desfoque_movimento": false
-  }
+  },
+  "estilo": "caderno"
 }

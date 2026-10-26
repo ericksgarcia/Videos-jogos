@@ -85,8 +85,21 @@ function cadPagina(el, c, o = {}) {
   return pg;
 }
 
+
+// letra acentuada = letra-base + sinal desenhado por mim (os sinais das fontes EMS vieram truncados): á à â ã é ê í ó ô õ ú ç
+function _cadGlifo(F, ch) {
+  const nf = ch.normalize("NFD"); if (nf.length < 2 || !F[nf[0]]) return F[ch];
+  const base = F[nf[0]], mk = nf[1], xh = Math.max(...F.o[1].flat().filter((_, i) => i % 2)), M = [];
+  let st = base[1]; if (nf[0] === "i" || nf[0] === "I") st = st.filter((p) => Math.min(...p.filter((_, i) => i % 2)) < xh * 1.05 || nf[0] === "I");
+  const top = Math.max(...st.flat().filter((_, i) => i % 2)) + (nf[0] === "i" ? 20 : 0), cx = base[0] * 0.5 + (mk === "\u0303" ? 0 : 20), T = Math.max(top, xh);
+  const f = (...v) => v.map((q, i) => (i % 2 ? T + q : cx + q));
+  if (mk === "\u0301") M.push(f(-35, 55, 35, 135)); else if (mk === "\u0300") M.push(f(-35, 135, 35, 55));
+  else if (mk === "\u0302") M.push(f(-55, 55, 0, 140, 55, 55)); else if (mk === "\u0303") M.push(f(-65, 80, -32, 135, 0, 90, 32, 140, 65, 95));
+  else if (mk === "\u0327") M.push([cx - 10, 0, cx + 25, -50, cx + 30, -95, cx - 5, -125, cx - 40, -105]);
+  return [base[0], [...st, ...M]];
+}
 // ============================== texto escrito à mão ==============================
-function cadMede(txt, fonte = "felix", esc = 0.1, trilha = 0) { const F = CAD_FONTES[fonte]; let w = 0; for (const ch of txt) { const g = F[ch]; w += (g ? g[0] : 300) * esc + trilha * esc; } return w; }
+function cadMede(txt, fonte = "felix", esc = 0.1, trilha = 0) { const F = CAD_FONTES[fonte]; let w = 0; for (const ch of txt) { const g = _cadGlifo(F, ch); w += (g ? g[0] : 300) * esc + trilha * esc; } return w; }
 // distribui o tempo entre os traços de uma lista (peso = comprimento + o custo de levantar a caneta)
 function _cadAgenda(trs, ts, te, lift) {
   const L = trs.map((p) => { let l = 0; for (let i = 1; i < p.length; i++) l += Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]); return l; });
@@ -98,9 +111,10 @@ function cadTexto(pg, txt, o = {}) {
   const rot = ((o.rot || 0) * Math.PI) / 180, cr = Math.cos(rot), sr = Math.sin(rot);
   let x = x0; const trs = [];
   for (const ch of txt) {
-    const gl = F[ch]; if (!gl) { x += 300 * esc + trilha * esc; continue; }
+    const gl = _cadGlifo(F, ch); if (!gl) { x += 300 * esc + trilha * esc; continue; }
     const gs = esc * (1 + (r() - 0.5) * 0.06), dy = (r() - 0.5) * esc * 16, an = (r() - 0.5) * 0.04, ca = Math.cos(an), sa = Math.sin(an);
-    for (const st of gl[1]) {
+    for (const st0 of gl[1]) {
+      const st = st0.length % 2 ? st0.slice(0, -1) : st0; if (st.length < 4) continue;
       const pts = []; for (let i = 0; i < st.length; i += 2) {
         const X = st[i] * gs, Y = st[i + 1] * gs, X2 = X + Y * slant, sy = -Y, px = X2 * ca - sy * sa, py = X2 * sa + sy * ca;
         let ax = x + px - o.x, ay = o.y + dy + py - o.y; pts.push([o.x + ax * cr - ay * sr, o.y + ax * sr + ay * cr]);

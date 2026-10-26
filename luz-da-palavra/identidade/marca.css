@@ -82,3 +82,7 @@ html body, html body #root { background: var(--fundo); font-family: "LuzSans", s
 #root .pt-l.lp-q { font-family: var(--fonte-verso), serif; font-style: italic; font-weight: 500; text-transform: none; white-space: normal; left: 80px; width: 920px; letter-spacing: 0; line-height: 1.12; color: var(--branco); text-shadow: 0 0 26px rgba(var(--luz-rgb),0.35), 0 6px 26px rgba(0,0,0,0.7); }
 #root .pt-l.lp-q b { font-weight: 600; color: var(--luz); text-shadow: 0 0 30px rgba(var(--ouro-rgb),0.9), 0 6px 26px rgba(0,0,0,0.6); }
 #root .pt-l.lp-s { font-family: var(--fonte-titulo), serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ouro); text-shadow: 0 0 18px rgba(var(--ouro-rgb),0.6); white-space: normal; left: 80px; width: 920px; }
+
+/* estilo "caderno" (roteiro "estilo": "caderno"): o papel é a tela; as palavras escritas à mão substituem legenda e capítulo */
+body.caderno #leg, body.caderno #capitulo, body.caderno #vinheta, body.caderno #faixa-topo, body.caderno #faixa-base { display: none; }
+body.caderno #marca { opacity: 0.0; }
