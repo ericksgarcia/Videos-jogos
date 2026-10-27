@@ -1,0 +1,251 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "novas-cada-manha",
+  "titulo": "Novas a cada manhã: Lamentações 3:22–23",
+  "descricao": "O versículo das misericórdias que se renovam foi escrito num livro de choro.\nLamentações 3:22–23 no contexto (cf. Lamentações 3:1–24): a queda de Jerusalém, o momento em que o autor diz que a esperança acabou, e o que ele escolhe lembrar três versículos depois. E um detalhe na forma do poema que muda a leitura.\nSe você pudesse escolher uma coisa pra lembrar amanhã cedo, qual seria? Escreve numa palavra nos comentários.\nSalva pra ler amanhã cedo e manda pra quem está atravessando um luto.",
+  "hashtags": [
+    "#biblia",
+    "#esperanca",
+    "#lamentacoes",
+    "#fe",
+    "#luzdapalavra"
+  ],
+  "comentario_fixado": "Uma palavra só. Qual você escolheria lembrar amanhã cedo?",
+  "gancho": "NO LIVRO DO CHORO",
+  "gancho_destaque": "CHORO",
+  "voz": "Achird",
+  "sons": {
+    "choro": [
+      "respiro",
+      0.3
+    ],
+    "acabou": [
+      "respiro",
+      0.3
+    ],
+    "livro": [
+      "respiro",
+      0.3
+    ],
+    "queimada": [
+      "respiro",
+      0.3
+    ],
+    "fome": [
+      "respiro",
+      0.3
+    ],
+    "escuro": [
+      "respiro",
+      0.3
+    ],
+    "esperanca": [
+      "respiro",
+      0.3
+    ],
+    "fora": [
+      "respiro",
+      0.3
+    ],
+    "lembrar": [
+      "respiro",
+      0.3
+    ],
+    "que": [
+      "respiro",
+      0.3
+    ],
+    "fim": [
+      "respiro",
+      0.3
+    ],
+    "pergunta": [
+      "respiro",
+      0.3
+    ],
+    "depois": [
+      "respiro",
+      0.3
+    ],
+    "detalhe": [
+      "respiro",
+      0.3
+    ],
+    "alfabeto": [
+      "respiro",
+      0.3
+    ],
+    "lembra": [
+      "respiro",
+      0.3
+    ],
+    "fe": [
+      "sino",
+      0.35
+    ],
+    "curte": [
+      "plim",
+      0.4
+    ],
+    "comenta": [
+      "plim",
+      0.4
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ],
+    "adivinha": [
+      "pop",
+      0.3
+    ],
+    "virada": [
+      "sino",
+      0.5
+    ],
+    "manha": [
+      "sino",
+      0.45
+    ],
+    "fidelidade": [
+      "sino",
+      0.5
+    ],
+    "manha0": [
+      "sino",
+      0.35
+    ],
+    "ve": [
+      "respiro",
+      0.3
+    ],
+    "az": [
+      "pop",
+      0.35
+    ],
+    "meio": [
+      "sino",
+      0.5
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Você já ouviu que as misericórdias de Deus se renovam a cada manhã. Quem escreveu isso estava num livro inteiro de choro. Quatro versículos antes, ele diz: acabou a minha esperança. E a forma desse poema esconde um detalhe que quase ninguém vê.",
+      "batidas": {
+        "manhã.": "manha0",
+        "choro.": "choro",
+        "esperança.": "acabou",
+        "vê.": "ve"
+      }
+    },
+    {
+      "id": "apoio",
+      "tipo": "apoio",
+      "titulo": "",
+      "fala": "Se você acordou sem forças hoje, curte e deixa seu amém, pra essa Palavra chegar a quem precisa. Já te conto.",
+      "batidas": {
+        "forças": "fe",
+        "curte": "curte",
+        "amém,": "comenta"
+      }
+    },
+    {
+      "id": "livro",
+      "tipo": "livro",
+      "titulo": "",
+      "fala": "O livro se chama Lamentações. É o choro pela queda de Jerusalém: a cidade queimada, o templo no chão, gente passando fome.",
+      "batidas": {
+        "Lamentações.": "livro",
+        "queimada,": "queimada",
+        "fome.": "fome"
+      }
+    },
+    {
+      "id": "fundo",
+      "tipo": "fundo",
+      "titulo": "",
+      "fala": "No capítulo três, o autor se sente cercado, sem saída, no escuro. E diz: acabou a minha força e a minha esperança. Adivinha o que ele faz três versículos depois?",
+      "batidas": {
+        "escuro.": "escuro",
+        "esperança.": "esperanca",
+        "Adivinha": "adivinha"
+      }
+    },
+    {
+      "id": "virada",
+      "tipo": "virada",
+      "titulo": "",
+      "fala": "Nada muda lá fora. A cidade continua em ruínas. Muda o que ele escolhe lembrar: disto vou me lembrar, por isso tenho esperança.",
+      "batidas": {
+        "fora.": "fora",
+        "lembrar:": "lembrar",
+        "esperança.": "virada"
+      }
+    },
+    {
+      "id": "versiculo",
+      "tipo": "versiculo",
+      "titulo": "",
+      "fala": "E lembra o quê? Que as misericórdias do Senhor não têm fim. Elas se renovam a cada manhã. Grande é a tua fidelidade.",
+      "batidas": {
+        "quê?": "que",
+        "fim.": "fim",
+        "manhã.": "manha",
+        "fidelidade.": "fidelidade"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Se você pudesse escolher uma coisa pra lembrar amanhã cedo, qual seria? Escreve numa palavra, no botão de comentários, na direita.",
+      "batidas": {
+        "Se": "pergunta",
+        "Escreve": "comenta",
+        "direita.": "depois"
+      }
+    },
+    {
+      "id": "detalhe",
+      "tipo": "detalhe",
+      "titulo": "",
+      "fala": "Agora o detalhe da forma: esse capítulo é um poema que segue o alfabeto hebraico, letra por letra. Ele levou a dor inteira pra Deus, de A a Z. E a esperança está no capítulo do meio do livro.",
+      "batidas": {
+        "detalhe": "detalhe",
+        "alfabeto": "alfabeto",
+        "Z.": "az",
+        "meio": "meio"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva pra ler amanhã cedo, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
+  ],
+  "estilo": "caderno",
+  "tema": "noite",
+  "video": {
+    "desfoque_movimento": false,
+    "tratamento_cor": {
+      "contraste": 1.03,
+      "saturacao": 1.05,
+      "vinheta": 0.08,
+      "aberracao_px": 0,
+      "grao": 3
+    }
+  }
+}
