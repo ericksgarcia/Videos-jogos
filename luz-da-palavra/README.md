@@ -239,6 +239,13 @@ Caderno: cara de escola.
 - Uma caneta só para as palavras; rabiscos e textos com `livre: true` aparecem sozinhos (pedido do dono).
 - A escrita aproveita as pausas da fala e, se atrasar, acelera até alcançar (não arrasta atraso até o fim).
 - Quadro 0: o desenho principal já aceso (comece o rabisco antes de `c.ini`) enquanto a caneta escreve o gancho.
+- Título da abertura com `cadTitulo(..., { livre: true })`: ele se escreve sozinho e a caneta começa a fala já no 1º segundo
+  (com o título na fila, as primeiras palavras saíam ~0,7 s atrasadas).
+- **Medir a sincronia antes de renderizar:** `python luz-da-palavra/ferramentas/sincronia.py luz-da-palavra/videos/<tema>`
+  (depois do `--so-montar`) lista cada palavra escrita mais de 0,35 s depois de falada. Meta: média ≤ 0,15 s, máximo ≤ 0,45 s.
+  A duração mínima da escrita é proporcional ao tamanho da palavra ("de" em ~0,2 s), para sequências de palavras curtas não atrasarem.
+- Referência na tela: curta (≤ ~24 caracteres, ex.: "cf. 2 Rs 25:9; Lm 2:12"), senão sai cortada à esquerda.
+- A fonte não tem "…" nem "×": escreva "..." e "x".
 - Exemplo completo: `videos/fogo-de-brasas/` ("Dois fogos: Pedro e Jesus").
 
 ## Animações Lottie no canal (teste out/2026: `videos/teste-lottie/`)

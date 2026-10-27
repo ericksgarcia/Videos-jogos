@@ -2,7 +2,7 @@
   "canal": "luz-da-palavra",
   "slug": "novas-cada-manha",
   "titulo": "Novas a cada manhã: Lamentações 3:22–23",
-  "descricao": "O versículo das misericórdias que se renovam foi escrito num livro de choro.\nLamentações 3:22–23 no contexto (cf. Lamentações 3:1–24): a queda de Jerusalém, o momento em que o autor diz que a esperança acabou, e o que ele escolhe lembrar três versículos depois. E um detalhe na forma do poema que muda a leitura.\nSe você pudesse escolher uma coisa pra lembrar amanhã cedo, qual seria? Escreve numa palavra nos comentários.\nSalva pra ler amanhã cedo e manda pra quem está atravessando um luto.",
+  "descricao": "Esse versículo foi escrito num livro inteiro de choro.\nAs misericórdias do Senhor se renovam a cada manhã, grande é a tua fidelidade (Lamentações 3:22–23): o contexto que quase ninguém conhece. Jerusalém em cinzas, o autor dizendo que a esperança acabou, e o que ele escolhe levar pra memória três versículos depois. E o segredo no alfabeto do poema.\nO que Deus já fez por você que merece ser lembrado amanhã cedo? Escreve numa palavra nos comentários.\nSalva pra ler amanhã cedo e manda pra quem está atravessando um luto.",
   "hashtags": [
     "#biblia",
     "#esperanca",
@@ -10,7 +10,7 @@
     "#fe",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "Uma palavra só. Qual você escolheria lembrar amanhã cedo?",
+  "comentario_fixado": "A minha palavra pra amanhã cedo: fidelidade. E a sua, o que Deus já fez que você quer lembrar?",
   "gancho": "NO LIVRO DO CHORO",
   "gancho_destaque": "CHORO",
   "voz": "Achird",
@@ -130,6 +130,14 @@
     "meio": [
       "sino",
       0.5
+    ],
+    "saida": [
+      "respiro",
+      0.3
+    ],
+    "hebraico": [
+      "pop",
+      0.3
     ]
   },
   "cenas": [
@@ -137,21 +145,21 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Você já ouviu que as misericórdias de Deus se renovam a cada manhã. Quem escreveu isso estava num livro inteiro de choro. Quatro versículos antes, ele diz: acabou a minha esperança. E a forma desse poema esconde um detalhe que quase ninguém vê.",
+      "fala": "Numa cidade em cinzas, alguém escreveu que as misericórdias se renovam a cada manhã. Pouco antes, ele diz: acabou a minha esperança. E o poema guarda um segredo no alfabeto, que eu te mostro no fim.",
       "batidas": {
+        "cinzas,": "choro",
         "manhã.": "manha0",
-        "choro.": "choro",
         "esperança.": "acabou",
-        "vê.": "ve"
+        "alfabeto,": "ve"
       }
     },
     {
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Se você acordou sem forças hoje, curte e deixa seu amém, pra essa Palavra chegar a quem precisa. Já te conto.",
+      "fala": "Se você crê que essa manhã nova veio de Deus, curte e comenta amém, pra ela chegar a quem está no escuro.",
       "batidas": {
-        "forças": "fe",
+        "crê": "fe",
         "curte": "curte",
         "amém,": "comenta"
       }
@@ -160,9 +168,9 @@
       "id": "livro",
       "tipo": "livro",
       "titulo": "",
-      "fala": "O livro se chama Lamentações. É o choro pela queda de Jerusalém: a cidade queimada, o templo no chão, gente passando fome.",
+      "fala": "O livro é Lamentações: o choro pela queda de Jerusalém. Cidade queimada, templo no chão, gente com fome.",
       "batidas": {
-        "Lamentações.": "livro",
+        "Lamentações:": "livro",
         "queimada,": "queimada",
         "fome.": "fome"
       }
@@ -171,29 +179,30 @@
       "id": "fundo",
       "tipo": "fundo",
       "titulo": "",
-      "fala": "No capítulo três, o autor se sente cercado, sem saída, no escuro. E diz: acabou a minha força e a minha esperança. Adivinha o que ele faz três versículos depois?",
+      "fala": "No capítulo três, ele se sente cercado, no escuro, sem saída. Adivinha o que ele faz três versículos depois de perder a esperança?",
       "batidas": {
-        "escuro.": "escuro",
-        "esperança.": "esperanca",
-        "Adivinha": "adivinha"
+        "cercado,": "escuro",
+        "saída.": "saida",
+        "Adivinha": "adivinha",
+        "esperança?": "esperanca"
       }
     },
     {
       "id": "virada",
       "tipo": "virada",
       "titulo": "",
-      "fala": "Nada muda lá fora. A cidade continua em ruínas. Muda o que ele escolhe lembrar: disto vou me lembrar, por isso tenho esperança.",
+      "fala": "Nada muda lá fora. A cidade continua em ruínas. Muda o que ele leva pra memória: disto me recordarei, por isso esperarei.",
       "batidas": {
         "fora.": "fora",
-        "lembrar:": "lembrar",
-        "esperança.": "virada"
+        "memória,": "lembrar",
+        "esperarei.": "virada"
       }
     },
     {
       "id": "versiculo",
       "tipo": "versiculo",
       "titulo": "",
-      "fala": "E lembra o quê? Que as misericórdias do Senhor não têm fim. Elas se renovam a cada manhã. Grande é a tua fidelidade.",
+      "fala": "E lembra o quê? Que as misericórdias do Senhor não têm fim. Novas são cada manhã. Grande é a tua fidelidade.",
       "batidas": {
         "quê?": "que",
         "fim.": "fim",
@@ -205,9 +214,9 @@
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Se você pudesse escolher uma coisa pra lembrar amanhã cedo, qual seria? Escreve numa palavra, no botão de comentários, na direita.",
+      "fala": "Antes do segredo: o que Deus já fez por você que merece ser lembrado amanhã cedo? Escreve numa palavra, nos comentários aqui na direita.",
       "batidas": {
-        "Se": "pergunta",
+        "Antes": "pergunta",
         "Escreve": "comenta",
         "direita.": "depois"
       }
@@ -216,12 +225,13 @@
       "id": "detalhe",
       "tipo": "detalhe",
       "titulo": "",
-      "fala": "Agora o detalhe da forma: esse capítulo é um poema que segue o alfabeto hebraico, letra por letra. Ele levou a dor inteira pra Deus, de A a Z. E a esperança está no capítulo do meio do livro.",
+      "fala": "O segredo: cada estrofe começa com uma letra do alfabeto hebraico. Ele levou a dor inteira a Deus, de A a Z. E no capítulo do meio, cercada de choro, está a esperança.",
       "batidas": {
-        "detalhe": "detalhe",
+        "segredo:": "detalhe",
         "alfabeto": "alfabeto",
         "Z.": "az",
-        "meio": "meio"
+        "meio,": "meio",
+        "hebraico.": "hebraico"
       }
     },
     {
@@ -247,5 +257,10 @@
       "aberracao_px": 0,
       "grao": 3
     }
+  },
+  "capa": {
+    "t": 3.0,
+    "texto": "ESCRITO NO DIA MAIS ESCURO",
+    "destaque": "ESCURO"
   }
 }

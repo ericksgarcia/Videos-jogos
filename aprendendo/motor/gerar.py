@@ -213,7 +213,9 @@ def montar(roteiro, ag, pasta, pasta_video):
     shutil.copy(NODE / "lottie-web" / "build" / "player" / "lottie_svg.min.js", pasta / "assets" / "lottie.min.js")
     # animações Lottie do vídeo (videos/<tema>/lottie/*.json) embutidas na página
     # biblioteca do canal (<canal>/identidade/lottie/*.json, não versionada: ver luz-da-palavra/catalogo-lottie.md) + as do vídeo (têm prioridade)
-    lot = {f.stem: json.loads(f.read_text()) for f in sorted((IDENTIDADE / "lottie").glob("*.json")) if f.name != "creditos.json"}
+    # da biblioteca só entram as que o cenas.js usa pelo nome (embutir os 18 MB inteiros estourava a pilha do snapshot)
+    _cj = (Path(pasta_video) / "cenas.js").read_text() if (Path(pasta_video) / "cenas.js").exists() else ""
+    lot = {f.stem: json.loads(f.read_text()) for f in sorted((IDENTIDADE / "lottie").glob("*.json")) if f.name != "creditos.json" and f'"{f.stem}"' in _cj}
     lot.update({f.stem: json.loads(f.read_text()) for f in sorted((Path(pasta_video) / "lottie").glob("*.json")) if f.name != "creditos.json"})
     (pasta / "assets" / "lottie_dados.js").write_text("window.LOTTIE = " + json.dumps(lot, separators=(",", ":")) + ";\n")
     for arq in sorted((IDENTIDADE / "fontes").glob("*.woff2")):

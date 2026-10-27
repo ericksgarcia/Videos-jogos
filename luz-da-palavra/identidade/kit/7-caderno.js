@@ -327,9 +327,10 @@ function cadFechar(pg, o = {}) {
   const L = pg.itens.filter((it) => it.tipo === "texto").map((it, i) => [it, i]).sort((a, b) => a[0].ts - b[0].ts || a[1] - b[1]).map((q) => q[0]);
   for (const it of L) {
     const d = Math.max(0.05, it.te - it.ts), ini = Math.max(it.ts, cur), atraso = ini - it.ts;
-    let dur = it.tipo === "texto" ? Math.max(0.36, d * lento) : d * lentoD;
+    // duração mínima proporcional ao tamanho da palavra ("de" em 0,2 s, "Jerusalém" em 0,4 s): um mínimo fixo atrasava as sequências de palavras curtas
+    let dur = it.tipo === "texto" ? Math.max(0.12 + (it.w || 200) / 2200, d * lento) : d * lentoD;
     // atrasou: escreve mais depressa para terminar quando a palavra terminaria (alcança a fala em vez de arrastar o atraso)
-    if (atraso > 0.05) dur = Math.max(0.14 + (it.w || 200) / 2600, Math.min(dur, it.te - ini));
+    if (atraso > 0.05) dur = Math.max(0.1 + (it.w || 200) / 3000, Math.min(dur, it.te - ini));
     const k = dur / d;
     for (const s of it.tracos) { const a = s.ts - it.ts, b = s.te - it.ts; s.ts = ini + a * k; s.te = ini + b * k; }
     _CAD.sinc.push({ txt: it.txt, ts0: it.ts, te0: it.te, ts: ini, te: ini + dur });

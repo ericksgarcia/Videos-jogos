@@ -57,4 +57,4 @@ Temas escolhidos pelo `analista-temas` a partir de pesquisa (o banco acima conti
 - [x] **Jeremias 29:11 foi escrito pra quem ia esperar 70 anos** (feito: `videos/setenta-anos/`) (Jr 29:4–11) — 2º colocado (51/60). Cuidado: "a promessa
       veio com espera", nunca "não é pra você"; dizer "um dos mais postados".
 - [x] **Ana orava sem voz e o sacerdote achou que ela estava bêbada** (1 Sm 1:12–15) (feito: `videos/ana-sem-voz/`) — 3º (49/60): quando a oração é só choro.
-- [ ] **Lamentações 3:22–23** — o versículo mais esperançoso está no livro do luto (49/60).
+- [x] **Lamentações 3:22–23** — o versículo das misericórdias foi escrito numa cidade em cinzas (feito: `videos/novas-cada-manha/`; laço: o acróstico de A a Z, cap. 3 é o do meio) (49/60).
