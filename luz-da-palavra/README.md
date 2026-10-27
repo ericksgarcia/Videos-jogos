@@ -186,3 +186,19 @@ cache. Se a leitura inteira falhar, volta a narrar cena a cena.
    arquivo de legenda.
 4. Commit + push na branch de trabalho. Sem PR sem pedido. Repositório público: nunca commite chaves
    nem o `.env`.
+
+## Escolha do tema (pedido do dono: "muito legais, que prendam, nada de mais do mesmo")
+
+Todo tema novo passa por este filtro ANTES de virar roteiro. Se não passar em 5 dos 6, troca de ângulo ou de tema.
+
+1. **Estranheza real:** existe um fato verificável no próprio texto que surpreende quem "acha que conhece" a passagem
+   (ex.: "a Bíblia gasta 1 versículo em 18 anos da vida de Jesus"). Sem fato, não há gancho.
+2. **Pergunta que a pessoa nunca fez** (ou fez e ninguém respondeu), em vez da lição que todo mundo já ouviu no culto.
+3. **Dor de hoje:** liga com algo que o adulto sente agora (ansiedade, solidão, cansaço, dúvida, perda), não só com a história.
+4. **Ângulo novo:** o tema pode ser famoso, mas o ângulo não pode ser o do sermão clássico. Pergunta-teste: "isso já virou um
+   vídeo de 'reflexão do dia' em outro canal?" Se sim, procurar o detalhe que ninguém conta.
+5. **Cabe em 1:30 sem encher:** uma ideia só, com virada no meio e pagamento no fim.
+6. **Dá resposta curta para os comentários** (uma palavra, A ou B).
+Além disso: nunca repetir tema nem ângulo já feito (conferir `FILA.md` e `videos/`); alternar formatos (versículo, história,
+significado, "o que a Bíblia não diz", oração); conferir o texto na Almeida 1911/1914 antes de escrever.
+Antes de cada vídeo, oferecer ao dono 3 candidatos pontuados nesse filtro quando a fila estiver vazia, em vez de escolher sozinho.
