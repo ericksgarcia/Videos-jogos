@@ -19,7 +19,7 @@ let CAD_TINTA = "#232a52", CAD_VERM = "#b8402e", CAD_AZUL = "#2b5ea8", CAD_OURO 
 const CAD_TEMAS = {
   caderno: { papel: "#f3ead5", luz: ["#fff8e6", 0.55, "#c9b78a", 0.35], grao: "#8a7448", pauta: "#7f9ccb", margem: "#d4695c", tinta: "#232a52", verm: "#b8402e", azul: "#2b5ea8", ouro: "#d99a1a", verde: "#3d7a52", marca: "#ffd146", marcaOp: 0.55, caneta: "caneta" },
   pergaminho: { papel: "#e6d2a6", luz: ["#f8ecc9", 0.7, "#8a5a26", 0.55], grao: "#6b4a22", manchas: "#7a4e1c", pauta: null, tinta: "#3a2414", verm: "#8e2a1a", azul: "#2f4e7a", ouro: "#a8761a", verde: "#4a6a3a", marca: "#d6a447", marcaOp: 0.32, caneta: "pena" },
-  noite: { papel: "#0b1330", luz: ["#24346e", 0.8, "#050817", 0.9], grao: "#a8b8ff", estrelas: true, pauta: null, tinta: "#f6ead0", verm: "#ffcf6a", azul: "#9cc8ff", ouro: "#ffd36b", verde: "#9fe3bd", marca: "#ffd36b", marcaOp: 0.16, caneta: "luz", brilho: true },
+  noite: { papel: "#0b1330", luz: ["#24346e", 0.8, "#050817", 0.9], grao: "#a8b8ff", estrelas: true, pauta: null, tinta: "#f6ead0", verm: "#ffcf6a", azul: "#9cc8ff", ouro: "#ffd36b", verde: "#9fe3bd", marca: "#ffd36b", marcaOp: 0, caneta: "luz", brilho: true, botao: "#c9932e" },
   biblia: { papel: "#f6f0e2", luz: ["#fffaf0", 0.5, "#d8cdb2", 0.3], grao: "#8a7a58", impresso: true, pauta: null, tinta: "#26366e", verm: "#b23a2a", azul: "#2b5ea8", ouro: "#c58f17", verde: "#3d7a52", marca: "#ffd146", marcaOp: 0.45, caneta: "caneta" },
 };
 let CAD_T = CAD_TEMAS.caderno;
@@ -158,8 +158,8 @@ function cadTexto(pg, txt, o = {}) {
     x += gl[0] * esc + trilha * esc;
   }
   const ag = _cadAgenda(trs, o.ts, o.te, 24 * esc * 10), w2 = o.w ?? Math.max(2.8, esc * 50);
-  const out = trs.map((p, i) => _cadTraco(pg, p, { cor: o.cor || CAD_TINTA, w: w2, ts: ag[i][0], te: ag[i][1], pai: o.pai || pg.gTexto }));
-  const item = { x0, x1: x0 + w, w, y: o.y, ts: o.ts, te: o.te, tracos: out, tipo: "texto" }; pg.itens.push(item); return item;
+  const out = trs.map((p, i) => _cadTraco(pg, p, { cor: o.cor || CAD_TINTA, w: w2, ts: ag[i][0], te: ag[i][1], pai: o.pai || pg.gTexto, caneta: !o.livre }));
+  const item = { x0, x1: x0 + w, w, y: o.y, ts: o.ts, te: o.te, tracos: out, tipo: o.livre ? "desenho" : "texto" }; // livre: aparece sozinho, sem caneta e fora da fila pg.itens.push(item); return item;
 }
 // marca-texto: uma pincelada grossa translúcida atrás de uma palavra
 function cadMarca(pg, x0, x1, y, ts, te, o = {}) {
@@ -172,20 +172,20 @@ function cadMarca(pg, x0, x1, y, ts, te, o = {}) {
 function cadPalavras(pg, o = {}) {
   const pal = pg.c.legendas.flatMap((b) => b.palavras), esc = o.esc ?? 0.1, larg = o.larg ?? 800, xc = o.x ?? 540, alinhar = o.alinhar ?? "centro", fonte = o.fonte ?? "felix";
   const norm = (w) => w.toLowerCase().replace(/[^\p{L}\d]/gu, ""), dest = new Set((o.destaque || []).map(norm)), sp = 300 * esc * 0.9;
-  const itens = pal.map(([w, ini, fim], k) => { const d = dest.has(norm(w)), e = d ? esc * (o.escDest ?? 1.22) : esc, f = d ? (o.fonteDest ?? "elfin") : fonte; return { w, ini, fim, d, e, f, wd: cadMede(w, f, e) }; });
+  const itens = pal.map(([w, ini, fim], k) => { const d = dest.has(norm(w)), e = d ? esc * (o.escDest ?? 1.22) : esc, f = d ? (o.fonteDest ?? "elfin") : fonte; return { w, ini, fim, d, e, f, wd: cadMede(w, f, e), prox: pal[k + 1] ? pal[k + 1][1] : null }; });
   const linhas = []; let cur = [], wc = 0;
   for (const it of itens) { const nw = wc + (cur.length ? sp : 0) + it.wd; if (cur.length && nw > larg) { linhas.push(cur); cur = [it]; wc = it.wd; } else { cur.push(it); wc = nw; } }
   if (cur.length) linhas.push(cur);
-  const mapa = {}, y0 = o.y0 ?? pg.y0 + pg.passo, cap = Math.max(1, Math.floor(((o.yMax ?? 1340) - y0) / pg.passo) + 1), blocos = [];
+  const mapa = {}, y0 = o.y0 ?? pg.y0 + pg.passo, cap0 = Math.max(1, Math.floor(((o.yMax ?? 1340) - y0) / pg.passo) + 1), nb = Math.ceil(linhas.length / cap0), cap = Math.ceil(linhas.length / nb), blocos = [];
   linhas.forEach((ln, i) => {
     const tw = ln.reduce((a, it, k) => a + it.wd + (k ? sp : 0), 0); let x = alinhar === "centro" ? xc - tw / 2 : alinhar === "dir" ? xc + larg / 2 - tw : xc - larg / 2; const y = y0 + (i % cap) * pg.passo - 6, bi = Math.floor(i / cap); blocos[bi] = blocos[bi] || [];
     for (const it of ln) {
-      const ts = Math.max(0, it.ini - 0.1), te = Math.max(ts + 0.26, it.fim - 0.02);
+      const ts = Math.max(0, it.ini - 0.1), prox = it.prox ?? it.fim + 0.6, te = Math.max(ts + 0.3, Math.min(prox - 0.08, it.fim + 0.45)); // a mão aproveita a pausa: escreve com calma até a próxima palavra
       const mk = it.d ? cadMarca(pg, x, x + it.wd, y - 14, ts, ts + 0.32) : null;
       const t = cadTexto(pg, it.w, { x, y, esc: it.e, fonte: it.f, cor: it.d ? (o.corDestaque ?? CAD_VERM) : (o.cor ?? CAD_TINTA), ts, te, seed: Math.round(it.ini * 10), alinhar: "esq", rot: (o.rotLinha ?? -0.5) });
       if (mk) t.tracos.push(mk);
       t.bloco = bi; blocos[bi].push(t);
-      (mapa[norm(it.w)] = mapa[norm(it.w)] || []).push({ x0: x, x1: x + it.wd, y, ts, te, linha: i }); x += it.wd + sp;
+      (mapa[norm(it.w)] = mapa[norm(it.w)] || []).push({ x0: x, x1: x + it.wd, y, ts, te, linha: i, item: t }); x += it.wd + sp;
     }
   });
   // a página enche: o texto do bloco anterior some quando o próximo começa a ser escrito (vira a página)
@@ -286,22 +286,22 @@ function cadTracos(pg, def, o = {}) {
   if (hs.length) { const ah = _cadAgenda(hs.map((q) => q.s), ts + dc, te, 4); const base = pai.firstChild;
     hs.forEach((q, i) => { const a = q.s[0], b = q.s[1], t = _cadTraco(pg, [[a[0] - r() * 2, a[1] - r() * 2], [b[0] + r() * 2, b[1] + r() * 2]], { cor: q.cor, w: Math.max(5, 7.5 * Math.max(esc, 0.7)), ts: ah[i][0], te: ah[i][1], op: 0.5, pai, caneta: false });
       if (base && base.parentNode === pai) pai.insertBefore(t.el, base); ht.push(t); }); }
-  const item = { ts, te, tracos: [...tr, ...ht], tipo: "desenho" }; pg.itens.push(item); return item;
+  const item = { ts, te, tracos: [...tr, ...ht], tipo: "desenho" }; if (o.com && o.com.item) item.apagaCom = o.com.item.apagaCom; pg.itens.push(item); return item;
 }
 function cadDesenho(pg, nome, o = {}) { return cadTracos(pg, CAD_DES[nome](), o); }
 // anotações: sublinhado ondulado, círculo em volta de uma palavra, seta curva
 function cadSublinhado(pg, x0, x1, y, ts, te, o = {}) { const r = prng(Math.round(x0 + y)), p = []; for (let i = 0; i <= 12; i++) p.push([x0 + (x1 - x0) * i / 12, y + Math.sin(i * 1.3) * 3 + (r() - 0.5) * 2]);
   const q = []; for (let i = 0; i <= 12; i++) q.push([x0 + 10 + (x1 - x0 - 14) * i / 12, y + 9 + Math.sin(i * 1.1 + 1) * 3]);
-  return cadTracos(pg, { t: o.duplo === false ? [p] : [p, q] }, { x: 0, y: 0, ts, te, cor: o.cor || CAD_VERM, w: o.w ?? 4.4 }); }
+  return cadTracos(pg, { t: o.duplo === false ? [p] : [p, q] }, { x: 0, y: 0, ts, te, cor: o.cor || CAD_VERM, w: o.w ?? 4.4, com: o.com }); }
 function cadCirculo(pg, cx, cy, rx, ry, ts, te, o = {}) { const p = []; for (let i = 0; i <= 44; i++) { const a = (-0.5 + (i / 44) * 6.9), k = 1 + 0.06 * (i / 44); p.push([cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k]); }
-  return cadTracos(pg, { t: [p] }, { x: 0, y: 0, ts, te, cor: o.cor || CAD_VERM, w: o.w ?? 4.6 }); }
+  return cadTracos(pg, { t: [p] }, { x: 0, y: 0, ts, te, cor: o.cor || CAD_VERM, w: o.w ?? 4.6, com: o.com }); }
 
 // ============================== uma caneta só ==============================
 // A mão escreve uma coisa de cada vez: palavras e rabiscos entram numa fila (na ordem em que o roteiro os pede) e a caneta
 // vai de um ao outro. Cada coisa começa na hora pedida (a palavra, quando é dita) ou, se a mão ainda estiver ocupada, logo
 // que ela se livra; escreve um pouco mais devagar que a fala (calma) e, se ficar para trás, escreve mais depressa para alcançar.
 function cadFechar(pg, o = {}) {
-  pg.fechada = true; const lento = o.lento ?? 1.3, lentoD = o.lentoDes ?? 1.1; let cur = 0;
+  pg.fechada = true; const lento = o.lento ?? 1.0, lentoD = o.lentoDes ?? 1.1; let cur = 0;
   // rabiscos (tipo "desenho") aparecem na hora pedida, ao mesmo tempo que a caneta escreve as palavras, sem caneta própria e sem entrar na fila
   const L = pg.itens.filter((it) => it.tipo === "texto").map((it, i) => [it, i]).sort((a, b) => a[0].ts - b[0].ts || a[1] - b[1]).map((q) => q[0]);
   for (const it of L) {
@@ -312,7 +312,7 @@ function cadFechar(pg, o = {}) {
     for (const s of it.tracos) { const a = s.ts - it.ts, b = s.te - it.ts; s.ts = ini + a * k; s.te = ini + b * k; }
     it.ts = ini; it.te = ini + dur; cur = it.te + 0.03;
   }
-  for (const it of L) if (it.apagaCom) for (const s of it.tracos) s.ap = it.apagaCom.ts - 0.2;
+  for (const it of pg.itens) if (it.apagaCom) for (const s of it.tracos) s.ap = it.apagaCom.ts - 0.2;
 }
 
 // ============================== atalhos de cena ==============================

@@ -114,6 +114,26 @@
     "um": [
       "respiro",
       0.3
+    ],
+    "guarda": [
+      "respiro",
+      0.3
+    ],
+    "adivinha2": [
+      "pop",
+      0.3
+    ],
+    "grego": [
+      "respiro",
+      0.3
+    ],
+    "manha": [
+      "sino",
+      0.5
+    ],
+    "detalhe": [
+      "brilho",
+      0.35
     ]
   },
   "cenas": [
@@ -144,9 +164,10 @@
       "id": "noite",
       "tipo": "noite",
       "titulo": "",
-      "fala": "Na noite da prisão de Jesus, Pedro se esquentava num fogo de brasas. Guarda esse detalhe. Três vezes perguntaram se ele andava com Jesus. Três vezes ele negou. E o galo cantou.",
+      "fala": "Na noite da prisão, Pedro se esquentava num fogo de brasas. Guarda essa palavra: brasas. Três vezes perguntaram. Três vezes ele negou. E o galo cantou.",
       "batidas": {
         "brasas.": "brasas",
+        "Guarda": "guarda",
         "negou.": "negou",
         "galo": "galo"
       }
@@ -155,23 +176,23 @@
       "id": "praia",
       "tipo": "praia",
       "titulo": "",
-      "fala": "Dias depois, Jesus ressuscitado espera os discípulos na praia, junto a um fogo de brasas. Adivinha quantas vezes essa palavra aparece no grego do Novo Testamento... Só duas: naquela noite, e nessa manhã.",
+      "fala": "Dias depois, Jesus ressuscitado espera os discípulos na praia. Junto a quê? Um fogo de brasas.",
       "batidas": {
-        "praia,": "praia",
-        "brasas.": "brasas2",
-        "Adivinha": "adivinha",
-        "duas:": "duas"
+        "praia.": "praia",
+        "quê?": "adivinha",
+        "brasas.": "brasas2"
       }
     },
     {
       "id": "perguntas",
       "tipo": "perguntas",
       "titulo": "",
-      "fala": "Ali, Jesus pergunta: Simão, tu me amas? Três vezes. O mesmo número das negações. Não pra acusar. Pra restaurar.",
+      "fala": "Jesus pergunta: Simão, tu me amas? Três vezes... O mesmo número das negações. Não pra acusar. Pra restaurar... E esse fogo ainda guarda um detalhe.",
       "batidas": {
         "amas?": "amas",
         "negações.": "cada",
-        "restaurar.": "restaurar"
+        "restaurar...": "restaurar",
+        "detalhe.": "detalhe"
       }
     },
     {
@@ -182,6 +203,18 @@
       "batidas": {
         "Pedro": "pergunta",
         "Completa": "comenta"
+      }
+    },
+    {
+      "id": "detalhe",
+      "tipo": "detalhe",
+      "titulo": "",
+      "fala": "No grego, fogo de brasas é uma palavra só. Adivinha quantas vezes ela aparece no Novo Testamento... Duas... Naquela noite, e nessa manhã.",
+      "batidas": {
+        "grego,": "grego",
+        "Adivinha": "adivinha2",
+        "Duas...": "duas",
+        "manhã.": "manha"
       }
     },
     {
@@ -209,5 +242,6 @@
   "video": {
     "desfoque_movimento": false
   },
-  "estilo": "caderno"
+  "estilo": "caderno",
+  "tema": "noite"
 }
