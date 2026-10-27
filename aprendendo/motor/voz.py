@@ -45,6 +45,12 @@ GEMINI_MODELO = os.environ.get("GEMINI_TTS_MODELO", "gemini-3.8-flash-tts")
 # A direção (tom de voz do canal) fica na identidade: aprendendo/identidade/marca.json
 DIRECAO = json.loads((RAIZ / "aprendendo" / "identidade" / "marca.json").read_text())["voz"]["direcao"]
 VELOCIDADE = "+0%"   # velocidade das vozes edge/azure
+# Opções da identidade do canal (marca.json → voz), preenchidas pelo gerar.py. Padrão = comportamento antigo.
+#  api "interacoes": Gemini 3.8 TTS pela API Interactions, com a direção em speech_metadata.style (o texto é falado
+#      ao pé da letra) e pausas por marcação (<short pause>, <long pause>) no texto.
+#  alinhamento "whisper": tempo real de cada palavra, ouvido no áudio pelo faster-whisper (as outras opções só
+#      estimam o início de cada frase e espalham as palavras pelo tamanho, o que descasa a escrita da fala).
+OPCOES = {"api": "generate", "alinhamento": "gemini"}
 _avisado = set()
 
 
@@ -208,6 +214,132 @@ def _alinhar_gemini(texto, wav):
     return _distribuir(ws, frases, _corrigir_inicios(ws, frases, ajustados, pausas, dur=dur), pausas, dur)
 
 
+def _silabas(w):
+    """Número de sílabas (núcleos vocálicos) de uma palavra em português; ditongos contam uma."""
+    w = _norm(w)
+    if not w:
+        return 1
+    if w.isdigit():
+        return 2 * len(w)
+    v = re.findall(r"[aeiouáéíóúâêôãõày]+", w)
+    n = 0
+    for g in v:  # hiato com vogal forte acentuada ou "ia/ua" no fim conta 2; o resto, 1 por grupo
+        n += 2 if (len(g) >= 2 and re.search(r"[íú][aeo]|[aeo][íú]|[aeo][aeo]", g)) else 1
+    return max(1, n)
+
+
+def _nucleos(x, sr):
+    """Instantes (s) dos núcleos de sílaba: picos da energia da voz (300–2500 Hz) suavizada, a cada 10 ms."""
+    from scipy.signal import butter, sosfiltfilt, find_peaks
+    sos = butter(4, [300, 2500], btype="band", fs=sr, output="sos")
+    y = sosfiltfilt(sos, x)
+    hop = int(0.01 * sr); n = len(y) // hop
+    e = np.sqrt(np.mean(y[: n * hop].reshape(n, hop) ** 2, axis=1))
+    k = np.hanning(7); e = np.convolve(e, k / k.sum(), mode="same")
+    pk, _ = find_peaks(e, height=0.08 * np.percentile(e, 95), distance=8, prominence=0.04 * np.percentile(e, 95))
+    return pk / 100, e
+
+
+def alinhar_silabas(texto, wav, inicios=None):
+    """Tempo de cada palavra pela acústica, sem modelo: as frases começam nas pausas (ou em `inicios`, se dados), e
+    dentro de cada trecho falado as palavras ocupam o tempo das sílabas que têm, lidas nos picos de energia da voz.
+    Palavra esticada pelo narrador ganha o tempo que realmente levou (a divisão por letras não sabia disso)."""
+    sr, x = wavfile.read(wav)
+    x = x.astype(np.float64)
+    if x.ndim > 1:
+        x = x.mean(axis=1)
+    ws = texto.split()
+    frases = _frases(ws)
+    pausas, dur = _pausas(wav, 0.08)
+    if inicios is None:
+        p = _alinhar_pausas(texto, wav)
+        inicios = [p[f[0]][1] for f in frases]
+    nuc, _ = _nucleos(x, sr)
+    out = [None] * len(ws)
+    for k, f in enumerate(frases):
+        t0 = inicios[k]
+        t1 = inicios[k + 1] if k + 1 < len(frases) else dur
+        fim = max((a for a, b in pausas if t0 + 0.3 * (t1 - t0) < a < t1 and (b - a >= 0.12 or b >= t1 - 0.15)), default=t1)
+        # trechos falados dentro da frase (separados por pausas internas)
+        falados, c = [], t0
+        for a, b in pausas:
+            if c < a < fim and b - a >= 0.12:
+                falados.append((c, a)); c = b
+        falados.append((c, fim))
+        pk = [t for t in nuc if t0 - 0.02 <= t <= fim + 0.02]
+        sil = [_silabas(ws[i]) for i in f]
+        S = sum(sil)
+        # mapa sílaba → tempo: com picos suficientes, a sílaba j fica no pico de mesma ordem (reamostrado); sem, pelo tempo falado
+        if len(pk) >= 2:
+            idx = np.linspace(0, len(pk) - 1, S)
+            centro = np.interp(idx, np.arange(len(pk)), pk)
+        else:
+            centro = np.linspace(t0, fim, S + 2)[1:-1]
+        # bordas entre sílabas: meio do caminho entre núcleos; a 1ª começa em t0, a última termina em fim
+        bord = [t0] + [(centro[j] + centro[j + 1]) / 2 for j in range(S - 1)] + [fim]
+        # uma borda não cai dentro de pausa: puxa para o fim da pausa (começo da fala seguinte)
+        for j in range(1, S):
+            for a, b in pausas:
+                if a <= bord[j] <= b and b - a >= 0.12:
+                    bord[j] = b
+        j = 0
+        for i, n in zip(f, sil):
+            a, b = bord[j], bord[j + n]
+            # fim real: se há pausa logo depois, a palavra acaba no começo dela
+            for pa, pb in pausas:
+                if a < pa < b:
+                    b = pa; break
+            out[i] = [ws[i], round(a, 3), round(max(a + 0.05, b), 3)]
+            j += n
+    return out
+
+
+_WHISPER = {}
+
+
+def alinhar_whisper(texto, wav):
+    """Tempo real de cada palavra do texto no áudio: o faster-whisper transcreve com tempo por palavra e as palavras
+    reconhecidas são casadas com as do roteiro (difflib). Palavra que ele ouviu diferente ("3" × "três") fica entre as
+    vizinhas casadas, dividida pelo tamanho. Modelo: WHISPER_MODELO (padrão large-v3-turbo, baixado do Hugging Face)."""
+    import difflib
+    from faster_whisper import WhisperModel
+    nome = os.environ.get("WHISPER_MODELO", "large-v3-turbo")
+    if nome not in _WHISPER:
+        _WHISPER[nome] = WhisperModel(nome, device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
+    segs, _ = _WHISPER[nome].transcribe(str(wav), language="pt", word_timestamps=True, beam_size=5,
+                                         initial_prompt=" ".join(texto.split()[:120]), condition_on_previous_text=True)
+    ouv = [(w.word.strip(), w.start, w.end) for sg in segs for w in (sg.words or []) if w.word.strip()]
+    ws = texto.split()
+    A, Bn = [_norm(w) for w in ws], [_norm(w) for w, _, _ in ouv]
+    tempo = [None] * len(ws)
+    for bl in difflib.SequenceMatcher(None, A, Bn, autojunk=False).get_matching_blocks():
+        for k in range(bl.size):
+            tempo[bl.a + k] = [ouv[bl.b + k][1], ouv[bl.b + k][2]]
+    # palavras sem par: entre o fim da casada anterior e o começo da próxima, pelo tamanho
+    _, dur = _pausas(wav, 0.08)
+    i = 0
+    while i < len(ws):
+        if tempo[i] is not None:
+            i += 1; continue
+        j = i
+        while j < len(ws) and tempo[j] is None:
+            j += 1
+        t0 = tempo[i - 1][1] if i else 0.0
+        t1 = tempo[j][0] if j < len(ws) else dur
+        peso = [len(w) + 1 for w in ws[i:j]]; t = t0
+        for k, p in zip(range(i, j), peso):
+            d = max(0.0, t1 - t0) * p / sum(peso); tempo[k] = [t, t + d * 0.92]; t += d
+        i = j
+    # o whisper estica o fim da palavra até a próxima; corta no começo da seguinte
+    out = []
+    for k, (w, (a, b)) in enumerate(zip(ws, tempo)):
+        prox = tempo[k + 1][0] if k + 1 < len(ws) else b
+        out.append([w, round(a, 3), round(max(a + 0.05, min(b, prox)), 3)])
+    casadas = sum(1 for bl in difflib.SequenceMatcher(None, A, Bn, autojunk=False).get_matching_blocks() for _ in range(bl.size))
+    print(f"   [voz] alinhamento whisper: {casadas}/{len(ws)} palavras casadas com o áudio")
+    return out
+
+
 def _frases(ws):
     frases, atual = [], []
     for i, w in enumerate(ws):
@@ -265,11 +397,34 @@ def _cab_gemini():
     return {"x-goog-api-key": chave} if chave else {}
 
 
+def _gemini_interacoes(texto, voz, estilo):
+    """Gemini 3.8 TTS pela API Interactions: texto falado ao pé da letra; como falar vai em speech_metadata.style."""
+    corpo = {"model": GEMINI_MODELO, "response_format": {"type": "audio"},
+             "input": [{"type": "text", "text": texto, "annotations": [{"type": "speech_metadata", "style": estilo}]}],
+             "generation_config": {"speech_config": [{"voice": voz}]}}
+    for tentativa in range(4):
+        r = requests.post("https://generativelanguage.googleapis.com/v1beta/interactions", headers=_cab_gemini(), json=corpo, timeout=300)
+        if r.status_code in (429, 500, 503) and tentativa < 3:
+            import time
+            time.sleep(8 * (tentativa + 1))
+            continue
+        r.raise_for_status()
+        break
+    for passo in r.json()["steps"]:
+        for c in passo.get("content", []):
+            if c.get("type") == "audio":
+                return base64.b64decode(c["data"])
+    raise ValueError("resposta sem áudio")
+
+
 def _gemini(texto, voz, destino, tts=None, direcao=None):
     corpo = {"contents": [{"parts": [{"text": (direcao or DIRECAO) + (tts or texto)}]}],
              "generationConfig": {"responseModalities": ["AUDIO"],
                                   "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voz}}}}}
-    for tentativa in range(4):
+    if OPCOES.get("api") == "interacoes":
+        bruto = _gemini_interacoes(tts or texto, voz, direcao or DIRECAO)
+    else:
+      for tentativa in range(4):
         r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODELO}:generateContent",
                           headers=_cab_gemini(), json=corpo, timeout=180)
         if r.status_code in (429, 500, 503) and tentativa < 3:
@@ -278,8 +433,8 @@ def _gemini(texto, voz, destino, tts=None, direcao=None):
             continue
         r.raise_for_status()
         break
-    parte = r.json()["candidates"][0]["content"]["parts"][0]["inlineData"]
-    bruto = base64.b64decode(parte["data"])
+      parte = r.json()["candidates"][0]["content"]["parts"][0]["inlineData"]
+      bruto = base64.b64decode(parte["data"])
     tmp = destino.with_suffix(".bin")
     tmp.write_bytes(bruto)
     if bruto[:4] == b"RIFF":
@@ -297,6 +452,8 @@ def _gemini(texto, voz, destino, tts=None, direcao=None):
     out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(destino)],
                          capture_output=True, text=True, check=True)
     try:
+        if OPCOES.get("alinhamento") == "whisper":
+            return alinhar_whisper(texto, destino), float(out.stdout.strip())
         palavras = _alinhar_gemini(texto, destino)
     except Exception as e:
         print(f"   [voz] alinhamento pelo Gemini falhou ({type(e).__name__}); usando as pausas")
@@ -516,7 +673,8 @@ def narrar_video(falas, tts=None, direcao=None, voz_nome=None, pausas=None):
     antigos = [CACHE / f"{_chave('gemini', voz, f, t, direcao)}.json" for f, t in zip(falas, tts)]
     if all(m.exists() for m in antigos):
         return [json.loads(m.read_text()) for m in antigos]
-    h = "v" + hashlib.sha1(f"video|{voz}|{GEMINI_MODELO}|{direcao or DIRECAO}|{json.dumps([falas, tts], ensure_ascii=False)}".encode()).hexdigest()[:15]
+    extra = "" if OPCOES == {"api": "generate", "alinhamento": "gemini"} else json.dumps(OPCOES, sort_keys=True)
+    h = "v" + hashlib.sha1(f"video|{voz}|{GEMINI_MODELO}|{direcao or DIRECAO}|{json.dumps([falas, tts], ensure_ascii=False)}{extra}".encode()).hexdigest()[:15]
     hp = ("p" + hashlib.sha1(json.dumps(pausas, sort_keys=True).encode()).hexdigest()[:6]) if pausas else ""
     meta = CACHE / f"{h}{hp}.json"
     if meta.exists():
