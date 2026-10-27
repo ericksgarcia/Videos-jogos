@@ -2,17 +2,17 @@
   "canal": "luz-da-palavra",
   "slug": "ana-sem-voz",
   "titulo": "A oração sem som de Ana: 1 Samuel 1",
-  "descricao": "O sacerdote achou que ela estava bêbada. Era a oração mais profunda do capítulo.\nA oração de Ana (cf. 1 Samuel 1:1–20): sem som, só os lábios se mexendo, e o detalhe do texto sobre o rosto dela antes de a resposta chegar. Pra quem já orou sem achar palavra.\nQual foi a última coisa que você orou sem achar palavra? Escreve numa palavra aqui nos comentários.\nSalva pra quando faltar palavra e manda pra quem anda só chorando.",
+  "descricao": "O sacerdote achou que ela estava bêbada. Ela estava orando.\nA oração de Ana (cf. 1 Samuel 1:1–20): sem som, só os lábios se mexendo, e o detalhe do versículo 18 sobre o rosto dela. Pra quem já orou sem achar palavra.\nSe a sua oração sem som tivesse uma palavra só, qual seria? Escreve nos comentários.\nSalva pra quando faltar palavra e manda pra quem anda só chorando.",
   "hashtags": [
     "#biblia",
     "#oracao",
-    "#ansiedade",
+    "#1samuel",
     "#fe",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "A minha foi: \"ajuda\". E a sua? Uma palavra aqui embaixo 👇",
-  "gancho": "ORAÇÃO SEM SOM",
-  "gancho_destaque": "SEM SOM",
+  "comentario_fixado": "Uma palavra já basta. Escreve a sua aqui nos comentários.",
+  "gancho": "ANTES DA RESPOSTA",
+  "gancho_destaque": "ANTES",
   "voz": "Achird",
   "sons": {
     "beba": [
@@ -106,6 +106,18 @@
     "paz": [
       "sino",
       0.5
+    ],
+    "ouve": [
+      "respiro",
+      0.3
+    ],
+    "depois2": [
+      "brilho",
+      0.35
+    ],
+    "come": [
+      "respiro",
+      0.3
     ]
   },
   "cenas": [
@@ -113,20 +125,20 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Ela orava tão fundo que o sacerdote achou que estava bêbada. E foi essa oração, sem som nenhum, que mudou a vida dela. Se você já orou sem conseguir falar, esse vídeo é pra você.",
+      "fala": "Chamaram Ana de bêbada, dentro do templo. Ela só estava orando, sem som nenhum. E o versículo 18 guarda um detalhe do rosto dela que quase ninguém vê.",
       "batidas": {
-        "bêbada.": "beba",
-        "som": "som",
-        "você": "voce"
+        "bêbada,": "beba",
+        "nenhum.": "som",
+        "vê.": "voce"
       }
     },
     {
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Se você já orou chorando, curte e deixa seu amém, pra essa Palavra chegar a quem só consegue chorar. A virada vem já.",
+      "fala": "Deus ouve até o que não tem som. Crendo nisso, curte e comenta amém, pra essa Palavra chegar em quem está sem palavras. Já te conto.",
       "batidas": {
-        "chorando,": "fe",
+        "som.": "fe",
         "curte": "curte",
         "amém,": "comenta"
       }
@@ -135,21 +147,22 @@
       "id": "ana",
       "tipo": "ana",
       "titulo": "",
-      "fala": "O nome dela era Ana. Queria um filho e não tinha. Todo ano, no templo, uma rival a provocava, até ela chorar e nem conseguir comer.",
+      "fala": "O nome dela era Ana. Queria um filho e não tinha. Ano após ano, em Siló, uma rival a provocava, e ela chorava e ficava sem comer. Aí ela entra no templo e faz algo que ninguém ouve.",
       "batidas": {
         "Ana.": "ana",
         "filho": "filho",
-        "comer.": "comer"
+        "comer.": "comer",
+        "ouve.": "ouve"
       }
     },
     {
       "id": "orou",
       "tipo": "orou",
       "titulo": "",
-      "fala": "Naquele dia, ela ora com os lábios se mexendo, mas sem nenhum som. O sacerdote Eli olha e conclui: está bêbada. Adivinha o que ela responde?",
+      "fala": "Ela ora com os lábios se mexendo, mas sem som. O sacerdote Eli olha e acusa. Adivinha o que ela responde?",
       "batidas": {
         "lábios": "labios",
-        "bêbada.": "beba2",
+        "acusa.": "beba2",
         "Adivinha": "adivinha"
       }
     },
@@ -157,31 +170,32 @@
       "id": "resposta",
       "tipo": "resposta",
       "titulo": "",
-      "fala": "Ela não se defende com raiva. Só explica: eu estava derramando a minha alma diante de Deus. E o sacerdote muda de tom: vai em paz.",
+      "fala": "Ela não responde com raiva. Responde com respeito: eu estava derramando a minha alma diante de Deus. Eli diz: vai em paz. Mas repara no que ela faz em seguida.",
       "batidas": {
         "raiva.": "raiva",
         "alma": "alma",
-        "paz.": "paz"
+        "paz.": "paz",
+        "seguida.": "depois2"
       }
     },
     {
       "id": "virada",
       "tipo": "virada",
       "titulo": "",
-      "fala": "E aqui está o detalhe. Ela comeu, e o texto diz que o rosto dela já não estava triste. Antes do filho. A paz veio antes da resposta.",
+      "fala": "Ela vai, come, e o texto diz que o rosto dela já não estava triste. Nada tinha mudado ainda. Mas ela saiu dali diferente.",
       "batidas": {
-        "detalhe.": "detalhe",
+        "come,": "come",
         "triste.": "triste",
-        "resposta.": "resposta"
+        "diferente.": "resposta"
       }
     },
     {
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Qual foi a última coisa que você orou sem achar palavra? Escreve numa palavra, no botão de comentários, na direita.",
+      "fala": "Se a sua oração sem som tivesse uma palavra só, qual seria? Escreve no botão de comentários, na direita.",
       "batidas": {
-        "Qual": "pergunta",
+        "Se": "pergunta",
         "Escreve": "comenta",
         "direita.": "depois"
       }
@@ -209,5 +223,11 @@
       "aberracao_px": 0,
       "grao": 3
     }
+  },
+  "capa": {
+    "t": 2.4,
+    "texto": "ANTES DA RESPOSTA",
+    "destaque": "ANTES",
+    "y": 1190
   }
 }
