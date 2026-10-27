@@ -1,0 +1,48 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "teste-lottie",
+  "titulo": "Teste: cena com animação Lottie",
+  "descricao": "teste",
+  "hashtags": [
+    "#teste"
+  ],
+  "comentario_fixado": "teste",
+  "gancho": "TESTE",
+  "gancho_destaque": "TESTE",
+  "voz": "Achird",
+  "sons": {
+    "brasas": [
+      "respiro",
+      0.3
+    ],
+    "galo": [
+      "brilho",
+      0.3
+    ]
+  },
+  "cenas": [
+    {
+      "id": "noite",
+      "tipo": "noite",
+      "titulo": "",
+      "fala": "Na noite da prisão, Pedro se esquentava num fogo de brasas. Três vezes perguntaram se ele andava com Jesus. Três vezes ele negou. E o galo cantou.",
+      "batidas": {
+        "brasas.": "brasas",
+        "galo": "galo"
+      }
+    }
+  ],
+  "estilo": "caderno",
+  "tema": "noite",
+  "video": {
+    "desfoque_movimento": false,
+    "duracao_minima_s": 5,
+    "tratamento_cor": {
+      "contraste": 1.03,
+      "saturacao": 1.05,
+      "vinheta": 0.08,
+      "aberracao_px": 0,
+      "grao": 3
+    }
+  }
+}

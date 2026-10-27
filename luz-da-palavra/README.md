@@ -240,3 +240,13 @@ Caderno: cara de escola.
 - A escrita aproveita as pausas da fala e, se atrasar, acelera até alcançar (não arrasta atraso até o fim).
 - Quadro 0: o desenho principal já aceso (comece o rabisco antes de `c.ini`) enquanto a caneta escreve o gancho.
 - Exemplo completo: `videos/fogo-de-brasas/` ("Dois fogos: Pedro e Jesus").
+
+## Animações Lottie no canal (teste out/2026: `videos/teste-lottie/`)
+
+- Funciona no tema noite: `python aprendendo/motor/lottie.py buscar "campfire"` → `baixar <id> <tema> <nome>` (copie o JSON para
+  `luz-da-palavra/videos/<tema>/lottie/`) → `lottieEm(pg.g, "nome", x, y, w, h, { ini, fim, loop: true })` (pai = `pg.g`, o grupo SVG da página).
+- Bom: fogo, luz, brilhos, partículas, objetos soltos (ex.: 54405 "Firewood"). Ficam muito melhores que o rabisco.
+- Ruim: pessoas. As de "praying" são quase todas com imagem muçulmana (não serve ao canal); as demais têm estilo de ilustração de
+  app corporativo. Pessoas continuam sendo desenhadas por nós (kit `figura()` ou rabiscos).
+- Cuidado de estilo: o Lottie é colorido e com sombra; o rabisco é contorno de luz. Misturar pede o contorno mais forte e
+  cor de preenchimento no personagem para não destoar.
