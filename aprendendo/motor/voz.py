@@ -491,10 +491,13 @@ def esticar_pausas(wav, palavras, dur, cfg, destino):
         falta = alvo - (q - p)
         if lg <= 0 or falta <= 0.02:
             continue
-        insercoes.append(((p + q) / 2, falta)); desloc += falta
+        insercoes.append(((p + q) / 2, falta, p, q)); desloc += falta
     y, ant = [], 0
-    for t, d in insercoes:
-        k = int(t * sr); y.append(x[ant:k]); y.append(np.zeros(int(d * sr), dtype=x.dtype)); ant = k
+    for t, d, p, q in insercoes:
+        # preenche com o "ar" da própria gravação (o trecho calmo do meio da pausa, repetido), não com silêncio digital
+        k = int(t * sr); n = int(d * sr); y.append(x[ant:k])
+        amb = x[int((p + (q - p) * 0.3) * sr):int((p + (q - p) * 0.7) * sr)].astype(np.float64)
+        y.append((np.resize(amb, n) if len(amb) > sr * 0.02 else np.zeros(n)).astype(x.dtype)); ant = k
     y.append(x[ant:])
     wavfile.write(destino, sr, np.concatenate(y))
     return novas, round(dur + desloc, 3)
