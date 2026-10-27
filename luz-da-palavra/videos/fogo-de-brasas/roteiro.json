@@ -2,15 +2,15 @@
   "canal": "luz-da-palavra",
   "slug": "o-mesmo-fogo",
   "titulo": "O mesmo fogo: Pedro e Jesus",
-  "descricao": "Pedro negou Jesus junto a um fogo. Depois da ressurreição, Jesus o esperou junto a outro.\nA negação de Pedro e a restauração na praia (cf. João 18:17–27 e João 21:9–17): a palavra grega para \"fogo de brasas\" (anthrakiá) só aparece duas vezes no Novo Testamento, e o \"tu me amas?\" vem três vezes, como as três negações. Para quem precisa de uma segunda chance.\nSe Jesus te perguntasse hoje \"tu me amas?\", o que você responderia?\nSalva pro dia difícil e manda pra alguém que acha que errou demais.",
+  "descricao": "Acha que errou demais? Repara onde Jesus esperou Pedro.\nA negação de Pedro e o reencontro na praia depois da ressurreição (cf. João 18 e 21): por que Jesus perguntou três vezes \"tu me amas?\" O detalhe está no fogo.\nCompleta nos comentários: \"Senhor, tu sabes que eu…\"\nSalva pro dia em que você achar que errou demais e manda pra quem se afastou achando que não tem volta.",
   "hashtags": [
     "#biblia",
     "#jesus",
     "#perdao",
-    "#segundachance",
+    "#historiasdabiblia",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "Eu começo: Senhor, tu sabes que eu te amo (cf. João 21:17). E você, o que responderia? 👇",
+  "comentario_fixado": "Eu começo: \"Senhor, tu sabes que eu… ainda estou aprendendo a confiar.\" Agora completa a sua 👇",
   "gancho": "DOIS FOGOS, OUTRO FIM",
   "gancho_destaque": "OUTRO FIM",
   "voz": "Achird",
@@ -128,10 +128,10 @@
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Se você crê no Deus da segunda chance, curte e comenta amém. Agora, o primeiro fogo.",
+      "fala": "Crê no Deus da segunda chance? Curte e comenta amém, pra isso chegar em quem se afastou. Agora, o primeiro fogo.",
       "batidas": {
-        "chance,": "fe",
-        "curte": "curte",
+        "chance?": "fe",
+        "Curte": "curte",
         "comenta": "comenta"
       }
     },
@@ -173,10 +173,10 @@
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Se Jesus te perguntasse hoje: tu me amas? O que você responderia? Escreve aqui do lado.",
+      "fala": "Pedro respondeu: Senhor, tu sabes que eu te amo. E você? Completa aqui do lado: Senhor, tu sabes que eu…",
       "batidas": {
-        "Se": "pergunta",
-        "Escreve": "comenta"
+        "Pedro": "pergunta",
+        "Completa": "comenta"
       }
     },
     {

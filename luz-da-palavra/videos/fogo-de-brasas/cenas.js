@@ -19,7 +19,7 @@ CENAS.abertura = (el, c, B) => {
 
 CENAS.apoio = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 42, y0: 600 }); cadZoom(pg, c);
-  cadPalavras(pg, { y0: 600, larg: 820, esc: 0.11, destaque: ["segunda", "chance", "curte", "amém", "primeiro"] });
+  cadPalavras(pg, { y0: 600, larg: 820, esc: 0.11, destaque: ["segunda", "chance", "Curte", "amém", "primeiro"] });
   cadDesenho(pg, "coracao", { x: 380, y: 1300, esc: 1.1, ts: B("curte"), te: B("curte") + 1.0, seed: 4 });
   cadDesenho(pg, "balao", { x: 720, y: 1290, esc: 1.15, ts: B("comenta"), te: B("comenta") + 1.1, seed: 5 });
 };
@@ -56,7 +56,9 @@ CENAS.perguntas = (el, c, B) => {
 
 CENAS.pergunta = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 46, y0: 560, passo: 130 }); cadZoom(pg, c);
-  cadPalavras(pg, { y0: 560, larg: 820, esc: 0.12, escDest: 1.15, destaque: ["hoje", "amas", "responderia"] });
+  FB_ref(pg, "cf. João 21:17", c.ini + 0.3);
+  const w = cadPalavras(pg, { y0: 560, larg: 820, esc: 0.12, escDest: 1.15, destaque: ["amo", "você", "Completa", "eu…"] });
+  const m = w.mapa.completa && w.mapa.completa[0]; if (m) cadSublinhado(pg, m.x0, m.x1, m.y + 28, B("comenta") + 0.5, B("comenta") + 1.0);
   cadDesenho(pg, "balao", { x: 400, y: 1360, esc: 1.3, ts: B("pergunta") + 0.6, te: B("pergunta") + 1.8, seed: 18 });
   cadDesenho(pg, "seta", { x: 800, y: 1260, esc: 0.62, ts: B("comenta"), te: B("comenta") + 0.9, seed: 19, cor: CAD_VERM });
 };
