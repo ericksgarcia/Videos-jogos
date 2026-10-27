@@ -2,7 +2,7 @@
   "canal": "luz-da-palavra",
   "slug": "caso-tumulo-vazio",
   "titulo": "Caso aberto: o túmulo vazio",
-  "descricao": "O que ficou no túmulo vazio não parece cena de roubo.\nCaso aberto, em quatro pistas (cf. Mateus 28:11–15; João 20:1–18): a pedra removida, o lenço do rosto enrolado à parte, a versão dos soldados e a pista que quase ninguém lê, no jardim. E a lenda do lenço dobrado: está mesmo no texto?\nSe você fosse a Maria, qual das quatro pistas te convenceria? Responde só com o número nos comentários.\nSalva pra quando a dúvida bater e manda pra quem anda investigando a fé.",
+  "descricao": "O que ficou no túmulo vazio não parece cena de roubo.\nCaso aberto sobre a ressurreição de Jesus e o túmulo vazio, em quatro pistas (cf. Mateus 28:11–15; João 20:1–18): a pedra removida, o lenço enrolado à parte, a versão dos soldados e a pista que não está no túmulo. E a lenda do lenço dobrado: está mesmo no texto?\nDas quatro pistas, qual mais te toca? Responde só com o número nos comentários.\nSalva as quatro pistas (Mateus 28 e João 20) pra reler quando a dúvida bater, e manda pra aquele amigo que vive perguntando: \"mas e se o corpo foi roubado?\"",
   "hashtags": [
     "#biblia",
     "#ressurreicao",
@@ -10,7 +10,7 @@
     "#fe",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "Meu palpite é a pista 4. E o seu? Só o número.",
+  "comentario_fixado": "Escreve o número da pista que mais te tocou e, se quiser, uma frase do porquê.",
   "gancho": "CASO ABERTO: 4 PISTAS",
   "gancho_destaque": "4 PISTAS",
   "voz": "Achird",
@@ -146,6 +146,10 @@
     "fechou": [
       "sino",
       0.5
+    ],
+    "esperanca": [
+      "sino",
+      0.5
     ]
   },
   "cenas": [
@@ -153,85 +157,93 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Túmulo lacrado. Soldados na porta. E o corpo sumiu. Mas o que ficou lá dentro não parece cena de roubo. Hoje eu abro este caso, com quatro pistas. A última quase ninguém lê.",
+      "fala": "Túmulo lacrado, soldados na porta, corpo sumido. Mas o que ficou lá dentro não parece cena de roubo. Quatro pistas. A última não está no túmulo.",
       "batidas": {
-        "lacrado.": "selo",
-        "porta.": "porta",
-        "sumiu.": "sumiu",
+        "lacrado,": "selo",
+        "porta,": "porta",
+        "sumido.": "sumiu",
         "roubo.": "roubo",
         "pistas.": "pistas",
-        "lê.": "ve"
-      }
+        "túmulo.": "ve"
+      },
+      "tts": "Túmulo lacrado, soldados na porta, corpo sumido. <short pause> Mas o que ficou lá dentro não parece cena de roubo. <short pause> Quatro pistas. <short pause> A última não está no túmulo."
     },
     {
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Se você acredita que a fé aguenta perguntas, curte e deixa seu amém, pra esse caso chegar a quem ainda está investigando.",
+      "fala": "A fé aguenta perguntas. Curte e deixa seu amém.",
       "batidas": {
-        "acredita": "fe",
-        "curte": "curte",
-        "amém,": "comenta"
-      }
+        "fé": "fe",
+        "Curte": "curte",
+        "amém.": "comenta"
+      },
+      "tts": "A fé aguenta perguntas. Curte e deixa seu amém."
     },
     {
       "id": "pista1",
       "tipo": "pista1",
       "titulo": "",
-      "fala": "Pista um: a pedra. Maria Madalena chega ainda no escuro e vê que ela foi tirada. E não pensa em milagre. Corre e avisa: levaram o Senhor, e não sabemos onde o puseram.",
+      "fala": "Pista um: a pedra. Maria chega no escuro e vê a pedra tirada. A primeira ideia dela: levaram o corpo. Mas e o que ficou lá dentro?",
       "batidas": {
         "pedra.": "pedra",
         "escuro": "escuro",
-        "milagre.": "milagre",
-        "puseram.": "puseram"
-      }
+        "corpo.": "milagre",
+        "dentro?": "puseram"
+      },
+      "tts": "Pista um: a pedra. <short pause> Maria chega no escuro e vê a pedra tirada. A primeira ideia dela: levaram o corpo. <short pause> Mas e o que ficou lá dentro?"
     },
     {
       "id": "pista2",
       "tipo": "pista2",
       "titulo": "",
-      "fala": "Pista dois: o que sobrou lá dentro. Os lençóis ali, no lugar. E o lenço do rosto, enrolado à parte. Ladrão com pressa e medo para pra arrumar o lenço? E repara: nada de lenço dobrado. Essa lenda não está no texto.",
+      "fala": "Pista dois: lá dentro. Os lençóis, no chão. O lenço da cabeça, enrolado à parte. Pensa rápido: ladrão com pressa e medo pararia pra enrolar um lenço? No texto: enrolado, nunca dobrado. Mas os soldados tinham outra versão.",
       "batidas": {
         "dois:": "dois",
-        "lugar.": "lencois",
+        "chão.": "lencois",
         "parte.": "lenco",
         "lenço?": "pergunta2",
-        "dobrado.": "mito"
-      }
+        "dobrado.": "mito",
+        "versão.": "tres"
+      },
+      "tts": "Pista dois: lá dentro. <short pause> Os lençóis, no chão. O lenço da cabeça, <short pause> enrolado à parte. <short pause> Pensa rápido: ladrão com pressa e medo pararia pra enrolar um lenço? <short pause> No texto: enrolado, nunca dobrado. <short pause> Mas os soldados tinham outra versão."
     },
     {
       "id": "pista3",
       "tipo": "pista3",
       "titulo": "",
-      "fala": "Pista três: a versão oficial. Os soldados receberam dinheiro pra dizer que os discípulos levaram o corpo de noite, enquanto eles dormiam. Só que testemunha dormindo não pode jurar de nada. E falta a quarta pista. Ela não é um objeto.",
+      "fala": "Pista três: a versão oficial. Dinheiro aos soldados pra dizerem: os discípulos levaram o corpo enquanto dormíamos. Mas quem dormia, como saberia quem levou? E a quarta pista não é um objeto.",
       "batidas": {
         "três:": "tres",
-        "dinheiro": "dinheiro",
-        "dormiam.": "dormiam",
-        "nada.": "nada",
+        "Dinheiro": "dinheiro",
+        "dormíamos.": "dormiam",
+        "levou?": "nada",
         "objeto.": "objeto"
-      }
+      },
+      "tts": "Pista três: a versão oficial. <short pause> Dinheiro aos soldados pra dizerem: <short pause> os discípulos levaram o corpo enquanto dormíamos. Mas quem dormia, <short pause> como saberia quem levou? <short pause> E a quarta pista não é um objeto."
     },
     {
       "id": "pista4",
       "tipo": "pista4",
       "titulo": "",
-      "fala": "Pista quatro, a que quase ninguém lê. Maria está chorando, de costas, e pensa que fala com o jardineiro. Aí uma voz diz só uma palavra: Maria. Ela vira. O caso não fechou numa prova. Fechou num nome.",
+      "fala": "Pista quatro. Maria chora, de costas, e pensa que fala com o jardineiro. Uma voz diz só uma palavra: Maria. Ela vira. O caso não fechou numa prova. Fechou num nome, dito a quem chorava.",
       "batidas": {
-        "quatro,": "quatro",
+        "quatro.": "quatro",
         "jardineiro.": "jardineiro",
         "Maria.": "nome",
         "vira.": "vira",
-        "nome.": "fechou"
-      }
+        "nome,": "fechou",
+        "chorava.": "esperanca"
+      },
+      "tts": "Pista quatro. <short pause> Maria chora, de costas, e pensa que fala com o jardineiro. <short pause> Uma voz diz só uma palavra: <long pause> Maria. <short pause> Ela vira. <long pause> O caso não fechou numa prova. <short pause> Fechou num nome, <short pause> dito a quem chorava."
     },
     {
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Se você fosse a Maria, qual das quatro pistas te convenceria? Responde só com o número, nos comentários, aqui na direita.",
+      "fala": "Das quatro pistas, qual mais te toca? Responde só com o número, nos comentários, aqui na direita.",
       "batidas": {
-        "Se": "pergunta",
+        "Das": "pergunta",
         "Responde": "comenta",
         "direita.": "depois"
       }
@@ -262,8 +274,8 @@
   },
   "capa": {
     "t": 3.2,
-    "texto": "O QUE FICOU NO TÚMULO",
-    "destaque": "TÚMULO",
+    "texto": "NÃO PARECE ROUBO",
+    "destaque": "ROUBO",
     "y": 1180
   }
 }

@@ -274,3 +274,15 @@ Caderno: cara de escola.
   app corporativo. Pessoas continuam sendo desenhadas por nós (kit `figura()` ou rabiscos).
 - Cuidado de estilo: o Lottie é colorido e com sombra; o rabisco é contorno de luz. Misturar pede o contorno mais forte e
   cor de preenchimento no personagem para não destoar.
+
+## Formato "Caso aberto" (estreia: `videos/caso-tumulo-vazio/`)
+
+Investigação em 4 pistas, no caderno noite: carimbo "CASO ABERTO" (`CT_carimbo`), etiqueta numerada de cada pista (`CT_pista`),
+lupa sobre a evidência, referência "cf." em cada pista. Rabiscos novos no kit: `lupa`, `pedra` (disco rolado + entrada em arco),
+`lenco` (rolo), `moedas`, `carimbo`, `etiqueta`, `jardineiro`.
+- **Lacuna real no gancho** ("a última não está no túmulo"), paga na penúltima cena; re-gancho no fim de cada pista; um "pensa rápido".
+- O vídeo **nunca diz que as pistas "provam"** algo que o texto não diz; fecha admitindo ("o caso não fechou numa prova") e a pergunta
+  de comentários pede só um número. "Quase ninguém lê/sabe" é exagero: o analista de gancho reprova, use lacuna concreta.
+- Mito derrubado do próprio texto (o lenço "dobrado" não está em João 20:7: é "enrolado").
+- No código das cenas, as chaves de `w.mapa` (devolvido por `cadPalavras`) são a palavra **sem pontuação**: `mapa.dobrado`, não
+  `mapa["dobrado."]` (com pontuação o círculo/sublinhado some em silêncio).
