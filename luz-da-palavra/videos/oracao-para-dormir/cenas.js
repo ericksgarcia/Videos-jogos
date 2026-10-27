@@ -4,9 +4,9 @@
 // pergunta única; oração guiada no fim; o final volta ao começo ("A paz te guarda").
 
 CENAS.abertura = (el, c, B) => {
-  const pg = cadPagina(el, c, { seed: 21, y0: 760 }); cadZoom(pg, c);
+  const pg = cadPagina(el, c, { seed: 21, y0: 800 }); cadZoom(pg, c);
   cadTitulo(pg, [{ txt: "PAZ ESCRITA", fonte: "felix", max: 0.19 }, { txt: "NA PRISÃO", fonte: "elfin", max: 0.36, cor: CAD_VERM, marca: true }], 400, c.ini + 0.05, 1.8, { passo: 230 });
-  cadPalavras(pg, { y0: 760, larg: 940, esc: 0.1, destaque: ["preso", "noite", "cela", "oração", "deitado"] });
+  cadPalavras(pg, { y0: 800, larg: 940, esc: 0.1, destaque: ["preso", "noite", "cela", "oração", "deitado"] });
   cadDesenho(pg, "lua", { x: 230, y: 1560, esc: 0.95, ts: B("noite"), te: B("noite") + 1.2, seed: 1 });
   cadDesenho(pg, "grade", { x: 560, y: 1560, esc: 1.0, ts: B("cela"), te: B("cela") + 1.4, seed: 2 });
   cadDesenho(pg, "cama", { x: 850, y: 1570, esc: 0.8, ts: B("deitado"), te: B("deitado") + 1.3, seed: 3 });
