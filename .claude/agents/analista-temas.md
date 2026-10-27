@@ -26,3 +26,8 @@ Esboce as **4 pistas / partes com referência bíblica** e **o mito ou meio-sabe
 ## Saída (≤ 500 palavras, pt-BR)
 Tabela: candidato | eliminado por… ou notas | por que agora. O **vencedor** com gancho, lacuna, pistas/partes com referências, mito, esperança, pergunta, **riscos de fidelidade** e **o que NÃO dizer**.
 Os 2 reservas. Aponte o candidato que **você mais teve vontade de aprovar e por que não passou**. Nada de "todos são ótimos": se nenhum passou, diga e proponha como achar outro.
+
+## Família Detetive (`estrategia.md` §2) e estrutura v2
+O tema agora vem **com o formato**: Caso aberto, Veredito, Ache o detalhe, Interrogatório, A Perícia (ou respiro Sem filtro/Noite). Verifique se o tema **cabe no formato** (Veredito precisa de 3–4 frases populares com "NÃO ESTÁ" verificável; Interrogatório
+precisa de uma testemunha com 3 respostas literais; Ache o detalhe precisa de 3–4 detalhes citáveis). Para v2, o candidato precisa de uma **aposta**: um desfecho desconhecido e verificável no texto, com 2–3 opções plausíveis e preparáveis.
+Mostre a aposta proposta (pergunta, opções, onde a resposta aparece).

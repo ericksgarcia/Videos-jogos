@@ -96,7 +96,10 @@ do Google, duração mínima de 1:30).
   defeitos que eu deixei passar (barba na mulher e na criança, metade do rosto de cada cor, pescoço de cilindro): se eu vejo a
   imagem e não acho nenhum defeito, estou olhando mal. Só entrego o personagem quando um ilustrador profissional não
   apontaria o que consertar; antes disso, a entrega diz com franqueza o que ainda está fraco.
-- **Apelo à fé LOGO DEPOIS DA ABERTURA (regra do dono, out/2026): em todo vídeo.** A abertura faz o trabalho dela (gancho,
+- **ATUALIZAÇÃO (27/10/2026, decisão do dono): estrutura v2.** O apelo à fé agora é **"ponte"**: entra **depois da 1ª parte** (~28–36 s), preso ao laço aberto, ≤ 15 palavras; e há uma
+  **aposta (palpite) no meio** do vídeo, paga em até ~15 s; a pergunta final é de **experiência**. Roteiro: `"estrutura": "v2"` e cenas `abertura → parte1 → apoio → parte2 → aposta → parte3 → parte4 → pergunta → fim`.
+  Detalhes, regras da aposta e formatos em `estrategia.md` §1–2; verificação em `ferramentas/lint_roteiro.py`. O texto abaixo vale para os vídeos **v1** (até o caso do fluxo de sangue).
+- **Apelo à fé LOGO DEPOIS DA ABERTURA (regra do dono, out/2026; estrutura v1): em todo vídeo.** A abertura faz o trabalho dela (gancho,
   emoção, laço aberto, ~8–14 s); logo em seguida vem uma cena curta (`{"tipo": "apoio"}`, ~5–7 s, `cenaApoio` na
   identidade: luzes se juntam em mãos que oram na palavra de fé, um coração de luz voa até o botão de curtir e a seta
   aponta os comentários com "amém") em que a narração **apela à fé** de quem assiste para **curtir e comentar**, para

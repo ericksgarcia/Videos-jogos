@@ -67,6 +67,8 @@ def main():
     curto = "--curto" in sys.argv
     r = R()
     cenas = ro["cenas"]
+    v2 = ro.get("estrutura") == "v2"
+    ids = [c["id"] for c in cenas]
     # ---- tamanho
     tot = sum(len(toks(c["fala"])) for c in cenas)
     seg = tot * SEG_POR_PALAVRA
@@ -108,11 +110,17 @@ def main():
         r.alerta("sem cena 'apoio' (apelo à fé logo depois da abertura é regra do dono)")
     else:
         idx = [c["id"] for c in cenas].index("apoio")
-        if idx > 2:
-            r.alerta(f"apelo à fé na cena {idx + 1}: a regra é logo depois da abertura")
+        if v2:
+            if idx < 2:
+                r.falha(f"estrutura v2: o apelo à fé vem DEPOIS da 1ª parte (cena 3 ou 4); está na cena {idx + 1}")
+            if idx > 3:
+                r.alerta(f"estrutura v2: apelo à fé na cena {idx + 1} (esperado ~28–36 s, cena 3–4)")
+            r.info("última frase do apelo (deve devolver ao laço aberto): «" + re.split(r"(?<=[.?!])\s", apoio["fala"].strip())[-1] + "»")
+        elif idx > 2:
+            r.alerta(f"apelo à fé na cena {idx + 1}: a regra v1 é logo depois da abertura")
         n = len(toks(apoio["fala"]))
-        if n > 22:
-            r.alerta(f"apelo à fé com {n} palavras (> 22): é o maior vazamento medido nas simulações; encurte")
+        if n > (15 if v2 else 22):
+            r.alerta(f"apelo à fé com {n} palavras (> {15 if v2 else 22}): é o maior vazamento medido nas simulações; encurte")
         if re.search(r"\bse você (crê|acredita|tem fé)", norm(apoio["fala"])):
             r.alerta("apelo condicional ('se você crê…') sugere que quem não crê não deve curtir")
         a_tok = set(norm(" ".join(toks(apoio["fala"]))).split())
@@ -124,6 +132,28 @@ def main():
                 ini_igual = norm(" ".join(toks(apoio["fala"])[:3])) == norm(" ".join(toks(ap["fala"])[:3]))
                 if j > 0.45 or ini_igual:
                     r.alerta(f"apelo parecido com o de '{slug}' (semelhança {j:.2f}{', mesmo começo' if ini_igual else ''}): varie o molde")
+    # ---- aposta (estrutura v2)
+    if v2:
+        ap = next((c for c in cenas if c["id"] == "aposta"), None)
+        if not ap:
+            r.falha("estrutura v2: sem cena 'aposta' (palpite no meio, pago em até ~15 s)")
+        else:
+            ia = ids.index("aposta")
+            if "apoio" in ids and ia < ids.index("apoio"):
+                r.falha("a 'aposta' vem antes do apelo à fé; a ordem v2 é parte1 → apoio → parte2 → aposta")
+            if "pergunta" in ids and ia > ids.index("pergunta") - 1:
+                r.falha("a aposta tem de vir antes da cena anterior à pergunta final (precisa de ao menos 1 cena para ser PAGA)")
+            ta = norm(ap["fala"])
+            if not re.search(r"\b(escreve|responde|chuta|aposta)\b", ta):
+                r.alerta("aposta sem instrução de resposta (ex.: 'Escreve a letra')")
+            if not re.search(r"\b(a|b)\b.*\b(b|c)\b|\b(1|2|3|um|dois|tres)\b", ta):
+                r.alerta("aposta sem opções claras (A/B ou números)")
+            if len(toks(ap["fala"])) > 25:
+                r.alerta(f"aposta com {len(toks(ap['fala']))} palavras (> 25): o pedido é curto")
+            nxt = cenas[ia + 1]["fala"] if ia + 1 < len(cenas) else ""
+            r.info(f"cena que PAGA a aposta ({cenas[ia + 1]['id'] if ia + 1 < len(cenas) else '-'}) começa com: «{' '.join(toks(nxt)[:14])}…» (confira que responde em ≤ ~15 s)")
+            if re.search(r"\b(morre|morrer|morreu|vai viver|sobrevive)\b", ta):
+                r.alerta("aposta sobre vida/morte de alguém: nunca apostar sobre sofrimento")
     # ---- pergunta
     perg = next((c for c in cenas if c["id"] == "pergunta"), None)
     if not perg:
@@ -138,6 +168,8 @@ def main():
             r.alerta("pergunta sem '?'")
         if not re.search(r"\b(so|apenas|escreve|responde|chuta|uma palavra|a letra|o numero)\b", t):
             r.alerta("pergunta sem instrução de resposta curta (letra/número/palavra)")
+        if v2 and re.search(r"\ba\b.*\bb\b", t):
+            r.alerta("v2: a pergunta final deve ser de EXPERIÊNCIA em 1 frase; o A/B é da aposta do meio")
         if re.search(r"\b(sim ou nao)\b", t):
             r.alerta("'sim ou não' gera comentário de 1 palavra sem conversa; prefira A/B com razão para cada lado")
     # ---- tts

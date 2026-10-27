@@ -1,8 +1,8 @@
 # Norte do Luz da Palavra (out/2026) — leitura obrigatória dos analistas
 
 ## Objetivo
-Um canal cristão de vídeos verticais curtos que **conta a Bíblia como investigação e história**, com identidade reconhecível
-(formato "Caso aberto", caderno noite, narração de pastor investigador, final que emenda no começo), para um público adulto
+Um canal cristão de vídeos verticais curtos que **investiga a Bíblia** (a família Detetive: Caso aberto, Veredito, Ache o detalhe, Interrogatório, A Perícia, Você decide), com identidade reconhecível
+(selo de investigação, caderno noite, narração de pastor investigador, final que emenda no começo), para um público adulto
 brasileiro. Cada vídeo precisa:
 1. **ser assistido até o fim** (e revisto), porque conclusão e revisão são os sinais que mais empurram o vídeo;
 2. **gerar comentário com conteúdo, salvamento e compartilhamento por mensagem** (mais valiosos que curtida);
@@ -36,17 +36,18 @@ escolha em silêncio. Se outro analista já aplicou o nível 1 ou 2, não o desf
 ## Regras do dono (estáveis; só ele muda)
 - Público adulto, tom de conversa com "você", sem infantilizar. Esperança sempre; assombro e ternura valem, tom pesado não.
 - Abertura pela dor, choque ou curiosidade concreta; nunca "hoje vamos falar sobre…". O fato mais forte na 1ª frase.
-- **Apelo à fé logo depois da abertura**, redação diferente a cada vídeo, nunca promete bênção nem duvida da fé de ninguém.
-- **Uma pergunta para os comentários**, em cena própria, depois da revelação principal; aponta para o botão da **direita**; resposta curta
-  (letra, número, uma palavra); não promete resposta.
+- **Apelo à fé "ponte"** (**decisão do dono, 27/10/2026**): depois da **1ª parte** (~28–36 s), preso ao laço aberto (a parte 1 termina numa pergunta; o apelo entra antes da resposta). ≤ 15 palavras, afirmação, redação
+  e estrutura diferentes a cada vídeo, nunca promete bênção nem duvida da fé de ninguém. (Antes: logo depois da abertura; vídeos anteriores = estrutura **v1**.)
+- **Aposta no meio** (**decisão do dono, 27/10/2026**): um palpite (A/B ou número) com desfecho verificável no texto, pedido logo antes de uma revelação intermediária e **pago em até ~15 s** no mesmo vídeo;
+  opções plausíveis e preparadas; seta para a direita; nunca sobre sofrimento. Roteiros v2 (`"estrutura": "v2"`) têm as cenas `apoio` e `aposta` (ver `estrategia.md` §1).
+- **Pergunta final para os comentários**, em cena própria, depois da revelação principal; **de experiência pessoal** em 1 frase (nunca outro A/B quando houver aposta); aponta para o botão da **direita**; não promete resposta.
 - **Frase final fixa:** "Salva … (só o motivo varia), segue o Luz da Palavra, e lembra:" — emenda na 1ª frase do vídeo.
 - Citação literal só da Almeida 1911/1914; o resto é paráfrase marcada com "cf." e a referência escrita na tela.
 - O Gemini é **só** a narração (1 requisição por vídeo); nada de pedir ao Gemini para avaliar, alinhar ou transcrever.
 - Um vídeo por vez. Não repetir tema nem ângulo.
 
-## Formatos do canal (pilares)
-Ver `estrategia.md`. Resumo: **Caso aberto** (identidade/alcance), **A Lupa** (uma palavra do original; salvar/compartilhar),
-**Sem filtro** (salmos honestos; consolo por mensagem), **Noite** (oração curta; salvar/ouvir de noite), **Novela** (série de partes).
+## Formatos do canal
+Ver `estrategia.md` §2. **Família Detetive** (seis jeitos de investigar, cada um com sua interação: apostar, achar, votar) + respiros de calor (**Sem filtro**, **Noite**). Caso aberto é só um dos formatos.
 
 ## Livro de erros (já aconteceram; procure-os ativamente)
 Cada item custou retrabalho ou um defeito publicado. Se você os encontrar de novo, é problema ALTO.

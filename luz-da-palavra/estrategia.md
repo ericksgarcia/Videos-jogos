@@ -14,29 +14,42 @@ Pesquisa de out/2026 (blogs de marketing e estudos de plataformas, nenhum oficia
 - **Frequência ideal:** nenhuma fonte encontrada. A recomendação recorrente é qualidade acima de frequência.
 Tudo abaixo que não tem fonte é **hipótese**, com experimento em §7.
 
-## 1. A linha do tempo de um vídeo (quando é melhor cada coisa)
-Alvo: 85–105 s, 170–205 palavras. (Marcas de tempo ≈ 0,51 s por palavra, pausas incluídas.)
-| Tempo | O que entra | Por quê / regra | Risco medido |
+## 1. A linha do tempo de um vídeo — ESTRUTURA v2 (decisão do dono em 27/10/2026)
+Duas mudanças aprovadas pelo dono: **(a)** o apelo à fé sai de "logo depois da abertura" e vai para **depois da 1ª parte**, preso ao laço aberto; **(b)** entra uma
+**aposta (palpite) no meio do vídeo**, paga antes do fim. Roteiros com `"estrutura": "v2"` seguem esta tabela (o verificador cobra); os anteriores ficam como estão (v1).
+Alvo: 85–105 s, 170–205 palavras (≈ 0,51 s por palavra, pausas incluídas).
+| Tempo | Cena (`id`) | O que entra | Por quê / regra |
 |---|---|---|---|
-| 0–3 s | **Choque + imagem**: fato mais forte na 1ª frase (≤ 8 palavras); quadro 0 já com desenho; título na tela (≤ 5 palavras) que *complementa* | decide o teste de audiência | frase de abertura longa; nome do formato como título |
-| 3–12 s | **Paradoxo completo + lacuna real** ("a última pista não está no túmulo") | só se paga no fim; precisa de um X curioso | lacuna vaga ("um detalhe") |
-| 12–20 s | **Apelo à fé** (≤ 17 palavras; afirmação; sem condição; diferente a cada vídeo) — *regra do dono: logo depois da abertura* | convida sem culpa | **maior vazamento das simulações (−8 a −14 pontos)**; ver experimento E1 |
-| 20–70 s | **Partes/pistas** de 12–18 s (≤ 40 palavras), cada uma com **re-gancho no fim**; 1 **pedido de previsão** ("Pensa rápido…") perto da metade; 1 **mito derrubado**; as opções da pergunta final já *preparadas* aqui | sempre uma pergunta aberta antes de fechar a anterior | cena longa e seca; opção da pergunta que nunca foi dita |
-| 65–80 s | **Revelação mais forte** (penúltima cena) + **esperança** | o final precisa do melhor | falso final; revelação cedo demais |
-| 80–90 s | **Pergunta dos comentários** (A/B, letra, número, uma palavra; aponta para a direita) — *regra do dono: logo depois da revelação* | a emoção está no pico | só 40% ainda estão aqui; ver E2 |
-| 90–100 s | **CTA**: "Salva pra [situação futura concreta], segue o Luz da Palavra, e lembra:" → emenda na 1ª frase | salvar/seguir; loop | "e lembra:" que não emenda |
-Elementos obrigatórios por vídeo: 1 assombro, 1 ternura, 1 utilidade (o **objeto a salvar**: lista de pistas, versículo, oração), 1 pergunta, 1 loop.
-Ideia a testar (E5, barata): no CTA, mostrar por ~2 s o **cartão-resumo** (as 4 pistas em 4 palavras) para dar à pessoa algo para guardar.
+| 0–3 s | `abertura` | **Choque + imagem**: fato mais forte na 1ª frase (≤ 8 palavras); quadro 0 já desenhado; título na tela ≤ 5 palavras que *complementa* | decide o teste de audiência |
+| 3–12 s | `abertura` | **Paradoxo completo + lacuna real** (que o vídeo só paga no fim) | sem "um segredo/um detalhe" vagos |
+| 12–28 s | `parte1` | **1ª parte/pista**, curta (≤ 35 palavras), **termina numa pergunta aberta** (o re-gancho) | cria o investimento antes de qualquer pedido |
+| 28–36 s | `apoio` | **Apelo à fé "ponte"**: ≤ 15 palavras, afirmação (sem "se você crê…"), redação e estrutura **diferentes** a cada vídeo; liga ao laço aberto ("a resposta vem já") | pedido feito com a curiosidade acesa; custa menos retenção que logo depois da abertura (hipótese: ver E1) |
+| 36–46 s | `parte2` | **Resposta da pergunta da parte 1 + nova pergunta**; situa o texto (porta de entrada) | nunca um momento de "já entendeu tudo" |
+| 46–54 s | `aposta` | **Palpite**: 2–3 opções *plausíveis*, ambas **preparadas** no vídeo; pausa de 1,5 s com o relógio/contagem; pede a **letra/número** nos comentários (seta para a direita) | o comentário vem **antes** de a pessoa poder sair |
+| 54–66 s | `parte3` | **Paga a aposta** em ≤ 15 s ("quem apostou em B…") e abre o último laço | quem apostou fica para ver se acertou |
+| 66–82 s | `parte4` | **Revelação mais forte** + **esperança** (a penúltima cena) | o melhor perto do fim; sem falso final |
+| 82–90 s | `pergunta` | **Pergunta final de EXPERIÊNCIA** em 1 frase ("qual palavra você mais precisava ouvir hoje?"), nunca outro A/B; aponta para a direita | a emoção está no pico |
+| 90–100 s | `fim` | **CTA**: "Salva pra [situação futura concreta], segue o Luz da Palavra, e lembra:" → emenda na 1ª frase | salvar/seguir; loop |
+Regras da **aposta**: (1) o desfecho é **desconhecido** para quem não leu o texto e **verificável** nele (nunca opinião); (2) as opções são todas plausíveis (divisão ~40–60%) e **já foram preparadas**
+(a pessoa ouviu o que é cada uma); (3) a resposta vem em **até ~15 s** e **no mesmo vídeo**; (4) o pedido é curto: "A ou B? Escreve a letra." com a seta; (5) uma aposta por vídeo; (6) não é a revelação principal (essa fica para o fim);
+(7) nunca aposta sobre sofrimento ou sobre o destino de pessoas ("ela morre?"). Regras do **apelo-ponte**: ≤ 15 palavras; afirma, não condiciona; não promete bênção; não duvida da fé de ninguém; diferente dos 8 já feitos; a última frase devolve ao laço.
+Elementos obrigatórios por vídeo: 1 assombro, 1 ternura, 1 utilidade (o **objeto a salvar**: lista, versículo, oração), 1 aposta, 1 pergunta de experiência, 1 loop.
+Ideia a testar (E5, barata): no CTA, mostrar por ~2 s o **cartão-resumo** (as pistas em 4 palavras) para dar à pessoa algo para guardar.
+Medição: coluna `estrutura` (v1/v2) em `metricas.csv`; E1 (posição do apelo) e E2 (aposta) agora são **comparações v1 × v2**, não mais propostas.
 
-## 2. Pilares (formatos) e o papel de cada um no funil
-| Pilar | Papel | Duração | Estrutura | Onde brilha |
+## 2. A família DETETIVE (formatos) e os outros pilares
+O canal é **o canal que investiga a Bíblia**, mas "Caso aberto" é só um formato. A família Detetive tem seis jeitos de investigar, cada um com **uma interação própria** (apostar, achar, votar, decidir):
+| Formato (carimbo) | O que é | Interação | Duração | Cuidado |
 |---|---|---|---|---|
-| **Caso aberto** | identidade e alcance (curiosidade) | 85–105 s | paradoxo → 4 pistas *no texto* → mito derrubado → esperança | tema com enigma verificável |
-| **A Lupa** | salvar/compartilhar (aprendizado) | 45–60 s | uma palavra do original que a tradução achata; 3 camadas: "o que todos entendem / o que o contexto mostra / o que o original esconde" | evergreen; busca ("o que significa…") |
-| **Sem filtro** | compartilhar por mensagem (consolo) | 45–60 s | salmo de desabafo lido como mensagem crua; "reclamar também é oração"; termina em esperança sem prometer | dor de hoje; fins de semana/noite |
-| **Noite** | salvar/voltar (hábito) | 60–120 s | oração curta ou meditação; ritmo mais lento; sem promessa de cura | 21–23 h |
-| **Novela** (série) | seguir/voltar | 60–75 s por parte, 5–7 partes | cada parte auto-contida, termina com gancho da próxima | só com todas as partes prontas |
-Regra: **cada vídeo é porta de entrada** (se entende sozinho) mesmo dentro de uma série.
+| **CASO ABERTO** | uma história lida como cena do crime: 3–5 pistas **no texto**, mito derrubado, esperança | aposta no meio (v2) | 85–105 s | nunca diz que as pistas "provam" |
+| **VEREDITO** ("Está na Bíblia?") | 3–4 frases que todo mundo repete; a pessoa **aposta qual é a que NÃO está**; veredito com carimbo ESTÁ NO TEXTO / NÃO ESTÁ + referência | aposta no início e a cada veredito; "manda pra quem fala isso" | 55–75 s | afirmar que algo "não está" exige busca em concordância; dizer "não está como citação bíblica; a ideia mais próxima é…"; sem frase doutrinária disputada |
+| **ACHE O DETALHE** (cena do crime) | um desenho grande na tela e 6–8 s de "procure" com contagem; depois o que **está** (ou **não está**) no texto | pausa e procura; **revê** para achar; "achei em 3 s" | 40–60 s | cada detalhe com referência; nada de "quase ninguém notou" |
+| **INTERROGATÓRIO** | uma testemunha (Tomé, Pedro, o cego de Jo 9) responde 3 perguntas **só com o texto**, lido em citação (Almeida) | **o público vota a próxima pergunta/testemunha** no fixado; o vídeo seguinte diz "vocês escolheram" | 70–90 s | zero invenção de fala; a pergunta é do narrador, a resposta é versículo |
+| **A PERÍCIA** (A Lupa) | o laudo de **uma palavra** do original que a tradução achata (*hesed*, *Hosana*) | aposta: "o que você acha que significa? A, B ou C" | 45–60 s | confirmar em léxico; "NÃO VERIFICADO" fora |
+| **VOCÊ DECIDE** | a camada de série: o fixado pergunta "qual pista investigamos?" (A ou B) e o próximo vídeo cumpre | voto em comentários | — | só depois de 6+ vídeos com comentários |
+Selos (carimbo do caderno) por formato: CASO Nº, VEREDITO, EVIDÊNCIA, TESTEMUNHA, LAUDO. Mesmo caderno noite, mesma voz, mesmo final: a identidade é o **jeito de investigar**, não o tema.
+**Respiros (não-detetive, calor):** **Sem filtro** (salmo de desabafo lido como mensagem crua, 45–60 s) e **Noite** (oração curta, 60–120 s, ritmo lento): no máximo 1 a cada 3–4 vídeos, para variar a emoção; o **Novela** (série de partes) fica para quando houver números e 5+ partes prontas.
+Regra: **cada vídeo é porta de entrada** (se entende sozinho), mesmo dentro de uma série ou votação.
 
 ## 3. Sequência: regras de ordem
 1. Nunca mais de **2 seguidos do mesmo pilar**; alternar **intensidade**: curiosidade (Caso) → aprendizado (Lupa) → calor (Sem filtro/Noite).
@@ -86,17 +99,17 @@ Preencher `metricas.csv` **48 h** e **7 dias** depois de publicar (números da t
 Depois de **6 vídeos com números**, recalibrar as metas do `norte.md` e a semana-tipo.
 
 ## 7. Experimentos (máx. 2 por vez; critério de decisão fixado antes)
-- **E1 — posição do apelo à fé.** A: logo depois da abertura (regra atual, ~12–20 s). B: depois da 1ª pista (~30–35 s), com o mesmo texto. 3 vídeos de cada, alternados. Decisão: adotar B se a conclusão subir ≥ 4 pontos e curtidas+comentários caírem < 10%.
-  **Depende de aprovação do dono** (muda uma regra dele).
-- **E2 — pergunta-aposta no meio.** Além da pergunta final, um palpite pedido na pista 2 ("A ou B? Escreve…") que o vídeo paga depois. 4 vídeos. Decisão: adotar se comentários/1000 views subirem ≥ 30% sem perder conclusão. **Depende de aprovação do dono** (2ª pergunta).
+- **E1 — posição do apelo à fé (ADOTADA em 27/10/2026, medir):** v1 (logo depois da abertura, ~12–20 s) × v2 (apelo-ponte depois da parte 1, ~28–36 s). Decisão de manter: conclusão da v2 ≥ v1 e curtidas+comentários caírem < 10%; se a conclusão não subir ≥ 4 pontos, o apelo volta a ser repensado. Medir com a retenção aos 15 s e aos 30 s.
+- **E2 — aposta no meio (ADOTADA em 27/10/2026, medir):** comentários por 1.000 views e conclusão de v2 × v1. Manter se os comentários subirem ≥ 30% sem perder conclusão.
 - **E3 — horário.** Mesmo pilar, 12:30 vs 19:30 (e domingo 9 h vs 20 h), 4 pares. Decisão: adotar o que tiver ≥ 30% mais views em 48 h na maioria dos pares.
 - **E4 — Nº do caso e teaser no fixado.** 4 casos com e 4 sem. Decisão: seguidores ganhos por 1.000 views.
 - **E5 — cartão-resumo no CTA** (2 s). 4 vídeos com, 4 sem. Decisão: salvamentos por 1.000 views.
 
 ## 8. Bancos de ideias (todos **a confirmar** pelo `analista-temas`; nenhum aprovado)
-- **Caso aberto:** o cego de nascença e o interrogatório (Jo 9: vizinhos, pais, fariseus); o paralítico no telhado e o perdão antes da cura (Mc 2:1–12); Jericó: sete dias de marcha em silêncio (Js 6); o final cortado de Jonas (Jn 4:11); Zaqueu (Lc 19: "pequeno" é dele ou da multidão?); a rede e os 153 peixes (Jo 21:6–11; **verificar o número**).
-  Cuidado: Samaritana ("mulher de má fama") e Magos ("três reis") têm lendas que o texto não sustenta (bom para mito derrubado, mas exige fidelidade extra).
-- **A Lupa:** *Hosana* (do hebraico "salva, por favor"), *hesed* ("misericórdia" como amor leal), *shalom*, *Maranata*, *Abba*, *Aleluia*. **Confirmar em léxico antes de qualquer roteiro.**
-- **Sem filtro:** Sl 13 ("Até quando?"), Sl 42, Sl 22:1, Hc 1:2–4, Sl 6.
-- **Noite:** Sl 4:8, Sl 23, Sl 121, Mt 11:28.
-- **Novela:** José (Gn 37–50) em 6 partes, só com todas prontas e **depois** de ter números dos pilares simples.
+- **Caso aberto:** o cego de nascença e o interrogatório (Jo 9); o paralítico no telhado e o perdão antes da cura (Mc 2:1–12); Jericó: sete dias de marcha em silêncio (Js 6); o final cortado de Jonas (Jn 4:11); Zaqueu (Lc 19).
+- **Veredito** (cada "NÃO ESTÁ" **verificado em concordância**): "Deus ajuda quem cedo madruga", "Deus não dá fardo maior que o ombro", "foi uma maçã" (Gn 3: "fruto"), "o dinheiro é a raiz de todo mal" (1 Tm 6:10: "o amor ao dinheiro"), "três reis magos" (Mt 2: magos, sem número), "uma baleia" (Jn 1:17: "grande peixe"), "a fé move montanhas" (Mt 17:20).
+- **Ache o detalhe:** a cena do Natal com 4 erros comuns (Mt 2:11 "casa"; sem animais no texto; magos sem número); a última ceia; a barca na tempestade.
+- **Interrogatório:** Tomé (Jo 20:24–29), o cego de Jo 9, Pedro (Jo 21), Maria Madalena (Jo 20).
+- **A Perícia:** *Hosana* ("salva, por favor"), *hesed*, *shalom*, *Maranata* (origem aramaica incerta), *Abba*.
+- **Respiros:** Sem filtro (Sl 13, 42, 22:1, Hc 1:2–4); Noite (Sl 4:8, Sl 23, Sl 121, Mt 11:28).
+- **Novela:** José (Gn 37–50) em 6 partes, só com números e todas as partes prontas.

@@ -1,7 +1,7 @@
-slug,pilar,plataforma,publicado_em,dia_semana,hora,duracao_s,views_48h,views_7d,conclusao_pct,tempo_medio_s,retencao_3s_pct,retencao_15s_pct,compartilhamentos,salvamentos,comentarios,seguidores_ganhos,experimento,obs
-fogo-de-brasas,pre-formato,tiktok,,,,93,,,,,,,,,,,,
-setenta-anos,pre-formato,tiktok,,,,86,,,,,,,,,,,,
-ana-sem-voz,pre-formato,tiktok,,,,91,,,,,,,,,,,,
-novas-cada-manha,pre-formato,tiktok,,,,108,,,,,,,,,,,,
-caso-tumulo-vazio,caso-aberto,tiktok,,,,102,,,,,,,,,,,,
-caso-fluxo-de-sangue,caso-aberto,tiktok,,,,100,,,,,,,,,,,,
+slug,pilar,estrutura,plataforma,publicado_em,dia_semana,hora,duracao_s,views_48h,views_7d,conclusao_pct,tempo_medio_s,retencao_3s_pct,retencao_15s_pct,compartilhamentos,salvamentos,comentarios,seguidores_ganhos,experimento,obs
+fogo-de-brasas,pre-formato,v1,tiktok,,,,93,,,,,,,,,,,,
+setenta-anos,pre-formato,v1,tiktok,,,,86,,,,,,,,,,,,
+ana-sem-voz,pre-formato,v1,tiktok,,,,91,,,,,,,,,,,,
+novas-cada-manha,pre-formato,v1,tiktok,,,,108,,,,,,,,,,,,
+caso-tumulo-vazio,caso-aberto,v1,tiktok,,,,102,,,,,,,,,,,,
+caso-fluxo-de-sangue,caso-aberto,v1,tiktok,,,,100,,,,,,,,,,,,

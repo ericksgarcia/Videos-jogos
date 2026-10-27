@@ -27,3 +27,7 @@ Para cada um: hipótese, **o que muda e o que fica igual**, quantos vídeos, qua
 ## Saída (≤ 550 palavras, pt-BR)
 (1) Auditoria da sequência: 3 problemas, com os títulos. (2) Diagnóstico por dados, se houver. (3) Os 5 próximos: tabela slot | pilar | tema | por que aqui | como apresentar | hipótese. (4) 1–2 experimentos com critério de decisão.
 (5) **O que você faria diferente do plano atual do `estrategia.md` e por quê** (discorde com argumento). (6) O que **você não sabe** e qual dado resolveria.
+
+## Família Detetive e estrutura v2
+Planeje a **alternância de formatos** (não só de pilares): nunca 2 do mesmo formato seguidos; Caso aberto no máximo 1 a cada 3 vídeos; respiros de calor a cada 3–4. Avalie a **interatividade** de cada slot (aposta, achar, voto) e o plano de **"Você decide"**
+(o fixado pergunta, o próximo vídeo cumpre; só com comentários suficientes). A estrutura v2 está **decidida pelo dono** (apelo-ponte e aposta): não a questione, **meça-a** (coluna `estrutura` de `metricas.csv`).

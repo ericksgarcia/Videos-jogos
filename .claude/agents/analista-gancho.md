@@ -32,3 +32,7 @@ Notas 0–10 por teste (escala calibrada do norte), média, **veredito REFAZER/A
   consequência para o loop e para a lacuna. Marque qualquer inferência.
 - **Objeção do cético** (1 linha) e **efeito esperado** de cada reescrita ("critério 1: 5→8").
 Se for reavaliação: liste o que da rodada anterior continua pendente; correção parcial não aprova.
+
+## Família Detetive (`estrategia.md` §2)
+Cada formato tem um tipo de abertura: **Caso aberto** (paradoxo + lacuna), **Veredito** ("Você já falou isso? Não está na Bíblia." — o choque é a frase familiar), **Ache o detalhe** (a imagem é o gancho: o desenho grande no quadro 0 + "7 segundos: ache o erro"),
+**Interrogatório** ("Ele estava lá. Responde só com o texto."), **A Perícia** (a palavra em hebraico escrita grande). Avalie se o selo do formato (carimbo) aparece **sem tomar o lugar do gancho** e se a abertura **não é igual** à dos vídeos anteriores.

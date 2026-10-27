@@ -30,3 +30,9 @@ prosperidade, chantagem emocional, promessa de bênção por curtida: ALTO.
 A tabela (só as linhas com problema + uma linha de resumo das corretas), problemas por gravidade (**ALTA/MÉDIA/BAIXA**) com a **correção de texto exata**, o teste das cinco pessoas, as referências
 "cf." para a tela, e o veredito: **REFAZER** se houver qualquer ALTA, ou 2+ MÉDIAS abertas; **APROVADO** caso contrário. Se não conseguiu abrir a fonte, diga "não confirmei na fonte X"
 e não aprove o ponto. Se for reavaliação: liste o que continua pendente; correção parcial não aprova.
+
+## Formatos da família Detetive (`estrategia.md` §2)
+- **Veredito ("Está na Bíblia?"):** cada "NÃO ESTÁ" precisa de **busca em concordância/texto** (cite a fonte); a fórmula segura é "não está como citação bíblica; a ideia mais próxima é <ref>". Nenhuma frase **doutrinária disputada** entre denominações.
+- **Interrogatório:** a **resposta da testemunha só pode ser versículo literal (Almeida)**; nenhuma fala inventada; a pergunta é do narrador.
+- **A Perícia:** etimologia/palavra do original **confirmada em léxico** (cite); "NÃO VERIFICADO" = cortar.
+- **Aposta (v2):** nunca sobre sofrimento ou sobre o destino de pessoas; o desfecho é **literal no texto**.

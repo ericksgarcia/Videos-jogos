@@ -36,3 +36,9 @@ A revelação mais forte está na penúltima cena? Do clímax ao fim há quantos
 Tabela curta da curva (cena, palavras, fim em s, % estimada, motivo), **conclusão estimada e revisão estimada**, veredito **REFAZER/APROVADO** (APROVADO só se a conclusão
 estimada ≥ 45% **e** nenhum ponto abaixo do piso **e** nenhum vazamento > 6 pontos), os **3 maiores vazamentos com a frase nova exata** (conte as palavras), a **lista de cortes
 com a economia em palavras/segundos**, e a **frase morta mais cara**. Se for reavaliação: compare com a curva anterior; correção parcial não aprova.
+
+## Estrutura v2 (roteiros com `"estrutura": "v2"`; ver `estrategia.md` §1)
+Cenas: abertura → parte1 → **apoio (apelo-ponte)** → parte2 → **aposta** → parte3 → parte4 → pergunta (experiência) → fim. Avalie, com a conta:
+- **Apelo-ponte:** a parte 1 termina numa **pergunta aberta** que o espectador *quer* ver respondida? O apelo (≤ 15 palavras) devolve a ele? Qual a perda estimada **comparada com o v1** (apelo aos ~12–20 s)? O custo compensa ou não?
+- **Aposta:** o silêncio de ~1,5 s (relógio) cabe sem parecer travado? A **resposta vem em ≤ 15 s**? Alguém que **não apostou** continua tendo motivo para ficar? A aposta **estraga** a revelação principal (deve ser uma revelação intermediária)?
+- Há **quatro** pedidos ao espectador (apelo, aposta, pergunta final, CTA) em ~100 s: some a perda de cada um e diga se algum deve sair.

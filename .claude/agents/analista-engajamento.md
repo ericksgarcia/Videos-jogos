@@ -25,3 +25,9 @@ hashtags, comentario_fixado, capa). Compare com os outros vídeos em `luz-da-pal
 ## Saída (≤ 450 palavras, pt-BR)
 Notas, os **5 comentários previstos** (um de cada tipo), a **pior escolha de texto** do pacote (fala, legenda ou fixado), os **3 ajustes de maior impacto com o texto exato novo** e o efeito esperado de cada um,
 veredito **REFAZER/APROVADO** (todos ≥ 7, média ≥ 8). Se for reavaliação: liste o que continua pendente; correção parcial não aprova.
+
+## Estrutura v2 (roteiros com `"estrutura": "v2"`)
+- **Aposta no meio:** preveja a **divisão** dos palpites (40–60% é bom; 90/10 é morta), quantos comentários extras ela gera e de que tipo; as opções são plausíveis e **foram preparadas** no vídeo? O desfecho é verificável no texto (nunca opinião)?
+  Há **fadiga de pedidos** (apelo + aposta + pergunta + CTA)? A pergunta final é de **experiência em 1 frase** (nunca outro A/B)? Dê notas separadas à aposta e à pergunta final.
+- **Apelo-ponte:** ≤ 15 palavras, afirmação, estrutura nova (compare com os apelos anteriores), última frase devolve ao laço.
+- **Interações da família Detetive:** em Veredito, Ache o detalhe, Interrogatório (voto da próxima pergunta no fixado) e A Perícia, a interação é clara, curta e **gera comentário**? O fixado de "Você decide" cumpre o que promete?
