@@ -297,20 +297,65 @@ def alinhar_silabas(texto, wav, inicios=None):
 _WHISPER = {}
 
 
+_TAGS_LIDAS = {"longa", "curta", "pausa", "pause", "short", "long", "pausar"}   # como o modelo lê "<long pause>" / "<short pause>" em voz alta
+
+
+def _ouvir(wav, texto):
+    """Transcreve o áudio com tempo por palavra (faster-whisper). Devolve [(palavra, início, fim)]."""
+    from faster_whisper import WhisperModel
+    nome = os.environ.get("WHISPER_MODELO", "large-v3-turbo")
+    if nome not in _WHISPER:
+        _WHISPER[nome] = WhisperModel(nome, device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
+    pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(wav), "-ar", "16000", "-ac", "1", "-f", "f32le", "-"], capture_output=True, check=True).stdout
+    segs, _ = _WHISPER[nome].transcribe(np.frombuffer(pcm, np.float32), language="pt", word_timestamps=True, beam_size=5,
+                                         condition_on_previous_text=False)  # sem prompt: com o texto como prompt o whisper repete frases (alucina cópias)
+    return [(w.word.strip(), w.start, w.end) for sg in segs for w in (sg.words or []) if w.word.strip()]
+
+
+def limpar_marcacoes(wav, texto):
+    """O modelo às vezes LÊ uma marcação de pausa em voz alta ("Longa pausa."). Acha no áudio as palavras ouvidas que não são do roteiro e
+    parecem marcação (longa/curta/pausa/pause…) e troca esse trecho pelo "ar" da própria gravação (silêncio calmo repetido), sem mudar a duração
+    (os tempos das palavras seguem valendo). Devolve quantos trechos limpou."""
+    import difflib
+    ouv = _ouvir(wav, texto)
+    ws = texto.split()
+    A, Bn = [_norm(w) for w in ws], [_norm(w) for w, _, _ in ouv]
+    casadas = set()
+    for bl in difflib.SequenceMatcher(None, A, Bn, autojunk=False).get_matching_blocks():
+        casadas.update(range(bl.b, bl.b + bl.size))
+    ruins = [(a, b) for k, (w, a, b) in enumerate(ouv) if k not in casadas and _norm(w) in _TAGS_LIDAS]
+    if not ruins:
+        return 0
+    # junta palavras coladas ("Longa" + "pausa")
+    trechos = []
+    for a, b in ruins:
+        if trechos and a - trechos[-1][1] < 0.4:
+            trechos[-1][1] = b
+        else:
+            trechos.append([a, b])
+    sr, x = wavfile.read(wav); x = x.copy()
+    sil, _ = _pausas(wav, 0.25)
+    for a, b in trechos:
+        a, b = max(0.0, a - 0.04), b + 0.06
+        # "ar" da gravação: o trecho calmo mais próximo que não seja o próprio trecho (ou o início do arquivo)
+        cand = [(abs((p + q) / 2 - a), p, q) for p, q in sil if q <= a - 0.1 or p >= b + 0.1]
+        if cand:
+            _, p, q = min(cand); amb = x[int((p + (q - p) * 0.25) * sr):int((p + (q - p) * 0.75) * sr)].astype(np.float64)
+        else:
+            amb = np.zeros(int(0.1 * sr))
+        n = int((b - a) * sr)
+        x[int(a * sr):int(a * sr) + n] = (np.resize(amb, n) if len(amb) > sr * 0.02 else np.zeros(n)).astype(x.dtype)
+    wavfile.write(wav, sr, x)
+    print(f"   [voz] marcação lida em voz alta removida do áudio: {len(trechos)} trecho(s) {[(round(a, 2), round(b, 2)) for a, b in trechos]}")
+    return len(trechos)
+
+
 def alinhar_whisper(texto, wav):
     """Tempo real de cada palavra do texto no áudio: o faster-whisper transcreve com tempo por palavra e as palavras
     reconhecidas são casadas com as do roteiro (difflib). Palavra que ele ouviu diferente ("3" × "três") fica entre as
     vizinhas casadas, dividida pelo tamanho. Modelo: WHISPER_MODELO (padrão large-v3-turbo, baixado do Hugging Face)."""
     import difflib
-    from faster_whisper import WhisperModel
-    nome = os.environ.get("WHISPER_MODELO", "large-v3-turbo")
-    if nome not in _WHISPER:
-        _WHISPER[nome] = WhisperModel(nome, device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
-    # áudio já decodificado em 16 kHz (o decodificador do faster-whisper depende da versão do PyAV instalada)
-    pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(wav), "-ar", "16000", "-ac", "1", "-f", "f32le", "-"], capture_output=True, check=True).stdout
-    segs, _ = _WHISPER[nome].transcribe(np.frombuffer(pcm, np.float32), language="pt", word_timestamps=True, beam_size=5,
-                                         initial_prompt=" ".join(texto.split()[:120]), condition_on_previous_text=True)
-    ouv = [(w.word.strip(), w.start, w.end) for sg in segs for w in (sg.words or []) if w.word.strip()]
+    ouv = _ouvir(wav, texto)
     ws = texto.split()
     A, Bn = [_norm(w) for w in ws], [_norm(w) for w, _, _ in ouv]
     tempo = [None] * len(ws)
@@ -709,6 +754,8 @@ def narrar_video(falas, tts=None, direcao=None, voz_nome=None, pausas=None):
             junta = "\n\n<short pause>\n\n" if OPCOES.get("api") == "interacoes" else "\n\n"  # respiro entre as cenas
             palavras, dur = _gemini("\n\n".join(falas), voz, inteiro, tts=junta.join(tts), direcao=direcao)
             bruto.write_text(json.dumps([palavras, dur], ensure_ascii=False))
+        if OPCOES.get("alinhamento") == "whisper" and not (CACHE / f"{h}.limpo").exists():
+            limpar_marcacoes(inteiro, " ".join(falas)); (CACHE / f"{h}.limpo").write_text("ok")   # 1 vez por narração crua
         if len(palavras) != sum(len(f.split()) for f in falas):
             raise ValueError("alinhamento com número de palavras diferente")
         ritmo = (pausas or {}).get("ritmo")

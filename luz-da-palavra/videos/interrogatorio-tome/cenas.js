@@ -66,7 +66,7 @@ CENAS.aposta = (el, c, B) => {
   IT_ref(pg, "cf. Jo 20:24–29", c.ini + 0.3);
   cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.114, escDest: 1.1, yMax: 1300, destaque: ["Aposta:", "tocar.", "tocou?", "porquê."] });
   const t0 = IT_t(c, "A", 0);
-  cadOpcoes(pg, ["tocou", "não tocou", "o texto não diz"], 1480, t0, { x0: 170, x1: 850, gap: 0.45 });
+  cadOpcoes(pg, ["tocou", "não tocou", "não diz"], 1480, t0, { x0: 120, x1: 930, gap: 0.45 });
   cadRelogio(pg, 200, 1720, IT_t(c, "porquê"), 1.6, { r: 52 });
   cadDesenho(pg, "balao", { x: 620, y: 1730, esc: 0.7, ts: B("letra") - 0.2, te: B("letra") + 0.7, seed: 19 });
   cadDesenho(pg, "seta", { x: 890, y: 1500, esc: 0.7, rot: -28, ts: B("letra"), te: B("letra") + 0.9, seed: 20, cor: CAD_VERM });
@@ -85,7 +85,7 @@ CENAS.parte4 = (el, c, B) => {
   IT_ref(pg, "cf. Jo 20:25–27", c.ini + 0.3);
   cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["precisava:", "ver,", "dedo,", "mão,", "lado.", "Oito", "eles,", "chega."] });
   // as quatro palavras do próprio Tomé, no instante em que são ditas
-  [["ver", 190], ["dedo", 400], ["mão", 610], ["lado", 820]].forEach(([w, x], k) => IT_txt(pg, w, x, 1580, 0.12, IT_t(c, w), 30 + k, { cor: CAD_OURO, dur: 0.5 }));
+  [["ver", 150], ["dedo", 380], ["mão", 610], ["lado", 840]].forEach(([w, x], k) => IT_txt(pg, w, x, 1580, 0.085, IT_t(c, w), 30 + k, { cor: CAD_OURO, dur: 0.5 }));
   cadDesenho(pg, "casa", { x: 540, y: 1470, esc: 0.55, ts: IT_t(c, "oito"), te: IT_t(c, "oito") + 0.9, seed: 14 });
 };
 
