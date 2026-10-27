@@ -54,7 +54,7 @@ Cada uma tem: estranheza real (fato do texto) · pergunta nova · dor de hoje. C
 
 Temas escolhidos pelo `analista-temas` a partir de pesquisa (o banco acima continua como reserva).
 - [x] **Dois fogos: Pedro e Jesus** (Jo 18:18 e 21:9, anthrakiá só 2x no NT) — `videos/fogo-de-brasas/`, tema noite, 1:33.
-- [ ] **Jeremias 29:11 foi escrito pra quem ia esperar 70 anos** (Jr 29:4–11) — 2º colocado (51/60). Cuidado: "a promessa
+- [x] **Jeremias 29:11 foi escrito pra quem ia esperar 70 anos** (feito: `videos/setenta-anos/`) (Jr 29:4–11) — 2º colocado (51/60). Cuidado: "a promessa
       veio com espera", nunca "não é pra você"; dizer "um dos mais postados".
 - [ ] **Ana orava sem voz e o sacerdote achou que ela estava bêbada** (1 Sm 1:12–15) — 3º (49/60): quando a oração é só choro.
 - [ ] **Lamentações 3:22–23** — o versículo mais esperançoso está no livro do luto (49/60).
