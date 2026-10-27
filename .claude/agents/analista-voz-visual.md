@@ -15,6 +15,12 @@ Você é diretor de arte e de áudio de um canal cristão premium de vídeos ver
 - `python luz-da-palavra/ferramentas/sincronia.py luz-da-palavra/videos/<tema>` (depois do `gerar.py --so-montar`): atraso médio entre −0,1 e +0,05 s; nenhuma palavra atrasada > 0,3 s.
 - Volume do som de caneta: `trilha.escrita` em `identidade/marca.json` (Luz da Palavra = 0,06); o som de batida não pode cobrir a voz.
 
+## Cuidados que já geraram falso alarme
+- **Quadros desatualizados:** a pasta `previa/` pode ser **anterior** às correções. Compare a data (`ls -l`) com a do MP4 e do `cenas.js`; **prefira quadros extraídos do MP4 final**
+  (`ffmpeg -ss T -i video.mp4 -frames:v 1 f.png`, nos mesmos instantes). Defeito só vale se aparece no MP4 final.
+- **Palavra "pela metade" num quadro NÃO é atraso:** a caneta escreve enquanto a voz fala. Só a medida do `sincronia.py` conta; sem ela, não afirme atraso.
+- Sem Bash você não mede: diga "não medi" em vez de estimar pelos quadros.
+
 ## Inspeção visual (lista de defeitos, quadro a quadro; cite horário e cena)
 1. **Legibilidade no celular:** tamanho, contraste, texto cortado, palavra pela metade na capa (escolha outro instante), rótulos que se encostam, texto maior que a moldura.
 2. **Áreas seguras:** nada importante no topo (y < 300), na lateral direita (x > 950, y 900–1600), nem sob a faixa de legenda/rodapé (> 1650); referências bíblicas ≤ ~24 caracteres.

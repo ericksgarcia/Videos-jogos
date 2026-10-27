@@ -68,7 +68,13 @@ Cada item custou retrabalho ou um defeito publicado. Se você os encontrar de no
     lê (a pedra parecia um capacete, o lenço parecia uma pedra); texto do carimbo maior que a moldura; rótulos A/B que se encostam.
 12. **Voz picotada:** marcações de pausa em excesso dão 41–47% de silêncio e trechos a ~190–205 palavras/min "só falando". Medir com
     `ferramentas/medir_voz.py`; se soar corrida, reduzir marcações ou usar `voz.pausas.ritmo`.
-13. **Mais de um analista elogiando por cortesia.** Nota 8 exige que você não consiga apontar uma melhora relevante.
+13. **Tique de previsão** ("Adivinha…" em 4 vídeos seguidos, depois "Pensa rápido" em 2): o palpite a meio caminho virou previsível. Varie o recurso (número, contagem regressiva,
+    uma pergunta de "o que você faria?", um silêncio) e **não gaste a previsão na abertura**: se a abertura já responde ("Jesus se voltou"), "Pensa rápido: o que Jesus faz?" não tem lacuna.
+14. **Abertura com dois fios** ("Uma menina nas últimas esperava" antes de a 1ª história prender) e **texto na tela que repete a fala** ("JÁ CURADA" sobre "Ela já estava curada").
+15. **Pergunta "só a letra"** gera comentários de uma letra (~70/30 a favor do clímax): peça a letra **e uma frase do porquê**, e tenha razão para cada opção.
+16. **Apelo à fé sempre com a mesma estrutura** ("curte e deixa seu amém, pra chegar a…") nos 6 vídeos: variar o molde, não só as palavras; ≤ 17 palavras.
+17. **Voz e capa:** capa com 3–4 camadas de texto (miniatura de 120 px vira um bloco); desenhos de ~200 px que se parecem com outra coisa ("pirulitos", "etiqueta de preço"): desenhar maior e mais simples.
+18. **Mais de um analista elogiando por cortesia.** Nota 8 exige que você não consiga apontar uma melhora relevante.
 
 ## Como críticar (todos os analistas)
 - **Escala calibrada:** 5 = mediano do nicho cristão no TikTok; 7 = bom; **8 = publicável sem vergonha** (você não acha nada relevante a melhorar);

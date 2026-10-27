@@ -47,9 +47,20 @@ Regra: **cada vídeo é porta de entrada** (se entende sozinho) mesmo dentro de 
    Natal 25/12, virada 31/12 (esperança: "novas a cada manhã"), Quarta-feira de Cinzas 10/02/2027, Páscoa 28/03/2027, Dia das Mães 9/05/2027, Pentecostes 16/05/2027. Conteúdo de data entra **3–5 dias antes** (a pessoa procura antes).
 6. Reaproveitar **evergreen** (ex.: "Novas a cada manhã" na virada de ano) com a mesma narração e **nova abertura/capa** só depois de 60 dias; medir se perde para o original.
 
+## 3b. Ajustes da auditoria de sequência (calibragem de 27/10/2026, `analista-sequencia`)
+- **Menos Casos, não mais:** com 2 Casos de mesma forma já feitos, **no máximo 1 Caso a cada 3 vídeos** até haver números. O próximo Caso muda de forma: **3 pistas** ou 5, pistas de **pessoas** (vizinhos, pais, fariseus), pergunta que **não seja A/B**.
+- **Tique de previsão e de apelo** nos 6 últimos vídeos (ver erros 13 e 16 do `norte.md`): varie.
+- **Porta de entrada:** o Caso nº 2 cita "Pista um: doze anos" sem situar Marcos 5 até o meio; todo vídeo situa o texto nos primeiros ~12 s.
+- **Cadência: 2 por semana até haver 6 linhas preenchidas em `metricas.csv`** (o gargalo é a qualidade, não a frequência); depois 3 se os números sustentarem.
+- **Número do caso (CASO Nº N) em todos os Casos desde o Nº 3**, sem experimento (é identidade); E4 e E5 só quando houver amostra.
+- **Novela (José) fora desta rodada:** exige 5+ partes prontas e nenhum pilar tem números.
+- **Primeiro vídeo da semana-tipo na quinta** (não na segunda): "segunda 17–21 h" não tem fonte; o horário vira o experimento E3.
+Próximos 5 sugeridos (a confirmar com `analista-temas`; datas a confirmar): 1 **Sem filtro** (Sl 13 "Até quando?", antes de Finados 2/11); 2 **A Lupa** (*hesed*, confirmar em léxico);
+3 **Caso Nº 3** (o cego de nascença, Jo 9: 3 pistas de pessoas, pergunta de uma frase); 4 **Noite** (gratidão, ~22/11 para 26/11); 5 **A Lupa** (*Maranata*: origem aramaica incerta, dizer isso, ~25/11 para o Advento).
+
 ## 4. Cadência e horários (hipótese; testar em §7)
-- **Ritmo-alvo: 3 vídeos por semana**, se a produção permitir (1 por vez: roteiro → 5 analistas → narração → cenas → prévia → render → entrega). Qualidade antes de frequência: 1–2 por semana valem mais que 3 frouxos.
-- **Semana-tipo (hipótese):** segunda **Caso aberto** (começo de semana, curiosidade); quarta **A Lupa**; domingo à noite **Sem filtro** ou **Noite**.
+- **Ritmo-alvo: 2 vídeos por semana até haver números (ver 3b); 3 depois**, se a produção permitir (1 por vez: roteiro → 5 analistas → narração → cenas → prévia → render → entrega). Qualidade antes de frequência: 1–2 por semana valem mais que 3 frouxos.
+- **Semana-tipo (hipótese):** quinta **Caso aberto** ou **A Lupa**; domingo à noite **Sem filtro** ou **Noite**; a 3ª vaga só depois dos números.
 - **Horário inicial:** 17–21 h (dias úteis); domingo 19–21 h; **nunca** 2–10 h. Mesmo arquivo em Reels e Shorts no mesmo dia (medir à parte).
 - Planejar a semana na **segunda de manhã** (analista-sequencia + analista-temas) e produzir na ordem do plano, não na do impulso.
 
