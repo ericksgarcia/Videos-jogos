@@ -1,8 +1,8 @@
 {
   "canal": "luz-da-palavra",
   "slug": "setenta-anos",
-  "titulo": "O versículo escrito pra quem ia esperar 70 anos",
-  "descricao": "Um dos versículos mais postados do mundo foi escrito pra quem ia esperar setenta anos.\nJeremias 29:11 no contexto (cf. Jeremias 29:1–14): uma carta aos judeus levados presos pra Babilônia, a ordem de construir casas e plantar hortas, e o que Deus promete logo depois do versículo famoso. Pra quem está esperando uma resposta.\nSua espera hoje é por trabalho, saúde, família ou resposta? Escreve aqui nos comentários.\nSalva pra quando a espera pesar e manda pra quem está esperando.",
+  "titulo": "Deus mandou plantar jardins: Jeremias 29:11",
+  "descricao": "Jeremias 29:11 foi escrito no meio da espera, não no fim.\nO versículo no contexto (cf. Jeremias 29:1–14): uma carta aos exilados na Babilônia, a ordem de construir casas e plantar jardins, e o que o texto diz logo depois do versículo famoso. Pra quem está esperando uma resposta.\nQual é a sua espera hoje? Escreve numa palavra aqui nos comentários.\nSalva pra quando a espera pesar e manda pra quem está esperando.",
   "hashtags": [
     "#biblia",
     "#esperanca",
@@ -10,8 +10,8 @@
     "#jeremias",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "Eu escolho resposta. E você? Trabalho, saúde, família ou resposta? 👇",
-  "gancho": "70 ANOS DE ESPERA",
+  "comentario_fixado": "Minha espera tem nome: resposta. E a sua? Uma palavra aqui embaixo 👇",
+  "gancho": "70 ANOS DE EXÍLIO",
   "gancho_destaque": "70 ANOS",
   "voz": "Achird",
   "sons": {
@@ -110,6 +110,46 @@
     "cta": [
       "brilho",
       0.45
+    ],
+    "jardins": [
+      "sino",
+      0.4
+    ],
+    "le": [
+      "respiro",
+      0.3
+    ],
+    "jardins2": [
+      "pop",
+      0.3
+    ],
+    "longa": [
+      "respiro",
+      0.3
+    ],
+    "frase": [
+      "sino",
+      0.4
+    ],
+    "voce2": [
+      "sino",
+      0.5
+    ],
+    "adivinha": [
+      "pop",
+      0.3
+    ],
+    "fazer": [
+      "brilho",
+      0.3
+    ],
+    "chamar": [
+      "sino",
+      0.4
+    ],
+    "achar": [
+      "sino",
+      0.45
     ]
   },
   "cenas": [
@@ -117,77 +157,79 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Um dos versículos mais postados do mundo foi escrito pra quem ia esperar setenta anos. Se você está esperando uma resposta, olha o que ele escondeu.",
+      "fala": "Deus mandou plantar jardins a exilados que ouviram falar em setenta anos de espera. Essa carta traz Jeremias 29:11, o versículo dos quadros. E o que vem logo depois, muita gente nunca leu.",
       "batidas": {
-        "anos.": "anos",
-        "esperando": "voce",
-        "escondeu.": "escondeu"
+        "jardins": "jardins",
+        "espera.": "anos",
+        "quadros.": "bios",
+        "leu.": "le"
       }
     },
     {
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Se essa espera também é sua, curte e comenta aguardo, pra quem espera se sentir menos sozinho. Primeiro, a carta.",
+      "fala": "Se você crê, curte e deixa seu amém, pra essa Palavra chegar a quem espera. Já te mostro o que muita gente nunca leu.",
       "batidas": {
-        "sua,": "fe",
+        "crê,": "fe",
         "curte": "curte",
-        "comenta": "comenta"
+        "amém,": "comenta"
       }
     },
     {
       "id": "carta",
       "tipo": "carta",
       "titulo": "",
-      "fala": "Jeremias escreve aos judeus levados presos pra Babilônia. Eles esperavam voltar logo. Até profetas diziam que seria rápido. Mas a carta traz outra notícia.",
+      "fala": "Jeremias escreve aos exilados na Babilônia, onde profetas diziam que a volta seria rápida. Adivinha por que ele manda plantar?",
       "batidas": {
-        "Babilônia.": "babilonia",
-        "logo.": "logo",
-        "notícia.": "noticia"
+        "Babilônia,": "babilonia",
+        "Adivinha": "adivinha",
+        "plantar?": "fazer"
       }
     },
     {
       "id": "setenta",
       "tipo": "setenta",
       "titulo": "",
-      "fala": "Setenta anos. Uma vida inteira. E antes disso, uma ordem inesperada: construam casas, plantem hortas, vivam. Não é pra ficar parado esperando. E só depois vem a frase famosa.",
+      "fala": "Porque a carta fala em setenta anos. A ordem: construam casas, plantem jardins, casem seus filhos. Vivam.",
       "batidas": {
-        "Setenta": "setenta",
-        "inteira.": "vida",
-        "vivam.": "vivam",
-        "famosa.": "famosa"
+        "setenta": "setenta",
+        "casas,": "longa",
+        "jardins,": "jardins2",
+        "Vivam.": "vivam"
       }
     },
     {
       "id": "versiculo",
       "tipo": "versiculo",
       "titulo": "",
-      "fala": "Eu sei os planos que tenho pra vocês, planos de paz e não de mal, pra dar a vocês um futuro e uma esperança. Escrito pra quem estava no meio da espera, não no fim dela.",
+      "fala": "Foi aí que veio a frase: eu sei os pensamentos que tenho a respeito de vocês, pensamentos de paz, pra dar a vocês o fim que esperam. Dita no meio da espera, não no fim dela. Um consolo que pode alcançar você.",
       "batidas": {
-        "planos": "planos",
-        "paz": "paz",
-        "espera,": "espera"
+        "frase:": "frase",
+        "paz,": "paz",
+        "espera,": "espera",
+        "você.": "voce2"
       }
     },
     {
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Sua espera hoje é por trabalho, saúde, família ou resposta? Escolhe uma e escreve aqui do lado. E já já eu mostro o que vem logo depois.",
+      "fala": "Qual é a sua espera hoje? Escreve numa palavra, no botão de comentários, na direita.",
       "batidas": {
-        "Sua": "pergunta",
-        "Escolhe": "comenta",
-        "depois.": "depois"
+        "Qual": "pergunta",
+        "Escreve": "comenta",
+        "direita.": "depois"
       }
     },
     {
       "id": "detalhe",
       "tipo": "detalhe",
       "titulo": "",
-      "fala": "Logo depois, ele diz: vocês vão me chamar, e eu vou ouvir. A promessa não encurta a espera. Ela te acompanha nela.",
+      "fala": "Logo depois: vocês vão me chamar, e eu vou ouvir. Quando me buscarem de coração, vão me achar. A promessa não encurta a espera. Ela te acompanha nela.",
       "batidas": {
-        "ele": "ele",
-        "ouvir.": "ouvir",
+        "chamar,": "chamar",
+        "achar.": "achar",
         "acompanha": "acompanha"
       }
     },
@@ -195,7 +237,7 @@
       "id": "fim",
       "tipo": "fim",
       "titulo": "",
-      "fala": "Salva esse vídeo pra quando a espera pesar, segue o Luz da Palavra, e lembra:",
+      "fala": "Salva pra quando a espera pesar, segue o Luz da Palavra, e lembra:",
       "batidas": {
         "Salva": "salva",
         "segue": "cta",
@@ -214,5 +256,11 @@
       "aberracao_px": 0,
       "grao": 3
     }
+  },
+  "capa": {
+    "t": 6.5,
+    "texto": "70 ANOS DE EXÍLIO",
+    "destaque": "70",
+    "y": 1335
   }
 }
