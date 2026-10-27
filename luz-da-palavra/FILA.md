@@ -59,3 +59,4 @@ Temas escolhidos pelo `analista-temas` a partir de pesquisa (o banco acima conti
 - [x] **Ana orava sem voz e o sacerdote achou que ela estava bêbada** (1 Sm 1:12–15) (feito: `videos/ana-sem-voz/`) — 3º (49/60): quando a oração é só choro.
 - [x] **Lamentações 3:22–23** — o versículo das misericórdias foi escrito numa cidade em cinzas (feito: `videos/novas-cada-manha/`; laço: o acróstico de A a Z, cap. 3 é o do meio) (49/60).
 - [x] **Caso aberto: o túmulo vazio** (feito: `videos/caso-tumulo-vazio/`) — estreia do formato "Caso aberto" (4 pistas; Jo 20, Mt 27–28).
+- [x] **Caso aberto: a mulher que já estava curada** (feito: `videos/caso-fluxo-de-sangue/`) — Mc 5:21–43; voz Gacrux, "pastor investigador".
