@@ -233,6 +233,7 @@ Fluxo de cada vídeo:
    gancho provado). Só depois escolhe-se o tema.
 1. **Roteiro v1**: rode o verificador e corrija as FALHAS; depois `analista-gancho`, `analista-retencao`, `analista-engajamento` e `analista-fe` em paralelo.
 2. **Reconciliar**: resolver divergências pela hierarquia do `norte.md` (fidelidade > cuidado pastoral > clareza > retenção > estilo), e registrar o que foi decidido e por quê.
+   **Nunca aplique o texto de um analista que reintroduz um ponto já marcado pela fé** (caso real: "uma menina nas últimas *esperava*", sugestão do gancho, contra o aviso da fé; o analista de fé novo o reprovou depois). Na dúvida, use a redação da fé e peça ao gancho outra reescrita.
 3. **Roteiro final**: rodar **de novo** gancho, retenção e fé sobre a versão final (não sobre a anterior). Só narra com os três APROVADO (fé sem ALTA; conclusão estimada ≥ 45%).
    *(No vídeo "Caso aberto #2" a versão final não teve uma última rodada: não repetir.)*
 4. **Prévia e render**: `analista-voz-visual` com as medidas (`medir_voz.py`, `sincronia.py`, loudness) e as folhas de quadros; gancho de novo sobre o 1º quadro e a capa.
