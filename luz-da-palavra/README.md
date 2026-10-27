@@ -220,15 +220,25 @@ Antes de cada vídeo, oferecer ao dono 3 candidatos pontuados nesse filtro quand
 
 ## Analistas (processo de todo vídeo, pedido do dono: "até ficar perfeito")
 
-Briefings em `.claude/agents/analista-*.md` (gancho, retenção, engajamento, fé, voz-visual, temas), todos com base em
-`pesquisa-engajamento.md`. Rodam em paralelo (subagentes que leem o briefing) e devolvem notas, problemas e o texto exato
-da correção. Ordem:
-1. **Tema**: `analista-temas` pontua candidatos (pesquisa de tendências + ideias novas) e escolhe.
-2. **Roteiro**: `analista-gancho`, `analista-retencao`, `analista-engajamento` e `analista-fe` leem o roteiro.json.
-   Corrija e repita até todos darem APROVADO (fé sem nenhum problema ALTA).
-3. **Voz/visual**: simulações com variantes; `analista-voz-visual` compara (folhas de quadros + métricas de voz).
-4. **Vídeo pronto**: gancho + retenção + voz-visual de novo, com quadros do MP4 e a transcrição com tempos.
-Divergências entre analistas: vale a regra do canal; depois, a fidelidade ao texto; depois, a retenção.
+Reescritos em out/2026 para serem **mais críticos** e para o objetivo novo (formato "Caso aberto", conclusão e revisão, identidade).
+Todos leem `norte.md` (objetivo, metas, hierarquia de conflitos, **livro de erros**, como críticar) e `estrategia.md`. Briefs em
+`.claude/agents/analista-*.md`: **gancho, retenção, engajamento, fé, voz-visual, temas e sequência** (7).
+O que mudou: escala calibrada (8 = publicável; reprovam por padrão), teste do espectador que desliza, cálculo de retenção com a conta à vista,
+previsão dos comentários, tabela de afirmações rotuladas (literal / paráfrase / inferência / invenção) e teste das cinco pessoas na fé, medidas de voz
+sem ouvir, e **verificação mecânica antes da crítica**: `python luz-da-palavra/ferramentas/lint_roteiro.py luz-da-palavra/videos/<tema>` (contagem de palavras,
+superlativos, "Será que", apelo repetido, frase final, pergunta, tts × fala, batidas, sons sem definição, descrição, capa, cenas.js).
+
+Fluxo de cada vídeo:
+0. **Sequência e tema** (segunda de manhã, para a semana): `analista-sequencia` (auditoria dos últimos, ordem dos próximos 5, experimentos) e `analista-temas` (filtro eliminatório,
+   gancho provado). Só depois escolhe-se o tema.
+1. **Roteiro v1**: rode o verificador e corrija as FALHAS; depois `analista-gancho`, `analista-retencao`, `analista-engajamento` e `analista-fe` em paralelo.
+2. **Reconciliar**: resolver divergências pela hierarquia do `norte.md` (fidelidade > cuidado pastoral > clareza > retenção > estilo), e registrar o que foi decidido e por quê.
+3. **Roteiro final**: rodar **de novo** gancho, retenção e fé sobre a versão final (não sobre a anterior). Só narra com os três APROVADO (fé sem ALTA; conclusão estimada ≥ 45%).
+   *(No vídeo "Caso aberto #2" a versão final não teve uma última rodada: não repetir.)*
+4. **Prévia e render**: `analista-voz-visual` com as medidas (`medir_voz.py`, `sincronia.py`, loudness) e as folhas de quadros; gancho de novo sobre o 1º quadro e a capa.
+5. **Depois de publicar**: preencher `metricas.csv` (48 h e 7 dias); a cada ~5 vídeos, `analista-sequencia` lê os números e ajusta metas e semana-tipo.
+Mudanças nas regras do dono (apelo à fé logo depois da abertura, pergunta depois da revelação) são **propostas a ele** (experimentos E1/E2 em `estrategia.md`), nunca decididas pelos analistas.
+Divergências entre analistas: vale a hierarquia do `norte.md`. Subagentes novos só aparecem como tipo depois que a sessão recarrega; antes disso, use um agente genérico que leia o brief.
 
 ## Voz: ritmo e pausas (out/2026)
 
