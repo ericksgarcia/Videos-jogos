@@ -1,0 +1,269 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "caso-tumulo-vazio",
+  "titulo": "Caso aberto: o túmulo vazio",
+  "descricao": "O que ficou no túmulo vazio não parece cena de roubo.\nCaso aberto, em quatro pistas (cf. Mateus 28:11–15; João 20:1–18): a pedra removida, o lenço do rosto enrolado à parte, a versão dos soldados e a pista que quase ninguém lê, no jardim. E a lenda do lenço dobrado: está mesmo no texto?\nSe você fosse a Maria, qual das quatro pistas te convenceria? Responde só com o número nos comentários.\nSalva pra quando a dúvida bater e manda pra quem anda investigando a fé.",
+  "hashtags": [
+    "#biblia",
+    "#ressurreicao",
+    "#jesus",
+    "#fe",
+    "#luzdapalavra"
+  ],
+  "comentario_fixado": "Meu palpite é a pista 4. E o seu? Só o número.",
+  "gancho": "CASO ABERTO: 4 PISTAS",
+  "gancho_destaque": "4 PISTAS",
+  "voz": "Achird",
+  "sons": {
+    "selo": [
+      "respiro",
+      0.3
+    ],
+    "porta": [
+      "respiro",
+      0.3
+    ],
+    "sumiu": [
+      "thud",
+      0.5
+    ],
+    "roubo": [
+      "respiro",
+      0.3
+    ],
+    "pistas": [
+      "respiro",
+      0.3
+    ],
+    "ve": [
+      "respiro",
+      0.3
+    ],
+    "pedra": [
+      "respiro",
+      0.3
+    ],
+    "escuro": [
+      "respiro",
+      0.3
+    ],
+    "milagre": [
+      "respiro",
+      0.3
+    ],
+    "puseram": [
+      "respiro",
+      0.3
+    ],
+    "dois": [
+      "respiro",
+      0.3
+    ],
+    "lencois": [
+      "respiro",
+      0.3
+    ],
+    "lenco": [
+      "respiro",
+      0.3
+    ],
+    "pergunta2": [
+      "respiro",
+      0.3
+    ],
+    "mito": [
+      "pop",
+      0.4
+    ],
+    "tres": [
+      "respiro",
+      0.3
+    ],
+    "dinheiro": [
+      "respiro",
+      0.3
+    ],
+    "dormiam": [
+      "respiro",
+      0.3
+    ],
+    "nada": [
+      "respiro",
+      0.3
+    ],
+    "objeto": [
+      "respiro",
+      0.3
+    ],
+    "quatro": [
+      "respiro",
+      0.3
+    ],
+    "jardineiro": [
+      "respiro",
+      0.3
+    ],
+    "vira": [
+      "whoosh_curto",
+      0.4
+    ],
+    "pergunta": [
+      "respiro",
+      0.3
+    ],
+    "depois": [
+      "respiro",
+      0.3
+    ],
+    "lembra": [
+      "respiro",
+      0.3
+    ],
+    "fe": [
+      "sino",
+      0.35
+    ],
+    "curte": [
+      "plim",
+      0.4
+    ],
+    "comenta": [
+      "plim",
+      0.4
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ],
+    "nome": [
+      "sino",
+      0.55
+    ],
+    "fechou": [
+      "sino",
+      0.5
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Túmulo lacrado. Soldados na porta. E o corpo sumiu. Mas o que ficou lá dentro não parece cena de roubo. Hoje eu abro este caso, com quatro pistas. A última quase ninguém lê.",
+      "batidas": {
+        "lacrado.": "selo",
+        "porta.": "porta",
+        "sumiu.": "sumiu",
+        "roubo.": "roubo",
+        "pistas.": "pistas",
+        "lê.": "ve"
+      }
+    },
+    {
+      "id": "apoio",
+      "tipo": "apoio",
+      "titulo": "",
+      "fala": "Se você acredita que a fé aguenta perguntas, curte e deixa seu amém, pra esse caso chegar a quem ainda está investigando.",
+      "batidas": {
+        "acredita": "fe",
+        "curte": "curte",
+        "amém,": "comenta"
+      }
+    },
+    {
+      "id": "pista1",
+      "tipo": "pista1",
+      "titulo": "",
+      "fala": "Pista um: a pedra. Maria Madalena chega ainda no escuro e vê que ela foi tirada. E não pensa em milagre. Corre e avisa: levaram o Senhor, e não sabemos onde o puseram.",
+      "batidas": {
+        "pedra.": "pedra",
+        "escuro": "escuro",
+        "milagre.": "milagre",
+        "puseram.": "puseram"
+      }
+    },
+    {
+      "id": "pista2",
+      "tipo": "pista2",
+      "titulo": "",
+      "fala": "Pista dois: o que sobrou lá dentro. Os lençóis ali, no lugar. E o lenço do rosto, enrolado à parte. Ladrão com pressa e medo para pra arrumar o lenço? E repara: nada de lenço dobrado. Essa lenda não está no texto.",
+      "batidas": {
+        "dois:": "dois",
+        "lugar.": "lencois",
+        "parte.": "lenco",
+        "lenço?": "pergunta2",
+        "dobrado.": "mito"
+      }
+    },
+    {
+      "id": "pista3",
+      "tipo": "pista3",
+      "titulo": "",
+      "fala": "Pista três: a versão oficial. Os soldados receberam dinheiro pra dizer que os discípulos levaram o corpo de noite, enquanto eles dormiam. Só que testemunha dormindo não pode jurar de nada. E falta a quarta pista. Ela não é um objeto.",
+      "batidas": {
+        "três:": "tres",
+        "dinheiro": "dinheiro",
+        "dormiam.": "dormiam",
+        "nada.": "nada",
+        "objeto.": "objeto"
+      }
+    },
+    {
+      "id": "pista4",
+      "tipo": "pista4",
+      "titulo": "",
+      "fala": "Pista quatro, a que quase ninguém lê. Maria está chorando, de costas, e pensa que fala com o jardineiro. Aí uma voz diz só uma palavra: Maria. Ela vira. O caso não fechou numa prova. Fechou num nome.",
+      "batidas": {
+        "quatro,": "quatro",
+        "jardineiro.": "jardineiro",
+        "Maria.": "nome",
+        "vira.": "vira",
+        "nome.": "fechou"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Se você fosse a Maria, qual das quatro pistas te convenceria? Responde só com o número, nos comentários, aqui na direita.",
+      "batidas": {
+        "Se": "pergunta",
+        "Responde": "comenta",
+        "direita.": "depois"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva pra quando a dúvida bater, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
+  ],
+  "estilo": "caderno",
+  "tema": "noite",
+  "video": {
+    "desfoque_movimento": false,
+    "tratamento_cor": {
+      "contraste": 1.03,
+      "saturacao": 1.05,
+      "vinheta": 0.08,
+      "aberracao_px": 0,
+      "grao": 3
+    }
+  },
+  "capa": {
+    "t": 3.2,
+    "texto": "O QUE FICOU NO TÚMULO",
+    "destaque": "TÚMULO",
+    "y": 1180
+  }
+}
