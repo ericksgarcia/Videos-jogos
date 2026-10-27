@@ -160,13 +160,13 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Procuravam apedrejar Jesus. Tomé disse: Vamos nós também, para morrermos com ele. Na cena da dúvida, Jesus dá a Tomé o que ele pediu.",
-      "tts": "Procuravam apedrejar Jesus. <short pause> Tomé disse: <short pause> Vamos nós também, para morrermos com ele. <short pause> Na cena da dúvida, Jesus dá a Tomé o que ele pediu.",
+      "fala": "Procuravam apedrejar Jesus. Tomé disse: Vamos nós também, para morrermos com ele. Na cena da dúvida, Jesus oferece a Tomé o que ele disse que precisava.",
+      "tts": "Procuravam apedrejar Jesus. <short pause> Tomé disse: <short pause> Vamos nós também, para morrermos com ele. <short pause> Na cena da dúvida, Jesus oferece a Tomé o que ele disse que precisava.",
       "batidas": {
         "Jesus.": "apedrejar0",
         "disse:": "disse",
         "ele.": "ele0",
-        "pediu.": "ve"
+        "precisava.": "ve"
       }
     },
     {
@@ -222,23 +222,23 @@
       "id": "parte3",
       "tipo": "parte3",
       "titulo": "",
-      "fala": "Resposta: C. Tomé responde: Senhor meu, e Deus meu! Nesses versos o texto não diz se ele tocou. Agora, o que ele pediu.",
-      "tts": "Resposta: C. <short pause> Tomé responde: Senhor meu, e Deus meu! <short pause> Nesses versos o texto não diz se ele tocou. Agora, o que ele pediu.",
+      "fala": "Resposta: C. Tomé responde: Senhor meu, e Deus meu! Nesses versos o texto não diz se ele tocou. Agora, o que ele disse que precisava.",
+      "tts": "Resposta: C. <short pause> Tomé responde: Senhor meu, e Deus meu! <short pause> Nesses versos o texto não diz se ele tocou. Agora, o que ele disse que precisava.",
       "batidas": {
         "C.": "resposta",
         "meu!": "confissao",
         "tocou.": "notoque",
-        "pediu.": "convite"
+        "precisava.": "convite"
       }
     },
     {
       "id": "parte4",
       "tipo": "parte4",
       "titulo": "",
-      "fala": "Jesus oferece a Tomé o que ele pediu: ver, dedo, mão, lado. Oito dias depois, o texto mostra Tomé com eles, e Jesus chega.",
-      "tts": "Jesus oferece a Tomé o que ele pediu: <short pause> ver, dedo, mão, lado. <long pause> Oito dias depois, o texto mostra Tomé com eles, <short pause> e Jesus chega.",
+      "fala": "Jesus oferece a Tomé o que ele disse que precisava: ver, dedo, mão, lado. Oito dias depois, o texto mostra Tomé com eles, e Jesus chega.",
+      "tts": "Jesus oferece a Tomé o que ele disse que precisava: <short pause> ver, dedo, mão, lado. <long pause> Oito dias depois, o texto mostra Tomé com eles, <short pause> e Jesus chega.",
       "batidas": {
-        "pediu:": "palavra",
+        "precisava:": "palavra",
         "lado.": "lado",
         "eles,": "eles"
       }

@@ -30,7 +30,7 @@ CENAS.abertura = (el, c, B) => {
   cadDesenho(pg, "pedra", { x: 700, y: 1560, esc: 1.1, ts: c.ini - 0.9, te: c.ini + 0.7, seed: 2 });
   cadSelo(pg, 540, 355, "INTERROGATÓRIO · TOMÉ", c.ini + 0.1, { esc: 0.06 });
   cadTitulo(pg, [{ txt: "ANTES DE", fonte: "serif", max: 0.2 }, { txt: "DUVIDAR", fonte: "serifb", max: 0.3, cor: CAD_VERM }], 540, c.ini + 0.1, 1.3, { passo: 190, larg: 780, livre: true });
-  cadPalavras(pg, { y0: 900, larg: IT_L, esc: 0.098, yMax: 1300, destaque: ["Procuravam", "apedrejar", "Vamos", "também,", "morrermos", "pediu."] });
+  cadPalavras(pg, { y0: 900, larg: IT_L, esc: 0.098, yMax: 1300, destaque: ["Procuravam", "apedrejar", "Vamos", "também,", "morrermos", "precisava."] });
   IT_ref(pg, "cf. Jo 11:8, 16", B("disse") + 0.2, 1420);
 };
 
@@ -75,7 +75,7 @@ CENAS.aposta = (el, c, B) => {
 CENAS.parte3 = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 116, y0: 560, passo: 124 }); cadZoom(pg, c); IT_amb(pg, c);
   IT_ref(pg, "Jo 20:28 · cf. Jo 20:27", c.ini + 0.3);
-  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.106, yMax: 1300, destaque: ["Resposta:", "C.", "Senhor", "meu!", "tocou.", "pediu."] });
+  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.106, yMax: 1300, destaque: ["Resposta:", "C.", "Senhor", "meu!", "tocou.", "precisava."] });
   cadSelo(pg, 540, 1560, "RESPOSTA: C · O TEXTO NÃO DIZ", B("resposta") + 0.2, { esc: 0.066 });
   cadDesenho(pg, "livro", { x: 220, y: 1690, esc: 0.7, ts: B("confissao") - 0.4, te: B("confissao") + 0.6, seed: 12 });
 };
@@ -83,7 +83,7 @@ CENAS.parte3 = (el, c, B) => {
 CENAS.parte4 = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 117, y0: 560, passo: 126 }); cadZoom(pg, c); IT_amb(pg, c);
   IT_ref(pg, "cf. Jo 20:25–27", c.ini + 0.3);
-  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["pediu:", "ver,", "dedo,", "mão,", "lado.", "Oito", "eles,", "chega."] });
+  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["precisava:", "ver,", "dedo,", "mão,", "lado.", "Oito", "eles,", "chega."] });
   // as quatro palavras do próprio Tomé, no instante em que são ditas
   [["ver", 190], ["dedo", 400], ["mão", 610], ["lado", 820]].forEach(([w, x], k) => IT_txt(pg, w, x, 1580, 0.12, IT_t(c, w), 30 + k, { cor: CAD_OURO, dur: 0.5 }));
   cadDesenho(pg, "casa", { x: 540, y: 1470, esc: 0.55, ts: IT_t(c, "oito"), te: IT_t(c, "oito") + 0.9, seed: 14 });
