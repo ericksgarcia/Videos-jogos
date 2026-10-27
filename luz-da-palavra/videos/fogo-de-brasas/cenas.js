@@ -8,13 +8,13 @@ const FB_ref = (pg, txt, t) => cadTexto(pg, txt, { x: 930, y: 420, esc: 0.072, f
 function FB_fogo(pg, x, y, esc, ts, te, seed) { cadDesenho(pg, "fogueira", { x, y, esc, ts, te, seed }); cadFaiscas(pg, x, y - 40 * esc, te - 0.3, 1e4, { n: Math.round(10 * esc), alt: 240 * esc }); }
 
 CENAS.abertura = (el, c, B) => {
-  const pg = cadPagina(el, c, { seed: 41, y0: 820 }); cadZoom(pg, c);
-  // quadro 0: a fogueira da noite já está se desenhando e soltando brasas enquanto a caneta escreve o gancho
-  FB_fogo(pg, 300, 1520, 1.15, c.ini, c.ini + 1.3, 1);
-  cadTitulo(pg, [{ txt: "DOIS FOGOS,", fonte: "felix", max: 0.2 }, { txt: "OUTRO FIM", fonte: "elfin", max: 0.34, cor: CAD_VERM, marca: true }], 400, c.ini + 0.05, 1.7, { passo: 230 });
-  cadPalavras(pg, { y0: 820, larg: 920, esc: 0.1, destaque: ["negou", "fogo", "outro", "errou", "perguntou"] });
-  FB_fogo(pg, 780, 1520, 1.15, B("outro"), B("outro") + 1.3, 2);
-  cadDesenho(pg, "seta", { x: 540, y: 1400, esc: 0.75, ts: B("outro") + 0.4, te: B("outro") + 1.2, seed: 3, cor: CAD_VERM });
+  const pg = cadPagina(el, c, { seed: 41, y0: 760 }); cadZoom(pg, c);
+  // quadro 0: a fogueira da noite já se desenha e solta brasas enquanto a caneta escreve o gancho
+  FB_fogo(pg, 290, 1390, 1.45, c.ini, c.ini + 1.3, 1);
+  cadTitulo(pg, [{ txt: "ONDE JESUS", fonte: "felix", max: 0.2 }, { txt: "TE ESPERA", fonte: "elfin", max: 0.34, cor: CAD_VERM, marca: true }], 400, c.ini + 0.05, 1.7, { passo: 220 });
+  cadPalavras(pg, { y0: 760, larg: 920, esc: 0.1, yMax: 1200, destaque: ["fogos", "negou", "outro", "esperou", "errou", "liga"] });
+  FB_fogo(pg, 790, 1390, 1.45, B("outro"), B("outro") + 1.3, 2);
+  cadDesenho(pg, "seta", { x: 540, y: 1300, esc: 0.7, ts: B("outro") + 0.5, te: B("outro") + 1.3, seed: 3, cor: CAD_VERM });
 };
 
 CENAS.apoio = (el, c, B) => {
@@ -37,7 +37,7 @@ CENAS.noite = (el, c, B) => {
 CENAS.praia = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 44, y0: 540 }); cadZoom(pg, c);
   FB_ref(pg, "cf. João 21:4–9", c.ini + 0.3);
-  const w = cadPalavras(pg, { y0: 540, larg: 840, esc: 0.105, destaque: ["ressuscitado", "Adivinha", "brasas", "grego", "duas", "manhã"] });
+  const w = cadPalavras(pg, { y0: 540, larg: 840, esc: 0.105, destaque: ["brasas", "Adivinha", "grego", "duas", "noite", "manhã"] });
   cadDesenho(pg, "sol", { x: 820, y: 1400, esc: 0.75, ts: B("praia"), te: B("praia") + 1.0, seed: 13, cor: CAD_OURO });
   cadDesenho(pg, "ondas", { x: 260, y: 1600, esc: 0.9, ts: B("praia") + 0.2, te: B("praia") + 1.2, seed: 14, cor: CAD_AZUL });
   FB_fogo(pg, 540, 1540, 1.05, B("brasas2"), B("brasas2") + 1.2, 15);

@@ -1,7 +1,7 @@
 {
   "canal": "luz-da-palavra",
-  "slug": "o-mesmo-fogo",
-  "titulo": "O mesmo fogo: Pedro e Jesus",
+  "slug": "dois-fogos",
+  "titulo": "Dois fogos: Pedro e Jesus",
   "descricao": "Acha que errou demais? Repara onde Jesus esperou Pedro.\nA negação de Pedro e o reencontro na praia depois da ressurreição (cf. João 18 e 21): por que Jesus perguntou três vezes \"tu me amas?\" O detalhe está no fogo.\nCompleta nos comentários: \"Senhor, tu sabes que eu…\"\nSalva pro dia em que você achar que errou demais e manda pra quem se afastou achando que não tem volta.",
   "hashtags": [
     "#biblia",
@@ -11,8 +11,8 @@
     "#luzdapalavra"
   ],
   "comentario_fixado": "Eu começo: \"Senhor, tu sabes que eu… ainda estou aprendendo a confiar.\" Agora completa a sua 👇",
-  "gancho": "DOIS FOGOS, OUTRO FIM",
-  "gancho_destaque": "OUTRO FIM",
+  "gancho": "ONDE JESUS TE ESPERA",
+  "gancho_destaque": "TE ESPERA",
   "voz": "Achird",
   "sons": {
     "fogo": [
@@ -110,6 +110,10 @@
     "voce": [
       "respiro",
       0.3
+    ],
+    "um": [
+      "respiro",
+      0.3
     ]
   },
   "cenas": [
@@ -117,10 +121,11 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Pedro negou Jesus junto a um fogo. Depois de ressuscitar, Jesus o esperou junto a outro. Se você acha que errou demais, repara no que ele perguntou ali.",
+      "fala": "Dois fogos. Em um, Pedro negou Jesus. No outro, Jesus ressuscitado o esperou. Se você acha que errou demais, olha o que liga esses dois fogos.",
       "batidas": {
-        "fogo.": "fogo",
-        "outro.": "outro",
+        "fogos.": "fogo",
+        "um,": "um",
+        "outro,": "outro",
         "demais,": "voce"
       }
     },
@@ -150,12 +155,12 @@
       "id": "praia",
       "tipo": "praia",
       "titulo": "",
-      "fala": "Dias depois, Jesus ressuscitado espera os discípulos na praia. Adivinha o que eles veem... Um fogo de brasas. No grego do Novo Testamento, essa palavra só aparece duas vezes: naquela noite, e nessa manhã.",
+      "fala": "Dias depois, Jesus ressuscitado espera os discípulos na praia, junto a um fogo de brasas. Adivinha quantas vezes essa palavra aparece no grego do Novo Testamento... Só duas: naquela noite, e nessa manhã.",
       "batidas": {
-        "praia.": "praia",
-        "Adivinha": "adivinha",
+        "praia,": "praia",
         "brasas.": "brasas2",
-        "duas": "duas"
+        "Adivinha": "adivinha",
+        "duas:": "duas"
       }
     },
     {
