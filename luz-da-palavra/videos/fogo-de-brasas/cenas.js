@@ -7,7 +7,7 @@
 // Áreas: texto entre x 140 e 940 (larg 800) e de y ≥ 320; rabiscos na metade de baixo, longe da faixa de botões (x > 950).
 cadTema((window.DADOS && DADOS.tema) || "noite");
 const FB_L = 800;
-const FB_ref = (pg, txt, t) => cadTexto(pg, txt, { x: 920, y: 400, esc: 0.07, fonte: "felix", cor: CAD_VERM, ts: t, te: t + 0.9, alinhar: "dir", seed: 77, livre: true });
+const FB_ref = (pg, txt, t) => cadTexto(pg, txt, { x: 920, y: 400, esc: 0.07, fonte: "serif", cor: CAD_VERM, ts: t, te: t + 0.9, alinhar: "dir", seed: 77, livre: true });
 function FB_fogo(pg, x, y, esc, ts, seed) { cadDesenho(pg, "fogueira", { x, y, esc, ts, te: ts + 0.9, seed }); cadFaiscas(pg, x, y - 40 * esc, ts + 0.6, 1e4, { n: Math.round(10 * esc), alt: 260 * esc }); }
 // vida no pé da tela: um calor de brasas e faíscas subindo devagar, em todas as cenas
 function FB_amb(pg, c) {
@@ -21,7 +21,7 @@ CENAS.abertura = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 41, y0: 820, passo: 122 }); cadZoom(pg, c); FB_amb(pg, c);
   // quadro 0: a fogueira da noite já se desenha e solta brasas enquanto a caneta escreve o gancho
   FB_fogo(pg, 300, 1560, 1.45, c.ini - 1.2, 1);  // já aceso no quadro 0
-  cadTitulo(pg, [{ txt: "ONDE JESUS", fonte: "felix", max: 0.19 }, { txt: "TE ESPERA", fonte: "felix", max: 0.27, cor: CAD_VERM }], 450, c.ini + 0.05, 1.7, { passo: 200, larg: 780 });
+  cadTitulo(pg, [{ txt: "ONDE JESUS", fonte: "serif", max: 0.17 }, { txt: "TE ESPERA", fonte: "serifb", max: 0.25, cor: CAD_VERM }], 450, c.ini + 0.05, 1.7, { passo: 200, larg: 780 });
   cadPalavras(pg, { y0: 820, larg: FB_L, esc: 0.1, yMax: 1320, destaque: ["fogos", "negou", "outro", "esperou", "errou", "liga"] });
   FB_fogo(pg, 780, 1560, 1.45, B("outro"), 2);
   cadDesenho(pg, "seta", { x: 540, y: 1480, esc: 0.7, ts: B("outro") + 0.5, te: B("outro") + 1.2, seed: 3, cor: CAD_VERM });
@@ -78,9 +78,9 @@ CENAS.detalhe = (el, c, B) => {
   cadPalavras(pg, { y0: 540, larg: FB_L, esc: 0.105, yMax: 1300, destaque: ["grego", "palavra", "Adivinha", "Duas", "noite", "manhã"] });
   FB_fogo(pg, 290, 1580, 1.1, B("grego"), 23);
   FB_fogo(pg, 790, 1580, 1.1, B("duas") - 0.2, 24);
-  cadTexto(pg, "2", { x: 540, y: 1600, esc: 0.2, fonte: "felix", cor: CAD_VERM, ts: B("duas"), te: B("duas") + 0.5, alinhar: "centro", seed: 25, w: 8, livre: true });
+  cadTexto(pg, "2", { x: 540, y: 1600, esc: 0.2, fonte: "serif", cor: CAD_VERM, ts: B("duas"), te: B("duas") + 0.5, alinhar: "centro", seed: 25, w: 8, livre: true });
   cadCirculo(pg, 546, 1532, 78, 96, B("duas") + 0.5, B("duas") + 1.1);
-  cadTexto(pg, "Jo 18:18 e 21:9", { x: 920, y: 400, esc: 0.07, fonte: "felix", cor: CAD_VERM, ts: B("manha"), te: B("manha") + 0.9, alinhar: "dir", seed: 26, livre: true });
+  cadTexto(pg, "Jo 18:18 e 21:9", { x: 920, y: 400, esc: 0.07, fonte: "serif", cor: CAD_VERM, ts: B("manha"), te: B("manha") + 0.9, alinhar: "dir", seed: 26, livre: true });
 };
 
 CENAS.aplicacao = (el, c, B) => {
@@ -91,9 +91,9 @@ CENAS.aplicacao = (el, c, B) => {
 };
 
 CENAS.fim = (el, c, B) => {
-  const pg = cadPagina(el, c, { seed: 48, y0: 540, passo: 124 }); cadZoom(pg, c, 1.02); FB_amb(pg, c);
-  cadPalavras(pg, { y0: 540, larg: FB_L, esc: 0.106, yMax: 1200, destaque: ["Salva", "errou", "segue", "Luz", "Palavra", "lembra"] });
+  const pg = cadPagina(el, c, { seed: 48, y0: 480, passo: 118 }); cadZoom(pg, c, 1.02); FB_amb(pg, c);
+  cadPalavras(pg, { y0: 480, larg: 880, esc: 0.098, yMax: 1250, destaque: ["Salva", "errou", "segue", "Luz", "Palavra", "lembra"] });
   const bx = [[250, 1270], [830, 1270], [830, 1440], [250, 1440], [250, 1270]];
   cadTracos(pg, { t: [bx], h: [{ poly: bx.slice(0, 4), cor: CAD_T.botao || "#e0577f", ang: 40, sp: 10 }] }, { x: 0, y: 0, ts: B("cta"), te: B("cta") + 0.8, cor: CAD_TINTA });
-  cadTexto(pg, "SEGUIR", { x: 540, y: 1392, esc: 0.15, fonte: "felix", cor: CAD_TINTA, ts: B("cta") + 0.6, te: B("cta") + 1.2, alinhar: "centro", seed: 30, w: 7, livre: true });
+  cadTexto(pg, "SEGUIR", { x: 540, y: 1392, esc: 0.15, fonte: "serif", cor: CAD_TINTA, ts: B("cta") + 0.6, te: B("cta") + 1.2, alinhar: "centro", seed: 30, w: 7, livre: true });
 };
