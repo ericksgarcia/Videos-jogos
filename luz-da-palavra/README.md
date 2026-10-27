@@ -222,4 +222,4 @@ depois: `marca.json` → `voz.pausas` = `{"ritmo": 0.88, "frase": 0.6, "pergunta
 "reticencias": 0.9}`. `ritmo` desacelera a fala sem mudar o tom (rubberband); as outras chaves garantem a pausa mínima
 depois de cada sinal, variando com o tamanho da frase (pausa igual em toda frase soa robótica). A narração crua fica no
 cache: mudar só as pausas não gasta cota. Um roteiro pode trocar com `"pausas": {...}`.
-Simulação de vozes: `scratchpad` → `simular.py` (narra um trecho em várias direções e pede notas ao gemini-3.8-flash).
+Simulação de vozes: `luz-da-palavra/ferramentas/simular_voz.py trecho.json variantes.json saida/` (direções em `identidade/direcoes_voz.json`; narra um trecho em cada variante e pede notas ao gemini-3.8-flash) e `julgar_voz.py a.wav b.wav` (3 notas por arquivo, média: uma nota só varia demais). Vencedora (out/2026): `D_pastor` + ritmo 0,88.

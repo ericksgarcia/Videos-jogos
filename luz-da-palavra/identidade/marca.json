@@ -1,261 +1,270 @@
 {
-  "nome": "Luz da Palavra",
-  "nome_tela": [
-    "LUZ",
-    "DA PALAVRA"
+ "nome": "Luz da Palavra",
+ "nome_tela": [
+  "LUZ",
+  "DA PALAVRA"
+ ],
+ "slogan": "Uma palavra de luz para o seu dia.",
+ "bio": "Versículos, histórias e reflexões da Bíblia em 1 minuto, com luz e calma. Uma palavra de luz para o seu dia. ✨",
+ "publico": "Cristão em geral, adulto. Tom de esperança, assombro e acolhimento; sem polêmica entre denominações, sem política, sem medo nem culpa.",
+ "cta_fala": "Segue o Luz da Palavra para receber uma palavra de luz todo dia.",
+ "cta_tela": {
+  "botao": "SEGUIR",
+  "pergunta": "Uma palavra de luz para o seu dia."
+ },
+ "abertura_sobretitulo": "LUZ DA PALAVRA",
+ "capitulo_prefixo": "",
+ "capitulos": "romanos",
+ "genero": "Religião",
+ "hashtags": [
+  "#luzdapalavra",
+  "#biblia",
+  "#fe",
+  "#palavradedeus",
+  "#versiculododia"
+ ],
+ "logo": "chama",
+ "voz": {
+  "provedor": "gemini",
+  "um_pedido": true,
+  "modelo": "gemini-3.8-flash-tts",
+  "nome": "Achird",
+  "direcao": "# AUDIO PROFILE: Pastor acolhedor conversando com uma pessoa depois do culto\n## THE SCENE: Igreja vazia, fim de noite, luz quente. Ele senta ao lado de alguém que está sofrendo e fala com carinho e convicção.\n### DIRECTOR'S NOTES\nStyle: caloroso, emotivo e convicto, com ternura de quem cuida; ênfase sincera nas palavras de esperança, como quem quer que a pessoa realmente acredite. Nunca gritando, nunca teatral, nunca vendedor.\nPace: calmo, cerca de 125 palavras por minuto, com pausas naturais entre as frases e um respiro antes das frases de consolo.\nAccent: português do Brasil.\n#### TRANSCRIPT\n",
+  "pausas": {
+   "ritmo": 0.88,
+   "frase": 0.6,
+   "pergunta": 0.85,
+   "dois_pontos": 0.35,
+   "reticencias": 0.9
+  },
+  "_teste_out2026": "5 direções x ritmo x pausas no trecho do vídeo O mesmo fogo; média de 3 notas do gemini-3.8-flash: pastor 0.88 = 51; híbrido 0.85 = 49; história 0.88 = 41; atual sem pausas ~145-166 ppm (rápido demais). Ver luz-da-palavra/ferramentas/."
+ },
+ "paleta": {
+  "fundo": "#070b1a",
+  "texto": "#fff6e6",
+  "ouro": "#e9b44c",
+  "luz": "#ffe3a3",
+  "ambar": "#f29e38",
+  "branco": "#fff6e6",
+  "azul": "#1d3b7a",
+  "vinho": "#7b1e3a",
+  "cinza": "#a9aec4",
+  "tinta": "#1a1206",
+  "botao": "#e9b44c",
+  "botao_texto": "#1a1206"
+ },
+ "fontes": {
+  "titulo": "Cinzel",
+  "verso": "Cormorant Garamond",
+  "legenda": "LuzSans",
+  "canvas": "LuzSans",
+  "arquivos": "identidade/fontes/ (Cinzel, Cormorant Garamond e Source Sans 3 como LuzSans; licença SIL OFL)"
+ },
+ "trilha": {
+  "estilo": "contemplativa",
+  "transicao": [
+   "respiro",
+   0.5
+  ]
+ },
+ "sons_modelo": {
+  "titulo": [
+   "sino",
+   0.45
   ],
-  "slogan": "Uma palavra de luz para o seu dia.",
-  "bio": "Versículos, histórias e reflexões da Bíblia em 1 minuto, com luz e calma. Uma palavra de luz para o seu dia. ✨",
-  "publico": "Cristão em geral, adulto. Tom de esperança, assombro e acolhimento; sem polêmica entre denominações, sem política, sem medo nem culpa.",
-  "cta_fala": "Segue o Luz da Palavra para receber uma palavra de luz todo dia.",
-  "cta_tela": {
-    "botao": "SEGUIR",
-    "pergunta": "Uma palavra de luz para o seu dia."
-  },
-  "abertura_sobretitulo": "LUZ DA PALAVRA",
-  "capitulo_prefixo": "",
-  "capitulos": "romanos",
-  "genero": "Religião",
-  "hashtags": [
-    "#luzdapalavra",
-    "#biblia",
-    "#fe",
-    "#palavradedeus",
-    "#versiculododia"
+  "cta": [
+   "brilho",
+   0.5
+  ]
+ },
+ "capa": {
+  "fonte": "\"Cinzel\", serif",
+  "peso": 700,
+  "cor": "#fff6e6",
+  "destaque": "#e9b44c",
+  "brilho": "rgba(240,180,70,0.8)",
+  "sombra": "5,7,16",
+  "altura": 1.08,
+  "espaco": "0.02em",
+  "caracteres": 11,
+  "tam": [
+   128,
+   108
+  ]
+ },
+ "traducao": {
+  "nome": "Almeida, Edição Revista e Corrigida (1911/1914)",
+  "situacao": "domínio público",
+  "fonte": "Project Gutenberg eBook #62383 — A Biblia Sagrada, Contendo o Velho e o Novo Testamento (João Ferreira de Almeida)",
+  "regra": "Citar só por ela; ortografia atualizada sem trocar palavras. Na dúvida, parafrasear e mostrar a referência."
+ },
+ "modelos": {
+  "versiculo": [
+   [
+    "abertura",
+    "abertura",
+    "",
+    "1ª frase forte + imagem mais bonita; laço aberto (o detalhe que você só vê no fim)"
+   ],
+   [
+    "versiculo",
+    "versiculo",
+    "",
+    "o versículo lido com calma, texto na tela + referência exata (Almeida 1911)"
+   ],
+   [
+    "sentido",
+    "sentido",
+    "",
+    "o que isso significa hoje, em 1–2 frases, com acolhimento; paga o laço aberto"
+   ],
+   [
+    "pergunta",
+    "pergunta",
+    "",
+    "pergunta de escolha fácil, falada e escrita, com seta para os comentários na direita"
+   ],
+   [
+    "fim",
+    "fim",
+    "",
+    "frase final que emenda no começo + Segue o Luz da Palavra para receber uma palavra de luz todo dia."
+   ]
   ],
-  "logo": "chama",
-  "voz": {
-    "provedor": "gemini", "um_pedido": true,
-    "modelo": "gemini-3.8-flash-tts",
-    "nome": "Achird",
-    "direcao": "# AUDIO PROFILE: Narrador de um canal cristão brasileiro de reflexões bíblicas para adultos\n## THE SCENE: Vídeo curto e contemplativo, à noite, com luz suave. O narrador lê e comenta a Bíblia para uma pessoa que precisa de esperança.\n### DIRECTOR'S NOTES\nStyle: voz adulta, calma, grave e acolhedora, com reverência e esperança; fala perto do microfone, como numa conversa íntima. Nunca tom de pregador gritando, nunca infantil, nunca teatral.\nPace: sereno, sem pressa, com pausas naturais depois de cada frase e um respiro antes das palavras importantes.\nAccent: português do Brasil.\n#### TRANSCRIPT\n"
-  },
-  "paleta": {
-    "fundo": "#070b1a",
-    "texto": "#fff6e6",
-    "ouro": "#e9b44c",
-    "luz": "#ffe3a3",
-    "ambar": "#f29e38",
-    "branco": "#fff6e6",
-    "azul": "#1d3b7a",
-    "vinho": "#7b1e3a",
-    "cinza": "#a9aec4",
-    "tinta": "#1a1206",
-    "botao": "#e9b44c",
-    "botao_texto": "#1a1206"
-  },
-  "fontes": {
-    "titulo": "Cinzel",
-    "verso": "Cormorant Garamond",
-    "legenda": "LuzSans",
-    "canvas": "LuzSans",
-    "arquivos": "identidade/fontes/ (Cinzel, Cormorant Garamond e Source Sans 3 como LuzSans; licença SIL OFL)"
-  },
-  "trilha": {
-    "estilo": "contemplativa",
-    "transicao": [
-      "respiro",
-      0.5
-    ]
-  },
-  "sons_modelo": {
-    "titulo": [
-      "sino",
-      0.45
-    ],
-    "cta": [
-      "brilho",
-      0.5
-    ]
-  },
-  "capa": {
-    "fonte": "\"Cinzel\", serif",
-    "peso": 700,
-    "cor": "#fff6e6",
-    "destaque": "#e9b44c",
-    "brilho": "rgba(240,180,70,0.8)",
-    "sombra": "5,7,16",
-    "altura": 1.08,
-    "espaco": "0.02em",
-    "caracteres": 11,
-    "tam": [
-      128,
-      108
-    ]
-  },
-  "traducao": {
-    "nome": "Almeida, Edição Revista e Corrigida (1911/1914)",
-    "situacao": "domínio público",
-    "fonte": "Project Gutenberg eBook #62383 — A Biblia Sagrada, Contendo o Velho e o Novo Testamento (João Ferreira de Almeida)",
-    "regra": "Citar só por ela; ortografia atualizada sem trocar palavras. Na dúvida, parafrasear e mostrar a referência."
-  },
-  "modelos": {
-    "versiculo": [
-      [
-        "abertura",
-        "abertura",
-        "",
-        "1ª frase forte + imagem mais bonita; laço aberto (o detalhe que você só vê no fim)"
-      ],
-      [
-        "versiculo",
-        "versiculo",
-        "",
-        "o versículo lido com calma, texto na tela + referência exata (Almeida 1911)"
-      ],
-      [
-        "sentido",
-        "sentido",
-        "",
-        "o que isso significa hoje, em 1–2 frases, com acolhimento; paga o laço aberto"
-      ],
-      [
-        "pergunta",
-        "pergunta",
-        "",
-        "pergunta de escolha fácil, falada e escrita, com seta para os comentários na direita"
-      ],
-      [
-        "fim",
-        "fim",
-        "",
-        "frase final que emenda no começo + Segue o Luz da Palavra para receber uma palavra de luz todo dia."
-      ]
-    ],
-    "historia": [
-      [
-        "abertura",
-        "abertura",
-        "",
-        "a cena mais forte da história na 1ª frase + laço aberto"
-      ],
-      [
-        "contexto",
-        "contexto",
-        "Onde tudo começa",
-        "quem, onde, quando (curto)"
-      ],
-      [
-        "conflito",
-        "conflito",
-        "O problema",
-        "o impasse; re-gancho"
-      ],
-      [
-        "virada",
-        "virada",
-        "A virada",
-        "o momento de Deus agir; versículo com referência"
-      ],
-      [
-        "sentido",
-        "sentido",
-        "Para você",
-        "o que a história diz hoje; paga o laço aberto"
-      ],
-      [
-        "pergunta",
-        "pergunta",
-        "",
-        "pergunta de escolha fácil para os comentários (seta à direita)"
-      ],
-      [
-        "fim",
-        "fim",
-        "",
-        "frase que emenda no começo + chamada"
-      ]
-    ],
-    "significado": [
-      [
-        "abertura",
-        "abertura",
-        "",
-        "a palavra/expressão e a pergunta 'o que significa?'"
-      ],
-      [
-        "origem",
-        "origem",
-        "A origem",
-        "de onde vem (língua original, contexto) sem polêmica"
-      ],
-      [
-        "texto",
-        "texto",
-        "Na Bíblia",
-        "versículo com referência"
-      ],
-      [
-        "hoje",
-        "hoje",
-        "Hoje",
-        "o que muda na vida da pessoa"
-      ],
-      [
-        "pergunta",
-        "pergunta",
-        "",
-        "pergunta de escolha fácil (seta à direita)"
-      ],
-      [
-        "fim",
-        "fim",
-        "",
-        "chamada"
-      ]
-    ],
-    "oracao": [
-      [
-        "abertura",
-        "abertura",
-        "",
-        "convite para respirar e parar"
-      ],
-      [
-        "respirar",
-        "respirar",
-        "Respire",
-        "respiração guiada, pausas longas"
-      ],
-      [
-        "palavra",
-        "palavra",
-        "A Palavra",
-        "versículo com referência, lido devagar"
-      ],
-      [
-        "meditar",
-        "meditar",
-        "Medite",
-        "reflexão em frases curtas"
-      ],
-      [
-        "oracao",
-        "oracao",
-        "Ore",
-        "oração simples e acolhedora"
-      ],
-      [
-        "fim",
-        "fim",
-        "",
-        "bênção curta + chamada"
-      ]
-    ]
-  },
-  "video": {
-    "largura": 1080,
-    "altura": 1920,
-    "fps": 30,
-    "duracao_minima_s": 20,
-    "tamanho_maximo_mb": 30,
-    "desfoque_movimento": true,
-    "tratamento_cor": {
-      "contraste": 1.04,
-      "saturacao": 1.02,
-      "vinheta": 0.3,
-      "aberracao_px": 0,
-      "grao": 5
-    }
+  "historia": [
+   [
+    "abertura",
+    "abertura",
+    "",
+    "a cena mais forte da história na 1ª frase + laço aberto"
+   ],
+   [
+    "contexto",
+    "contexto",
+    "Onde tudo começa",
+    "quem, onde, quando (curto)"
+   ],
+   [
+    "conflito",
+    "conflito",
+    "O problema",
+    "o impasse; re-gancho"
+   ],
+   [
+    "virada",
+    "virada",
+    "A virada",
+    "o momento de Deus agir; versículo com referência"
+   ],
+   [
+    "sentido",
+    "sentido",
+    "Para você",
+    "o que a história diz hoje; paga o laço aberto"
+   ],
+   [
+    "pergunta",
+    "pergunta",
+    "",
+    "pergunta de escolha fácil para os comentários (seta à direita)"
+   ],
+   [
+    "fim",
+    "fim",
+    "",
+    "frase que emenda no começo + chamada"
+   ]
+  ],
+  "significado": [
+   [
+    "abertura",
+    "abertura",
+    "",
+    "a palavra/expressão e a pergunta 'o que significa?'"
+   ],
+   [
+    "origem",
+    "origem",
+    "A origem",
+    "de onde vem (língua original, contexto) sem polêmica"
+   ],
+   [
+    "texto",
+    "texto",
+    "Na Bíblia",
+    "versículo com referência"
+   ],
+   [
+    "hoje",
+    "hoje",
+    "Hoje",
+    "o que muda na vida da pessoa"
+   ],
+   [
+    "pergunta",
+    "pergunta",
+    "",
+    "pergunta de escolha fácil (seta à direita)"
+   ],
+   [
+    "fim",
+    "fim",
+    "",
+    "chamada"
+   ]
+  ],
+  "oracao": [
+   [
+    "abertura",
+    "abertura",
+    "",
+    "convite para respirar e parar"
+   ],
+   [
+    "respirar",
+    "respirar",
+    "Respire",
+    "respiração guiada, pausas longas"
+   ],
+   [
+    "palavra",
+    "palavra",
+    "A Palavra",
+    "versículo com referência, lido devagar"
+   ],
+   [
+    "meditar",
+    "meditar",
+    "Medite",
+    "reflexão em frases curtas"
+   ],
+   [
+    "oracao",
+    "oracao",
+    "Ore",
+    "oração simples e acolhedora"
+   ],
+   [
+    "fim",
+    "fim",
+    "",
+    "bênção curta + chamada"
+   ]
+  ]
+ },
+ "video": {
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30,
+  "duracao_minima_s": 20,
+  "tamanho_maximo_mb": 30,
+  "desfoque_movimento": true,
+  "tratamento_cor": {
+   "contraste": 1.04,
+   "saturacao": 1.02,
+   "vinheta": 0.3,
+   "aberracao_px": 0,
+   "grao": 5
   }
+ }
 }

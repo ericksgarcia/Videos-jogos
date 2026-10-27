@@ -10,7 +10,7 @@
     "#segundachance",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "Eu começo: \"Senhor, tu sabes que eu te amo.\" E você, o que responderia? 👇",
+  "comentario_fixado": "Eu começo: Senhor, tu sabes que eu te amo (cf. João 21:17). E você, o que responderia? 👇",
   "gancho": "DOIS FOGOS, OUTRO FIM",
   "gancho_destaque": "OUTRO FIM",
   "voz": "Achird",
@@ -139,7 +139,7 @@
       "id": "noite",
       "tipo": "noite",
       "titulo": "",
-      "fala": "Na noite da prisão de Jesus, Pedro se esquentava num fogo de brasas. Guarda esse detalhe. Três vezes perguntaram se ele era discípulo. Três vezes ele negou. E o galo cantou.",
+      "fala": "Na noite da prisão de Jesus, Pedro se esquentava num fogo de brasas. Guarda esse detalhe. Três vezes perguntaram se ele andava com Jesus. Três vezes ele negou. E o galo cantou.",
       "batidas": {
         "brasas.": "brasas",
         "negou.": "negou",

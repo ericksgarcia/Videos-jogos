@@ -43,6 +43,7 @@ CENAS.praia = (el, c, B) => {
   FB_fogo(pg, 540, 1540, 1.05, B("brasas2"), B("brasas2") + 1.2, 15);
   cadDesenho(pg, "peixe", { x: 800, y: 1620, esc: 0.6, ts: B("brasas2") + 0.8, te: B("brasas2") + 1.6, seed: 16 });
   const m = w.mapa.duas && w.mapa.duas[0]; if (m) cadCirculo(pg, (m.x0 + m.x1) / 2, m.y - 26, (m.x1 - m.x0) / 2 + 24, 52, B("duas") + 0.3, B("duas") + 0.9);
+  cadTexto(pg, "Jo 18:18 e 21:9", { x: 930, y: 470, esc: 0.068, fonte: "felix", cor: CAD_VERM, ts: B("duas") + 0.9, te: B("duas") + 1.8, alinhar: "dir", seed: 78 });
 };
 
 CENAS.perguntas = (el, c, B) => {
