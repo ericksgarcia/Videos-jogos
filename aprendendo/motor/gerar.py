@@ -166,7 +166,7 @@ def mixar(ag, falas, saida, sons_roteiro=None, caderno=False):
                 for k, (_, wi, wf) in enumerate(b["palavras"]):
                     d = max(0.26, wf - wi)
                     x = _riscado(d, int(wi * 100) % 9973)
-                    _soma(efx, np.stack([x, x], axis=1), max(0, wi - 0.1), 0.55)
+                    _soma(efx, np.stack([x, x], axis=1), max(0, wi - 0.05), 0.2)
         for ev, t in c["batidas"].items():
             nome, g = (sons_roteiro or {}).get(ev, SOM_PADRAO)
             _soma(efx, sons.som(nome), t, g)

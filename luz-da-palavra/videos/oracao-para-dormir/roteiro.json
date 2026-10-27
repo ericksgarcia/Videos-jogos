@@ -1,0 +1,225 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "oracao-para-dormir",
+  "titulo": "Oração para acalmar a mente antes de dormir",
+  "descricao": "A frase mais calma da Bíblia foi escrita por um homem preso.\nOração para dormir em paz: o que a Bíblia ensina para quem não consegue desligar a mente à noite (cf. Filipenses 4:6–7). Os três passos de Paulo e o detalhe de uma palavra de soldado que muda o sentido de \"guardar\".\nQuando você deita, qual pensamento chega primeiro: o trabalho, o dinheiro ou uma pessoa? Escreve numa palavra aqui nos comentários.\nSalva pra fazer essa oração hoje à noite e manda pra quem anda sem dormir.",
+  "hashtags": [
+    "#oracao",
+    "#paz",
+    "#ansiedade",
+    "#biblia",
+    "#luzdapalavra"
+  ],
+  "comentario_fixado": "Qual pensamento chega primeiro quando você deita? Escreve numa palavra 👇",
+  "gancho": "PAZ ESCRITA NA PRISÃO",
+  "gancho_destaque": "PRISÃO",
+  "voz": "Achird",
+  "sons": {
+    "preso": [
+      "sino",
+      0.4
+    ],
+    "noite": [
+      "respiro",
+      0.3
+    ],
+    "cela": [
+      "thud",
+      0.3
+    ],
+    "deitado": [
+      "respiro",
+      0.3
+    ],
+    "fe": [
+      "sino",
+      0.4
+    ],
+    "curte": [
+      "plim",
+      0.45
+    ],
+    "comenta": [
+      "plim",
+      0.45
+    ],
+    "paulo": [
+      "respiro",
+      0.3
+    ],
+    "prisao": [
+      "thud",
+      0.3
+    ],
+    "alegria": [
+      "brilho",
+      0.4
+    ],
+    "um": [
+      "pop",
+      0.35
+    ],
+    "dois": [
+      "pop",
+      0.35
+    ],
+    "tres": [
+      "pop",
+      0.35
+    ],
+    "estranha": [
+      "brilho",
+      0.4
+    ],
+    "soldado": [
+      "thud",
+      0.35
+    ],
+    "sentinela": [
+      "brilho",
+      0.35
+    ],
+    "invadir": [
+      "thud",
+      0.3
+    ],
+    "sentido": [
+      "sino",
+      0.5
+    ],
+    "pergunta": [
+      "pop",
+      0.3
+    ],
+    "inspira": [
+      "respiro",
+      0.35
+    ],
+    "segura": [
+      "respiro",
+      0.25
+    ],
+    "solta": [
+      "respiro",
+      0.35
+    ],
+    "senhor": [
+      "sino",
+      0.4
+    ],
+    "amem": [
+      "sino",
+      0.55
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ],
+    "lembra": [
+      "respiro",
+      0.3
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "A frase mais calma da Bíblia, não fiquem inquietos por coisa alguma, foi escrita por um homem preso. Pensa na sua última noite sem dormir. Agora pensa nele, numa cela. Foi dele a receita pra uma mente que não desliga. E no fim eu te mostro uma oração pra fazer deitado.",
+      "batidas": {
+        "preso.": "preso",
+        "noite": "noite",
+        "cela.": "cela",
+        "deitado.": "deitado"
+      }
+    },
+    {
+      "id": "apoio",
+      "tipo": "apoio",
+      "titulo": "",
+      "fala": "Um minuto antes: se essa paz já te sustentou numa noite difícil, curte e comenta paz, pra ela chegar a quem não está dormindo agora. A oração vem no fim.",
+      "batidas": {
+        "sustentou": "fe",
+        "curte": "curte",
+        "comenta": "comenta"
+      }
+    },
+    {
+      "id": "preso",
+      "tipo": "preso",
+      "titulo": "",
+      "fala": "O nome dele era Paulo. Estava na prisão, sem saber se ia sair, e mesmo assim escreve aos filipenses uma carta cheia de alegria. Mas olha o que ele manda fazer com a ansiedade.",
+      "batidas": {
+        "Paulo.": "paulo",
+        "prisão,": "prisao",
+        "alegria.": "alegria"
+      }
+    },
+    {
+      "id": "receita",
+      "tipo": "receita",
+      "titulo": "",
+      "fala": "São três passos. Um: conta tudo pra Deus, com palavras simples. Dois: agradece, nem que seja por uma coisa só. Três: entrega. É o que Paulo escreve em Filipenses quatro, versículos seis e sete. E o que vem depois é a parte mais estranha.",
+      "batidas": {
+        "Um:": "um",
+        "Dois:": "dois",
+        "Três:": "tres",
+        "estranha.": "estranha"
+      }
+    },
+    {
+      "id": "soldado",
+      "tipo": "soldado",
+      "titulo": "",
+      "fala": "Ele promete uma paz que guarda. Só que guardar, ali, era palavra de soldado: sentinela na porta da cidade. A paz de Deus montando guarda no seu coração e nos seus pensamentos, justo na hora em que eles tentam invadir. E ele diz que essa paz nem precisa fazer sentido.",
+      "batidas": {
+        "soldado:": "soldado",
+        "sentinela": "sentinela",
+        "invadir.": "invadir",
+        "sentido.": "sentido"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Agora uma pergunta: quando você deita, qual pensamento chega primeiro, o trabalho, o dinheiro ou uma pessoa? Escreve aqui, numa palavra.",
+      "batidas": {
+        "Agora": "pergunta",
+        "Escreve": "comenta"
+      }
+    },
+    {
+      "id": "oracao",
+      "tipo": "oracao",
+      "titulo": "",
+      "fala": "Então vem, fica deitado e faz comigo. Inspira, devagar... Segura... E solta... Senhor, hoje eu entrego o que ficou pendente. O que eu não resolvi, o que eu não entendo, e quem eu amo. Obrigado por pelo menos uma coisa deste dia. Monta guarda no meu coração, e me deixa descansar. Amém.",
+      "batidas": {
+        "Inspira,": "inspira",
+        "Segura...": "segura",
+        "solta...": "solta",
+        "Senhor,": "senhor",
+        "Amém.": "amem"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva esse vídeo, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
+  ],
+  "video": {
+    "desfoque_movimento": false
+  },
+  "estilo": "caderno"
+}
