@@ -28,20 +28,22 @@
     "provedor": "gemini",
     "um_pedido": true,
     "modelo": "gemini-3.8-flash-tts",
-    "nome": "Achird",
-    "direcao": "AUDIO PROFILE: Pastor Daniel, a Brazilian pastor in his late forties. Warm, deep baritone with a soft husk; he has sat beside many people in their hardest nights and speaks like a shepherd, not a performer.\nTHE SCENE: Late night in a small, empty church in Brazil, lit by a single warm lamp. He sits beside one person who is hurting and talks to them close and quietly, with calm conviction, as if no one else were listening.\nDIRECTOR'S NOTES:\n- Style: reverent, intimate and tender, with sincere conviction on the words of hope; a gentle smile in the voice on hopeful lines; gravity, not sadness, on the painful lines. Never theatrical, never shouting, never a televangelist or salesman.\n- Pace: slow, measured and deliberate, like a sermon spoken one-to-one; every sentence is allowed to land; slows down further when quoting Scripture and takes a breath before a revelation.\n- Accent: Brazilian Portuguese, neutral São Paulo accent, clear diction. The whole transcript is in Brazilian Portuguese.",
+    "nome": "Gacrux",
+    "direcao": "AUDIO PROFILE: Pastor Daniel, a Brazilian pastor in his late forties, deep and warm baritone. For years he has studied the Bible the way a detective studies a case file: patient, attentive to every small detail, and never in a hurry.\nTHE SCENE: A quiet study late at night, one desk lamp on. He lays out the clues one by one for a single listener, close to the microphone, as if sharing a discovery that moved him.\nDIRECTOR'S NOTES:\n- Style: intimate, grave and curious; lowers his voice and slows down on the key detail of each clue; a real half-second of silence before every reveal; warmth rises and a gentle smile enters the voice on the lines of hope. Never theatrical, never shouting, never a televangelist.\n- Pace: slow, measured and deliberate, one idea at a time; sentences are allowed to land.\n- Accent: Brazilian Portuguese, neutral São Paulo accent, clear diction. The whole transcript is in Brazilian Portuguese.",
     "pausas": {
       "frase": 0.55,
       "pergunta": 0.8,
       "dois_pontos": 0.3,
-      "reticencias": 0.8,
-      "ritmo": 0.93
+      "reticencias": 0.8
     },
     "_teste_out2026": "5 direções x ritmo x pausas no trecho do vídeo O mesmo fogo; média de 3 notas do gemini-3.8-flash: pastor 0.88 = 51; híbrido 0.85 = 49; história 0.88 = 41; atual sem pausas ~145-166 ppm (rápido demais). Ver luz-da-palavra/ferramentas/.",
     "direcao_antiga": "# AUDIO PROFILE: Pastor acolhedor conversando com uma pessoa depois do culto\n## THE SCENE: Igreja vazia, fim de noite, luz quente. Ele senta ao lado de alguém que está sofrendo e fala com carinho e convicção.\n### DIRECTOR'S NOTES\nStyle: caloroso, emotivo e convicto, com ternura de quem cuida; ênfase sincera nas palavras de esperança, como quem quer que a pessoa realmente acredite. Nunca gritando, nunca teatral, nunca vendedor.\nPace: calmo, cerca de 125 palavras por minuto, com pausas naturais entre as frases e um respiro antes das frases de consolo.\nAccent: português do Brasil.\n#### TRANSCRIPT\n",
     "api": "interacoes",
     "alinhamento": "whisper",
-    "_api_out2026": "Gemini 3.8 TTS pela API Interactions: texto falado ao pé da letra; direção em speech_metadata.style; pausas no texto do campo tts das cenas com <short pause>/<long pause>. Tempo de cada palavra: faster-whisper (large-v3-turbo) no áudio inteiro."
+    "_api_out2026": "Gemini 3.8 TTS pela API Interactions: texto falado ao pé da letra; direção em speech_metadata.style; pausas no texto do campo tts das cenas com <short pause>/<long pause>. Tempo de cada palavra: faster-whisper (large-v3-turbo) no áudio inteiro.",
+    "direcao_pastor": "AUDIO PROFILE: Pastor Daniel, a Brazilian pastor in his late forties. Warm, deep baritone with a soft husk; he has sat beside many people in their hardest nights and speaks like a shepherd, not a performer.\nTHE SCENE: Late night in a small, empty church in Brazil, lit by a single warm lamp. He sits beside one person who is hurting and talks to them close and quietly, with calm conviction, as if no one else were listening.\nDIRECTOR'S NOTES:\n- Style: reverent, intimate and tender, with sincere conviction on the words of hope; a gentle smile in the voice on hopeful lines; gravity, not sadness, on the painful lines. Never theatrical, never shouting, never a televangelist or salesman.\n- Pace: slow, measured and deliberate, like a sermon spoken one-to-one; every sentence is allowed to land; slows down further when quoting Scripture and takes a breath before a revelation.\n- Accent: Brazilian Portuguese, neutral São Paulo accent, clear diction. The whole transcript is in Brazilian Portuguese.",
+    "nome_pastor": "Achird",
+    "_voz_out2026": "Caso aberto: pastor investigador. 5 vozes graves medidas com a mesma direção (ritmo, entonação, clareza e acerto pelo whisper): Gacrux = 100% das palavras, ~101 pal/min com pausas, entonação 5,2 st. Sem desaceleração artificial (ritmo removido: a direção nova já fala devagar)."
   },
   "paleta": {
     "fundo": "#070b1a",
@@ -69,7 +71,8 @@
     "transicao": [
       "respiro",
       0.5
-    ]
+    ],
+    "escrita": 0.06
   },
   "sons_modelo": {
     "titulo": [

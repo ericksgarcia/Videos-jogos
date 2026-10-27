@@ -1,0 +1,135 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "caso-fluxo-de-sangue",
+  "titulo": "Caso aberto: a mulher que já estava curada",
+  "descricao": "Ela já estava curada. Por que Jesus parou a multidão inteira?\nCaso aberto sobre a mulher do fluxo de sangue (cf. Marcos 5:21–43), em quatro pistas: doze anos de espera, a cura na hora, a pergunta que os discípulos acharam absurda e a palavra que Jesus disse a ela. E o detalhe dos doze anos da menina de Jairo.\nQual você mais precisava ouvir hoje: A, Filha, ou B, Não temas? Responde só a letra nos comentários.\nSalva pra quando você se sentir invisível e manda pra quem anda cansado de esperar.",
+  "hashtags": [
+    "#biblia",
+    "#jesus",
+    "#marcos5",
+    "#fe",
+    "#luzdapalavra"
+  ],
+  "comentario_fixado": "Escreve a letra e, se quiser, uma frase do porquê.",
+  "gancho": "CASO ABERTO: 4 PISTAS",
+  "gancho_destaque": "4 PISTAS",
+  "voz": "Gacrux",
+  "sons": {},
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Ela já estava curada. E mesmo assim, Jesus parou a multidão inteira. Quatro pistas. A resposta cabe numa palavra.",
+      "batidas": {
+        "curada.": "curada",
+        "inteira.": "parou",
+        "pistas.": "pistas",
+        "palavra.": "ve"
+      }
+    },
+    {
+      "id": "apoio",
+      "tipo": "apoio",
+      "titulo": "",
+      "fala": "Deus enxerga quem a multidão não vê. Curte e deixa seu amém, pra chegar a quem se sente invisível.",
+      "batidas": {
+        "enxerga": "fe",
+        "Curte": "curte",
+        "amém,": "comenta"
+      }
+    },
+    {
+      "id": "pista1",
+      "tipo": "pista1",
+      "titulo": "",
+      "fala": "Pista um: doze anos. Ela sangrava há doze anos, gastou tudo com médicos e só piorou. Aí ouve falar de Jesus e pensa: se eu tocar só na roupa dele, eu sararei.",
+      "batidas": {
+        "um:": "um",
+        "anos.": "anos",
+        "piorou.": "piorou",
+        "sararei.": "sararei"
+      }
+    },
+    {
+      "id": "pista2",
+      "tipo": "pista2",
+      "titulo": "",
+      "fala": "Pista dois: ela toca, e o sangramento seca na hora. Ela sente no corpo: está curada. Podia sumir na multidão. Pensa rápido: o que Jesus faz?",
+      "batidas": {
+        "dois:": "dois",
+        "hora.": "hora",
+        "curada.": "curada2",
+        "multidão.": "sumir",
+        "faz?": "pergunta2"
+      }
+    },
+    {
+      "id": "pista3",
+      "tipo": "pista3",
+      "titulo": "",
+      "fala": "Pista três: ele para. Quem tocou nas minhas roupas? Os discípulos acham absurdo, com tanta gente apertando. Mas ele olha em volta. E Jairo, que pediu ajuda pra filha nas últimas, está esperando.",
+      "batidas": {
+        "três:": "tres",
+        "para.": "para",
+        "roupas?": "quem",
+        "absurdo,": "absurdo",
+        "volta.": "volta",
+        "esperando.": "esperando"
+      }
+    },
+    {
+      "id": "pista4",
+      "tipo": "pista4",
+      "titulo": "",
+      "fala": "Pista quatro. Ela vem tremendo e conta toda a verdade. No texto, nenhuma bronca. A primeira palavra dele é: Filha. E repara: a menina de Jairo, que ele levantou, também tinha doze anos.",
+      "batidas": {
+        "quatro.": "quatro",
+        "verdade.": "verdade",
+        "bronca.": "bronca",
+        "Filha.": "filha",
+        "anos.": "ultimo"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Qual você mais precisava ouvir hoje: A, Filha, ou B, Não temas? Responde só a letra, nos comentários, aqui na direita.",
+      "batidas": {
+        "Qual": "pergunta",
+        "Responde": "comenta",
+        "direita.": "depois"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva pra quando você se sentir invisível, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
+  ],
+  "estilo": "caderno",
+  "tema": "noite",
+  "video": {
+    "desfoque_movimento": false,
+    "tratamento_cor": {
+      "contraste": 1.03,
+      "saturacao": 1.05,
+      "vinheta": 0.08,
+      "aberracao_px": 0,
+      "grao": 3
+    }
+  },
+  "capa": {
+    "t": 3.0,
+    "texto": "ELA JÁ ESTAVA CURADA",
+    "destaque": "CURADA",
+    "y": 1180
+  }
+}
