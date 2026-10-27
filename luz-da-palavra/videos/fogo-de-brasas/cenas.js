@@ -20,7 +20,7 @@ function FB_amb(pg, c) {
 CENAS.abertura = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 41, y0: 820, passo: 122 }); cadZoom(pg, c); FB_amb(pg, c);
   // quadro 0: a fogueira da noite já se desenha e solta brasas enquanto a caneta escreve o gancho
-  FB_fogo(pg, 300, 1560, 1.45, c.ini, 1);
+  FB_fogo(pg, 300, 1560, 1.45, c.ini - 1.2, 1);  // já aceso no quadro 0
   cadTitulo(pg, [{ txt: "ONDE JESUS", fonte: "felix", max: 0.19 }, { txt: "TE ESPERA", fonte: "felix", max: 0.27, cor: CAD_VERM }], 450, c.ini + 0.05, 1.7, { passo: 200, larg: 780 });
   cadPalavras(pg, { y0: 820, larg: FB_L, esc: 0.1, yMax: 1320, destaque: ["fogos", "negou", "outro", "esperou", "errou", "liga"] });
   FB_fogo(pg, 780, 1560, 1.45, B("outro"), 2);

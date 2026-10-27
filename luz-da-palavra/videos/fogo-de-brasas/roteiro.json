@@ -240,8 +240,21 @@
     }
   ],
   "video": {
-    "desfoque_movimento": false
+    "desfoque_movimento": false,
+    "tratamento_cor": {
+      "contraste": 1.03,
+      "saturacao": 1.05,
+      "vinheta": 0.08,
+      "aberracao_px": 0,
+      "grao": 3
+    }
   },
   "estilo": "caderno",
-  "tema": "noite"
+  "tema": "noite",
+  "capa": {
+    "t": 5.7,
+    "texto": "DOIS FOGOS",
+    "destaque": "FOGOS",
+    "y": 1290
+  }
 }

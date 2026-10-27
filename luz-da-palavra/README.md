@@ -223,3 +223,20 @@ depois: `marca.json` → `voz.pausas` = `{"ritmo": 0.88, "frase": 0.6, "pergunta
 depois de cada sinal, variando com o tamanho da frase (pausa igual em toda frase soa robótica). A narração crua fica no
 cache: mudar só as pausas não gasta cota. Um roteiro pode trocar com `"pausas": {...}`.
 Simulação de vozes: `luz-da-palavra/ferramentas/simular_voz.py trecho.json variantes.json saida/` (direções em `identidade/direcoes_voz.json`; narra um trecho em cada variante e pede notas ao gemini-3.8-flash) e `julgar_voz.py a.wav b.wav` (3 notas por arquivo, média: uma nota só varia demais). Vencedora (out/2026): `D_pastor` + ritmo 0,88.
+
+## Estilo padrão (out/2026): CADERNO no tema "noite"
+
+Testado contra caderno, pergaminho e Bíblia anotada (`output/luz-da-palavra/fogo-de-brasas/estilos/`): o analista visual deu
+clima 9 e coerência 9 ao **noite** (escrita de luz dourada sobre azul-noite, a "caneta" é um ponto de luz que não cobre as
+letras). Pergaminho: pena some no bege e as manchas parecem mofo. Bíblia: as linhas impressas competem com a escrita.
+Caderno: cara de escola.
+- No roteiro: `"estilo": "caderno", "tema": "noite"` e, para não escurecer os cantos,
+  `"video": {"desfoque_movimento": false, "tratamento_cor": {"contraste": 1.03, "saturacao": 1.05, "vinheta": 0.08, "aberracao_px": 0, "grao": 3}}`.
+- Destaques na fonte normal (felix) em dourado e maiores (a "elfin" faz o "s" parecer "ſ": "brasas" lia "brafaf").
+- Texto entre x 140 e 940 (`larg: 800`) e de y ≥ 320; rabiscos na metade de baixo; entrelinha ~124 (`passo`).
+- Páginas viram só no fim de uma frase e nunca com 1 linha sozinha (automático). Anotação ligada a uma palavra
+  (`cadCirculo`/`cadSublinhado` com `{ com: m }`) some junto com a página.
+- Uma caneta só para as palavras; rabiscos e textos com `livre: true` aparecem sozinhos (pedido do dono).
+- A escrita aproveita as pausas da fala e, se atrasar, acelera até alcançar (não arrasta atraso até o fim).
+- Quadro 0: o desenho principal já aceso (comece o rabisco antes de `c.ini`) enquanto a caneta escreve o gancho.
+- Exemplo completo: `videos/fogo-de-brasas/` ("Dois fogos: Pedro e Jesus").
