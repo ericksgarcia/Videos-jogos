@@ -1,0 +1,218 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "setenta-anos",
+  "titulo": "O versículo escrito pra quem ia esperar 70 anos",
+  "descricao": "Um dos versículos mais postados do mundo foi escrito pra quem ia esperar setenta anos.\nJeremias 29:11 no contexto (cf. Jeremias 29:1–14): uma carta aos judeus levados presos pra Babilônia, a ordem de construir casas e plantar hortas, e o que Deus promete logo depois do versículo famoso. Pra quem está esperando uma resposta.\nSua espera hoje é por trabalho, saúde, família ou resposta? Escreve aqui nos comentários.\nSalva pra quando a espera pesar e manda pra quem está esperando.",
+  "hashtags": [
+    "#biblia",
+    "#esperanca",
+    "#versiculododia",
+    "#jeremias",
+    "#luzdapalavra"
+  ],
+  "comentario_fixado": "Eu escolho resposta. E você? Trabalho, saúde, família ou resposta? 👇",
+  "gancho": "70 ANOS DE ESPERA",
+  "gancho_destaque": "70 ANOS",
+  "voz": "Achird",
+  "sons": {
+    "anos": [
+      "respiro",
+      0.3
+    ],
+    "voce": [
+      "respiro",
+      0.3
+    ],
+    "escondeu": [
+      "respiro",
+      0.3
+    ],
+    "babilonia": [
+      "respiro",
+      0.3
+    ],
+    "logo": [
+      "respiro",
+      0.3
+    ],
+    "noticia": [
+      "respiro",
+      0.3
+    ],
+    "setenta": [
+      "respiro",
+      0.3
+    ],
+    "vida": [
+      "respiro",
+      0.3
+    ],
+    "vivam": [
+      "respiro",
+      0.3
+    ],
+    "famosa": [
+      "respiro",
+      0.3
+    ],
+    "planos": [
+      "sino",
+      0.4
+    ],
+    "paz": [
+      "sino",
+      0.5
+    ],
+    "espera": [
+      "respiro",
+      0.3
+    ],
+    "pergunta": [
+      "respiro",
+      0.3
+    ],
+    "depois": [
+      "respiro",
+      0.3
+    ],
+    "ele": [
+      "respiro",
+      0.3
+    ],
+    "ouvir": [
+      "respiro",
+      0.3
+    ],
+    "acompanha": [
+      "respiro",
+      0.3
+    ],
+    "lembra": [
+      "respiro",
+      0.3
+    ],
+    "fe": [
+      "sino",
+      0.35
+    ],
+    "curte": [
+      "plim",
+      0.4
+    ],
+    "comenta": [
+      "plim",
+      0.4
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Um dos versículos mais postados do mundo foi escrito pra quem ia esperar setenta anos. Se você está esperando uma resposta, olha o que ele escondeu.",
+      "batidas": {
+        "anos.": "anos",
+        "esperando": "voce",
+        "escondeu.": "escondeu"
+      }
+    },
+    {
+      "id": "apoio",
+      "tipo": "apoio",
+      "titulo": "",
+      "fala": "Se essa espera também é sua, curte e comenta aguardo, pra quem espera se sentir menos sozinho. Primeiro, a carta.",
+      "batidas": {
+        "sua,": "fe",
+        "curte": "curte",
+        "comenta": "comenta"
+      }
+    },
+    {
+      "id": "carta",
+      "tipo": "carta",
+      "titulo": "",
+      "fala": "Jeremias escreve aos judeus levados presos pra Babilônia. Eles esperavam voltar logo. Até profetas diziam que seria rápido. Mas a carta traz outra notícia.",
+      "batidas": {
+        "Babilônia.": "babilonia",
+        "logo.": "logo",
+        "notícia.": "noticia"
+      }
+    },
+    {
+      "id": "setenta",
+      "tipo": "setenta",
+      "titulo": "",
+      "fala": "Setenta anos. Uma vida inteira. E antes disso, uma ordem inesperada: construam casas, plantem hortas, vivam. Não é pra ficar parado esperando. E só depois vem a frase famosa.",
+      "batidas": {
+        "Setenta": "setenta",
+        "inteira.": "vida",
+        "vivam.": "vivam",
+        "famosa.": "famosa"
+      }
+    },
+    {
+      "id": "versiculo",
+      "tipo": "versiculo",
+      "titulo": "",
+      "fala": "Eu sei os planos que tenho pra vocês, planos de paz e não de mal, pra dar a vocês um futuro e uma esperança. Escrito pra quem estava no meio da espera, não no fim dela.",
+      "batidas": {
+        "planos": "planos",
+        "paz": "paz",
+        "espera,": "espera"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Sua espera hoje é por trabalho, saúde, família ou resposta? Escolhe uma e escreve aqui do lado. E já já eu mostro o que vem logo depois.",
+      "batidas": {
+        "Sua": "pergunta",
+        "Escolhe": "comenta",
+        "depois.": "depois"
+      }
+    },
+    {
+      "id": "detalhe",
+      "tipo": "detalhe",
+      "titulo": "",
+      "fala": "Logo depois, ele diz: vocês vão me chamar, e eu vou ouvir. A promessa não encurta a espera. Ela te acompanha nela.",
+      "batidas": {
+        "ele": "ele",
+        "ouvir.": "ouvir",
+        "acompanha": "acompanha"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva esse vídeo pra quando a espera pesar, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
+  ],
+  "estilo": "caderno",
+  "tema": "noite",
+  "video": {
+    "desfoque_movimento": false,
+    "tratamento_cor": {
+      "contraste": 1.03,
+      "saturacao": 1.05,
+      "vinheta": 0.08,
+      "aberracao_px": 0,
+      "grao": 3
+    }
+  }
+}
