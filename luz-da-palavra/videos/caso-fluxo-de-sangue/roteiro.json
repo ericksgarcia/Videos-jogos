@@ -2,105 +2,242 @@
   "canal": "luz-da-palavra",
   "slug": "caso-fluxo-de-sangue",
   "titulo": "Caso aberto: a mulher que já estava curada",
-  "descricao": "Ela já estava curada. Por que Jesus parou a multidão inteira?\nCaso aberto sobre a mulher do fluxo de sangue (cf. Marcos 5:21–43), em quatro pistas: doze anos de espera, a cura na hora, a pergunta que os discípulos acharam absurda e a palavra que Jesus disse a ela. E o detalhe dos doze anos da menina de Jairo.\nQual você mais precisava ouvir hoje: A, Filha, ou B, Não temas? Responde só a letra nos comentários.\nSalva pra quando você se sentir invisível e manda pra quem anda cansado de esperar.",
+  "descricao": "Doze anos de espera e uma palavra: Filha.\nA mulher do fluxo de sangue (Marcos 5:21–43) em quatro pistas: doze anos de espera, a cura na hora, a pergunta que os discípulos estranharam e a palavra que Jesus disse a ela. E os doze anos da menina de Jairo.\nQual palavra de Jesus você mais precisava ouvir hoje: A, Filha, ou B, Não temas? Responde só a letra nos comentários.\nSalva pra quando você se sentir invisível e manda pra quem anda cansado de esperar.\nLeitura de um texto bíblico; não substitui acompanhamento médico. Se você está sofrendo, procure ajuda.",
   "hashtags": [
     "#biblia",
-    "#jesus",
-    "#marcos5",
     "#fe",
+    "#marcos5",
+    "#mulherdofluxodesangue",
+    "#jesus",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "Escreve a letra e, se quiser, uma frase do porquê.",
-  "gancho": "CASO ABERTO: 4 PISTAS",
-  "gancho_destaque": "4 PISTAS",
+  "comentario_fixado": "Doze anos dela esperando, doze anos da menina de Jairo vivendo. Qual dos dois 'doze' mexeu mais com você?",
+  "gancho": "POR QUE PAROU?",
+  "gancho_destaque": "PAROU",
   "voz": "Gacrux",
-  "sons": {},
+  "sons": {
+    "curada": [
+      "respiro",
+      0.2
+    ],
+    "ultimas": [
+      "respiro",
+      0.2
+    ],
+    "quem0": [
+      "respiro",
+      0.2
+    ],
+    "pistas": [
+      "respiro",
+      0.2
+    ],
+    "ve": [
+      "respiro",
+      0.2
+    ],
+    "um": [
+      "respiro",
+      0.2
+    ],
+    "anos": [
+      "respiro",
+      0.2
+    ],
+    "piorou": [
+      "respiro",
+      0.2
+    ],
+    "dois": [
+      "respiro",
+      0.2
+    ],
+    "hora": [
+      "respiro",
+      0.2
+    ],
+    "curada2": [
+      "respiro",
+      0.2
+    ],
+    "pergunta2": [
+      "respiro",
+      0.2
+    ],
+    "tres": [
+      "respiro",
+      0.2
+    ],
+    "quem": [
+      "respiro",
+      0.2
+    ],
+    "absurdo": [
+      "respiro",
+      0.2
+    ],
+    "esperando": [
+      "respiro",
+      0.2
+    ],
+    "quatro": [
+      "respiro",
+      0.2
+    ],
+    "verdade": [
+      "respiro",
+      0.2
+    ],
+    "bronca": [
+      "respiro",
+      0.2
+    ],
+    "ultimo": [
+      "respiro",
+      0.2
+    ],
+    "pergunta": [
+      "respiro",
+      0.2
+    ],
+    "depois": [
+      "respiro",
+      0.2
+    ],
+    "depois0": [
+      "respiro",
+      0.2
+    ],
+    "lembra": [
+      "respiro",
+      0.2
+    ],
+    "fe": [
+      "sino",
+      0.3
+    ],
+    "curte": [
+      "plim",
+      0.3
+    ],
+    "comenta": [
+      "plim",
+      0.3
+    ],
+    "sararei": [
+      "sino",
+      0.3
+    ],
+    "filha": [
+      "sino",
+      0.45
+    ],
+    "temas": [
+      "sino",
+      0.35
+    ],
+    "salva": [
+      "pop",
+      0.3
+    ],
+    "cta": [
+      "brilho",
+      0.35
+    ]
+  },
   "cenas": [
     {
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Ela já estava curada. E mesmo assim, Jesus parou a multidão inteira. Quatro pistas. A resposta cabe numa palavra.",
+      "fala": "Ela já estava curada. E mesmo assim, Jesus se voltou. Uma menina nas últimas esperava. Quatro pistas, e uma palavra que muda a cena.",
       "batidas": {
         "curada.": "curada",
-        "inteira.": "parou",
-        "pistas.": "pistas",
-        "palavra.": "ve"
-      }
+        "voltou.": "quem0",
+        "esperava.": "ultimas",
+        "pistas,": "pistas",
+        "cena.": "ve"
+      },
+      "tts": "Ela já estava curada. <short pause> E mesmo assim, Jesus se voltou. <short pause> Uma menina nas últimas esperava. <short pause> Quatro pistas, <short pause> e uma palavra que muda a cena."
     },
     {
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Deus enxerga quem a multidão não vê. Curte e deixa seu amém, pra chegar a quem se sente invisível.",
+      "fala": "Naquela multidão, ele procurou uma pessoa. Curte e deixa seu amém. Agora, o caso.",
       "batidas": {
-        "enxerga": "fe",
+        "procurou": "fe",
         "Curte": "curte",
-        "amém,": "comenta"
-      }
+        "amém.": "comenta",
+        "caso.": "depois0"
+      },
+      "tts": "Naquela multidão, ele procurou uma pessoa. Curte e deixa seu amém. Agora, o caso."
     },
     {
       "id": "pista1",
       "tipo": "pista1",
       "titulo": "",
-      "fala": "Pista um: doze anos. Ela sangrava há doze anos, gastou tudo com médicos e só piorou. Aí ouve falar de Jesus e pensa: se eu tocar só na roupa dele, eu sararei.",
+      "fala": "Pista um: doze anos. Ela sangrava há doze anos, gastou tudo com médicos e só piorou. Mas diz a si mesma: se eu tocar só na roupa dele, eu sararei.",
       "batidas": {
         "um:": "um",
         "anos.": "anos",
         "piorou.": "piorou",
         "sararei.": "sararei"
-      }
+      },
+      "tts": "Pista um: doze anos. <short pause> Ela sangrava há doze anos, gastou tudo com médicos e só piorou. <short pause> Mas diz a si mesma: <short pause> se eu tocar só na roupa dele, eu sararei."
     },
     {
       "id": "pista2",
       "tipo": "pista2",
       "titulo": "",
-      "fala": "Pista dois: ela toca, e o sangramento seca na hora. Ela sente no corpo: está curada. Podia sumir na multidão. Pensa rápido: o que Jesus faz?",
+      "fala": "Pista dois: ela toca, e o sangramento seca na hora. Ela sente no corpo: está curada. Pensa rápido: o que Jesus faz?",
       "batidas": {
         "dois:": "dois",
         "hora.": "hora",
         "curada.": "curada2",
-        "multidão.": "sumir",
         "faz?": "pergunta2"
-      }
+      },
+      "tts": "Pista dois: <short pause> ela toca, e o sangramento seca na hora. <short pause> Ela sente no corpo: está curada. <short pause> Pensa rápido: o que Jesus faz? <long pause>"
     },
     {
       "id": "pista3",
       "tipo": "pista3",
       "titulo": "",
-      "fala": "Pista três: ele para. Quem tocou nas minhas roupas? Os discípulos acham absurdo, com tanta gente apertando. Mas ele olha em volta. E Jairo, que pediu ajuda pra filha nas últimas, está esperando.",
+      "fala": "Pista três: ele se volta. Quem tocou nas minhas roupas? Os discípulos estranham. Mas ele olha em volta. E Jairo, que pediu ajuda pra filha nas últimas, está ali.",
       "batidas": {
         "três:": "tres",
-        "para.": "para",
         "roupas?": "quem",
-        "absurdo,": "absurdo",
-        "volta.": "volta",
-        "esperando.": "esperando"
-      }
+        "estranham.": "absurdo",
+        "ali.": "esperando"
+      },
+      "tts": "Pista três: ele se volta. <short pause> Quem tocou nas minhas roupas? Os discípulos estranham. <short pause> Mas ele olha em volta. <short pause> E Jairo, que pediu ajuda pra filha nas últimas, <short pause> está ali."
     },
     {
       "id": "pista4",
       "tipo": "pista4",
       "titulo": "",
-      "fala": "Pista quatro. Ela vem tremendo e conta toda a verdade. No texto, nenhuma bronca. A primeira palavra dele é: Filha. E repara: a menina de Jairo, que ele levantou, também tinha doze anos.",
+      "fala": "Pista quatro. Ela vem tremendo e conta tudo. No texto, ele não a repreende. A primeira palavra dele pra ela é: Filha. A Jairo, quando avisam que é tarde: Não temas. E a menina, que ele levantou, também tinha doze anos.",
       "batidas": {
         "quatro.": "quatro",
-        "verdade.": "verdade",
-        "bronca.": "bronca",
+        "tudo.": "verdade",
+        "repreende.": "bronca",
         "Filha.": "filha",
+        "temas.": "temas",
         "anos.": "ultimo"
-      }
+      },
+      "tts": "Pista quatro. <short pause> Ela vem tremendo e conta tudo. <short pause> No texto, ele não a repreende. <short pause> A primeira palavra dele pra ela é: <long pause> Filha. <short pause> A Jairo, quando avisam que é tarde: <short pause> Não temas. <short pause> E a menina, que ele levantou, também tinha doze anos."
     },
     {
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Qual você mais precisava ouvir hoje: A, Filha, ou B, Não temas? Responde só a letra, nos comentários, aqui na direita.",
+      "fala": "Qual palavra você mais precisava ouvir hoje: A, Filha, ou B, Não temas? Responde só a letra, nos comentários, aqui na direita.",
       "batidas": {
         "Qual": "pergunta",
         "Responde": "comenta",
         "direita.": "depois"
-      }
+      },
+      "tts": "Qual palavra você mais precisava ouvir hoje: A, Filha, ou B, Não temas? Responde só a letra, nos comentários, aqui na direita."
     },
     {
       "id": "fim",
@@ -111,7 +248,8 @@
         "Salva": "salva",
         "segue": "cta",
         "lembra:": "lembra"
-      }
+      },
+      "tts": "Salva pra quando você se sentir invisível, segue o Luz da Palavra, e lembra:"
     }
   ],
   "estilo": "caderno",
@@ -128,8 +266,8 @@
   },
   "capa": {
     "t": 3.0,
-    "texto": "ELA JÁ ESTAVA CURADA",
-    "destaque": "CURADA",
+    "texto": "12 ANOS. UM TOQUE.",
+    "destaque": "12 ANOS",
     "y": 1180
   }
 }

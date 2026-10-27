@@ -238,6 +238,18 @@ ajuste fino é feito depois: `marca.json` → `voz.pausas` = `{"ritmo": 0.93, "f
 reouvido depois); as outras chaves garantem a pausa mínima depois de cada sinal, variando com o tamanho da frase. A
 narração crua fica no cache: mudar só as pausas não gasta requisição. Um roteiro pode trocar com `"pausas": {...}`.
 A direção antiga (texto + direção juntos, API generateContent) ficou em `voz.direcao_antiga`.
+
+**Voz do estilo "Caso aberto" (out/2026): Gacrux + "pastor investigador".** Foram geradas 5 vozes graves (Achird, Gacrux, Charon,
+Sadaltager, Algieba) com a mesma direção e o mesmo trecho, e medidas no áudio (não por ouvido: o Gemini não avalia voz):
+ritmo (palavras/min), altura e variação de entonação (librosa), clareza e acerto das palavras (faster-whisper). Gacrux: 100% das
+palavras, ~101 pal/min com pausas, entonação 5,2 semitons; escolhida pela fala lenta, grave e clara. A direção (em `marca.json`)
+pede voz baixa e lenta no detalhe de cada pista, meio segundo de silêncio antes de cada revelação e sorriso na voz nas linhas de
+esperança. Com ela o ritmo já sai ~117 pal/min no total, então **não há mais desaceleração artificial** (`voz.pausas.ritmo`
+removido). A direção anterior (Achird, pastor acolhedor) ficou em `voz.direcao_pastor` / `voz.nome_pastor`. Para trocar de voz: um vídeo
+pode usar `"voz": "<nome>"` no roteiro; o canal todo muda em `marca.json` → `voz.nome`.
+
+**Volume do riscado da escrita:** `marca.json` → `trilha.escrita` (ganho do som de caneta por palavra; padrão 0,2, no Luz da Palavra
+0,06 = −10,5 dB). Sons de batida (`sons` do roteiro) ficam em ganhos 0,2–0,45.
 As ferramentas `ferramentas/simular_voz.py` e `julgar_voz.py` (out/2026) pediam notas ao gemini-3.8-flash: **não use mais**
 (regra do dono: o Gemini é só a requisição da narração). A voz é avaliada pelo dono.
 
