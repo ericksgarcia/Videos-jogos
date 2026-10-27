@@ -23,7 +23,7 @@ Nunca prepare o próximo vídeo enquanto o atual renderiza: termina, entrega, e 
       menino; sobram 12 cestos.
 - [x] 8. **Jesus acalma a tempestade** (Marcos 4:35–41) — história. Barco e ondas de pontos; a
       pergunta que ele faz no fim.
-- [ ] 9. **O que significa "Emanuel"?** (Mateus 1:23) — significado ("Deus conosco"); bom perto do Natal.
+- [x] 9. **O que significa "Emanuel"?** (Mateus 1:23) — significado ("Deus conosco"); bom perto do Natal.
 - [ ] 10. **Oração para acalmar a mente antes de dormir** (Filipenses 4:6–7) — oração/meditação
       3–5 min; respiração guiada com pontos. Paz, sem promessa de cura.
 
