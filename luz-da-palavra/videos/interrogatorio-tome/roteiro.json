@@ -173,12 +173,12 @@
       "id": "parte1",
       "tipo": "parte1",
       "titulo": "",
-      "fala": "Jesus decide voltar lá. Mais adiante, é Tomé quem pergunta, e a resposta você já ouviu.",
-      "tts": "Jesus decide voltar lá. <short pause> Mais adiante, é Tomé quem pergunta, <short pause> e a resposta você já ouviu.",
+      "fala": "Jesus decide voltar lá. Mais adiante, é Tomé quem pergunta, e a resposta é curta.",
+      "tts": "Jesus decide voltar lá. <short pause> Mais adiante, é Tomé quem pergunta, <short pause> e a resposta é curta.",
       "batidas": {
         "lá.": "apedrejar",
         "pergunta,": "pergunta1",
-        "ouviu.": "palavras"
+        "curta.": "palavras"
       }
     },
     {

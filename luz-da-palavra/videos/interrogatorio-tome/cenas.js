@@ -37,7 +37,7 @@ CENAS.abertura = (el, c, B) => {
 CENAS.parte1 = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 112, y0: 600, passo: 124 }); cadZoom(pg, c); IT_amb(pg, c);
   IT_ref(pg, "cf. Jo 11:7–8, 16", c.ini + 0.3);
-  cadPalavras(pg, { y0: 600, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["voltar", "lá.", "Tomé", "pergunta,", "ouviu."] });
+  cadPalavras(pg, { y0: 600, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["voltar", "lá.", "Tomé", "pergunta,", "curta."] });
   IT_etiqueta(pg, 1, 240, 1500, c.ini + 0.4);
   cadDesenho(pg, "pedra", { x: 640, y: 1570, esc: 1.0, ts: B("apedrejar") - 0.4, te: B("apedrejar") + 0.7, seed: 6 });
   cadDesenho(pg, "balao", { x: 420, y: 1540, esc: 0.9, ts: B("pergunta1") - 0.5, te: B("pergunta1") + 0.5, seed: 7 });
