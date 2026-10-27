@@ -57,6 +57,7 @@ def usar_canal(pasta_video, roteiro, marca=None):
     IDENTIDADE = CANAL / "identidade"
     MARCA = json.loads(Path(marca or IDENTIDADE / "marca.json").read_text())
     DIRECAO = MARCA["voz"]["direcao"]
+    voz.OPCOES = {"api": MARCA["voz"].get("api", "generate"), "alinhamento": MARCA["voz"].get("alinhamento", "gemini")}
 
 
 def pasta_saida(pasta_video):
@@ -89,6 +90,8 @@ def narrar(roteiro):
                              pausas=roteiro.get("pausas", MARCA["voz"].get("pausas")))
         if r:
             return r
+        if voz.OPCOES.get("api") == "interacoes":  # regra do dono: uma requisição completa por vídeo, nunca cena a cena
+            raise SystemExit("narração do vídeo inteiro falhou; não vou narrar cena a cena (uma requisição por vídeo)")
     out = []
     for c in roteiro["cenas"]:
         tts = c.get("tts") or c["fala"]

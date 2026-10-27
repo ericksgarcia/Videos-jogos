@@ -306,7 +306,9 @@ def alinhar_whisper(texto, wav):
     nome = os.environ.get("WHISPER_MODELO", "large-v3-turbo")
     if nome not in _WHISPER:
         _WHISPER[nome] = WhisperModel(nome, device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
-    segs, _ = _WHISPER[nome].transcribe(str(wav), language="pt", word_timestamps=True, beam_size=5,
+    # áudio já decodificado em 16 kHz (o decodificador do faster-whisper depende da versão do PyAV instalada)
+    pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(wav), "-ar", "16000", "-ac", "1", "-f", "f32le", "-"], capture_output=True, check=True).stdout
+    segs, _ = _WHISPER[nome].transcribe(np.frombuffer(pcm, np.float32), language="pt", word_timestamps=True, beam_size=5,
                                          initial_prompt=" ".join(texto.split()[:120]), condition_on_previous_text=True)
     ouv = [(w.word.strip(), w.start, w.end) for sg in segs for w in (sg.words or []) if w.word.strip()]
     ws = texto.split()
@@ -330,6 +332,26 @@ def alinhar_whisper(texto, wav):
         for k, p in zip(range(i, j), peso):
             d = max(0.0, t1 - t0) * p / sum(peso); tempo[k] = [t, t + d * 0.92]; t += d
         i = j
+    # depois de um silêncio, a palavra começa quando a voz volta (medido na energia do áudio): o carimbo do whisper
+    # oscila uns décimos justamente nessas bordas
+    # (um "som" de menos de 0,18 s entre dois silêncios é respiração ou estalo: os silêncios se juntam)
+    sil = []
+    for pa, pb in _pausas(wav, 0.06)[0]:
+        if sil and pa - sil[-1][1] < 0.18:
+            sil[-1] = (sil[-1][0], pb)
+        else:
+            sil.append((pa, pb))
+    sil = [(pa, pb) for pa, pb in sil if pb - pa >= 0.12]
+    fim_ouvido = [t[1] for t in tempo]
+    for k in range(1, len(ws)):
+        ini_ant = max(tempo[k - 1][0], fim_ouvido[k - 1] - 0.2)
+        teto = tempo[k + 1][0] if k + 1 < len(ws) else tempo[k][1]
+        # o silêncio tem de começar antes (ou logo no começo) da palavra segundo o whisper: um silêncio no meio dela é a
+        # oclusão de uma consoante ("miseri-córdias") e um silêncio depois dela pertence à palavra seguinte
+        dentro = [(pa, pb) for pa, pb in sil if ini_ant + 0.05 < pa < tempo[k][0] + 0.15 and pb < teto - 0.04]
+        if dentro:
+            pa, pb = dentro[-1]
+            tempo[k][0] = pb; tempo[k][1] = max(tempo[k][1], pb + 0.1); tempo[k - 1][1] = min(tempo[k - 1][1], pa)
     # o whisper estica o fim da palavra até a próxima; corta no começo da seguinte
     out = []
     for k, (w, (a, b)) in enumerate(zip(ws, tempo)):
@@ -684,7 +706,8 @@ def narrar_video(falas, tts=None, direcao=None, voz_nome=None, pausas=None):
         if bruto.exists() and inteiro.exists():   # a narração crua fica guardada: mudar só as pausas não gasta cota
             palavras, dur = json.loads(bruto.read_text())
         else:
-            palavras, dur = _gemini("\n\n".join(falas), voz, inteiro, tts="\n\n".join(tts), direcao=direcao)
+            junta = "\n\n<short pause>\n\n" if OPCOES.get("api") == "interacoes" else "\n\n"  # respiro entre as cenas
+            palavras, dur = _gemini("\n\n".join(falas), voz, inteiro, tts=junta.join(tts), direcao=direcao)
             bruto.write_text(json.dumps([palavras, dur], ensure_ascii=False))
         if len(palavras) != sum(len(f.split()) for f in falas):
             raise ValueError("alinhamento com número de palavras diferente")
@@ -699,6 +722,9 @@ def narrar_video(falas, tts=None, direcao=None, voz_nome=None, pausas=None):
             esticado = CACHE / f"{h}{hp}.wav"
             palavras, dur = esticar_pausas(inteiro, palavras, dur, pausas, esticado)
             inteiro = esticado
+        if OPCOES.get("alinhamento") == "whisper" and (pausas or ritmo):
+            # o tempo final é ouvido de novo no áudio pronto (o esticamento das pausas erra uns décimos nas bordas)
+            palavras = alinhar_whisper("\n\n".join(falas), inteiro)
         res = _cortar_cenas(inteiro, falas, palavras, dur, h + hp)
     except Exception as e:
         print(f"   [voz] narração do vídeo inteiro indisponível ({type(e).__name__}: {str(e)[:90]})")

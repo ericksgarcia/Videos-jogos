@@ -165,13 +165,28 @@ do Google, duração mínima de 1:30).
 - Trilha `contemplativa` (sem batida: coro, harpa, grave, reverb de catedral); efeitos novos `sino` e
   `respiro` (transição suave).
 
-## Narração: um pedido por vídeo
+## Narração: um pedido por vídeo (regra do dono: o Gemini é só isso)
 
-A cota do Gemini TTS é por pedido (100 por dia no projeto da chave). O canal tem `"um_pedido": true` em
-`identidade/marca.json` → `voz`: o `gerar.py` narra o vídeo inteiro numa única leitura
-(`voz.narrar_video`) e corta o áudio por cena nas pausas entre elas. Um vídeo gasta 1 pedido (antes, 1 por
-cena), e a voz sai contínua. Vídeos antigos, com todas as cenas no cache por cena, continuam usando esse
-cache. Se a leitura inteira falhar, volta a narrar cena a cena.
+**Uma única requisição completa ao Gemini por vídeo**, só para a narração; todo o resto (tempo das palavras, pausas, ritmo,
+cortes por cena, conferência) é feito aqui no áudio baixado. Nada de pedir ao Gemini para alinhar, transcrever ou julgar.
+Se a leitura inteira falhar, o `gerar.py` para (não narra cena a cena).
+
+- **API nova (Gemini 3.8 TTS, Interactions):** `marca.json` → `voz.api = "interacoes"`. O texto é falado **ao pé da letra**;
+  a direção vai em `speech_metadata.style` (`voz.direcao`, no formato do guia do Google: AUDIO PROFILE / THE SCENE /
+  DIRECTOR'S NOTES com Style, Pace, Accent; em inglês, dizendo que a fala é em português do Brasil). Nunca ponha instrução
+  dentro da fala: o modelo a lê em voz alta.
+- **Pausas de pregador:** no campo `tts` da cena, a mesma fala com `<short pause>` / `<long pause>` (vírgulas de peso, antes de
+  uma revelação, depois de "Adivinha…?", antes do versículo). As palavras do `tts` têm de ser idênticas às da `fala`.
+  Entre as cenas entra um `<short pause>` sozinho. Outras marcas do guia: `<sigh>`, `<laugh>`, `<chuckle>`, `<gasp>`.
+- **Tempo de cada palavra = ouvido de verdade:** `voz.alinhamento = "whisper"`: o faster-whisper (large-v3-turbo, roda na CPU,
+  ~40 s por vídeo) transcreve o áudio inteiro com tempo por palavra, casa com o roteiro e cola o começo de cada palavra que vem
+  depois de um silêncio no instante em que a voz volta (medido na energia). Depois do ritmo/pausas, ouve de novo o áudio
+  pronto. Antes (out/2026) o tempo era só estimado (início da frase + divisão por letras): erro médio de 1,8 s, a escrita
+  descasava e os cortes por cena levavam pedaço de fala de uma cena para outra.
+- **Ambiente:** `pip install --break-system-packages faster-whisper`; o modelo baixa do Hugging Face na 1ª vez (a rede precisa
+  liberar `*.hf.co` e `*.xethub.hf.co`, já liberados pelo dono).
+- Conferir: `python luz-da-palavra/ferramentas/sincronia.py luz-da-palavra/videos/<tema>` (depois do `--so-montar`) compara o
+  começo de cada palavra escrita com o começo dela na fala. Meta: média entre −0,1 e +0,05 s, nenhuma atrasada > 0,3 s.
 
 ## Entrega (cada vídeo)
 
@@ -217,12 +232,14 @@ Divergências entre analistas: vale a regra do canal; depois, a fidelidade ao te
 
 ## Voz: ritmo e pausas (out/2026)
 
-O Gemini TTS **não obedece** "fale devagar" (todas as direções saíram com 145–166 palavras/min). O ritmo é ajustado
-depois: `marca.json` → `voz.pausas` = `{"ritmo": 0.88, "frase": 0.6, "pergunta": 0.85, "dois_pontos": 0.35,
-"reticencias": 0.9}`. `ritmo` desacelera a fala sem mudar o tom (rubberband); as outras chaves garantem a pausa mínima
-depois de cada sinal, variando com o tamanho da frase (pausa igual em toda frase soa robótica). A narração crua fica no
-cache: mudar só as pausas não gasta cota. Um roteiro pode trocar com `"pausas": {...}`.
-Simulação de vozes: `luz-da-palavra/ferramentas/simular_voz.py trecho.json variantes.json saida/` (direções em `identidade/direcoes_voz.json`; narra um trecho em cada variante e pede notas ao gemini-3.8-flash) e `julgar_voz.py a.wav b.wav` (3 notas por arquivo, média: uma nota só varia demais). Vencedora (out/2026): `D_pastor` + ritmo 0,88.
+Com a API nova e "Pace: slow, measured and deliberate" a voz já sai mais calma (~140 palavras/min com as pausas). O
+ajuste fino é feito depois: `marca.json` → `voz.pausas` = `{"ritmo": 0.93, "frase": 0.55, "pergunta": 0.8,
+"dois_pontos": 0.3, "reticencias": 0.8}`. `ritmo` desacelera sem mudar o tom (rubberband; o tempo das palavras é
+reouvido depois); as outras chaves garantem a pausa mínima depois de cada sinal, variando com o tamanho da frase. A
+narração crua fica no cache: mudar só as pausas não gasta requisição. Um roteiro pode trocar com `"pausas": {...}`.
+A direção antiga (texto + direção juntos, API generateContent) ficou em `voz.direcao_antiga`.
+As ferramentas `ferramentas/simular_voz.py` e `julgar_voz.py` (out/2026) pediam notas ao gemini-3.8-flash: **não use mais**
+(regra do dono: o Gemini é só a requisição da narração). A voz é avaliada pelo dono.
 
 ## Estilo padrão (out/2026): CADERNO no tema "noite"
 

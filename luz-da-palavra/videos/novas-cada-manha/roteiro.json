@@ -151,7 +151,8 @@
         "manhã.": "manha0",
         "esperança.": "acabou",
         "alfabeto,": "ve"
-      }
+      },
+      "tts": "Numa cidade em cinzas, <short pause> alguém escreveu que as misericórdias se renovam a cada manhã. <short pause> Pouco antes, ele diz: <short pause> acabou a minha esperança. <long pause> E o poema guarda um segredo no alfabeto, que eu te mostro no fim."
     },
     {
       "id": "apoio",
@@ -173,7 +174,8 @@
         "Lamentações:": "livro",
         "queimada,": "queimada",
         "fome.": "fome"
-      }
+      },
+      "tts": "O livro é Lamentações: <short pause> o choro pela queda de Jerusalém. <short pause> Cidade queimada, templo no chão, gente com fome."
     },
     {
       "id": "fundo",
@@ -185,7 +187,8 @@
         "saída.": "saida",
         "Adivinha": "adivinha",
         "esperança?": "esperanca"
-      }
+      },
+      "tts": "No capítulo três, ele se sente cercado, no escuro, sem saída. <short pause> Adivinha o que ele faz três versículos depois de perder a esperança? <long pause>"
     },
     {
       "id": "virada",
@@ -196,7 +199,8 @@
         "fora.": "fora",
         "memória,": "lembrar",
         "esperarei.": "virada"
-      }
+      },
+      "tts": "Nada muda lá fora. <short pause> A cidade continua em ruínas. <short pause> Muda o que ele leva pra memória: <short pause> disto me recordarei, <short pause> por isso esperarei."
     },
     {
       "id": "versiculo",
@@ -208,7 +212,8 @@
         "fim.": "fim",
         "manhã.": "manha",
         "fidelidade.": "fidelidade"
-      }
+      },
+      "tts": "E lembra o quê? <short pause> Que as misericórdias do Senhor não têm fim. <short pause> Novas são cada manhã. <short pause> Grande é a tua fidelidade."
     },
     {
       "id": "pergunta",
@@ -232,7 +237,8 @@
         "Z.": "az",
         "meio,": "meio",
         "hebraico.": "hebraico"
-      }
+      },
+      "tts": "O segredo: <short pause> cada estrofe começa com uma letra do alfabeto hebraico. <short pause> Ele levou a dor inteira a Deus, de A a Z. <long pause> E no capítulo do meio, cercada de choro, <short pause> está a esperança."
     },
     {
       "id": "fim",

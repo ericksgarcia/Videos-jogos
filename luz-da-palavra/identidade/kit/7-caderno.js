@@ -188,11 +188,11 @@ function cadPalavras(pg, o = {}) {
   linhas.forEach((ln, i) => {
     const tw = ln.reduce((a, it, k) => a + it.wd + (k ? sp : 0), 0); let x = alinhar === "centro" ? xc - tw / 2 : alinhar === "dir" ? xc + larg / 2 - tw : xc - larg / 2; const [bi, li] = pagDe[i], y = y0 + li * pg.passo - 6; blocos[bi] = blocos[bi] || [];
     for (const it of ln) {
-      const ts = Math.max(0, it.ini - 0.1), prox = it.prox ?? it.fim + 0.6, te = Math.max(ts + 0.3, Math.min(prox - 0.08, it.fim + 0.45)); // a mão aproveita a pausa: escreve com calma até a próxima palavra
+      const ts = Math.max(0, it.ini - 0.16), prox = it.prox ?? it.fim + 0.6, te = Math.max(ts + 0.3, Math.min(prox - 0.08, it.fim + 0.45)); // a mão aproveita a pausa: escreve com calma até a próxima palavra
       const mk = it.d ? cadMarca(pg, x, x + it.wd, y - 14, ts, ts + 0.32) : null;
       const t = cadTexto(pg, it.w, { x, y, esc: it.e, fonte: it.f, cor: it.d ? (o.corDestaque ?? CAD_VERM) : (o.cor ?? CAD_TINTA), ts, te, seed: Math.round(it.ini * 10), alinhar: "esq", rot: (o.rotLinha ?? -0.5) });
       if (mk) t.tracos.push(mk);
-      t.bloco = bi; blocos[bi].push(t);
+      t.bloco = bi; t.fala = it.ini; t.falaFim = it.fim; blocos[bi].push(t);
       (mapa[norm(it.w)] = mapa[norm(it.w)] || []).push({ x0: x, x1: x + it.wd, y, ts, te, linha: i, item: t }); x += it.wd + sp;
     }
   });
@@ -333,7 +333,7 @@ function cadFechar(pg, o = {}) {
     if (atraso > 0.05) dur = Math.max(0.1 + (it.w || 200) / 3000, Math.min(dur, it.te - ini));
     const k = dur / d;
     for (const s of it.tracos) { const a = s.ts - it.ts, b = s.te - it.ts; s.ts = ini + a * k; s.te = ini + b * k; }
-    _CAD.sinc.push({ txt: it.txt, ts0: it.ts, te0: it.te, ts: ini, te: ini + dur });
+    _CAD.sinc.push({ txt: it.txt, ts0: it.ts, te0: it.te, ts: ini, te: ini + dur, fala: it.fala, falaFim: it.falaFim });
     it.ts = ini; it.te = ini + dur; cur = it.te + 0.03;
   }
   for (const it of pg.itens) if (it.apagaCom) for (const s of it.tracos) s.ap = it.apagaCom.ts - 0.2;

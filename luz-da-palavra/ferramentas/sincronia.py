@@ -2,8 +2,7 @@
 
 Uso: python luz-da-palavra/ferramentas/sincronia.py luz-da-palavra/videos/<tema>   (depois de gerar.py --so-montar)
 
-Para cada palavra: quando a fala a diz (ts0) e quando a caneta começa/termina de escrevê-la (ts/te).
-Atraso = ts - ts0 (a caneta começa depois da voz). Aponta as palavras com atraso > 0,35 s e o atraso máximo por cena.
+Para cada palavra: quando a voz começa a dizê-la (fala, tempo ouvido pelo whisper) e quando a caneta começa a escrevê-la (ts).\nAponta as palavras escritas mais de 0,25 s depois de faladas (ou mais de 0,35 s antes).
 """
 import glob, json, subprocess, sys
 from pathlib import Path
@@ -23,10 +22,13 @@ const S = await pg.evaluate(() => {{ const tl = window.__timelines.main, T = tl.
 await nav.close(); console.log(JSON.stringify(S));""")
 r = subprocess.run(["node", str(js)], capture_output=True, text=True, timeout=600); js.unlink()
 S = json.loads(r.stdout.strip().splitlines()[-1])
-S = [s for s in S if s["txt"] and s["te0"] - s["ts0"] < 3]  # só palavras da fala (títulos longos ficam de fora)
-atr = [s["ts"] - s["ts0"] for s in S]
-ruins = [s for s in S if s["ts"] - s["ts0"] > 0.35]
-print(f"{len(S)} palavras | atraso médio {sum(atr)/len(atr):.2f} s | máximo {max(atr):.2f} s | > 0,35 s: {len(ruins)}")
-for s in ruins:
-    print(f"  {s['ts0']:6.2f}s  {s['txt']:<16} atraso {s['ts']-s['ts0']:.2f}s  (escrita {s['te']-s['ts']:.2f}s)")
+S = [s for s in S if s.get("fala") is not None]  # só as palavras da fala (títulos e rótulos ficam de fora)
+# atraso = a caneta começa a palavra depois de a voz começar a dizê-la (negativo = adiantada, o que é bom até ~0,3 s)
+atr = [s["ts"] - s["fala"] for s in S]
+ruins = [s for s in S if s["ts"] - s["fala"] > 0.25]
+cedo = [s for s in S if s["ts"] - s["fala"] < -0.35]
+print(f"{len(S)} palavras | atraso médio {sum(atr)/len(atr):+.2f} s | pior atraso {max(atr):+.2f} s | mais adiantada {min(atr):+.2f} s"
+      f" | atrasadas > 0,25 s: {len(ruins)} | adiantadas > 0,35 s: {len(cedo)}")
+for s in ruins + cedo:
+    print(f"  {s['fala']:6.2f}s  {s['txt']:<16} caneta {s['ts']-s['fala']:+.2f}s  (escrita {s['te']-s['ts']:.2f}s)")
 json.dump(S, open(Path(sorted(cands)[0]).parent / "sinc.json", "w"))  # fica na pasta output (não versionada)
