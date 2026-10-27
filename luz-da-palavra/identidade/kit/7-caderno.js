@@ -337,6 +337,34 @@ function cadSublinhado(pg, x0, x1, y, ts, te, o = {}) { const r = prng(Math.roun
 function cadCirculo(pg, cx, cy, rx, ry, ts, te, o = {}) { const p = []; for (let i = 0; i <= 44; i++) { const a = (-0.5 + (i / 44) * 6.9), k = 1 + 0.06 * (i / 44); p.push([cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k]); }
   return cadTracos(pg, { t: [p] }, { x: 0, y: 0, ts, te, cor: o.cor || CAD_VERM, w: o.w ?? 4.6, com: o.com }); }
 
+// ============================== família Detetive (estrutura v2) ==============================
+// selo/carimbo com a moldura medida pelo texto (a moldura fixa de antes deixava o texto maior que a caixa): "CASO Nº 3", "VEREDITO", "LAUDO"...
+function cadSelo(pg, x, y, texto, ts, o = {}) {
+  const esc = o.esc ?? 0.085, fonte = o.fonte || "serifb", w = cadMede(texto, fonte, esc), hw = w / 2 + 30, hh = 44, rot = o.rot ?? -6, cor = o.cor || CAD_VERM;
+  const q = [[-hw, -hh], [hw, -hh], [hw, hh], [-hw, hh], [-hw, -hh]], r = [[-hw + 9, -hh + 9], [hw - 9, -hh + 9], [hw - 9, hh - 9], [-hw + 9, hh - 9], [-hw + 9, -hh + 9]];
+  cadTracos(pg, { t: [q, r] }, { x, y, esc: 1, rot, ts, te: ts + 0.5, seed: o.seed ?? 60, cor });
+  return cadTexto(pg, texto, { x, y: y + 15, esc, fonte, cor, ts: ts + 0.3, te: ts + 0.9, alinhar: "centro", seed: (o.seed ?? 60) + 1, w: 7, livre: true, rot });
+}
+// opções A/B/C da aposta (ou do veredito): letra grande + rótulo curto sob ela, em células iguais entre x0 e x1 (fora da faixa de botões, x > 950);
+// o rótulo encolhe para caber na célula (a versão manual deixava "Filha" e "Não temas" se encostarem)
+function cadOpcoes(pg, opcoes, y, ts, o = {}) {
+  const x0 = o.x0 ?? 170, x1 = o.x1 ?? 850, n = opcoes.length, cel = (x1 - x0) / n, gap = o.gap ?? 0.35, letras = o.letras || ["A", "B", "C", "D"], centros = [];
+  opcoes.forEach((rot, k) => { const cx = x0 + cel * (k + 0.5), t = ts + k * gap; centros.push(cx);
+    cadTexto(pg, letras[k], { x: cx, y, esc: 0.2, fonte: "serifb", cor: CAD_OURO, ts: t, te: t + 0.4, alinhar: "centro", seed: 70 + k, w: 7, livre: true });
+    const e = Math.min(0.09, (cel * 0.9) / cadMede(rot, "serif", 1)); cadTexto(pg, rot, { x: cx, y: y + 85, esc: e, fonte: "serif", cor: CAD_TINTA, ts: t + 0.25, te: t + 0.75, alinhar: "centro", seed: 80 + k, w: 6, livre: true }); });
+  return centros;
+}
+// relógio/contagem da aposta: anel + ponteiro que gira em `dur` s (determinístico: atualizado a cada quadro) + dígitos 3-2-1 em linha
+function cadRelogio(pg, x, y, ts, dur, o = {}) {
+  const r = o.r ?? 58, anel = _cA(0, 0, r, r, 0, 360, 32);
+  cadTracos(pg, { t: [anel, [[0, -r], [0, -r + 12]], [[r, 0], [r - 12, 0]], [[0, r], [0, r - 12]], [[-r, 0], [-r + 12, 0]]] }, { x, y, esc: 1, ts, te: ts + 0.5, seed: o.seed ?? 90, cor: CAD_OURO });
+  const mao = _cadEl(pg.gDes, "line", { x1: x, y1: y, x2: x, y2: y - r + 14, stroke: CAD_VERM, "stroke-width": 5, "stroke-linecap": "round", opacity: 0 });
+  _CAD.extras.push((t) => { const u = Math.min(1, Math.max(0, (t - ts - 0.3) / dur)), a = u * 2 * Math.PI;
+    mao.setAttribute("opacity", t < ts + 0.3 || t > ts + dur + 0.9 ? 0 : 1);
+    mao.setAttribute("x2", (x + Math.sin(a) * (r - 14)).toFixed(1)); mao.setAttribute("y2", (y - Math.cos(a) * (r - 14)).toFixed(1)); });
+  const n = o.digitos ?? 3; for (let k = 0; k < n; k++) cadTexto(pg, String(n - k), { x: x + r + 60 + k * 70, y: y + 22, esc: 0.15, fonte: "serifb", cor: CAD_TINTA, ts: ts + 0.3 + (dur / n) * k, te: ts + 0.3 + (dur / n) * k + 0.3, alinhar: "centro", seed: 95 + k, w: 7, livre: true });
+}
+
 // ============================== uma caneta só ==============================
 // A mão escreve uma coisa de cada vez: palavras e rabiscos entram numa fila (na ordem em que o roteiro os pede) e a caneta
 // vai de um ao outro. Cada coisa começa na hora pedida (a palavra, quando é dita) ou, se a mão ainda estiver ocupada, logo
