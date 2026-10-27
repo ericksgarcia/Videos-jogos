@@ -259,8 +259,9 @@
     }
   },
   "capa": {
-    "t": 3.0,
+    "t": 1.32,
     "texto": "ESCRITO NO DIA MAIS ESCURO",
-    "destaque": "ESCURO"
+    "destaque": "ESCURO",
+    "y": 1180
   }
 }
