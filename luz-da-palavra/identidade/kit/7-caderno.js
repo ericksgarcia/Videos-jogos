@@ -237,10 +237,10 @@ function cadTracos(pg, def, o = {}) {
   const hs = []; for (const h of def.h || []) { const poly = h.poly.map(T); for (const s of _cadHachura(poly, h.ang + (o.rot || 0), h.sp * Math.max(esc, 0.6))) hs.push({ s, cor: h.cor }); }
   const ts = o.ts, te = o.te, dc = (te - ts) * (hs.length ? 0.68 : 1), w = o.w ?? Math.max(3.2, 4.4 * Math.max(esc, 0.7));
   const ag = _cadAgenda(cont, ts, ts + dc, 14);
-  const tr = cont.map((p, i) => _cadTraco(pg, p, { cor: o.cor || CAD_TINTA, w, ts: ag[i][0], te: ag[i][1], pai: pg.gDes }));
+  const tr = cont.map((p, i) => _cadTraco(pg, p, { cor: o.cor || CAD_TINTA, w, ts: ag[i][0], te: ag[i][1], pai: pg.gDes, caneta: false }));
   const ht = [];
   if (hs.length) { const ah = _cadAgenda(hs.map((q) => q.s), ts + dc, te, 4); const base = pg.gDes.firstChild;
-    hs.forEach((q, i) => { const a = q.s[0], b = q.s[1], t = _cadTraco(pg, [[a[0] - r() * 2, a[1] - r() * 2], [b[0] + r() * 2, b[1] + r() * 2]], { cor: q.cor, w: Math.max(5, 7.5 * Math.max(esc, 0.7)), ts: ah[i][0], te: ah[i][1], op: 0.5, pai: pg.gDes, caneta: true });
+    hs.forEach((q, i) => { const a = q.s[0], b = q.s[1], t = _cadTraco(pg, [[a[0] - r() * 2, a[1] - r() * 2], [b[0] + r() * 2, b[1] + r() * 2]], { cor: q.cor, w: Math.max(5, 7.5 * Math.max(esc, 0.7)), ts: ah[i][0], te: ah[i][1], op: 0.5, pai: pg.gDes, caneta: false });
       if (base) pg.gDes.insertBefore(t.el, base); ht.push(t); }); }
   const item = { ts, te, tracos: [...tr, ...ht], tipo: "desenho" }; pg.itens.push(item); return item;
 }
@@ -258,7 +258,8 @@ function cadCirculo(pg, cx, cy, rx, ry, ts, te, o = {}) { const p = []; for (let
 // que ela se livra; escreve um pouco mais devagar que a fala (calma) e, se ficar para trás, escreve mais depressa para alcançar.
 function cadFechar(pg, o = {}) {
   pg.fechada = true; const lento = o.lento ?? 1.3, lentoD = o.lentoDes ?? 1.1; let cur = 0;
-  const L = pg.itens.map((it, i) => [it, i]).sort((a, b) => a[0].ts - b[0].ts || a[1] - b[1]).map((q) => q[0]);
+  // rabiscos (tipo "desenho") aparecem na hora pedida, ao mesmo tempo que a caneta escreve as palavras, sem caneta própria e sem entrar na fila
+  const L = pg.itens.filter((it) => it.tipo === "texto").map((it, i) => [it, i]).sort((a, b) => a[0].ts - b[0].ts || a[1] - b[1]).map((q) => q[0]);
   for (const it of L) {
     const d = Math.max(0.05, it.te - it.ts), ini = Math.max(it.ts, cur), atraso = ini - it.ts;
     let dur = it.tipo === "texto" ? Math.max(0.36, d * lento) : d * lentoD;
