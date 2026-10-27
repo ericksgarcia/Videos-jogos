@@ -202,3 +202,24 @@ Todo tema novo passa por este filtro ANTES de virar roteiro. Se não passar em 5
 Além disso: nunca repetir tema nem ângulo já feito (conferir `FILA.md` e `videos/`); alternar formatos (versículo, história,
 significado, "o que a Bíblia não diz", oração); conferir o texto na Almeida 1911/1914 antes de escrever.
 Antes de cada vídeo, oferecer ao dono 3 candidatos pontuados nesse filtro quando a fila estiver vazia, em vez de escolher sozinho.
+
+## Analistas (processo de todo vídeo, pedido do dono: "até ficar perfeito")
+
+Briefings em `.claude/agents/analista-*.md` (gancho, retenção, engajamento, fé, voz-visual, temas), todos com base em
+`pesquisa-engajamento.md`. Rodam em paralelo (subagentes que leem o briefing) e devolvem notas, problemas e o texto exato
+da correção. Ordem:
+1. **Tema**: `analista-temas` pontua candidatos (pesquisa de tendências + ideias novas) e escolhe.
+2. **Roteiro**: `analista-gancho`, `analista-retencao`, `analista-engajamento` e `analista-fe` leem o roteiro.json.
+   Corrija e repita até todos darem APROVADO (fé sem nenhum problema ALTA).
+3. **Voz/visual**: simulações com variantes; `analista-voz-visual` compara (folhas de quadros + métricas de voz).
+4. **Vídeo pronto**: gancho + retenção + voz-visual de novo, com quadros do MP4 e a transcrição com tempos.
+Divergências entre analistas: vale a regra do canal; depois, a fidelidade ao texto; depois, a retenção.
+
+## Voz: ritmo e pausas (out/2026)
+
+O Gemini TTS **não obedece** "fale devagar" (todas as direções saíram com 145–166 palavras/min). O ritmo é ajustado
+depois: `marca.json` → `voz.pausas` = `{"ritmo": 0.88, "frase": 0.6, "pergunta": 0.85, "dois_pontos": 0.35,
+"reticencias": 0.9}`. `ritmo` desacelera a fala sem mudar o tom (rubberband); as outras chaves garantem a pausa mínima
+depois de cada sinal, variando com o tamanho da frase (pausa igual em toda frase soa robótica). A narração crua fica no
+cache: mudar só as pausas não gasta cota. Um roteiro pode trocar com `"pausas": {...}`.
+Simulação de vozes: `scratchpad` → `simular.py` (narra um trecho em várias direções e pede notas ao gemini-3.8-flash).

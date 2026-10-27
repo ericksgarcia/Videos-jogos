@@ -85,7 +85,8 @@ def _r(x):
 def narrar(roteiro):
     nome = roteiro.get("voz", MARCA["voz"]["nome"])
     if MARCA["voz"].get("um_pedido"):  # canal que narra o vídeo inteiro num pedido só (economiza a cota)
-        r = voz.narrar_video([c["fala"] for c in roteiro["cenas"]], [c.get("tts") or c["fala"] for c in roteiro["cenas"]], direcao=DIRECAO, voz_nome=nome)
+        r = voz.narrar_video([c["fala"] for c in roteiro["cenas"]], [c.get("tts") or c["fala"] for c in roteiro["cenas"]], direcao=DIRECAO, voz_nome=nome,
+                             pausas=roteiro.get("pausas", MARCA["voz"].get("pausas")))
         if r:
             return r
     out = []
@@ -223,7 +224,7 @@ def montar(roteiro, ag, pasta, pasta_video):
     libs = sorted((IDENTIDADE / "kit").glob("*.js")) + sorted((Path(pasta_video) / "libs").glob("*.js"))
     for arq in libs:
         shutil.copy(arq, pasta / "assets" / arq.name)
-    dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "estilo": roteiro.get("estilo", ""), "agenda": ag}
+    dados = {"titulo": roteiro["titulo"], "gancho": roteiro["gancho"], "gancho_destaque": roteiro.get("gancho_destaque", ""), "estilo": roteiro.get("estilo", ""), "tema": roteiro.get("tema", ""), "agenda": ag}
     html = (AQUI / "template.html").read_text()
     html = html.replace("/*__DADOS__*/null", json.dumps(dados, ensure_ascii=False)).replace("__TOTAL__", str(ag["total"]))
     html = html.replace("/*__MARCA__*/null", json.dumps(MARCA, ensure_ascii=False))

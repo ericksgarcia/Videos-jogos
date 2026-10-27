@@ -456,7 +456,51 @@ def _cortar_cenas(inteiro, falas, palavras, dur, h):
     return out
 
 
-def narrar_video(falas, tts=None, direcao=None, voz_nome=None):
+def esticar_pausas(wav, palavras, dur, cfg, destino):
+    """Deixa a fala "respirar": garante uma pausa mínima depois de cada frase (".", "?", "!"), de ":"/";", de "..." e
+    (opcional) de vírgula, inserindo silêncio no meio do trecho silencioso que já existe entre as palavras (nunca corta
+    fala). cfg = {"frase": 0.75, "dois_pontos": 0.45, "reticencias": 0.9, "virgula": 0.0, "cena": 0.0}.
+    Devolve (palavras com os tempos novos, duração nova)."""
+    sr, x = wavfile.read(wav)
+    sil, _ = _pausas(wav, 0.06)
+    insercoes, desloc = [], 0.0
+    novas = []
+    for i, (w, a, b) in enumerate(palavras):
+        novas.append([w, round(a + desloc, 3), round(b + desloc, 3)])
+        if i == len(palavras) - 1:
+            break
+        prox = palavras[i + 1][1]
+        alvo = (cfg.get("reticencias", 0) if w.endswith("...") or w.endswith("…") else cfg.get("pergunta", cfg.get("frase", 0)) if w.endswith("?")
+                else cfg.get("frase", 0) if w.endswith((".", "!")) else cfg.get("dois_pontos", 0) if w.endswith((":", ";"))
+                else cfg.get("virgula", 0) if w.endswith(",") else 0)
+        if alvo > 0 and w.endswith((".", "?", "!")):  # pausa humana: frase longa pede respiro maior; um leve acaso (fixo) quebra a régua
+            n = 0
+            for k in range(i, -1, -1):
+                if k < i and palavras[k][0].endswith((".", "?", "!")):
+                    break
+                n += 1
+            alvo *= 0.8 + 0.4 * min(1.0, n / 14)
+            alvo += ((i * 7919) % 17 - 8) / 100
+        if alvo <= 0:
+            continue
+        # o maior silêncio entre o fim desta palavra e o começo da próxima (com folga para o erro do alinhamento)
+        cand = [(min(q, prox + 0.25) - max(p, b - 0.25), p, q) for p, q in sil if q > b - 0.25 and p < prox + 0.25]
+        if not cand:
+            continue
+        lg, p, q = max(cand)
+        falta = alvo - (q - p)
+        if lg <= 0 or falta <= 0.02:
+            continue
+        insercoes.append(((p + q) / 2, falta)); desloc += falta
+    y, ant = [], 0
+    for t, d in insercoes:
+        k = int(t * sr); y.append(x[ant:k]); y.append(np.zeros(int(d * sr), dtype=x.dtype)); ant = k
+    y.append(x[ant:])
+    wavfile.write(destino, sr, np.concatenate(y))
+    return novas, round(dur + desloc, 3)
+
+
+def narrar_video(falas, tts=None, direcao=None, voz_nome=None, pausas=None):
     """Narra o vídeo inteiro num único pedido ao Gemini (1 pedido por vídeo em vez de 1 por cena: a
     cota diária do TTS rende ~10 vezes mais, e a leitura sai contínua) e corta o áudio por cena.
     Devolve a lista no formato de narrar(), ou None se não deu (quem chama narra cena a cena).
@@ -470,15 +514,31 @@ def narrar_video(falas, tts=None, direcao=None, voz_nome=None):
     if all(m.exists() for m in antigos):
         return [json.loads(m.read_text()) for m in antigos]
     h = "v" + hashlib.sha1(f"video|{voz}|{GEMINI_MODELO}|{direcao or DIRECAO}|{json.dumps([falas, tts], ensure_ascii=False)}".encode()).hexdigest()[:15]
-    meta = CACHE / f"{h}.json"
+    hp = ("p" + hashlib.sha1(json.dumps(pausas, sort_keys=True).encode()).hexdigest()[:6]) if pausas else ""
+    meta = CACHE / f"{h}{hp}.json"
     if meta.exists():
         return json.loads(meta.read_text())
-    inteiro = CACHE / f"{h}.wav"
+    inteiro, bruto = CACHE / f"{h}.wav", CACHE / f"{h}-bruto.json"
     try:
-        palavras, dur = _gemini("\n\n".join(falas), voz, inteiro, tts="\n\n".join(tts), direcao=direcao)
+        if bruto.exists() and inteiro.exists():   # a narração crua fica guardada: mudar só as pausas não gasta cota
+            palavras, dur = json.loads(bruto.read_text())
+        else:
+            palavras, dur = _gemini("\n\n".join(falas), voz, inteiro, tts="\n\n".join(tts), direcao=direcao)
+            bruto.write_text(json.dumps([palavras, dur], ensure_ascii=False))
         if len(palavras) != sum(len(f.split()) for f in falas):
             raise ValueError("alinhamento com número de palavras diferente")
-        res = _cortar_cenas(inteiro, falas, palavras, dur, h)
+        ritmo = (pausas or {}).get("ritmo")
+        if ritmo and ritmo != 1:  # desacelera sem mudar o tom (rubberband): o TTS não obedece "fale devagar"
+            lento = CACHE / f"{h}r{ritmo}.wav"
+            if not lento.exists():
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(inteiro), "-af", f"rubberband=tempo={ritmo}:transients=smooth", "-ar", "48000", "-ac", "1", str(lento)], check=True)
+            palavras = [[w, round(a / ritmo, 3), round(b / ritmo, 3)] for w, a, b in palavras]
+            dur, inteiro = round(dur / ritmo, 3), lento
+        if pausas:
+            esticado = CACHE / f"{h}{hp}.wav"
+            palavras, dur = esticar_pausas(inteiro, palavras, dur, pausas, esticado)
+            inteiro = esticado
+        res = _cortar_cenas(inteiro, falas, palavras, dur, h + hp)
     except Exception as e:
         print(f"   [voz] narração do vídeo inteiro indisponível ({type(e).__name__}: {str(e)[:90]})")
         return None
