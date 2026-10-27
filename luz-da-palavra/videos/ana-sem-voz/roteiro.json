@@ -1,0 +1,213 @@
+{
+  "canal": "luz-da-palavra",
+  "slug": "ana-sem-voz",
+  "titulo": "A oração sem som de Ana: 1 Samuel 1",
+  "descricao": "O sacerdote achou que ela estava bêbada. Era a oração mais profunda do capítulo.\nA oração de Ana (cf. 1 Samuel 1:1–20): sem som, só os lábios se mexendo, e o detalhe do texto sobre o rosto dela antes de a resposta chegar. Pra quem já orou sem achar palavra.\nQual foi a última coisa que você orou sem achar palavra? Escreve numa palavra aqui nos comentários.\nSalva pra quando faltar palavra e manda pra quem anda só chorando.",
+  "hashtags": [
+    "#biblia",
+    "#oracao",
+    "#ansiedade",
+    "#fe",
+    "#luzdapalavra"
+  ],
+  "comentario_fixado": "A minha foi: \"ajuda\". E a sua? Uma palavra aqui embaixo 👇",
+  "gancho": "ORAÇÃO SEM SOM",
+  "gancho_destaque": "SEM SOM",
+  "voz": "Achird",
+  "sons": {
+    "beba": [
+      "respiro",
+      0.3
+    ],
+    "som": [
+      "respiro",
+      0.3
+    ],
+    "voce": [
+      "respiro",
+      0.3
+    ],
+    "ana": [
+      "respiro",
+      0.3
+    ],
+    "filho": [
+      "respiro",
+      0.3
+    ],
+    "comer": [
+      "respiro",
+      0.3
+    ],
+    "labios": [
+      "respiro",
+      0.3
+    ],
+    "beba2": [
+      "respiro",
+      0.3
+    ],
+    "raiva": [
+      "respiro",
+      0.3
+    ],
+    "alma": [
+      "respiro",
+      0.3
+    ],
+    "detalhe": [
+      "respiro",
+      0.3
+    ],
+    "triste": [
+      "respiro",
+      0.3
+    ],
+    "resposta": [
+      "respiro",
+      0.3
+    ],
+    "pergunta": [
+      "respiro",
+      0.3
+    ],
+    "depois": [
+      "respiro",
+      0.3
+    ],
+    "lembra": [
+      "respiro",
+      0.3
+    ],
+    "fe": [
+      "sino",
+      0.35
+    ],
+    "curte": [
+      "plim",
+      0.4
+    ],
+    "comenta": [
+      "plim",
+      0.4
+    ],
+    "salva": [
+      "pop",
+      0.35
+    ],
+    "cta": [
+      "brilho",
+      0.45
+    ],
+    "adivinha": [
+      "pop",
+      0.3
+    ],
+    "paz": [
+      "sino",
+      0.5
+    ]
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "tipo": "abertura",
+      "titulo": "",
+      "fala": "Ela orava tão fundo que o sacerdote achou que estava bêbada. E foi essa oração, sem som nenhum, que mudou a vida dela. Se você já orou sem conseguir falar, esse vídeo é pra você.",
+      "batidas": {
+        "bêbada.": "beba",
+        "som": "som",
+        "você": "voce"
+      }
+    },
+    {
+      "id": "apoio",
+      "tipo": "apoio",
+      "titulo": "",
+      "fala": "Se você já orou chorando, curte e deixa seu amém, pra essa Palavra chegar a quem só consegue chorar. A virada vem já.",
+      "batidas": {
+        "chorando,": "fe",
+        "curte": "curte",
+        "amém,": "comenta"
+      }
+    },
+    {
+      "id": "ana",
+      "tipo": "ana",
+      "titulo": "",
+      "fala": "O nome dela era Ana. Queria um filho e não tinha. Todo ano, no templo, uma rival a provocava, até ela chorar e nem conseguir comer.",
+      "batidas": {
+        "Ana.": "ana",
+        "filho": "filho",
+        "comer.": "comer"
+      }
+    },
+    {
+      "id": "orou",
+      "tipo": "orou",
+      "titulo": "",
+      "fala": "Naquele dia, ela ora com os lábios se mexendo, mas sem nenhum som. O sacerdote Eli olha e conclui: está bêbada. Adivinha o que ela responde?",
+      "batidas": {
+        "lábios": "labios",
+        "bêbada.": "beba2",
+        "Adivinha": "adivinha"
+      }
+    },
+    {
+      "id": "resposta",
+      "tipo": "resposta",
+      "titulo": "",
+      "fala": "Ela não se defende com raiva. Só explica: eu estava derramando a minha alma diante de Deus. E o sacerdote muda de tom: vai em paz.",
+      "batidas": {
+        "raiva.": "raiva",
+        "alma": "alma",
+        "paz.": "paz"
+      }
+    },
+    {
+      "id": "virada",
+      "tipo": "virada",
+      "titulo": "",
+      "fala": "E aqui está o detalhe. Ela comeu, e o texto diz que o rosto dela já não estava triste. Antes do filho. A paz veio antes da resposta.",
+      "batidas": {
+        "detalhe.": "detalhe",
+        "triste.": "triste",
+        "resposta.": "resposta"
+      }
+    },
+    {
+      "id": "pergunta",
+      "tipo": "pergunta",
+      "titulo": "",
+      "fala": "Qual foi a última coisa que você orou sem achar palavra? Escreve numa palavra, no botão de comentários, na direita.",
+      "batidas": {
+        "Qual": "pergunta",
+        "Escreve": "comenta",
+        "direita.": "depois"
+      }
+    },
+    {
+      "id": "fim",
+      "tipo": "fim",
+      "titulo": "",
+      "fala": "Salva pra quando faltar palavra, segue o Luz da Palavra, e lembra:",
+      "batidas": {
+        "Salva": "salva",
+        "segue": "cta",
+        "lembra:": "lembra"
+      }
+    }
+  ],
+  "estilo": "caderno",
+  "tema": "noite",
+  "video": {
+    "desfoque_movimento": false,
+    "tratamento_cor": {
+      "contraste": 1.03,
+      "saturacao": 1.05,
+      "vinheta": 0.08,
+      "aberracao_px": 0,
+      "grao": 3
+    }
+  }
+}
