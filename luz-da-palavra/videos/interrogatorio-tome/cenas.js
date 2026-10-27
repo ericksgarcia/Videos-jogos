@@ -30,18 +30,18 @@ CENAS.abertura = (el, c, B) => {
   cadDesenho(pg, "pedra", { x: 700, y: 1560, esc: 1.1, ts: c.ini - 0.9, te: c.ini + 0.7, seed: 2 });
   cadSelo(pg, 540, 355, "INTERROGATÓRIO · TOMÉ", c.ini + 0.1, { esc: 0.06 });
   cadTitulo(pg, [{ txt: "ANTES DE", fonte: "serif", max: 0.2 }, { txt: "DUVIDAR", fonte: "serifb", max: 0.3, cor: CAD_VERM }], 540, c.ini + 0.1, 1.3, { passo: 190, larg: 780, livre: true });
-  cadPalavras(pg, { y0: 900, larg: IT_L, esc: 0.098, yMax: 1300, destaque: ["Procuravam", "apedrejar", "Vamos", "também,", "morrermos", "palavras"] });
+  cadPalavras(pg, { y0: 900, larg: IT_L, esc: 0.098, yMax: 1300, destaque: ["Procuravam", "apedrejar", "Vamos", "também,", "morrermos", "pediu."] });
   IT_ref(pg, "cf. Jo 11:8, 16", B("disse") + 0.2, 1420);
 };
 
 CENAS.parte1 = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 112, y0: 600, passo: 124 }); cadZoom(pg, c); IT_amb(pg, c);
   IT_ref(pg, "cf. Jo 11:7–8, 16", c.ini + 0.3);
-  cadPalavras(pg, { y0: 600, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["voltar", "lá.", "Tomé", "palavras.", "pergunta."] });
+  cadPalavras(pg, { y0: 600, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["voltar", "lá.", "Tomé", "pergunta,", "ouviu."] });
   IT_etiqueta(pg, 1, 240, 1500, c.ini + 0.4);
   cadDesenho(pg, "pedra", { x: 640, y: 1570, esc: 1.0, ts: B("apedrejar") - 0.4, te: B("apedrejar") + 0.7, seed: 6 });
-  cadDesenho(pg, "balao", { x: 420, y: 1540, esc: 0.9, ts: B("palavras") - 0.8, te: B("palavras") + 0.2, seed: 7 });
-  cadDesenho(pg, "pergunta", { x: 880, y: 1570, esc: 0.8, ts: B("pergunta1") - 0.3, te: B("pergunta1") + 0.7, seed: 8, cor: CAD_VERM });
+  cadDesenho(pg, "balao", { x: 420, y: 1540, esc: 0.9, ts: B("pergunta1") - 0.5, te: B("pergunta1") + 0.5, seed: 7 });
+  cadDesenho(pg, "pergunta", { x: 880, y: 1570, esc: 0.8, ts: B("palavras") - 0.6, te: B("palavras") + 0.4, seed: 8, cor: CAD_VERM });
 };
 
 CENAS.apoio = (el, c, B) => {
@@ -74,8 +74,8 @@ CENAS.aposta = (el, c, B) => {
 
 CENAS.parte3 = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 116, y0: 560, passo: 124 }); cadZoom(pg, c); IT_amb(pg, c);
-  IT_ref(pg, "cf. Jo 20:27–28", c.ini + 0.3);
-  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.106, yMax: 1300, destaque: ["Resposta:", "C.", "resposta", "Senhor", "meu!", "não", "convite."] });
+  IT_ref(pg, "Jo 20:28 · cf. Jo 20:27", c.ini + 0.3);
+  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.106, yMax: 1300, destaque: ["Resposta:", "C.", "Senhor", "meu!", "tocou.", "pediu."] });
   cadSelo(pg, 540, 1560, "RESPOSTA: C · O TEXTO NÃO DIZ", B("resposta") + 0.2, { esc: 0.066 });
   cadDesenho(pg, "livro", { x: 220, y: 1690, esc: 0.7, ts: B("confissao") - 0.4, te: B("confissao") + 0.6, seed: 12 });
 };
@@ -83,7 +83,7 @@ CENAS.parte3 = (el, c, B) => {
 CENAS.parte4 = (el, c, B) => {
   const pg = cadPagina(el, c, { seed: 117, y0: 560, passo: 126 }); cadZoom(pg, c); IT_amb(pg, c);
   IT_ref(pg, "cf. Jo 20:25–27", c.ini + 0.3);
-  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["mesmas", "palavras:", "ver,", "dedo,", "mão,", "lado.", "Oito", "eles,", "aparece."] });
+  cadPalavras(pg, { y0: 560, larg: IT_L, esc: 0.11, yMax: 1300, destaque: ["pediu:", "ver,", "dedo,", "mão,", "lado.", "Oito", "eles,", "chega."] });
   // as quatro palavras do próprio Tomé, no instante em que são ditas
   [["ver", 190], ["dedo", 400], ["mão", 610], ["lado", 820]].forEach(([w, x], k) => IT_txt(pg, w, x, 1580, 0.12, IT_t(c, w), 30 + k, { cor: CAD_OURO, dur: 0.5 }));
   cadDesenho(pg, "casa", { x: 540, y: 1470, esc: 0.55, ts: IT_t(c, "oito"), te: IT_t(c, "oito") + 0.9, seed: 14 });

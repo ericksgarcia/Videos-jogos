@@ -4,7 +4,7 @@
   "estrutura": "v2",
   "formato": "interrogatorio",
   "titulo": "Interrogatório: Tomé (João 11, 14 e 20)",
-  "descricao": "Tomé tocou em Jesus? A aposta está em João 20.\nInterrogatório de Tomé, o \"incrédulo\" (cf. João 11:16; 14:5–6; 20:24–29): o que ele disse antes de duvidar, a pergunta da última ceia e uma aposta pra você escrever a sua letra. Vocês escolhem a próxima testemunha.\nQual pergunta você já fez a Deus de madrugada? Escreve numa frase nos comentários.\nSalva pra quando a dúvida bater de madrugada e manda pra quem anda cheio de perguntas.",
+  "descricao": "Tomé tocou em Jesus? A aposta está em João 20.\nInterrogatório de Tomé, o \"incrédulo\" (cf. João 11:16; 14:5–6; 20:24–29): o que ele disse antes de duvidar, a pergunta da última ceia e uma aposta pra você escrever a sua letra. Vocês escolhem a próxima testemunha.\nQual pergunta você já fez a Deus de madrugada? Escreve numa frase nos comentários.\nSalva pra quando a dúvida bater e manda pra quem anda cheio de perguntas.",
   "hashtags": [
     "#biblia",
     "#fe",
@@ -160,25 +160,25 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "Procuravam apedrejar Jesus. Tomé disse: Vamos nós também, para morrermos com ele. Na cena da dúvida, Jesus diz as mesmas palavras dele.",
-      "tts": "Procuravam apedrejar Jesus. <short pause> Tomé disse: <short pause> Vamos nós também, para morrermos com ele. <short pause> Na cena da dúvida, Jesus diz as mesmas palavras dele.",
+      "fala": "Procuravam apedrejar Jesus. Tomé disse: Vamos nós também, para morrermos com ele. Na cena da dúvida, Jesus dá a Tomé o que ele pediu.",
+      "tts": "Procuravam apedrejar Jesus. <short pause> Tomé disse: <short pause> Vamos nós também, para morrermos com ele. <short pause> Na cena da dúvida, Jesus dá a Tomé o que ele pediu.",
       "batidas": {
         "Jesus.": "apedrejar0",
         "disse:": "disse",
         "ele.": "ele0",
-        "dele.": "ve"
+        "pediu.": "ve"
       }
     },
     {
       "id": "parte1",
       "tipo": "parte1",
       "titulo": "",
-      "fala": "Jesus decide voltar lá. Tomé diz aos outros discípulos aquelas palavras. Mais adiante, é ele quem pergunta.",
-      "tts": "Jesus decide voltar lá. <short pause> Tomé diz aos outros discípulos aquelas palavras. <short pause> Mais adiante, é ele quem pergunta.",
+      "fala": "Jesus decide voltar lá. Mais adiante, é Tomé quem pergunta, e a resposta você já ouviu.",
+      "tts": "Jesus decide voltar lá. <short pause> Mais adiante, é Tomé quem pergunta, <short pause> e a resposta você já ouviu.",
       "batidas": {
         "lá.": "apedrejar",
-        "palavras.": "palavras",
-        "pergunta.": "pergunta1"
+        "pergunta,": "pergunta1",
+        "ouviu.": "palavras"
       }
     },
     {
@@ -197,8 +197,8 @@
       "id": "parte2",
       "tipo": "parte2",
       "titulo": "",
-      "fala": "Na última ceia, Tomé pergunta: como podemos saber o caminho? Jesus responde: Eu sou o caminho. Depois, Tomé não estava com eles quando Jesus apareceu, e diz: só creio se vir e tocar.",
-      "tts": "Na última ceia, Tomé pergunta: como podemos saber o caminho? <short pause> Jesus responde: Eu sou o caminho. <short pause> Depois, Tomé não estava com eles quando Jesus apareceu, e diz: <short pause> só creio se vir e tocar.",
+      "fala": "Na última ceia, Tomé pergunta: como podemos saber o caminho? Jesus responde: Eu sou o caminho. Depois, Tomé não estava com eles quando Jesus apareceu. Aos outros, ele diz que só crê se vir e tocar.",
+      "tts": "Na última ceia, Tomé pergunta: como podemos saber o caminho? <short pause> Jesus responde: Eu sou o caminho. <short pause> Depois, Tomé não estava com eles quando Jesus apareceu. <short pause> Aos outros, ele diz que só crê se vir e tocar.",
       "batidas": {
         "pergunta:": "dois",
         "caminho?": "caminho",
@@ -222,23 +222,23 @@
       "id": "parte3",
       "tipo": "parte3",
       "titulo": "",
-      "fala": "Resposta: C. Tomé responde: Senhor meu, e Deus meu! Nesses versos o texto não diz se ele tocou. Agora, o convite.",
-      "tts": "Resposta: C. <short pause> Tomé responde: Senhor meu, e Deus meu! <short pause> Nesses versos o texto não diz se ele tocou. Agora, o convite.",
+      "fala": "Resposta: C. Tomé responde: Senhor meu, e Deus meu! Nesses versos o texto não diz se ele tocou. Agora, o que ele pediu.",
+      "tts": "Resposta: C. <short pause> Tomé responde: Senhor meu, e Deus meu! <short pause> Nesses versos o texto não diz se ele tocou. Agora, o que ele pediu.",
       "batidas": {
         "C.": "resposta",
         "meu!": "confissao",
         "tocou.": "notoque",
-        "convite.": "convite"
+        "pediu.": "convite"
       }
     },
     {
       "id": "parte4",
       "tipo": "parte4",
       "titulo": "",
-      "fala": "Jesus diz a Tomé as mesmas palavras: ver, dedo, mão, lado. Oito dias depois, o texto mostra Tomé com eles, e é ali que Jesus aparece.",
-      "tts": "Jesus diz a Tomé as mesmas palavras: <short pause> ver, dedo, mão, lado. <long pause> Oito dias depois, o texto mostra Tomé com eles, <short pause> e é ali que Jesus aparece.",
+      "fala": "Jesus oferece a Tomé o que ele pediu: ver, dedo, mão, lado. Oito dias depois, o texto mostra Tomé com eles, e Jesus chega.",
+      "tts": "Jesus oferece a Tomé o que ele pediu: <short pause> ver, dedo, mão, lado. <long pause> Oito dias depois, o texto mostra Tomé com eles, <short pause> e Jesus chega.",
       "batidas": {
-        "palavras:": "palavra",
+        "pediu:": "palavra",
         "lado.": "lado",
         "eles,": "eles"
       }
@@ -259,8 +259,8 @@
       "id": "fim",
       "tipo": "fim",
       "titulo": "",
-      "fala": "Salva pra quando a dúvida bater de madrugada, segue o Luz da Palavra, e lembra:",
-      "tts": "Salva pra quando a dúvida bater de madrugada, segue o Luz da Palavra, e lembra:",
+      "fala": "Salva pra quando a dúvida bater, segue o Luz da Palavra, e lembra:",
+      "tts": "Salva pra quando a dúvida bater, segue o Luz da Palavra, e lembra:",
       "batidas": {
         "Salva": "salva",
         "segue": "cta",
