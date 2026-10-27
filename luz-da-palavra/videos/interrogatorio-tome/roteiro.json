@@ -4,18 +4,18 @@
   "estrutura": "v2",
   "formato": "interrogatorio",
   "titulo": "Interrogatório: Tomé (João 11, 14 e 20)",
-  "descricao": "Tomé depõe: 3 perguntas, só com o que o texto registra.\nO Interrogatório de Tomé, o \"incrédulo\", em João 11:16, 14:5–6 e 20:24–29: o que ele disse antes de duvidar, a pergunta da última ceia e a aposta que quase todo mundo erra: Tomé tocou em Jesus? O texto conta?\nQual pergunta você ainda não teve coragem de fazer a Deus? Escreve numa frase nos comentários.\nSalva pra quando a dúvida bater de madrugada e manda pra quem anda cheio de perguntas.",
+  "descricao": "Tomé tocou em Jesus? A aposta está em João 20.\nInterrogatório de Tomé, o \"incrédulo\" (cf. João 11:16; 14:5–6; 20:24–29): o que ele disse antes de duvidar, a pergunta da última ceia e uma aposta pra você escrever a sua letra. Vocês escolhem a próxima testemunha.\nQual pergunta você já fez a Deus de madrugada? Escreve numa frase nos comentários.\nSalva pra quando a dúvida bater de madrugada e manda pra quem anda cheio de perguntas.",
   "hashtags": [
     "#biblia",
     "#fe",
-    "#tome",
+    "#duvida",
     "#evangelhodejoao",
     "#jesus",
     "#luzdapalavra"
   ],
-  "comentario_fixado": "Próxima testemunha: A Pedro (João 21) ou B o cego de João 9? Escreve a letra e um motivo. Com 20 votos ou mais, eu cumpro; com menos, escolho eu.",
-  "gancho": "VAMOS MORRER COM ELE",
-  "gancho_destaque": "MORRER",
+  "comentario_fixado": "Quem depõe a seguir? A, o cego de João 9, interrogado pelos fariseus. B, Nicodemos, que foi até Jesus de noite (João 3). Letra e um porquê; o mais votado depõe.",
+  "gancho": "ANTES DE DUVIDAR",
+  "gancho_destaque": "DUVIDAR",
   "voz": "Gacrux",
   "sons": {
     "ele0": [
@@ -133,6 +133,26 @@
     "cta": [
       "brilho",
       0.35
+    ],
+    "disse": [
+      "respiro",
+      0.2
+    ],
+    "depoe": [
+      "respiro",
+      0.2
+    ],
+    "palavras": [
+      "respiro",
+      0.2
+    ],
+    "lado": [
+      "respiro",
+      0.2
+    ],
+    "apedrejar0": [
+      "respiro",
+      0.2
     ]
   },
   "cenas": [
@@ -140,11 +160,12 @@
       "id": "abertura",
       "tipo": "abertura",
       "titulo": "",
-      "fala": "O \"incrédulo\" da Bíblia foi quem disse: vamos morrer com ele. Tomé depõe hoje, só com o que o texto registra. Na última pergunta, Jesus devolve as palavras dele.",
-      "tts": "O \"incrédulo\" da Bíblia foi quem disse: <short pause> vamos morrer com ele. <short pause> Tomé depõe hoje, só com o que o texto registra. <short pause> Na última pergunta, Jesus devolve as palavras dele.",
+      "fala": "Procuravam apedrejar Jesus. Tomé disse: Vamos nós também, para morrermos com ele. Na cena da dúvida, Jesus diz as mesmas palavras dele.",
+      "tts": "Procuravam apedrejar Jesus. <short pause> Tomé disse: <short pause> Vamos nós também, para morrermos com ele. <short pause> Na cena da dúvida, Jesus diz as mesmas palavras dele.",
       "batidas": {
+        "Jesus.": "apedrejar0",
+        "disse:": "disse",
         "ele.": "ele0",
-        "registra.": "registra",
         "dele.": "ve"
       }
     },
@@ -152,12 +173,11 @@
       "id": "parte1",
       "tipo": "parte1",
       "titulo": "",
-      "fala": "Pergunta um: Jesus quer voltar a um lugar onde tentaram apedrejá-lo. Tomé responde: Vamos nós também, para morrermos com ele. Mais adiante, é ele quem pergunta.",
-      "tts": "Pergunta um: <short pause> Jesus quer voltar a um lugar onde tentaram apedrejá-lo. <short pause> Tomé responde: Vamos nós também, para morrermos com ele. <short pause> Mais adiante, é ele quem pergunta.",
+      "fala": "Jesus decide voltar lá. Tomé diz aos outros discípulos aquelas palavras. Mais adiante, é ele quem pergunta.",
+      "tts": "Jesus decide voltar lá. <short pause> Tomé diz aos outros discípulos aquelas palavras. <short pause> Mais adiante, é ele quem pergunta.",
       "batidas": {
-        "um:": "um",
-        "apedrejá-lo.": "apedrejar",
-        "ele.": "ele1",
+        "lá.": "apedrejar",
+        "palavras.": "palavras",
         "pergunta.": "pergunta1"
       }
     },
@@ -165,22 +185,22 @@
       "id": "apoio",
       "tipo": "apoio",
       "titulo": "",
-      "fala": "Perguntar também é ficar perto. Curte e deixa seu amém. A pergunta vem já.",
-      "tts": "Perguntar também é ficar perto. Curte e deixa seu amém. A pergunta vem já.",
+      "fala": "Um amém pra quem pergunta a Deus. A pergunta de Tomé vem agora.",
+      "tts": "Um amém pra quem pergunta a Deus. A pergunta de Tomé vem agora.",
       "batidas": {
-        "perto.": "fe",
-        "Curte": "curte",
-        "amém.": "comenta"
+        "amém": "fe",
+        "Deus.": "curte",
+        "agora.": "comenta"
       }
     },
     {
       "id": "parte2",
       "tipo": "parte2",
       "titulo": "",
-      "fala": "Pergunta dois, na última ceia: como podemos saber o caminho? Jesus responde: Eu sou o caminho. Depois, Tomé falta quando Jesus aparece, e diz que só crê se vir e tocar.",
-      "tts": "Pergunta dois, na última ceia: <short pause> como podemos saber o caminho? <short pause> Jesus responde: Eu sou o caminho. <short pause> Depois, Tomé falta quando Jesus aparece, e diz que só crê se vir e tocar.",
+      "fala": "Na última ceia, Tomé pergunta: como podemos saber o caminho? Jesus responde: Eu sou o caminho. Depois, Tomé não estava com eles quando Jesus apareceu, e diz: só creio se vir e tocar.",
+      "tts": "Na última ceia, Tomé pergunta: como podemos saber o caminho? <short pause> Jesus responde: Eu sou o caminho. <short pause> Depois, Tomé não estava com eles quando Jesus apareceu, e diz: <short pause> só creio se vir e tocar.",
       "batidas": {
-        "dois,": "dois",
+        "pergunta:": "dois",
         "caminho?": "caminho",
         "caminho.": "eusou",
         "tocar.": "tocar"
@@ -190,24 +210,24 @@
       "id": "aposta",
       "tipo": "aposta",
       "titulo": "",
-      "fala": "Pergunta três, e é uma aposta: Jesus convida Tomé a tocar. Ele tocou? A, tocou. B, o texto não conta. Escreve a letra.",
-      "tts": "Pergunta três, e é uma aposta: <short pause> Jesus convida Tomé a tocar. Ele tocou? <short pause> A, tocou. B, o texto não conta. <short pause> Escreve a letra. <long pause>",
+      "fala": "Aposta: Jesus convida Tomé a tocar. Ele tocou? A, tocou. B, não tocou. C, o texto não diz. Escreve a letra e um porquê.",
+      "tts": "Aposta: Jesus convida Tomé a tocar. Ele tocou? <short pause> A, tocou. B, não tocou. C, o texto não diz. Escreve a letra e um porquê. <long pause>",
       "batidas": {
-        "três,": "tres",
+        "Aposta:": "tres",
         "tocou?": "tocou",
-        "letra.": "letra"
+        "porquê.": "letra"
       }
     },
     {
       "id": "parte3",
       "tipo": "parte3",
       "titulo": "",
-      "fala": "Resposta: B. O texto vai direto à confissão: Senhor meu, e Deus meu! Nenhum verso conta o toque. Mas repara no convite.",
-      "tts": "Resposta: B. <short pause> O texto vai direto à confissão: Senhor meu, e Deus meu! <short pause> Nenhum verso conta o toque. <short pause> Mas repara no convite.",
+      "fala": "Resposta: C. Tomé responde: Senhor meu, e Deus meu! Nesses versos o texto não diz se ele tocou. Agora, o convite.",
+      "tts": "Resposta: C. <short pause> Tomé responde: Senhor meu, e Deus meu! <short pause> Nesses versos o texto não diz se ele tocou. Agora, o convite.",
       "batidas": {
-        "B.": "resposta",
+        "C.": "resposta",
         "meu!": "confissao",
-        "toque.": "notoque",
+        "tocou.": "notoque",
         "convite.": "convite"
       }
     },
@@ -215,20 +235,20 @@
       "id": "parte4",
       "tipo": "parte4",
       "titulo": "",
-      "fala": "Jesus devolve as condições de Tomé, quase palavra por palavra. Oito dias depois, Tomé ainda estava com eles. Foi com ele ali, no meio da dúvida, que Jesus falou.",
-      "tts": "Jesus devolve as condições de Tomé, <short pause> quase palavra por palavra. <short pause> Oito dias depois, Tomé ainda estava com eles. <long pause> Foi com ele ali, <short pause> no meio da dúvida, que Jesus falou.",
+      "fala": "Jesus diz a Tomé as mesmas palavras: ver, dedo, mão, lado. Oito dias depois, o texto mostra Tomé com eles, e é ali que Jesus aparece.",
+      "tts": "Jesus diz a Tomé as mesmas palavras: <short pause> ver, dedo, mão, lado. <long pause> Oito dias depois, o texto mostra Tomé com eles, <short pause> e é ali que Jesus aparece.",
       "batidas": {
-        "palavra.": "palavra",
-        "eles.": "eles",
-        "falou.": "falou"
+        "palavras:": "palavra",
+        "lado.": "lado",
+        "eles,": "eles"
       }
     },
     {
       "id": "pergunta",
       "tipo": "pergunta",
       "titulo": "",
-      "fala": "Qual pergunta você ainda não teve coragem de fazer a Deus? Escreve numa frase, nos comentários, aqui na direita.",
-      "tts": "Qual pergunta você ainda não teve coragem de fazer a Deus? Escreve numa frase, nos comentários, aqui na direita.",
+      "fala": "Qual pergunta você já fez a Deus de madrugada? Escreve numa frase, nos comentários, aqui na direita.",
+      "tts": "Qual pergunta você já fez a Deus de madrugada? Escreve numa frase, nos comentários, aqui na direita.",
       "batidas": {
         "Qual": "pergunta",
         "Escreve": "comenta",
@@ -262,8 +282,8 @@
   },
   "capa": {
     "t": 3.0,
-    "texto": "TOMÉ: 3 PERGUNTAS",
-    "destaque": "3 PERGUNTAS",
+    "texto": "TOMÉ TOCOU?",
+    "destaque": "TOCOU?",
     "y": 1180
   }
 }
