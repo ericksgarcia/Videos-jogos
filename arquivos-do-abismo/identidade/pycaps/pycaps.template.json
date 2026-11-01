@@ -1,0 +1,27 @@
+{
+    "css": "styles.css",
+    "resources": "resources",
+    "layout": {
+        "max_width_ratio": 0.72,
+        "max_number_of_lines": 2,
+        "min_number_of_lines": 1,
+        "vertical_align": {"align": "center", "offset": 0}
+    },
+    "splitters": [
+        {"type": "split_into_sentences"},
+        {"type": "limit_by_words", "limit": 3}
+    ],
+    "effects": [
+        {"type": "remove_punctuation_marks", "punctuation_marks": [".", ",", ";", ":"], "exception_marks": ["..."]}
+    ],
+    "animations": [
+        {"type": "pop_in_primitive", "when": "narration-starts", "what": "word", "duration": 0.14, "init_scale": 0.7,
+         "overshoot": {"amount": 0.08, "peak_at": 0.7}},
+        {"type": "fade_in", "when": "narration-starts", "what": "segment", "duration": 0.08},
+        {"type": "fade_out", "when": "narration-ends", "what": "segment", "duration": 0.08}
+    ],
+    "tagger_rules": [
+        {"type": "regex", "tag": "morte", "regex": "(?i)^(quatro|morreram|morte|instant[aâ]neo|despencou|pressurizada|trava|perturbador|sobreviveu)$"},
+        {"type": "regex", "tag": "dado", "regex": "(?i)^(5|cinco|novembro|1983|mil|novecentos|oitenta|três|byford|dolphin|nove|atmosferas)$"}
+    ]
+}

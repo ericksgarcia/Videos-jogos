@@ -1,10 +1,10 @@
 {
   "slug": "byford-dolphin",
   "titulo": "Byford Dolphin: 4 mortos em menos de 1 segundo",
-  "estilo_voz": "Narrador masculino grave, lento, fúnebre; pausas longas nos (...); peso nas palavras em maiúscula; corte abrupto no fim.",
   "audio": {
-    "pitch_semitons": -2.0,
-    "velocidade": 0.9
+    "voz": "Algenib",
+    "estilo": "Narrador de documentário sombrio de investigação, de madrugada: voz masculina grave e rouca, baixa, bem perto do microfone, quase confidencial. Ritmo lento e deliberado, sem pressa nenhuma. Tom seco, frio e factual, sem dramatização nem exagero: o medo vem dos fatos, não da voz. As frases terminam com a voz descendo. Pausa curta antes de números e antes da palavra que vira o fato. A última frase é cortada no meio, sem conclusão.",
+    "masterizacao": "highpass=f=70,equalizer=f=110:t=q:w=1:g=3,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=4,aecho=0.8:0.55:70|140:0.18|0.10,loudnorm=I=-15:TP=-1.5:LRA=7"
   },
   "verificar": [
     "NOVE atmosferas (pressão interna) — confirmar em relatório oficial",
