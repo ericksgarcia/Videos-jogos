@@ -44,6 +44,11 @@
             "type": "regex",
             "tag": "dado",
             "regex": "(?i)\\b(5|cinco|novembro|1983|byford|dolphin|nove|atmosferas)\\b"
+        },
+        {
+            "type": "regex",
+            "tag": "longa",
+            "regex": "(?i)\\b[\\wÀ-ÿ]{11,}\\b"
         }
     ]
 }

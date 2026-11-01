@@ -18,3 +18,5 @@
 
 .word-not-narrated-yet { opacity: 0.38; }
 .word-being-narrated, .word-already-narrated { opacity: 1; }
+
+.word.longa { font-size: 29px; }

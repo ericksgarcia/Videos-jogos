@@ -3,14 +3,15 @@
   "titulo": "Byford Dolphin: a trava que abriu com pressão",
   "audio": {
     "voz": "Algenib",
-    "estilo": "Narrador de documentário sombrio de investigação, de madrugada: voz masculina grave e rouca, baixa, bem perto do microfone, quase confidencial. Ritmo contínuo e fluido, as frases encadeadas como uma só respiração narrativa, sem pausas além das marcadas. Tom seco, frio e factual, sem dramatização nem exagero: o medo vem dos fatos, não da voz.",
-    "masterizacao": "highpass=f=70,equalizer=f=110:t=q:w=1:g=3,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=4,aecho=0.8:0.55:70|140:0.18|0.10,loudnorm=I=-15:TP=-1.5:LRA=7"
+    "estilo": "Narrador de documentário investigativo, voz masculina grave e levemente rouca, perto do microfone, como quem conta um caso real a uma pessoa só, de madrugada. Fala natural e humana, com respiração discreta nas vírgulas, sem leitura monótona. Cada frase tem melodia própria: sobe um pouco na palavra mais importante e desce com firmeza no fim das afirmações. Seco e factual, sem teatro: a ênfase vem de altura e duração, nunca de volume alto. Arco: começo firme e baixo, com 'QUATRO' dito com peso mas sem gritar; a contextualização (data, câmara, sino) mais ligeira, em ritmo de conversa; na escalada ('a trava foi aberta', 'a pressão despencou de uma vez só') acelera um pouco e o tom fica tenso; as frases sobre o auxiliar saem lentas, quase murmuradas. A última frase, 'Foi assim que', termina em suspensão: sem baixar o tom, sem concluir, como se a voz fosse interrompida.",
+    "masterizacao": "highpass=f=70,equalizer=f=110:t=q:w=1:g=1.5,acompressor=threshold=-18dB:ratio=2:attack=20:release=250:makeup=2,loudnorm=I=-15:TP=-1.5:LRA=11"
   },
   "verificar": [
-    "CINCO mortos (4 mergulhadores + 1 auxiliar) e 1 auxiliar ferido sobrevivente: SNL/Wikipedia/HowStuffWorks via resumo de busca; confirmar na NOU 1984:11",
-    "trava aberta com a câmara pressurizada e sem bloqueio de segurança: resumo do SNL; confirmar na NOU",
-    "NÃO usar até confirmar: nove atmosferas; menos de um segundo; um giro; sem alarme; trava única; tempestade",
-    "madrugada: SNL cita 04h00 de 5/11/1983"
+    "instantaneamente (4 mergulhadores): resumo do Frigg 'killed instantly'; confirmar na NOU 1984:11",
+    "quinto morto = auxiliar, morreu a caminho do hospital; outro auxiliar sobreviveu ferido: Frigg/Wikipedia via resumo",
+    "madrugada (04h00): Wikipedia via resumo; dois auxiliares ao lado da trava: Frigg via resumo",
+    "REMOVIDO por divergência entre checadores: 'nenhum bloqueio de segurança / nada impedia a trava de abrir' (SNL via resumo diz que faltavam mecanismos; outra checagem não achou) — só volta com a NOU aberta",
+    "NÃO usar até confirmar: nove atmosferas; menos de um segundo; um giro; sem alarme; trava única; tempestade; Mar do Norte NÃO é problema (confirmado), cortado só por ritmo"
   ],
   "cenas": [
     {
@@ -21,31 +22,31 @@
     },
     {
       "id": 2,
-      "fala": "Era madrugada de 5 de novembro de 1983, no Mar do Norte, a bordo da plataforma Byford Dolphin.",
+      "fala": "Foi na madrugada de 5 de novembro de 1983, a bordo da plataforma Byford Dolphin.",
       "estilo": "vhs",
       "cena": "-"
     },
     {
       "id": 3,
-      "fala": "Eles viviam numa câmara de aço, sob uma pressão muitas vezes maior que a do ar. Ao voltar do trabalho, um sino se encaixava nela.",
+      "fala": "Os mergulhadores viviam numa câmara de aço, sob uma pressão muitas vezes maior que a do ar. Quando voltavam do trabalho, o sino de mergulho, a cápsula que os levava ao fundo, se encaixava nela.",
       "estilo": "vhs",
       "cena": "-"
     },
     {
       "id": 4,
-      "fala": "E o que mantinha tudo fechado era uma trava. (...) Só que, naquela madrugada, a câmara ainda estava PRESSURIZADA, e a trava foi aberta.",
+      "fala": "E o que mantinha essa junção fechada era uma trava. (...) Só que, naquela madrugada, a câmara ainda estava PRESSURIZADA, e a trava foi aberta.",
       "estilo": "vhs",
       "cena": "-"
     },
     {
       "id": 5,
-      "fala": "A pressão despencou de uma vez só, e para os mergulhadores não houve tempo de reagir. Um auxiliar também morreu. Outro sobreviveu, ferido.",
+      "fala": "A pressão despencou de uma vez só, e para os mergulhadores não houve tempo de reagir. O quinto morto era um auxiliar: morreu a caminho do hospital. Outro auxiliar sobreviveu, ferido.",
       "estilo": "vhs",
       "cena": "-"
     },
     {
       "id": 6,
-      "fala": "E o pior: nada impedia aquela trava de abrir. (...) Nenhum bloqueio de segurança. Foi assim que",
+      "fala": "E havia dois auxiliares ao lado da trava quando ela foi aberta. (...) Foi assim que",
       "estilo": "vhs",
       "cena": "-"
     }
