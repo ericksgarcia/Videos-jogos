@@ -15,19 +15,19 @@
   "cenas": [
     {
       "id": 1,
-      "fala": "CINCO homens morreram por causa de uma trava aberta na hora errada.",
+      "fala": "Uma trava de aço abriu quando não podia. CINCO homens morreram.",
       "estilo": "arquivo",
       "cena": "a steel diving bell hanging on a chain above black water"
     },
     {
       "id": 2,
-      "fala": "Foi na madrugada de 5 de novembro de 1983, numa plataforma de petróleo no Mar do Norte, a Byford Dolphin.",
+      "fala": "Madrugada de 5 de novembro de 1983, Mar do Norte, plataforma de petróleo Byford Dolphin.",
       "estilo": "vhs",
       "cena": "an offshore oil platform with a few lit windows on the horizon"
     },
     {
       "id": 3,
-      "fala": "Mergulhadores viviam numa câmara de aço, sob uma pressão muitas vezes maior que a do ar, e voltavam do trabalho num sino que se encaixava nela.",
+      "fala": "Os mergulhadores viviam numa câmara de aço, sob uma pressão muitas vezes maior que a do ar. O trabalho começava num sino que se encaixava nela.",
       "estilo": "arquivo",
       "cena": "a cramped riveted steel chamber with bunks and a round porthole"
     },
@@ -39,19 +39,19 @@
     },
     {
       "id": 5,
-      "fala": "De repente, a pressão caiu de muitas vezes a do ar para a normal, de uma vez só.",
+      "fala": "A pressão despencou para a do ar normal. De uma vez só.",
       "estilo": "arquivo",
       "cena": "a sealed steel hatch door with bolts straining"
     },
     {
       "id": 6,
-      "fala": "Cinco morreram, os mergulhadores na hora, e um homem sobreviveu ferido.",
+      "fala": "Quatro mergulhadores morreram na hora. Um auxiliar também morreu. Outro sobreviveu, ferido.",
       "estilo": "vhs",
       "cena": "a row of empty steel bunk beds in a cold chamber"
     },
     {
       "id": 7,
-      "fala": "E o mais perturbador (...) é que nada impedia aquela trava de abrir: nenhum bloqueio de segurança. Foi assim que",
+      "fala": "E nada impedia aquela trava de abrir. (...) Nenhum bloqueio de segurança. Foi assim que",
       "estilo": "vhs",
       "cena": "a dark steel corridor with a lone flickering tube"
     }
