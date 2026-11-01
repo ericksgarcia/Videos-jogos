@@ -4,7 +4,7 @@
   "hud": "● REC  ROOPKUND",
   "audio": {
     "voz": "Algenib",
-    "estilo": "Narrador de documentário investigativo, voz masculina grave e levemente rouca, bem perto do microfone, contando um caso real a uma única pessoa, de madrugada. Fala natural e humana, sem leitura monótona, com respiração discreta nas vírgulas. Cada frase tem melodia própria: sobe um pouco na palavra mais importante e desce com firmeza no fim das afirmações. Seco e factual, tenso mas contido; a ênfase vem de altura e duração, nunca de volume. Começo firme e baixo, com 'centenas' dito com peso, sem gritar. O meio, de lugar e data, em ritmo de conversa. Na escalada, acelera um pouco. A revelação do grupo do Mediterrâneo sai mais lenta e baixa. A última frase termina em suspensão, sem baixar o tom, como se a voz fosse interrompida.",
+    "estilo": "Narrador de documentário investigativo, voz masculina grave e levemente rouca, bem perto do microfone, contando um caso real a uma única pessoa, de madrugada. Fala natural e humana, sem leitura monótona, com respiração discreta nas vírgulas. Cada frase tem melodia própria: sobe um pouco na palavra mais importante e desce com firmeza no fim das afirmações. Seco e factual, tenso mas contido; a ênfase vem de altura e duração, nunca de volume. Começo firme e baixo, com 'cemitério' e 'centenas' ditos com peso, sem gritar. O meio, de lugar e data, em ritmo de conversa. Na escalada, acelera um pouco. A revelação do grupo do Mediterrâneo sai mais lenta e baixa. A última frase termina em suspensão, sem baixar o tom, como se a voz fosse interrompida.",
     "masterizacao": "highpass=f=70,equalizer=f=110:t=q:w=1:g=1.5,acompressor=threshold=-18dB:ratio=2:attack=20:release=250:makeup=2,loudnorm=I=-15:TP=-1.5:LRA=11"
   },
   "pronuncia": {
@@ -15,9 +15,10 @@
   },
   "destaques": {
     "morte": [
+      "cemitério",
       "centenas",
-      "esqueletos",
-      "morreram",
+      "ossadas",
+      "morreu",
       "fraturas",
       "granizo"
     ],
@@ -36,20 +37,21 @@
     "1942 guarda florestal: Wikipedia via resumo (H. K. Madhwal); 'alguns crânios com fraturas': divulgação; hipótese do granizo = popular, NÃO consenso; tamanho (críquete x beisebol) varia por fonte, hedgeado",
     "lenda de Nanda Devi: versões variam; sem 'peregrinos' (parte da lenda, não estabelecido) e sem culpar vítimas",
     "2019 Harney et al.: 3 grupos (23 sul-asiáticos, 14 Mediterrâneo oriental, 1 sudeste asiático); 'cerca de mil anos' = janelas de datação largas, hedgeado",
-    "NÃO usar: 'massacre', 'peregrinos mortos por granizo' como fato, 'pelo menos duzentas', 'no topo do crânio'"
+    "NÃO usar: 'massacre', 'peregrinos mortos por granizo' como fato, 'pelo menos duzentas', 'no topo do crânio'",
+    "soldados japoneses (1942): Wikipedia via resumo de busca, PLAUSÍVEL; confirmar. 'DNA revelou algo inesperado' = grupo do Mediterrâneo (Harney et al. 2019, Nat. Commun., DOI 10.1038/s41467-019-11357-9, CONFIRMADO)"
   ],
   "cenas": [
     {
       "id": 1,
-      "fala": "CENTENAS de esqueletos humanos aparecem neste lago. Ficam a mais de cinco mil metros de altura, e ninguém sabe ao certo como essas pessoas morreram."
+      "fala": "Este lago é um cemitério. Quando o gelo derrete, aparecem ossadas de CENTENAS de pessoas. E o DNA delas revelou algo inesperado."
     },
     {
       "id": 2,
-      "fala": "É o lago Roopkund, no Himalaia indiano. Quando o gelo derrete, os ossos ficam à mostra."
+      "fala": "É o lago Roopkund, no Himalaia, a mais de cinco mil metros de altura."
     },
     {
       "id": 3,
-      "fala": "Em 1942, um guarda florestal achou os ossos. E alguns crânios tinham fraturas."
+      "fala": "Em 1942, um guarda florestal os achou, e as autoridades temeram que fossem soldados japoneses. Alguns crânios tinham fraturas."
     },
     {
       "id": 4,
@@ -57,11 +59,11 @@
     },
     {
       "id": 5,
-      "fala": "Uma hipótese popular é granizo gigante, com pedras do tamanho de uma bola de críquete, segundo algumas estimativas."
+      "fala": "Alguns cientistas propuseram algo parecido: granizo gigante, de até o tamanho de bolas de críquete."
     },
     {
       "id": 6,
-      "fala": "Só que em 2019, o DNA mostrou que não foi um único evento."
+      "fala": "Só que em 2019, um estudo de DNA mostrou que não foi um único evento."
     },
     {
       "id": 7,
@@ -69,7 +71,7 @@
     },
     {
       "id": 8,
-      "fala": "Ninguém sabe o que esse grupo do Mediterrâneo fazia ali. (...) Só sabemos que—"
+      "fala": "Não se sabe o que esse grupo fazia ali. (...) Só sabemos que—"
     }
   ]
 }

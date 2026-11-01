@@ -1,6 +1,6 @@
 [
  {
-  "ancora": "centenas de",
+  "ancora": "este lago",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": true,
@@ -10,45 +10,6 @@
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "faint cold twilight",
    "camera": "low angle close shot, still"
-  }
- },
- {
-  "ancora": "a mais de",
-  "estilo": "arquivo",
-  "movimento": "out",
-  "boom": false,
-  "prompt": {
-   "sujeito": "a vast Himalayan ridge above the clouds, tiny trail visible",
-   "ambiente": "extreme altitude, thin air, endless peaks",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "pale dawn light",
-   "camera": "very wide shot, static"
-  }
- },
- {
-  "ancora": "e ninguém",
-  "estilo": "vhs",
-  "movimento": "left",
-  "boom": false,
-  "prompt": {
-   "sujeito": "dark storm clouds gathering over bare mountain peaks",
-   "ambiente": "bleak rocky landscape, no vegetation",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "dim grey light with a faint glow on the horizon",
-   "camera": "wide shot, handheld shake"
-  }
- },
- {
-  "ancora": "é o lago",
-  "estilo": "arquivo",
-  "movimento": "in",
-  "boom": false,
-  "prompt": {
-   "sujeito": "a small oval glacial lake ringed by dark scree and snow",
-   "ambiente": "high Himalayan basin, no trees",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "flat cold overcast light",
-   "camera": "high wide shot, slow"
   }
  },
  {
@@ -65,7 +26,7 @@
   }
  },
  {
-  "ancora": "os ossos ficam",
+  "ancora": "aparecem ossadas",
   "estilo": "vhs",
   "movimento": "in",
   "boom": true,
@@ -75,6 +36,45 @@
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "harsh cold light",
    "camera": "low angle, slow push"
+  }
+ },
+ {
+  "ancora": "e o dna",
+  "estilo": "vhs",
+  "movimento": "right",
+  "boom": false,
+  "prompt": {
+   "sujeito": "rows of glass sample tubes on a laboratory bench",
+   "ambiente": "cold sterile light, nobody present",
+   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
+   "iluminacao": "fluorescent cold light",
+   "camera": "medium close-up, static"
+  }
+ },
+ {
+  "ancora": "é o lago",
+  "estilo": "arquivo",
+  "movimento": "in",
+  "boom": false,
+  "prompt": {
+   "sujeito": "a small oval glacial lake ringed by dark scree and snow",
+   "ambiente": "high Himalayan basin, no trees",
+   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
+   "iluminacao": "flat cold overcast light",
+   "camera": "high wide shot, slow"
+  }
+ },
+ {
+  "ancora": "a mais de",
+  "estilo": "arquivo",
+  "movimento": "out",
+  "boom": false,
+  "prompt": {
+   "sujeito": "a vast Himalayan ridge above the clouds, tiny trail visible",
+   "ambiente": "extreme altitude, thin air, endless peaks",
+   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
+   "iluminacao": "pale dawn light",
+   "camera": "very wide shot, static"
   }
  },
  {
@@ -118,28 +118,28 @@
  },
  {
   "ancora": "uma tempestade",
-  "estilo": "vhs",
-  "movimento": "in",
-  "boom": true,
-  "prompt": {
-   "sujeito": "lightning striking over a dark mountain valley",
-   "ambiente": "violent storm, rain and hail streaks",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "flash of white lightning",
-   "camera": "wide shot, glitchy"
-  }
- },
- {
-  "ancora": "pela deusa",
   "estilo": "arquivo",
   "movimento": "in",
-  "boom": false,
+  "boom": true,
   "prompt": {
    "sujeito": "a small stone shrine on a barren mountain ridge",
    "ambiente": "offerings of faded cloth, mist",
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "dim twilight glow",
    "camera": "medium shot, still"
+  }
+ },
+ {
+  "ancora": "pela deusa",
+  "estilo": "vhs",
+  "movimento": "in",
+  "boom": false,
+  "prompt": {
+   "sujeito": "lightning striking over a dark mountain valley",
+   "ambiente": "violent storm, rain and hail streaks",
+   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
+   "iluminacao": "flash of white lightning",
+   "camera": "wide shot, glitchy"
   }
  },
  {
@@ -157,19 +157,6 @@
  },
  {
   "ancora": "só que",
-  "estilo": "vhs",
-  "movimento": "right",
-  "boom": false,
-  "prompt": {
-   "sujeito": "rows of glass sample tubes on a laboratory bench",
-   "ambiente": "cold sterile light, nobody present",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "fluorescent cold light",
-   "camera": "medium close-up, static"
-  }
- },
- {
-  "ancora": "o dna",
   "estilo": "vhs",
   "movimento": "in",
   "boom": false,
@@ -208,7 +195,7 @@
   }
  },
  {
-  "ancora": "ninguém sabe o",
+  "ancora": "não se sabe",
   "estilo": "vhs",
   "movimento": "out",
   "boom": false,

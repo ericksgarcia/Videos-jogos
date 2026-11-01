@@ -29,6 +29,13 @@ Checklist da 1ª frase (o `medir.py` confere o que dá):
 4. **A causa vira o laço aberto** (frase 2 ou 3 anuncia sem entregar: "tudo por causa de uma trava") e é paga no clímax; o fim cortado emenda gramaticalmente com a 1ª frase.
 5. Hierarquia: o fato precisa estar CONFIRMADO. Não infle o número nem a velocidade para o gancho ficar mais forte.
 
+### Apelo máximo do gancho (decisão do dono, 01/11/2026: "sempre")
+O gancho tem de ser **apelativo**, não só correto. Duas formas aprovadas (use uma; a 1ª quando houver um número chocante de mortos, a 2ª quando o lugar/objeto for a estrela):
+- **A. Resultado primeiro:** "QUATRO mergulhadores morreram instantaneamente."
+- **B. Epíteto macabro + imagem + escala:** frase 1 = o lugar com um **apelido de impacto** ("Este lago é um cemitério."); frase 2 = **o momento visual que revela** o horror e a **escala** ("Quando o gelo derrete, aparecem ossadas de CENTENAS de pessoas."). Imagem concreta (gelo, ossadas, descongela) + palavra de escala (centenas, milhares, tantos) + verbo no presente.
+Regras comuns: nada de contexto (data, nome científico, altitude) antes do choque; a causa fica como laço aberto; o epíteto tem de ser **verdadeiro ou de uso comum** ("lago dos esqueletos", "cemitério"), e a escala **hedgeada** se a contagem não for confirmada ("centenas", "pelo menos").
+O `medir.py` confere: as 2 primeiras frases somam até 18 palavras, com escala/número e palavra de morte/ossos.
+
 ## Como criticar
 - Escala calibrada: 5 = mediano do nicho, 7 = bom, **8 = publicável** (você não acha melhora relevante), 9–10 = referência.
 - Reprove por padrão. Cite o texto exato. Entregue: pior frase, frase a cortar, objeção de um espectador cético, efeito esperado de cada correção.
