@@ -19,7 +19,7 @@
   "boom": false,
   "prompt": {
    "sujeito": "cracks spreading across the frozen surface of a mountain lake",
-   "ambiente": "ice and dark water, mist rising",
+   "ambiente": "ice and dark water, mist rising, above the tree line, barren rocky alpine terrain, absolutely no trees and no vegetation",
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "cold blue morning light",
    "camera": "close wide shot, slight tilt"
@@ -32,7 +32,7 @@
   "boom": true,
   "prompt": {
    "sujeito": "old weathered bones scattered among rocks at a lake shore, no people",
-   "ambiente": "melting snow, wet gravel",
+   "ambiente": "melting snow, wet gravel, above the tree line, barren rocky alpine terrain, absolutely no trees and no vegetation",
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "harsh cold light",
    "camera": "low angle, slow push"
@@ -84,7 +84,7 @@
   "boom": false,
   "prompt": {
    "sujeito": "an abandoned stone mountain trail with a single dim lantern",
-   "ambiente": "1940s feel, wind-blown snow, no people",
+   "ambiente": "1940s feel, wind-blown snow, no people, above the tree line, barren rocky alpine terrain, absolutely no trees and no vegetation",
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "weak yellow lantern light in a blizzard",
    "camera": "wide shot, grainy"
@@ -201,7 +201,7 @@
   "boom": false,
   "prompt": {
    "sujeito": "a lonely mountain lake at dusk, fog drifting over the water",
-   "ambiente": "still black water, rocky shore",
+   "ambiente": "still black water, rocky shore, above the tree line, barren rocky alpine terrain, absolutely no trees and no vegetation",
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "dying purple twilight",
    "camera": "wide shot, slow pull back"

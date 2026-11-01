@@ -127,7 +127,7 @@ def montar(r, d, pasta):
     af += [mix[1], mix[2], "".join(ms) + f"amix=inputs={len(ms)}:normalize=0:duration=first,alimiter=limit=0.95[a]"]
     base = d / "base.mp4"
     subprocess.run(["ffmpeg", "-v", "error", "-y", *ent, "-filter_complex", ";".join(f + af), "-map", "[v]", "-map", "[a]", "-t", f"{dur:.2f}",
-                    "-c:v", "libx264", "-crf", "23", "-preset", "medium", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", str(base)], check=True)
+                    "-c:v", "libx264", "-crf", "25", "-preset", "medium", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", str(base)], check=True)
 
 def legendas(r, d, pasta):
     """Legendas com o pycaps (CSS + Playwright), palavra a palavra, usando os tempos já medidos (sem transcrever de novo)."""
