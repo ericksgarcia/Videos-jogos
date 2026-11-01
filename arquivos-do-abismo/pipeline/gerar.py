@@ -25,7 +25,7 @@ def tts_texto(r, fala):
 def audio(r, d):
     """1 requisição ao Gemini TTS (API Interactions: o estilo vai em speech_metadata e NÃO é lido), depois pitch/velocidade."""
     import requests
-    texto = "\n\n".join(tts_texto(r, c["fala"]) for c in r["cenas"])
+    texto = " ".join(tts_texto(r, c["fala"]) for c in r["cenas"])
     corpo = {"model": GEMINI_TTS, "response_format": {"type": "audio"},
              "input": [{"type": "text", "text": texto, "annotations": [{"type": "speech_metadata", "style": r["audio"]["estilo"]}]}],
              "generation_config": {"speech_config": [{"voice": r["audio"].get("voz", VOZ)}]}}

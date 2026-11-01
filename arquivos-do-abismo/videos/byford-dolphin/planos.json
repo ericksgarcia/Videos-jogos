@@ -1,6 +1,6 @@
 [
  {
-  "ancora": "quatro homens",
+  "ancora": "cinco homens",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -13,7 +13,7 @@
   }
  },
  {
-  "ancora": "em menos",
+  "ancora": "por causa",
   "estilo": "vhs",
   "movimento": "in",
   "boom": true,
@@ -26,20 +26,7 @@
   }
  },
  {
-  "ancora": "5 de",
-  "estilo": "vhs",
-  "movimento": "out",
-  "boom": false,
-  "prompt": {
-   "sujeito": "a lone offshore oil platform with a few lit windows far away on the horizon",
-   "ambiente": "North Sea at night, violent waves, storm clouds",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "cold moonlight and distant sodium lamps",
-   "camera": "wide shot from a boat, shaky"
-  }
- },
- {
-  "ancora": "mar do",
+  "ancora": "foi na",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -49,6 +36,19 @@
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "dim grey twilight",
    "camera": "very wide, grainy, long exposure look"
+  }
+ },
+ {
+  "ancora": "numa plataforma",
+  "estilo": "vhs",
+  "movimento": "out",
+  "boom": false,
+  "prompt": {
+   "sujeito": "a lone offshore oil platform with a few lit windows far away on the horizon",
+   "ambiente": "North Sea at night, dark calm water, low clouds",
+   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
+   "iluminacao": "cold moonlight and distant sodium lamps",
+   "camera": "wide shot from a boat, steady"
   }
  },
  {
@@ -65,7 +65,7 @@
   }
  },
  {
-  "ancora": "na pressão",
+  "ancora": "sob pressão",
   "estilo": "vhs",
   "movimento": "in",
   "boom": false,
@@ -78,7 +78,7 @@
   }
  },
  {
-  "ancora": "para voltar",
+  "ancora": "e voltavam",
   "estilo": "vhs",
   "movimento": "left",
   "boom": false,
@@ -91,7 +91,7 @@
   }
  },
  {
-  "ancora": "uma única",
+  "ancora": "uma trava",
   "estilo": "vhs",
   "movimento": "in",
   "boom": false,
@@ -117,7 +117,7 @@
   }
  },
  {
-  "ancora": "alguém soltou",
+  "ancora": "e a trava foi",
   "estilo": "vhs",
   "movimento": "left",
   "boom": false,
@@ -130,7 +130,7 @@
   }
  },
  {
-  "ancora": "a pressão",
+  "ancora": "de repente",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -143,7 +143,7 @@
   }
  },
  {
-  "ancora": "em frações",
+  "ancora": "para a normal",
   "estilo": "vhs",
   "movimento": "right",
   "boom": true,
@@ -156,25 +156,12 @@
   }
  },
  {
-  "ancora": "foi instantâneo",
-  "estilo": "arquivo",
-  "movimento": "in",
-  "boom": false,
-  "prompt": {
-   "sujeito": "a motionless steel chamber after the event, dust drifting in a single beam of light",
-   "ambiente": "silent, abandoned, nobody present",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "one shaft of pale light cutting through dust",
-   "camera": "wide shot, perfectly still"
-  }
- },
- {
-  "ancora": "quatro morreram",
+  "ancora": "cinco morreram",
   "estilo": "vhs",
   "movimento": "out",
   "boom": true,
   "prompt": {
-   "sujeito": "four empty steel bunk beds in a row in a cold chamber",
+   "sujeito": "a row of empty steel bunk beds in a cold steel chamber",
    "ambiente": "stark, silent, nobody present",
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "harsh fluorescent light",
@@ -182,7 +169,7 @@
   }
  },
  {
-  "ancora": "um sobreviveu",
+  "ancora": "e um homem",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -208,7 +195,7 @@
   }
  },
  {
-  "ancora": "sem alarme",
+  "ancora": "nenhum bloqueio",
   "estilo": "vhs",
   "movimento": "left",
   "boom": false,
@@ -221,7 +208,7 @@
   }
  },
  {
-  "ancora": "sem tempo",
+  "ancora": "foi assim",
   "estilo": "vhs",
   "movimento": "in",
   "boom": false,

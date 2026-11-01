@@ -38,7 +38,7 @@
         {
             "type": "regex",
             "tag": "morte",
-            "regex": "(?i)\\b(quatro|morreram|morte|instant[aâ]neo|despencou|pressurizada|trava|perturbador|sobreviveu)\\b"
+            "regex": "(?i)\\b(cinco|morreram|morte|instant[aâ]neo|despencou|pressurizada|trava|perturbador|sobreviveu)\\b"
         },
         {
             "type": "regex",
