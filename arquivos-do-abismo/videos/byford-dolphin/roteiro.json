@@ -2,7 +2,10 @@
   "slug": "byford-dolphin",
   "titulo": "Byford Dolphin: 4 mortos em menos de 1 segundo",
   "estilo_voz": "Narrador masculino grave, lento, fúnebre; pausas longas nos (...); peso nas palavras em maiúscula; corte abrupto no fim.",
-  "audio": {"pitch_semitons": -2.0, "velocidade": 0.9},
+  "audio": {
+    "pitch_semitons": -2.0,
+    "velocidade": 0.9
+  },
   "verificar": [
     "NOVE atmosferas (pressão interna) — confirmar em relatório oficial",
     "trava abria com um giro e sem bloqueio/alarme — confirmar",
@@ -10,35 +13,139 @@
     "nomes das vítimas — fontes divergem; não usar"
   ],
   "cenas": [
-    {"id": 1, "t": [0, 4], "fala": "QUATRO homens morreram em menos de UM SEGUNDO. (...) Nenhum teve tempo de gritar.",
-     "estilo": "arquivo", "cena": "an empty steel diving bell hanging above black water, no people",
-     "sfx": "deep cinematic boom no 'UM SEGUNDO'", "vermelho": ["QUATRO", "morreram"], "amarelo": []},
-    {"id": 2, "t": [4, 9], "fala": "5 de novembro de 1983. (...) Mar do Norte. Plataforma BYFORD DOLPHIN.",
-     "estilo": "vhs", "cena": "an offshore oil platform at night in a storm, North Sea",
-     "sfx": "camera shutter com flash na data", "vermelho": [], "amarelo": ["5", "novembro", "1983", "BYFORD", "DOLPHIN"]},
-    {"id": 3, "t": [9, 17], "fala": "Mergulhadores viviam dentro de uma câmara de aço, (...) respirando ar na pressão do FUNDO do oceano.",
-     "estilo": "arquivo", "cena": "a cramped riveted steel pressure chamber with a small round porthole",
-     "sfx": "rangido metálico de casco, ar comprimido baixo", "vermelho": [], "amarelo": []},
-    {"id": 4, "t": [17, 26], "fala": "Para voltar, o sino de mergulho se encaixava na câmara. (...) Uma única trava segurava tudo.",
-     "estilo": "vhs", "cena": "a diving bell docked against a steel hatch, a single heavy clamp ring",
-     "sfx": "clique de metal pesado na 'trava'", "vermelho": [], "amarelo": []},
-    {"id": 5, "t": [26, 31], "fala": "Só que a câmara ainda estava PRESSURIZADA.",
-     "estilo": "vhs", "cena": "a pressure gauge with a trembling needle in the red zone, close up",
-     "sfx": "VHS glitch hit em 'PRESSURIZADA'; drone sobe", "vermelho": ["PRESSURIZADA"], "amarelo": []},
-    {"id": 6, "t": [31, 34], "fala": "Alguém soltou a trava.",
-     "estilo": "vhs", "cena": "a pressure gauge with a trembling needle in the red zone, close up",
-     "sfx": "silêncio de 0,5 s (corta o drone), depois clique seco", "vermelho": [], "amarelo": []},
-    {"id": 7, "t": [34, 40], "fala": "A pressão despencou de NOVE atmosferas para UMA (...) em frações de segundo.",
-     "estilo": "arquivo", "cena": "a sealed steel door, bolts straining, fog leaking from the seams",
-     "sfx": "deep cinematic boom em 'NOVE', cai para 'UMA'", "vermelho": ["despencou"], "amarelo": []},
-    {"id": 8, "t": [40, 47], "fala": "O ar dentro dos corpos não teve para onde ir. (...) Foi INSTANTÂNEO.",
-     "estilo": "arquivo", "cena": "a sealed steel door, bolts straining, fog leaking from the seams",
-     "sfx": "whoosh grave de ar + VHS glitch em 'INSTANTÂNEO'", "vermelho": ["INSTANTÂNEO"], "amarelo": []},
-    {"id": 9, "t": [47, 51], "fala": "QUATRO morreram na hora. (...) Um sobreviveu.",
-     "estilo": "vhs", "cena": "an empty corridor with an open hatch and flickering light, no people",
-     "sfx": "silêncio total, só o drone", "vermelho": ["QUATRO", "morreram"], "amarelo": []},
-    {"id": 10, "t": [51, 60], "fala": "E o mais perturbador (...) é que aquela trava abria com UM GIRO, mesmo com a câmara a nove atmosferas. Sem alarme. Sem bloqueio. Sem tempo pra",
-     "estilo": "vhs", "cena": "an empty corridor with an open hatch and flickering light, no people",
-     "sfx": "pulso crescente; corte seco junto com a fala (loop para a cena 1)", "vermelho": [], "amarelo": []}
+    {
+      "id": 1,
+      "t": [
+        0.0,
+        5.0
+      ],
+      "fala": "QUATRO homens morreram em menos de UM SEGUNDO.",
+      "estilo": "arquivo",
+      "cena": "an empty steel diving bell hanging above black water, no people",
+      "sfx": "deep cinematic boom no 'UM SEGUNDO'",
+      "vermelho": [
+        "QUATRO",
+        "morreram"
+      ],
+      "amarelo": []
+    },
+    {
+      "id": 2,
+      "t": [
+        5.0,
+        11.9
+      ],
+      "fala": "5 de novembro de 1983. (...) Mar do Norte. Plataforma BYFORD DOLPHIN.",
+      "estilo": "vhs",
+      "cena": "an offshore oil platform at night in a storm, North Sea",
+      "sfx": "camera shutter com flash na data",
+      "vermelho": [],
+      "amarelo": [
+        "5",
+        "novembro",
+        "1983",
+        "BYFORD",
+        "DOLPHIN"
+      ]
+    },
+    {
+      "id": 3,
+      "t": [
+        11.9,
+        19.4
+      ],
+      "fala": "Mergulhadores viviam numa câmara de aço, (...) na pressão do FUNDO do oceano.",
+      "estilo": "arquivo",
+      "cena": "a cramped riveted steel pressure chamber with a small round porthole",
+      "sfx": "rangido metálico de casco, ar comprimido baixo",
+      "vermelho": [],
+      "amarelo": []
+    },
+    {
+      "id": 4,
+      "t": [
+        19.4,
+        28.8
+      ],
+      "fala": "Para voltar, o sino de mergulho se encaixava na câmara. (...) Uma única trava segurava tudo.",
+      "estilo": "vhs",
+      "cena": "a diving bell docked against a steel hatch, a single heavy clamp ring",
+      "sfx": "clique de metal pesado na 'trava'",
+      "vermelho": [],
+      "amarelo": []
+    },
+    {
+      "id": 5,
+      "t": [
+        28.8,
+        33.1
+      ],
+      "fala": "Só que a câmara ainda estava PRESSURIZADA.",
+      "estilo": "vhs",
+      "cena": "a pressure gauge with a trembling needle in the red zone, close up",
+      "sfx": "VHS glitch hit em 'PRESSURIZADA'; drone sobe",
+      "vermelho": [
+        "PRESSURIZADA"
+      ],
+      "amarelo": []
+    },
+    {
+      "id": 6,
+      "t": [
+        33.1,
+        35.6
+      ],
+      "fala": "Alguém soltou a trava.",
+      "estilo": "vhs",
+      "cena": "a pressure gauge with a trembling needle in the red zone, close up",
+      "sfx": "silêncio de 0,5 s (corta o drone), depois clique seco",
+      "vermelho": [],
+      "amarelo": []
+    },
+    {
+      "id": 7,
+      "t": [
+        35.6,
+        43.1
+      ],
+      "fala": "A pressão despencou de NOVE atmosferas para UMA (...) em frações de segundo.",
+      "estilo": "arquivo",
+      "cena": "a sealed steel door, bolts straining, fog leaking from the seams",
+      "sfx": "deep cinematic boom em 'NOVE', cai para 'UMA'",
+      "vermelho": [
+        "despencou"
+      ],
+      "amarelo": []
+    },
+    {
+      "id": 8,
+      "t": [
+        43.1,
+        48.1
+      ],
+      "fala": "Foi INSTANTÂNEO. (...) QUATRO morreram na hora. Um sobreviveu.",
+      "estilo": "arquivo",
+      "cena": "a sealed steel door, bolts straining, fog leaking from the seams",
+      "sfx": "whoosh grave de ar + VHS glitch em 'INSTANTÂNEO'; silêncio total em 'Um sobreviveu'",
+      "vermelho": [
+        "INSTANTÂNEO",
+        "QUATRO",
+        "morreram"
+      ],
+      "amarelo": []
+    },
+    {
+      "id": 9,
+      "t": [
+        48.1,
+        60.0
+      ],
+      "fala": "E o mais perturbador (...) é que aquela trava abria com UM GIRO. Sem alarme. Sem bloqueio. Sem tempo pra",
+      "estilo": "vhs",
+      "cena": "an empty corridor with an open hatch and flickering light, no people",
+      "sfx": "pulso crescente; corte seco junto com a fala (loop para a cena 1)",
+      "vermelho": [],
+      "amarelo": []
+    }
   ]
 }

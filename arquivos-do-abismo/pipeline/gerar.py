@@ -18,17 +18,20 @@ def saida(r):
     d = RAIZ / "output" / "arquivos-do-abismo" / r["slug"]; d.mkdir(parents=True, exist_ok=True); return d
 
 def audio(r, d):
-    """1 requisição ao Gemini TTS (texto inteiro), depois pitch/velocidade com rubberband."""
-    texto = "\n".join(c["fala"] for c in r["cenas"])
-    corpo = {"contents": [{"parts": [{"text": f"{r['estilo_voz']}\n\n{texto}"}]}],
-             "generationConfig": {"responseModalities": ["AUDIO"],
-                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": VOZ}}}}}
-    req = urllib.request.Request(f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_TTS}:generateContent",
-        json.dumps(corpo).encode(), {"Content-Type": "application/json", "x-goog-api-key": os.environ.get("GEMINI_API_KEY", "")})
-    pcm = base64.b64decode(json.load(urllib.request.urlopen(req))["candidates"][0]["content"]["parts"][0]["inlineData"]["data"])
-    cru = d / "voz-bruta.wav"
-    with wave.open(str(cru), "wb") as w:
-        w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000); w.writeframes(pcm)
+    """1 requisição ao Gemini TTS (API Interactions: o estilo vai em speech_metadata e NÃO é lido), depois pitch/velocidade."""
+    import requests
+    texto = "\n\n".join(c["fala"] for c in r["cenas"])
+    corpo = {"model": GEMINI_TTS, "response_format": {"type": "audio"},
+             "input": [{"type": "text", "text": texto, "annotations": [{"type": "speech_metadata", "style": r["estilo_voz"]}]}],
+             "generation_config": {"speech_config": [{"voice": VOZ}]}}
+    cab = {"Content-Type": "application/json"}
+    if os.environ.get("GEMINI_API_KEY"): cab["x-goog-api-key"] = os.environ["GEMINI_API_KEY"]   # sem a variável, o proxy do ambiente injeta
+    resp = requests.post("https://generativelanguage.googleapis.com/v1beta/interactions", headers=cab, json=corpo, timeout=300)
+    resp.raise_for_status()
+    bruto = next(base64.b64decode(c["data"]) for p in resp.json()["steps"] for c in p.get("content", []) if c.get("type") == "audio")
+    tmp = d / "voz-bruta.bin"; tmp.write_bytes(bruto); cru = d / "voz-bruta.wav"
+    ent = ["-i", str(tmp)] if bruto[:4] == b"RIFF" else ["-f", "s16le", "-ar", "24000", "-ac", "1", "-i", str(tmp)]
+    subprocess.run(["ffmpeg", "-v", "error", "-y", *ent, "-ar", "48000", "-ac", "1", str(cru)], check=True); tmp.unlink()
     a = r["audio"]; fator = 2 ** (a["pitch_semitons"] / 12)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(cru), "-af",
                     f"rubberband=pitch={fator:.4f}:tempo={a['velocidade']}", "-ar", "48000", str(d / "voz.wav")], check=True)
