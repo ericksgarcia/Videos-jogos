@@ -1,6 +1,6 @@
 [
  {
-  "ancora": "pelo menos",
+  "ancora": "centenas de",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": true,
@@ -26,7 +26,7 @@
   }
  },
  {
-  "ancora": "e a causa",
+  "ancora": "e ninguém",
   "estilo": "vhs",
   "movimento": "left",
   "boom": false,
@@ -39,7 +39,7 @@
   }
  },
  {
-  "ancora": "este é o lago",
+  "ancora": "é o lago",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -65,7 +65,7 @@
   }
  },
  {
-  "ancora": "ele devolve",
+  "ancora": "os ossos ficam",
   "estilo": "vhs",
   "movimento": "in",
   "boom": true,
@@ -91,7 +91,7 @@
   }
  },
  {
-  "ancora": "muitos crânios",
+  "ancora": "alguns crânios",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -104,7 +104,7 @@
   }
  },
  {
-  "ancora": "quem vive",
+  "ancora": "uma lenda",
   "estilo": "vhs",
   "movimento": "left",
   "boom": false,
@@ -117,20 +117,7 @@
   }
  },
  {
-  "ancora": "uma deusa",
-  "estilo": "arquivo",
-  "movimento": "in",
-  "boom": false,
-  "prompt": {
-   "sujeito": "a small stone shrine on a barren mountain ridge",
-   "ambiente": "offerings of faded cloth, mist",
-   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
-   "iluminacao": "dim twilight glow",
-   "camera": "medium shot, still"
-  }
- },
- {
-  "ancora": "com uma tempestade",
+  "ancora": "uma tempestade",
   "estilo": "vhs",
   "movimento": "in",
   "boom": true,
@@ -140,6 +127,19 @@
    "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
    "iluminacao": "flash of white lightning",
    "camera": "wide shot, glitchy"
+  }
+ },
+ {
+  "ancora": "pela deusa",
+  "estilo": "arquivo",
+  "movimento": "in",
+  "boom": false,
+  "prompt": {
+   "sujeito": "a small stone shrine on a barren mountain ridge",
+   "ambiente": "offerings of faded cloth, mist",
+   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
+   "iluminacao": "dim twilight glow",
+   "camera": "medium shot, still"
   }
  },
  {
@@ -208,7 +208,7 @@
   }
  },
  {
-  "ancora": "ninguém sabe",
+  "ancora": "ninguém sabe o",
   "estilo": "vhs",
   "movimento": "out",
   "boom": false,

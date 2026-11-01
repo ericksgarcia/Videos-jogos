@@ -4,18 +4,20 @@
   "hud": "● REC  ROOPKUND",
   "audio": {
     "voz": "Algenib",
-    "estilo": "Narrador de documentário investigativo, voz masculina grave e levemente rouca, perto do microfone, como quem conta um caso real a uma pessoa só, de madrugada. Fala natural e humana, com respiração discreta nas vírgulas, sem leitura monótona. Cada frase tem melodia própria: sobe um pouco na palavra mais importante e desce com firmeza no fim das afirmações. Seco e factual, sem teatro: a ênfase vem de altura e duração, nunca de volume alto. Arco: começo firme e baixo, com 'QUATRO' dito com peso mas sem gritar; a contextualização (lugar, data, lenda) mais ligeira, em ritmo de conversa; na escalada ('granizo gigante', 'o DNA derrubou a ideia de um único massacre') acelera um pouco e o tom fica tenso; a revelação do grupo do Mediterrâneo sai mais lenta e baixa. A última frase, 'Só sabemos que', termina em suspensão: sem baixar o tom, sem concluir, como se a voz fosse interrompida.",
+    "estilo": "Narrador de documentário investigativo, voz masculina grave e levemente rouca, bem perto do microfone, contando um caso real a uma única pessoa, de madrugada. Fala natural e humana, sem leitura monótona, com respiração discreta nas vírgulas. Cada frase tem melodia própria: sobe um pouco na palavra mais importante e desce com firmeza no fim das afirmações. Seco e factual, tenso mas contido; a ênfase vem de altura e duração, nunca de volume. Começo firme e baixo, com 'centenas' dito com peso, sem gritar. O meio, de lugar e data, em ritmo de conversa. Na escalada, acelera um pouco. A revelação do grupo do Mediterrâneo sai mais lenta e baixa. A última frase termina em suspensão, sem baixar o tom, como se a voz fosse interrompida.",
     "masterizacao": "highpass=f=70,equalizer=f=110:t=q:w=1:g=1.5,acompressor=threshold=-18dB:ratio=2:attack=20:release=250:makeup=2,loudnorm=I=-15:TP=-1.5:LRA=11"
   },
   "pronuncia": {
-    "Roopkund": "Rúpkund"
+    "Roopkund": "Rúpkund",
+    "1942": "mil novecentos e quarenta e dois",
+    "2019": "dois mil e dezenove",
+    "DNA": "dê ene á"
   },
   "destaques": {
     "morte": [
-      "duzentas",
-      "morreram",
+      "centenas",
       "esqueletos",
-      "massacre",
+      "morreram",
       "fraturas",
       "granizo"
     ],
@@ -30,45 +32,44 @@
     ]
   },
   "verificar": [
-    "pelo menos 200 esqueletos; lago a ~5.000 m: fontes de divulgação, confirmar contagem e altitude (5.029 m?) em paper/Wikipedia",
-    "1942: guarda florestal (H. K. Madhwal) — confirmar ano e papel",
-    "fraturas no topo dos crânios + hipótese do granizo (bolas de críquete): expedição National Geographic 2004 — confirmar",
-    "lenda da deusa Nanda Devi: confirmar versão",
-    "2019 (Harney et al., Nature Communications): grupos geneticamente distintos; datação ~800 d.C. (sul da Ásia) x ~1800 d.C. (Mediterrâneo) — confirmar números e 'cerca de mil anos'",
-    "NÃO usar 'peregrinos mortos por granizo' como fato; é hipótese e lenda"
+    "'centenas' (estimativas 200–800; paper analisou 38): National Geographic 2019 via resumo; altitude 'mais de 5.000 m' (blogs, ~5.029 m)",
+    "1942 guarda florestal: Wikipedia via resumo (H. K. Madhwal); 'alguns crânios com fraturas': divulgação; hipótese do granizo = popular, NÃO consenso; tamanho (críquete x beisebol) varia por fonte, hedgeado",
+    "lenda de Nanda Devi: versões variam; sem 'peregrinos' (parte da lenda, não estabelecido) e sem culpar vítimas",
+    "2019 Harney et al.: 3 grupos (23 sul-asiáticos, 14 Mediterrâneo oriental, 1 sudeste asiático); 'cerca de mil anos' = janelas de datação largas, hedgeado",
+    "NÃO usar: 'massacre', 'peregrinos mortos por granizo' como fato, 'pelo menos duzentas', 'no topo do crânio'"
   ],
   "cenas": [
     {
       "id": 1,
-      "fala": "Pelo menos DUZENTAS pessoas morreram aqui. Os ossos estão a mais de cinco mil metros de altura, e a causa ainda divide os cientistas."
+      "fala": "CENTENAS de esqueletos humanos aparecem neste lago. Ficam a mais de cinco mil metros de altura, e ninguém sabe ao certo como essas pessoas morreram."
     },
     {
       "id": 2,
-      "fala": "Este é o lago Roopkund, no Himalaia. Quando o gelo derrete, ele devolve os esqueletos."
+      "fala": "É o lago Roopkund, no Himalaia indiano. Quando o gelo derrete, os ossos ficam à mostra."
     },
     {
       "id": 3,
-      "fala": "Em 1942, um guarda florestal encontrou os ossos. Muitos crânios tinham fraturas na parte de cima."
+      "fala": "Em 1942, um guarda florestal achou os ossos. E alguns crânios tinham fraturas."
     },
     {
       "id": 4,
-      "fala": "Quem vive ali conta que uma deusa castigou peregrinos com uma tempestade."
+      "fala": "Uma lenda local fala de uma tempestade enviada pela deusa Nanda Devi."
     },
     {
       "id": 5,
-      "fala": "Os cientistas levantaram uma hipótese parecida: granizo gigante, do tamanho de bolas de críquete."
+      "fala": "Uma hipótese popular é granizo gigante, com pedras do tamanho de uma bola de críquete, segundo algumas estimativas."
     },
     {
       "id": 6,
-      "fala": "Só que, em 2019, o DNA derrubou a ideia de um único massacre."
+      "fala": "Só que em 2019, o DNA mostrou que não foi um único evento."
     },
     {
       "id": 7,
-      "fala": "Os ossos eram de grupos diferentes: um do sul da Ásia, e outro com ascendência do Mediterrâneo, que morreu cerca de mil anos depois."
+      "fala": "Os ossos eram de grupos diferentes: um do sul da Ásia, e outro com ascendência do Mediterrâneo. Esse segundo grupo morreu cerca de mil anos depois, segundo as datações."
     },
     {
       "id": 8,
-      "fala": "Ninguém sabe o que esse grupo do Mediterrâneo fazia ali. (...) Só sabemos que"
+      "fala": "Ninguém sabe o que esse grupo do Mediterrâneo fazia ali. (...) Só sabemos que—"
     }
   ]
 }
