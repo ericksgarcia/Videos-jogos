@@ -17,10 +17,15 @@ def carregar(pasta):
 def saida(r):
     d = RAIZ / "output" / "arquivos-do-abismo" / r["slug"]; d.mkdir(parents=True, exist_ok=True); return d
 
+def tts_texto(r, fala):
+    """Texto falado: (...) vira <long pause> (marcação do Gemini 3.8) e palavras mal lidas ganham grafia fonética (só aqui)."""
+    for a, b in r.get("pronuncia", {}).items(): fala = fala.replace(a, b)
+    return fala.replace("(...)", "<long pause>")
+
 def audio(r, d):
     """1 requisição ao Gemini TTS (API Interactions: o estilo vai em speech_metadata e NÃO é lido), depois pitch/velocidade."""
     import requests
-    texto = "\n\n".join(c["fala"] for c in r["cenas"])
+    texto = "\n\n".join(tts_texto(r, c["fala"]) for c in r["cenas"])
     corpo = {"model": GEMINI_TTS, "response_format": {"type": "audio"},
              "input": [{"type": "text", "text": texto, "annotations": [{"type": "speech_metadata", "style": r["estilo_voz"]}]}],
              "generation_config": {"speech_config": [{"voice": VOZ}]}}
@@ -37,13 +42,20 @@ def audio(r, d):
                     f"rubberband=pitch={fator:.4f}:tempo={a['velocidade']}", "-ar", "48000", str(d / "voz.wav")], check=True)
 
 def imagens(r, d):
-    import replicate   # pip install replicate
-    ps = [(ARQ if c["estilo"] == "arquivo" else VHS).format(c=c["cena"]) for c in r["cenas"]]
-    async def tudo():
-        return await asyncio.gather(*[replicate.async_run("black-forest-labs/flux-dev", input={"prompt": p, **FLUX}) for p in ps])
-    for c, saidas in zip(r["cenas"], asyncio.run(tudo())):
-        arq = saidas[0] if isinstance(saidas, list) else saidas
-        (d / f"cena-{c['id']:02d}.png").write_bytes(arq.read())
+    """Fila sequencial (conta com pouco crédito = 6 pedidos/min): repete em 429, pula arquivos prontos e reaproveita prompts iguais."""
+    import time, replicate   # pip install replicate
+    feitos = {}
+    for c in r["cenas"]:
+        p = (ARQ if c["estilo"] == "arquivo" else VHS).format(c=c["cena"]); arq = d / f"cena-{c['id']:02d}.png"
+        if arq.exists(): feitos[p] = arq; continue
+        if p in feitos: arq.write_bytes(feitos[p].read_bytes()); continue
+        for tentativa in range(6):
+            try:
+                saida = replicate.run("black-forest-labs/flux-dev", input={"prompt": p, **FLUX}); break
+            except replicate.exceptions.ReplicateError as e:
+                if "429" not in str(e) or tentativa == 5: raise
+                time.sleep(12)
+        arq.write_bytes((saida[0] if isinstance(saida, list) else saida).read()); feitos[p] = arq; print("  imagem", arq.name); time.sleep(11)
 
 def legendas(r, d):
     """Tempos por palavra com faster-whisper; ASS centrado em Y=50%, até 3 palavras, cores por palavra."""
@@ -54,6 +66,7 @@ def legendas(r, d):
     ws = [(w.word.strip(), w.start, w.end) for s in segs for w in s.words]
     vm = {re.sub(r"\W", "", x).lower() for c in r["cenas"] for x in c["vermelho"]}
     am = {re.sub(r"\W", "", x).lower() for c in r["cenas"] for x in c["amarelo"]}
+    am |= {"cinco", "mil", "novecentos", "oitenta", "três"} if "5" in am else set()   # data falada por extenso
     t = lambda s: f"{int(s//3600)}:{int(s%3600//60):02d}:{s%60:05.2f}"
     cab = ("[Script Info]\nPlayResX: 1080\nPlayResY: 1920\n[V4+ Styles]\n"
            "Format: Name,Fontname,Fontsize,PrimaryColour,OutlineColour,BackColour,Bold,Italic,Outline,Shadow,Alignment,MarginL,MarginR,MarginV\n"
@@ -62,7 +75,7 @@ def legendas(r, d):
     linhas = []
     for i in range(0, len(ws), 3):
         g = ws[i:i + 3]
-        txt = " ".join((f"{{\\c&H000090&}}{w.upper()}{{\\c&HFFFFFF&}}" if re.sub(r"\W", "", w).lower() in vm else
+        txt = " ".join((f"{{\\c&H1818E8&}}{w.upper()}{{\\c&HFFFFFF&}}" if re.sub(r"\W", "", w).lower() in vm else
                         f"{{\\c&H00FFFF&}}{w.upper()}{{\\c&HFFFFFF&}}" if re.sub(r"\W", "", w).lower() in am else w.upper()) for w, _, _ in g)
         linhas.append(f"Dialogue: 0,{t(g[0][1])},{t(g[-1][2] + 0.15)},D,{{\\an5\\fscx80\\fscy80\\t(0,120,\\fscx100\\fscy100)}}{txt}")
     (d / "legendas.ass").write_text(cab + "\n".join(linhas) + "\n")
@@ -72,7 +85,7 @@ def montar(r, d):
     ent, filtro, ini = [], [], 0.0
     for k, c in enumerate(r["cenas"]):
         fim = dur if k == len(r["cenas"]) - 1 else r["cenas"][k + 1]["t"][0] * dur / r["cenas"][-1]["t"][1]
-        ent += ["-loop", "1", "-t", f"{fim - ini + 0.05:.2f}", "-i", str(d / f"cena-{c['id']:02d}.png")]
+        ent += ["-framerate", "30", "-loop", "1", "-t", f"{fim - ini + 0.05:.2f}", "-i", str(d / f"cena-{c['id']:02d}.png")]
         filtro.append(f"[{k}:v]scale=1080:1920,zoompan=z='min(zoom+0.0006,1.15)':d=1:s=1080x1920:fps=30,setsar=1[v{k}]"); ini = fim
     cat = "".join(f"[v{k}]" for k in range(len(r["cenas"]))) + f"concat=n={len(r['cenas'])}:v=1[v];[v]ass={d / 'legendas.ass'}[o]"
     ent += ["-i", str(d / "voz.wav"), "-f", "lavfi", "-i", f"sine=f=48:d={dur}"]
