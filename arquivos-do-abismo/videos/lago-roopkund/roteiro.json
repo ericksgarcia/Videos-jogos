@@ -1,0 +1,74 @@
+{
+  "slug": "lago-roopkund",
+  "titulo": "Lago Roopkund: o lago dos esqueletos",
+  "hud": "● REC  ROOPKUND",
+  "audio": {
+    "voz": "Algenib",
+    "estilo": "Narrador de documentário investigativo, voz masculina grave e levemente rouca, perto do microfone, como quem conta um caso real a uma pessoa só, de madrugada. Fala natural e humana, com respiração discreta nas vírgulas, sem leitura monótona. Cada frase tem melodia própria: sobe um pouco na palavra mais importante e desce com firmeza no fim das afirmações. Seco e factual, sem teatro: a ênfase vem de altura e duração, nunca de volume alto. Arco: começo firme e baixo, com 'QUATRO' dito com peso mas sem gritar; a contextualização (lugar, data, lenda) mais ligeira, em ritmo de conversa; na escalada ('granizo gigante', 'o DNA derrubou a ideia de um único massacre') acelera um pouco e o tom fica tenso; a revelação do grupo do Mediterrâneo sai mais lenta e baixa. A última frase, 'Só sabemos que', termina em suspensão: sem baixar o tom, sem concluir, como se a voz fosse interrompida.",
+    "masterizacao": "highpass=f=70,equalizer=f=110:t=q:w=1:g=1.5,acompressor=threshold=-18dB:ratio=2:attack=20:release=250:makeup=2,loudnorm=I=-15:TP=-1.5:LRA=11"
+  },
+  "pronuncia": {
+    "Roopkund": "Rúpkund"
+  },
+  "destaques": {
+    "morte": [
+      "duzentas",
+      "morreram",
+      "esqueletos",
+      "massacre",
+      "fraturas",
+      "granizo"
+    ],
+    "dado": [
+      "1942",
+      "2019",
+      "roopkund",
+      "himalaia",
+      "dna",
+      "mediterrâneo",
+      "cinco"
+    ]
+  },
+  "verificar": [
+    "pelo menos 200 esqueletos; lago a ~5.000 m: fontes de divulgação, confirmar contagem e altitude (5.029 m?) em paper/Wikipedia",
+    "1942: guarda florestal (H. K. Madhwal) — confirmar ano e papel",
+    "fraturas no topo dos crânios + hipótese do granizo (bolas de críquete): expedição National Geographic 2004 — confirmar",
+    "lenda da deusa Nanda Devi: confirmar versão",
+    "2019 (Harney et al., Nature Communications): grupos geneticamente distintos; datação ~800 d.C. (sul da Ásia) x ~1800 d.C. (Mediterrâneo) — confirmar números e 'cerca de mil anos'",
+    "NÃO usar 'peregrinos mortos por granizo' como fato; é hipótese e lenda"
+  ],
+  "cenas": [
+    {
+      "id": 1,
+      "fala": "Pelo menos DUZENTAS pessoas morreram aqui. Os ossos estão a mais de cinco mil metros de altura, e a causa ainda divide os cientistas."
+    },
+    {
+      "id": 2,
+      "fala": "Este é o lago Roopkund, no Himalaia. Quando o gelo derrete, ele devolve os esqueletos."
+    },
+    {
+      "id": 3,
+      "fala": "Em 1942, um guarda florestal encontrou os ossos. Muitos crânios tinham fraturas na parte de cima."
+    },
+    {
+      "id": 4,
+      "fala": "Quem vive ali conta que uma deusa castigou peregrinos com uma tempestade."
+    },
+    {
+      "id": 5,
+      "fala": "Os cientistas levantaram uma hipótese parecida: granizo gigante, do tamanho de bolas de críquete."
+    },
+    {
+      "id": 6,
+      "fala": "Só que, em 2019, o DNA derrubou a ideia de um único massacre."
+    },
+    {
+      "id": 7,
+      "fala": "Os ossos eram de grupos diferentes: um do sul da Ásia, e outro com ascendência do Mediterrâneo, que morreu cerca de mil anos depois."
+    },
+    {
+      "id": 8,
+      "fala": "Ninguém sabe o que esse grupo do Mediterrâneo fazia ali. (...) Só sabemos que"
+    }
+  ]
+}

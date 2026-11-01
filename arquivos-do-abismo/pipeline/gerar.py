@@ -1,7 +1,7 @@
 """Pipeline do Arquivos do Abismo: TTS Gemini -> rubberband -> Whisper -> Flux (Replicate) -> legendas ASS -> ffmpeg.
 Uso: python gerar.py <pasta-do-video> [--audio] [--imagens] [--legendas] [--montar] [--tudo]
 Chaves: GEMINI_API_KEY e REPLICATE_API_TOKEN no ambiente (nunca em arquivo)."""
-import asyncio, base64, json, os, re, subprocess, sys, urllib.request, wave
+import asyncio, base64, json, os, re, shutil, subprocess, sys, urllib.request, wave
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
@@ -113,7 +113,7 @@ def montar(r, d, pasta):
     f.append(f"[c][{N}:v]overlay[o1]")
     fonte = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
     f.append("[o1]eq=contrast=1.12:saturation=0.8,noise=alls=7:allf=t,vignette=PI/4,drawgrid=w=0:h=4:t=1:c=black@0.16,"
-             f"drawtext=fontfile={fonte}:text='● REC  05.11.1983':fontcolor=0xFF3030:fontsize=52:x=80:y=h*0.13:enable='{hud}',"
+             f"drawtext=fontfile={fonte}:text='{r.get("hud", "● REC  05.11.1983")}':fontcolor=0xFF3030:fontsize=52:x=80:y=h*0.13:enable='{hud}',"
              f"fade=t=out:st={dur - 0.25:.2f}:d=0.25[v]")
     # áudio: voz + drone + boom/glitch nos cortes
     ent += ["-i", str(d / "voz.wav"), "-i", str(d / "boom.wav"), "-i", str(d / "glitch.wav"), "-f", "lavfi", "-i", f"sine=f=44:d={dur}", "-f", "lavfi", "-i", f"sine=f=47:d={dur}"]
@@ -135,9 +135,15 @@ def legendas(r, d, pasta):
     P = T["palavras"]   # uma legenda nunca termina no mesmo instante em que outra começa: o fim de cada palavra recua antes da próxima
     ws = [{"word": w, "start": a, "end": max(a + 0.08, min(b, P[k + 1][1] - 0.04)) if k + 1 < len(P) else b} for k, (w, a, b) in enumerate(P)]
     (d / "transcricao.json").write_text(json.dumps({"segments": [{"start": ws[0]["start"], "end": ws[-1]["end"], "text": " ".join(x["word"] for x in ws), "words": ws}]}, ensure_ascii=False))
+    tpl = d / "pycaps"; shutil.rmtree(tpl, ignore_errors=True); shutil.copytree(Path(pasta).resolve().parents[1] / "identidade" / "pycaps", tpl)
+    if r.get("destaques"):   # palavras em vermelho (morte/perigo) e amarelo (dados) deste vídeo
+        cfg = json.loads((tpl / "pycaps.template.json").read_text())
+        for reg in cfg["tagger_rules"]:
+            if reg["tag"] in r["destaques"]: reg["regex"] = "(?i)\\b(" + "|".join(r["destaques"][reg["tag"]]) + ")\\b"
+        (tpl / "pycaps.template.json").write_text(json.dumps(cfg, indent=4, ensure_ascii=False))
     (d / f"{r['slug']}.mp4").unlink(missing_ok=True)   # o pycaps recusa sobrescrever
     subprocess.run(["env", "PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers", "pycaps", "render", "--input", str(d / "base.mp4"), "--output", str(d / f"{r['slug']}.mp4"),
-                    "--template", str((Path(pasta).resolve().parents[1] / "identidade" / "pycaps")),
+                    "--template", str(tpl),
                     "--transcript", str(d / "transcricao.json"), "--transcript-format", "whisper_json", "--video-quality", "high"], check=True)
 
 if __name__ == "__main__":
