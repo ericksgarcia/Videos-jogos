@@ -87,7 +87,7 @@ def _sfx(d):
     run = lambda *a: subprocess.run(["ffmpeg", "-v", "error", "-y", *a], check=True)
     run("-f", "lavfi", "-i", "aevalsrc=sin(2*PI*46*t)*exp(-4.5*t)+0.5*sin(2*PI*92*t)*exp(-8*t):d=1.4:s=48000", str(d / "boom.wav"))
     run("-f", "lavfi", "-i", "anoisesrc=d=0.16:c=white:a=0.6:r=48000", "-af", "highpass=f=2200,afade=t=out:st=0.06:d=0.1", str(d / "glitch.wav"))
-    run("-f", "lavfi", "-i", "color=black:s=1080x1920,format=rgba,geq=r=0:g=0:b=0:a='150*exp(-pow((Y-H/2)/280,2))'", "-frames:v", "1", str(d / "faixa.png"))
+    run("-f", "lavfi", "-i", "color=black:s=1080x1920,format=rgba,geq=r=0:g=0:b=0:a='105*exp(-pow((Y-H/2)/280,2))'", "-frames:v", "1", str(d / "faixa.png"))
 
 def montar(r, d, pasta):
     """Base do vídeo: planos com câmera, faixa escura no centro (legenda), grão/vinheta/linhas VHS, HUD REC, drone e efeitos."""
@@ -105,8 +105,8 @@ def montar(r, d, pasta):
     f.append("".join(f"[v{i}]" for i in range(N)) + f"concat=n={N}:v=1[c]")
     f.append(f"[c][{N}:v]overlay[o1]")
     fonte = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
-    f.append("[o1]eq=contrast=1.12:saturation=0.8,noise=alls=14:allf=t,vignette=PI/4,drawgrid=w=0:h=4:t=1:c=black@0.16,"
-             f"drawtext=fontfile={fonte}:text='● REC  05.11.1983':fontcolor=0xFF3030:fontsize=40:x=80:y=h*0.13:enable='{hud}',"
+    f.append("[o1]eq=contrast=1.12:saturation=0.8,noise=alls=7:allf=t,vignette=PI/4,drawgrid=w=0:h=4:t=1:c=black@0.16,"
+             f"drawtext=fontfile={fonte}:text='● REC  05.11.1983':fontcolor=0xFF3030:fontsize=52:x=80:y=h*0.13:enable='{hud}',"
              f"fade=t=out:st={dur - 0.25:.2f}:d=0.25[v]")
     # áudio: voz + drone + boom/glitch nos cortes
     ent += ["-i", str(d / "voz.wav"), "-i", str(d / "boom.wav"), "-i", str(d / "glitch.wav"), "-f", "lavfi", "-i", f"sine=f=44:d={dur}", "-f", "lavfi", "-i", f"sine=f=47:d={dur}"]
@@ -120,15 +120,16 @@ def montar(r, d, pasta):
     af += [mix[1], mix[2], "".join(ms) + f"amix=inputs={len(ms)}:normalize=0:duration=first,alimiter=limit=0.95[a]"]
     base = d / "base.mp4"
     subprocess.run(["ffmpeg", "-v", "error", "-y", *ent, "-filter_complex", ";".join(f + af), "-map", "[v]", "-map", "[a]", "-t", f"{dur:.2f}",
-                    "-c:v", "libx264", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", str(base)], check=True)
+                    "-c:v", "libx264", "-crf", "23", "-preset", "medium", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", str(base)], check=True)
 
 def legendas(r, d, pasta):
     """Legendas com o pycaps (CSS + Playwright), palavra a palavra, usando os tempos já medidos (sem transcrever de novo)."""
     T = json.loads((d / "tempos.json").read_text())
     ws = [{"word": w, "start": a, "end": b} for w, a, b in T["palavras"]]
     (d / "transcricao.json").write_text(json.dumps({"segments": [{"start": ws[0]["start"], "end": ws[-1]["end"], "text": " ".join(x["word"] for x in ws), "words": ws}]}, ensure_ascii=False))
-    subprocess.run(["pycaps", "render", "--input", str(d / "base.mp4"), "--output", str(d / f"{r['slug']}.mp4"),
-                    "--template", str(Path(pasta).parents[1] / "identidade" / "pycaps"),
+    (d / f"{r['slug']}.mp4").unlink(missing_ok=True)   # o pycaps recusa sobrescrever
+    subprocess.run(["env", "PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers", "pycaps", "render", "--input", str(d / "base.mp4"), "--output", str(d / f"{r['slug']}.mp4"),
+                    "--template", str((Path(pasta).resolve().parents[1] / "identidade" / "pycaps")),
                     "--transcript", str(d / "transcricao.json"), "--transcript-format", "whisper_json", "--video-quality", "high"], check=True)
 
 if __name__ == "__main__":

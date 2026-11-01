@@ -4,16 +4,14 @@
 }
 .word {
     font-family: 'MontserratBlack', sans-serif;
-    font-size: 64px;
+    font-size: 46px;
     font-style: italic;
     text-transform: uppercase;
     color: #FFFFFF;
     padding: 4px 9px;
-    -webkit-text-stroke: 10px #000;
+    -webkit-text-stroke: 9px #000;
     paint-order: stroke fill;
     text-shadow: 0 6px 14px rgba(0,0,0,0.85);
 }
-.word-not-narrated-yet { opacity: 0.0; }
-.word-being-narrated, .word-already-narrated { opacity: 1; }
 .word.dado { color: #FFD60A; }
 .word.morte { color: #FF1F1F; }

@@ -21,7 +21,7 @@
         {"type": "fade_out", "when": "narration-ends", "what": "segment", "duration": 0.08}
     ],
     "tagger_rules": [
-        {"type": "regex", "tag": "morte", "regex": "(?i)^(quatro|morreram|morte|instant[aâ]neo|despencou|pressurizada|trava|perturbador|sobreviveu)$"},
-        {"type": "regex", "tag": "dado", "regex": "(?i)^(5|cinco|novembro|1983|mil|novecentos|oitenta|três|byford|dolphin|nove|atmosferas)$"}
+        {"type": "regex", "tag": "morte", "regex": "(?i)\\b(quatro|morreram|morte|instant[aâ]neo|despencou|pressurizada|trava|perturbador|sobreviveu)\\b"},
+        {"type": "regex", "tag": "dado", "regex": "(?i)\\b(5|cinco|novembro|1983|byford|dolphin|nove|atmosferas)\\b"}
     ]
 }
