@@ -10,3 +10,5 @@ Para CADA um, dê nota 0–10 de "eu assistiria até o fim" em 5 marcos: 3 s, 10
 Aprovado só se todos os 5 perfis ≥ 7 no fim e a média geral ≥ 8. Caso contrário: REPROVADO + lista de problemas ALTO/MÉDIO/BAIXO, cada um com a frase
 citada, a correção pronta (texto novo) e o efeito esperado. Sempre entregue: pior frase, frase a cortar, objeção do cético, e o que faz o loop funcionar ou falhar
 (a última frase cortada emenda com a primeira?). Não elogie por cortesia: nota 8 exige que você não ache melhora relevante.
+
+Aplique a REGRA DO GANCHO do `norte.md` (resultado primeiro): reprove o gancho se a 1ª frase tiver mais de 8 palavras, começar por objeto/mecanismo/data/local ou não tiver sujeito humano e número. Verifique também se as cenas se conectam (cada uma abre com um conector que continua a anterior) e se o loop final emenda.

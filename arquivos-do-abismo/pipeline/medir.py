@@ -9,6 +9,10 @@ caps = [w for w in limpo.split() if len(re.sub(r"\W", "", w)) > 2 and re.sub(r"\
 n = len(limpo.split())
 print(f"palavras: {n} | pausas (...): {pausas} | duração estimada: {n / 2.0 + pausas * 0.6:.0f} s (2,0 palavras/s + 0,6 s por pausa)")
 print(f"frases: {len(frases)} | palavras por frase: min {min(tam)}, média {sum(tam) / len(tam):.1f}, máx {max(tam)} | frases de ≤4 palavras: {sum(1 for t in tam if t <= 4)}")
+prim = frases[0]; pw = prim.split()
+morte = re.search(r"(?i)morr|mat|perd|desapare|sobreviv|vítima|mort", prim); num = re.search(r"(?i)\d|um|dois|três|quatro|cinco|seis|sete|oito|nove|dez|cem|mil", prim)
+ok = len(pw) <= 8 and morte and num
+print(f"GANCHO ({len(pw)} palavras): {prim}  ->  {'OK' if ok else 'FALHA: até 8 palavras, com número e consequência (resultado primeiro)'}")
 print(f"CAIXA ALTA ({len(caps)}): {' '.join(caps)}")
 wav = Path(__file__).resolve().parents[2] / "output" / "arquivos-do-abismo" / r["slug"] / "voz-bruta.wav"
 if wav.exists():

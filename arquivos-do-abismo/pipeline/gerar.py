@@ -94,15 +94,22 @@ def montar(r, d, pasta):
     pls = carregar_planos(pasta); T = json.loads((d / "tempos.json").read_text())
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(d / "voz.wav")], capture_output=True, text=True).stdout)
     _sfx(d); ini = T["planos"] + [dur]; fps = 30; ent, f, vhs = [], [], []
+    X = 0.30   # sobreposição entre planos (dissolve): é isso que liga um plano ao outro em vez de "colar" vídeos
+    N = len(pls); Ls = []
     for i, pl in enumerate(pls):
-        n = max(2, round((ini[i + 1] - ini[i]) * fps)); ent += ["-i", str(d / f"plano-{i:02d}.png")]
+        L = ini[1] + X / 2 if i == 0 else (dur - ini[i] + X / 2 if i == N - 1 else ini[i + 1] - ini[i] + X)
+        Ls.append(L); n = max(2, round(L * fps)); ent += ["-i", str(d / f"plano-{i:02d}.png")]
         z = {"in": f"1+0.14*on/{n}", "out": f"1.14-0.14*on/{n}"}.get(pl["movimento"], "1.12")
         x = {"left": f"(iw-iw/zoom)*(1-on/{n})", "right": f"(iw-iw/zoom)*on/{n}"}.get(pl["movimento"], "iw/2-iw/zoom/2")
         f.append(f"[{i}:v]scale=2160:3840:flags=lanczos,zoompan=z='{z}':x='{x}':y='ih/2-ih/zoom/2':d={n}:s=1080x1920:fps={fps},setsar=1[v{i}]")
         if pl["estilo"] == "vhs": vhs.append(f"between(t,{ini[i]:.2f},{ini[i + 1]:.2f})")
-    N = len(pls); hud = "+".join(vhs) or "0"
+    hud = "+".join(vhs) or "0"
     ent += ["-i", str(d / "faixa.png")]
-    f.append("".join(f"[v{i}]" for i in range(N)) + f"concat=n={N}:v=1[c]")
+    cur, off = "[v0]", 0.0
+    for i in range(1, N):
+        off += Ls[i - 1] - X
+        f.append(f"{cur}[v{i}]xfade=transition={'fadewhite' if pls[i].get('boom') else 'fade'}:duration={X if not pls[i].get('boom') else 0.14}:offset={off:.3f}[x{i}]"); cur = f"[x{i}]"
+    f.append(f"{cur}null[c]")
     f.append(f"[c][{N}:v]overlay[o1]")
     fonte = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
     f.append("[o1]eq=contrast=1.12:saturation=0.8,noise=alls=7:allf=t,vignette=PI/4,drawgrid=w=0:h=4:t=1:c=black@0.16,"
@@ -125,7 +132,8 @@ def montar(r, d, pasta):
 def legendas(r, d, pasta):
     """Legendas com o pycaps (CSS + Playwright), palavra a palavra, usando os tempos já medidos (sem transcrever de novo)."""
     T = json.loads((d / "tempos.json").read_text())
-    ws = [{"word": w, "start": a, "end": b} for w, a, b in T["palavras"]]
+    P = T["palavras"]   # uma legenda nunca termina no mesmo instante em que outra começa: o fim de cada palavra recua antes da próxima
+    ws = [{"word": w, "start": a, "end": max(a + 0.08, min(b, P[k + 1][1] - 0.04)) if k + 1 < len(P) else b} for k, (w, a, b) in enumerate(P)]
     (d / "transcricao.json").write_text(json.dumps({"segments": [{"start": ws[0]["start"], "end": ws[-1]["end"], "text": " ".join(x["word"] for x in ws), "words": ws}]}, ensure_ascii=False))
     (d / f"{r['slug']}.mp4").unlink(missing_ok=True)   # o pycaps recusa sobrescrever
     subprocess.run(["env", "PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers", "pycaps", "render", "--input", str(d / "base.mp4"), "--output", str(d / f"{r['slug']}.mp4"),

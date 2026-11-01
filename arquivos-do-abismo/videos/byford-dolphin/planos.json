@@ -1,6 +1,6 @@
 [
  {
-  "ancora": "uma trava",
+  "ancora": "quatro mergulhadores",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -13,7 +13,7 @@
   }
  },
  {
-  "ancora": "cinco homens",
+  "ancora": "um quinto",
   "estilo": "vhs",
   "movimento": "in",
   "boom": true,
@@ -26,7 +26,20 @@
   }
  },
  {
-  "ancora": "madrugada de",
+  "ancora": "tudo por",
+  "estilo": "vhs",
+  "movimento": "in",
+  "boom": false,
+  "prompt": {
+   "sujeito": "one heavy steel clamp ring locking a hatch",
+   "ambiente": "extreme detail of bolts and wet metal",
+   "composicao": "subject small and pushed to the upper third or the lower third of the frame; the central horizontal band stays dark, foggy and empty (negative space for captions)",
+   "iluminacao": "hard white light from the side",
+   "camera": "macro close-up, shallow focus"
+  }
+ },
+ {
+  "ancora": "era madrugada",
   "estilo": "arquivo",
   "movimento": "in",
   "boom": false,
@@ -39,7 +52,7 @@
   }
  },
  {
-  "ancora": "plataforma de",
+  "ancora": "a bordo",
   "estilo": "vhs",
   "movimento": "out",
   "boom": false,
@@ -52,7 +65,7 @@
   }
  },
  {
-  "ancora": "os mergulhadores",
+  "ancora": "eles viviam",
   "estilo": "arquivo",
   "movimento": "right",
   "boom": false,
@@ -78,7 +91,7 @@
   }
  },
  {
-  "ancora": "o trabalho",
+  "ancora": "ao voltar",
   "estilo": "vhs",
   "movimento": "left",
   "boom": false,
@@ -91,7 +104,7 @@
   }
  },
  {
-  "ancora": "uma trava mantinha",
+  "ancora": "e o que mantinha",
   "estilo": "vhs",
   "movimento": "in",
   "boom": false,
@@ -143,7 +156,7 @@
   }
  },
  {
-  "ancora": "de uma vez",
+  "ancora": "não houve",
   "estilo": "vhs",
   "movimento": "right",
   "boom": true,
@@ -156,7 +169,7 @@
   }
  },
  {
-  "ancora": "quatro mergulhadores",
+  "ancora": "um auxiliar",
   "estilo": "vhs",
   "movimento": "out",
   "boom": true,
@@ -182,7 +195,7 @@
   }
  },
  {
-  "ancora": "e nada impedia",
+  "ancora": "e o pior",
   "estilo": "vhs",
   "movimento": "in",
   "boom": false,
