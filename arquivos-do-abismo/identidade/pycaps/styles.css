@@ -15,3 +15,6 @@
 }
 .word.dado { color: #FFD60A; }
 .word.morte { color: #FF1F1F; }
+
+.word-not-narrated-yet { opacity: 0.38; }
+.word-being-narrated, .word-already-narrated { opacity: 1; }
